@@ -20,6 +20,8 @@ import type {
   CommissionListResponse,
   WorkOrderForCommission,
   CommissionCalculation,
+  PayrollOverview,
+  PayrollDashboardData,
 } from "@/api/types/payroll.ts";
 import {
   payrollPeriodsResponseSchema,
@@ -699,5 +701,37 @@ export function useCommissionRates() {
       }>;
     },
     staleTime: 300_000, // 5 minutes
+  });
+}
+
+/**
+ * Period-agnostic payroll overview for last N days
+ */
+export function usePayrollOverview(days: number = 30) {
+  return useQuery({
+    queryKey: ["payroll", "summary", "overview", days],
+    queryFn: async (): Promise<PayrollOverview> => {
+      const { data } = await apiClient.get("/payroll/summary/overview", {
+        params: { days },
+      });
+      return data;
+    },
+    staleTime: 60_000,
+  });
+}
+
+/**
+ * Comprehensive dashboard data: trends, pending counts, comparison
+ */
+export function usePayrollDashboard(periodsCount: number = 12) {
+  return useQuery({
+    queryKey: ["payroll", "dashboard", periodsCount],
+    queryFn: async (): Promise<PayrollDashboardData> => {
+      const { data } = await apiClient.get("/payroll/dashboard", {
+        params: { periods_count: periodsCount },
+      });
+      return data;
+    },
+    staleTime: 30_000,
   });
 }

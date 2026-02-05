@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useCurrentPayrollPeriod,
+  usePayrollPeriods,
   usePayrollSummary,
+  usePayrollDashboard,
+  usePayrollOverview,
 } from "@/api/hooks/usePayroll";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -11,6 +14,8 @@ import type { PayrollSummary } from "@/api/types/payroll";
 import {
   BarChart,
   Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -201,22 +206,44 @@ function EmptyState({ message }: { message: string }) {
  * - Period comparisons and trends
  * - Export functionality
  */
-export function PayrollSummaryDashboard() {
+export function PayrollSummaryDashboard({
+  onNavigateToTab,
+}: {
+  onNavigateToTab?: (tab: string) => void;
+}) {
   const [showExportMenu, setShowExportMenu] = useState(false);
+  const [selectedPeriodId, setSelectedPeriodId] = useState<string>("");
 
-  // Auto-load current period
+  // Load current period (default) and all periods (for selector)
   const {
-    data: period,
+    data: currentPeriod,
     isLoading: periodLoading,
     error: periodError,
   } = useCurrentPayrollPeriod();
 
-  const { data: summaries, isLoading: summaryLoading } = usePayrollSummary(
-    period?.id || ""
-  );
+  const { data: allPeriods } = usePayrollPeriods();
 
-  // Get historical periods for trend comparison (future enhancement)
-  // const { data: allPeriods } = usePayrollPeriods();
+  // Dashboard aggregate data (trends, comparison, pending counts)
+  const { data: dashboardData } = usePayrollDashboard(12);
+
+  // Overview fallback for when selected period has no data
+  const { data: overviewData } = usePayrollOverview(30);
+
+  // Sync selected period to current period on first load
+  useEffect(() => {
+    if (currentPeriod?.id && !selectedPeriodId) {
+      setSelectedPeriodId(currentPeriod.id);
+    }
+  }, [currentPeriod?.id, selectedPeriodId]);
+
+  // Use selected period (from dropdown) or fall back to current
+  const period = selectedPeriodId
+    ? allPeriods?.find((p) => p.id === selectedPeriodId) || currentPeriod
+    : currentPeriod;
+
+  const { data: summaries, isLoading: summaryLoading } = usePayrollSummary(
+    selectedPeriodId || period?.id || ""
+  );
 
   // Status badge colors
   const statusColors: Record<
@@ -242,7 +269,26 @@ export function PayrollSummaryDashboard() {
 
   if (!period) {
     return (
-      <EmptyState message="No payroll period found. Create a new pay period to get started." />
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold text-text-primary flex items-center gap-3">
+          <span className="text-3xl">📊</span>
+          Payroll Summary
+        </h2>
+        <Card className="p-12 text-center">
+          <div className="text-6xl mb-4">📋</div>
+          <h3 className="font-semibold text-xl text-text-primary mb-2">
+            No Payroll Periods Found
+          </h3>
+          <p className="text-text-secondary max-w-md mx-auto mb-4">
+            Create a payroll period first to start tracking hours, commissions, and pay.
+          </p>
+          {onNavigateToTab && (
+            <Button variant="primary" onClick={() => onNavigateToTab("periods")}>
+              Go to Pay Periods
+            </Button>
+          )}
+        </Card>
+      </div>
     );
   }
 
@@ -343,12 +389,14 @@ export function PayrollSummaryDashboard() {
     { name: "Backboard Guarantee", value: totals.backboard_total, color: CHART_COLORS.warning },
   ].filter((d) => d.value > 0);
 
-  // Future: For trend chart
-  // const techPayData = summaries?.map((s) => ({
-  //   name: s.technician_name?.split(" ")[0] || "Unknown",
-  //   pay: s.gross_pay || 0,
-  //   hours: (s.regular_hours || 0) + (s.overtime_hours || 0),
-  // })) || [];
+  // Prepare trend chart data from dashboard endpoint
+  const trendChartData = dashboardData?.trends?.map((t) => ({
+    label: t.label,
+    hours: t.total_hours,
+    commissions: t.total_commissions / 100, // Scale down for dual-axis display
+    overtime: t.overtime_hours,
+    gross_pay: t.gross_pay,
+  })) || [];
 
   // Generate alerts
   const alerts: Array<{
@@ -469,11 +517,11 @@ export function PayrollSummaryDashboard() {
     setShowExportMenu(false);
   };
 
-  // No data state (but with header)
+  // No data state (but with header + period selector + overview fallback)
   if (!summaries || summaries.length === 0) {
     return (
       <div className="space-y-6">
-        {/* Period Header */}
+        {/* Period Header with Selector */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold text-text-primary flex items-center gap-3">
@@ -484,18 +532,117 @@ export function PayrollSummaryDashboard() {
               {formatDate(period.start_date)} - {formatDate(period.end_date)}
             </p>
           </div>
-          <Badge variant={statusColors[period.status] || "secondary"}>
-            {period.status}
-          </Badge>
+          <div className="flex items-center gap-3">
+            {allPeriods && allPeriods.length > 1 && (
+              <select
+                data-testid="period-selector"
+                value={selectedPeriodId}
+                onChange={(e) => setSelectedPeriodId(e.target.value)}
+                className="bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary"
+              >
+                {allPeriods.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {formatDate(p.start_date)} - {formatDate(p.end_date)} ({p.status})
+                  </option>
+                ))}
+              </select>
+            )}
+            <Badge variant={statusColors[period.status] || "secondary"}>
+              {period.status}
+            </Badge>
+          </div>
         </div>
-        <EmptyState message="No technician data for this period. Add time entries or commissions to see the summary. Go to Time Entries tab to add data." />
+
+        {/* Diagnostic Empty State */}
+        <Card className="p-12 text-center">
+          <div className="text-6xl mb-4">📊</div>
+          <h3 className="font-semibold text-xl text-text-primary mb-2">
+            No Data for This Period
+          </h3>
+          <p className="text-text-secondary max-w-md mx-auto mb-2">
+            This period ({formatDate(period.start_date)} - {formatDate(period.end_date)}) has no time entries or commissions yet.
+          </p>
+          {allPeriods && allPeriods.length > 1 && (
+            <p className="text-text-muted text-sm mb-4">
+              Try selecting a different period from the dropdown above.
+            </p>
+          )}
+          <div className="flex justify-center gap-3 mt-4">
+            {onNavigateToTab && (
+              <>
+                <Button variant="primary" onClick={() => onNavigateToTab("time")}>
+                  Go to Time Entries
+                </Button>
+                <Button variant="secondary" onClick={() => onNavigateToTab("commissions")}>
+                  Go to Commissions
+                </Button>
+              </>
+            )}
+          </div>
+        </Card>
+
+        {/* Overview Fallback - show last 30 days if there's data */}
+        {overviewData && overviewData.total_entries > 0 && (
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold text-text-primary mb-4">
+              Last {overviewData.days} Days Overview
+            </h3>
+            <p className="text-text-muted text-sm mb-4">
+              While this period is empty, here is a snapshot of recent activity across all periods.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">{overviewData.total_hours.toFixed(1)}h</div>
+                <div className="text-sm text-text-muted">Total Hours</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-success">{formatCurrency(overviewData.total_commissions)}</div>
+                <div className="text-sm text-text-muted">Total Commissions</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-text-primary">{overviewData.total_entries}</div>
+                <div className="text-sm text-text-muted">Time Entries</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-text-primary">{overviewData.technician_count}</div>
+                <div className="text-sm text-text-muted">Active Technicians</div>
+              </div>
+            </div>
+            {overviewData.technicians.length > 0 && (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="p-2 text-left text-text-muted">Technician</th>
+                      <th className="p-2 text-right text-text-muted">Regular</th>
+                      <th className="p-2 text-right text-text-muted">OT</th>
+                      <th className="p-2 text-right text-text-muted">Commissions</th>
+                      <th className="p-2 text-right text-text-muted">Entries</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {overviewData.technicians.map((t) => (
+                      <tr key={t.technician_id} className="border-b border-border/50">
+                        <td className="p-2 font-medium text-text-primary">{t.technician_name}</td>
+                        <td className="p-2 text-right text-text-primary">{t.regular_hours.toFixed(1)}h</td>
+                        <td className="p-2 text-right text-warning">{t.overtime_hours.toFixed(1)}h</td>
+                        <td className="p-2 text-right text-success">{formatCurrency(t.total_commissions)}</td>
+                        <td className="p-2 text-right text-text-muted">{t.entry_count}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </Card>
+        )}
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      {/* Period Header with Actions */}
+      {/* Period Header with Selector and Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold text-text-primary flex items-center gap-3">
@@ -507,7 +654,47 @@ export function PayrollSummaryDashboard() {
             {totals.techCount} technician{totals.techCount !== 1 ? "s" : ""}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Period Selector */}
+          {allPeriods && allPeriods.length > 1 && (
+            <select
+              data-testid="period-selector"
+              value={selectedPeriodId}
+              onChange={(e) => setSelectedPeriodId(e.target.value)}
+              className="bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary"
+            >
+              {allPeriods.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {formatDate(p.start_date)} - {formatDate(p.end_date)} ({p.status})
+                </option>
+              ))}
+            </select>
+          )}
+
+          {/* Pending Approvals Badges */}
+          {dashboardData?.pending_counts && (
+            <>
+              {dashboardData.pending_counts.time_entries > 0 && (
+                <button
+                  onClick={() => onNavigateToTab?.("time")}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-warning/15 text-warning border border-warning/30 hover:bg-warning/25 transition-colors cursor-pointer"
+                >
+                  <span className="w-2 h-2 rounded-full bg-warning animate-pulse" />
+                  {dashboardData.pending_counts.time_entries} pending entries
+                </button>
+              )}
+              {dashboardData.pending_counts.commissions > 0 && (
+                <button
+                  onClick={() => onNavigateToTab?.("commissions")}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 transition-colors cursor-pointer"
+                >
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  {dashboardData.pending_counts.commissions} pending commissions
+                </button>
+              )}
+            </>
+          )}
+
           <Badge
             variant={statusColors[period.status] || "secondary"}
             className="text-sm px-3 py-1"
@@ -549,6 +736,10 @@ export function PayrollSummaryDashboard() {
           value={formatCurrency(totals.gross_pay)}
           icon="💰"
           variant="success"
+          trend={dashboardData?.comparison ? {
+            value: Math.round(dashboardData.comparison.gross_pay_change_pct * 10) / 10,
+            label: "vs prev period",
+          } : undefined}
         />
         <StatCard
           label="Commission Earned"
@@ -556,6 +747,10 @@ export function PayrollSummaryDashboard() {
           subValue={`${totals.techCount - totals.backboard_count} above threshold`}
           icon="🎯"
           variant="success"
+          trend={dashboardData?.comparison ? {
+            value: Math.round(dashboardData.comparison.commissions_change_pct * 10) / 10,
+            label: "vs prev period",
+          } : undefined}
         />
         <StatCard
           label="Backboard Applied"
@@ -575,6 +770,10 @@ export function PayrollSummaryDashboard() {
           value={`${totalHours.toFixed(1)}h`}
           subValue={`${avgHoursPerTech.toFixed(1)}h avg/tech`}
           icon="⏱️"
+          trend={dashboardData?.comparison ? {
+            value: Math.round(dashboardData.comparison.hours_change_pct * 10) / 10,
+            label: "vs prev period",
+          } : undefined}
         />
         <StatCard
           label="Projected Total"
@@ -703,6 +902,85 @@ export function PayrollSummaryDashboard() {
           </div>
         </Card>
       </div>
+
+      {/* Cross-Period Trend Chart */}
+      {trendChartData.length >= 2 && (
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold text-text-primary mb-4">
+            Payroll Trends Across Periods
+          </h3>
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={trendChartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis
+                  dataKey="label"
+                  tick={{ fill: "#6b7280", fontSize: 11 }}
+                  angle={-20}
+                  textAnchor="end"
+                  height={60}
+                />
+                <YAxis
+                  yAxisId="left"
+                  tick={{ fill: "#6b7280", fontSize: 12 }}
+                  label={{ value: "Hours", angle: -90, position: "insideLeft", fill: "#6b7280" }}
+                />
+                <YAxis
+                  yAxisId="right"
+                  orientation="right"
+                  tick={{ fill: "#6b7280", fontSize: 12 }}
+                  label={{ value: "Pay ($)", angle: 90, position: "insideRight", fill: "#6b7280" }}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1f2937",
+                    border: "none",
+                    borderRadius: "8px",
+                    color: "#f9fafb",
+                  }}
+                  formatter={(value, name) => {
+                    const v = Number(value) || 0;
+                    if (name === "Commissions") return [formatCurrency(v * 100), name];
+                    if (name === "Gross Pay") return [formatCurrency(v), name];
+                    return [`${v.toFixed(1)}h`, name];
+                  }}
+                />
+                <Legend />
+                <Line
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="hours"
+                  name="Total Hours"
+                  stroke={CHART_COLORS.primary}
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                  activeDot={{ r: 6 }}
+                />
+                <Line
+                  yAxisId="right"
+                  type="monotone"
+                  dataKey="gross_pay"
+                  name="Gross Pay"
+                  stroke={CHART_COLORS.success}
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                  activeDot={{ r: 6 }}
+                />
+                <Line
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="overtime"
+                  name="Overtime Hours"
+                  stroke={CHART_COLORS.warning}
+                  strokeWidth={2}
+                  strokeDasharray="5 5"
+                  dot={{ r: 3 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      )}
 
       {/* AI Insights Section */}
       <Card className="p-6">

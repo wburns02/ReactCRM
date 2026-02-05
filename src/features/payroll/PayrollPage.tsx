@@ -1382,7 +1382,7 @@ export function PayrollPage() {
       </div>
 
       {/* Content */}
-      {activeTab === "summary" && <PayrollSummaryDashboard />}
+      {activeTab === "summary" && <PayrollSummaryDashboard onNavigateToTab={(tab) => setActiveTab(tab as TabType)} />}
       {activeTab === "periods" && <PayPeriodsTab />}
       {activeTab === "time-entries" && <TimeEntriesTab />}
       {activeTab === "commissions" && <CommissionsTab />}

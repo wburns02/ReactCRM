@@ -402,3 +402,61 @@ export const payrollSummarySchema = z.object({
 export const payrollSummaryResponseSchema = z.object({
   summaries: z.array(payrollSummarySchema),
 });
+
+/**
+ * Payroll Overview (period-agnostic)
+ */
+export interface PayrollOverview {
+  date_range: { start: string; end: string };
+  days: number;
+  total_hours: number;
+  total_commissions: number;
+  total_entries: number;
+  technician_count: number;
+  technicians: Array<{
+    technician_id: string;
+    technician_name: string;
+    regular_hours: number;
+    overtime_hours: number;
+    total_commissions: number;
+    entry_count: number;
+  }>;
+}
+
+/**
+ * Payroll Trend Point (one per period)
+ */
+export interface PayrollTrendPoint {
+  period_id: string;
+  start_date: string;
+  end_date: string;
+  label: string;
+  regular_hours: number;
+  overtime_hours: number;
+  total_hours: number;
+  total_commissions: number;
+  entry_count: number;
+  commission_count: number;
+  gross_pay: number;
+  status: string;
+}
+
+/**
+ * Payroll Dashboard Aggregate Data
+ */
+export interface PayrollDashboardData {
+  current_period: PayrollPeriod | null;
+  pending_counts: {
+    time_entries: number;
+    commissions: number;
+  };
+  comparison: {
+    hours_change_pct: number;
+    commissions_change_pct: number;
+    gross_pay_change_pct: number;
+    overtime_change_pct: number;
+    previous_period: PayrollPeriod;
+  } | null;
+  trends: PayrollTrendPoint[];
+  period_count: number;
+}
