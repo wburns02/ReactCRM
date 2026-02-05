@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { apiClient } from "@/api/client.ts";
 import {
   vehicleSchema,
@@ -6,6 +7,7 @@ import {
   type Vehicle,
   type LocationHistoryPoint,
 } from "./types.ts";
+import { useFleetStore } from "./stores/fleetStore.ts";
 
 /**
  * Query keys for fleet/Samsara
@@ -19,11 +21,15 @@ export const fleetKeys = {
 };
 
 /**
- * Get all fleet vehicle locations
- * Automatically refetches every 30 seconds for real-time updates
+ * Get all fleet vehicle locations.
+ * Populates the Zustand store on success.
+ * Polling interval increases when SSE is connected (SSE provides real-time updates).
  */
 export function useFleetLocations() {
-  return useQuery({
+  const setVehicles = useFleetStore((s) => s.setVehicles);
+  const sseConnected = useFleetStore((s) => s.sseConnected);
+
+  const query = useQuery({
     queryKey: fleetKeys.vehicles(),
     queryFn: async (): Promise<Vehicle[]> => {
       const { data } = await apiClient.get("/samsara/vehicles");
@@ -41,9 +47,20 @@ export function useFleetLocations() {
 
       return data;
     },
-    staleTime: 30_000, // 30 seconds
-    refetchInterval: 30_000, // Poll every 30 seconds for live updates
+    staleTime: 30_000,
+    // When SSE is connected, poll less frequently (fallback only)
+    // When SSE is disconnected, poll every 10 seconds for fresher data
+    refetchInterval: sseConnected ? 60_000 : 10_000,
   });
+
+  // Sync TanStack Query data into Zustand store
+  useEffect(() => {
+    if (query.data) {
+      setVehicles(query.data);
+    }
+  }, [query.data, setVehicles]);
+
+  return query;
 }
 
 /**
@@ -81,6 +98,6 @@ export function useVehicleHistory(
       return data;
     },
     enabled: !!vehicleId,
-    staleTime: 60_000, // 1 minute
+    staleTime: 60_000,
   });
 }
