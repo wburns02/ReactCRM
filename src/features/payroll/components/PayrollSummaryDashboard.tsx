@@ -256,6 +256,9 @@ export function PayrollSummaryDashboard() {
           regular_pay: number;
           overtime_pay: number;
           commissions: number;
+          commission_pay: number;
+          backboard_total: number;
+          backboard_count: number;
           gross_pay: number;
           jobs: number;
           techCount: number;
@@ -267,6 +270,9 @@ export function PayrollSummaryDashboard() {
         regular_pay: acc.regular_pay + (s.regular_pay || 0),
         overtime_pay: acc.overtime_pay + (s.overtime_pay || 0),
         commissions: acc.commissions + (s.total_commissions || 0),
+        commission_pay: acc.commission_pay + (s.commission_pay || 0),
+        backboard_total: acc.backboard_total + (s.backboard_amount || 0),
+        backboard_count: acc.backboard_count + (s.backboard_applied ? 1 : 0),
         gross_pay: acc.gross_pay + (s.gross_pay || 0),
         jobs: acc.jobs + (s.jobs_completed || 0),
         techCount: acc.techCount + 1,
@@ -277,6 +283,9 @@ export function PayrollSummaryDashboard() {
         regular_pay: 0,
         overtime_pay: 0,
         commissions: 0,
+        commission_pay: 0,
+        backboard_total: 0,
+        backboard_count: 0,
         gross_pay: 0,
         jobs: 0,
         techCount: 0,
@@ -287,6 +296,9 @@ export function PayrollSummaryDashboard() {
       regular_pay: 0,
       overtime_pay: 0,
       commissions: 0,
+      commission_pay: 0,
+      backboard_total: 0,
+      backboard_count: 0,
       gross_pay: 0,
       jobs: 0,
       techCount: 0,
@@ -327,9 +339,8 @@ export function PayrollSummaryDashboard() {
     })) || [];
 
   const payBreakdownData = [
-    { name: "Regular Pay", value: totals.regular_pay, color: CHART_COLORS.primary },
-    { name: "Overtime Pay", value: totals.overtime_pay, color: CHART_COLORS.warning },
-    { name: "Commissions", value: totals.commissions, color: CHART_COLORS.success },
+    { name: "Commission Pay", value: totals.commission_pay, color: CHART_COLORS.success },
+    { name: "Backboard Guarantee", value: totals.backboard_total, color: CHART_COLORS.warning },
   ].filter((d) => d.value > 0);
 
   // Future: For trend chart
@@ -345,6 +356,25 @@ export function PayrollSummaryDashboard() {
     title: string;
     message: string;
   }> = [];
+
+  // Backboard alerts - low commission periods
+  summaries?.forEach((s) => {
+    if (s.backboard_applied) {
+      alerts.push({
+        type: "warning",
+        title: `${s.technician_name} - Backboard Applied`,
+        message: `Commissions of ${formatCurrency(s.total_commissions)} are below the ${formatCurrency(s.backboard_threshold)} threshold. Backboard guarantee of ${formatCurrency(s.backboard_amount)} applied. No commission paid.`,
+      });
+    }
+  });
+
+  if (totals.backboard_count > 0) {
+    alerts.push({
+      type: "info",
+      title: `Low Commission Period`,
+      message: `${totals.backboard_count} of ${totals.techCount} technician${totals.techCount !== 1 ? "s" : ""} are on backboard guarantee this period. Consider reviewing job assignments.`,
+    });
+  }
 
   if (overtimePercent > 20) {
     alerts.push({
@@ -386,24 +416,24 @@ export function PayrollSummaryDashboard() {
   const handleExportCSV = () => {
     const headers = [
       "Technician",
-      "Regular Hours",
-      "OT Hours",
-      "Regular Pay",
-      "OT Pay",
-      "Commissions",
       "Jobs",
-      "Gross Pay",
+      "Hours",
+      "Commissions Earned",
+      "Threshold",
+      "Status",
+      "Backboard",
+      "Total Pay",
     ];
     const rows =
       summaries?.map((s) => [
         s.technician_name,
-        s.regular_hours?.toFixed(2),
-        s.overtime_hours?.toFixed(2),
-        s.regular_pay?.toFixed(2),
-        s.overtime_pay?.toFixed(2),
-        s.total_commissions?.toFixed(2),
         s.jobs_completed,
-        s.gross_pay?.toFixed(2),
+        ((s.regular_hours || 0) + (s.overtime_hours || 0)).toFixed(2),
+        (s.total_commissions || 0).toFixed(2),
+        (s.backboard_threshold || 2307.69).toFixed(2),
+        s.backboard_applied ? "Backboard" : "Commission",
+        s.backboard_applied ? (s.backboard_amount || 0).toFixed(2) : "0.00",
+        (s.gross_pay || 0).toFixed(2),
       ]) || [];
 
     const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
@@ -521,28 +551,30 @@ export function PayrollSummaryDashboard() {
           variant="success"
         />
         <StatCard
-          label="Total Hours"
-          value={`${totalHours.toFixed(1)}h`}
-          subValue={`${avgHoursPerTech.toFixed(1)}h avg/tech`}
-          icon="⏱️"
-        />
-        <StatCard
-          label="Overtime"
-          value={`${totals.overtime_hours.toFixed(1)}h`}
-          subValue={`${overtimePercent.toFixed(1)}% of total`}
-          icon="⚡"
-          variant={overtimePercent > 20 ? "danger" : overtimePercent > 10 ? "warning" : "default"}
-        />
-        <StatCard
-          label="Commissions"
+          label="Commission Earned"
           value={formatCurrency(totals.commissions)}
+          subValue={`${totals.techCount - totals.backboard_count} above threshold`}
           icon="🎯"
+          variant="success"
+        />
+        <StatCard
+          label="Backboard Applied"
+          value={formatCurrency(totals.backboard_total)}
+          subValue={totals.backboard_count > 0 ? `${totals.backboard_count} tech${totals.backboard_count !== 1 ? "s" : ""} below threshold` : "None this period"}
+          icon="🛡️"
+          variant={totals.backboard_count > 0 ? "warning" : "default"}
         />
         <StatCard
           label="Jobs Completed"
           value={totals.jobs}
           subValue={totals.jobs > 0 ? `${formatCurrency(laborCostPerJob)}/job` : ""}
           icon="✅"
+        />
+        <StatCard
+          label="Total Hours"
+          value={`${totalHours.toFixed(1)}h`}
+          subValue={`${avgHoursPerTech.toFixed(1)}h avg/tech`}
+          icon="⏱️"
         />
         <StatCard
           label="Projected Total"
@@ -745,25 +777,25 @@ export function PayrollSummaryDashboard() {
                   Technician
                 </th>
                 <th className="p-4 text-right text-sm font-medium text-text-muted">
-                  Reg Hours
-                </th>
-                <th className="p-4 text-right text-sm font-medium text-text-muted">
-                  OT Hours
-                </th>
-                <th className="p-4 text-right text-sm font-medium text-text-muted">
-                  Reg Pay
-                </th>
-                <th className="p-4 text-right text-sm font-medium text-text-muted">
-                  OT Pay
-                </th>
-                <th className="p-4 text-right text-sm font-medium text-text-muted">
-                  Commissions
-                </th>
-                <th className="p-4 text-right text-sm font-medium text-text-muted">
                   Jobs
                 </th>
+                <th className="p-4 text-right text-sm font-medium text-text-muted">
+                  Hours
+                </th>
+                <th className="p-4 text-right text-sm font-medium text-text-muted">
+                  Commissions Earned
+                </th>
+                <th className="p-4 text-right text-sm font-medium text-text-muted">
+                  Threshold
+                </th>
+                <th className="p-4 text-center text-sm font-medium text-text-muted">
+                  Status
+                </th>
+                <th className="p-4 text-right text-sm font-medium text-text-muted">
+                  Backboard
+                </th>
                 <th className="p-4 text-right text-sm font-semibold text-text-primary">
-                  Gross Pay
+                  Total Pay
                 </th>
               </tr>
             </thead>
@@ -771,7 +803,9 @@ export function PayrollSummaryDashboard() {
               {summaries.map((s: PayrollSummary) => (
                 <tr
                   key={s.technician_id}
-                  className="border-b border-border hover:bg-bg-muted/30 transition-colors"
+                  className={`border-b border-border hover:bg-bg-muted/30 transition-colors ${
+                    s.backboard_applied ? "bg-warning/5" : ""
+                  }`}
                 >
                   <td className="p-4">
                     <div className="font-medium text-text-primary">
@@ -779,30 +813,36 @@ export function PayrollSummaryDashboard() {
                     </div>
                   </td>
                   <td className="p-4 text-right text-text-primary">
-                    {(s.regular_hours || 0).toFixed(1)}
-                  </td>
-                  <td className="p-4 text-right">
-                    <span
-                      className={
-                        (s.overtime_hours || 0) > 10
-                          ? "text-danger font-medium"
-                          : "text-warning"
-                      }
-                    >
-                      {(s.overtime_hours || 0).toFixed(1)}
-                    </span>
+                    {s.jobs_completed || 0}
                   </td>
                   <td className="p-4 text-right text-text-primary">
-                    {formatCurrency(s.regular_pay || 0)}
-                  </td>
-                  <td className="p-4 text-right text-text-primary">
-                    {formatCurrency(s.overtime_pay || 0)}
+                    {((s.regular_hours || 0) + (s.overtime_hours || 0)).toFixed(1)}
                   </td>
                   <td className="p-4 text-right text-text-primary">
                     {formatCurrency(s.total_commissions || 0)}
                   </td>
-                  <td className="p-4 text-right text-text-primary">
-                    {s.jobs_completed || 0}
+                  <td className="p-4 text-right text-text-muted">
+                    {formatCurrency(s.backboard_threshold || 2307.69)}
+                  </td>
+                  <td className="p-4 text-center">
+                    {s.backboard_applied ? (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-warning/20 text-warning">
+                        Backboard
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-success/20 text-success">
+                        Commission
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-4 text-right">
+                    {s.backboard_applied ? (
+                      <span className="text-warning font-medium">
+                        {formatCurrency(s.backboard_amount || 0)}
+                      </span>
+                    ) : (
+                      <span className="text-text-muted">—</span>
+                    )}
                   </td>
                   <td className="p-4 text-right font-bold text-success">
                     {formatCurrency(s.gross_pay || 0)}
@@ -813,22 +853,22 @@ export function PayrollSummaryDashboard() {
             <tfoot>
               <tr className="bg-bg-muted font-semibold">
                 <td className="p-4 text-text-primary">TOTALS</td>
+                <td className="p-4 text-right text-text-primary">{totals.jobs}</td>
                 <td className="p-4 text-right text-text-primary">
-                  {totals.regular_hours.toFixed(1)}
-                </td>
-                <td className="p-4 text-right text-warning">
-                  {totals.overtime_hours.toFixed(1)}
-                </td>
-                <td className="p-4 text-right text-text-primary">
-                  {formatCurrency(totals.regular_pay)}
-                </td>
-                <td className="p-4 text-right text-text-primary">
-                  {formatCurrency(totals.overtime_pay)}
+                  {(totals.regular_hours + totals.overtime_hours).toFixed(1)}
                 </td>
                 <td className="p-4 text-right text-text-primary">
                   {formatCurrency(totals.commissions)}
                 </td>
-                <td className="p-4 text-right text-text-primary">{totals.jobs}</td>
+                <td className="p-4 text-right text-text-muted">—</td>
+                <td className="p-4 text-center text-text-muted text-sm">
+                  {totals.backboard_count > 0
+                    ? `${totals.backboard_count} on backboard`
+                    : "All commission"}
+                </td>
+                <td className="p-4 text-right text-warning">
+                  {formatCurrency(totals.backboard_total)}
+                </td>
                 <td className="p-4 text-right text-success font-bold text-lg">
                   {formatCurrency(totals.gross_pay)}
                 </td>

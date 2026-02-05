@@ -253,15 +253,15 @@ export function PayrollPeriodDetailPage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <div className="text-sm text-text-muted">Total Hours</div>
+          <div className="text-sm text-text-muted">Technicians</div>
           <div className="text-2xl font-bold text-text-primary">
-            {(period.total_hours || 0).toFixed(1)}
+            {period.technician_count || 0}
           </div>
         </Card>
         <Card className="p-4">
-          <div className="text-sm text-text-muted">Overtime Hours</div>
+          <div className="text-sm text-text-muted">Total Commissions</div>
           <div className="text-2xl font-bold text-text-primary">
-            {(period.total_overtime_hours || 0).toFixed(1)}
+            {formatCurrency(period.total_commissions || 0)}
           </div>
         </Card>
         <Card className="p-4">
@@ -509,34 +509,59 @@ export function PayrollPeriodDetailPage() {
                 {summaries.map((summary) => (
                   <div
                     key={summary.technician_id}
-                    className="p-4 bg-bg-muted rounded-lg"
+                    className={`p-4 rounded-lg border-l-4 ${
+                      summary.backboard_applied
+                        ? "bg-amber-50 dark:bg-amber-950/20 border-amber-400"
+                        : "bg-bg-muted border-green-500"
+                    }`}
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="font-medium">
-                        {summary.technician_name}
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <div className="font-medium text-text-primary">
+                          {summary.technician_name}
+                        </div>
+                        <Badge
+                          variant={summary.backboard_applied ? "warning" : "success"}
+                        >
+                          {summary.backboard_applied ? "Backboard" : "Commission"}
+                        </Badge>
                       </div>
-                      <div className="text-lg font-bold text-success">
-                        {formatCurrency(summary.net_pay)}
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-success">
+                          {formatCurrency(summary.net_pay)}
+                        </div>
+                        <div className="text-xs text-text-muted">Total Pay</div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-2 text-sm">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                       <div>
-                        <div className="text-text-muted">Regular</div>
-                        <div>{summary.regular_hours}h</div>
+                        <div className="text-text-muted">Jobs</div>
+                        <div className="font-medium">{summary.jobs_completed}</div>
                       </div>
                       <div>
-                        <div className="text-text-muted">Overtime</div>
-                        <div>{summary.overtime_hours}h</div>
+                        <div className="text-text-muted">Commissions Earned</div>
+                        <div className="font-medium">{formatCurrency(summary.total_commissions)}</div>
                       </div>
                       <div>
-                        <div className="text-text-muted">Gross</div>
-                        <div>{formatCurrency(summary.gross_pay)}</div>
+                        <div className="text-text-muted">Threshold</div>
+                        <div className="font-medium">{formatCurrency(summary.backboard_threshold)}</div>
                       </div>
                       <div>
-                        <div className="text-text-muted">Commissions</div>
-                        <div>{formatCurrency(summary.total_commissions)}</div>
+                        <div className="text-text-muted">
+                          {summary.backboard_applied ? "Backboard Paid" : "Commission Paid"}
+                        </div>
+                        <div className="font-medium">
+                          {summary.backboard_applied
+                            ? formatCurrency(summary.backboard_amount)
+                            : formatCurrency(summary.commission_pay)}
+                        </div>
                       </div>
                     </div>
+                    {summary.backboard_applied && (
+                      <div className="mt-2 text-xs text-amber-600 dark:text-amber-400">
+                        Commissions ({formatCurrency(summary.total_commissions)}) below threshold — backboard guarantee applied
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

@@ -95,6 +95,11 @@ export interface PayrollSummary {
   regular_pay: number;
   overtime_pay: number;
   total_commissions: number;
+  // Backboard guarantee fields (100% commission model)
+  commission_pay: number;        // Actual commission pay (0 if backboard applies)
+  backboard_applied: boolean;    // True if commissions below threshold
+  backboard_amount: number;      // Backboard amount paid (0 if above threshold)
+  backboard_threshold: number;   // Biweekly threshold ($2,307.69 for $60K annual)
   gross_pay: number;
   deductions: number;
   net_pay: number;
@@ -383,6 +388,11 @@ export const payrollSummarySchema = z.object({
   regular_pay: z.number(),
   overtime_pay: z.number(),
   total_commissions: z.number(),
+  // Backboard guarantee fields
+  commission_pay: z.number().default(0),
+  backboard_applied: z.boolean().default(false),
+  backboard_amount: z.number().default(0),
+  backboard_threshold: z.number().default(2307.69),
   gross_pay: z.number(),
   deductions: z.number(),
   net_pay: z.number(),
