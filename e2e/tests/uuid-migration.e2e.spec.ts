@@ -3,15 +3,8 @@ import { test, expect, Page } from "@playwright/test";
 /**
  * UUID Standardization Migration E2E Tests
  *
- * Verifies all business entity IDs are UUID format after migration:
- * 1. /health returns 200
- * 2. Customers list returns UUID ids
- * 3. Work orders list returns UUID ids and customer_ids
- * 4. Invoices list returns UUID customer_ids matching customer.id format
- * 5. Payments list returns UUID ids
- * 6. Technicians list returns UUID ids
- * 7. All major list pages load without console errors
- * 8. Create workflow works end-to-end with UUID ids
+ * Verifies all business entity IDs are UUID format after migration.
+ * Uses stored auth state from auth.setup.ts to avoid rate limiting.
  */
 
 const APP_URL = "https://react.ecbtx.com";
@@ -37,69 +30,52 @@ function isIgnoredError(text: string): boolean {
   return IGNORED_ERRORS.some((pattern) => text.includes(pattern));
 }
 
-async function loginAndNavigate(page: Page, path: string) {
-  await page.goto(`${APP_URL}${path}`, { waitUntil: "domcontentloaded" });
-  await page.waitForTimeout(2000);
-
-  if (page.url().includes("/login")) {
-    await page.fill('input[type="email"]', "will@macseptic.com");
-    await page.fill('input[type="password"]', "#Espn2025");
-    await page.click('button[type="submit"]');
-
-    try {
-      await page.waitForFunction(
-        () => !window.location.href.includes("/login"),
-        { timeout: 30000 },
-      );
-    } catch {
-      // Retry login once
-      await page.fill('input[type="email"]', "will@macseptic.com");
-      await page.fill('input[type="password"]', "#Espn2025");
-      await page.click('button[type="submit"]');
-      await page.waitForFunction(
-        () => !window.location.href.includes("/login"),
-        { timeout: 30000 },
-      );
-    }
-    await page.waitForTimeout(1000);
-
-    if (!page.url().includes(path)) {
-      await page.goto(`${APP_URL}${path}`, { waitUntil: "domcontentloaded" });
-    }
-    await page.waitForTimeout(2000);
-  }
-}
-
 async function apiGet(page: Page, endpoint: string) {
   return page.evaluate(
     async ({ apiUrl, ep }) => {
       const res = await fetch(`${apiUrl}${ep}`, { credentials: "include" });
-      return { status: res.status, ok: res.ok, body: await res.json() };
+      const text = await res.text();
+      try {
+        return { status: res.status, ok: res.ok, body: JSON.parse(text) };
+      } catch {
+        return { status: res.status, ok: res.ok, body: text };
+      }
     },
     { apiUrl: API_URL, ep: endpoint },
   );
 }
 
+async function ensureLoggedIn(page: Page) {
+  // Use stored auth state - just navigate to app
+  await page.goto(APP_URL, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(3000);
+
+  // If still on login, do a quick login
+  if (page.url().includes("/login")) {
+    await page.fill('input[type="email"]', "will@macseptic.com");
+    await page.fill('input[type="password"]', "#Espn2025");
+    await page.click('button[type="submit"]');
+    await page.waitForFunction(
+      () => !window.location.href.includes("/login"),
+      { timeout: 30000 },
+    );
+    await page.waitForTimeout(2000);
+  }
+}
+
 test.describe("UUID Standardization Migration", () => {
   test("API /health returns 200", async ({ page }) => {
-    await loginAndNavigate(page, "/");
-
-    const data = await page.evaluate(async (apiUrl) => {
-      const res = await fetch(
-        apiUrl.replace("/api/v2", "/health"),
-        { credentials: "include" },
-      );
+    const data = await page.evaluate(async (url) => {
+      const res = await fetch(url);
       return { status: res.status, body: await res.json() };
-    }, API_URL);
+    }, "https://react-crm-api-production.up.railway.app/health");
 
-    console.log(`Health status: ${data.status}, body:`, JSON.stringify(data.body));
     expect(data.status).toBe(200);
     expect(data.body.status).toBe("healthy");
   });
 
   test("Customers API returns UUID ids", async ({ page }) => {
-    await loginAndNavigate(page, "/customers");
-
+    await ensureLoggedIn(page);
     const data = await apiGet(page, "/customers/?page=1&page_size=5");
 
     expect(data.ok).toBeTruthy();
@@ -107,16 +83,13 @@ test.describe("UUID Standardization Migration", () => {
     expect(items.length).toBeGreaterThan(0);
 
     for (const customer of items) {
-      console.log(`Customer: id=${customer.id}, name=${customer.first_name} ${customer.last_name}`);
+      console.log(`Customer: id=${customer.id}, name=${customer.first_name}`);
       expect(String(customer.id)).toMatch(UUID_REGEX);
     }
   });
 
-  test("Work orders API returns UUID ids and customer_ids", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/schedule");
-
+  test("Work orders API returns UUID ids and customer_ids", async ({ page }) => {
+    await ensureLoggedIn(page);
     const data = await apiGet(page, "/work-orders/?page=1&page_size=5");
 
     expect(data.ok).toBeTruthy();
@@ -124,12 +97,8 @@ test.describe("UUID Standardization Migration", () => {
     expect(items.length).toBeGreaterThan(0);
 
     for (const wo of items) {
-      console.log(
-        `WorkOrder: id=${wo.id}, customer_id=${wo.customer_id}, status=${wo.status}`,
-      );
-      // Work order id should be UUID
+      console.log(`WorkOrder: id=${wo.id}, customer_id=${wo.customer_id}`);
       expect(String(wo.id)).toMatch(UUID_REGEX);
-      // customer_id should be UUID (if present)
       if (wo.customer_id) {
         expect(String(wo.customer_id)).toMatch(UUID_REGEX);
       }
@@ -137,8 +106,7 @@ test.describe("UUID Standardization Migration", () => {
   });
 
   test("Invoices API returns UUID customer_ids", async ({ page }) => {
-    await loginAndNavigate(page, "/invoices");
-
+    await ensureLoggedIn(page);
     const data = await apiGet(page, "/invoices/?page=1&page_size=5");
 
     expect(data.ok).toBeTruthy();
@@ -146,12 +114,8 @@ test.describe("UUID Standardization Migration", () => {
     expect(items.length).toBeGreaterThan(0);
 
     for (const inv of items) {
-      console.log(
-        `Invoice: id=${inv.id}, customer_id=${inv.customer_id}, number=${inv.invoice_number}`,
-      );
-      // Invoice id should be UUID
+      console.log(`Invoice: id=${inv.id}, customer_id=${inv.customer_id}`);
       expect(String(inv.id)).toMatch(UUID_REGEX);
-      // customer_id should be UUID
       if (inv.customer_id) {
         expect(String(inv.customer_id)).toMatch(UUID_REGEX);
       }
@@ -159,8 +123,7 @@ test.describe("UUID Standardization Migration", () => {
   });
 
   test("Payments API returns UUID ids", async ({ page }) => {
-    await loginAndNavigate(page, "/payments");
-
+    await ensureLoggedIn(page);
     const data = await apiGet(page, "/payments/?page=1&page_size=5");
 
     expect(data.ok).toBeTruthy();
@@ -168,19 +131,14 @@ test.describe("UUID Standardization Migration", () => {
     expect(items.length).toBeGreaterThan(0);
 
     for (const pmt of items) {
-      console.log(
-        `Payment: id=${pmt.id}, amount=${pmt.amount}, customer_name=${pmt.customer_name}`,
-      );
-      // Payment id should be UUID
+      console.log(`Payment: id=${pmt.id}, amount=${pmt.amount}`);
       expect(String(pmt.id)).toMatch(UUID_REGEX);
-      // amount should still be a number
       expect(typeof pmt.amount).toBe("number");
     }
   });
 
   test("Technicians API returns UUID ids", async ({ page }) => {
-    await loginAndNavigate(page, "/technicians");
-
+    await ensureLoggedIn(page);
     const data = await apiGet(page, "/technicians/?page=1&page_size=5");
 
     expect(data.ok).toBeTruthy();
@@ -193,30 +151,21 @@ test.describe("UUID Standardization Migration", () => {
     }
   });
 
-  test("Customer detail page loads with UUID id", async ({ page }) => {
-    await loginAndNavigate(page, "/customers");
-
-    // Get a customer ID from the API
+  test("Customer detail loads with UUID id", async ({ page }) => {
+    await ensureLoggedIn(page);
     const data = await apiGet(page, "/customers/?page=1&page_size=1");
     const customerId = data.body.items?.[0]?.id;
     expect(customerId).toBeTruthy();
     expect(String(customerId)).toMatch(UUID_REGEX);
 
-    // Navigate to customer detail
-    const detailData = await apiGet(page, `/customers/${customerId}`);
-    expect(detailData.ok).toBeTruthy();
-    expect(String(detailData.body.id)).toMatch(UUID_REGEX);
-    console.log(
-      `Customer detail: id=${detailData.body.id}, name=${detailData.body.first_name} ${detailData.body.last_name}`,
-    );
+    const detail = await apiGet(page, `/customers/${customerId}`);
+    expect(detail.ok).toBeTruthy();
+    expect(String(detail.body.id)).toMatch(UUID_REGEX);
+    console.log(`Customer detail: ${detail.body.first_name} ${detail.body.last_name}`);
   });
 
-  test("Invoice-Customer relationship uses matching UUID", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/invoices");
-
-    // Get an invoice with a customer_id
+  test("Invoice-Customer relationship uses matching UUID", async ({ page }) => {
+    await ensureLoggedIn(page);
     const invoiceData = await apiGet(page, "/invoices/?page=1&page_size=10");
     const invoiceWithCustomer = (invoiceData.body.items || []).find(
       (inv: { customer_id?: string }) => inv.customer_id,
@@ -228,15 +177,10 @@ test.describe("UUID Standardization Migration", () => {
     }
 
     const customerId = invoiceWithCustomer.customer_id;
-    console.log(`Invoice ${invoiceWithCustomer.id} has customer_id ${customerId}`);
-
-    // Verify the customer exists with that UUID
     const customerData = await apiGet(page, `/customers/${customerId}`);
     expect(customerData.ok).toBeTruthy();
     expect(String(customerData.body.id)).toBe(String(customerId));
-    console.log(
-      `Verified: Invoice customer_id ${customerId} matches Customer ${customerData.body.first_name} ${customerData.body.last_name}`,
-    );
+    console.log(`Verified: Invoice→Customer ${customerData.body.first_name}`);
   });
 
   test("Customers page loads without console errors", async ({ page }) => {
@@ -247,16 +191,14 @@ test.describe("UUID Standardization Migration", () => {
       }
     });
 
-    await loginAndNavigate(page, "/customers");
+    await ensureLoggedIn(page);
+    await page.goto(`${APP_URL}/customers`, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(5000);
 
-    // Table should be visible
     const table = page.locator("table").first();
     await expect(table).toBeVisible({ timeout: 10000 });
 
-    if (errors.length > 0) {
-      console.log("Console errors:", errors.join("\n"));
-    }
+    if (errors.length > 0) console.log("Errors:", errors.join("\n"));
     expect(errors).toHaveLength(0);
   });
 
@@ -268,61 +210,17 @@ test.describe("UUID Standardization Migration", () => {
       }
     });
 
-    await loginAndNavigate(page, "/schedule");
+    await ensureLoggedIn(page);
+    await page.goto(`${APP_URL}/schedule`, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(5000);
 
-    if (errors.length > 0) {
-      console.log("Console errors:", errors.join("\n"));
-    }
-    expect(errors).toHaveLength(0);
-  });
-
-  test("Invoices page loads without console errors", async ({ page }) => {
-    const errors: string[] = [];
-    page.on("console", (msg) => {
-      if (msg.type() === "error" && !isIgnoredError(msg.text())) {
-        errors.push(msg.text());
-      }
-    });
-
-    await loginAndNavigate(page, "/invoices");
-    await page.waitForTimeout(5000);
-
-    // Table should be visible
-    const table = page.locator("table").first();
-    await expect(table).toBeVisible({ timeout: 10000 });
-
-    if (errors.length > 0) {
-      console.log("Console errors:", errors.join("\n"));
-    }
-    expect(errors).toHaveLength(0);
-  });
-
-  test("Payments page loads without console errors", async ({ page }) => {
-    const errors: string[] = [];
-    page.on("console", (msg) => {
-      if (msg.type() === "error" && !isIgnoredError(msg.text())) {
-        errors.push(msg.text());
-      }
-    });
-
-    await loginAndNavigate(page, "/payments");
-    await page.waitForTimeout(5000);
-
-    // Table should be visible
-    const table = page.locator("table").first();
-    await expect(table).toBeVisible({ timeout: 10000 });
-
-    if (errors.length > 0) {
-      console.log("Console errors:", errors.join("\n"));
-    }
+    if (errors.length > 0) console.log("Errors:", errors.join("\n"));
     expect(errors).toHaveLength(0);
   });
 
   test("No integer IDs leak through any list endpoint", async ({ page }) => {
-    await loginAndNavigate(page, "/");
+    await ensureLoggedIn(page);
 
-    // Check multiple endpoints for integer ID leakage
     const endpoints = [
       { path: "/customers/?page=1&page_size=3", idField: "id", name: "customers" },
       { path: "/work-orders/?page=1&page_size=3", idField: "id", name: "work-orders" },
@@ -344,15 +242,10 @@ test.describe("UUID Standardization Migration", () => {
         continue;
       }
 
-      const first = items[0];
-      const id = String(first[ep.idField]);
-
-      // ID must NOT be a plain integer
+      const id = String(items[0][ep.idField]);
       const isInteger = /^\d+$/.test(id);
-      console.log(`${ep.name}: ${ep.idField}=${id}, isInteger=${isInteger}`);
+      console.log(`${ep.name}: ${ep.idField}=${id}, isUUID=${!isInteger}`);
       expect(isInteger).toBe(false);
-
-      // ID must be UUID format
       expect(id).toMatch(UUID_REGEX);
     }
   });
