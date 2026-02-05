@@ -24,6 +24,7 @@ import {
 } from "@/api/hooks/usePayments.ts";
 import { PaymentsList } from "./components/PaymentsList.tsx";
 import { PaymentForm } from "./components/PaymentForm.tsx";
+import { CloverDashboard } from "./components/CloverDashboard.tsx";
 import {
   PAYMENT_METHOD_LABELS,
   PAYMENT_STATUS_LABELS,
@@ -37,10 +38,14 @@ import { formatCurrency } from "@/lib/utils.ts";
 
 const PAGE_SIZE = 20;
 
+type PageTab = "payments" | "clover";
+
 /**
- * Payments list page with filtering and CRUD operations
+ * Payments list page with filtering, CRUD operations, and Clover POS integration
  */
 export function PaymentsPage() {
+  const [activePageTab, setActivePageTab] = useState<PageTab>("payments");
+
   // Filters state
   const [filters, setFilters] = useState<PaymentFilters>({
     page: 1,
@@ -138,7 +143,7 @@ export function PaymentsPage() {
     }
   }, [deletingPayment, deleteMutation]);
 
-  if (error) {
+  if (error && activePageTab === "payments") {
     return (
       <div className="p-6">
         <Card>
@@ -163,196 +168,231 @@ export function PaymentsPage() {
             Track and manage customer payments
           </p>
         </div>
-        <Button onClick={handleCreate}>+ Record Payment</Button>
+        {activePageTab === "payments" && (
+          <Button onClick={handleCreate}>+ Record Payment</Button>
+        )}
       </div>
 
-      {/* Stats Cards */}
-      {stats && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <Card>
-            <CardContent className="py-4">
-              <div className="text-sm text-text-muted mb-1">Total Received</div>
-              <div className="text-2xl font-semibold text-text-primary">
-                {formatCurrency(stats.totalReceived)}
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="py-4">
-              <div className="text-sm text-text-muted mb-1">This Month</div>
-              <div className="text-2xl font-semibold text-text-primary">
-                {formatCurrency(stats.thisMonth)}
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="py-4">
-              <div className="text-sm text-text-muted mb-1">Pending</div>
-              <div className="text-2xl font-semibold text-warning">
-                {stats.pending}
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="py-4">
-              <div className="text-sm text-text-muted mb-1">Completed</div>
-              <div className="text-2xl font-semibold text-success">
-                {stats.completed}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      {/* Page Tabs */}
+      <div className="flex gap-1 border-b border-border-default mb-6">
+        <button
+          onClick={() => setActivePageTab("payments")}
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+            activePageTab === "payments"
+              ? "border-primary text-primary"
+              : "border-transparent text-text-secondary hover:text-text-primary"
+          }`}
+        >
+          CRM Payments
+        </button>
+        <button
+          onClick={() => setActivePageTab("clover")}
+          data-testid="clover-tab"
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+            activePageTab === "clover"
+              ? "border-primary text-primary"
+              : "border-transparent text-text-secondary hover:text-text-primary"
+          }`}
+        >
+          Clover POS
+        </button>
+      </div>
 
-      {/* Filters */}
-      <Card className="mb-6">
-        <CardContent className="py-4">
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="w-48">
-              <Select
-                value={filters.status || ""}
-                onChange={handleStatusChange}
-              >
-                <option value="">All Statuses</option>
-                {(
-                  Object.entries(PAYMENT_STATUS_LABELS) as [
-                    PaymentStatus,
-                    string,
-                  ][]
-                ).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </Select>
-            </div>
-            <div className="w-48">
-              <Select
-                value={filters.payment_method || ""}
-                onChange={handleMethodChange}
-              >
-                <option value="">All Methods</option>
-                {(
-                  Object.entries(PAYMENT_METHOD_LABELS) as [
-                    PaymentMethod,
-                    string,
-                  ][]
-                ).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </Select>
-            </div>
-            <div className="w-48">
-              <Input
-                type="date"
-                value={filters.date_from || ""}
-                onChange={handleDateFromChange}
-                placeholder="From date"
-              />
-            </div>
-            <div className="w-48">
-              <Input
-                type="date"
-                value={filters.date_to || ""}
-                onChange={handleDateToChange}
-                placeholder="To date"
-              />
-            </div>
-            {(filters.status ||
-              filters.payment_method ||
-              filters.date_from ||
-              filters.date_to) && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    status: "",
-                    payment_method: "",
-                    date_from: "",
-                    date_to: "",
-                    page: 1,
-                  }))
-                }
-              >
-                Clear filters
-              </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Clover Dashboard Tab */}
+      {activePageTab === "clover" && <CloverDashboard />}
 
-      {/* List */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {data?.total
-              ? `${data.total} payment${data.total !== 1 ? "s" : ""}`
-              : "Payments"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <PaymentsList
-            payments={data?.items || []}
-            total={data?.total || 0}
-            page={filters.page || 1}
-            pageSize={PAGE_SIZE}
-            isLoading={isLoading}
-            onPageChange={handlePageChange}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+      {/* CRM Payments Tab */}
+      {activePageTab === "payments" && (
+        <>
+          {/* Stats Cards */}
+          {stats && (
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <Card>
+                <CardContent className="py-4">
+                  <div className="text-sm text-text-muted mb-1">Total Received</div>
+                  <div className="text-2xl font-semibold text-text-primary">
+                    {formatCurrency(stats.totalReceived)}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="py-4">
+                  <div className="text-sm text-text-muted mb-1">This Month</div>
+                  <div className="text-2xl font-semibold text-text-primary">
+                    {formatCurrency(stats.thisMonth)}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="py-4">
+                  <div className="text-sm text-text-muted mb-1">Pending</div>
+                  <div className="text-2xl font-semibold text-warning">
+                    {stats.pending}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="py-4">
+                  <div className="text-sm text-text-muted mb-1">Completed</div>
+                  <div className="text-2xl font-semibold text-success">
+                    {stats.completed}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Filters */}
+          <Card className="mb-6">
+            <CardContent className="py-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="w-48">
+                  <Select
+                    value={filters.status || ""}
+                    onChange={handleStatusChange}
+                  >
+                    <option value="">All Statuses</option>
+                    {(
+                      Object.entries(PAYMENT_STATUS_LABELS) as [
+                        PaymentStatus,
+                        string,
+                      ][]
+                    ).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+                <div className="w-48">
+                  <Select
+                    value={filters.payment_method || ""}
+                    onChange={handleMethodChange}
+                  >
+                    <option value="">All Methods</option>
+                    {(
+                      Object.entries(PAYMENT_METHOD_LABELS) as [
+                        PaymentMethod,
+                        string,
+                      ][]
+                    ).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+                <div className="w-48">
+                  <Input
+                    type="date"
+                    value={filters.date_from || ""}
+                    onChange={handleDateFromChange}
+                    placeholder="From date"
+                  />
+                </div>
+                <div className="w-48">
+                  <Input
+                    type="date"
+                    value={filters.date_to || ""}
+                    onChange={handleDateToChange}
+                    placeholder="To date"
+                  />
+                </div>
+                {(filters.status ||
+                  filters.payment_method ||
+                  filters.date_from ||
+                  filters.date_to) && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        status: "",
+                        payment_method: "",
+                        date_from: "",
+                        date_to: "",
+                        page: 1,
+                      }))
+                    }
+                  >
+                    Clear filters
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* List */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                {data?.total
+                  ? `${data.total} payment${data.total !== 1 ? "s" : ""}`
+                  : "Payments"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <PaymentsList
+                payments={data?.items || []}
+                total={data?.total || 0}
+                page={filters.page || 1}
+                pageSize={PAGE_SIZE}
+                isLoading={isLoading}
+                onPageChange={handlePageChange}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Create/Edit Form Modal */}
+          <PaymentForm
+            open={isFormOpen}
+            onClose={() => {
+              setIsFormOpen(false);
+              setEditingPayment(null);
+            }}
+            onSubmit={handleFormSubmit}
+            payment={editingPayment}
+            isLoading={createMutation.isPending || updateMutation.isPending}
           />
-        </CardContent>
-      </Card>
 
-      {/* Create/Edit Form Modal */}
-      <PaymentForm
-        open={isFormOpen}
-        onClose={() => {
-          setIsFormOpen(false);
-          setEditingPayment(null);
-        }}
-        onSubmit={handleFormSubmit}
-        payment={editingPayment}
-        isLoading={createMutation.isPending || updateMutation.isPending}
-      />
-
-      {/* Delete Confirmation Dialog */}
-      <Dialog open={!!deletingPayment} onClose={() => setDeletingPayment(null)}>
-        <DialogContent size="sm">
-          <DialogHeader onClose={() => setDeletingPayment(null)}>
-            Delete Payment
-          </DialogHeader>
-          <DialogBody>
-            <p className="text-text-secondary">
-              Are you sure you want to delete this payment of{" "}
-              <span className="font-medium text-text-primary">
-                {formatCurrency(deletingPayment?.amount || 0)}
-              </span>
-              ? This action cannot be undone.
-            </p>
-          </DialogBody>
-          <DialogFooter>
-            <Button
-              variant="secondary"
-              onClick={() => setDeletingPayment(null)}
-              disabled={deleteMutation.isPending}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="danger"
-              onClick={handleConfirmDelete}
-              disabled={deleteMutation.isPending}
-            >
-              {deleteMutation.isPending ? "Deleting..." : "Delete"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          {/* Delete Confirmation Dialog */}
+          <Dialog open={!!deletingPayment} onClose={() => setDeletingPayment(null)}>
+            <DialogContent size="sm">
+              <DialogHeader onClose={() => setDeletingPayment(null)}>
+                Delete Payment
+              </DialogHeader>
+              <DialogBody>
+                <p className="text-text-secondary">
+                  Are you sure you want to delete this payment of{" "}
+                  <span className="font-medium text-text-primary">
+                    {formatCurrency(deletingPayment?.amount || 0)}
+                  </span>
+                  ? This action cannot be undone.
+                </p>
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="secondary"
+                  onClick={() => setDeletingPayment(null)}
+                  disabled={deleteMutation.isPending}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={handleConfirmDelete}
+                  disabled={deleteMutation.isPending}
+                >
+                  {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </>
+      )}
     </div>
   );
 }
