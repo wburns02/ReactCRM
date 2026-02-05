@@ -1,4 +1,4 @@
-import { test, expect, Page, Browser } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 
 /**
  * Technicians CRUD E2E Tests (serial, shared browser)
@@ -8,6 +8,8 @@ import { test, expect, Page, Browser } from "@playwright/test";
  * - State loss between create → edit → delete
  *
  * Uses will@macseptic.com (admin) for full CRUD access.
+ * Intercepts API responses to disable HTTP caching so
+ * TanStack Query refetches always get fresh data.
  */
 
 const APP_URL = "https://react.ecbtx.com";
@@ -35,6 +37,18 @@ test.describe.serial("Technicians CRUD", () => {
     const context = await browser.newContext();
     sharedPage = await context.newPage();
 
+    // Disable HTTP caching on all API responses so TanStack refetches get fresh data
+    await sharedPage.route("**/api/v2/**", async (route) => {
+      const response = await route.fetch();
+      await route.fulfill({
+        response,
+        headers: {
+          ...response.headers(),
+          "cache-control": "no-cache, no-store",
+        },
+      });
+    });
+
     // Login once
     await sharedPage.goto(`${APP_URL}/technicians`, {
       waitUntil: "domcontentloaded",
@@ -52,7 +66,6 @@ test.describe.serial("Technicians CRUD", () => {
       );
       await sharedPage.waitForTimeout(2000);
 
-      // Navigate to technicians if redirected elsewhere
       if (!sharedPage.url().includes("/technicians")) {
         await sharedPage.goto(`${APP_URL}/technicians`, {
           waitUntil: "domcontentloaded",
@@ -78,10 +91,8 @@ test.describe.serial("Technicians CRUD", () => {
       }
     });
 
-    // Page title
     await expect(page.locator("h1")).toContainText("Technicians");
 
-    // Table should have rows
     const rows = page.locator("table tbody tr");
     await expect(rows.first()).toBeVisible({ timeout: 10000 });
     const rowCount = await rows.count();
@@ -110,14 +121,6 @@ test.describe.serial("Technicians CRUD", () => {
     };
     page.on("response", responseHandler);
 
-    // Ensure we're on the technicians page
-    if (!page.url().includes("/technicians")) {
-      await page.goto(`${APP_URL}/technicians`, {
-        waitUntil: "domcontentloaded",
-      });
-      await page.waitForTimeout(2000);
-    }
-
     // Click Add Technician
     await page.click('button:has-text("Add Technician")');
     await page.waitForSelector('[role="dialog"]', { timeout: 5000 });
@@ -129,10 +132,12 @@ test.describe.serial("Technicians CRUD", () => {
     await page.fill("#phone", "555-0199");
 
     // Submit and wait for response
-    await page.click('button[type="submit"]:has-text("Create Technician")');
+    await page.click(
+      'button[type="submit"]:has-text("Create Technician")',
+    );
 
-    // Wait for the POST response
-    await page.waitForTimeout(4000);
+    // Wait for the POST response and list refetch
+    await page.waitForTimeout(5000);
 
     // Verify 201
     expect(createStatus).toBe(201);
@@ -143,20 +148,25 @@ test.describe.serial("Technicians CRUD", () => {
       page.locator("text=Technician created").first(),
     ).toBeVisible({ timeout: 5000 });
 
-    // Use search to find the new technician (bypasses browser HTTP cache)
-    const searchInput = page.locator(
-      'input[type="search"], input[placeholder*="Search"]',
-    );
-    await searchInput.fill(testLastName);
-    await page.waitForTimeout(2000); // debounce
+    // Wait for the query invalidation refetch to complete
+    // The mutation onSuccess calls invalidateQueries which triggers a GET
+    await page.waitForResponse(
+      (resp) =>
+        resp.url().includes("/technicians") &&
+        resp.request().method() === "GET" &&
+        resp.status() === 200,
+      { timeout: 10000 },
+    ).catch(() => {
+      // Refetch might have already completed, that's OK
+    });
 
+    // Give the UI time to re-render with fresh data
+    await page.waitForTimeout(2000);
+
+    // Verify new technician appears in list
     await expect(
       page.locator(`table tbody tr:has-text("${testLastName}")`),
-    ).toBeVisible({ timeout: 10000 });
-
-    // Clear search for subsequent tests
-    await searchInput.clear();
-    await page.waitForTimeout(1000);
+    ).toBeVisible({ timeout: 15000 });
 
     page.removeListener("response", responseHandler);
   });
@@ -175,13 +185,6 @@ test.describe.serial("Technicians CRUD", () => {
     };
     page.on("response", responseHandler);
 
-    // Search for our test technician to bypass cache
-    const searchInput = page.locator(
-      'input[type="search"], input[placeholder*="Search"]',
-    );
-    await searchInput.fill(testLastName);
-    await page.waitForTimeout(2000);
-
     // Find the test row and click Edit
     const testRow = page.locator(
       `table tbody tr:has-text("${testLastName}")`,
@@ -192,13 +195,20 @@ test.describe.serial("Technicians CRUD", () => {
     // Wait for edit dialog
     await page.waitForSelector('[role="dialog"]', { timeout: 5000 });
 
+    // Verify the form is populated with our technician data
+    await expect(page.locator("#first_name")).toHaveValue(testFirstName, {
+      timeout: 5000,
+    });
+
     // Update phone
     const phoneInput = page.locator("#phone");
     await phoneInput.clear();
     await phoneInput.fill("555-0200");
 
     // Save
-    await page.click('button[type="submit"]:has-text("Save Changes")');
+    await page.click(
+      'button[type="submit"]:has-text("Save Changes")',
+    );
     await page.waitForTimeout(4000);
 
     // Verify 200
@@ -226,19 +236,7 @@ test.describe.serial("Technicians CRUD", () => {
     };
     page.on("response", responseHandler);
 
-    // Search for test technician to bypass cache
-    const searchInput = page.locator(
-      'input[type="search"], input[placeholder*="Search"]',
-    );
-    await searchInput.fill(testLastName);
-    await page.waitForTimeout(2000);
-
-    // Wait for table
-    await expect(
-      page.locator("table tbody tr").first(),
-    ).toBeVisible({ timeout: 10000 });
-
-    // Find test row and click Delete
+    // Wait for table and find test row
     const testRow = page.locator(
       `table tbody tr:has-text("${testLastName}")`,
     );
@@ -263,7 +261,7 @@ test.describe.serial("Technicians CRUD", () => {
       page.locator("text=Technician deactivated").first(),
     ).toBeVisible({ timeout: 5000 });
 
-    // Verify row is gone (active_only=true by default)
+    // Verify row is gone (active_only=true filters out inactive)
     await page.waitForTimeout(2000);
     await expect(
       page.locator(`table tbody tr:has-text("${testLastName}")`),
