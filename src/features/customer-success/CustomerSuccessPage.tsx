@@ -461,7 +461,7 @@ function SegmentsTab() {
     setShowCreateModal(false);
   };
 
-  const handleViewMembers = (segment: Segment) => {
+  const handleViewMembers = (_segment: Segment) => {
     // TODO: Navigate to segment members view when implemented
   };
 
@@ -533,7 +533,7 @@ function JourneysTab() {
     setSelectedJourney(null);
   };
 
-  const handleEditJourney = (journey: Journey) => {
+  const handleEditJourney = (_journey: Journey) => {
     // For now, show minimal edit capabilities - full journey builder would be a larger feature
   };
 
@@ -557,8 +557,7 @@ function JourneysTab() {
 
   const handleSeedSteps = async () => {
     try {
-      const result = await seedMutation.mutateAsync();
-      // Seed complete - result.journeys contains seeded journey data
+      await seedMutation.mutateAsync();
       refetch();
     } catch (error) {
       console.error("Failed to seed journey steps:", error);
