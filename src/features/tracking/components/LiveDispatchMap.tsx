@@ -22,6 +22,7 @@ import {
 import type {
   DispatchMapTechnician,
   DispatchMapWorkOrder,
+  DispatchMapVehicle,
   Geofence,
 } from "@/api/types/gpsTracking.ts";
 import {
@@ -72,6 +73,43 @@ const createTechnicianIcon = (status: string, isStale: boolean) => {
     iconSize: [36, 36],
     iconAnchor: [18, 18],
     popupAnchor: [0, -20],
+  });
+};
+
+const VEHICLE_STATUS_COLORS: Record<string, string> = {
+  moving: "#10b981",
+  idling: "#eab308",
+  stopped: "#ef4444",
+  offline: "#9ca3af",
+};
+
+const createVehicleIcon = (status: string) => {
+  const color = VEHICLE_STATUS_COLORS[status] || "#9ca3af";
+  return L.divIcon({
+    className: "custom-marker",
+    html: `
+      <div style="
+        background-color: ${color};
+        width: 34px;
+        height: 34px;
+        border-radius: 6px;
+        border: 3px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(0deg);
+      ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0.5">
+          <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+          <circle cx="7" cy="17" r="2"/>
+          <circle cx="17" cy="17" r="2"/>
+        </svg>
+      </div>
+    `,
+    iconSize: [34, 34],
+    iconAnchor: [17, 17],
+    popupAnchor: [0, -19],
   });
 };
 
@@ -277,6 +315,66 @@ function WorkOrderPopup({ workOrder, onViewDetails }: WorkOrderPopupProps) {
   );
 }
 
+interface VehiclePopupProps {
+  vehicle: DispatchMapVehicle;
+}
+
+function VehiclePopup({ vehicle }: VehiclePopupProps) {
+  const statusLabels: Record<string, string> = {
+    moving: "Moving",
+    idling: "Idling",
+    stopped: "Stopped",
+    offline: "Offline",
+  };
+  const statusColors: Record<string, string> = {
+    moving: "bg-green-500",
+    idling: "bg-yellow-500",
+    stopped: "bg-red-500",
+    offline: "bg-gray-400",
+  };
+
+  return (
+    <div className="min-w-[200px]">
+      <div className="flex items-center gap-2 mb-2">
+        <div
+          className={cn(
+            "w-3 h-3 rounded-full",
+            statusColors[vehicle.status] || "bg-gray-400",
+          )}
+        />
+        <span className="font-semibold text-gray-900">{vehicle.name}</span>
+      </div>
+
+      <div className="space-y-1 text-sm text-gray-600">
+        <div className="flex items-center gap-2">
+          <Navigation className="w-4 h-4" />
+          <span>{statusLabels[vehicle.status] || vehicle.status}</span>
+        </div>
+
+        {vehicle.speed > 0 && (
+          <div className="flex items-center gap-2">
+            <Truck className="w-4 h-4" />
+            <span>{Math.round(vehicle.speed)} mph</span>
+          </div>
+        )}
+
+        <div className="flex items-center gap-2 text-xs text-gray-400 mt-2">
+          <Clock className="w-3 h-3" />
+          <span>
+            Updated {new Date(vehicle.updated_at).toLocaleTimeString()}
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-2 pt-2 border-t">
+        <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded">
+          Samsara GPS
+        </span>
+      </div>
+    </div>
+  );
+}
+
 interface LiveDispatchMapProps {
   className?: string;
   onTechnicianSelect?: (techId: number) => void;
@@ -290,6 +388,7 @@ export function LiveDispatchMap({
 }: LiveDispatchMapProps) {
   const [showTechnicians, setShowTechnicians] = useState(true);
   const [showWorkOrders, setShowWorkOrders] = useState(true);
+  const [showVehicles, setShowVehicles] = useState(true);
   const [showGeofences, setShowGeofences] = useState(false);
   const [selectedTechnicianId, setSelectedTechnicianId] = useState<
     number | null
@@ -375,6 +474,19 @@ export function LiveDispatchMap({
             </button>
 
             <button
+              onClick={() => setShowVehicles(!showVehicles)}
+              className={cn(
+                "p-2 rounded flex items-center gap-2 text-sm w-full",
+                showVehicles
+                  ? "bg-emerald-50 text-emerald-600"
+                  : "hover:bg-gray-100",
+              )}
+              title="Toggle Vehicles (Samsara)"
+            >
+              <Navigation className="w-4 h-4" />
+            </button>
+
+            <button
               onClick={() => setShowGeofences(!showGeofences)}
               className={cn(
                 "p-2 rounded flex items-center gap-2 text-sm w-full",
@@ -392,19 +504,18 @@ export function LiveDispatchMap({
 
       {/* Stats Overlay */}
       <div className="absolute top-4 left-4 z-[1000] bg-white rounded-lg shadow-lg p-3">
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-4 text-sm flex-wrap">
+          <div className="flex items-center gap-2">
+            <Truck className="w-4 h-4 text-green-500" />
+            <span>
+              {mapData?.vehicles?.filter((v) => v.status !== "offline").length || 0} Vehicles
+            </span>
+          </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-500" />
             <span>
               {mapData?.technicians.filter((t) => !t.is_stale).length || 0}{" "}
-              Online
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-gray-300" />
-            <span>
-              {mapData?.technicians.filter((t) => t.is_stale).length || 0}{" "}
-              Offline
+              Techs
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -495,6 +606,20 @@ export function LiveDispatchMap({
                   technician={tech}
                   onViewHistory={handleViewHistory}
                 />
+              </Popup>
+            </Marker>
+          ))}
+
+        {/* Samsara Vehicles */}
+        {showVehicles &&
+          mapData?.vehicles?.map((vehicle: DispatchMapVehicle) => (
+            <Marker
+              key={`veh-${vehicle.id}`}
+              position={[vehicle.latitude, vehicle.longitude]}
+              icon={createVehicleIcon(vehicle.status)}
+            >
+              <Popup>
+                <VehiclePopup vehicle={vehicle} />
               </Popup>
             </Marker>
           ))}

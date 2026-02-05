@@ -223,9 +223,21 @@ export interface DispatchMapWorkOrder {
   priority: string;
 }
 
+export interface DispatchMapVehicle {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  speed: number;
+  heading: number;
+  status: "moving" | "idling" | "stopped" | "offline";
+  updated_at: string;
+}
+
 export interface DispatchMapData {
   technicians: DispatchMapTechnician[];
   work_orders: DispatchMapWorkOrder[];
+  vehicles: DispatchMapVehicle[];
   geofences: Geofence[];
   center_latitude: number;
   center_longitude: number;
