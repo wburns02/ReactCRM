@@ -148,7 +148,7 @@ export const technicianJobDetailSchema = z.object({
   id: z.string(),
   scheduled_date: z.string().nullable(),
   completed_date: z.string().nullable(),
-  customer_id: z.number().nullable(),
+  customer_id: z.union([z.string(), z.number()]).transform(String).nullable(),
   customer_name: z.string().nullable(),
   service_location: z.string().nullable(),
   job_type: z.string().nullable(),

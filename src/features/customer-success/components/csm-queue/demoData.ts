@@ -745,7 +745,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // URGENT - At-Risk Recovery
   {
     id: 1,
-    customer_id: 101,
+    customer_id: "101",
     csm_id: 1,
     task_type_id: 3,
     task_type_slug: "at_risk_recovery",
@@ -779,7 +779,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // URGENT - NPS Detractor
   {
     id: 2,
-    customer_id: 102,
+    customer_id: "102",
     csm_id: 1,
     task_type_id: 7,
     task_type_slug: "nps_detractor_followup",
@@ -816,7 +816,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // URGENT - Renewal Prep (30 days out)
   {
     id: 3,
-    customer_id: 103,
+    customer_id: "103",
     csm_id: 1,
     task_type_id: 6,
     task_type_slug: "renewal_prep",
@@ -850,7 +850,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // URGENT - Onboarding Stall
   {
     id: 4,
-    customer_id: 104,
+    customer_id: "104",
     csm_id: 1,
     task_type_id: 1,
     task_type_slug: "onboarding_stall",
@@ -887,7 +887,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // HIGH - Day 30 Check-in
   {
     id: 5,
-    customer_id: 105,
+    customer_id: "105",
     csm_id: 1,
     task_type_id: 2,
     task_type_slug: "day_30_checkin",
@@ -921,7 +921,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // HIGH - Health Score Drop
   {
     id: 6,
-    customer_id: 106,
+    customer_id: "106",
     csm_id: 1,
     task_type_id: 9,
     task_type_slug: "health_score_drop",
@@ -955,7 +955,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // HIGH - QBR
   {
     id: 7,
-    customer_id: 107,
+    customer_id: "107",
     csm_id: 1,
     task_type_id: 5,
     task_type_slug: "day_90_qbr",
@@ -989,7 +989,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // STANDARD - Day 60 Check-in
   {
     id: 8,
-    customer_id: 108,
+    customer_id: "108",
     csm_id: 1,
     task_type_id: 4,
     task_type_slug: "day_60_checkin",
@@ -1023,7 +1023,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // STANDARD - Expansion Opportunity
   {
     id: 9,
-    customer_id: 109,
+    customer_id: "109",
     csm_id: 1,
     task_type_id: 8,
     task_type_slug: "expansion_opportunity",
@@ -1062,7 +1062,7 @@ export const demoQueueTasks: CSMQueueTask[] = [
   // LOW - Day 30 Check-in (snoozed)
   {
     id: 10,
-    customer_id: 110,
+    customer_id: "110",
     csm_id: 1,
     task_type_id: 2,
     task_type_slug: "day_30_checkin",
@@ -1176,7 +1176,7 @@ export const demoTaskWithContext: CSMTaskWithContext = {
   interaction_history: [
     {
       id: 1001,
-      customer_id: 101,
+      customer_id: "101",
       touchpoint_type: "call_outbound",
       subject: "Check-in call",
       summary: "Left voicemail - customer did not answer",
@@ -1217,7 +1217,7 @@ export const demoTaskWithContext: CSMTaskWithContext = {
     },
     {
       id: 1002,
-      customer_id: 101,
+      customer_id: "101",
       touchpoint_type: "email_sent",
       subject: "Checking in - How can we help?",
       summary: "Sent follow-up email after missed call",
@@ -1258,7 +1258,7 @@ export const demoTaskWithContext: CSMTaskWithContext = {
     },
     {
       id: 1003,
-      customer_id: 101,
+      customer_id: "101",
       touchpoint_type: "support_ticket",
       subject: "Integration not working properly",
       summary: "Customer reported data sync issues - resolved in 48 hours",

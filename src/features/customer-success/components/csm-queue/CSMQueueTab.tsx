@@ -126,7 +126,7 @@ export function CSMQueueTab() {
           task_type: selectedTaskType!,
           playbook: selectedPlaybook || null,
           customer: {
-            id: selectedTask.customer_id,
+            id: Number(selectedTask.customer_id),
             name: selectedTask.customer_name || "Unknown",
             email: selectedTask.customer_email || "",
             phone: null,

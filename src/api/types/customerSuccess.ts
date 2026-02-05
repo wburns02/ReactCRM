@@ -15,7 +15,7 @@ export type ScoreTrend = "improving" | "stable" | "declining";
 
 export const healthScoreSchema = z.object({
   id: z.number(),
-  customer_id: z.number(),
+  customer_id: z.union([z.string(), z.number()]).transform(String),
   overall_score: z.number().min(0).max(100),
   health_status: z
     .enum(["healthy", "at_risk", "critical", "churned"])
@@ -281,7 +281,7 @@ export type JourneyListResponse = z.infer<typeof journeyListResponseSchema>;
 export const journeyEnrollmentSchema = z.object({
   id: z.number(),
   journey_id: z.number(),
-  customer_id: z.number(),
+  customer_id: z.union([z.string(), z.number()]).transform(String),
   status: z.enum(["active", "paused", "completed", "exited", "failed"]),
   current_step_id: z.number().nullable(),
   current_step_order: z.number().default(0),
@@ -418,7 +418,7 @@ export type PlaybookListResponse = z.infer<typeof playbookListResponseSchema>;
 export const playbookExecutionSchema = z.object({
   id: z.number(),
   playbook_id: z.number(),
-  customer_id: z.number(),
+  customer_id: z.union([z.string(), z.number()]).transform(String),
   status: z.enum(["active", "paused", "completed", "cancelled", "failed"]),
   current_step_order: z.number().default(1),
   steps_completed: z.number().default(0),
@@ -493,7 +493,7 @@ export type TaskOutcome =
 
 export const csTaskSchema = z.object({
   id: z.number(),
-  customer_id: z.number(),
+  customer_id: z.union([z.string(), z.number()]).transform(String),
   title: z.string(),
   description: z.string().nullable(),
   task_type: z.string(),
@@ -692,7 +692,7 @@ export type SentimentLabel =
 
 export const touchpointSchema = z.object({
   id: z.number(),
-  customer_id: z.number(),
+  customer_id: z.union([z.string(), z.number()]).transform(String),
   touchpoint_type: z.string(),
   subject: z.string().nullable(),
   summary: z.string().nullable(),
@@ -1074,7 +1074,7 @@ export type CSMPlaybook = z.infer<typeof csmPlaybookSchema>;
 // CSM Queue Task (the main task entity)
 export const csmQueueTaskSchema = z.object({
   id: z.number(),
-  customer_id: z.number(),
+  customer_id: z.union([z.string(), z.number()]).transform(String),
   csm_id: z.number().nullable(),
   task_type_id: z.number(),
   task_type_slug: z.string().nullable(),
