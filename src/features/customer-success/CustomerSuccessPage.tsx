@@ -359,14 +359,14 @@ function OverviewTab() {
                 churn_probability: item.churn_probability,
               }),
             )}
-            onSelectCustomer={(customer) => {
-              console.log("Selected customer:", customer);
+            onSelectCustomer={(_customer) => {
+              // TODO: Navigate to customer detail view
             }}
-            onTriggerPlaybook={(customer) => {
-              console.log("Trigger playbook for:", customer);
+            onTriggerPlaybook={(_customer) => {
+              // TODO: Open playbook trigger dialog
             }}
-            onCreateTask={(customer) => {
-              console.log("Create task for:", customer);
+            onCreateTask={(_customer) => {
+              // TODO: Open task creation dialog
             }}
           />
         </div>
@@ -376,8 +376,8 @@ function OverviewTab() {
           <TaskList
             tasks={tasksData?.items || []}
             showCustomerName={true}
-            onCompleteTask={(task) => {
-              console.log("Complete task:", task);
+            onCompleteTask={(_task) => {
+              // TODO: Mark task as complete via API
             }}
           />
         </div>
@@ -463,7 +463,6 @@ function SegmentsTab() {
 
   const handleViewMembers = (segment: Segment) => {
     // TODO: Navigate to segment members view when implemented
-    console.log("View members for segment:", segment.id);
   };
 
   // Delete handler available for future use when delete button is added to UI
@@ -536,12 +535,10 @@ function JourneysTab() {
 
   const handleEditJourney = (journey: Journey) => {
     // For now, show minimal edit capabilities - full journey builder would be a larger feature
-    console.log("Edit journey:", journey.id);
   };
 
   const handleCreateJourney = () => {
-    // For now, this would require a journey builder - logging intent
-    console.log("Create new journey");
+    // TODO: Implement journey builder for creating new journeys
   };
 
   const handleToggleActive = async (journey: Journey) => {
@@ -561,11 +558,7 @@ function JourneysTab() {
   const handleSeedSteps = async () => {
     try {
       const result = await seedMutation.mutateAsync();
-      if (result.journeys.length === 0) {
-        console.log("All journeys already have steps");
-      } else {
-        console.log("Seeded journey steps:", result.journeys);
-      }
+      // Seed complete - result.journeys contains seeded journey data
       refetch();
     } catch (error) {
       console.error("Failed to seed journey steps:", error);

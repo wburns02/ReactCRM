@@ -285,7 +285,6 @@ export function useOfflineWorkOrders(
 
   const syncPending = useCallback(async () => {
     if (!isOnline) {
-      console.log("Cannot sync while offline");
       return;
     }
 

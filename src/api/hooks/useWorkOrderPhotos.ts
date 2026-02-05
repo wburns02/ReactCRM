@@ -110,11 +110,6 @@ export function useUploadWorkOrderPhoto() {
 
   return useMutation({
     mutationFn: async (params: UploadPhotoParams): Promise<WorkOrderPhoto> => {
-      console.log(
-        "[Photo Upload] Starting upload for work order:",
-        params.workOrderId,
-      );
-
       const payload = {
         photo_type: params.metadata.photoType,
         data: params.data,
@@ -130,8 +125,6 @@ export function useUploadWorkOrderPhoto() {
         `/work-orders/${params.workOrderId}/photos`,
         payload,
       );
-
-      console.log("[Photo Upload] Success:", data);
 
       return mapApiPhotoToWorkOrderPhoto(data, params.data, params.thumbnail);
     },
@@ -178,12 +171,6 @@ export function useDeleteWorkOrderPhoto() {
       workOrderId: string;
       photoId: string;
     }): Promise<void> => {
-      console.log(
-        "[Photo Delete] Deleting photo:",
-        photoId,
-        "from work order:",
-        workOrderId,
-      );
       await apiClient.delete(`/work-orders/${workOrderId}/photos/${photoId}`);
     },
     onSuccess: (_, variables) => {

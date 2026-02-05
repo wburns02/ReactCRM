@@ -121,19 +121,8 @@ export function useCreateCoachingGoal() {
       description: string;
       target_date: string;
     }): Promise<CoachingGoal> => {
-      try {
-        const response = await apiClient.post("/ai/technicians/goals", params);
-        return response.data;
-      } catch {
-        return {
-          id: `goal-${Date.now()}`,
-          title: params.title,
-          description: params.description,
-          target_date: params.target_date,
-          progress_percent: 0,
-          status: "not_started",
-        };
-      }
+      const response = await apiClient.post("/ai/technicians/goals", params);
+      return response.data;
     },
   });
 }
@@ -147,15 +136,11 @@ export function useUpdateGoalProgress() {
       goal_id: string;
       progress_percent: number;
     }): Promise<{ success: boolean }> => {
-      try {
-        const response = await apiClient.patch(
-          `/ai/technicians/goals/${params.goal_id}`,
-          params,
-        );
-        return response.data;
-      } catch {
-        return { success: true };
-      }
+      const response = await apiClient.patch(
+        `/ai/technicians/goals/${params.goal_id}`,
+        params,
+      );
+      return response.data;
     },
   });
 }

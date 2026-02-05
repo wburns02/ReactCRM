@@ -294,9 +294,6 @@ export function useWebSocket(
       opts.reconnectMaxDelay,
     );
 
-    console.log(
-      `[WebSocket] Scheduling reconnect attempt ${reconnectAttemptRef.current + 1} in ${Math.round(delay)}ms`,
-    );
     setStatus("reconnecting");
     opts.onStatusChange?.("reconnecting");
 
@@ -308,7 +305,6 @@ export function useWebSocket(
 
   const handleClose = useCallback(
     (event: CloseEvent) => {
-      console.log("[WebSocket] Connection closed:", event.code, event.reason);
       clearHeartbeat();
 
       if (isManualDisconnectRef.current) {
@@ -500,14 +496,12 @@ export function useWebSocket(
         statusRef.current === "connected" ||
         statusRef.current === "connecting"
       ) {
-        console.log("[WebSocket] Auth changed, reconnecting...");
         disconnect();
         setTimeout(connect, 100);
       }
     };
 
     const handleAuthExpired = () => {
-      console.log("[WebSocket] Auth expired, disconnecting...");
       disconnect();
     };
 
@@ -530,14 +524,12 @@ export function useWebSocket(
         statusRef.current === "disconnected" ||
         statusRef.current === "error"
       ) {
-        console.log("[WebSocket] Network online, attempting reconnect...");
         setReconnectAttempt(0);
         connect();
       }
     };
 
     const handleOffline = () => {
-      console.log("[WebSocket] Network offline");
       // Don't disconnect, let the connection fail naturally
       // This allows the connection to resume if we come back online quickly
     };

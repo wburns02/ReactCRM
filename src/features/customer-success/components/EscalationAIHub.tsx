@@ -74,8 +74,7 @@ export function EscalationAIHub() {
             {/* Action Queue */}
             <ActionQueue
               onSelectEscalation={setSelectedEscalationId}
-              onActionTaken={(id, action) => {
-                console.log(`Action ${action} taken on escalation ${id}`);
+              onActionTaken={(id, _action) => {
                 setSelectedEscalationId(id);
               }}
             />
@@ -110,8 +109,8 @@ export function EscalationAIHub() {
                 </div>
                 <AIGuidancePanel
                   escalationId={selectedEscalationId}
-                  onActionTaken={(action) => {
-                    console.log(`Action taken: ${action}`);
+                  onActionTaken={(_action) => {
+                    // TODO: Handle post-action logic
                   }}
                 />
               </div>

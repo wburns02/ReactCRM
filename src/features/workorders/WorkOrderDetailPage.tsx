@@ -199,7 +199,6 @@ export function WorkOrderDetailPage() {
           thumbnail: photo.thumbnail,
           metadata: photo.metadata,
         });
-        console.log("[WorkOrderDetail] Photo uploaded successfully");
       } catch (err) {
         console.error("[WorkOrderDetail] Photo upload failed:", err);
       }
@@ -211,7 +210,6 @@ export function WorkOrderDetailPage() {
     async (photoId: string) => {
       try {
         await deletePhoto(photoId);
-        console.log("[WorkOrderDetail] Photo deleted successfully");
       } catch (err) {
         console.error("[WorkOrderDetail] Photo delete failed:", err);
       }
@@ -254,7 +252,7 @@ export function WorkOrderDetailPage() {
   const handleSendNotification = useCallback(
     (type: "reminder" | "enroute" | "complete") => {
       // Would integrate with communication API
-      console.log("Sending notification:", type);
+      // TODO: Integrate with notification/communication API
     },
     [],
   );
@@ -1304,8 +1302,8 @@ export function WorkOrderDetailPage() {
                   status: workOrder.status,
                 } as WorkOrderReference
               }
-              onInvoiceCreated={(invoiceId) => {
-                console.log("Invoice created:", invoiceId);
+              onInvoiceCreated={(_invoiceId) => {
+                // TODO: Handle post-invoice-creation logic (e.g., refresh work order)
               }}
             />
 
@@ -1314,8 +1312,8 @@ export function WorkOrderDetailPage() {
               workOrderId={workOrder.id}
               amount={0} // Would come from invoice totals
               customerName={customerName}
-              onSuccess={(transactionId) => {
-                console.log("Payment successful:", transactionId);
+              onSuccess={(_transactionId) => {
+                // TODO: Handle post-payment logic (e.g., update work order status)
               }}
             />
           </div>

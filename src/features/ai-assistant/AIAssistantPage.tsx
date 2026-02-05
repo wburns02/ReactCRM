@@ -210,8 +210,8 @@ export function AIAssistantPage() {
           {activeTab === "voice" && (
             <div className="p-6 max-w-2xl mx-auto">
               <VoiceMemoRecorder
-                onTranscriptionComplete={(result) => {
-                  console.log("Transcription complete:", result);
+                onTranscriptionComplete={(_result) => {
+                  // TODO: Handle transcription result
                 }}
               />
             </div>
@@ -228,8 +228,8 @@ export function AIAssistantPage() {
           {activeTab === "ocr" && (
             <div className="p-6 max-w-3xl mx-auto">
               <BatchOCRProcessor
-                onComplete={(results) => {
-                  console.log("Batch OCR complete:", results);
+                onComplete={(_results) => {
+                  // TODO: Handle batch OCR results
                 }}
               />
             </div>

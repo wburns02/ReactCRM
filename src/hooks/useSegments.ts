@@ -344,41 +344,10 @@ export function useSegmentPreview() {
     mutationFn: async (
       rules: SegmentRuleSet,
     ): Promise<SegmentPreviewResult> => {
-      try {
-        const { data } = await apiClient.post("/cs/segments/preview", {
-          rules,
-        });
-        return data;
-      } catch {
-        // If preview endpoint doesn't exist, return mock data
-        // This is a demo response for development
-        const mockCount = Math.floor(Math.random() * 500) + 10;
-        return {
-          count: mockCount,
-          sample_customers: [
-            {
-              id: 1,
-              name: "Acme Corp",
-              email: "contact@acme.com",
-              health_score: 85,
-            },
-            {
-              id: 2,
-              name: "TechStart Inc",
-              email: "info@techstart.io",
-              health_score: 72,
-            },
-            {
-              id: 3,
-              name: "Global Solutions",
-              email: "hello@globalsol.com",
-              health_score: 91,
-            },
-          ],
-          total_arr: mockCount * 12500,
-          avg_health_score: 78,
-        };
-      }
+      const { data } = await apiClient.post("/cs/segments/preview", {
+        rules,
+      });
+      return data;
     },
     onSuccess: (data) => {
       setPreviewResult(data);

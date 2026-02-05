@@ -527,7 +527,6 @@ export function WorkOrderEditModal({
             thumbnail: photo.thumbnail,
             metadata: photo.metadata,
           });
-          console.log("[WorkOrderEditModal] Photo uploaded successfully");
         } catch (err) {
           console.error("[WorkOrderEditModal] Photo upload failed:", err);
         }
@@ -555,7 +554,6 @@ export function WorkOrderEditModal({
         // For existing work orders, delete via API
         try {
           await deletePhoto(photoId);
-          console.log("[WorkOrderEditModal] Photo deleted successfully");
         } catch (err) {
           console.error("[WorkOrderEditModal] Photo delete failed:", err);
         }
@@ -1311,8 +1309,8 @@ export function WorkOrderEditModal({
                               taxable: item.taxable,
                             }),
                           )}
-                          onInvoiceCreated={(invoiceId) => {
-                            console.log("Invoice created:", invoiceId);
+                          onInvoiceCreated={(_invoiceId) => {
+                            // TODO: Handle post-invoice-creation logic
                           }}
                         />
 
@@ -1321,8 +1319,8 @@ export function WorkOrderEditModal({
                           workOrderId={workOrder.id}
                           amount={extendedWorkOrder?.total || 0}
                           customerName={`${selectedCustomer.first_name} ${selectedCustomer.last_name}`}
-                          onSuccess={(transactionId) => {
-                            console.log("Payment processed:", transactionId);
+                          onSuccess={(_transactionId) => {
+                            // TODO: Handle post-payment logic
                           }}
                         />
                       </>

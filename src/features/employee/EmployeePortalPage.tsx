@@ -432,8 +432,7 @@ export function EmployeePortalPage() {
     return (
       <MobileWorkOrderView
         workOrder={convertToWorkOrder(selectedJob)}
-        onComplete={(data) => {
-          console.log("Job completed:", data);
+        onComplete={(_data) => {
           setSelectedJob(null);
         }}
         onCancel={() => setSelectedJob(null)}

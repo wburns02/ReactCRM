@@ -164,17 +164,11 @@ const KPICard = memo(function KPICard({
 });
 
 /**
- * Generate sparkline trend data (demo/mock data)
+ * Sparkline data is not available without historical KPI tracking.
+ * Returns empty array until a KPI history endpoint is implemented.
  */
-function generateSparklineData(baseValue: number, days = 7): number[] {
-  const data: number[] = [];
-  let current = baseValue * 0.85;
-  for (let i = 0; i < days; i++) {
-    const variation = (Math.random() - 0.4) * 0.1 * baseValue;
-    current = Math.max(0, current + variation + baseValue * 0.03);
-    data.push(Math.round(current));
-  }
-  return data;
+function generateSparklineData(_baseValue: number, _days = 7): number[] {
+  return [];
 }
 
 /**

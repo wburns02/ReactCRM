@@ -877,7 +877,6 @@ export function CallIntelligenceDashboard() {
 
   // Handle KPI card click - open detail modal
   const handleKPIClick = useCallback((metricId: string) => {
-    console.log("KPI clicked:", metricId);
     setSelectedKPI(metricId);
     setIsKPIModalOpen(true);
   }, []);
@@ -898,7 +897,6 @@ export function CallIntelligenceDashboard() {
 
   // Handle quality heatmap cell click
   const handleHeatmapClick = useCallback((agentId: string, date: string) => {
-    console.log("Heatmap cell clicked:", agentId, date);
     setFilters((prev) => ({
       ...prev,
       agents: [agentId],

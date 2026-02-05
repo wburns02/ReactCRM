@@ -156,12 +156,10 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
   registerAdapter(adapter: BaseAIAdapter): void {
     this.adapters.set(adapter.domain, adapter);
-    console.log(`Registered AI adapter for domain: ${adapter.domain}`);
   }
 
   unregisterAdapter(domain: AIDomain): void {
     this.adapters.delete(domain);
-    console.log(`Unregistered AI adapter for domain: ${domain}`);
   }
 
   async getAdapterHealth(): Promise<Record<AIDomain, HealthStatus>> {

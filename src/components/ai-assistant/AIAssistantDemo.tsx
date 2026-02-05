@@ -116,7 +116,7 @@ export function AIAssistantDemo({
                     Execute
                   </button>
                   <button
-                    onClick={() => console.log("Action details:", action)}
+                    onClick={() => { /* TODO: Show action detail modal */ }}
                     className="px-3 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
                   >
                     Details

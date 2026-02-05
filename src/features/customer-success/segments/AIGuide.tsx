@@ -228,8 +228,6 @@ export function AIGuide({ className, onSegmentCreated }: AIGuideProps) {
   };
 
   const handleActionComplete = (data: Record<string, unknown>) => {
-    console.log("Action completed:", currentAction, data);
-
     // If saving segment, notify parent
     if (currentAction === "save" && onSegmentCreated) {
       onSegmentCreated(

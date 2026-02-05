@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { IntegrationCard } from "./components/IntegrationCard.tsx";
 import { RingCentralSettings } from "./components/RingCentralSettings.tsx";
 import { SamsaraSettings } from "./components/SamsaraSettings.tsx";
+import { YelpSettings } from "./components/YelpSettings.tsx";
+import { FacebookSettings } from "./components/FacebookSettings.tsx";
 import { useRCStatus } from "@/features/phone/api.ts";
 import { useFleetLocations } from "@/features/fleet/api.ts";
+import { useSocialIntegrationsStatus } from "@/api/hooks/useSocialIntegrations.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -14,8 +18,19 @@ export function IntegrationsPage() {
   const [selectedIntegration, setSelectedIntegration] = useState<string | null>(
     null,
   );
+  const [searchParams] = useSearchParams();
   const { data: rcStatus } = useRCStatus();
   const { data: vehicles } = useFleetLocations();
+  const { data: socialStatus } = useSocialIntegrationsStatus();
+
+  // Handle OAuth callback success messages
+  useEffect(() => {
+    if (searchParams.get("facebook") === "connected") {
+      toastSuccess("Facebook page connected successfully!");
+      // Clean up URL
+      window.history.replaceState({}, "", "/integrations");
+    }
+  }, [searchParams]);
 
   const integrations = [
     {
@@ -52,6 +67,22 @@ export function IntegrationsPage() {
       connected: false,
       lastSync: undefined,
     },
+    {
+      id: "yelp",
+      name: "Yelp",
+      description: "View and manage Yelp business reviews",
+      icon: "Y",
+      connected: socialStatus?.yelp?.connected || false,
+      lastSync: socialStatus?.yelp?.last_sync,
+    },
+    {
+      id: "facebook",
+      name: "Facebook",
+      description: "Manage Facebook page reviews and insights",
+      icon: "f",
+      connected: socialStatus?.facebook?.connected || false,
+      lastSync: socialStatus?.facebook?.last_sync,
+    },
   ];
 
   return (
@@ -78,7 +109,7 @@ export function IntegrationsPage() {
               connected={integration.connected}
               lastSync={integration.lastSync}
               onConfigure={
-                ["ringcentral", "samsara"].includes(integration.id)
+                ["ringcentral", "samsara", "yelp", "facebook"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)
                   : undefined
               }
@@ -113,6 +144,8 @@ export function IntegrationsPage() {
 
           {selectedIntegration === "ringcentral" && <RingCentralSettings />}
           {selectedIntegration === "samsara" && <SamsaraSettings />}
+          {selectedIntegration === "yelp" && <YelpSettings />}
+          {selectedIntegration === "facebook" && <FacebookSettings />}
         </div>
       )}
 
