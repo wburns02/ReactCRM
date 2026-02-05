@@ -17,6 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { Dialog, DialogContent, DialogHeader, DialogBody } from "@/components/ui/Dialog";
 import {
   useLocalAIHealth,
   useAudioUploadTranscriptionMutation,
@@ -489,32 +490,49 @@ export function VoiceMemoRecorder({
 }
 
 /**
- * Compact voice recorder button for inline use
+ * Compact voice recorder button for inline use.
+ * Opens a Dialog containing the full VoiceMemoRecorder component.
  */
 export function VoiceRecordButton({
-  onTranscriptionComplete: _onTranscriptionComplete,
+  onTranscriptionComplete,
   disabled = false,
 }: {
   onTranscriptionComplete?: (result: TranscriptionResult) => void;
   disabled?: boolean;
 }) {
-  const [isRecording, setIsRecording] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  // TODO: Implement full recording flow - this is a placeholder
-  // Would open a modal or expand inline with full VoiceMemoRecorder
-  void _onTranscriptionComplete; // Mark as intentionally unused for now
+  const handleTranscriptionComplete = useCallback(
+    (result: TranscriptionResult) => {
+      onTranscriptionComplete?.(result);
+      setIsOpen(false);
+    },
+    [onTranscriptionComplete],
+  );
+
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      disabled={disabled}
-      onClick={() => setIsRecording(!isRecording)}
-    >
-      <Mic
-        className={`w-4 h-4 mr-1 ${isRecording ? "text-danger animate-pulse" : ""}`}
-      />
-      {isRecording ? "Recording..." : "Voice Memo"}
-    </Button>
+    <>
+      <Button
+        variant="outline"
+        size="sm"
+        disabled={disabled}
+        onClick={() => setIsOpen(true)}
+      >
+        <Mic className="w-4 h-4 mr-1" />
+        Voice Memo
+      </Button>
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)} ariaLabel="Voice Memo Recorder">
+        <DialogContent size="lg">
+          <DialogHeader onClose={() => setIsOpen(false)}>Voice Memo</DialogHeader>
+          <DialogBody>
+            <VoiceMemoRecorder
+              onTranscriptionComplete={handleTranscriptionComplete}
+              className="shadow-none border-0"
+            />
+          </DialogBody>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
