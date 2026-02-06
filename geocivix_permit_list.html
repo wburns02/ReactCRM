@@ -1,0 +1,4230 @@
+
+
+		
+		
+			
+			
+			
+			
+				
+				<div class="expand-group" id="project-permits-expand">
+						<div class="container-fluid expand-header section" id="headerproject-permits-expand" style="cursor: pointer;">
+							<span class="pull-left">
+								<i name="plus" class="fas fa-caret-right" id="plusproject-permits-expand"></i><i name="minus" class="fas fa-caret-down" id="minusproject-permits-expand" style="display: none;"></i>
+								Permits: <span class="project-rel-count">1000 of 1000</span>
+							</span>
+							<span class="void pull-right">
+								
+			
+				
+				
+					<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-type="Stop">
+						<i class="fas fa-pause"></i> Stop Work
+					</button>
+				
+				
+				
+					<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-type="Resume">
+						<i class="fas fa-play"></i> Resume Work
+					</button>
+				
+				
+				
+					<button onclick="window.location='/secure/permits/?step=data&projectid=0'" class="btn btn-xs btn-default">
+						<i class="far fa-plus"></i> Add Required Permit
+					</button>
+				
+			
+		
+								
+							</span>
+						</div>
+						<div class="expand-content" id="contentproject-permits-expand" style="display:none;">
+							
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+		
+			<script type="text/javascript" charset="utf-8">
+				$(function() {
+					var table = idtplans.table.cfTableInit(
+						'#1E41B000-7435-4206-B7E26727AEE51E9C', 
+						false, 
+						false, 
+						false, 
+						true, 
+						true, 
+						false, 
+						true, 
+						500,
+						false,
+						true,
+						true, 
+						'', 
+						'', 
+						'', 
+						'', 
+						'', 
+						'', 
+						'asc'
+					);
+
+					//check if within an expand-content
+					if ($('#1E41B000-7435-4206-B7E26727AEE51E9C').closest('.expand-content').length > 0) {
+						//need to readjust columns if hidden, set up an observer
+						idtplans.table.listenForExpandContentDisplayChange($('#1E41B000-7435-4206-B7E26727AEE51E9C').closest('.expand-content'));
+					}
+				});
+			</script>
+		
+
+		<div class="table-responsive">
+			<table id="1E41B000-7435-4206-B7E26727AEE51E9C" class="sortable display table table-striped-reverse" style="width: 100%">
+				
+			<thead>
+				<tr>
+					<th>Permit</th>
+					<th>Type</th>
+					<th>Status</th>
+					<th>Date</th>
+					<th>By</th>
+					<th>Expires</th>
+					<th>Document</th>
+					<th class="no-sort"></th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8873">
+									BP-2020-00001
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/2/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8873">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2774325" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8873" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8873" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8879">
+									BP-2020-00002
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/2/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8879">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2780498" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8879" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8879" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8893">
+									BP-2020-00013
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/8/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8893">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2788980" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8893" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8893" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8897">
+									BP-2020-00009
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/7/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8897">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2776588" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8897" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8897" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8910">
+									BP-2020-00003
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/6/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8910">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2774323" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8910" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8910" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8930">
+									BP-2020-00004
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/6/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8930">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2775731" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8930" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8930" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8939">
+									BP-2020-00005
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/6/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8939">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2801926" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8939" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8939" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8947">
+									BP-2020-00006
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/6/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8947">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=3033099" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8947" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8947" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8948">
+									BP-2020-00007
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/7/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8948">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2781952" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8948" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8948" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8954">
+									BP-2020-00008
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/7/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8954">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2793064" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8954" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8954" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8968">
+									BP-2020-00010
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/7/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8968">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2780439" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8968" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8968" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8973">
+									BP-2020-00011
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/7/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8973">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2778216" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8973" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8973" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8984">
+									BP-2020-00016
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/9/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8984">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2779934" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8984" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8984" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8989">
+									BP-2020-00014
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/8/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8989">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2778319" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8989" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8989" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=8990">
+									BP-2020-00012
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/8/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="8990">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2777315" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="8990" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=8990" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9003">
+									BP-2020-00015
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/8/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9003">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2778560" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9003" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9003" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9019">
+									BP-2020-00018
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/9/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9019">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2780231" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9019" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9019" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9048">
+									BP-2020-00053
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/23/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9048">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2802565" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9048" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9048" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9050">
+									BP-2020-00041
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9050">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2793622" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9050" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9050" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9055">
+									BP-2020-00026
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/15/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9055">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2788701" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9055" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9055" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9058">
+									BP-2020-00030
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/16/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9058">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2790209" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9058" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9058" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9063">
+									BP-2020-00019
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/13/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9063">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2784459" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9063" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9063" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9068">
+									BP-2020-00029
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/16/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9068">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2789997" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9068" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9068" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9077">
+									BP-2020-00017
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/9/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9077">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2780801" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9077" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9077" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9100">
+									BP-2020-00021
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/13/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9100">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2785231" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9100" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9100" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9132">
+									BP-2020-00028
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/16/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9132">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2789904" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9132" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9132" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9133">
+									BP-2020-00024
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/15/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9133">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2788922" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9133" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9133" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9145">
+									BP-2020-00020
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/13/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9145">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2785132" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9145" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9145" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9154">
+									BP-2020-00022
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/14/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9154">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2786613" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9154" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9154" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9161">
+									BP-2020-00027
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/15/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9161">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2792760" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9161" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9161" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9163">
+									BP-2020-00031
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/16/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9163">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2790243" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9163" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9163" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9184">
+									BP-2020-00025
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/15/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9184">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2788307" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9184" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9184" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9200">
+									BP-2020-00023
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/15/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9200">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2787823" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9200" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9200" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9211">
+									BP-2020-00036
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9211">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2793032" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9211" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9211" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9222">
+									BP-2020-00033
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/16/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9222">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2790984" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9222" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9222" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9227">
+									BP-2020-00035
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9227">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2792554" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9227" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9227" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9228">
+									BP-2020-00034
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9228">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2791861" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9228" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9228" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9239">
+									BP-2020-00032
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/16/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9239">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=3248802" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9239" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9239" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9260">
+									BP-2020-00038
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9260">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2793094" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9260" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9260" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9261">
+									BP-2020-00040
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9261">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2793468" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9261" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9261" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9266">
+									BP-2020-00039
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9266">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2793418" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9266" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9266" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9271">
+									BP-2020-00046
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/22/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9271">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2799214" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9271" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9271" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9272">
+									BP-2020-00118
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								2/18/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9272">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2845492" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9272" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9272" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9282">
+									BP-2020-00042
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/21/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9282">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2815403" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9282" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9282" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9307">
+									BP-2020-00037
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/17/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9307">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2792777" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9307" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9307" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9313">
+									BP-2020-00060
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/27/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9313">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2806269" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9313" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9313" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9320">
+									BP-2020-00070
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/31/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9320">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2815156" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9320" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9320" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9332">
+									BP-2020-00045
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/22/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9332">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2799112" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9332" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9332" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9339">
+									BP-2020-00043
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/21/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9339">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2797602" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9339" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9339" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9387">
+									BP-2020-00044
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/21/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9387">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2797846" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9387" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9387" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9390">
+									BP-2020-00049
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/23/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9390">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2801806" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9390" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9390" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9395">
+									BP-2020-00054
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/23/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9395">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2804975" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9395" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9395" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9400">
+									BP-2020-00055
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/24/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9400">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2804564" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9400" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9400" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9418">
+									BP-2020-00048
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/23/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9418">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2801844" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock "
+										
+										
+										title="This document is withheld until the review is approved and all fees are paid">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9418" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9418" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9424">
+									BP-2020-00050
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/23/20
+							
+						</td>
+						<td></td>
+						<td>
+							
+							
+								N/A
+							
+							
+							
+								
+								<button class="btn btn-xs btn-default permit-action" title="Modify" data-fn="extend" data-issuanceid="9424">
+								
+									<i class="far fa-calendar-edit"></i>
+								</button>
+							
+						</td>
+						<td>
+							
+								
+								
+								
+									<a href="/secure/utilities/viewer/?vid=2801918" target="_blank">
+										05) 2020_Permit Building.pdf
+									</a>
+									<span class="hidden-item small gray far fa-eye-slash hidden"
+										  title="This document is hidden from some users">
+									</span>
+									<span class="withheld-item small gray far fa-lock hidden"
+										
+										
+										title="This document is withheld">
+									</span>
+								
+							
+						</td>
+						<td class="text-right text-nowrap">
+							
+								
+								
+									
+									<button class="btn btn-xs btn-default permit-action" data-fn="reason" data-issuanceid="9424" data-type="Revoke">
+										<i class="fas fa-exclamation-triangle gray"></i> Revoke
+									</button>
+									
+									
+										<a href="/secure/permits/?step=close&issuanceid=9424" class="btn btn-xs btn-default" title="Close Out Permit">
+											<i class="fas fa-times-circle gray"></i> Close
+										</a>
+									
+								
+							
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="text-nowrap">
+							
+								<a href="/secure/permits/?issuanceid=9426">
+									BP-2020-00052
+								</a>
+							
+						</td>
+						<td>Building Permit</td>
+						<td>
+							
+								<span class="green bold">Issued</span>
+							
+						</td>
+						<td>
+							
+								1/23/20
+							
+						</

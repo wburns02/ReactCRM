@@ -1,0 +1,462 @@
+{
+  "portal": {
+    "name": "Williamson County TN Geocivix",
+    "baseUrl": "https://williamson.geocivix.com/secure/",
+    "platform": "idtplans by Geocivix"
+  },
+  "authentication": {
+    "method": "Session cookie based",
+    "endpoints": [
+      {
+        "url": "/secure/?action=user.scheme",
+        "method": "POST",
+        "params": "username, rememberme"
+      },
+      {
+        "url": "/secure/?action=user.authenticate",
+        "method": "POST",
+        "params": "username, password, rememberme, token"
+      }
+    ]
+  },
+  "discoveredEndpoints": [
+    {
+      "url": "/secure/?action=project.user-submittals",
+      "bodyLength": 3446,
+      "preview": " <div class=\"page-description\"> Submittals that appear with <i class=\"fa fa-exclamation-triangle red"
+    },
+    {
+      "url": "/secure/?action=project.search-results",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=project.browse",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=project.recent",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=project.tracked",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=project.list",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=project.types",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=search.suggest&step=project&fullsearch=1&query=permit",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=search.results&query=permit",
+      "bodyLength": 56145,
+      "preview": " "
+    },
+    {
+      "url": "/secure/?action=search.advanced",
+      "bodyLength": 56145,
+      "preview": " "
+    },
+    {
+      "url": "/secure/?action=permit.types",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=permit.list",
+      "bodyLength": 1762189,
+      "preview": " <div class=\"expand-group\" id=\"project-permits-expand\"> <div class=\"container-fluid expand-header se"
+    },
+    {
+      "url": "/secure/?action=permit.search",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=permit.browse",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=inspection.user-inspections",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=inspection.list",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=inspection.browse",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=user.profile",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=user.settings",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=user.notifications",
+      "bodyLength": 52669,
+      "preview": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" c"
+    },
+    {
+      "url": "/secure/?action=company.search",
+      "bodyLength": 56145,
+      "preview": " "
+    },
+    {
+      "url": "/secure/?action=contractor.search",
+      "bodyLength": 56145,
+      "preview": " "
+    }
+  ],
+  "allTestedEndpoints": [
+    {
+      "endpoint": "project.user-submittals",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "project.search-results",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "project.browse",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "project.recent",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "project.tracked",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "project.list",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "project.types",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "search.suggest",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "search.results",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "search.advanced",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "permit.types",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "permit.list",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "permit.search",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "permit.browse",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "inspection.user-inspections",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "inspection.list",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "inspection.browse",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "user.profile",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "user.settings",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "user.notifications",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "company.search",
+      "status": 200,
+      "valid": true
+    },
+    {
+      "endpoint": "contractor.search",
+      "status": 200,
+      "valid": true
+    }
+  ],
+  "formStructure": [
+    {
+      "formIndex": 0,
+      "action": "https://williamson.geocivix.com/secure/project/",
+      "method": "get",
+      "id": "navSearch",
+      "fields": [
+        {
+          "tag": "INPUT",
+          "name": "projTitle",
+          "id": "navProjTitle",
+          "type": "text",
+          "className": "form-control input-sm ui-autocomplete-input"
+        },
+        {
+          "tag": "INPUT",
+          "name": "step",
+          "id": "",
+          "type": "hidden",
+          "className": ""
+        }
+      ]
+    },
+    {
+      "formIndex": 1,
+      "action": "https://williamson.geocivix.com/secure/project/",
+      "method": "get",
+      "id": "searchForm",
+      "fields": [
+        {
+          "tag": "INPUT",
+          "name": "projTitle",
+          "id": "projTitle",
+          "type": "text",
+          "className": "form-control input-sm ui-autocomplete-input"
+        },
+        {
+          "tag": "SELECT",
+          "name": "ProjState",
+          "id": "918A83E8-5DEA-4D44-8D0C41945771CC18",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "searchtype",
+          "id": "searchType",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "INPUT",
+          "name": "ProjCounty",
+          "id": "0DD29EF4-EBED-44D4-BBD31DFC343FCF9A",
+          "type": "text",
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "StatusID",
+          "id": "3F690248-A6FB-4098-91980111F354E177",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "ProjectTypeID",
+          "id": "D84037C7-B984-4DA3-B90612266ACDDD65",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "ApplicationTypeID",
+          "id": "81394C0E-0BBD-4391-9E5BB894740EDE60",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "INPUT",
+          "name": "submitter_ContactId-input",
+          "id": "694BB5F2-49D4-4B56-B17E860269B0CAD1-input",
+          "type": "text",
+          "className": "form-control input-sm ui-autocomplete-input"
+        },
+        {
+          "tag": "INPUT",
+          "name": "submitter_ContactId",
+          "id": "694BB5F2-49D4-4B56-B17E860269B0CAD1",
+          "type": "hidden",
+          "className": ""
+        },
+        {
+          "tag": "INPUT",
+          "name": "Submitter_CompanyID-input",
+          "id": "70E7D836-6910-4141-8E0C29C2B28A817C-input",
+          "type": "text",
+          "className": "form-control input-sm ui-autocomplete-input"
+        },
+        {
+          "tag": "INPUT",
+          "name": "Submitter_CompanyID",
+          "id": "70E7D836-6910-4141-8E0C29C2B28A817C",
+          "type": "hidden",
+          "className": ""
+        },
+        {
+          "tag": "SELECT",
+          "name": "StageID",
+          "id": "7B679EF1-57F2-46A3-AD94B20180EEF2EA",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "INPUT",
+          "name": "RealID",
+          "id": "BF9236B0-7EA1-41E3-92513E52C48DAD49",
+          "type": "text",
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "dr_projDate",
+          "id": "dr_projDate",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "dr_dateOperator",
+          "id": "dr_dateOperator",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "INPUT",
+          "name": "dr_startDate",
+          "id": "dr_startDate",
+          "type": "text",
+          "className": "form-control input-sm hasDatepicker"
+        },
+        {
+          "tag": "INPUT",
+          "name": "dr_endDate",
+          "id": "dr_endDate",
+          "type": "text",
+          "className": "form-control input-sm hasDatepicker"
+        },
+        {
+          "tag": "INPUT",
+          "name": "dr_duration",
+          "id": "dr_duration",
+          "type": "text",
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "SELECT",
+          "name": "dr_durationOperator",
+          "id": "dr_durationOperator",
+          "type": null,
+          "className": "form-control input-sm"
+        },
+        {
+          "tag": "INPUT",
+          "name": "step",
+          "id": "294BC934-B10F-466A-9CF711E190EA70CA",
+          "type": "hidden",
+          "className": ""
+        }
+      ]
+    },
+    {
+      "formIndex": 2,
+      "action": "https://translate.googleapis.com/translate_voting?client=te",
+      "method": "post",
+      "id": "goog-gt-votingForm",
+      "fields": [
+        {
+          "tag": "INPUT",
+          "name": "sl",
+          "id": "goog-gt-votingInputSrcLang",
+          "type": "text",
+          "className": ""
+        },
+        {
+          "tag": "INPUT",
+          "name": "tl",
+          "id": "goog-gt-votingInputTrgLang",
+          "type": "text",
+          "className": ""
+        },
+        {
+          "tag": "INPUT",
+          "name": "query",
+          "id": "goog-gt-votingInputSrcText",
+          "type": "text",
+          "className": ""
+        },
+        {
+          "tag": "INPUT",
+          "name": "gtrans",
+          "id": "goog-gt-votingInputTrgText",
+          "type": "text",
+          "className": ""
+        },
+        {
+          "tag": "INPUT",
+          "name": "vote",
+          "id": "goog-gt-votingInputVote",
+          "type": "text",
+          "className": ""
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-22T14:32:22.251Z"
+}

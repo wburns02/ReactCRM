@@ -1,0 +1,234 @@
+{
+  "id": "wanvideo-i2v-a14b",
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 16,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 50],
+      "size": [274, 314],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [1, 7]},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["abductionface.jpg", "image"],
+      "title": "Load Input Image"
+    },
+    {
+      "id": 2,
+      "type": "CLIPVisionLoader",
+      "pos": [50, 400],
+      "size": [315, 58],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "CLIP_VISION", "type": "CLIP_VISION", "slot_index": 0, "links": [2]}
+      ],
+      "properties": {"Node name for S&R": "CLIPVisionLoader"},
+      "widgets_values": ["open_clip_model.safetensors"],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "Load CLIP Vision"
+    },
+    {
+      "id": 3,
+      "type": "WanVideoClipVisionEncode",
+      "pos": [400, 350],
+      "size": [315, 226],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip_vision", "type": "CLIP_VISION", "link": 2},
+        {"name": "image_1", "type": "IMAGE", "link": 1}
+      ],
+      "outputs": [
+        {"name": "image_embeds", "type": "WANVIDIMAGE_CLIPEMBEDS", "slot_index": 0, "links": [3]}
+      ],
+      "properties": {"Node name for S&R": "WanVideoClipVisionEncode"},
+      "widgets_values": [1.0, 1.0, "center", "average", true],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "CLIP Vision Encode"
+    },
+    {
+      "id": 4,
+      "type": "LoadWanVideoT5TextEncoder",
+      "pos": [50, 520],
+      "size": [377, 130],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [{"name": "wan_t5_model", "type": "WANTEXTENCODER", "slot_index": 0, "links": [4]}],
+      "properties": {"Node name for S&R": "LoadWanVideoT5TextEncoder"},
+      "widgets_values": ["umt5-xxl-enc-bf16.safetensors", "bf16", "offload_device", "disabled"],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "Load T5 Text Encoder"
+    },
+    {
+      "id": 5,
+      "type": "WanVideoTextEncode",
+      "pos": [500, 520],
+      "size": [500, 280],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "t5", "type": "WANTEXTENCODER", "link": 4}
+      ],
+      "outputs": [{"name": "text_embeds", "type": "WANVIDEOTEXTEMBEDS", "slot_index": 0, "links": [5]}],
+      "properties": {"Node name for S&R": "WanVideoTextEncode"},
+      "widgets_values": [
+        "cinematic video, the person slowly turns their head with a gentle smile, professional lighting, smooth motion, high quality, photorealistic",
+        "blurry, low quality, deformed, ugly, static, jerky motion, artifacts, watermark, cartoon, anime",
+        true, false, "gpu"
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "Text Encode"
+    },
+    {
+      "id": 6,
+      "type": "WanVideoModelLoader",
+      "pos": [50, 720],
+      "size": [477, 274],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [{"name": "model", "type": "WANVIDEOMODEL", "slot_index": 0, "links": [6]}],
+      "properties": {"Node name for S&R": "WanVideoModelLoader"},
+      "widgets_values": ["wan/I2V/Wan2_2-I2V-A14B-HIGH_fp8_e4m3fn_scaled_KJ.safetensors", "fp16", "fp8_e4m3fn_scaled", "offload_device", "sdpa"],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "Load I2V Model (A14B HIGH)"
+    },
+    {
+      "id": 7,
+      "type": "WanVideoVAELoader",
+      "pos": [750, 50],
+      "size": [315, 82],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [{"name": "vae", "type": "WANVAE", "slot_index": 0, "links": [8, 9]}],
+      "properties": {"Node name for S&R": "WanVideoVAELoader"},
+      "widgets_values": ["Wan2_2_VAE_bf16.safetensors", "bf16"],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Load VAE"
+    },
+    {
+      "id": 8,
+      "type": "WanVideoImageToVideoEncode",
+      "pos": [750, 170],
+      "size": [360, 350],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "vae", "type": "WANVAE", "link": 8},
+        {"name": "clip_embeds", "type": "WANVIDIMAGE_CLIPEMBEDS", "link": 3},
+        {"name": "start_image", "type": "IMAGE", "link": 7}
+      ],
+      "outputs": [{"name": "image_embeds", "type": "WANVIDIMAGE_EMBEDS", "slot_index": 0, "links": [10]}],
+      "properties": {"Node name for S&R": "WanVideoImageToVideoEncode"},
+      "widgets_values": [832, 480, 49, 0.0, 1.0, 1.0, true],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Image to Video Encode"
+    },
+    {
+      "id": 9,
+      "type": "WanVideoSampler",
+      "pos": [1150, 50],
+      "size": [370, 500],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "WANVIDEOMODEL", "link": 6},
+        {"name": "image_embeds", "type": "WANVIDIMAGE_EMBEDS", "link": 10},
+        {"name": "text_embeds", "type": "WANVIDEOTEXTEMBEDS", "link": 5}
+      ],
+      "outputs": [
+        {"name": "samples", "type": "LATENT", "slot_index": 0, "links": [11]},
+        {"name": "denoised_samples", "type": "LATENT", "links": null}
+      ],
+      "properties": {"Node name for S&R": "WanVideoSampler"},
+      "widgets_values": [20, 6.0, 5.0, 12345, true, "unipc", 0],
+      "title": "Sampler"
+    },
+    {
+      "id": 10,
+      "type": "WanVideoDecode",
+      "pos": [1560, 50],
+      "size": [315, 198],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "vae", "type": "WANVAE", "link": 9},
+        {"name": "samples", "type": "LATENT", "link": 11}
+      ],
+      "outputs": [{"name": "images", "type": "IMAGE", "slot_index": 0, "links": [12]}],
+      "properties": {"Node name for S&R": "WanVideoDecode"},
+      "widgets_values": [false, 272, 272, 144, 128, "default"],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Decode"
+    },
+    {
+      "id": 11,
+      "type": "VHS_VideoCombine",
+      "pos": [1920, 50],
+      "size": [600, 400],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 12}
+      ],
+      "outputs": [{"name": "Filenames", "type": "VHS_FILENAMES", "links": null}],
+      "properties": {"Node name for S&R": "VHS_VideoCombine"},
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "i2v_a14b_output",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true
+      },
+      "title": "Save Video"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 1, "IMAGE"],
+    [2, 2, 0, 3, 0, "CLIP_VISION"],
+    [3, 3, 0, 8, 1, "WANVIDIMAGE_CLIPEMBEDS"],
+    [4, 4, 0, 5, 0, "WANTEXTENCODER"],
+    [5, 5, 0, 9, 2, "WANVIDEOTEXTEMBEDS"],
+    [6, 6, 0, 9, 0, "WANVIDEOMODEL"],
+    [7, 1, 0, 8, 2, "IMAGE"],
+    [8, 7, 0, 8, 0, "WANVAE"],
+    [9, 7, 0, 10, 0, "WANVAE"],
+    [10, 8, 0, 9, 1, "WANVIDIMAGE_EMBEDS"],
+    [11, 9, 0, 10, 1, "LATENT"],
+    [12, 10, 0, 11, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {"ds": {"scale": 0.6, "offset": [100, 100]}},
+  "version": 0.4
+}

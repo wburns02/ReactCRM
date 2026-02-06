@@ -1,0 +1,575 @@
+
+
+		
+		
+			
+			
+			
+			
+				
+				<div class="page-description">
+	Submittals that appear with <i class="fa fa-exclamation-triangle red"></i> require action on your part to proceed.  Submittals that appear with <i class="fa fa-check-circle green"></i> have been approved.
+	<br><br>
+	
+	<div class="center-div">
+		
+			<button class="btn btn-default overview-portals-filter" data-view="project.user-submittals" data-portals="all">
+				Show Results for All Sites
+			</button>
+		
+		&nbsp;
+		
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+	
+		
+			
+			
+			<button type="button" id="8592CF2A-4EA8-44CB-838E8019CAD55CFE" name="" class="btn btn-primary btn-sm" onclick="window.location='?step=selectportal'" >
+				Submit a New Project
+			</button>
+			<span style=" width:25px; "><span id="loading:8592CF2A-4EA8-44CB-838E8019CAD55CFE" style=" display:none; "> <img src="/secure/images/ajax-loader.gif"></span></span>
+			
+			
+		
+	
+
+
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+		
+			<script type="text/javascript" charset="utf-8">
+				$(function() {
+					var table = idtplans.table.cfTableInit(
+						'#plan-review-submittals-grid', 
+						true, 
+						true, 
+						true, 
+						false, 
+						true, 
+						false, 
+						true, 
+						500,
+						false,
+						true,
+						true, 
+						'', 
+						'', 
+						'', 
+						'', 
+						'', 
+						'Modified', 
+						'desc'
+					);
+
+					//check if within an expand-content
+					if ($('#plan-review-submittals-grid').closest('.expand-content').length > 0) {
+						//need to readjust columns if hidden, set up an observer
+						idtplans.table.listenForExpandContentDisplayChange($('#plan-review-submittals-grid').closest('.expand-content'));
+					}
+				});
+			</script>
+		
+
+		<div class="table-responsive">
+			<table id="plan-review-submittals-grid" class="sortable display table table-striped-reverse" style="width: 100%">
+				
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Project Title</th>
+			<th>Jurisdiction</th>
+			<th>Application</th>
+			<th>Action</th>
+			<th>Stage</th>
+			<th>Submitted</th>
+			<th>Due</th>
+			<th>Approved</th>
+			<th>Modified</th>
+			<th class="no-sort">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+
+			</table>
+		</div>
+		
+	
+
+
+
+<script>
+$(function() {
+	$(document).find('.popover-hover').popover({trigger: 'hover click', placement: 'auto', container: 'body'});
+});
+</script>
+			
+		
+	

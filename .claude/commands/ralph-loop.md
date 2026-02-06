@@ -39,6 +39,23 @@ $ARGUMENTS
 - Mark completed subtasks
 - Add new subtasks as discovered
 
+### 6. Session Isolation
+- Each loop gets a unique session_id in the state file
+- Loops older than 24 hours (stale_after_hours) should be auto-ignored
+- The working_directory in state ties the loop to a specific project
+- State file format (`.claude/ralph-loop.local.md`):
+  ```yaml
+  ---
+  active: true
+  iteration: 1
+  max_iterations: 80
+  session_id: "<random-uuid>"
+  started_at: "<ISO-timestamp>"
+  stale_after_hours: 24
+  working_directory: "<absolute-path>"
+  ---
+  ```
+
 ## Completion Signal
 
 When you have **fully completed** the task:

@@ -1,0 +1,259 @@
+{
+  "last_node_id": 15,
+  "last_link_id": 20,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImagesFromFolderKJ",
+      "pos": [50, 50],
+      "size": [350, 150],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {"name": "images", "type": "IMAGE", "slot_index": 0, "links": [1]},
+        {"name": "masks", "type": "MASK", "links": null},
+        {"name": "int", "type": "INT", "links": null}
+      ],
+      "properties": {"Node name for S&R": "LoadImagesFromFolderKJ"},
+      "widgets_values": [
+        "/home/will/ComfyUI/input/character_refs",
+        1024,
+        1024,
+        "crop",
+        0,
+        0,
+        false
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Load 19 Character Images"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [50, 280],
+      "size": [350, 100],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [2]},
+        {"name": "CLIP", "type": "CLIP", "slot_index": 1, "links": [3]},
+        {"name": "VAE", "type": "VAE", "slot_index": 2, "links": [4]}
+      ],
+      "properties": {"Node name for S&R": "CheckpointLoaderSimple"},
+      "widgets_values": ["RealVisXL_V4.0.safetensors"],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Load SDXL Model"
+    },
+    {
+      "id": 3,
+      "type": "CLIPVisionLoader",
+      "pos": [50, 430],
+      "size": [350, 60],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "CLIP_VISION", "type": "CLIP_VISION", "slot_index": 0, "links": [5]}
+      ],
+      "properties": {"Node name for S&R": "CLIPVisionLoader"},
+      "widgets_values": ["CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "Load CLIP Vision"
+    },
+    {
+      "id": 4,
+      "type": "IPAdapterModelLoader",
+      "pos": [50, 530],
+      "size": [350, 60],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {"name": "IPADAPTER", "type": "IPADAPTER", "slot_index": 0, "links": [6]}
+      ],
+      "properties": {"Node name for S&R": "IPAdapterModelLoader"},
+      "widgets_values": ["ip-adapter-plus_sdxl_vit-h.safetensors"],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "Load IPAdapter"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [450, 280],
+      "size": [400, 120],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [7]}
+      ],
+      "properties": {"Node name for S&R": "CLIPTextEncode"},
+      "widgets_values": ["Ultra photorealistic portrait, professional photography, studio lighting, sharp focus, highly detailed, 8K, masterpiece"],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Positive Prompt"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [450, 450],
+      "size": [400, 120],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [8]}
+      ],
+      "properties": {"Node name for S&R": "CLIPTextEncode"},
+      "widgets_values": ["cartoon, anime, illustration, painting, blurry, low quality, distorted, deformed, ugly, watermark, text"],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Negative Prompt"
+    },
+    {
+      "id": 7,
+      "type": "IPAdapterBatch",
+      "pos": [450, 50],
+      "size": [400, 200],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 2},
+        {"name": "ipadapter", "type": "IPADAPTER", "link": 6},
+        {"name": "image", "type": "IMAGE", "link": 1},
+        {"name": "clip_vision", "type": "CLIP_VISION", "link": 5}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [9]}
+      ],
+      "properties": {"Node name for S&R": "IPAdapterBatch"},
+      "widgets_values": [
+        0.85,
+        "style transfer",
+        0.0,
+        1.0,
+        "K+V",
+        0
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "IPAdapter Multi-Reference"
+    },
+    {
+      "id": 8,
+      "type": "EmptyLatentImage",
+      "pos": [900, 50],
+      "size": [250, 120],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [10]}
+      ],
+      "properties": {"Node name for S&R": "EmptyLatentImage"},
+      "widgets_values": [1024, 1024, 1],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "Output Size (1024x1024)"
+    },
+    {
+      "id": 9,
+      "type": "KSampler",
+      "pos": [900, 200],
+      "size": [320, 350],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 9},
+        {"name": "positive", "type": "CONDITIONING", "link": 7},
+        {"name": "negative", "type": "CONDITIONING", "link": 8},
+        {"name": "latent_image", "type": "LATENT", "link": 10}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [11]}
+      ],
+      "properties": {"Node name for S&R": "KSampler"},
+      "widgets_values": [
+        12345,
+        "randomize",
+        30,
+        7.5,
+        "dpmpp_2m",
+        "karras",
+        1.0
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "Generate"
+    },
+    {
+      "id": 10,
+      "type": "VAEDecode",
+      "pos": [1280, 200],
+      "size": [180, 50],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 11},
+        {"name": "vae", "type": "VAE", "link": 4}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [12]}
+      ],
+      "properties": {"Node name for S&R": "VAEDecode"},
+      "title": "Decode"
+    },
+    {
+      "id": 11,
+      "type": "SaveImage",
+      "pos": [1280, 300],
+      "size": [400, 400],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 12}
+      ],
+      "properties": {"Node name for S&R": "SaveImage"},
+      "widgets_values": ["character_output"],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Save Result"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 7, 2, "IMAGE"],
+    [2, 2, 0, 7, 0, "MODEL"],
+    [3, 2, 1, 5, 0, "CLIP"],
+    [4, 2, 2, 10, 1, "VAE"],
+    [5, 3, 0, 7, 3, "CLIP_VISION"],
+    [6, 4, 0, 7, 1, "IPADAPTER"],
+    [7, 5, 0, 9, 1, "CONDITIONING"],
+    [8, 6, 0, 9, 2, "CONDITIONING"],
+    [9, 7, 0, 9, 0, "MODEL"],
+    [10, 8, 0, 9, 3, "LATENT"],
+    [11, 9, 0, 10, 0, "LATENT"],
+    [12, 10, 0, 11, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "groupNodes": {}
+  },
+  "version": 0.4
+}

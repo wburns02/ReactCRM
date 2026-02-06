@@ -1,0 +1,246 @@
+{
+  "last_node_id": 15,
+  "last_link_id": 20,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 50],
+      "size": [350, 350],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [1]},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "widgets_values": ["chel1.png", "image"],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Load Reference Image (pick best one)"
+    },
+    {
+      "id": 2,
+      "type": "UNETLoader",
+      "pos": [50, 450],
+      "size": [350, 80],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [2]}
+      ],
+      "widgets_values": ["flux1-dev-fp8.safetensors", "fp8_e4m3fn"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Load Flux.1 Dev"
+    },
+    {
+      "id": 3,
+      "type": "DualCLIPLoader",
+      "pos": [50, 580],
+      "size": [350, 100],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "CLIP", "type": "CLIP", "slot_index": 0, "links": [3]}
+      ],
+      "widgets_values": ["clip_l.safetensors", "t5xxl_fp8_e4m3fn.safetensors", "flux"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Load Flux CLIP"
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [50, 730],
+      "size": [350, 60],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {"name": "VAE", "type": "VAE", "slot_index": 0, "links": [4]}
+      ],
+      "widgets_values": ["flux_ae.safetensors"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Load Flux VAE"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [450, 50],
+      "size": [450, 180],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [5]}
+      ],
+      "widgets_values": ["Ultra photorealistic portrait photograph of this person, professional studio photography, sharp facial details, highly detailed skin texture with visible pores and micro details, perfect lighting, 8K resolution, cinematic color grading, masterpiece quality, shot on medium format camera"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Flux Prompt (describe the character)"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [450, 280],
+      "size": [450, 100],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [6]}
+      ],
+      "widgets_values": [""],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Negative (leave empty for Flux)"
+    },
+    {
+      "id": 7,
+      "type": "ImageScale",
+      "pos": [450, 420],
+      "size": [250, 130],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "image", "type": "IMAGE", "link": 1}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [7]}
+      ],
+      "widgets_values": ["lanczos", 1024, 1024, "disabled"],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Scale to 1024x1024"
+    },
+    {
+      "id": 8,
+      "type": "VAEEncode",
+      "pos": [450, 600],
+      "size": [200, 50],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "pixels", "type": "IMAGE", "link": 7},
+        {"name": "vae", "type": "VAE", "link": 4}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [8]}
+      ],
+      "title": "Encode to Latent"
+    },
+    {
+      "id": 9,
+      "type": "ModelSamplingFlux",
+      "pos": [750, 450],
+      "size": [300, 120],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 2}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [9]}
+      ],
+      "widgets_values": [1.15, 0.5, 1024, 1024],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Flux Sampling Config"
+    },
+    {
+      "id": 10,
+      "type": "KSampler",
+      "pos": [750, 620],
+      "size": [350, 350],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 9},
+        {"name": "positive", "type": "CONDITIONING", "link": 5},
+        {"name": "negative", "type": "CONDITIONING", "link": 6},
+        {"name": "latent_image", "type": "LATENT", "link": 8}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [10]}
+      ],
+      "widgets_values": [
+        12345,
+        "randomize",
+        25,
+        1.0,
+        "euler",
+        "simple",
+        0.55
+      ],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Flux Generate (denoise 0.55 = moderate change)"
+    },
+    {
+      "id": 11,
+      "type": "VAEDecode",
+      "pos": [1150, 620],
+      "size": [180, 50],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 10},
+        {"name": "vae", "type": "VAE", "link": 4}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [11]}
+      ],
+      "title": "Decode"
+    },
+    {
+      "id": 12,
+      "type": "SaveImage",
+      "pos": [1150, 700],
+      "size": [450, 450],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 11}
+      ],
+      "widgets_values": ["character_flux_output"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Save Flux Result"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 7, 0, "IMAGE"],
+    [2, 2, 0, 9, 0, "MODEL"],
+    [3, 3, 0, 5, 0, "CLIP"],
+    [4, 4, 0, 8, 1, "VAE"],
+    [5, 5, 0, 10, 1, "CONDITIONING"],
+    [6, 6, 0, 10, 2, "CONDITIONING"],
+    [7, 7, 0, 8, 0, "IMAGE"],
+    [8, 8, 0, 10, 3, "LATENT"],
+    [9, 9, 0, 10, 0, "MODEL"],
+    [10, 10, 0, 11, 0, "LATENT"],
+    [11, 11, 0, 12, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "groupNodes": {}
+  },
+  "version": 0.4
+}

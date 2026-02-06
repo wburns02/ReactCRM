@@ -1,0 +1,1290 @@
+2026-01-20 06:56:12,243 - INFO - ============================================================
+2026-01-20 06:56:12,243 - INFO - WILLIAMSON COUNTY IDT PLANS SCRAPER
+2026-01-20 06:56:12,244 - INFO - ============================================================
+2026-01-20 06:56:12,244 - INFO - ============================================================
+2026-01-20 06:56:12,244 - INFO - TESTING WILLIAMSON IDT PLANS API ACCESS
+2026-01-20 06:56:12,244 - INFO - ============================================================
+2026-01-20 06:56:12,244 - INFO - Using proxy: dc.decodo.com:10001
+2026-01-20 06:56:14,767 - INFO - Search 'septic': 100 results
+2026-01-20 06:56:14,767 - INFO - SUCCESS! Found 100 results for 'septic'
+2026-01-20 06:56:14,767 - INFO -   Sample: {"id": "/secure/project/?projectid=1814300", "value": " 1518 LURAH LANE Lot 3 Sawyers Creek Septic", "label": " 1518 LURAH LANE Lot 3 Sawyers Creek Septic ( Williamson County (Unincorporated Areas), TN) - 7/28/25"}...
+2026-01-20 06:56:14,768 - INFO - API access confirmed, starting full scrape...
+2026-01-20 06:56:14,768 - INFO - ============================================================
+2026-01-20 06:56:14,768 - INFO - SCRAPING WILLIAMSON COUNTY PROJECTS
+2026-01-20 06:56:14,768 - INFO - ============================================================
+2026-01-20 06:56:14,769 - INFO - [1/125] Searching: '1000'
+2026-01-20 06:56:17,283 - INFO - Search '1000': 100 results
+2026-01-20 06:56:18,786 - INFO - [2/125] Searching: '1100'
+2026-01-20 06:56:21,156 - INFO - Search '1100': 100 results
+2026-01-20 06:56:22,669 - INFO - [3/125] Searching: '1200'
+2026-01-20 06:56:25,148 - INFO - Search '1200': 100 results
+2026-01-20 06:56:26,655 - INFO - [4/125] Searching: '1300'
+2026-01-20 06:56:29,149 - INFO - Search '1300': 100 results
+2026-01-20 06:56:30,654 - INFO - [5/125] Searching: '1400'
+2026-01-20 06:56:33,310 - INFO - Search '1400': 100 results
+2026-01-20 06:56:34,818 - INFO - [6/125] Searching: '1500'
+2026-01-20 06:56:37,190 - INFO - Search '1500': 100 results
+2026-01-20 06:56:38,702 - INFO - [7/125] Searching: '1600'
+2026-01-20 06:56:41,066 - INFO - Search '1600': 100 results
+2026-01-20 06:56:42,580 - INFO - [8/125] Searching: '1700'
+2026-01-20 06:56:44,945 - INFO - Search '1700': 100 results
+2026-01-20 06:56:46,449 - INFO - [9/125] Searching: '1800'
+2026-01-20 06:56:48,597 - INFO - Search '1800': 100 results
+2026-01-20 06:56:50,107 - INFO - [10/125] Searching: '1900'
+2026-01-20 06:56:52,224 - INFO - Search '1900': 100 results
+2026-01-20 06:56:52,224 - INFO - Progress: 10/125 patterns, 982 unique projects
+2026-01-20 06:56:53,739 - INFO - [11/125] Searching: '2000'
+2026-01-20 06:56:55,817 - INFO - Search '2000': 100 results
+2026-01-20 06:56:57,332 - INFO - [12/125] Searching: '2100'
+2026-01-20 06:56:59,718 - INFO - Search '2100': 100 results
+2026-01-20 06:57:01,222 - INFO - [13/125] Searching: '2200'
+2026-01-20 06:57:03,828 - INFO - Search '2200': 100 results
+2026-01-20 06:57:05,329 - INFO - [14/125] Searching: '2300'
+2026-01-20 06:57:07,701 - INFO - Search '2300': 100 results
+2026-01-20 06:57:09,207 - INFO - [15/125] Searching: '2400'
+2026-01-20 06:57:10,337 - INFO - ============================================================
+2026-01-20 06:57:10,337 - INFO - WILLIAMSON COUNTY IDT PLANS SCRAPER
+2026-01-20 06:57:10,337 - INFO - ============================================================
+2026-01-20 06:57:10,337 - INFO - ============================================================
+2026-01-20 06:57:10,337 - INFO - TESTING WILLIAMSON IDT PLANS API ACCESS
+2026-01-20 06:57:10,337 - INFO - ============================================================
+2026-01-20 06:57:10,337 - INFO - Using proxy: dc.decodo.com:10001
+2026-01-20 06:57:11,489 - INFO - Search '2400': 100 results
+2026-01-20 06:57:12,769 - INFO - Search 'septic': 100 results
+2026-01-20 06:57:12,769 - INFO - SUCCESS! Found 100 results for 'septic'
+2026-01-20 06:57:12,769 - INFO -   Sample: {"id": "/secure/project/?projectid=1814300", "value": " 1518 LURAH LANE Lot 3 Sawyers Creek Septic", "label": " 1518 LURAH LANE Lot 3 Sawyers Creek Septic ( Williamson County (Unincorporated Areas), TN) - 7/28/25"}...
+2026-01-20 06:57:12,770 - INFO - API access confirmed, starting full scrape...
+2026-01-20 06:57:12,770 - INFO - ============================================================
+2026-01-20 06:57:12,770 - INFO - SCRAPING WILLIAMSON COUNTY PROJECTS
+2026-01-20 06:57:12,770 - INFO - ============================================================
+2026-01-20 06:57:12,770 - INFO - [1/125] Searching: '1000'
+2026-01-20 06:57:13,005 - INFO - [16/125] Searching: '2500'
+2026-01-20 06:57:15,015 - INFO - Search '1000': 100 results
+2026-01-20 06:57:15,363 - INFO - Search '2500': 100 results
+2026-01-20 06:57:16,524 - INFO - [2/125] Searching: '1100'
+2026-01-20 06:57:16,866 - INFO - [17/125] Searching: '2600'
+2026-01-20 06:57:19,308 - INFO - Search '1100': 100 results
+2026-01-20 06:57:19,314 - INFO - Search '2600': 100 results
+2026-01-20 06:57:20,823 - INFO - [3/125] Searching: '1200'
+2026-01-20 06:57:20,823 - INFO - [18/125] Searching: '2700'
+2026-01-20 06:57:22,890 - INFO - Search '2700': 100 results
+2026-01-20 06:57:23,135 - INFO - Search '1200': 100 results
+2026-01-20 06:57:24,404 - INFO - [19/125] Searching: '2800'
+2026-01-20 06:57:24,638 - INFO - [4/125] Searching: '1300'
+2026-01-20 06:57:26,810 - INFO - Search '1300': 100 results
+2026-01-20 06:57:26,955 - INFO - Search '2800': 100 results
+2026-01-20 06:57:28,324 - INFO - [5/125] Searching: '1400'
+2026-01-20 06:57:28,464 - INFO - [20/125] Searching: '2900'
+2026-01-20 06:57:30,401 - INFO - Search '1400': 100 results
+2026-01-20 06:57:30,952 - INFO - Search '2900': 100 results
+2026-01-20 06:57:30,952 - INFO - Progress: 20/125 patterns, 1973 unique projects
+2026-01-20 06:57:31,907 - INFO - [6/125] Searching: '1500'
+2026-01-20 06:57:32,467 - INFO - [21/125] Searching: '3000'
+2026-01-20 06:57:33,945 - INFO - Search '1500': 100 results
+2026-01-20 06:57:34,642 - INFO - Search '3000': 100 results
+2026-01-20 06:57:35,460 - INFO - [7/125] Searching: '1600'
+2026-01-20 06:57:36,151 - INFO - [22/125] Searching: '3100'
+2026-01-20 06:57:37,781 - INFO - Search '1600': 100 results
+2026-01-20 06:57:38,244 - INFO - Search '3100': 100 results
+2026-01-20 06:57:39,296 - INFO - [8/125] Searching: '1700'
+2026-01-20 06:57:39,749 - INFO - [23/125] Searching: '3200'
+2026-01-20 06:57:41,370 - INFO - Search '1700': 100 results
+2026-01-20 06:57:41,998 - INFO - Search '3200': 100 results
+2026-01-20 06:57:42,881 - INFO - [9/125] Searching: '1800'
+2026-01-20 06:57:43,502 - INFO - [24/125] Searching: '3300'
+2026-01-20 06:57:45,052 - INFO - Search '1800': 100 results
+2026-01-20 06:57:45,851 - INFO - Search '3300': 100 results
+2026-01-20 06:57:46,562 - INFO - [10/125] Searching: '1900'
+2026-01-20 06:57:47,361 - INFO - [25/125] Searching: '3400'
+2026-01-20 06:57:48,747 - INFO - Search '1900': 100 results
+2026-01-20 06:57:48,747 - INFO - Progress: 10/125 patterns, 982 unique projects
+2026-01-20 06:57:49,729 - INFO - Search '3400': 100 results
+2026-01-20 06:57:49,775 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_25.json
+2026-01-20 06:57:50,259 - INFO - [11/125] Searching: '2000'
+2026-01-20 06:57:51,286 - INFO - [26/125] Searching: '3500'
+2026-01-20 06:57:52,632 - INFO - Search '2000': 100 results
+2026-01-20 06:57:53,693 - INFO - Search '3500': 100 results
+2026-01-20 06:57:54,138 - INFO - [12/125] Searching: '2100'
+2026-01-20 06:57:55,200 - INFO - [27/125] Searching: '3600'
+2026-01-20 06:57:56,068 - INFO - Search '2100': 100 results
+2026-01-20 06:57:57,583 - INFO - [13/125] Searching: '2200'
+2026-01-20 06:57:57,608 - INFO - Search '3600': 100 results
+2026-01-20 06:57:59,112 - INFO - [28/125] Searching: '3700'
+2026-01-20 06:58:00,200 - INFO - Search '2200': 100 results
+2026-01-20 06:58:01,353 - INFO - Search '3700': 100 results
+2026-01-20 06:58:01,701 - INFO - [14/125] Searching: '2300'
+2026-01-20 06:58:02,856 - INFO - [29/125] Searching: '3800'
+2026-01-20 06:58:03,931 - INFO - Search '2300': 100 results
+2026-01-20 06:58:05,061 - INFO - Search '3800': 100 results
+2026-01-20 06:58:05,442 - INFO - [15/125] Searching: '2400'
+2026-01-20 06:58:06,576 - INFO - [30/125] Searching: '3900'
+2026-01-20 06:58:07,887 - INFO - Search '2400': 100 results
+2026-01-20 06:58:08,782 - INFO - Search '3900': 100 results
+2026-01-20 06:58:08,783 - INFO - Progress: 30/125 patterns, 2943 unique projects
+2026-01-20 06:58:09,399 - INFO - [16/125] Searching: '2500'
+2026-01-20 06:58:10,297 - INFO - [31/125] Searching: '4000'
+2026-01-20 06:58:11,762 - INFO - Search '2500': 100 results
+2026-01-20 06:58:12,690 - INFO - Search '4000': 100 results
+2026-01-20 06:58:13,263 - INFO - [17/125] Searching: '2600'
+2026-01-20 06:58:14,198 - INFO - [32/125] Searching: '4100'
+2026-01-20 06:58:15,828 - INFO - Search '2600': 100 results
+2026-01-20 06:58:16,603 - INFO - Search '4100': 100 results
+2026-01-20 06:58:17,333 - INFO - [18/125] Searching: '2700'
+2026-01-20 06:58:18,112 - INFO - [33/125] Searching: '4200'
+2026-01-20 06:58:19,673 - INFO - Search '2700': 100 results
+2026-01-20 06:58:20,018 - INFO - Search '4200': 100 results
+2026-01-20 06:58:21,188 - INFO - [19/125] Searching: '2800'
+2026-01-20 06:58:21,530 - INFO - [34/125] Searching: '4300'
+2026-01-20 06:58:23,527 - INFO - Search '2800': 100 results
+2026-01-20 06:58:23,701 - INFO - Search '4300': 100 results
+2026-01-20 06:58:25,039 - INFO - [20/125] Searching: '2900'
+2026-01-20 06:58:25,210 - INFO - [35/125] Searching: '4400'
+2026-01-20 06:58:27,340 - INFO - Search '4400': 100 results
+2026-01-20 06:58:27,391 - INFO - Search '2900': 100 results
+2026-01-20 06:58:27,393 - INFO - Progress: 20/125 patterns, 1973 unique projects
+2026-01-20 06:58:28,856 - INFO - [36/125] Searching: '4500'
+2026-01-20 06:58:28,902 - INFO - [21/125] Searching: '3000'
+2026-01-20 06:58:30,737 - INFO - Search '4500': 100 results
+2026-01-20 06:58:30,974 - INFO - Search '3000': 100 results
+2026-01-20 06:58:32,239 - INFO - [37/125] Searching: '4600'
+2026-01-20 06:58:32,488 - INFO - [22/125] Searching: '3100'
+2026-01-20 06:58:34,554 - INFO - Search '4600': 100 results
+2026-01-20 06:58:34,843 - INFO - Search '3100': 100 results
+2026-01-20 06:58:36,065 - INFO - [38/125] Searching: '4700'
+2026-01-20 06:58:36,345 - INFO - [23/125] Searching: '3200'
+2026-01-20 06:58:38,145 - INFO - Search '4700': 100 results
+2026-01-20 06:58:38,476 - INFO - Search '3200': 100 results
+2026-01-20 06:58:39,661 - INFO - [39/125] Searching: '4800'
+2026-01-20 06:58:39,988 - INFO - [24/125] Searching: '3300'
+2026-01-20 06:58:41,550 - INFO - Search '4800': 100 results
+2026-01-20 06:58:42,085 - INFO - Search '3300': 100 results
+2026-01-20 06:58:43,055 - INFO - [40/125] Searching: '4900'
+2026-01-20 06:58:43,601 - INFO - [25/125] Searching: '3400'
+2026-01-20 06:58:45,655 - INFO - Search '4900': 100 results
+2026-01-20 06:58:45,655 - INFO - Progress: 40/125 patterns, 3934 unique projects
+2026-01-20 06:58:45,734 - INFO - Search '3400': 100 results
+2026-01-20 06:58:45,765 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_25.json
+2026-01-20 06:58:47,162 - INFO - [41/125] Searching: '5000'
+2026-01-20 06:58:47,272 - INFO - [26/125] Searching: '3500'
+2026-01-20 06:58:49,562 - INFO - Search '5000': 100 results
+2026-01-20 06:58:49,696 - INFO - Search '3500': 100 results
+2026-01-20 06:58:51,067 - INFO - [42/125] Searching: '5100'
+2026-01-20 06:58:51,208 - INFO - [27/125] Searching: '3600'
+2026-01-20 06:58:53,389 - INFO - Search '5100': 100 results
+2026-01-20 06:58:53,517 - INFO - Search '3600': 100 results
+2026-01-20 06:58:54,896 - INFO - [43/125] Searching: '5200'
+2026-01-20 06:58:55,019 - INFO - [28/125] Searching: '3700'
+2026-01-20 06:58:57,099 - INFO - Search '3700': 100 results
+2026-01-20 06:58:57,106 - INFO - Search '5200': 100 results
+2026-01-20 06:58:58,614 - INFO - [44/125] Searching: '5300'
+2026-01-20 06:59:01,052 - INFO - Search '3800': 100 results
+2026-01-20 06:59:01,259 - INFO - Search '5300': 89 results
+2026-01-20 06:59:02,553 - INFO - [30/125] Searching: '3900'
+2026-01-20 06:59:02,770 - INFO - [45/125] Searching: '5400'
+2026-01-20 06:59:04,887 - INFO - Search '3900': 100 results
+2026-01-20 06:59:04,888 - INFO - Progress: 30/125 patterns, 2943 unique projects
+2026-01-20 06:59:05,385 - INFO - Search '5400': 100 results
+2026-01-20 06:59:06,400 - INFO - [31/125] Searching: '4000'
+2026-01-20 06:59:06,898 - INFO - [46/125] Searching: '5500'
+2026-01-20 06:59:08,759 - INFO - Search '4000': 100 results
+2026-01-20 06:59:09,039 - INFO - Search '5500': 84 results
+2026-01-20 06:59:10,263 - INFO - [32/125] Searching: '4100'
+2026-01-20 06:59:10,541 - INFO - [47/125] Searching: '5600'
+2026-01-20 06:59:12,140 - INFO - Search '4100': 100 results
+2026-01-20 06:59:12,488 - INFO - Search '5600': 83 results
+2026-01-20 06:59:13,651 - INFO - [33/125] Searching: '4200'
+2026-01-20 06:59:13,994 - INFO - [48/125] Searching: '5700'
+2026-01-20 06:59:16,126 - INFO - Search '5700': 70 results
+2026-01-20 06:59:16,208 - INFO - Search '4200': 100 results
+2026-01-20 06:59:17,638 - INFO - [49/125] Searching: '5800'
+2026-01-20 06:59:17,716 - INFO - [34/125] Searching: '4300'
+2026-01-20 06:59:35,333 - INFO - Search '5800': 75 results
+2026-01-20 06:59:36,843 - INFO - [50/125] Searching: '5900'
+2026-01-20 06:59:39,184 - INFO - Search '5900': 92 results
+2026-01-20 06:59:39,185 - INFO - Progress: 50/125 patterns, 4798 unique projects
+2026-01-20 06:59:39,246 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_50.json
+2026-01-20 06:59:40,757 - INFO - [51/125] Searching: '6000'
+2026-01-20 06:59:43,414 - INFO - Search '6000': 92 results
+2026-01-20 06:59:44,918 - INFO - [52/125] Searching: '6100'
+2026-01-20 06:59:48,292 - ERROR - Search '4300' error: 
+2026-01-20 06:59:49,804 - INFO - [35/125] Searching: '4400'
+2026-01-20 06:59:52,150 - INFO - Search '4400': 100 results
+2026-01-20 06:59:53,652 - INFO - [36/125] Searching: '4500'
+2026-01-20 06:59:56,006 - INFO - Search '4500': 100 results
+2026-01-20 06:59:57,516 - INFO - [37/125] Searching: '4600'
+2026-01-20 06:59:59,596 - INFO - Search '4600': 100 results
+2026-01-20 07:00:01,098 - INFO - [38/125] Searching: '4700'
+2026-01-20 07:00:02,411 - INFO - Search '6100': 58 results
+2026-01-20 07:00:03,671 - INFO - Search '4700': 100 results
+2026-01-20 07:00:03,914 - INFO - [53/125] Searching: '6200'
+2026-01-20 07:00:05,173 - INFO - [39/125] Searching: '4800'
+2026-01-20 07:00:07,304 - INFO - Search '4800': 100 results
+2026-01-20 07:00:08,814 - INFO - [40/125] Searching: '4900'
+2026-01-20 07:00:11,177 - INFO - Search '4900': 100 results
+2026-01-20 07:00:11,177 - INFO - Progress: 40/125 patterns, 3835 unique projects
+2026-01-20 07:00:12,692 - INFO - [41/125] Searching: '5000'
+2026-01-20 07:00:14,877 - INFO - Search '5000': 100 results
+2026-01-20 07:00:16,382 - INFO - [42/125] Searching: '5100'
+2026-01-20 07:00:19,195 - INFO - Search '5100': 100 results
+2026-01-20 07:00:20,703 - INFO - [43/125] Searching: '5200'
+2026-01-20 07:00:21,513 - INFO - Search '6200': 100 results
+2026-01-20 07:00:23,028 - INFO - [54/125] Searching: '6300'
+2026-01-20 07:00:23,358 - INFO - Search '5200': 100 results
+2026-01-20 07:00:24,865 - INFO - [44/125] Searching: '5300'
+2026-01-20 07:00:25,189 - INFO - Search '6300': 79 results
+2026-01-20 07:00:26,701 - INFO - [55/125] Searching: '6400'
+2026-01-20 07:00:27,298 - INFO - Search '5300': 89 results
+2026-01-20 07:00:28,811 - INFO - [45/125] Searching: '5400'
+2026-01-20 07:00:57,294 - ERROR - Search '6400' error: 
+2026-01-20 07:00:58,800 - INFO - [56/125] Searching: '6500'
+2026-01-20 07:00:59,300 - ERROR - Search '5400' error: 
+2026-01-20 07:01:00,813 - INFO - [46/125] Searching: '5500'
+2026-01-20 07:01:03,235 - INFO - Search '5500': 84 results
+2026-01-20 07:01:04,749 - INFO - [47/125] Searching: '5600'
+2026-01-20 07:01:07,133 - INFO - Search '5600': 83 results
+2026-01-20 07:01:08,645 - INFO - [48/125] Searching: '5700'
+2026-01-20 07:01:11,225 - INFO - Search '5700': 70 results
+2026-01-20 07:01:12,740 - INFO - [49/125] Searching: '5800'
+2026-01-20 07:01:16,451 - INFO - Search '6500': 69 results
+2026-01-20 07:01:17,953 - INFO - [57/125] Searching: '6600'
+2026-01-20 07:01:20,326 - INFO - Search '6600': 58 results
+2026-01-20 07:01:21,833 - INFO - [58/125] Searching: '6700'
+2026-01-20 07:01:23,888 - INFO - Search '6700': 51 results
+2026-01-20 07:01:25,401 - INFO - [59/125] Searching: '6800'
+2026-01-20 07:01:27,527 - INFO - Search '6800': 88 results
+2026-01-20 07:01:29,043 - INFO - [60/125] Searching: '6900'
+2026-01-20 07:01:30,348 - INFO - Search '5800': 75 results
+2026-01-20 07:01:31,143 - INFO - Search '6900': 69 results
+2026-01-20 07:01:31,143 - INFO - Progress: 60/125 patterns, 5440 unique projects
+2026-01-20 07:01:31,864 - INFO - [50/125] Searching: '5900'
+2026-01-20 07:01:32,657 - INFO - [61/125] Searching: '7000'
+2026-01-20 07:01:34,161 - INFO - Search '5900': 92 results
+2026-01-20 07:01:34,161 - INFO - Progress: 50/125 patterns, 4603 unique projects
+2026-01-20 07:01:34,220 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_50.json
+2026-01-20 07:01:35,236 - INFO - Search '7000': 76 results
+2026-01-20 07:01:35,727 - INFO - [51/125] Searching: '6000'
+2026-01-20 07:01:36,739 - INFO - [62/125] Searching: '7100'
+2026-01-20 07:01:37,880 - INFO - Search '6000': 92 results
+2026-01-20 07:01:38,787 - INFO - Search '7100': 76 results
+2026-01-20 07:01:39,382 - INFO - [52/125] Searching: '6100'
+2026-01-20 07:01:40,295 - INFO - [63/125] Searching: '7200'
+2026-01-20 07:01:41,444 - INFO - Search '6100': 58 results
+2026-01-20 07:01:42,526 - INFO - Search '7200': 54 results
+2026-01-20 07:01:42,959 - INFO - [53/125] Searching: '6200'
+2026-01-20 07:01:44,032 - INFO - [64/125] Searching: '7300'
+2026-01-20 07:01:45,318 - INFO - Search '6200': 100 results
+2026-01-20 07:01:45,930 - INFO - Search '7300': 64 results
+2026-01-20 07:01:46,831 - INFO - [54/125] Searching: '6300'
+2026-01-20 07:01:47,445 - INFO - [65/125] Searching: '7400'
+2026-01-20 07:01:49,114 - INFO - Search '6300': 79 results
+2026-01-20 07:01:49,505 - INFO - Search '7400': 34 results
+2026-01-20 07:01:50,620 - INFO - [55/125] Searching: '6400'
+2026-01-20 07:01:51,008 - INFO - [66/125] Searching: '7500'
+2026-01-20 07:01:52,872 - INFO - Search '6400': 84 results
+2026-01-20 07:01:53,048 - INFO - Search '7500': 50 results
+2026-01-20 07:01:54,378 - INFO - [56/125] Searching: '6500'
+2026-01-20 07:01:54,549 - INFO - [67/125] Searching: '7600'
+2026-01-20 07:01:56,737 - INFO - Search '6500': 69 results
+2026-01-20 07:01:56,867 - INFO - Search '7600': 26 results
+2026-01-20 07:01:58,239 - INFO - [57/125] Searching: '6600'
+2026-01-20 07:01:58,376 - INFO - [68/125] Searching: '7700'
+2026-01-20 07:02:00,515 - INFO - Search '6600': 58 results
+2026-01-20 07:02:00,592 - INFO - Search '7700': 39 results
+2026-01-20 07:02:02,023 - INFO - [58/125] Searching: '6700'
+2026-01-20 07:02:02,100 - INFO - [69/125] Searching: '7800'
+2026-01-20 07:02:04,246 - INFO - Search '6700': 51 results
+2026-01-20 07:02:04,331 - INFO - Search '7800': 23 results
+2026-01-20 07:02:05,757 - INFO - [59/125] Searching: '6800'
+2026-01-20 07:02:05,836 - INFO - [70/125] Searching: '7900'
+2026-01-20 07:02:07,918 - INFO - Search '7900': 39 results
+2026-01-20 07:02:07,918 - INFO - Progress: 70/125 patterns, 5909 unique projects
+2026-01-20 07:02:08,121 - INFO - Search '6800': 88 results
+2026-01-20 07:02:09,425 - INFO - [71/125] Searching: '8000'
+2026-01-20 07:02:09,627 - INFO - [60/125] Searching: '6900'
+2026-01-20 07:02:11,785 - INFO - Search '8000': 100 results
+2026-01-20 07:02:11,909 - INFO - Search '6900': 69 results
+2026-01-20 07:02:11,909 - INFO - Progress: 60/125 patterns, 5330 unique projects
+2026-01-20 07:02:13,292 - INFO - [72/125] Searching: '8100'
+2026-01-20 07:02:13,415 - INFO - [61/125] Searching: '7000'
+2026-01-20 07:02:15,325 - INFO - Search '8100': 59 results
+2026-01-20 07:02:15,611 - INFO - Search '7000': 76 results
+2026-01-20 07:02:16,840 - INFO - [73/125] Searching: '8200'
+2026-01-20 07:02:17,122 - INFO - [62/125] Searching: '7100'
+2026-01-20 07:02:19,052 - INFO - Search '8200': 22 results
+2026-01-20 07:02:19,258 - INFO - Search '7100': 76 results
+2026-01-20 07:02:20,561 - INFO - [74/125] Searching: '8300'
+2026-01-20 07:02:20,762 - INFO - [63/125] Searching: '7200'
+2026-01-20 07:02:22,826 - INFO - Search '8300': 23 results
+2026-01-20 07:02:23,050 - INFO - Search '7200': 54 results
+2026-01-20 07:02:24,343 - INFO - [75/125] Searching: '8400'
+2026-01-20 07:02:24,562 - INFO - [64/125] Searching: '7300'
+2026-01-20 07:02:26,820 - INFO - Search '8400': 28 results
+2026-01-20 07:02:26,934 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_75.json
+2026-01-20 07:02:28,449 - INFO - [76/125] Searching: '8500'
+2026-01-20 07:02:30,691 - INFO - Search '8500': 35 results
+2026-01-20 07:02:32,192 - INFO - [77/125] Searching: '8600'
+2026-01-20 07:02:42,204 - INFO - Search '7300': 64 results
+2026-01-20 07:02:43,706 - INFO - [65/125] Searching: '7400'
+2026-01-20 07:02:45,910 - INFO - Search '7400': 34 results
+2026-01-20 07:02:47,423 - INFO - [66/125] Searching: '7500'
+2026-01-20 07:02:49,666 - INFO - Search '7500': 50 results
+2026-01-20 07:02:49,853 - INFO - Search '8600': 40 results
+2026-01-20 07:02:51,172 - INFO - [67/125] Searching: '7600'
+2026-01-20 07:02:51,360 - INFO - [78/125] Searching: '8700'
+2026-01-20 07:02:53,251 - INFO - Search '8700': 30 results
+2026-01-20 07:02:54,752 - INFO - [79/125] Searching: '8800'
+2026-01-20 07:03:08,779 - INFO - Search '7600': 26 results
+2026-01-20 07:03:10,289 - INFO - [68/125] Searching: '7700'
+2026-01-20 07:03:12,322 - INFO - Search '7700': 39 results
+2026-01-20 07:03:12,423 - INFO - Search '8800': 35 results
+2026-01-20 07:03:13,831 - INFO - [69/125] Searching: '7800'
+2026-01-20 07:03:13,923 - INFO - [80/125] Searching: '8900'
+2026-01-20 07:03:16,174 - INFO - Search '8900': 31 results
+2026-01-20 07:03:16,174 - INFO - Progress: 80/125 patterns, 6294 unique projects
+2026-01-20 07:03:16,408 - INFO - Search '7800': 23 results
+2026-01-20 07:03:17,681 - INFO - [81/125] Searching: '9000'
+2026-01-20 07:03:17,914 - INFO - [70/125] Searching: '7900'
+2026-01-20 07:03:19,804 - INFO - Search '7900': 39 results
+2026-01-20 07:03:19,805 - INFO - Progress: 70/125 patterns, 5799 unique projects
+2026-01-20 07:03:19,932 - INFO - Search '9000': 24 results
+2026-01-20 07:03:21,312 - INFO - [71/125] Searching: '8000'
+2026-01-20 07:03:21,437 - INFO - [82/125] Searching: '9100'
+2026-01-20 07:03:23,498 - INFO - Search '8000': 100 results
+2026-01-20 07:03:23,696 - INFO - Search '9100': 16 results
+2026-01-20 07:03:25,007 - INFO - [72/125] Searching: '8100'
+2026-01-20 07:03:25,209 - INFO - [83/125] Searching: '9200'
+2026-01-20 07:03:27,059 - INFO - Search '8100': 59 results
+2026-01-20 07:03:27,227 - INFO - Search '9200': 38 results
+2026-01-20 07:03:28,564 - INFO - [73/125] Searching: '8200'
+2026-01-20 07:03:28,737 - INFO - [84/125] Searching: '9300'
+2026-01-20 07:03:30,442 - INFO - Search '8200': 22 results
+2026-01-20 07:03:31,198 - INFO - Search '9300': 21 results
+2026-01-20 07:03:31,953 - INFO - [74/125] Searching: '8300'
+2026-01-20 07:03:32,703 - INFO - [85/125] Searching: '9400'
+2026-01-20 07:03:33,843 - INFO - Search '8300': 23 results
+2026-01-20 07:03:35,349 - INFO - [75/125] Searching: '8400'
+2026-01-20 07:03:35,368 - INFO - Search '9400': 73 results
+2026-01-20 07:03:36,876 - INFO - [86/125] Searching: '9500'
+2026-01-20 07:03:37,578 - INFO - Search '8400': 28 results
+2026-01-20 07:03:37,654 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_75.json
+2026-01-20 07:03:38,748 - INFO - Search '9500': 17 results
+2026-01-20 07:03:39,158 - INFO - [76/125] Searching: '8500'
+2026-01-20 07:03:40,261 - INFO - [87/125] Searching: '9600'
+2026-01-20 07:03:40,996 - INFO - Search '8500': 35 results
+2026-01-20 07:03:42,478 - INFO - Search '9600': 45 results
+2026-01-20 07:03:42,503 - INFO - [77/125] Searching: '8600'
+2026-01-20 07:03:43,982 - INFO - [88/125] Searching: '9700'
+2026-01-20 07:03:44,369 - INFO - Search '8600': 40 results
+2026-01-20 07:03:45,884 - INFO - [78/125] Searching: '8700'
+2026-01-20 07:03:46,232 - INFO - Search '9700': 31 results
+2026-01-20 07:03:47,736 - INFO - [89/125] Searching: '9800'
+2026-01-20 07:03:48,103 - INFO - Search '8700': 30 results
+2026-01-20 07:03:49,607 - INFO - [79/125] Searching: '8800'
+2026-01-20 07:03:49,813 - INFO - Search '9800': 10 results
+2026-01-20 07:03:51,320 - INFO - [90/125] Searching: '9900'
+2026-01-20 07:03:51,842 - INFO - Search '8800': 35 results
+2026-01-20 07:03:53,344 - INFO - Search '9900': 47 results
+2026-01-20 07:03:53,344 - INFO - Progress: 90/125 patterns, 6605 unique projects
+2026-01-20 07:03:53,349 - INFO - [80/125] Searching: '8900'
+2026-01-20 07:03:54,846 - INFO - [91/125] Searching: 'Main'
+2026-01-20 07:03:55,574 - INFO - Search '8900': 31 results
+2026-01-20 07:03:55,574 - INFO - Progress: 80/125 patterns, 6184 unique projects
+2026-01-20 07:03:57,076 - INFO - [81/125] Searching: '9000'
+2026-01-20 07:03:57,174 - INFO - Search 'Main': 100 results
+2026-01-20 07:03:58,687 - INFO - [92/125] Searching: 'Oak '
+2026-01-20 07:03:59,128 - INFO - Search '9000': 24 results
+2026-01-20 07:04:00,643 - INFO - [82/125] Searching: '9100'
+2026-01-20 07:04:00,725 - INFO - Search 'Oak ': 100 results
+2026-01-20 07:04:02,233 - INFO - [93/125] Searching: 'Pine'
+2026-01-20 07:04:03,050 - INFO - Search '9100': 16 results
+2026-01-20 07:04:04,554 - INFO - [83/125] Searching: '9200'
+2026-01-20 07:04:04,590 - INFO - Search 'Pine': 100 results
+2026-01-20 07:04:06,096 - INFO - [94/125] Searching: 'Elm '
+2026-01-20 07:04:06,755 - INFO - Search '9200': 38 results
+2026-01-20 07:04:08,150 - INFO - Search 'Elm ': 21 results
+2026-01-20 07:04:08,270 - INFO - [84/125] Searching: '9300'
+2026-01-20 07:04:09,658 - INFO - [95/125] Searching: 'Park'
+2026-01-20 07:04:10,492 - INFO - Search '9300': 21 results
+2026-01-20 07:04:11,850 - INFO - Search 'Park': 100 results
+2026-01-20 07:04:11,994 - INFO - [85/125] Searching: '9400'
+2026-01-20 07:04:13,359 - INFO - [96/125] Searching: 'Lake'
+2026-01-20 07:04:14,270 - INFO - Search '9400': 73 results
+2026-01-20 07:04:15,346 - INFO - Search 'Lake': 100 results
+2026-01-20 07:04:15,781 - INFO - [86/125] Searching: '9500'
+2026-01-20 07:04:16,857 - INFO - [97/125] Searching: 'Hill'
+2026-01-20 07:04:18,129 - INFO - Search '9500': 17 results
+2026-01-20 07:04:19,230 - INFO - Search 'Hill': 100 results
+2026-01-20 07:04:19,644 - INFO - [87/125] Searching: '9600'
+2026-01-20 07:04:20,738 - INFO - [98/125] Searching: 'Wood'
+2026-01-20 07:04:21,757 - INFO - Search '9600': 45 results
+2026-01-20 07:04:22,987 - INFO - Search 'Wood': 100 results
+2026-01-20 07:04:23,266 - INFO - [88/125] Searching: '9700'
+2026-01-20 07:04:24,497 - INFO - [99/125] Searching: 'Spring'
+2026-01-20 07:04:25,678 - INFO - Search '9700': 31 results
+2026-01-20 07:04:27,181 - INFO - [89/125] Searching: '9800'
+2026-01-20 07:04:29,258 - INFO - Search '9800': 10 results
+2026-01-20 07:04:30,761 - INFO - [90/125] Searching: '9900'
+2026-01-20 07:04:33,045 - INFO - Search '9900': 47 results
+2026-01-20 07:04:33,046 - INFO - Progress: 90/125 patterns, 6495 unique projects
+2026-01-20 07:04:34,559 - INFO - [91/125] Searching: 'Main'
+2026-01-20 07:04:36,939 - INFO - Search 'Main': 100 results
+2026-01-20 07:04:38,440 - INFO - [92/125] Searching: 'Oak '
+2026-01-20 07:04:40,845 - INFO - Search 'Oak ': 100 results
+2026-01-20 07:04:42,306 - INFO - Search 'Spring': 100 results
+2026-01-20 07:04:42,360 - INFO - [93/125] Searching: 'Pine'
+2026-01-20 07:04:43,815 - INFO - [100/125] Searching: 'Cedar'
+2026-01-20 07:04:46,112 - INFO - Search 'Cedar': 100 results
+2026-01-20 07:04:46,112 - INFO - Progress: 100/125 patterns, 7223 unique projects
+2026-01-20 07:04:46,198 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_100.json
+2026-01-20 07:04:47,712 - INFO - [101/125] Searching: 'Maple'
+2026-01-20 07:04:50,055 - INFO - Search 'Maple': 87 results
+2026-01-20 07:04:51,561 - INFO - [102/125] Searching: 'River'
+2026-01-20 07:05:00,253 - INFO - Search 'Pine': 100 results
+2026-01-20 07:05:01,765 - INFO - [94/125] Searching: 'Elm '
+2026-01-20 07:05:04,194 - INFO - Search 'Elm ': 21 results
+2026-01-20 07:05:05,697 - INFO - [95/125] Searching: 'Park'
+2026-01-20 07:05:08,022 - INFO - Search 'Park': 100 results
+2026-01-20 07:05:09,250 - INFO - Search 'River': 100 results
+2026-01-20 07:05:09,523 - INFO - [96/125] Searching: 'Lake'
+2026-01-20 07:05:10,755 - INFO - [103/125] Searching: 'Creek'
+2026-01-20 07:05:12,121 - INFO - Search 'Lake': 100 results
+2026-01-20 07:05:12,858 - INFO - Search 'Creek': 100 results
+2026-01-20 07:05:13,630 - INFO - [97/125] Searching: 'Hill'
+2026-01-20 07:05:14,362 - INFO - [104/125] Searching: 'Valley'
+2026-01-20 07:05:16,209 - INFO - Search 'Hill': 100 results
+2026-01-20 07:05:17,725 - INFO - [98/125] Searching: 'Wood'
+2026-01-20 07:05:20,064 - INFO - Search 'Wood': 100 results
+2026-01-20 07:05:21,578 - INFO - [99/125] Searching: 'Spring'
+2026-01-20 07:05:24,073 - INFO - Search 'Spring': 100 results
+2026-01-20 07:05:25,588 - INFO - [100/125] Searching: 'Cedar'
+2026-01-20 07:05:27,985 - INFO - Search 'Cedar': 100 results
+2026-01-20 07:05:27,985 - INFO - Progress: 100/125 patterns, 7116 unique projects
+2026-01-20 07:05:28,064 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_100.json
+2026-01-20 07:05:29,569 - INFO - [101/125] Searching: 'Maple'
+2026-01-20 07:05:32,051 - INFO - Search 'Maple': 87 results
+2026-01-20 07:05:32,070 - INFO - Search 'Valley': 100 results
+2026-01-20 07:05:33,555 - INFO - [102/125] Searching: 'River'
+2026-01-20 07:05:33,585 - INFO - [105/125] Searching: 'Ridge'
+2026-01-20 07:05:35,674 - INFO - Search 'River': 100 results
+2026-01-20 07:05:35,683 - INFO - Search 'Ridge': 100 results
+2026-01-20 07:05:37,189 - INFO - [106/125] Searching: 'septic'
+2026-01-20 07:05:37,189 - INFO - [103/125] Searching: 'Creek'
+2026-01-20 07:05:39,491 - INFO - Search 'Creek': 100 results
+2026-01-20 07:05:39,738 - INFO - Search 'septic': 100 results
+2026-01-20 07:05:40,998 - INFO - [104/125] Searching: 'Valley'
+2026-01-20 07:05:41,249 - INFO - [107/125] Searching: 'sewer'
+2026-01-20 07:05:43,313 - INFO - Search 'Valley': 100 results
+2026-01-20 07:05:43,424 - INFO - Search 'sewer': 26 results
+2026-01-20 07:05:44,818 - INFO - [105/125] Searching: 'Ridge'
+2026-01-20 07:05:44,926 - INFO - [108/125] Searching: 'plumb'
+2026-01-20 07:05:47,121 - INFO - Search 'plumb': 8 results
+2026-01-20 07:05:47,418 - INFO - Search 'Ridge': 100 results
+2026-01-20 07:05:48,624 - INFO - [109/125] Searching: 'drain'
+2026-01-20 07:05:48,923 - INFO - [106/125] Searching: 'septic'
+2026-01-20 07:05:50,697 - INFO - Search 'drain': 24 results
+2026-01-20 07:05:51,061 - INFO - Search 'septic': 100 results
+2026-01-20 07:05:52,207 - INFO - [110/125] Searching: 'tank'
+2026-01-20 07:05:52,566 - INFO - [107/125] Searching: 'sewer'
+2026-01-20 07:05:54,405 - INFO - Search 'tank': 32 results
+2026-01-20 07:05:54,405 - INFO - Progress: 110/125 patterns, 7668 unique projects
+2026-01-20 07:05:54,542 - INFO - Search 'sewer': 26 results
+2026-01-20 07:05:55,908 - INFO - [111/125] Searching: 'pump'
+2026-01-20 07:05:56,051 - INFO - [108/125] Searching: 'plumb'
+2026-01-20 07:05:58,098 - INFO - Search 'plumb': 8 results
+2026-01-20 07:05:58,169 - INFO - Search 'pump': 52 results
+2026-01-20 07:05:59,601 - INFO - [109/125] Searching: 'drain'
+2026-01-20 07:05:59,679 - INFO - [112/125] Searching: 'Smith'
+2026-01-20 07:06:01,856 - INFO - Search 'drain': 24 results
+2026-01-20 07:06:02,085 - INFO - Search 'Smith': 100 results
+2026-01-20 07:06:03,367 - INFO - [110/125] Searching: 'tank'
+2026-01-20 07:06:03,599 - INFO - [113/125] Searching: 'Johns'
+2026-01-20 07:06:05,715 - INFO - Search 'tank': 32 results
+2026-01-20 07:06:05,715 - INFO - Progress: 110/125 patterns, 7561 unique projects
+2026-01-20 07:06:05,985 - INFO - Search 'Johns': 100 results
+2026-01-20 07:06:07,222 - INFO - [111/125] Searching: 'pump'
+2026-01-20 07:06:07,485 - INFO - [114/125] Searching: 'Willi'
+2026-01-20 07:06:09,369 - INFO - Search 'pump': 52 results
+2026-01-20 07:06:10,030 - INFO - Search 'Willi': 100 results
+2026-01-20 07:06:10,880 - INFO - [112/125] Searching: 'Smith'
+2026-01-20 07:06:11,537 - INFO - [115/125] Searching: 'Brown'
+2026-01-20 07:06:12,901 - INFO - Search 'Smith': 100 results
+2026-01-20 07:06:13,632 - INFO - Search 'Brown': 62 results
+2026-01-20 07:06:14,413 - INFO - [113/125] Searching: 'Johns'
+2026-01-20 07:06:15,143 - INFO - [116/125] Searching: 'Jones'
+2026-01-20 07:06:16,670 - INFO - Search 'Johns': 100 results
+2026-01-20 07:06:17,216 - INFO - Search 'Jones': 78 results
+2026-01-20 07:06:18,184 - INFO - [114/125] Searching: 'Willi'
+2026-01-20 07:06:18,727 - INFO - [117/125] Searching: 'Davis'
+2026-01-20 07:06:20,478 - INFO - Search 'Willi': 100 results
+2026-01-20 07:06:21,059 - INFO - Search 'Davis': 100 results
+2026-01-20 07:06:21,981 - INFO - [115/125] Searching: 'Brown'
+2026-01-20 07:06:22,559 - INFO - [118/125] Searching: 'Miller'
+2026-01-20 07:06:24,147 - INFO - Search 'Brown': 62 results
+2026-01-20 07:06:24,732 - INFO - Search 'Miller': 45 results
+2026-01-20 07:06:25,657 - INFO - [116/125] Searching: 'Jones'
+2026-01-20 07:06:26,248 - INFO - [119/125] Searching: '2024'
+2026-01-20 07:06:28,380 - INFO - Search 'Jones': 78 results
+2026-01-20 07:06:28,427 - INFO - Search '2024': 100 results
+2026-01-20 07:06:29,891 - INFO - [117/125] Searching: 'Davis'
+2026-01-20 07:06:29,938 - INFO - [120/125] Searching: '2025'
+2026-01-20 07:06:31,864 - INFO - Search 'Davis': 100 results
+2026-01-20 07:06:32,219 - INFO - Search '2025': 100 results
+2026-01-20 07:06:32,219 - INFO - Progress: 120/125 patterns, 8268 unique projects
+2026-01-20 07:06:33,375 - INFO - [118/125] Searching: 'Miller'
+2026-01-20 07:06:33,731 - INFO - [121/125] Searching: '2026'
+2026-01-20 07:06:35,552 - INFO - Search 'Miller': 45 results
+2026-01-20 07:06:35,806 - INFO - Search '2026': 100 results
+2026-01-20 07:06:37,067 - INFO - [119/125] Searching: '2024'
+2026-01-20 07:06:37,318 - INFO - [122/125] Searching: '2023'
+2026-01-20 07:06:39,369 - INFO - Search '2024': 100 results
+2026-01-20 07:06:39,601 - INFO - Search '2023': 100 results
+2026-01-20 07:06:40,876 - INFO - [120/125] Searching: '2025'
+2026-01-20 07:06:41,109 - INFO - [123/125] Searching: '2022'
+2026-01-20 07:06:43,278 - INFO - Search '2025': 100 results
+2026-01-20 07:06:43,278 - INFO - Progress: 120/125 patterns, 8179 unique projects
+2026-01-20 07:06:43,298 - INFO - Search '2022': 100 results
+2026-01-20 07:06:44,788 - INFO - [121/125] Searching: '2026'
+2026-01-20 07:06:44,803 - INFO - [124/125] Searching: '2021'
+2026-01-20 07:06:46,938 - INFO - Search '2026': 100 results
+2026-01-20 07:06:46,954 - INFO - Search '2021': 100 results
+2026-01-20 07:06:48,444 - INFO - [122/125] Searching: '2023'
+2026-01-20 07:06:48,460 - INFO - [125/125] Searching: '2020'
+2026-01-20 07:06:50,722 - INFO - Search '2020': 100 results
+2026-01-20 07:06:50,757 - INFO - Search '2023': 100 results
+2026-01-20 07:06:50,814 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_125.json
+2026-01-20 07:06:52,260 - INFO - [123/125] Searching: '2022'
+2026-01-20 07:06:52,464 - INFO - ============================================================
+2026-01-20 07:06:52,464 - INFO - COMPLETE! 8494 unique projects saved to C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_projects_all.json
+2026-01-20 07:06:52,464 - INFO - ============================================================
+2026-01-20 07:06:54,510 - INFO - Search '2022': 100 results
+2026-01-20 07:06:56,015 - INFO - [124/125] Searching: '2021'
+2026-01-20 07:06:58,311 - INFO - Search '2021': 100 results
+2026-01-20 07:06:59,822 - INFO - [125/125] Searching: '2020'
+2026-01-20 07:07:02,239 - INFO - Search '2020': 100 results
+2026-01-20 07:07:02,371 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_125.json
+2026-01-20 07:07:03,970 - INFO - ============================================================
+2026-01-20 07:07:03,970 - INFO - COMPLETE! 8408 unique projects saved to C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_projects_all.json
+2026-01-20 07:07:03,971 - INFO - ============================================================
+2026-01-20 07:30:51,994 - INFO - ============================================================
+2026-01-20 07:30:51,994 - INFO - WILLIAMSON COUNTY IDT PLANS SCRAPER
+2026-01-20 07:30:51,994 - INFO - ============================================================
+2026-01-20 07:30:51,994 - INFO - ============================================================
+2026-01-20 07:30:51,994 - INFO - TESTING WILLIAMSON IDT PLANS API ACCESS
+2026-01-20 07:30:51,994 - INFO - ============================================================
+2026-01-20 07:30:51,994 - INFO - Using proxy: dc.decodo.com:10001
+2026-01-20 07:30:54,779 - INFO - Search 'septic': 100 results
+2026-01-20 07:30:54,780 - INFO - SUCCESS! Found 100 results for 'septic'
+2026-01-20 07:30:54,780 - INFO -   Sample: {"id": "/secure/project/?projectid=1814300", "value": " 1518 LURAH LANE Lot 3 Sawyers Creek Septic", "label": " 1518 LURAH LANE Lot 3 Sawyers Creek Septic ( Williamson County (Unincorporated Areas), TN) - 7/28/25"}...
+2026-01-20 07:30:54,781 - INFO - API access confirmed, starting full scrape...
+2026-01-20 07:30:54,781 - INFO - ============================================================
+2026-01-20 07:30:54,781 - INFO - SCRAPING WILLIAMSON COUNTY PROJECTS
+2026-01-20 07:30:54,781 - INFO - ============================================================
+2026-01-20 07:30:54,781 - INFO - [1/330] Searching: '1000'
+2026-01-20 07:30:56,946 - INFO - Search '1000': 100 results
+2026-01-20 07:30:58,457 - INFO - [2/330] Searching: '1050'
+2026-01-20 07:31:01,104 - INFO - Search '1050': 89 results
+2026-01-20 07:31:02,606 - INFO - [3/330] Searching: '1100'
+2026-01-20 07:31:04,757 - INFO - Search '1100': 100 results
+2026-01-20 07:31:06,258 - INFO - [4/330] Searching: '1150'
+2026-01-20 07:31:08,521 - INFO - Search '1150': 39 results
+2026-01-20 07:31:10,032 - INFO - [5/330] Searching: '1200'
+2026-01-20 07:31:12,372 - INFO - Search '1200': 100 results
+2026-01-20 07:31:13,876 - INFO - [6/330] Searching: '1250'
+2026-01-20 07:31:16,009 - INFO - Search '1250': 60 results
+2026-01-20 07:31:17,522 - INFO - [7/330] Searching: '1300'
+2026-01-20 07:31:19,809 - INFO - Search '1300': 100 results
+2026-01-20 07:31:21,317 - INFO - [8/330] Searching: '1350'
+2026-01-20 07:31:23,529 - INFO - Search '1350': 34 results
+2026-01-20 07:31:25,031 - INFO - [9/330] Searching: '1400'
+2026-01-20 07:31:27,382 - INFO - Search '1400': 100 results
+2026-01-20 07:31:28,886 - INFO - [10/330] Searching: '1450'
+2026-01-20 07:31:31,130 - INFO - Search '1450': 48 results
+2026-01-20 07:31:31,131 - INFO - Progress: 10/330 patterns, 758 unique projects
+2026-01-20 07:31:32,633 - INFO - [11/330] Searching: '1500'
+2026-01-20 07:31:35,022 - INFO - Search '1500': 100 results
+2026-01-20 07:31:36,533 - INFO - [12/330] Searching: '1550'
+2026-01-20 07:31:38,545 - INFO - Search '1550': 22 results
+2026-01-20 07:31:40,059 - INFO - [13/330] Searching: '1600'
+2026-01-20 07:31:42,008 - INFO - Search '1600': 100 results
+2026-01-20 07:31:43,520 - INFO - [14/330] Searching: '1650'
+2026-01-20 07:31:45,733 - INFO - Search '1650': 12 results
+2026-01-20 07:31:47,238 - INFO - [15/330] Searching: '1700'
+2026-01-20 07:31:49,593 - INFO - Search '1700': 100 results
+2026-01-20 07:31:51,107 - INFO - [16/330] Searching: '1750'
+2026-01-20 07:31:53,344 - INFO - Search '1750': 31 results
+2026-01-20 07:31:54,846 - INFO - [17/330] Searching: '1800'
+2026-01-20 07:31:57,391 - INFO - Search '1800': 100 results
+2026-01-20 07:31:58,893 - INFO - [18/330] Searching: '1850'
+2026-01-20 07:32:01,198 - INFO - Search '1850': 28 results
+2026-01-20 07:32:02,705 - INFO - [19/330] Searching: '1900'
+2026-01-20 07:32:05,063 - INFO - Search '1900': 100 results
+2026-01-20 07:32:06,578 - INFO - [20/330] Searching: '1950'
+2026-01-20 07:32:08,599 - INFO - Search '1950': 11 results
+2026-01-20 07:32:08,599 - INFO - Progress: 20/330 patterns, 1345 unique projects
+2026-01-20 07:32:10,112 - INFO - [21/330] Searching: '2000'
+2026-01-20 07:32:12,434 - INFO - Search '2000': 100 results
+2026-01-20 07:32:13,943 - INFO - [22/330] Searching: '2050'
+2026-01-20 07:32:15,958 - INFO - Search '2050': 18 results
+2026-01-20 07:32:17,468 - INFO - [23/330] Searching: '2100'
+2026-01-20 07:32:19,817 - INFO - Search '2100': 100 results
+2026-01-20 07:32:21,323 - INFO - [24/330] Searching: '2150'
+2026-01-20 07:32:23,373 - INFO - Search '2150': 8 results
+2026-01-20 07:32:24,877 - INFO - [25/330] Searching: '2200'
+2026-01-20 07:32:27,033 - INFO - Search '2200': 100 results
+2026-01-20 07:32:27,054 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_25.json
+2026-01-20 07:32:28,564 - INFO - [26/330] Searching: '2250'
+2026-01-20 07:32:30,762 - INFO - Search '2250': 8 results
+2026-01-20 07:32:32,277 - INFO - [27/330] Searching: '2300'
+2026-01-20 07:32:34,415 - INFO - Search '2300': 100 results
+2026-01-20 07:32:35,919 - INFO - [28/330] Searching: '2350'
+2026-01-20 07:32:38,269 - INFO - Search '2350': 4 results
+2026-01-20 07:32:39,778 - INFO - [29/330] Searching: '2400'
+2026-01-20 07:32:42,096 - INFO - Search '2400': 100 results
+2026-01-20 07:32:43,609 - INFO - [30/330] Searching: '2450'
+2026-01-20 07:32:45,839 - INFO - Search '2450': 8 results
+2026-01-20 07:32:45,839 - INFO - Progress: 30/330 patterns, 1880 unique projects
+2026-01-20 07:32:47,341 - INFO - [31/330] Searching: '2500'
+2026-01-20 07:32:49,658 - INFO - Search '2500': 100 results
+2026-01-20 07:32:51,173 - INFO - [32/330] Searching: '2550'
+2026-01-20 07:32:53,545 - INFO - Search '2550': 4 results
+2026-01-20 07:32:55,051 - INFO - [33/330] Searching: '2600'
+2026-01-20 07:32:57,510 - INFO - Search '2600': 100 results
+2026-01-20 07:32:59,016 - INFO - [34/330] Searching: '2650'
+2026-01-20 07:33:01,312 - INFO - Search '2650': 11 results
+2026-01-20 07:33:02,817 - INFO - [35/330] Searching: '2700'
+2026-01-20 07:33:04,965 - INFO - Search '2700': 100 results
+2026-01-20 07:33:06,478 - INFO - [36/330] Searching: '2750'
+2026-01-20 07:33:08,726 - INFO - Search '2750': 7 results
+2026-01-20 07:33:10,233 - INFO - [37/330] Searching: '2800'
+2026-01-20 07:33:12,548 - INFO - Search '2800': 100 results
+2026-01-20 07:33:14,050 - INFO - [38/330] Searching: '2850'
+2026-01-20 07:33:16,564 - INFO - Search '2850': 5 results
+2026-01-20 07:33:18,066 - INFO - [39/330] Searching: '2900'
+2026-01-20 07:33:20,410 - INFO - Search '2900': 100 results
+2026-01-20 07:33:21,915 - INFO - [40/330] Searching: '2950'
+2026-01-20 07:33:24,141 - INFO - Search '2950': 11 results
+2026-01-20 07:33:24,141 - INFO - Progress: 40/330 patterns, 2409 unique projects
+2026-01-20 07:33:25,647 - INFO - [41/330] Searching: '3000'
+2026-01-20 07:33:28,268 - INFO - Search '3000': 100 results
+2026-01-20 07:33:29,775 - INFO - [42/330] Searching: '3050'
+2026-01-20 07:33:31,991 - INFO - Search '3050': 8 results
+2026-01-20 07:33:33,501 - INFO - [43/330] Searching: '3100'
+2026-01-20 07:33:35,481 - INFO - Search '3100': 100 results
+2026-01-20 07:33:36,993 - INFO - [44/330] Searching: '3150'
+2026-01-20 07:33:39,210 - INFO - Search '3150': 5 results
+2026-01-20 07:33:40,718 - INFO - [45/330] Searching: '3200'
+2026-01-20 07:33:43,154 - INFO - Search '3200': 100 results
+2026-01-20 07:33:44,655 - INFO - [46/330] Searching: '3250'
+2026-01-20 07:33:46,841 - INFO - Search '3250': 4 results
+2026-01-20 07:33:48,350 - INFO - [47/330] Searching: '3300'
+2026-01-20 07:33:50,698 - INFO - Search '3300': 100 results
+2026-01-20 07:33:52,200 - INFO - [48/330] Searching: '3350'
+2026-01-20 07:33:54,406 - INFO - Search '3350': 6 results
+2026-01-20 07:33:55,920 - INFO - [49/330] Searching: '3400'
+2026-01-20 07:33:58,413 - INFO - Search '3400': 100 results
+2026-01-20 07:33:59,923 - INFO - [50/330] Searching: '3450'
+2026-01-20 07:34:02,330 - INFO - Search '3450': 1 results
+2026-01-20 07:34:02,330 - INFO - Progress: 50/330 patterns, 2907 unique projects
+2026-01-20 07:34:02,366 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_50.json
+2026-01-20 07:34:03,876 - INFO - [51/330] Searching: '3500'
+2026-01-20 07:34:05,975 - INFO - Search '3500': 100 results
+2026-01-20 07:34:07,477 - INFO - [52/330] Searching: '3550'
+2026-01-20 07:34:09,318 - INFO - Search '3550': 18 results
+2026-01-20 07:34:10,822 - INFO - [53/330] Searching: '3600'
+2026-01-20 07:34:13,055 - INFO - Search '3600': 100 results
+2026-01-20 07:34:14,558 - INFO - [54/330] Searching: '3650'
+2026-01-20 07:34:16,721 - INFO - Search '3650': 3 results
+2026-01-20 07:34:18,234 - INFO - [55/330] Searching: '3700'
+2026-01-20 07:34:20,460 - INFO - Search '3700': 100 results
+2026-01-20 07:34:21,964 - INFO - [56/330] Searching: '3750'
+2026-01-20 07:34:24,125 - INFO - Search '3750': 7 results
+2026-01-20 07:34:25,627 - INFO - [57/330] Searching: '3800'
+2026-01-20 07:34:27,919 - INFO - Search '3800': 100 results
+2026-01-20 07:34:29,430 - INFO - [58/330] Searching: '3850'
+2026-01-20 07:34:31,436 - INFO - Search '3850': 7 results
+2026-01-20 07:34:32,951 - INFO - [59/330] Searching: '3900'
+2026-01-20 07:34:35,023 - INFO - Search '3900': 100 results
+2026-01-20 07:34:36,524 - INFO - [60/330] Searching: '3950'
+2026-01-20 07:34:38,515 - INFO - Search '3950': 1 results
+2026-01-20 07:34:38,516 - INFO - Progress: 60/330 patterns, 3421 unique projects
+2026-01-20 07:34:40,017 - INFO - [61/330] Searching: '4000'
+2026-01-20 07:34:42,121 - INFO - Search '4000': 100 results
+2026-01-20 07:34:43,628 - INFO - [62/330] Searching: '4050'
+2026-01-20 07:34:45,622 - INFO - Search '4050': 9 results
+2026-01-20 07:34:47,130 - INFO - [63/330] Searching: '4100'
+2026-01-20 07:34:49,377 - INFO - Search '4100': 100 results
+2026-01-20 07:34:50,886 - INFO - [64/330] Searching: '4150'
+2026-01-20 07:34:53,026 - INFO - Search '4150': 5 results
+2026-01-20 07:34:54,536 - INFO - [65/330] Searching: '4200'
+2026-01-20 07:34:56,895 - INFO - Search '4200': 100 results
+2026-01-20 07:34:58,411 - INFO - [66/330] Searching: '4250'
+2026-01-20 07:35:00,752 - INFO - Search '4250': 13 results
+2026-01-20 07:35:02,262 - INFO - [67/330] Searching: '4300'
+2026-01-20 07:35:04,521 - INFO - Search '4300': 100 results
+2026-01-20 07:35:06,035 - INFO - [68/330] Searching: '4350'
+2026-01-20 07:35:08,199 - INFO - Search '4350': 1 results
+2026-01-20 07:35:09,704 - INFO - [69/330] Searching: '4400'
+2026-01-20 07:35:12,011 - INFO - Search '4400': 100 results
+2026-01-20 07:35:13,526 - INFO - [70/330] Searching: '4450'
+2026-01-20 07:35:15,517 - INFO - Search '4450': 16 results
+2026-01-20 07:35:15,517 - INFO - Progress: 70/330 patterns, 3963 unique projects
+2026-01-20 07:35:17,018 - INFO - [71/330] Searching: '4500'
+2026-01-20 07:35:19,647 - INFO - Search '4500': 100 results
+2026-01-20 07:35:21,151 - INFO - [72/330] Searching: '4550'
+2026-01-20 07:35:23,325 - INFO - Search '4550': 8 results
+2026-01-20 07:35:24,833 - INFO - [73/330] Searching: '4600'
+2026-01-20 07:35:27,115 - INFO - Search '4600': 100 results
+2026-01-20 07:35:28,620 - INFO - [74/330] Searching: '4650'
+2026-01-20 07:35:30,856 - INFO - Search '4650': 6 results
+2026-01-20 07:35:32,371 - INFO - [75/330] Searching: '4700'
+2026-01-20 07:35:34,712 - INFO - Search '4700': 100 results
+2026-01-20 07:35:34,759 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_75.json
+2026-01-20 07:35:36,273 - INFO - [76/330] Searching: '4750'
+2026-01-20 07:35:38,425 - INFO - Search '4750': 17 results
+2026-01-20 07:35:39,933 - INFO - [77/330] Searching: '4800'
+2026-01-20 07:35:42,213 - INFO - Search '4800': 100 results
+2026-01-20 07:35:43,720 - INFO - [78/330] Searching: '4850'
+2026-01-20 07:35:45,760 - INFO - Search '4850': 17 results
+2026-01-20 07:35:47,268 - INFO - [79/330] Searching: '4900'
+2026-01-20 07:35:49,531 - INFO - Search '4900': 100 results
+2026-01-20 07:35:51,035 - INFO - [80/330] Searching: '4950'
+2026-01-20 07:35:53,282 - INFO - Search '4950': 18 results
+2026-01-20 07:35:53,282 - INFO - Progress: 80/330 patterns, 4511 unique projects
+2026-01-20 07:35:54,791 - INFO - [81/330] Searching: '5000'
+2026-01-20 07:35:56,900 - INFO - Search '5000': 100 results
+2026-01-20 07:35:58,409 - INFO - [82/330] Searching: '5050'
+2026-01-20 07:36:29,303 - ERROR - Search '5050' error: 
+2026-01-20 07:36:30,813 - INFO - [83/330] Searching: '5100'
+2026-01-20 07:36:48,465 - INFO - Search '5100': 100 results
+2026-01-20 07:36:49,978 - INFO - [84/330] Searching: '5150'
+2026-01-20 07:36:52,187 - INFO - Search '5150': 0 results
+2026-01-20 07:36:53,697 - INFO - [85/330] Searching: '5200'
+2026-01-20 07:36:56,275 - INFO - Search '5200': 100 results
+2026-01-20 07:36:57,785 - INFO - [86/330] Searching: '5250'
+2026-01-20 07:36:59,995 - INFO - Search '5250': 5 results
+2026-01-20 07:37:01,505 - INFO - [87/330] Searching: '5300'
+2026-01-20 07:37:03,961 - INFO - Search '5300': 89 results
+2026-01-20 07:37:05,468 - INFO - [88/330] Searching: '5350'
+2026-01-20 07:37:07,939 - INFO - Search '5350': 11 results
+2026-01-20 07:37:09,441 - INFO - [89/330] Searching: '5400'
+2026-01-20 07:37:11,625 - INFO - Search '5400': 100 results
+2026-01-20 07:37:13,140 - INFO - [90/330] Searching: '5450'
+2026-01-20 07:37:15,539 - INFO - Search '5450': 14 results
+2026-01-20 07:37:15,539 - INFO - Progress: 90/330 patterns, 5001 unique projects
+2026-01-20 07:37:17,040 - INFO - [91/330] Searching: '5500'
+2026-01-20 07:37:19,174 - INFO - Search '5500': 84 results
+2026-01-20 07:37:20,681 - INFO - [92/330] Searching: '5550'
+2026-01-20 07:37:22,999 - INFO - Search '5550': 17 results
+2026-01-20 07:37:24,514 - INFO - [93/330] Searching: '5600'
+2026-01-20 07:37:26,807 - INFO - Search '5600': 83 results
+2026-01-20 07:37:28,321 - INFO - [94/330] Searching: '5650'
+2026-01-20 07:37:30,510 - INFO - Search '5650': 10 results
+2026-01-20 07:37:32,018 - INFO - [95/330] Searching: '5700'
+2026-01-20 07:37:34,059 - INFO - Search '5700': 70 results
+2026-01-20 07:37:35,566 - INFO - [96/330] Searching: '5750'
+2026-01-20 07:37:37,800 - INFO - Search '5750': 27 results
+2026-01-20 07:37:39,315 - INFO - [97/330] Searching: '5800'
+2026-01-20 07:37:41,636 - INFO - Search '5800': 75 results
+2026-01-20 07:37:43,149 - INFO - [98/330] Searching: '5850'
+2026-01-20 07:37:46,042 - INFO - Search '5850': 12 results
+2026-01-20 07:37:47,545 - INFO - [99/330] Searching: '5900'
+2026-01-20 07:37:49,862 - INFO - Search '5900': 92 results
+2026-01-20 07:37:51,378 - INFO - [100/330] Searching: '5950'
+2026-01-20 07:37:53,419 - INFO - Search '5950': 21 results
+2026-01-20 07:37:53,419 - INFO - Progress: 100/330 patterns, 5475 unique projects
+2026-01-20 07:37:53,504 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_100.json
+2026-01-20 07:37:55,013 - INFO - [101/330] Searching: '6000'
+2026-01-20 07:37:57,368 - INFO - Search '6000': 92 results
+2026-01-20 07:37:58,884 - INFO - [102/330] Searching: '6050'
+2026-01-20 07:38:01,365 - INFO - Search '6050': 100 results
+2026-01-20 07:38:02,873 - INFO - [103/330] Searching: '6100'
+2026-01-20 07:38:05,465 - INFO - Search '6100': 58 results
+2026-01-20 07:38:06,979 - INFO - [104/330] Searching: '6150'
+2026-01-20 07:38:09,149 - INFO - Search '6150': 5 results
+2026-01-20 07:38:10,663 - INFO - [105/330] Searching: '6200'
+2026-01-20 07:38:12,951 - INFO - Search '6200': 100 results
+2026-01-20 07:38:14,460 - INFO - [106/330] Searching: '6250'
+2026-01-20 07:38:16,644 - INFO - Search '6250': 0 results
+2026-01-20 07:38:18,153 - INFO - [107/330] Searching: '6300'
+2026-01-20 07:38:20,373 - INFO - Search '6300': 79 results
+2026-01-20 07:38:21,883 - INFO - [108/330] Searching: '6350'
+2026-01-20 07:38:24,085 - INFO - Search '6350': 0 results
+2026-01-20 07:38:25,599 - INFO - [109/330] Searching: '6400'
+2026-01-20 07:38:27,893 - INFO - Search '6400': 84 results
+2026-01-20 07:38:29,407 - INFO - [110/330] Searching: '6450'
+2026-01-20 07:38:31,599 - INFO - Search '6450': 8 results
+2026-01-20 07:38:31,600 - INFO - Progress: 110/330 patterns, 5967 unique projects
+2026-01-20 07:38:33,108 - INFO - [111/330] Searching: '6500'
+2026-01-20 07:38:35,208 - INFO - Search '6500': 69 results
+2026-01-20 07:38:36,717 - INFO - [112/330] Searching: '6550'
+2026-01-20 07:38:38,936 - INFO - Search '6550': 5 results
+2026-01-20 07:38:40,439 - INFO - [113/330] Searching: '6600'
+2026-01-20 07:38:42,345 - INFO - Search '6600': 58 results
+2026-01-20 07:38:43,858 - INFO - [114/330] Searching: '6650'
+2026-01-20 07:38:46,030 - INFO - Search '6650': 3 results
+2026-01-20 07:38:47,532 - INFO - [115/330] Searching: '6700'
+2026-01-20 07:38:49,752 - INFO - Search '6700': 51 results
+2026-01-20 07:38:51,256 - INFO - [116/330] Searching: '6750'
+2026-01-20 07:38:53,479 - INFO - Search '6750': 2 results
+2026-01-20 07:38:54,990 - INFO - [117/330] Searching: '6800'
+2026-01-20 07:38:58,211 - INFO - Search '6800': 88 results
+2026-01-20 07:38:59,717 - INFO - [118/330] Searching: '6850'
+2026-01-20 07:39:02,001 - INFO - Search '6850': 1 results
+2026-01-20 07:39:03,507 - INFO - [119/330] Searching: '6900'
+2026-01-20 07:39:34,305 - ERROR - Search '6900' error: 
+2026-01-20 07:39:35,810 - INFO - [120/330] Searching: '6950'
+2026-01-20 07:39:38,051 - INFO - Search '6950': 0 results
+2026-01-20 07:39:38,051 - INFO - Progress: 120/330 patterns, 6238 unique projects
+2026-01-20 07:39:39,567 - INFO - [121/330] Searching: '7000'
+2026-01-20 07:39:57,238 - INFO - Search '7000': 76 results
+2026-01-20 07:39:58,740 - INFO - [122/330] Searching: '7050'
+2026-01-20 07:40:14,342 - ERROR - Search '7050' error: 503, message='Service Unavailable', url='http://OpusCLI:h+Mpb3hlLt1c5B1mpL@dc.decodo.com:10002'
+2026-01-20 07:40:15,854 - INFO - [123/330] Searching: '7100'
+2026-01-20 07:40:18,160 - INFO - Search '7100': 76 results
+2026-01-20 07:40:19,670 - INFO - [124/330] Searching: '7150'
+2026-01-20 07:40:21,911 - INFO - Search '7150': 22 results
+2026-01-20 07:40:23,427 - INFO - [125/330] Searching: '7200'
+2026-01-20 07:40:25,610 - INFO - Search '7200': 54 results
+2026-01-20 07:40:25,722 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_125.json
+2026-01-20 07:40:27,235 - INFO - [126/330] Searching: '7250'
+2026-01-20 07:40:29,387 - INFO - Search '7250': 3 results
+2026-01-20 07:40:30,891 - INFO - [127/330] Searching: '7300'
+2026-01-20 07:40:33,088 - INFO - Search '7300': 64 results
+2026-01-20 07:40:34,600 - INFO - [128/330] Searching: '7350'
+2026-01-20 07:40:36,751 - INFO - Search '7350': 4 results
+2026-01-20 07:40:38,252 - INFO - [129/330] Searching: '7400'
+2026-01-20 07:40:40,457 - INFO - Search '7400': 34 results
+2026-01-20 07:40:41,969 - INFO - [130/330] Searching: '7450'
+2026-01-20 07:40:44,100 - INFO - Search '7450': 12 results
+2026-01-20 07:40:44,101 - INFO - Progress: 130/330 patterns, 6575 unique projects
+2026-01-20 07:40:45,615 - INFO - [131/330] Searching: '7500'
+2026-01-20 07:40:47,487 - INFO - Search '7500': 50 results
+2026-01-20 07:40:48,991 - INFO - [132/330] Searching: '7550'
+2026-01-20 07:40:51,065 - INFO - Search '7550': 4 results
+2026-01-20 07:40:52,577 - INFO - [133/330] Searching: '7600'
+2026-01-20 07:40:54,852 - INFO - Search '7600': 26 results
+2026-01-20 07:40:56,363 - INFO - [134/330] Searching: '7650'
+2026-01-20 07:40:58,606 - INFO - Search '7650': 6 results
+2026-01-20 07:41:00,112 - INFO - [135/330] Searching: '7700'
+2026-01-20 07:41:17,512 - INFO - Search '7700': 39 results
+2026-01-20 07:41:19,019 - INFO - [136/330] Searching: '7750'
+2026-01-20 07:41:21,389 - INFO - Search '7750': 1 results
+2026-01-20 07:41:22,903 - INFO - [137/330] Searching: '7800'
+2026-01-20 07:41:25,240 - INFO - Search '7800': 23 results
+2026-01-20 07:41:26,741 - INFO - [138/330] Searching: '7850'
+2026-01-20 07:41:28,978 - INFO - Search '7850': 5 results
+2026-01-20 07:41:30,480 - INFO - [139/330] Searching: '7900'
+2026-01-20 07:41:32,777 - INFO - Search '7900': 39 results
+2026-01-20 07:41:34,286 - INFO - [140/330] Searching: '7950'
+2026-01-20 07:41:36,536 - INFO - Search '7950': 13 results
+2026-01-20 07:41:36,537 - INFO - Progress: 140/330 patterns, 6775 unique projects
+2026-01-20 07:41:38,050 - INFO - [141/330] Searching: '8000'
+2026-01-20 07:41:40,063 - INFO - Search '8000': 100 results
+2026-01-20 07:41:41,572 - INFO - [142/330] Searching: '8050'
+2026-01-20 07:41:43,851 - INFO - Search '8050': 0 results
+2026-01-20 07:41:45,356 - INFO - [143/330] Searching: '8100'
+2026-01-20 07:41:47,566 - INFO - Search '8100': 59 results
+2026-01-20 07:41:49,076 - INFO - [144/330] Searching: '8150'
+2026-01-20 07:41:51,318 - INFO - Search '8150': 7 results
+2026-01-20 07:41:52,822 - INFO - [145/330] Searching: '8200'
+2026-01-20 07:41:55,070 - INFO - Search '8200': 22 results
+2026-01-20 07:41:56,572 - INFO - [146/330] Searching: '8250'
+2026-01-20 07:41:58,599 - INFO - Search '8250': 11 results
+2026-01-20 07:42:00,111 - INFO - [147/330] Searching: '8300'
+2026-01-20 07:42:02,558 - INFO - Search '8300': 23 results
+2026-01-20 07:42:04,068 - INFO - [148/330] Searching: '8350'
+2026-01-20 07:42:06,287 - INFO - Search '8350': 3 results
+2026-01-20 07:42:07,792 - INFO - [149/330] Searching: '8400'
+2026-01-20 07:42:10,092 - INFO - Search '8400': 28 results
+2026-01-20 07:42:11,599 - INFO - [150/330] Searching: '8450'
+2026-01-20 07:42:13,813 - INFO - Search '8450': 1 results
+2026-01-20 07:42:13,813 - INFO - Progress: 150/330 patterns, 7015 unique projects
+2026-01-20 07:42:13,915 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_150.json
+2026-01-20 07:42:15,428 - INFO - [151/330] Searching: '8500'
+2026-01-20 07:42:17,653 - INFO - Search '8500': 35 results
+2026-01-20 07:42:19,166 - INFO - [152/330] Searching: '8550'
+2026-01-20 07:42:21,213 - INFO - Search '8550': 0 results
+2026-01-20 07:42:22,720 - INFO - [153/330] Searching: '8600'
+2026-01-20 07:42:24,889 - INFO - Search '8600': 40 results
+2026-01-20 07:42:26,392 - INFO - [154/330] Searching: '8650'
+2026-01-20 07:42:28,392 - INFO - Search '8650': 1 results
+2026-01-20 07:42:29,896 - INFO - [155/330] Searching: '8700'
+2026-01-20 07:42:31,745 - INFO - Search '8700': 30 results
+2026-01-20 07:42:33,254 - INFO - [156/330] Searching: '8750'
+2026-01-20 07:42:35,254 - INFO - Search '8750': 0 results
+2026-01-20 07:42:36,765 - INFO - [157/330] Searching: '8800'
+2026-01-20 07:42:38,943 - INFO - Search '8800': 35 results
+2026-01-20 07:42:40,450 - INFO - [158/330] Searching: '8850'
+2026-01-20 07:42:42,651 - INFO - Search '8850': 1 results
+2026-01-20 07:42:44,165 - INFO - [159/330] Searching: '8900'
+2026-01-20 07:42:46,431 - INFO - Search '8900': 31 results
+2026-01-20 07:42:47,947 - INFO - [160/330] Searching: '8950'
+2026-01-20 07:42:50,138 - INFO - Search '8950': 0 results
+2026-01-20 07:42:50,138 - INFO - Progress: 160/330 patterns, 7176 unique projects
+2026-01-20 07:42:51,646 - INFO - [161/330] Searching: '9000'
+2026-01-20 07:42:53,825 - INFO - Search '9000': 24 results
+2026-01-20 07:42:55,330 - INFO - [162/330] Searching: '9050'
+2026-01-20 07:42:57,306 - INFO - Search '9050': 5 results
+2026-01-20 07:42:58,808 - INFO - [163/330] Searching: '9100'
+2026-01-20 07:43:00,947 - INFO - Search '9100': 16 results
+2026-01-20 07:43:02,452 - INFO - [164/330] Searching: '9150'
+2026-01-20 07:43:04,659 - INFO - Search '9150': 6 results
+2026-01-20 07:43:06,162 - INFO - [165/330] Searching: '9200'
+2026-01-20 07:43:08,165 - INFO - Search '9200': 38 results
+2026-01-20 07:43:09,669 - INFO - [166/330] Searching: '9250'
+2026-01-20 07:43:11,853 - INFO - Search '9250': 3 results
+2026-01-20 07:43:13,356 - INFO - [167/330] Searching: '9300'
+2026-01-20 07:43:15,567 - INFO - Search '9300': 21 results
+2026-01-20 07:43:17,079 - INFO - [168/330] Searching: '9350'
+2026-01-20 07:43:19,257 - INFO - Search '9350': 2 results
+2026-01-20 07:43:20,763 - INFO - [169/330] Searching: '9400'
+2026-01-20 07:43:23,030 - INFO - Search '9400': 73 results
+2026-01-20 07:43:24,544 - INFO - [170/330] Searching: '9450'
+2026-01-20 07:43:26,539 - INFO - Search '9450': 1 results
+2026-01-20 07:43:26,539 - INFO - Progress: 170/330 patterns, 7359 unique projects
+2026-01-20 07:43:28,044 - INFO - [171/330] Searching: '9500'
+2026-01-20 07:43:30,205 - INFO - Search '9500': 17 results
+2026-01-20 07:43:31,714 - INFO - [172/330] Searching: '9550'
+2026-01-20 07:43:33,914 - INFO - Search '9550': 4 results
+2026-01-20 07:43:35,423 - INFO - [173/330] Searching: '9600'
+2026-01-20 07:43:37,594 - INFO - Search '9600': 45 results
+2026-01-20 07:43:39,103 - INFO - [174/330] Searching: '9650'
+2026-01-20 07:43:41,285 - INFO - Search '9650': 0 results
+2026-01-20 07:43:42,797 - INFO - [175/330] Searching: '9700'
+2026-01-20 07:43:45,013 - INFO - Search '9700': 31 results
+2026-01-20 07:43:45,094 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_175.json
+2026-01-20 07:43:46,598 - INFO - [176/330] Searching: '9750'
+2026-01-20 07:43:48,827 - INFO - Search '9750': 5 results
+2026-01-20 07:43:50,335 - INFO - [177/330] Searching: '9800'
+2026-01-20 07:43:52,434 - INFO - Search '9800': 10 results
+2026-01-20 07:43:53,943 - INFO - [178/330] Searching: '9850'
+2026-01-20 07:43:56,140 - INFO - Search '9850': 1 results
+2026-01-20 07:43:57,652 - INFO - [179/330] Searching: '9900'
+2026-01-20 07:43:59,891 - INFO - Search '9900': 47 results
+2026-01-20 07:44:01,400 - INFO - [180/330] Searching: '9950'
+2026-01-20 07:44:03,713 - INFO - Search '9950': 1 results
+2026-01-20 07:44:03,713 - INFO - Progress: 180/330 patterns, 7512 unique projects
+2026-01-20 07:44:05,222 - INFO - [181/330] Searching: 'Main'
+2026-01-20 07:44:07,787 - INFO - Search 'Main': 100 results
+2026-01-20 07:44:09,299 - INFO - [182/330] Searching: 'Oak '
+2026-01-20 07:44:11,470 - INFO - Search 'Oak ': 100 results
+2026-01-20 07:44:12,984 - INFO - [183/330] Searching: 'Pine'
+2026-01-20 07:44:15,251 - INFO - Search 'Pine': 100 results
+2026-01-20 07:44:16,763 - INFO - [184/330] Searching: 'Elm '
+2026-01-20 07:44:18,967 - INFO - Search 'Elm ': 21 results
+2026-01-20 07:44:20,475 - INFO - [185/330] Searching: 'Park'
+2026-01-20 07:44:22,976 - INFO - Search 'Park': 100 results
+2026-01-20 07:44:24,478 - INFO - [186/330] Searching: 'Lake'
+2026-01-20 07:44:26,579 - INFO - Search 'Lake': 100 results
+2026-01-20 07:44:28,082 - INFO - [187/330] Searching: 'Hill'
+2026-01-20 07:44:30,518 - INFO - Search 'Hill': 100 results
+2026-01-20 07:44:32,020 - INFO - [188/330] Searching: 'Wood'
+2026-01-20 07:44:34,167 - INFO - Search 'Wood': 100 results
+2026-01-20 07:44:35,682 - INFO - [189/330] Searching: 'Spring'
+2026-01-20 07:44:37,580 - INFO - Search 'Spring': 100 results
+2026-01-20 07:44:39,085 - INFO - [190/330] Searching: 'Cedar'
+2026-01-20 07:44:41,328 - INFO - Search 'Cedar': 100 results
+2026-01-20 07:44:41,328 - INFO - Progress: 190/330 patterns, 8121 unique projects
+2026-01-20 07:44:42,829 - INFO - [191/330] Searching: 'Maple'
+2026-01-20 07:45:13,304 - ERROR - Search 'Maple' error: 
+2026-01-20 07:45:14,812 - INFO - [192/330] Searching: 'River'
+2026-01-20 07:45:32,506 - INFO - Search 'River': 100 results
+2026-01-20 07:45:34,010 - INFO - [193/330] Searching: 'Creek'
+2026-01-20 07:45:36,509 - INFO - Search 'Creek': 100 results
+2026-01-20 07:45:38,023 - INFO - [194/330] Searching: 'Valley'
+2026-01-20 07:45:55,543 - INFO - Search 'Valley': 100 results
+2026-01-20 07:45:57,054 - INFO - [195/330] Searching: 'Ridge'
+2026-01-20 07:45:59,442 - INFO - Search 'Ridge': 100 results
+2026-01-20 07:46:00,949 - INFO - [196/330] Searching: 'Church'
+2026-01-20 07:46:03,491 - INFO - Search 'Church': 100 results
+2026-01-20 07:46:05,005 - INFO - [197/330] Searching: 'Mill '
+2026-01-20 07:46:07,636 - INFO - Search 'Mill ': 100 results
+2026-01-20 07:46:09,144 - INFO - [198/330] Searching: 'North'
+2026-01-20 07:46:11,529 - INFO - Search 'North': 100 results
+2026-01-20 07:46:13,033 - INFO - [199/330] Searching: 'South'
+2026-01-20 07:46:31,012 - INFO - Search 'South': 100 results
+2026-01-20 07:46:32,527 - INFO - [200/330] Searching: 'East'
+2026-01-20 07:47:03,303 - ERROR - Search 'East' error: 
+2026-01-20 07:47:03,303 - INFO - Progress: 200/330 patterns, 8668 unique projects
+2026-01-20 07:47:03,413 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_200.json
+2026-01-20 07:47:04,919 - INFO - [201/330] Searching: 'West'
+2026-01-20 07:47:22,861 - INFO - Search 'West': 100 results
+2026-01-20 07:47:24,366 - INFO - [202/330] Searching: 'Center'
+2026-01-20 07:47:26,711 - INFO - Search 'Center': 54 results
+2026-01-20 07:47:28,222 - INFO - [203/330] Searching: 'High'
+2026-01-20 07:47:30,398 - INFO - Search 'High': 100 results
+2026-01-20 07:47:31,905 - INFO - [204/330] Searching: 'King'
+2026-01-20 07:47:48,738 - ERROR - Search 'King' error: 503, message='Service Unavailable', url='http://OpusCLI:h+Mpb3hlLt1c5B1mpL@dc.decodo.com:10004'
+2026-01-20 07:47:50,249 - INFO - [205/330] Searching: 'Queen'
+2026-01-20 07:47:52,459 - INFO - Search 'Queen': 3 results
+2026-01-20 07:47:53,975 - INFO - [206/330] Searching: 'Maple'
+2026-01-20 07:47:56,260 - INFO - Search 'Maple': 87 results
+2026-01-20 07:47:57,768 - INFO - [207/330] Searching: 'Cedar'
+2026-01-20 07:48:00,059 - INFO - Search 'Cedar': 100 results
+2026-01-20 07:48:01,568 - INFO - [208/330] Searching: 'Hickory'
+2026-01-20 07:48:03,849 - INFO - Search 'Hickory': 66 results
+2026-01-20 07:48:05,365 - INFO - [209/330] Searching: 'Walnut'
+2026-01-20 07:48:07,931 - INFO - Search 'Walnut': 37 results
+2026-01-20 07:48:09,445 - INFO - [210/330] Searching: 'septic'
+2026-01-20 07:48:11,663 - INFO - Search 'septic': 100 results
+2026-01-20 07:48:11,663 - INFO - Progress: 210/330 patterns, 9071 unique projects
+2026-01-20 07:48:13,175 - INFO - [211/330] Searching: 'sewer'
+2026-01-20 07:48:15,194 - INFO - Search 'sewer': 26 results
+2026-01-20 07:48:16,707 - INFO - [212/330] Searching: 'plumb'
+2026-01-20 07:48:18,846 - INFO - Search 'plumb': 8 results
+2026-01-20 07:48:20,352 - INFO - [213/330] Searching: 'drain'
+2026-01-20 07:48:22,266 - INFO - Search 'drain': 24 results
+2026-01-20 07:48:23,768 - INFO - [214/330] Searching: 'tank'
+2026-01-20 07:48:25,912 - INFO - Search 'tank': 32 results
+2026-01-20 07:48:27,419 - INFO - [215/330] Searching: 'pump'
+2026-01-20 07:48:29,581 - INFO - Search 'pump': 52 results
+2026-01-20 07:48:31,091 - INFO - [216/330] Searching: 'field'
+2026-01-20 07:48:33,314 - INFO - Search 'field': 100 results
+2026-01-20 07:48:34,825 - INFO - [217/330] Searching: 'repair'
+2026-01-20 07:48:37,071 - INFO - Search 'repair': 100 results
+2026-01-20 07:48:38,580 - INFO - [218/330] Searching: 'install'
+2026-01-20 07:48:40,901 - INFO - Search 'install': 100 results
+2026-01-20 07:48:42,407 - INFO - [219/330] Searching: 'permit'
+2026-01-20 07:48:44,675 - INFO - Search 'permit': 100 results
+2026-01-20 07:48:46,180 - INFO - [220/330] Searching: 'SSDSLM'
+2026-01-20 07:48:48,462 - INFO - Search 'SSDSLM': 100 results
+2026-01-20 07:48:48,463 - INFO - Progress: 220/330 patterns, 9502 unique projects
+2026-01-20 07:48:49,974 - INFO - [221/330] Searching: 'waste'
+2026-01-20 07:48:52,166 - INFO - Search 'waste': 24 results
+2026-01-20 07:48:53,668 - INFO - [222/330] Searching: 'disposal'
+2026-01-20 07:48:55,983 - INFO - Search 'disposal': 99 results
+2026-01-20 07:48:57,486 - INFO - [223/330] Searching: 'Smith'
+2026-01-20 07:49:00,108 - INFO - Search 'Smith': 100 results
+2026-01-20 07:49:01,612 - INFO - [224/330] Searching: 'Johns'
+2026-01-20 07:49:04,025 - INFO - Search 'Johns': 100 results
+2026-01-20 07:49:05,529 - INFO - [225/330] Searching: 'Willi'
+2026-01-20 07:49:07,964 - INFO - Search 'Willi': 100 results
+2026-01-20 07:49:08,120 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_225.json
+2026-01-20 07:49:09,635 - INFO - [226/330] Searching: 'Brown'
+2026-01-20 07:49:11,833 - INFO - Search 'Brown': 62 results
+2026-01-20 07:49:13,338 - INFO - [227/330] Searching: 'Jones'
+2026-01-20 07:49:15,419 - INFO - Search 'Jones': 78 results
+2026-01-20 07:49:16,933 - INFO - [228/330] Searching: 'Davis'
+2026-01-20 07:49:19,253 - INFO - Search 'Davis': 100 results
+2026-01-20 07:49:20,755 - INFO - [229/330] Searching: 'Miller'
+2026-01-20 07:49:22,925 - INFO - Search 'Miller': 45 results
+2026-01-20 07:49:24,439 - INFO - [230/330] Searching: 'Wilson'
+2026-01-20 07:49:26,500 - INFO - Search 'Wilson': 100 results
+2026-01-20 07:49:26,500 - INFO - Progress: 230/330 patterns, 10098 unique projects
+2026-01-20 07:49:28,009 - INFO - [231/330] Searching: 'Moore'
+2026-01-20 07:49:30,289 - INFO - Search 'Moore': 100 results
+2026-01-20 07:49:31,803 - INFO - [232/330] Searching: 'Taylor'
+2026-01-20 07:49:34,096 - INFO - Search 'Taylor': 88 results
+2026-01-20 07:49:35,599 - INFO - [233/330] Searching: 'Anderson'
+2026-01-20 07:49:37,904 - INFO - Search 'Anderson': 100 results
+2026-01-20 07:49:39,411 - INFO - [234/330] Searching: 'Thomas'
+2026-01-20 07:49:41,699 - INFO - Search 'Thomas': 100 results
+2026-01-20 07:49:43,208 - INFO - [235/330] Searching: 'Jackson'
+2026-01-20 07:49:45,189 - INFO - Search 'Jackson': 73 results
+2026-01-20 07:49:46,690 - INFO - [236/330] Searching: 'White'
+2026-01-20 07:49:48,936 - INFO - Search 'White': 100 results
+2026-01-20 07:49:50,442 - INFO - [237/330] Searching: 'Harris'
+2026-01-20 07:49:52,454 - INFO - Search 'Harris': 46 results
+2026-01-20 07:49:53,969 - INFO - [238/330] Searching: 'Martin'
+2026-01-20 07:49:56,235 - INFO - Search 'Martin': 100 results
+2026-01-20 07:49:57,741 - INFO - [239/330] Searching: 'Thompson'
+2026-01-20 07:50:00,181 - INFO - Search 'Thompson': 100 results
+2026-01-20 07:50:01,693 - INFO - [240/330] Searching: 'Garcia'
+2026-01-20 07:50:04,023 - INFO - Search 'Garcia': 1 results
+2026-01-20 07:50:04,024 - INFO - Progress: 240/330 patterns, 10744 unique projects
+2026-01-20 07:50:05,524 - INFO - [241/330] Searching: 'Martinez'
+2026-01-20 07:50:07,694 - INFO - Search 'Martinez': 4 results
+2026-01-20 07:50:09,195 - INFO - [242/330] Searching: 'Robinson'
+2026-01-20 07:50:11,443 - INFO - Search 'Robinson': 100 results
+2026-01-20 07:50:12,945 - INFO - [243/330] Searching: 'Clark'
+2026-01-20 07:50:15,118 - INFO - Search 'Clark': 51 results
+2026-01-20 07:50:16,627 - INFO - [244/330] Searching: '1970'
+2026-01-20 07:50:18,800 - INFO - Search '1970': 9 results
+2026-01-20 07:50:20,312 - INFO - [245/330] Searching: '1971'
+2026-01-20 07:50:22,520 - INFO - Search '1971': 6 results
+2026-01-20 07:50:24,032 - INFO - [246/330] Searching: '1972'
+2026-01-20 07:50:26,066 - INFO - Search '1972': 4 results
+2026-01-20 07:50:27,576 - INFO - [247/330] Searching: '1973'
+2026-01-20 07:50:29,585 - INFO - Search '1973': 4 results
+2026-01-20 07:50:31,095 - INFO - [248/330] Searching: '1974'
+2026-01-20 07:50:33,120 - INFO - Search '1974': 22 results
+2026-01-20 07:50:34,621 - INFO - [249/330] Searching: '1975'
+2026-01-20 07:50:36,796 - INFO - Search '1975': 12 results
+2026-01-20 07:50:38,303 - INFO - [250/330] Searching: '1976'
+2026-01-20 07:50:40,322 - INFO - Search '1976': 17 results
+2026-01-20 07:50:40,322 - INFO - Progress: 250/330 patterns, 10917 unique projects
+2026-01-20 07:50:40,437 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_250.json
+2026-01-20 07:50:41,953 - INFO - [251/330] Searching: '1977'
+2026-01-20 07:50:44,101 - INFO - Search '1977': 4 results
+2026-01-20 07:50:45,613 - INFO - [252/330] Searching: '1978'
+2026-01-20 07:50:47,591 - INFO - Search '1978': 8 results
+2026-01-20 07:50:49,102 - INFO - [253/330] Searching: '1979'
+2026-01-20 07:50:51,336 - INFO - Search '1979': 14 results
+2026-01-20 07:50:52,839 - INFO - [254/330] Searching: '1980'
+2026-01-20 07:50:54,840 - INFO - Search '1980': 8 results
+2026-01-20 07:50:56,342 - INFO - [255/330] Searching: '1981'
+2026-01-20 07:50:58,568 - INFO - Search '1981': 5 results
+2026-01-20 07:51:00,073 - INFO - [256/330] Searching: '1982'
+2026-01-20 07:51:02,209 - INFO - Search '1982': 25 results
+2026-01-20 07:51:03,716 - INFO - [257/330] Searching: '1983'
+2026-01-20 07:51:05,903 - INFO - Search '1983': 15 results
+2026-01-20 07:51:07,418 - INFO - [258/330] Searching: '1984'
+2026-01-20 07:51:09,755 - INFO - Search '1984': 16 results
+2026-01-20 07:51:11,269 - INFO - [259/330] Searching: '1985'
+2026-01-20 07:51:13,856 - INFO - Search '1985': 19 results
+2026-01-20 07:51:15,360 - INFO - [260/330] Searching: '1986'
+2026-01-20 07:51:17,693 - INFO - Search '1986': 11 results
+2026-01-20 07:51:17,693 - INFO - Progress: 260/330 patterns, 11006 unique projects
+2026-01-20 07:51:19,197 - INFO - [261/330] Searching: '1987'
+2026-01-20 07:51:21,392 - INFO - Search '1987': 7 results
+2026-01-20 07:51:22,904 - INFO - [262/330] Searching: '1988'
+2026-01-20 07:51:25,100 - INFO - Search '1988': 8 results
+2026-01-20 07:51:26,606 - INFO - [263/330] Searching: '1989'
+2026-01-20 07:51:28,897 - INFO - Search '1989': 8 results
+2026-01-20 07:51:30,407 - INFO - [264/330] Searching: '1990'
+2026-01-20 07:51:32,654 - INFO - Search '1990': 16 results
+2026-01-20 07:51:34,158 - INFO - [265/330] Searching: '1991'
+2026-01-20 07:51:36,187 - INFO - Search '1991': 6 results
+2026-01-20 07:51:37,695 - INFO - [266/330] Searching: '1992'
+2026-01-20 07:51:39,916 - INFO - Search '1992': 8 results
+2026-01-20 07:51:41,419 - INFO - [267/330] Searching: '1993'
+2026-01-20 07:51:43,607 - INFO - Search '1993': 11 results
+2026-01-20 07:51:45,113 - INFO - [268/330] Searching: '1994'
+2026-01-20 07:51:47,215 - INFO - Search '1994': 76 results
+2026-01-20 07:51:48,718 - INFO - [269/330] Searching: '1995'
+2026-01-20 07:51:50,917 - INFO - Search '1995': 22 results
+2026-01-20 07:51:52,431 - INFO - [270/330] Searching: '1996'
+2026-01-20 07:51:54,643 - INFO - Search '1996': 43 results
+2026-01-20 07:51:54,644 - INFO - Progress: 270/330 patterns, 11121 unique projects
+2026-01-20 07:51:56,148 - INFO - [271/330] Searching: '1997'
+2026-01-20 07:51:58,372 - INFO - Search '1997': 8 results
+2026-01-20 07:51:59,880 - INFO - [272/330] Searching: '1998'
+2026-01-20 07:52:02,043 - INFO - Search '1998': 40 results
+2026-01-20 07:52:03,550 - INFO - [273/330] Searching: '1999'
+2026-01-20 07:52:05,872 - INFO - Search '1999': 79 results
+2026-01-20 07:52:07,375 - INFO - [274/330] Searching: '2000'
+2026-01-20 07:52:09,869 - INFO - Search '2000': 100 results
+2026-01-20 07:52:11,371 - INFO - [275/330] Searching: '2001'
+2026-01-20 07:52:13,776 - INFO - Search '2001': 100 results
+2026-01-20 07:52:13,927 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_275.json
+2026-01-20 07:52:15,436 - INFO - [276/330] Searching: '2002'
+2026-01-20 07:52:17,778 - INFO - Search '2002': 61 results
+2026-01-20 07:52:19,280 - INFO - [277/330] Searching: '2003'
+2026-01-20 07:52:21,492 - INFO - Search '2003': 70 results
+2026-01-20 07:52:22,994 - INFO - [278/330] Searching: '2004'
+2026-01-20 07:52:25,029 - INFO - Search '2004': 100 results
+2026-01-20 07:52:26,536 - INFO - [279/330] Searching: '2005'
+2026-01-20 07:52:28,754 - INFO - Search '2005': 68 results
+2026-01-20 07:52:30,256 - INFO - [280/330] Searching: '2006'
+2026-01-20 07:52:32,314 - INFO - Search '2006': 42 results
+2026-01-20 07:52:32,315 - INFO - Progress: 280/330 patterns, 11556 unique projects
+2026-01-20 07:52:33,826 - INFO - [281/330] Searching: '2007'
+2026-01-20 07:52:36,070 - INFO - Search '2007': 74 results
+2026-01-20 07:52:37,584 - INFO - [282/330] Searching: '2008'
+2026-01-20 07:52:39,838 - INFO - Search '2008': 75 results
+2026-01-20 07:52:41,351 - INFO - [283/330] Searching: '2009'
+2026-01-20 07:52:43,578 - INFO - Search '2009': 46 results
+2026-01-20 07:52:45,093 - INFO - [284/330] Searching: '2010'
+2026-01-20 07:52:47,294 - INFO - Search '2010': 66 results
+2026-01-20 07:52:48,808 - INFO - [285/330] Searching: '2011'
+2026-01-20 07:52:50,695 - INFO - Search '2011': 39 results
+2026-01-20 07:52:52,206 - INFO - [286/330] Searching: '2012'
+2026-01-20 07:52:54,449 - INFO - Search '2012': 62 results
+2026-01-20 07:52:55,953 - INFO - [287/330] Searching: '2013'
+2026-01-20 07:52:58,046 - INFO - Search '2013': 100 results
+2026-01-20 07:52:59,551 - INFO - [288/330] Searching: '2014'
+2026-01-20 07:53:01,923 - INFO - Search '2014': 100 results
+2026-01-20 07:53:03,433 - INFO - [289/330] Searching: '2015'
+2026-01-20 07:53:05,530 - INFO - Search '2015': 100 results
+2026-01-20 07:53:07,031 - INFO - [290/330] Searching: '2016'
+2026-01-20 07:53:09,383 - INFO - Search '2016': 90 results
+2026-01-20 07:53:09,383 - INFO - Progress: 290/330 patterns, 12070 unique projects
+2026-01-20 07:53:10,885 - INFO - [291/330] Searching: '2017'
+2026-01-20 07:53:13,201 - INFO - Search '2017': 100 results
+2026-01-20 07:53:14,712 - INFO - [292/330] Searching: '2018'
+2026-01-20 07:53:17,111 - INFO - Search '2018': 100 results
+2026-01-20 07:53:18,623 - INFO - [293/330] Searching: '2019'
+2026-01-20 07:53:36,387 - INFO - Search '2019': 100 results
+2026-01-20 07:53:37,896 - INFO - [294/330] Searching: '2020'
+2026-01-20 07:53:55,764 - INFO - Search '2020': 100 results
+2026-01-20 07:53:57,271 - INFO - [295/330] Searching: '2021'
+2026-01-20 07:53:59,679 - INFO - Search '2021': 100 results
+2026-01-20 07:54:01,179 - INFO - [296/330] Searching: '2022'
+2026-01-20 07:54:31,294 - ERROR - Search '2022' error: 
+2026-01-20 07:54:32,806 - INFO - [297/330] Searching: '2023'
+2026-01-20 07:54:35,223 - INFO - Search '2023': 100 results
+2026-01-20 07:54:36,731 - INFO - [298/330] Searching: '2024'
+2026-01-20 07:54:39,138 - INFO - Search '2024': 100 results
+2026-01-20 07:54:40,646 - INFO - [299/330] Searching: '2025'
+2026-01-20 07:54:42,856 - INFO - Search '2025': 100 results
+2026-01-20 07:54:44,358 - INFO - [300/330] Searching: '2026'
+2026-01-20 07:54:46,756 - INFO - Search '2026': 100 results
+2026-01-20 07:54:46,756 - INFO - Progress: 300/330 patterns, 12523 unique projects
+2026-01-20 07:54:46,927 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_300.json
+2026-01-20 07:54:48,430 - INFO - [301/330] Searching: '01/'
+2026-01-20 07:54:48,430 - WARNING - Search term '01/' too short (need 4+ chars)
+2026-01-20 07:54:49,943 - INFO - [302/330] Searching: '02/'
+2026-01-20 07:54:49,943 - WARNING - Search term '02/' too short (need 4+ chars)
+2026-01-20 07:54:51,451 - INFO - [303/330] Searching: '03/'
+2026-01-20 07:54:51,452 - WARNING - Search term '03/' too short (need 4+ chars)
+2026-01-20 07:54:52,961 - INFO - [304/330] Searching: '04/'
+2026-01-20 07:54:52,962 - WARNING - Search term '04/' too short (need 4+ chars)
+2026-01-20 07:54:54,475 - INFO - [305/330] Searching: '05/'
+2026-01-20 07:54:54,476 - WARNING - Search term '05/' too short (need 4+ chars)
+2026-01-20 07:54:55,989 - INFO - [306/330] Searching: '06/'
+2026-01-20 07:54:55,989 - WARNING - Search term '06/' too short (need 4+ chars)
+2026-01-20 07:54:57,496 - INFO - [307/330] Searching: '07/'
+2026-01-20 07:54:57,497 - WARNING - Search term '07/' too short (need 4+ chars)
+2026-01-20 07:54:59,010 - INFO - [308/330] Searching: '08/'
+2026-01-20 07:54:59,010 - WARNING - Search term '08/' too short (need 4+ chars)
+2026-01-20 07:55:00,521 - INFO - [309/330] Searching: '09/'
+2026-01-20 07:55:00,521 - WARNING - Search term '09/' too short (need 4+ chars)
+2026-01-20 07:55:02,033 - INFO - [310/330] Searching: '10/'
+2026-01-20 07:55:02,033 - WARNING - Search term '10/' too short (need 4+ chars)
+2026-01-20 07:55:02,033 - INFO - Progress: 310/330 patterns, 12523 unique projects
+2026-01-20 07:55:03,541 - INFO - [311/330] Searching: '11/'
+2026-01-20 07:55:03,542 - WARNING - Search term '11/' too short (need 4+ chars)
+2026-01-20 07:55:05,054 - INFO - [312/330] Searching: '12/'
+2026-01-20 07:55:05,054 - WARNING - Search term '12/' too short (need 4+ chars)
+2026-01-20 07:55:06,568 - INFO - [313/330] Searching: '100 '
+2026-01-20 07:55:08,955 - INFO - Search '100 ': 100 results
+2026-01-20 07:55:10,461 - INFO - [314/330] Searching: '150 '
+2026-01-20 07:55:12,827 - INFO - Search '150 ': 100 results
+2026-01-20 07:55:14,335 - INFO - [315/330] Searching: '200 '
+2026-01-20 07:55:16,517 - INFO - Search '200 ': 100 results
+2026-01-20 07:55:18,032 - INFO - [316/330] Searching: '250 '
+2026-01-20 07:55:20,263 - INFO - Search '250 ': 100 results
+2026-01-20 07:55:21,777 - INFO - [317/330] Searching: '300 '
+2026-01-20 07:55:24,074 - INFO - Search '300 ': 100 results
+2026-01-20 07:55:25,585 - INFO - [318/330] Searching: '350 '
+2026-01-20 07:55:27,891 - INFO - Search '350 ': 98 results
+2026-01-20 07:55:29,396 - INFO - [319/330] Searching: '400 '
+2026-01-20 07:55:31,522 - INFO - Search '400 ': 100 results
+2026-01-20 07:55:33,033 - INFO - [320/330] Searching: '450 '
+2026-01-20 07:55:35,435 - INFO - Search '450 ': 100 results
+2026-01-20 07:55:35,436 - INFO - Progress: 320/330 patterns, 12815 unique projects
+2026-01-20 07:55:36,938 - INFO - [321/330] Searching: '500 '
+2026-01-20 07:55:39,273 - INFO - Search '500 ': 100 results
+2026-01-20 07:55:40,788 - INFO - [322/330] Searching: '550 '
+2026-01-20 07:55:43,232 - INFO - Search '550 ': 98 results
+2026-01-20 07:55:44,741 - INFO - [323/330] Searching: '600 '
+2026-01-20 07:55:46,778 - INFO - Search '600 ': 100 results
+2026-01-20 07:55:48,293 - INFO - [324/330] Searching: '650 '
+2026-01-20 07:55:50,356 - INFO - Search '650 ': 100 results
+2026-01-20 07:55:51,864 - INFO - [325/330] Searching: '700 '
+2026-01-20 07:55:54,166 - INFO - Search '700 ': 100 results
+2026-01-20 07:55:54,307 - INFO - Checkpoint saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_checkpoint_325.json
+2026-01-20 07:55:55,813 - INFO - [326/330] Searching: '750 '
+2026-01-20 07:55:57,855 - INFO - Search '750 ': 100 results
+2026-01-20 07:55:59,364 - INFO - [327/330] Searching: '800 '
+2026-01-20 07:56:01,490 - INFO - Search '800 ': 100 results
+2026-01-20 07:56:03,001 - INFO - [328/330] Searching: '850 '
+2026-01-20 07:56:05,198 - INFO - Search '850 ': 70 results
+2026-01-20 07:56:06,708 - INFO - [329/330] Searching: '900 '
+2026-01-20 07:56:09,353 - INFO - Search '900 ': 100 results
+2026-01-20 07:56:10,868 - INFO - [330/330] Searching: '950 '
+2026-01-20 07:56:13,125 - INFO - Search '950 ': 70 results
+2026-01-20 07:56:13,125 - INFO - Progress: 330/330 patterns, 13141 unique projects
+2026-01-20 07:56:14,806 - INFO - ============================================================
+2026-01-20 07:56:14,807 - INFO - COMPLETE! 13141 unique projects saved to C:\Users\Will\crm-work\ReactCRM\scrapers\output\williamson_county\williamson_projects_all.json
+2026-01-20 07:56:14,807 - INFO - ============================================================

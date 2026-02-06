@@ -1,0 +1,443 @@
+{
+  "last_node_id": 20,
+  "last_link_id": 25,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImagesFromFolderKJ",
+      "pos": [50, 50],
+      "size": [350, 150],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {"name": "images", "type": "IMAGE", "slot_index": 0, "links": [1]},
+        {"name": "masks", "type": "MASK", "links": null},
+        {"name": "int", "type": "INT", "links": null}
+      ],
+      "widgets_values": [
+        "/home/will/ComfyUI/input/character_refs",
+        1024,
+        1024,
+        "crop",
+        0,
+        6,
+        false
+      ],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Step 1: Load 6 Best Reference Images (front/3/4 face, neutral lighting)"
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [50, 250],
+      "size": [350, 100],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [2]},
+        {"name": "CLIP", "type": "CLIP", "slot_index": 1, "links": [3]},
+        {"name": "VAE", "type": "VAE", "slot_index": 2, "links": [4]}
+      ],
+      "widgets_values": ["RealVisXL_V4.0.safetensors"],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Load SDXL (RealVisXL - photorealistic)"
+    },
+    {
+      "id": 3,
+      "type": "IPAdapterInsightFaceLoader",
+      "pos": [50, 400],
+      "size": [350, 80],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {"name": "INSIGHTFACE", "type": "INSIGHTFACE", "slot_index": 0, "links": [5]}
+      ],
+      "widgets_values": ["CUDA", "buffalo_l"],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "Load InsightFace (face detection/embedding)"
+    },
+    {
+      "id": 4,
+      "type": "IPAdapterUnifiedLoaderFaceID",
+      "pos": [50, 520],
+      "size": [350, 120],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 2}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [6]},
+        {"name": "ipadapter", "type": "IPADAPTER", "slot_index": 1, "links": [7]}
+      ],
+      "widgets_values": ["FACEID PLUS V2", 0.75, "CUDA"],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "Step 2: Load FaceID Plus V2 (IDENTITY LOCK)"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [450, 50],
+      "size": [450, 180],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [8]}
+      ],
+      "widgets_values": ["Ultra photorealistic portrait of a Latina woman with olive/tan skin, dark brown hair, authentic ethnicity preserved, professional studio photography with soft lighting, highly detailed skin texture with visible pores, no makeup, natural complexion, shot on medium format camera, 8K resolution, masterpiece quality, sharp focus on facial features"],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Positive Prompt (INCLUDE ETHNICITY + SKIN TONE)"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [450, 280],
+      "size": [450, 120],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 3}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [9]}
+      ],
+      "widgets_values": ["white skin, pale skin, light skin, caucasian, european features, blonde hair, red hair, blue eyes, green eyes, anime, cartoon, illustration, painting, fantasy, unrealistic, deformed, ugly, blurry, low quality, watermark, text, logo"],
+      "color": "#322",
+      "bgcolor": "#533",
+      "title": "Negative Prompt (BLOCK ETHNICITY DRIFT)"
+    },
+    {
+      "id": 7,
+      "type": "IPAdapterFaceID",
+      "pos": [450, 450],
+      "size": [400, 280],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 6},
+        {"name": "ipadapter", "type": "IPADAPTER", "link": 7},
+        {"name": "image", "type": "IMAGE", "link": 1},
+        {"name": "insightface", "type": "INSIGHTFACE", "link": 5}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [10]},
+        {"name": "face_image", "type": "IMAGE", "slot_index": 1, "links": null}
+      ],
+      "widgets_values": [
+        1.2,
+        1.0,
+        "linear",
+        "norm average",
+        0.0,
+        1.0,
+        "K+V"
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "Step 3: Apply FaceID (weight 1.2 = strong identity lock)"
+    },
+    {
+      "id": 8,
+      "type": "EmptyLatentImage",
+      "pos": [900, 50],
+      "size": [250, 100],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [11]}
+      ],
+      "widgets_values": [1024, 1024, 1],
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "SDXL Latent (1024x1024)"
+    },
+    {
+      "id": 9,
+      "type": "KSampler",
+      "pos": [900, 180],
+      "size": [320, 300],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 10},
+        {"name": "positive", "type": "CONDITIONING", "link": 8},
+        {"name": "negative", "type": "CONDITIONING", "link": 9},
+        {"name": "latent_image", "type": "LATENT", "link": 11}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [12]}
+      ],
+      "widgets_values": [
+        12345,
+        "randomize",
+        35,
+        6.5,
+        "dpmpp_2m",
+        "karras",
+        1.0
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930",
+      "title": "Step 4: SDXL Generate (CFG 6.5, 35 steps)"
+    },
+    {
+      "id": 10,
+      "type": "VAEDecode",
+      "pos": [1280, 180],
+      "size": [180, 50],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 12},
+        {"name": "vae", "type": "VAE", "link": 4}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [13, 20]}
+      ],
+      "title": "SDXL Decode"
+    },
+    {
+      "id": 11,
+      "type": "SaveImage",
+      "pos": [1280, 270],
+      "size": [300, 300],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 13}
+      ],
+      "widgets_values": ["character_faceid_sdxl"],
+      "color": "#232",
+      "bgcolor": "#353",
+      "title": "Save SDXL Result (identity locked)"
+    },
+    {
+      "id": 15,
+      "type": "UNETLoader",
+      "pos": [50, 700],
+      "size": [350, 80],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [15]}
+      ],
+      "widgets_values": ["flux1-dev-fp8.safetensors", "fp8_e4m3fn"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Load Flux.1 Dev (TEXTURE ONLY)"
+    },
+    {
+      "id": 16,
+      "type": "DualCLIPLoader",
+      "pos": [50, 830],
+      "size": [350, 100],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "outputs": [
+        {"name": "CLIP", "type": "CLIP", "slot_index": 0, "links": [16]}
+      ],
+      "widgets_values": ["clip_l.safetensors", "t5xxl_fp8_e4m3fn.safetensors", "flux"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Load Flux CLIP"
+    },
+    {
+      "id": 17,
+      "type": "VAELoader",
+      "pos": [50, 970],
+      "size": [350, 60],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "outputs": [
+        {"name": "VAE", "type": "VAE", "slot_index": 0, "links": [17]}
+      ],
+      "widgets_values": ["flux_ae.safetensors"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Load Flux VAE"
+    },
+    {
+      "id": 18,
+      "type": "CLIPTextEncode",
+      "pos": [450, 700],
+      "size": [400, 120],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {"name": "clip", "type": "CLIP", "link": 16}
+      ],
+      "outputs": [
+        {"name": "CONDITIONING", "type": "CONDITIONING", "slot_index": 0, "links": [18]}
+      ],
+      "widgets_values": ["Add photorealistic skin texture with visible pores, enhance fine details, professional studio photography lighting, keep exact same face and features, 8K quality enhancement"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Flux Prompt (TEXTURE ONLY - no identity words)"
+    },
+    {
+      "id": 19,
+      "type": "VAEEncode",
+      "pos": [450, 870],
+      "size": [200, 50],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {"name": "pixels", "type": "IMAGE", "link": 20},
+        {"name": "vae", "type": "VAE", "link": 17}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [19]}
+      ],
+      "title": "Encode SDXL Output for Flux"
+    },
+    {
+      "id": 20,
+      "type": "ModelSamplingFlux",
+      "pos": [700, 700],
+      "size": [300, 120],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 15}
+      ],
+      "outputs": [
+        {"name": "MODEL", "type": "MODEL", "slot_index": 0, "links": [21]}
+      ],
+      "widgets_values": [1.15, 0.5, 1024, 1024],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Flux Sampling Setup"
+    },
+    {
+      "id": 21,
+      "type": "KSampler",
+      "pos": [700, 870],
+      "size": [320, 300],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {"name": "model", "type": "MODEL", "link": 21},
+        {"name": "positive", "type": "CONDITIONING", "link": 18},
+        {"name": "negative", "type": "CONDITIONING", "link": null},
+        {"name": "latent_image", "type": "LATENT", "link": 19}
+      ],
+      "outputs": [
+        {"name": "LATENT", "type": "LATENT", "slot_index": 0, "links": [22]}
+      ],
+      "widgets_values": [
+        54321,
+        "randomize",
+        15,
+        1.0,
+        "euler",
+        "simple",
+        0.20
+      ],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Step 5: Flux TEXTURE ONLY (denoise 0.20 MAX)"
+    },
+    {
+      "id": 22,
+      "type": "VAEDecode",
+      "pos": [1080, 870],
+      "size": [180, 50],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {"name": "samples", "type": "LATENT", "link": 22},
+        {"name": "vae", "type": "VAE", "link": 17}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "slot_index": 0, "links": [23]}
+      ],
+      "title": "Flux Decode"
+    },
+    {
+      "id": 23,
+      "type": "SaveImage",
+      "pos": [1080, 950],
+      "size": [400, 400],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 23}
+      ],
+      "widgets_values": ["character_faceid_final"],
+      "color": "#223",
+      "bgcolor": "#446",
+      "title": "Step 6: Save Final (Identity Preserved + Flux Texture)"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 7, 2, "IMAGE"],
+    [2, 2, 0, 4, 0, "MODEL"],
+    [3, 2, 1, 5, 0, "CLIP"],
+    [4, 2, 2, 10, 1, "VAE"],
+    [5, 3, 0, 7, 3, "INSIGHTFACE"],
+    [6, 4, 0, 7, 0, "MODEL"],
+    [7, 4, 1, 7, 1, "IPADAPTER"],
+    [8, 5, 0, 9, 1, "CONDITIONING"],
+    [9, 6, 0, 9, 2, "CONDITIONING"],
+    [10, 7, 0, 9, 0, "MODEL"],
+    [11, 8, 0, 9, 3, "LATENT"],
+    [12, 9, 0, 10, 0, "LATENT"],
+    [13, 10, 0, 11, 0, "IMAGE"],
+    [15, 15, 0, 20, 0, "MODEL"],
+    [16, 16, 0, 18, 0, "CLIP"],
+    [17, 17, 0, 19, 1, "VAE"],
+    [18, 18, 0, 21, 1, "CONDITIONING"],
+    [19, 19, 0, 21, 3, "LATENT"],
+    [20, 10, 0, 19, 0, "IMAGE"],
+    [21, 20, 0, 21, 0, "MODEL"],
+    [22, 21, 0, 22, 0, "LATENT"],
+    [23, 22, 0, 23, 0, "IMAGE"]
+  ],
+  "groups": [
+    {
+      "title": "STAGE 1: FaceID Identity Lock (SDXL + InsightFace)",
+      "bounding": [30, 20, 1580, 630],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "STAGE 2: Flux Texture Enhancement ONLY (denoise <= 0.25)",
+      "bounding": [30, 670, 1480, 720],
+      "color": "#8A8",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {
+    "groupNodes": {}
+  },
+  "version": 0.4
+}

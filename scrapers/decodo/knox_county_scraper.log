@@ -1,0 +1,35 @@
+2026-01-20 07:09:22,150 - INFO - ============================================================
+2026-01-20 07:09:22,150 - INFO - KNOX COUNTY PERMIT PORTAL SCRAPER
+2026-01-20 07:09:22,150 - INFO - ============================================================
+2026-01-20 07:09:22,150 - INFO - Note: Using direct connection (no proxy) - datacenter IPs are blocked
+2026-01-20 07:09:22,222 - INFO - ============================================================
+2026-01-20 07:09:22,222 - INFO - EXPLORING KNOX COUNTY PERMIT PORTAL
+2026-01-20 07:09:22,222 - INFO - ============================================================
+2026-01-20 07:09:23,048 - INFO - Navigating to https://epw-permitsubmit.knoxcountytn.gov
+2026-01-20 07:09:37,685 - INFO - Screenshot saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\knox_county\knox_portal_home.png
+2026-01-20 07:09:37,691 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\knox_county\knox_portal_home.html
+2026-01-20 07:09:37,694 - INFO - Page title: Permit Portal
+2026-01-20 07:09:37,694 - INFO - Current URL: https://epw-permitsubmit.knoxcountytn.gov/authentication
+2026-01-20 07:09:37,694 - INFO - Looking for interactive elements...
+2026-01-20 07:09:37,736 - INFO - Found 1 buttons
+2026-01-20 07:09:37,765 - INFO -   Button 1: Sign In
+2026-01-20 07:09:37,772 - INFO - Found 2 inputs
+2026-01-20 07:09:37,788 - INFO -   Input 1: type=text, placeholder=None
+2026-01-20 07:09:37,798 - INFO -   Input 2: type=password, placeholder=None
+2026-01-20 07:09:37,801 - INFO - Found 0 links
+2026-01-20 07:09:37,801 - INFO - 
+API calls detected: 8
+2026-01-20 07:09:37,801 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/', 'method': 'GET', 'type': 'request'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/', 'status': 200, 'type': 'response'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/assets/index-DSx7SbSF.js', 'method': 'GET', 'type': 'request'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/assets/index-2kavzIbu.css', 'method': 'GET', 'type': 'request'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/assets/index-DSx7SbSF.js', 'status': 200, 'type': 'response'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/assets/index-2kavzIbu.css', 'status': 200, 'type': 'response'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/assets/materialdesignicons-webfont-Dp5v-WZN.woff2?v=7.4.47', 'method': 'GET', 'type': 'request'}
+2026-01-20 07:09:37,802 - INFO -   {'url': 'https://epw-permitsubmit.knoxcountytn.gov/assets/materialdesignicons-webfont-Dp5v-WZN.woff2?v=7.4.47', 'status': 200, 'type': 'response'}
+2026-01-20 07:09:37,825 - INFO - Results saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\knox_county\exploration_results.json
+2026-01-20 07:09:37,888 - INFO - ============================================================
+2026-01-20 07:09:37,888 - INFO - EXPLORATION COMPLETE
+2026-01-20 07:09:37,888 - INFO - Found 1 buttons, 2 inputs
+2026-01-20 07:09:37,888 - INFO - API calls detected: 8
+2026-01-20 07:09:37,888 - INFO - ============================================================

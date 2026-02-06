@@ -6,14 +6,20 @@ import { test, expect, Page } from '@playwright/test';
  *
  * CRITICAL: This test reproduces the silent failure bug where
  * clicking "New Work Order" does nothing or fails silently.
+ *
+ * Note: Uses custom auth (not auth.setup.ts) to avoid dependency issues
  */
 
+// Disable global auth dependency
+test.use({ storageState: undefined });
+
 let authPage: Page;
+let browserContext: any;
 
 test.beforeAll(async ({ browser }) => {
   // Login ONCE for all tests in this file (avoid rate limiting)
-  const context = await browser.newContext();
-  authPage = await context.newPage();
+  browserContext = await browser.newContext();
+  authPage = await browserContext.newPage();
 
   console.log('[Auth] Logging in as will@macseptic.com...');
   await authPage.goto('https://react.ecbtx.com/login');
@@ -281,5 +287,6 @@ test.describe('Work Orders Creation Flow', () => {
 
 test.afterAll(async () => {
   console.log('[Cleanup] Closing browser context');
-  await authPage.close();
+  if (authPage) await authPage.close();
+  if (browserContext) await browserContext.close();
 });

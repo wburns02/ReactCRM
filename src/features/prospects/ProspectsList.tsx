@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { formatCurrency, formatDate, formatPhone } from "@/lib/utils.ts";
@@ -26,8 +26,33 @@ const TableProspectRow = memo(function TableProspectRow({
   onEdit,
   onDelete,
 }: ProspectRowProps) {
+  const navigate = useNavigate();
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on buttons or links
+    const target = e.target as HTMLElement;
+    if (
+      target.closest("button") ||
+      target.closest("a") ||
+      target.closest('[role="button"]')
+    ) {
+      return;
+    }
+    navigate(`/prospects/${prospect.id}`);
+  };
+
   return (
-    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
+    <tr
+      className="hover:bg-bg-hover transition-colors cursor-pointer"
+      tabIndex={0}
+      onClick={handleRowClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          navigate(`/prospects/${prospect.id}`);
+        }
+      }}
+    >
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">

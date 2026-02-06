@@ -1,0 +1,1763 @@
+2026-01-19 13:34:10,226 - INFO - ============================================================
+2026-01-19 13:34:10,226 - INFO - TENNESSEE TDEC FILENET SCRAPER - STARTING
+2026-01-19 13:34:10,226 - INFO - ============================================================
+2026-01-19 13:34:10,227 - INFO - Counties to process: 86
+2026-01-19 13:34:11,076 - INFO - ==================================================
+2026-01-19 13:34:11,076 - INFO - EXPLORING TDEC FILENET PORTAL
+2026-01-19 13:34:11,076 - INFO - ==================================================
+2026-01-19 13:34:19,365 - INFO - Page title: File Search
+2026-01-19 13:34:19,386 - INFO - Found 1 forms
+2026-01-19 13:34:19,409 - INFO - Found 8 input fields
+2026-01-19 13:34:19,448 - INFO -   SELECT [select]: countyVar
+2026-01-19 13:34:19,462 - INFO -   INPUT [text]: mapAndParcel
+2026-01-19 13:34:19,478 - INFO -   INPUT [text]: parcelID
+2026-01-19 13:34:19,495 - INFO -   INPUT [text]: propOwnerVar
+2026-01-19 13:34:19,509 - INFO -   INPUT [text]: stAddVar
+2026-01-19 13:34:19,522 - INFO -   INPUT [text]: subDiv
+2026-01-19 13:34:19,534 - INFO -   INPUT [text]: lotNum
+2026-01-19 13:34:19,556 - INFO -   INPUT [submit]: None
+2026-01-19 13:34:19,575 - INFO - County dropdown has 96 options
+2026-01-19 13:34:19,575 - INFO -   Select County = Select County
+2026-01-19 13:34:19,575 - INFO -   Anderson County - 1 = 1
+2026-01-19 13:34:19,575 - INFO -   Bedford County - 2 = 2
+2026-01-19 13:34:19,575 - INFO -   Benton County - 3 = 3
+2026-01-19 13:34:19,575 - INFO -   Bledsoe County - 4 = 4
+2026-01-19 13:34:19,576 - INFO -   Blount County - 5 = 5
+2026-01-19 13:34:19,576 - INFO -   Bradley County - 6 = 6
+2026-01-19 13:34:19,576 - INFO -   Campbell County - 7 = 7
+2026-01-19 13:34:19,576 - INFO -   Cannon County - 8 = 8
+2026-01-19 13:34:19,576 - INFO -   Carroll County - 9 = 9
+2026-01-19 13:34:19,576 - INFO - 
+[1/86] Processing Anderson County
+2026-01-19 13:34:19,576 - INFO - Searching Anderson County...
+2026-01-19 13:34:55,791 - ERROR - Error searching Anderson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:34:55,791 - INFO -   Anderson: 0 records (Total: 0)
+2026-01-19 13:34:57,800 - INFO - 
+[2/86] Processing Bedford County
+2026-01-19 13:34:57,800 - INFO - Searching Bedford County...
+2026-01-19 13:35:34,032 - ERROR - Error searching Bedford: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:35:34,033 - INFO -   Bedford: 0 records (Total: 0)
+2026-01-19 13:35:36,037 - INFO - 
+[3/86] Processing Benton County
+2026-01-19 13:35:36,037 - INFO - Searching Benton County...
+2026-01-19 13:36:12,369 - ERROR - Error searching Benton: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:36:12,369 - INFO -   Benton: 0 records (Total: 0)
+2026-01-19 13:36:14,381 - INFO - 
+[4/86] Processing Bledsoe County
+2026-01-19 13:36:14,381 - INFO - Searching Bledsoe County...
+2026-01-19 13:36:50,660 - ERROR - Error searching Bledsoe: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:36:50,660 - INFO -   Bledsoe: 0 records (Total: 0)
+2026-01-19 13:36:52,663 - INFO - 
+[5/86] Processing Bradley County
+2026-01-19 13:36:52,663 - INFO - Searching Bradley County...
+2026-01-19 13:37:29,017 - ERROR - Error searching Bradley: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:37:29,017 - INFO -   Bradley: 0 records (Total: 0)
+2026-01-19 13:37:31,022 - INFO - 
+[6/86] Processing Campbell County
+2026-01-19 13:37:31,023 - INFO - Searching Campbell County...
+2026-01-19 13:38:08,290 - ERROR - Error searching Campbell: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:38:08,290 - INFO -   Campbell: 0 records (Total: 0)
+2026-01-19 13:38:10,299 - INFO - 
+[7/86] Processing Cannon County
+2026-01-19 13:38:10,300 - INFO - Searching Cannon County...
+2026-01-19 13:38:46,509 - ERROR - Error searching Cannon: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:38:46,509 - INFO -   Cannon: 0 records (Total: 0)
+2026-01-19 13:38:48,525 - INFO - 
+[8/86] Processing Carroll County
+2026-01-19 13:38:48,525 - INFO - Searching Carroll County...
+2026-01-19 13:39:24,753 - ERROR - Error searching Carroll: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:39:24,754 - INFO -   Carroll: 0 records (Total: 0)
+2026-01-19 13:39:26,762 - INFO - 
+[9/86] Processing Carter County
+2026-01-19 13:39:26,763 - INFO - Searching Carter County...
+2026-01-19 13:40:02,981 - ERROR - Error searching Carter: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:40:02,981 - INFO -   Carter: 0 records (Total: 0)
+2026-01-19 13:40:04,982 - INFO - 
+[10/86] Processing Cheatham County
+2026-01-19 13:40:04,982 - INFO - Searching Cheatham County...
+2026-01-19 13:40:41,199 - ERROR - Error searching Cheatham: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:40:41,199 - INFO -   Cheatham: 0 records (Total: 0)
+2026-01-19 13:40:41,200 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_10.json
+2026-01-19 13:40:43,210 - INFO - 
+[11/86] Processing Chester County
+2026-01-19 13:40:43,210 - INFO - Searching Chester County...
+2026-01-19 13:41:19,636 - ERROR - Error searching Chester: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:41:19,636 - INFO -   Chester: 0 records (Total: 0)
+2026-01-19 13:41:21,647 - INFO - 
+[12/86] Processing Claiborne County
+2026-01-19 13:41:21,647 - INFO - Searching Claiborne County...
+2026-01-19 13:41:57,883 - ERROR - Error searching Claiborne: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:41:57,883 - INFO -   Claiborne: 0 records (Total: 0)
+2026-01-19 13:41:59,898 - INFO - 
+[13/86] Processing Clay County
+2026-01-19 13:41:59,898 - INFO - Searching Clay County...
+2026-01-19 13:42:36,306 - ERROR - Error searching Clay: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:42:36,306 - INFO -   Clay: 0 records (Total: 0)
+2026-01-19 13:42:38,320 - INFO - 
+[14/86] Processing Cocke County
+2026-01-19 13:42:38,320 - INFO - Searching Cocke County...
+2026-01-19 13:43:14,601 - ERROR - Error searching Cocke: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:43:14,601 - INFO -   Cocke: 0 records (Total: 0)
+2026-01-19 13:43:16,603 - INFO - 
+[15/86] Processing Coffee County
+2026-01-19 13:43:16,603 - INFO - Searching Coffee County...
+2026-01-19 13:43:52,999 - ERROR - Error searching Coffee: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:43:52,999 - INFO -   Coffee: 0 records (Total: 0)
+2026-01-19 13:43:54,999 - INFO - 
+[16/86] Processing Crockett County
+2026-01-19 13:43:54,999 - INFO - Searching Crockett County...
+2026-01-19 13:44:31,101 - ERROR - Error searching Crockett: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:44:31,101 - INFO -   Crockett: 0 records (Total: 0)
+2026-01-19 13:44:33,115 - INFO - 
+[17/86] Processing Cumberland County
+2026-01-19 13:44:33,116 - INFO - Searching Cumberland County...
+2026-01-19 13:45:09,325 - ERROR - Error searching Cumberland: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:45:09,325 - INFO -   Cumberland: 0 records (Total: 0)
+2026-01-19 13:45:11,330 - INFO - 
+[18/86] Processing Decatur County
+2026-01-19 13:45:11,330 - INFO - Searching Decatur County...
+2026-01-19 13:45:48,084 - ERROR - Error searching Decatur: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:45:48,084 - INFO -   Decatur: 0 records (Total: 0)
+2026-01-19 13:45:50,095 - INFO - 
+[19/86] Processing DeKalb County
+2026-01-19 13:45:50,095 - INFO - Searching DeKalb County...
+2026-01-19 13:46:26,364 - ERROR - Error searching DeKalb: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:46:26,365 - INFO -   DeKalb: 0 records (Total: 0)
+2026-01-19 13:46:28,365 - INFO - 
+[20/86] Processing Dickson County
+2026-01-19 13:46:28,366 - INFO - Searching Dickson County...
+2026-01-19 13:47:04,633 - ERROR - Error searching Dickson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:47:04,633 - INFO -   Dickson: 0 records (Total: 0)
+2026-01-19 13:47:04,640 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_20.json
+2026-01-19 13:47:06,648 - INFO - 
+[21/86] Processing Dyer County
+2026-01-19 13:47:06,649 - INFO - Searching Dyer County...
+2026-01-19 13:47:42,966 - ERROR - Error searching Dyer: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:47:42,966 - INFO -   Dyer: 0 records (Total: 0)
+2026-01-19 13:47:44,966 - INFO - 
+[22/86] Processing Fayette County
+2026-01-19 13:47:44,966 - INFO - Searching Fayette County...
+2026-01-19 13:48:21,369 - ERROR - Error searching Fayette: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:48:21,369 - INFO -   Fayette: 0 records (Total: 0)
+2026-01-19 13:48:23,380 - INFO - 
+[23/86] Processing Fentress County
+2026-01-19 13:48:23,381 - INFO - Searching Fentress County...
+2026-01-19 13:48:59,617 - ERROR - Error searching Fentress: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:48:59,617 - INFO -   Fentress: 0 records (Total: 0)
+2026-01-19 13:49:01,631 - INFO - 
+[24/86] Processing Franklin County
+2026-01-19 13:49:01,631 - INFO - Searching Franklin County...
+2026-01-19 13:49:37,850 - ERROR - Error searching Franklin: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:49:37,850 - INFO -   Franklin: 0 records (Total: 0)
+2026-01-19 13:49:39,865 - INFO - 
+[25/86] Processing Gibson County
+2026-01-19 13:49:39,865 - INFO - Searching Gibson County...
+2026-01-19 13:50:16,215 - ERROR - Error searching Gibson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:50:16,215 - INFO -   Gibson: 0 records (Total: 0)
+2026-01-19 13:50:18,216 - INFO - 
+[26/86] Processing Giles County
+2026-01-19 13:50:18,216 - INFO - Searching Giles County...
+2026-01-19 13:50:54,534 - ERROR - Error searching Giles: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:50:54,534 - INFO -   Giles: 0 records (Total: 0)
+2026-01-19 13:50:56,547 - INFO - 
+[27/86] Processing Grainger County
+2026-01-19 13:50:56,547 - INFO - Searching Grainger County...
+2026-01-19 13:51:32,812 - ERROR - Error searching Grainger: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:51:32,813 - INFO -   Grainger: 0 records (Total: 0)
+2026-01-19 13:51:34,818 - INFO - 
+[28/86] Processing Greene County
+2026-01-19 13:51:34,818 - INFO - Searching Greene County...
+2026-01-19 13:52:10,952 - ERROR - Error searching Greene: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:52:10,952 - INFO -   Greene: 0 records (Total: 0)
+2026-01-19 13:52:12,964 - INFO - 
+[29/86] Processing Grundy County
+2026-01-19 13:52:12,965 - INFO - Searching Grundy County...
+2026-01-19 13:52:49,169 - ERROR - Error searching Grundy: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:52:49,169 - INFO -   Grundy: 0 records (Total: 0)
+2026-01-19 13:52:51,184 - INFO - 
+[30/86] Processing Hamblen County
+2026-01-19 13:52:51,184 - INFO - Searching Hamblen County...
+2026-01-19 13:53:27,410 - ERROR - Error searching Hamblen: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:53:27,410 - INFO -   Hamblen: 0 records (Total: 0)
+2026-01-19 13:53:27,411 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_30.json
+2026-01-19 13:53:29,424 - INFO - 
+[31/86] Processing Hancock County
+2026-01-19 13:53:29,425 - INFO - Searching Hancock County...
+2026-01-19 13:54:05,650 - ERROR - Error searching Hancock: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:54:05,650 - INFO -   Hancock: 0 records (Total: 0)
+2026-01-19 13:54:07,657 - INFO - 
+[32/86] Processing Hardeman County
+2026-01-19 13:54:07,658 - INFO - Searching Hardeman County...
+2026-01-19 13:54:43,899 - ERROR - Error searching Hardeman: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:54:43,900 - INFO -   Hardeman: 0 records (Total: 0)
+2026-01-19 13:54:45,901 - INFO - 
+[33/86] Processing Hardin County
+2026-01-19 13:54:45,901 - INFO - Searching Hardin County...
+2026-01-19 13:55:22,181 - ERROR - Error searching Hardin: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:55:22,181 - INFO -   Hardin: 0 records (Total: 0)
+2026-01-19 13:55:24,195 - INFO - 
+[34/86] Processing Hawkins County
+2026-01-19 13:55:24,196 - INFO - Searching Hawkins County...
+2026-01-19 13:56:00,472 - ERROR - Error searching Hawkins: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:56:00,472 - INFO -   Hawkins: 0 records (Total: 0)
+2026-01-19 13:56:02,488 - INFO - 
+[35/86] Processing Haywood County
+2026-01-19 13:56:02,488 - INFO - Searching Haywood County...
+2026-01-19 13:56:38,894 - ERROR - Error searching Haywood: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:56:38,894 - INFO -   Haywood: 0 records (Total: 0)
+2026-01-19 13:56:40,901 - INFO - 
+[36/86] Processing Henderson County
+2026-01-19 13:56:40,902 - INFO - Searching Henderson County...
+2026-01-19 13:57:17,030 - ERROR - Error searching Henderson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:57:17,031 - INFO -   Henderson: 0 records (Total: 0)
+2026-01-19 13:57:19,044 - INFO - 
+[37/86] Processing Henry County
+2026-01-19 13:57:19,044 - INFO - Searching Henry County...
+2026-01-19 13:57:55,325 - ERROR - Error searching Henry: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:57:55,325 - INFO -   Henry: 0 records (Total: 0)
+2026-01-19 13:57:57,327 - INFO - 
+[38/86] Processing Hickman County
+2026-01-19 13:57:57,328 - INFO - Searching Hickman County...
+2026-01-19 13:58:34,470 - ERROR - Error searching Hickman: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:58:34,471 - INFO -   Hickman: 0 records (Total: 0)
+2026-01-19 13:58:36,471 - INFO - 
+[39/86] Processing Houston County
+2026-01-19 13:58:36,472 - INFO - Searching Houston County...
+2026-01-19 13:59:12,730 - ERROR - Error searching Houston: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:59:12,730 - INFO -   Houston: 0 records (Total: 0)
+2026-01-19 13:59:14,734 - INFO - 
+[40/86] Processing Humphreys County
+2026-01-19 13:59:14,734 - INFO - Searching Humphreys County...
+2026-01-19 13:59:50,929 - ERROR - Error searching Humphreys: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 13:59:50,930 - INFO -   Humphreys: 0 records (Total: 0)
+2026-01-19 13:59:50,931 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_40.json
+2026-01-19 13:59:52,935 - INFO - 
+[41/86] Processing Jackson County
+2026-01-19 13:59:52,936 - INFO - Searching Jackson County...
+2026-01-19 14:00:29,225 - ERROR - Error searching Jackson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:00:29,226 - INFO -   Jackson: 0 records (Total: 0)
+2026-01-19 14:00:31,236 - INFO - 
+[42/86] Processing Johnson County
+2026-01-19 14:00:31,236 - INFO - Searching Johnson County...
+2026-01-19 14:01:07,439 - ERROR - Error searching Johnson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:01:07,439 - INFO -   Johnson: 0 records (Total: 0)
+2026-01-19 14:01:09,451 - INFO - 
+[43/86] Processing Lake County
+2026-01-19 14:01:09,452 - INFO - Searching Lake County...
+2026-01-19 14:01:45,785 - ERROR - Error searching Lake: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:01:45,785 - INFO -   Lake: 0 records (Total: 0)
+2026-01-19 14:01:47,796 - INFO - 
+[44/86] Processing Lauderdale County
+2026-01-19 14:01:47,796 - INFO - Searching Lauderdale County...
+2026-01-19 14:02:24,010 - ERROR - Error searching Lauderdale: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:02:24,010 - INFO -   Lauderdale: 0 records (Total: 0)
+2026-01-19 14:02:26,025 - INFO - 
+[45/86] Processing Lawrence County
+2026-01-19 14:02:26,025 - INFO - Searching Lawrence County...
+2026-01-19 14:03:02,312 - ERROR - Error searching Lawrence: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:03:02,312 - INFO -   Lawrence: 0 records (Total: 0)
+2026-01-19 14:03:04,323 - INFO - 
+[46/86] Processing Lewis County
+2026-01-19 14:03:04,323 - INFO - Searching Lewis County...
+2026-01-19 14:03:40,528 - ERROR - Error searching Lewis: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:03:40,528 - INFO -   Lewis: 0 records (Total: 0)
+2026-01-19 14:03:42,542 - INFO - 
+[47/86] Processing Lincoln County
+2026-01-19 14:03:42,542 - INFO - Searching Lincoln County...
+2026-01-19 14:04:18,903 - ERROR - Error searching Lincoln: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:04:18,903 - INFO -   Lincoln: 0 records (Total: 0)
+2026-01-19 14:04:20,909 - INFO - 
+[48/86] Processing Loudon County
+2026-01-19 14:04:20,909 - INFO - Searching Loudon County...
+2026-01-19 14:04:57,150 - ERROR - Error searching Loudon: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:04:57,150 - INFO -   Loudon: 0 records (Total: 0)
+2026-01-19 14:04:59,157 - INFO - 
+[49/86] Processing Macon County
+2026-01-19 14:04:59,157 - INFO - Searching Macon County...
+2026-01-19 14:05:35,404 - ERROR - Error searching Macon: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:05:35,405 - INFO -   Macon: 0 records (Total: 0)
+2026-01-19 14:05:37,418 - INFO - 
+[50/86] Processing Marion County
+2026-01-19 14:05:37,418 - INFO - Searching Marion County...
+2026-01-19 14:06:13,623 - ERROR - Error searching Marion: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:06:13,623 - INFO -   Marion: 0 records (Total: 0)
+2026-01-19 14:06:13,625 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_50.json
+2026-01-19 14:06:15,636 - INFO - 
+[51/86] Processing Marshall County
+2026-01-19 14:06:15,636 - INFO - Searching Marshall County...
+2026-01-19 14:06:51,987 - ERROR - Error searching Marshall: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:06:51,987 - INFO -   Marshall: 0 records (Total: 0)
+2026-01-19 14:06:53,990 - INFO - 
+[52/86] Processing Maury County
+2026-01-19 14:06:53,991 - INFO - Searching Maury County...
+2026-01-19 14:07:30,165 - ERROR - Error searching Maury: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:07:30,165 - INFO -   Maury: 0 records (Total: 0)
+2026-01-19 14:07:32,170 - INFO - 
+[53/86] Processing McMinn County
+2026-01-19 14:07:32,170 - INFO - Searching McMinn County...
+2026-01-19 14:08:08,364 - ERROR - Error searching McMinn: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:08:08,365 - INFO -   McMinn: 0 records (Total: 0)
+2026-01-19 14:08:10,370 - INFO - 
+[54/86] Processing McNairy County
+2026-01-19 14:08:10,370 - INFO - Searching McNairy County...
+2026-01-19 14:08:46,623 - ERROR - Error searching McNairy: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:08:46,624 - INFO -   McNairy: 0 records (Total: 0)
+2026-01-19 14:08:48,637 - INFO - 
+[55/86] Processing Meigs County
+2026-01-19 14:08:48,637 - INFO - Searching Meigs County...
+2026-01-19 14:09:25,273 - ERROR - Error searching Meigs: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:09:25,274 - INFO -   Meigs: 0 records (Total: 0)
+2026-01-19 14:09:27,280 - INFO - 
+[56/86] Processing Monroe County
+2026-01-19 14:09:27,280 - INFO - Searching Monroe County...
+2026-01-19 14:10:03,821 - ERROR - Error searching Monroe: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:10:03,821 - INFO -   Monroe: 0 records (Total: 0)
+2026-01-19 14:10:05,822 - INFO - 
+[57/86] Processing Montgomery County
+2026-01-19 14:10:05,822 - INFO - Searching Montgomery County...
+2026-01-19 14:10:42,014 - ERROR - Error searching Montgomery: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:10:42,014 - INFO -   Montgomery: 0 records (Total: 0)
+2026-01-19 14:10:44,018 - INFO - 
+[58/86] Processing Moore County
+2026-01-19 14:10:44,018 - INFO - Searching Moore County...
+2026-01-19 14:11:20,588 - ERROR - Error searching Moore: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:11:20,588 - INFO -   Moore: 0 records (Total: 0)
+2026-01-19 14:11:22,595 - INFO - 
+[59/86] Processing Morgan County
+2026-01-19 14:11:22,595 - INFO - Searching Morgan County...
+2026-01-19 14:11:59,042 - ERROR - Error searching Morgan: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:11:59,042 - INFO -   Morgan: 0 records (Total: 0)
+2026-01-19 14:12:01,046 - INFO - 
+[60/86] Processing Obion County
+2026-01-19 14:12:01,047 - INFO - Searching Obion County...
+2026-01-19 14:12:37,250 - ERROR - Error searching Obion: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:12:37,250 - INFO -   Obion: 0 records (Total: 0)
+2026-01-19 14:12:37,251 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_60.json
+2026-01-19 14:12:39,252 - INFO - 
+[61/86] Processing Overton County
+2026-01-19 14:12:39,252 - INFO - Searching Overton County...
+2026-01-19 14:13:15,385 - ERROR - Error searching Overton: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:13:15,385 - INFO -   Overton: 0 records (Total: 0)
+2026-01-19 14:13:17,388 - INFO - 
+[62/86] Processing Perry County
+2026-01-19 14:13:17,388 - INFO - Searching Perry County...
+2026-01-19 14:13:53,783 - ERROR - Error searching Perry: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:13:53,784 - INFO -   Perry: 0 records (Total: 0)
+2026-01-19 14:13:55,789 - INFO - 
+[63/86] Processing Pickett County
+2026-01-19 14:13:55,789 - INFO - Searching Pickett County...
+2026-01-19 14:14:32,063 - ERROR - Error searching Pickett: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:14:32,063 - INFO -   Pickett: 0 records (Total: 0)
+2026-01-19 14:14:34,077 - INFO - 
+[64/86] Processing Polk County
+2026-01-19 14:14:34,077 - INFO - Searching Polk County...
+2026-01-19 14:15:10,587 - ERROR - Error searching Polk: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:15:10,587 - INFO -   Polk: 0 records (Total: 0)
+2026-01-19 14:15:12,598 - INFO - 
+[65/86] Processing Putnam County
+2026-01-19 14:15:12,598 - INFO - Searching Putnam County...
+2026-01-19 14:15:48,865 - ERROR - Error searching Putnam: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:15:48,865 - INFO -   Putnam: 0 records (Total: 0)
+2026-01-19 14:15:50,868 - INFO - 
+[66/86] Processing Rhea County
+2026-01-19 14:15:50,869 - INFO - Searching Rhea County...
+2026-01-19 14:16:27,404 - ERROR - Error searching Rhea: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:16:27,404 - INFO -   Rhea: 0 records (Total: 0)
+2026-01-19 14:16:29,408 - INFO - 
+[67/86] Processing Roane County
+2026-01-19 14:16:29,409 - INFO - Searching Roane County...
+2026-01-19 14:17:05,610 - ERROR - Error searching Roane: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:17:05,611 - INFO -   Roane: 0 records (Total: 0)
+2026-01-19 14:17:07,626 - INFO - 
+[68/86] Processing Robertson County
+2026-01-19 14:17:07,626 - INFO - Searching Robertson County...
+2026-01-19 14:17:43,798 - ERROR - Error searching Robertson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:17:43,798 - INFO -   Robertson: 0 records (Total: 0)
+2026-01-19 14:17:45,804 - INFO - 
+[69/86] Processing Rutherford County
+2026-01-19 14:17:45,804 - INFO - Searching Rutherford County...
+2026-01-19 14:18:22,003 - ERROR - Error searching Rutherford: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:18:22,004 - INFO -   Rutherford: 0 records (Total: 0)
+2026-01-19 14:18:24,012 - INFO - 
+[70/86] Processing Scott County
+2026-01-19 14:18:24,012 - INFO - Searching Scott County...
+2026-01-19 14:19:00,143 - ERROR - Error searching Scott: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:19:00,143 - INFO -   Scott: 0 records (Total: 0)
+2026-01-19 14:19:00,144 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_70.json
+2026-01-19 14:19:02,158 - INFO - 
+[71/86] Processing Sequatchie County
+2026-01-19 14:19:02,158 - INFO - Searching Sequatchie County...
+2026-01-19 14:19:38,383 - ERROR - Error searching Sequatchie: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:19:38,383 - INFO -   Sequatchie: 0 records (Total: 0)
+2026-01-19 14:19:40,395 - INFO - 
+[72/86] Processing Smith County
+2026-01-19 14:19:40,395 - INFO - Searching Smith County...
+2026-01-19 14:20:16,775 - ERROR - Error searching Smith: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:20:16,775 - INFO -   Smith: 0 records (Total: 0)
+2026-01-19 14:20:18,789 - INFO - 
+[73/86] Processing Stewart County
+2026-01-19 14:20:18,789 - INFO - Searching Stewart County...
+2026-01-19 14:20:55,066 - ERROR - Error searching Stewart: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:20:55,067 - INFO -   Stewart: 0 records (Total: 0)
+2026-01-19 14:20:57,067 - INFO - 
+[74/86] Processing Sullivan County
+2026-01-19 14:20:57,068 - INFO - Searching Sullivan County...
+2026-01-19 14:21:33,333 - ERROR - Error searching Sullivan: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:21:33,334 - INFO -   Sullivan: 0 records (Total: 0)
+2026-01-19 14:21:35,345 - INFO - 
+[75/86] Processing Sumner County
+2026-01-19 14:21:35,346 - INFO - Searching Sumner County...
+2026-01-19 14:22:11,669 - ERROR - Error searching Sumner: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:22:11,669 - INFO -   Sumner: 0 records (Total: 0)
+2026-01-19 14:22:13,684 - INFO - 
+[76/86] Processing Tipton County
+2026-01-19 14:22:13,684 - INFO - Searching Tipton County...
+2026-01-19 14:22:49,842 - ERROR - Error searching Tipton: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:22:49,842 - INFO -   Tipton: 0 records (Total: 0)
+2026-01-19 14:22:51,854 - INFO - 
+[77/86] Processing Trousdale County
+2026-01-19 14:22:51,854 - INFO - Searching Trousdale County...
+2026-01-19 14:23:28,178 - ERROR - Error searching Trousdale: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:23:28,178 - INFO -   Trousdale: 0 records (Total: 0)
+2026-01-19 14:23:30,191 - INFO - 
+[78/86] Processing Unicoi County
+2026-01-19 14:23:30,191 - INFO - Searching Unicoi County...
+2026-01-19 14:24:06,587 - ERROR - Error searching Unicoi: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:24:06,588 - INFO -   Unicoi: 0 records (Total: 0)
+2026-01-19 14:24:08,600 - INFO - 
+[79/86] Processing Union County
+2026-01-19 14:24:08,600 - INFO - Searching Union County...
+2026-01-19 14:24:44,882 - ERROR - Error searching Union: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:24:44,882 - INFO -   Union: 0 records (Total: 0)
+2026-01-19 14:24:46,895 - INFO - 
+[80/86] Processing Van Buren County
+2026-01-19 14:24:46,895 - INFO - Searching Van Buren County...
+2026-01-19 14:25:23,190 - ERROR - Error searching Van Buren: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:25:23,190 - INFO -   Van Buren: 0 records (Total: 0)
+2026-01-19 14:25:23,192 - INFO - Checkpoint saved: output\tennessee\tn_checkpoint_80.json
+2026-01-19 14:25:25,205 - INFO - 
+[81/86] Processing Warren County
+2026-01-19 14:25:25,205 - INFO - Searching Warren County...
+2026-01-19 14:26:01,597 - ERROR - Error searching Warren: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:26:01,597 - INFO -   Warren: 0 records (Total: 0)
+2026-01-19 14:26:03,608 - INFO - 
+[82/86] Processing Washington County
+2026-01-19 14:26:03,609 - INFO - Searching Washington County...
+2026-01-19 14:26:39,770 - ERROR - Error searching Washington: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:26:39,770 - INFO -   Washington: 0 records (Total: 0)
+2026-01-19 14:26:41,779 - INFO - 
+[83/86] Processing Wayne County
+2026-01-19 14:26:41,779 - INFO - Searching Wayne County...
+2026-01-19 14:27:18,091 - ERROR - Error searching Wayne: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:27:18,091 - INFO -   Wayne: 0 records (Total: 0)
+2026-01-19 14:27:20,092 - INFO - 
+[84/86] Processing Weakley County
+2026-01-19 14:27:20,093 - INFO - Searching Weakley County...
+2026-01-19 14:27:56,307 - ERROR - Error searching Weakley: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:27:56,307 - INFO -   Weakley: 0 records (Total: 0)
+2026-01-19 14:27:58,322 - INFO - 
+[85/86] Processing White County
+2026-01-19 14:27:58,322 - INFO - Searching White County...
+2026-01-19 14:28:34,793 - ERROR - Error searching White: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:28:34,794 - INFO -   White: 0 records (Total: 0)
+2026-01-19 14:28:36,799 - INFO - 
+[86/86] Processing Wilson County
+2026-01-19 14:28:36,799 - INFO - Searching Wilson County...
+2026-01-19 14:29:13,003 - ERROR - Error searching Wilson: ElementHandle.select_option: Timeout 30000ms exceeded.
+Call log:
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - did not find some options
+    - retrying select option action
+      - waiting 100ms
+    58 × waiting for element to be visible and enabled
+       - did not find some options
+     - retrying select option action
+       - waiting 500ms
+
+2026-01-19 14:29:13,004 - INFO -   Wilson: 0 records (Total: 0)
+2026-01-19 14:29:15,019 - INFO - ============================================================
+2026-01-19 14:29:15,019 - INFO - SCRAPING COMPLETE
+2026-01-19 14:29:15,019 - INFO - ============================================================
+2026-01-19 14:29:15,019 - INFO - Total counties: 86
+2026-01-19 14:29:15,019 - INFO - Total records: 0
+2026-01-19 14:29:15,019 - INFO - Output: output\tennessee\tn_tdec_septic_all.json

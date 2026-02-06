@@ -1,0 +1,18 @@
+2026-01-20 06:25:31,288 - INFO - ============================================================
+2026-01-20 06:25:31,289 - INFO - KNOX COUNTY DECODO SCRAPER - STARTING
+2026-01-20 06:25:31,289 - INFO - ============================================================
+2026-01-20 06:25:31,289 - INFO - ============================================================
+2026-01-20 06:25:31,289 - INFO - EXPLORING KNOX COUNTY PERMIT PORTAL
+2026-01-20 06:25:31,289 - INFO - ============================================================
+2026-01-20 06:25:31,289 - INFO - Fetching: https://epw-permitsubmit.knoxcountytn.gov/
+2026-01-20 06:25:31,999 - ERROR - Decodo API error: 401 - {"status":"failed","message":"Incorrect username or password"}
+2026-01-20 06:25:32,000 - ERROR - Failed to fetch portal: {"status":"failed","message":"Incorrect username or password"}
+2026-01-20 06:25:32,000 - INFO - ============================================================
+2026-01-20 06:25:32,001 - INFO - EXPLORING KNOX COUNTY HEALTH DEPT
+2026-01-20 06:25:32,001 - INFO - ============================================================
+2026-01-20 06:25:32,001 - INFO - Fetching: https://www.knoxcounty.org/health/groundwater_protection/
+2026-01-20 06:25:32,646 - ERROR - Decodo API error: 401 - {"status":"failed","message":"Incorrect username or password"}
+2026-01-20 06:25:32,647 - ERROR - Failed to fetch: {"status":"failed","message":"Incorrect username or password"}
+2026-01-20 06:25:32,647 - INFO - ============================================================
+2026-01-20 06:25:32,647 - INFO - EXPLORATION COMPLETE
+2026-01-20 06:25:32,647 - INFO - ============================================================

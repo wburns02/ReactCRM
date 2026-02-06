@@ -1,0 +1,50 @@
+2026-01-20 06:33:52,544 - INFO - ============================================================
+2026-01-20 06:33:52,545 - INFO - DECODO PROXY PLAYWRIGHT SCRAPER
+2026-01-20 06:33:52,545 - INFO - ============================================================
+2026-01-20 06:33:52,545 - INFO - Testing proxy connection...
+2026-01-20 06:33:52,924 - INFO - Scraping: https://httpbin.org/ip
+2026-01-20 06:33:52,924 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:34:08,439 - ERROR - Error scraping https://httpbin.org/ip: cannot access local variable 'safe_filename' where it is not associated with a value
+2026-01-20 06:34:08,779 - ERROR - Proxy test failed: cannot access local variable 'safe_filename' where it is not associated with a value
+2026-01-20 06:34:08,779 - ERROR - Proxy test failed. Check credentials.
+2026-01-20 06:34:24,532 - INFO - ============================================================
+2026-01-20 06:34:24,532 - INFO - DECODO PROXY PLAYWRIGHT SCRAPER
+2026-01-20 06:34:24,532 - INFO - ============================================================
+2026-01-20 06:34:24,532 - INFO - Testing proxy connection...
+2026-01-20 06:34:24,605 - INFO - Scraping: https://httpbin.org/ip
+2026-01-20 06:34:24,605 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:34:30,211 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\httpbin.org_ip.html
+2026-01-20 06:34:30,211 - INFO - Success! Title: , Status: 200
+2026-01-20 06:34:30,302 - INFO - Proxy connection successful!
+2026-01-20 06:34:30,302 - INFO - ============================================================
+2026-01-20 06:34:30,302 - INFO - EXPLORING KNOX COUNTY PERMIT PORTAL
+2026-01-20 06:34:30,302 - INFO - ============================================================
+2026-01-20 06:34:30,302 - INFO - Scraping: https://epw-permitsubmit.knoxcountytn.gov/
+2026-01-20 06:34:30,302 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:34:31,646 - ERROR - Error scraping https://epw-permitsubmit.knoxcountytn.gov/: Page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://epw-permitsubmit.knoxcountytn.gov/
+Call log:
+  - navigating to "https://epw-permitsubmit.knoxcountytn.gov/", waiting until "networkidle"
+
+2026-01-20 06:34:33,908 - INFO - Scraping: https://www.knoxcounty.org/health/groundwater_protection/
+2026-01-20 06:34:33,908 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:34:43,366 - INFO - Screenshot saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\www.knoxcounty.org_health_groundwater_protection_.png
+2026-01-20 06:34:43,367 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\www.knoxcounty.org_health_groundwater_protection_.html
+2026-01-20 06:34:43,368 - INFO - Success! Title: Groundwater Protection - Health Department - Knox County Tennessee Government, Status: 200
+2026-01-20 06:34:45,458 - INFO - ============================================================
+2026-01-20 06:34:45,458 - INFO - EXPLORING WILLIAMSON COUNTY PORTAL
+2026-01-20 06:34:45,458 - INFO - ============================================================
+2026-01-20 06:34:45,458 - INFO - Scraping: https://www.williamsoncounty-tn.gov/126/Sewage-Disposal
+2026-01-20 06:34:45,458 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:34:46,440 - ERROR - Error scraping https://www.williamsoncounty-tn.gov/126/Sewage-Disposal: Page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://www.williamsoncounty-tn.gov/126/Sewage-Disposal
+Call log:
+  - navigating to "https://www.williamsoncounty-tn.gov/126/Sewage-Disposal", waiting until "networkidle"
+
+2026-01-20 06:34:48,667 - INFO - Scraping: https://williamson.idtplans.com/secure/
+2026-01-20 06:34:48,667 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:35:02,183 - INFO - Screenshot saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\williamson.idtplans.com_secure_.png
+2026-01-20 06:35:02,184 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\williamson.idtplans.com_secure_.html
+2026-01-20 06:35:02,184 - INFO - Success! Title: Home, Status: 200
+2026-01-20 06:35:04,264 - INFO - Summary saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\exploration_summary.json
+2026-01-20 06:35:04,264 - INFO - ============================================================
+2026-01-20 06:35:04,264 - INFO - EXPLORATION COMPLETE
+2026-01-20 06:35:04,264 - INFO - ============================================================

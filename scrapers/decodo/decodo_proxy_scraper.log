@@ -1,0 +1,41 @@
+2026-01-20 06:52:28,321 - INFO - ============================================================
+2026-01-20 06:52:28,322 - INFO - DECODO PROXY PLAYWRIGHT SCRAPER
+2026-01-20 06:52:28,322 - INFO - ============================================================
+2026-01-20 06:52:28,322 - INFO - Testing proxy connection...
+2026-01-20 06:52:28,404 - INFO - Scraping: https://httpbin.org/ip
+2026-01-20 06:52:28,404 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:52:33,996 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\httpbin.org_ip.html
+2026-01-20 06:52:34,001 - INFO - Success! Title: , Status: 200
+2026-01-20 06:52:34,077 - INFO - Proxy connection successful!
+2026-01-20 06:52:34,077 - INFO - ============================================================
+2026-01-20 06:52:34,077 - INFO - EXPLORING KNOX COUNTY PERMIT PORTAL
+2026-01-20 06:52:34,078 - INFO - ============================================================
+2026-01-20 06:52:34,078 - INFO - Scraping: https://epw-permitsubmit.knoxcountytn.gov/
+2026-01-20 06:52:34,078 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:52:35,034 - ERROR - Error scraping https://epw-permitsubmit.knoxcountytn.gov/: Page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://epw-permitsubmit.knoxcountytn.gov/
+Call log:
+  - navigating to "https://epw-permitsubmit.knoxcountytn.gov/", waiting until "networkidle"
+
+2026-01-20 06:52:37,290 - INFO - Scraping: https://www.knoxcounty.org/health/groundwater_protection/
+2026-01-20 06:52:37,290 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:52:45,836 - INFO - Screenshot saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\www.knoxcounty.org_health_groundwater_protection_.png
+2026-01-20 06:52:45,836 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\www.knoxcounty.org_health_groundwater_protection_.html
+2026-01-20 06:52:45,836 - INFO - Success! Title: Groundwater Protection - Health Department - Knox County Tennessee Government, Status: 200
+2026-01-20 06:52:47,924 - INFO - ============================================================
+2026-01-20 06:52:47,925 - INFO - EXPLORING WILLIAMSON COUNTY PORTAL
+2026-01-20 06:52:47,925 - INFO - ============================================================
+2026-01-20 06:52:47,925 - INFO - Scraping: https://www.williamsoncounty-tn.gov/126/Sewage-Disposal
+2026-01-20 06:52:47,925 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:52:48,848 - ERROR - Error scraping https://www.williamsoncounty-tn.gov/126/Sewage-Disposal: Page.goto: net::ERR_TUNNEL_CONNECTION_FAILED at https://www.williamsoncounty-tn.gov/126/Sewage-Disposal
+Call log:
+  - navigating to "https://www.williamsoncounty-tn.gov/126/Sewage-Disposal", waiting until "networkidle"
+
+2026-01-20 06:52:51,072 - INFO - Scraping: https://williamson.idtplans.com/secure/
+2026-01-20 06:52:51,073 - INFO - Using proxy: http://dc.decodo.com:10001
+2026-01-20 06:53:03,878 - INFO - Screenshot saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\williamson.idtplans.com_secure_.png
+2026-01-20 06:53:03,879 - INFO - HTML saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\williamson.idtplans.com_secure_.html
+2026-01-20 06:53:03,879 - INFO - Success! Title: Home, Status: 200
+2026-01-20 06:53:05,962 - INFO - Summary saved: C:\Users\Will\crm-work\ReactCRM\scrapers\output\contract_counties\exploration_summary.json
+2026-01-20 06:53:05,962 - INFO - ============================================================
+2026-01-20 06:53:05,963 - INFO - EXPLORATION COMPLETE
+2026-01-20 06:53:05,963 - INFO - ============================================================

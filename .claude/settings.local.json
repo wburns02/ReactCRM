@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh will@100.85.99.69:*)",
+      "Bash(ssh:*)",
+      "Bash(npx tsx:*)"
+    ]
+  }
+}
