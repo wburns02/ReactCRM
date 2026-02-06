@@ -9,6 +9,7 @@ import {
   type WorkOrderFilters,
   type WorkOrderFormData,
 } from "../types/workOrder.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 /**
  * Query keys for work orders
@@ -87,8 +88,16 @@ export function useCreateWorkOrder() {
       const response = await apiClient.post("/work-orders", data);
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (workOrder) => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      toastSuccess(
+        "Work Order Created",
+        `Work order ${workOrder.work_order_number || workOrder.id.slice(0, 8)} created successfully`
+      );
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.detail || error?.message || "Failed to create work order";
+      toastError("Creation Failed", message);
     },
   });
 }
@@ -110,11 +119,19 @@ export function useUpdateWorkOrder() {
       const response = await apiClient.patch("/work-orders/" + id, data);
       return response.data;
     },
-    onSuccess: (_, variables) => {
+    onSuccess: (workOrder, variables) => {
       queryClient.invalidateQueries({
         queryKey: workOrderKeys.detail(variables.id),
       });
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      toastSuccess(
+        "Work Order Updated",
+        `Work order ${workOrder.work_order_number || workOrder.id.slice(0, 8)} updated successfully`
+      );
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.detail || error?.message || "Failed to update work order";
+      toastError("Update Failed", message);
     },
   });
 }
@@ -131,6 +148,11 @@ export function useDeleteWorkOrder() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      toastSuccess("Work Order Deleted", "Work order deleted successfully");
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.detail || error?.message || "Failed to delete work order";
+      toastError("Deletion Failed", message);
     },
   });
 }

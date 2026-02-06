@@ -223,13 +223,20 @@ export function WorkOrdersPage() {
 
   const handleFormSubmit = useCallback(
     async (data: WorkOrderFormData) => {
-      if (editingWorkOrder) {
-        await updateMutation.mutateAsync({ id: editingWorkOrder.id, data });
-      } else {
-        await createMutation.mutateAsync(data);
+      try {
+        if (editingWorkOrder) {
+          await updateMutation.mutateAsync({ id: editingWorkOrder.id, data });
+        } else {
+          await createMutation.mutateAsync(data);
+        }
+        // Only close modal on success
+        setIsFormOpen(false);
+        setEditingWorkOrder(null);
+      } catch (error) {
+        // Error is already handled by mutation's onError callback with toast
+        // Keep modal open so user can fix the issue
+        console.error("Work order submission failed:", error);
       }
-      setIsFormOpen(false);
-      setEditingWorkOrder(null);
     },
     [editingWorkOrder, createMutation, updateMutation],
   );
