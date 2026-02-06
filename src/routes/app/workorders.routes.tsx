@@ -9,6 +9,12 @@ const WorkOrdersPage = lazy(() =>
   })),
 );
 
+const NewWorkOrderPage = lazy(() =>
+  import("@/features/workorders/NewWorkOrderPage.tsx").then((m) => ({
+    default: m.NewWorkOrderPage,
+  })),
+);
+
 const WorkOrderDetailPage = lazy(() =>
   import("@/features/workorders/WorkOrderDetailPage.tsx").then((m) => ({
     default: m.WorkOrderDetailPage,
@@ -44,6 +50,14 @@ export function WorkOrderRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <WorkOrdersPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="work-orders/new"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <NewWorkOrderPage />
           </Suspense>
         }
       />
