@@ -11,18 +11,20 @@ import { formatDate } from "@/lib/utils.ts";
 interface TimeEntryListProps {
   technicianId?: string;
   showApprove?: boolean;
+  defaultStatus?: string;
 }
 
 export function TimeEntryList({
   technicianId,
   showApprove = false,
+  defaultStatus = "",
 }: TimeEntryListProps) {
   const [filters, setFilters] = useState<TimeEntryFilters>({
     page: 1,
     page_size: 20,
     technician_id: technicianId,
   });
-  const [statusFilter, setStatusFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>(defaultStatus);
 
   const { data, isLoading, error } = useTimeEntries({
     ...filters,

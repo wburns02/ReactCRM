@@ -181,7 +181,7 @@ export function TimesheetsPage() {
               <CardTitle>Pending Approval</CardTitle>
             </CardHeader>
             <CardContent>
-              <TimeEntryList showApprove={true} />
+              <TimeEntryList showApprove={true} defaultStatus="pending" />
             </CardContent>
           </Card>
         )}
