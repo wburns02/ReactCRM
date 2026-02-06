@@ -36,6 +36,17 @@ export function TimeEntryList({
   const total = entries.length || 0;
   const totalPages = Math.ceil(total / (filters.page_size || 20));
 
+  // Debug logging
+  console.log("TimeEntryList render:", {
+    isLoading,
+    hasError: !!error,
+    dataType: typeof data,
+    dataIsArray: Array.isArray(data),
+    entriesLength: entries.length,
+    statusFilter,
+    rawData: data,
+  });
+
   const formatTime = (isoString: string | null): string => {
     if (!isoString) return "-";
     return new Date(isoString).toLocaleTimeString("en-US", {
