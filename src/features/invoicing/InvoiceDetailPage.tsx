@@ -32,6 +32,7 @@ import { formatDate, formatCurrency, isValidId } from "@/lib/utils.ts";
 import type { Invoice, InvoiceFormData } from "@/api/types/invoice.ts";
 import { useAIAnalyze } from "@/hooks/useAI";
 import { CreditCard } from "lucide-react";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * AI Payment Prediction Card
@@ -215,6 +216,7 @@ export function InvoiceDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { openEmailCompose } = useEmailCompose();
 
   const { data: invoice, isLoading, error } = useInvoice(id);
   const updateMutation = useUpdateInvoice();
@@ -377,12 +379,12 @@ export function InvoiceDetailPage() {
                     {customerName}
                   </p>
                   {invoice.customer?.email && (
-                    <a
-                      href={"mailto:" + invoice.customer.email}
-                      className="text-text-link hover:underline block mt-1"
+                    <button
+                      onClick={() => openEmailCompose({ to: invoice.customer!.email!, customerId: String(invoice.customer?.id || invoice.customer_id), customerName: customerName })}
+                      className="text-text-link hover:underline block mt-1 text-left"
                     >
                       {invoice.customer.email}
-                    </a>
+                    </button>
                   )}
                   {invoice.customer?.phone && (
                     <a

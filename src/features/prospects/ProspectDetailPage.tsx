@@ -28,6 +28,7 @@ import type { ProspectFormData } from "@/api/types/prospect.ts";
 import { ActivityTimeline } from "@/features/activities";
 import { AttachmentList } from "@/features/documents";
 import { DialButton, CallLog } from "@/features/phone/index.ts";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * Prospect detail page - view/edit individual prospect
@@ -35,6 +36,7 @@ import { DialButton, CallLog } from "@/features/phone/index.ts";
 export function ProspectDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const { data: prospect, isLoading, error, refetch } = useProspect(id);
 
@@ -176,12 +178,12 @@ export function ProspectDetailPage() {
                 <dt className="text-sm text-text-secondary">Email</dt>
                 <dd className="font-medium">
                   {prospect.email ? (
-                    <a
-                      href={`mailto:${prospect.email}`}
+                    <button
+                      onClick={() => openEmailCompose({ to: prospect.email!, customerName: `${prospect.first_name} ${prospect.last_name}` })}
                       className="text-text-link hover:underline"
                     >
                       {prospect.email}
-                    </a>
+                    </button>
                   ) : (
                     <span className="text-text-muted">Not provided</span>
                   )}

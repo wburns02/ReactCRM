@@ -39,6 +39,7 @@ import { TechnicianCoachPanel } from "./components/TechnicianCoachPanel";
 import { TechnicianPerformanceStats } from "./components/TechnicianPerformanceStats";
 import { TechnicianJobsModal } from "./components/TechnicianJobsModal";
 import type { JobCategory } from "@/api/types/technician";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * Technician detail page - shows full technician info with edit/delete
@@ -46,6 +47,7 @@ import type { JobCategory } from "@/api/types/technician";
 export function TechnicianDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const { data: technician, isLoading, error } = useTechnician(id);
   const updateMutation = useUpdateTechnician();
@@ -226,12 +228,12 @@ export function TechnicianDetailPage() {
                   <dt className="text-sm text-text-muted">Email</dt>
                   <dd className="text-text-primary">
                     {technician.email ? (
-                      <a
-                        href={"mailto:" + technician.email}
+                      <button
+                        onClick={() => openEmailCompose({ to: technician.email!, customerName: `${technician.first_name} ${technician.last_name}` })}
                         className="text-text-link hover:underline"
                       >
                         {technician.email}
-                      </a>
+                      </button>
                     ) : (
                       "-"
                     )}

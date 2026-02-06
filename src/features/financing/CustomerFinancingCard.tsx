@@ -22,6 +22,7 @@ import {
 } from "@/api/hooks/useFintech";
 import { FINANCING_PROVIDER_LABELS } from "@/api/types/fintech";
 import { formatCurrency } from "@/lib/utils";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 import { getErrorMessage } from "@/api/client";
 import { toastError } from "@/components/ui/Toast";
 
@@ -40,6 +41,7 @@ export function CustomerFinancingCard({
   amount,
   onFinancingApplied,
 }: CustomerFinancingCardProps) {
+  const { openEmailCompose } = useEmailCompose();
   const [showLinkDialog, setShowLinkDialog] = useState(false);
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -227,7 +229,12 @@ export function CustomerFinancingCard({
                   variant="outline"
                   className="w-full"
                   onClick={() => {
-                    window.location.href = `mailto:${customerEmail}?subject=Financing Options for Your Service&body=Apply for financing here: ${generatedLink}`;
+                    openEmailCompose({
+                      to: customerEmail!,
+                      subject: "Financing Options for Your Service",
+                      body: `Apply for financing here: ${generatedLink}`,
+                      customerId,
+                    });
                   }}
                 >
                   Send via Email

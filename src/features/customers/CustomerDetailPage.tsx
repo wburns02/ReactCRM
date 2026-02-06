@@ -35,6 +35,7 @@ import { AttachmentList } from "@/features/documents";
 import { DialButton, CallLog } from "@/features/phone/index.ts";
 import { CustomerHealthScore } from "./components/CustomerHealthScore.tsx";
 import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * Customer detail page - view/edit individual customer
@@ -42,6 +43,7 @@ import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
 export function CustomerDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const { data: customer, isLoading, error, refetch } = useCustomer(id);
 
@@ -177,12 +179,12 @@ export function CustomerDetailPage() {
                 <dt className="text-sm text-text-secondary">Email</dt>
                 <dd className="font-medium">
                   {customer.email ? (
-                    <a
-                      href={`mailto:${customer.email}`}
+                    <button
+                      onClick={() => openEmailCompose({ to: customer.email!, customerId: id, customerName: `${customer.first_name} ${customer.last_name}` })}
                       className="text-text-link hover:underline"
                     >
                       {customer.email}
-                    </a>
+                    </button>
                   ) : (
                     <span className="text-text-muted">Not provided</span>
                   )}

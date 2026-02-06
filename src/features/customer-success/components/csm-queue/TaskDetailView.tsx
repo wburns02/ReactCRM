@@ -13,6 +13,7 @@ import type {
 } from "../../../../api/types/customerSuccess";
 import { PlaybookPanel } from "./PlaybookPanel";
 import { OutcomeForm } from "./OutcomeForm";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 interface TaskDetailViewProps {
   task: CSMQueueTask;
@@ -57,6 +58,7 @@ export function TaskDetailView({
   onEscalate,
   isCompletePending,
 }: TaskDetailViewProps) {
+  const { openEmailCompose } = useEmailCompose();
   const [activeTab, setActiveTab] = useState<
     "playbook" | "context" | "history" | "outcome"
   >("playbook");
@@ -290,12 +292,12 @@ export function TaskDetailView({
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <a
-                    href={`mailto:${customer?.email || task.customer_email}`}
+                  <button
+                    onClick={() => openEmailCompose({ to: customer?.email || task.customer_email || "", customerName: customer?.name || task.customer_name || undefined })}
                     className="text-primary hover:underline"
                   >
                     {customer?.email || task.customer_email}
-                  </a>
+                  </button>
                 </div>
                 {customer?.phone && (
                   <div className="flex items-center gap-3">
@@ -350,12 +352,12 @@ export function TaskDetailView({
                           {contact.role}
                         </span>
                       </div>
-                      <a
-                        href={`mailto:${contact.email}`}
+                      <button
+                        onClick={() => openEmailCompose({ to: contact.email, customerName: contact.name })}
                         className="text-primary hover:underline text-sm"
                       >
                         {contact.email}
-                      </a>
+                      </button>
                     </div>
                   ))}
                 </div>

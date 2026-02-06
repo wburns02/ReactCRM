@@ -8,6 +8,7 @@ import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import { PROSPECT_STAGE_LABELS } from "@/api/types/common.ts";
 import { CUSTOMER_TYPE_LABELS } from "@/api/types/customer.ts";
 import type { Customer } from "@/api/types/customer.ts";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * Props for memoized row components
@@ -27,6 +28,7 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
   onDelete,
 }: CustomerRowProps) {
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const handleCardClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking interactive elements
@@ -77,12 +79,12 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
         {customer.email && (
           <div className="flex items-center gap-2">
             <span className="text-text-muted">📧</span>
-            <a
-              href={"mailto:" + customer.email}
+            <button
+              onClick={(e) => { e.stopPropagation(); openEmailCompose({ to: customer.email!, customerId: String(customer.id), customerName: `${customer.first_name} ${customer.last_name}` }); }}
               className="text-text-link hover:underline truncate"
             >
               {customer.email}
-            </a>
+            </button>
           </div>
         )}
         {customer.phone && (
@@ -155,6 +157,7 @@ const TableCustomerRow = memo(function TableCustomerRow({
   onDelete,
 }: CustomerRowProps) {
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const handleRowClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking interactive elements
@@ -191,12 +194,12 @@ const TableCustomerRow = memo(function TableCustomerRow({
       <td className="px-4 py-3">
         <div className="text-sm">
           {customer.email && (
-            <a
-              href={"mailto:" + customer.email}
-              className="text-text-link hover:underline block"
+            <button
+              onClick={(e) => { e.stopPropagation(); openEmailCompose({ to: customer.email!, customerId: String(customer.id), customerName: `${customer.first_name} ${customer.last_name}` }); }}
+              className="text-text-link hover:underline block text-left"
             >
               {customer.email}
-            </a>
+            </button>
           )}
           {customer.phone && (
             <span className="text-text-secondary">

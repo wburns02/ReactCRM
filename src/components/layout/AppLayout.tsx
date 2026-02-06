@@ -5,6 +5,7 @@ import { RCStatusIndicator } from "@/features/phone/index.ts";
 import { NotificationCenter } from "@/features/notifications/index.ts";
 import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
 import { OnboardingAssistant } from "@/features/onboarding/components/OnboardingAssistant";
+import { EmailComposeProvider } from "@/context/EmailComposeContext";
 
 /**
  * Navigation item type
@@ -195,6 +196,7 @@ export function AppLayout() {
     group.items.some((item) => isActive(item.path));
 
   return (
+    <EmailComposeProvider>
     <div className="flex h-screen bg-bg-body">
       {/* Skip to main content link - visible only on focus for keyboard users */}
       <a
@@ -333,5 +335,6 @@ export function AppLayout() {
       {/* AI Onboarding Assistant */}
       <OnboardingAssistant />
     </div>
+    </EmailComposeProvider>
   );
 }

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { formatCurrency, formatDate, formatPhone } from "@/lib/utils.ts";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 import {
   PROSPECT_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
@@ -27,6 +28,7 @@ const TableProspectRow = memo(function TableProspectRow({
   onDelete,
 }: ProspectRowProps) {
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const handleRowClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking on buttons or links
@@ -68,12 +70,12 @@ const TableProspectRow = memo(function TableProspectRow({
       <td className="px-4 py-3">
         <div className="text-sm">
           {prospect.email && (
-            <a
-              href={`mailto:${prospect.email}`}
-              className="text-text-link hover:underline block"
+            <button
+              onClick={(e) => { e.stopPropagation(); openEmailCompose({ to: prospect.email!, customerName: `${prospect.first_name} ${prospect.last_name}` }); }}
+              className="text-text-link hover:underline block text-left"
             >
               {prospect.email}
-            </a>
+            </button>
           )}
           {prospect.phone && (
             <span className="text-text-secondary">

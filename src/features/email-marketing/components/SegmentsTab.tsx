@@ -64,6 +64,26 @@ const SEGMENT_CONFIG: Record<
     color: "bg-pink-100 text-pink-800",
     description: "Birthday this month",
   },
+  central_texas: {
+    icon: "🤠",
+    color: "bg-amber-100 text-amber-800",
+    description: "Customers in the Central Texas area",
+  },
+  nashville: {
+    icon: "🎸",
+    color: "bg-indigo-100 text-indigo-800",
+    description: "Customers in the Greater Nashville area",
+  },
+  columbia_sc: {
+    icon: "🌴",
+    color: "bg-emerald-100 text-emerald-800",
+    description: "Customers in the Columbia, SC area",
+  },
+  greenville_tn: {
+    icon: "🏔️",
+    color: "bg-cyan-100 text-cyan-800",
+    description: "Customers in the Greenville, TN area",
+  },
 };
 
 export function SegmentsTab({ tier }: SegmentsTabProps) {

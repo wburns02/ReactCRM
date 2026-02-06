@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button.tsx";
 import { formatPhone } from "@/lib/utils.ts";
 import { TECHNICIAN_SKILL_LABELS } from "@/api/types/technician.ts";
 import type { Technician, TechnicianSkill } from "@/api/types/technician.ts";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * Props for memoized row component
@@ -23,6 +24,7 @@ function TableTechnicianRow({
   onDelete,
 }: TechnicianRowProps) {
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const handleRowClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking interactive elements (links, buttons)
@@ -63,12 +65,12 @@ function TableTechnicianRow({
       <td className="px-4 py-3">
         <div className="text-sm">
           {technician.email && (
-            <a
-              href={"mailto:" + technician.email}
-              className="text-text-link hover:underline block"
+            <button
+              onClick={(e) => { e.stopPropagation(); openEmailCompose({ to: technician.email!, customerName: `${technician.first_name} ${technician.last_name}` }); }}
+              className="text-text-link hover:underline block text-left"
             >
               {technician.email}
-            </a>
+            </button>
           )}
           {technician.phone && (
             <span className="text-text-secondary">

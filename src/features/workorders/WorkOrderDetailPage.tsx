@@ -69,6 +69,7 @@ import {
   type CustomerInfo,
   type WorkOrderReference,
 } from "./Payments/InvoiceGenerator.tsx";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
  * Get badge variant based on status
@@ -118,6 +119,7 @@ function getPriorityVariant(
 export function WorkOrderDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { openEmailCompose } = useEmailCompose();
 
   const { data: workOrder, isLoading, error } = useWorkOrder(id);
   const updateMutation = useUpdateWorkOrder();
@@ -370,12 +372,12 @@ export function WorkOrderDetailPage() {
                         {customerName}
                       </p>
                       {workOrder.customer?.email && (
-                        <a
-                          href={"mailto:" + workOrder.customer.email}
-                          className="text-text-link hover:underline block mt-1"
+                        <button
+                          onClick={() => openEmailCompose({ to: workOrder.customer!.email!, customerId: workOrder.customer_id, customerName: customerName })}
+                          className="text-text-link hover:underline block mt-1 text-left"
                         >
                           {workOrder.customer.email}
-                        </a>
+                        </button>
                       )}
                       {workOrder.customer?.phone && (
                         <div className="flex items-center gap-2">

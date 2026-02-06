@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
 import { useCustomers } from "@/api/hooks/useCustomers";
 import { Link } from "react-router-dom";
+import { useEmailCompose } from "@/context/EmailComposeContext";
 
 interface CustomerSelectProps {
   value?: string;
@@ -20,6 +21,7 @@ export function CustomerSelect({
   onAddNew,
   disabled,
 }: CustomerSelectProps) {
+  const { openEmailCompose } = useEmailCompose();
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -152,12 +154,12 @@ export function CustomerSelect({
                 </a>
               )}
               {selectedCustomer.email && (
-                <a
-                  href={`mailto:${selectedCustomer.email}`}
-                  className="text-sm text-primary hover:underline block"
+                <button
+                  onClick={() => openEmailCompose({ to: selectedCustomer.email!, customerId: String(selectedCustomer.id), customerName: `${selectedCustomer.first_name} ${selectedCustomer.last_name}` })}
+                  className="text-sm text-primary hover:underline block text-left"
                 >
                   {selectedCustomer.email}
-                </a>
+                </button>
               )}
               {formatAddress(selectedCustomer) && (
                 <p className="text-sm text-text-secondary">
