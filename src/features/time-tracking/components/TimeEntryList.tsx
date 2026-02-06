@@ -42,9 +42,11 @@ export function TimeEntryList({
     hasError: !!error,
     dataType: typeof data,
     dataIsArray: Array.isArray(data),
-    entriesLength: entries.length,
+    dataHasEntries: data && typeof data === 'object' && 'entries' in data,
+    dataEntriesLength: data && typeof data === 'object' && 'entries' in data ? (data as any).entries?.length : 'N/A',
+    entriesValue: entries,
+    entriesLength: entries?.length,
     statusFilter,
-    rawData: data,
   });
 
   const formatTime = (isoString: string | null): string => {
