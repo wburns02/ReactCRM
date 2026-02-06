@@ -53,6 +53,9 @@ export default defineConfig({
     // Set LOCAL_DEV=1 to test against local dev server
     baseURL: process.env.BASE_URL || (process.env.LOCAL_DEV ? LOCAL_URL : PRODUCTION_URL),
 
+    // Ignore HTTPS errors (for self-signed certs in test environments)
+    ignoreHTTPSErrors: true,
+
     // Debugging artifacts - capture on failure/retry
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
