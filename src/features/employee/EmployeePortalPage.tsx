@@ -62,7 +62,10 @@ function TimeClock() {
       });
     } catch (error) {
       // Clock in without location if GPS fails
-      await clockIn.mutateAsync({});
+      await clockIn.mutateAsync({
+        latitude: undefined,
+        longitude: undefined,
+      });
     }
   };
 
@@ -75,7 +78,10 @@ function TimeClock() {
       });
     } catch (error) {
       // Clock out without location if GPS fails
-      await clockOut.mutateAsync({});
+      await clockOut.mutateAsync({
+        latitude: undefined,
+        longitude: undefined,
+      });
     }
   };
 
