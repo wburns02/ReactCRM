@@ -32,8 +32,8 @@ export function TimeEntryList({
   });
   const approveEntry = useApproveTimeEntry();
 
-  const entries = data?.items || [];
-  const total = data?.total || 0;
+  const entries = (data as any) || [];
+  const total = entries.length || 0;
   const totalPages = Math.ceil(total / (filters.page_size || 20));
 
   const formatTime = (isoString: string | null): string => {
@@ -173,7 +173,7 @@ export function TimeEntryList({
               </tr>
             </thead>
             <tbody>
-              {entries.map((entry) => (
+              {entries.map((entry: any) => (
                 <tr
                   key={entry.id}
                   className="border-b border-border hover:bg-bg-hover"
