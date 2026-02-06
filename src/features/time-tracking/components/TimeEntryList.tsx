@@ -32,22 +32,12 @@ export function TimeEntryList({
   });
   const approveEntry = useApproveTimeEntry();
 
-  const entries = (data as any) || [];
+  // Handle both array and object response formats
+  const entries = (data && typeof data === 'object' && 'entries' in data)
+    ? (data as any).entries
+    : (Array.isArray(data) ? data : []);
   const total = entries.length || 0;
   const totalPages = Math.ceil(total / (filters.page_size || 20));
-
-  // Debug logging
-  console.log("TimeEntryList render:", {
-    isLoading,
-    hasError: !!error,
-    dataType: typeof data,
-    dataIsArray: Array.isArray(data),
-    dataHasEntries: data && typeof data === 'object' && 'entries' in data,
-    dataEntriesLength: data && typeof data === 'object' && 'entries' in data ? (data as any).entries?.length : 'N/A',
-    entriesValue: entries,
-    entriesLength: entries?.length,
-    statusFilter,
-  });
 
   const formatTime = (isoString: string | null): string => {
     if (!isoString) return "-";
