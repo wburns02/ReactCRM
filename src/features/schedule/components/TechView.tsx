@@ -357,14 +357,24 @@ function TechnicianCard({
 export function TechView() {
   const { currentDate, filters } = useScheduleStore();
 
-  // Fetch work orders
+  // Generate week days
+  const weekDays = useMemo(() => getWeekDays(currentDate), [currentDate]);
+
+  // Calculate date range for API filtering
+  const startDate = formatDateKey(weekDays[0]); // First day of week
+  const endDate = formatDateKey(weekDays[6]); // Last day of week
+
+  // Fetch work orders with date range filtering
   const {
     data: workOrdersData,
     isLoading: woLoading,
+    isFetching: woFetching,
     isError: woError,
   } = useWorkOrders({
     page: 1,
     page_size: 200,
+    scheduled_date_from: startDate,
+    scheduled_date_to: endDate,
   });
 
   // Fetch technicians
@@ -373,9 +383,6 @@ export function TechView() {
     page_size: 100,
     active_only: true,
   });
-
-  // Generate week days
-  const weekDays = useMemo(() => getWeekDays(currentDate), [currentDate]);
 
   // Filter and group work orders by technician for the week
   const workOrdersByTechnician = useMemo(() => {
@@ -483,9 +490,20 @@ export function TechView() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Week Overview Stats */}
-      <div className="bg-white rounded-lg border border-border p-4">
+    <div className="relative">
+      {/* Loading overlay during navigation */}
+      {woFetching && !woLoading && (
+        <div className="absolute inset-0 bg-white/60 z-20 flex items-center justify-center rounded-lg">
+          <div className="flex flex-col items-center gap-2">
+            <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full" />
+            <p className="text-sm text-gray-600">Loading tech view...</p>
+          </div>
+        </div>
+      )}
+
+      <div className="space-y-6">
+        {/* Week Overview Stats */}
+        <div className="bg-white rounded-lg border border-border p-4">
         <h3 className="text-sm font-medium text-text-secondary mb-3">
           Week Overview
         </h3>
@@ -541,6 +559,7 @@ export function TechView() {
           Drag work orders from the <strong>Unscheduled Panel</strong> onto a
           technician card to assign them.
         </p>
+      </div>
       </div>
     </div>
   );

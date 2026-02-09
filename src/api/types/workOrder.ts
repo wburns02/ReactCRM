@@ -143,6 +143,8 @@ export interface WorkOrderFilters {
   page_size?: number;
   status?: string; // Comma-separated status values
   scheduled_date?: string; // YYYY-MM-DD
+  scheduled_date_from?: string; // YYYY-MM-DD - Filter work orders >= this date
+  scheduled_date_to?: string; // YYYY-MM-DD - Filter work orders <= this date
   customer_id?: string;
 }
 

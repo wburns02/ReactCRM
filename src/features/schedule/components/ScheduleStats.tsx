@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/Card.tsx";
 import { useScheduleStats, useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { formatDateKey } from "@/api/types/schedule.ts";
 import {
   format,
   startOfWeek,
@@ -68,7 +69,18 @@ function StatCard({
  */
 export function ScheduleStats() {
   const stats = useScheduleStats();
-  const { data: workOrdersData } = useWorkOrders();
+
+  // Calculate week range for filtering
+  const today = new Date();
+  const weekStart = formatDateKey(startOfWeek(today, { weekStartsOn: 1 }));
+  const weekEnd = formatDateKey(endOfWeek(today, { weekStartsOn: 1 }));
+
+  const { data: workOrdersData } = useWorkOrders({
+    page: 1,
+    page_size: 500,
+    scheduled_date_from: weekStart,
+    scheduled_date_to: weekEnd,
+  });
   const { data: techniciansData } = useTechnicians();
 
   // Calculate additional stats

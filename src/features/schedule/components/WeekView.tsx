@@ -218,18 +218,25 @@ function DroppableDay({
 export function WeekView() {
   const { currentDate, filters } = useScheduleStore();
 
-  // Fetch work orders
+  // Generate week days
+  const weekDays = useMemo(() => getWeekDays(currentDate), [currentDate]);
+
+  // Calculate date range for API filtering
+  const startDate = formatDateKey(weekDays[0]); // First day of week
+  const endDate = formatDateKey(weekDays[6]); // Last day of week
+
+  // Fetch work orders with date range filtering
   const {
     data: workOrdersData,
     isLoading,
+    isFetching,
     isError,
   } = useWorkOrders({
     page: 1,
     page_size: 200,
+    scheduled_date_from: startDate,
+    scheduled_date_to: endDate,
   });
-
-  // Generate week days
-  const weekDays = useMemo(() => getWeekDays(currentDate), [currentDate]);
   const today = formatDateKey(new Date());
 
   // Group work orders by date
@@ -273,24 +280,36 @@ export function WeekView() {
   }, [workOrdersData, weekDays, filters]);
 
   return (
-    <div className="grid grid-cols-7 gap-4">
-      {weekDays.map((day) => {
-        const dateKey = formatDateKey(day);
-        const isToday = dateKey === today;
-        const dayOrders = workOrdersByDate[dateKey] || [];
+    <div className="relative">
+      {/* Loading overlay during navigation */}
+      {isFetching && !isLoading && (
+        <div className="absolute inset-0 bg-white/60 z-10 flex items-center justify-center rounded-lg">
+          <div className="flex flex-col items-center gap-2">
+            <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full" />
+            <p className="text-sm text-gray-600">Loading schedule...</p>
+          </div>
+        </div>
+      )}
 
-        return (
-          <DroppableDay
-            key={dateKey}
-            date={day}
-            isToday={isToday}
-            workOrders={dayOrders}
-            isLoading={isLoading}
-            isError={isError}
-            technician={filters.technician || undefined}
+      <div className="grid grid-cols-7 gap-4">
+        {weekDays.map((day) => {
+          const dateKey = formatDateKey(day);
+          const isToday = dateKey === today;
+          const dayOrders = workOrdersByDate[dateKey] || [];
+
+          return (
+            <DroppableDay
+              key={dateKey}
+              date={day}
+              isToday={isToday}
+              workOrders={dayOrders}
+              isLoading={isLoading}
+              isError={isError}
+              technician={filters.technician || undefined}
           />
         );
       })}
+      </div>
     </div>
   );
 }

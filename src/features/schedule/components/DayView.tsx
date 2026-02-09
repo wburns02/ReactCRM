@@ -276,14 +276,17 @@ export function DayView() {
   const { currentDate, filters } = useScheduleStore();
   const dateKey = formatDateKey(currentDate);
 
-  // Fetch data
+  // Fetch data with date filtering for current day only
   const {
     data: workOrdersData,
     isLoading,
+    isFetching,
     isError,
   } = useWorkOrders({
     page: 1,
     page_size: 200,
+    scheduled_date_from: dateKey,
+    scheduled_date_to: dateKey,
   });
 
   const { data: techniciansData } = useTechnicians({
@@ -370,9 +373,20 @@ export function DayView() {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-border overflow-hidden">
-      {/* Header row with technician names */}
-      <div className="flex border-b border-border bg-bg-muted sticky top-0 z-10">
+    <div className="relative">
+      {/* Loading overlay during navigation */}
+      {isFetching && !isLoading && (
+        <div className="absolute inset-0 bg-white/60 z-20 flex items-center justify-center rounded-lg">
+          <div className="flex flex-col items-center gap-2">
+            <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full" />
+            <p className="text-sm text-gray-600">Loading day view...</p>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-white rounded-lg border border-border overflow-hidden">
+        {/* Header row with technician names */}
+        <div className="flex border-b border-border bg-bg-muted sticky top-0 z-10">
         {/* Time column header */}
         <div className="w-20 shrink-0 p-2 border-r border-border font-medium text-xs text-text-secondary">
           Time
@@ -429,6 +443,7 @@ export function DayView() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

@@ -36,6 +36,10 @@ export function useWorkOrders(filters: WorkOrderFilters = {}) {
       if (filters.status) params.set("status", filters.status);
       if (filters.scheduled_date)
         params.set("scheduled_date", filters.scheduled_date);
+      if (filters.scheduled_date_from)
+        params.set("scheduled_date_from", filters.scheduled_date_from);
+      if (filters.scheduled_date_to)
+        params.set("scheduled_date_to", filters.scheduled_date_to);
 
       const url = "/work-orders?" + params.toString();
       const { data } = await apiClient.get(url);
@@ -57,7 +61,7 @@ export function useWorkOrders(filters: WorkOrderFilters = {}) {
         "/work-orders"
       );
     },
-    staleTime: 30_000, // 30 seconds
+    staleTime: 300_000, // 5 minutes (increased from 30s for better schedule performance)
   });
 }
 
