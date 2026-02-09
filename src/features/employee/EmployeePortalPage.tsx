@@ -430,6 +430,10 @@ export function EmployeePortalPage() {
       notes: job.notes || null,
       created_at: null,
       updated_at: null,
+      clock_in_gps_lat: null,
+      clock_in_gps_lon: null,
+      clock_out_gps_lat: null,
+      clock_out_gps_lon: null,
       total_amount: null,
     };
   };
