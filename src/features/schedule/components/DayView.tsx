@@ -373,7 +373,7 @@ export function DayView() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="day-view">
       {/* Loading overlay during navigation */}
       {isFetching && !isLoading && (
         <div className="absolute inset-0 bg-white/60 z-20 flex items-center justify-center rounded-lg">

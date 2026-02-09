@@ -280,7 +280,7 @@ export function WeekView() {
   }, [workOrdersData, weekDays, filters]);
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="week-view">
       {/* Loading overlay during navigation */}
       {isFetching && !isLoading && (
         <div className="absolute inset-0 bg-white/60 z-10 flex items-center justify-center rounded-lg">
