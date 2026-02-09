@@ -124,6 +124,27 @@ export const workOrderSchema = z.object({
   // Timestamps
   created_at: z.string().nullable(),
   updated_at: z.string().nullable(),
+  // Time tracking
+  actual_start_time: z.string().nullable().optional(),
+  actual_end_time: z.string().nullable().optional(),
+  travel_start_time: z.string().nullable().optional(),
+  travel_end_time: z.string().nullable().optional(),
+  break_minutes: z.number().nullable().optional(),
+  total_labor_minutes: z.number().nullable().optional(),
+  total_travel_minutes: z.number().nullable().optional(),
+  is_clocked_in: z.boolean().nullable().optional(),
+  // GPS tracking
+  clock_in_gps_lat: z.number().nullable().optional(),
+  clock_in_gps_lon: z.number().nullable().optional(),
+  clock_out_gps_lat: z.number().nullable().optional(),
+  clock_out_gps_lon: z.number().nullable().optional(),
+  // Additional fields
+  estimated_gallons: z.number().nullable().optional(),
+  internal_notes: z.string().nullable().optional(),
+  is_recurring: z.boolean().nullable().optional(),
+  recurrence_frequency: z.string().nullable().optional(),
+  next_recurrence_date: z.string().nullable().optional(),
+  total_amount: z.number().nullable().optional(),
 });
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;
