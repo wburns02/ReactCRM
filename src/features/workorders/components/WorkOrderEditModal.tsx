@@ -215,8 +215,8 @@ function CustomerSelect({
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-primary font-semibold">
-                {selectedCustomer.first_name[0]}
-                {selectedCustomer.last_name[0]}
+                {selectedCustomer.first_name?.[0]}
+                {selectedCustomer.last_name?.[0]}
               </span>
             </div>
             <div className="flex-1 min-w-0">
@@ -1287,8 +1287,8 @@ export function WorkOrderEditModal({
                         <InvoiceGenerator
                           customer={{
                             id: String(selectedCustomer.id),
-                            firstName: selectedCustomer.first_name,
-                            lastName: selectedCustomer.last_name,
+                            firstName: selectedCustomer.first_name || "",
+                            lastName: selectedCustomer.last_name || "",
                             email: selectedCustomer.email || undefined,
                             phone: selectedCustomer.phone || undefined,
                           }}

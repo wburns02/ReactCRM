@@ -74,8 +74,8 @@ export function CustomerForm({
               | "municipal"
               | "property_management"
               | undefined) || undefined,
-          prospect_stage: customer.prospect_stage || undefined,
-          lead_source: customer.lead_source || undefined,
+          prospect_stage: (customer.prospect_stage as CustomerFormData["prospect_stage"]) || undefined,
+          lead_source: (customer.lead_source as CustomerFormData["lead_source"]) || undefined,
           estimated_value: customer.estimated_value || undefined,
           assigned_sales_rep: customer.assigned_sales_rep || "",
           next_follow_up_date: customer.next_follow_up_date || "",
@@ -139,7 +139,8 @@ export function CustomerForm({
           {isEdit ? "Edit Customer" : "Add New Customer"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
           <DialogBody className="space-y-6 max-h-[60vh] overflow-y-auto">
             {/* Basic Info Section */}
             <div>

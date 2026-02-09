@@ -29,7 +29,7 @@ type FilterType = "all" | CommunicationType;
 type FilterStatus = "all" | CommunicationStatus;
 
 const STATUS_COLORS: Record<
-  CommunicationStatus,
+  string,
   "success" | "warning" | "danger" | "default"
 > = {
   delivered: "success",
@@ -40,7 +40,7 @@ const STATUS_COLORS: Record<
   received: "success",
 };
 
-const STATUS_LABELS: Record<CommunicationStatus, string> = {
+const STATUS_LABELS: Record<string, string> = {
   delivered: "Delivered",
   sent: "Sent",
   pending: "Pending",
@@ -79,10 +79,10 @@ export function NotificationCenter({
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        const matchesRecipient = notification.recipient
+        const matchesRecipient = (notification.to_address || "")
           .toLowerCase()
           .includes(query);
-        const matchesMessage = notification.message
+        const matchesMessage = (notification.content || "")
           .toLowerCase()
           .includes(query);
         const matchesSubject = notification.subject
@@ -221,10 +221,10 @@ export function NotificationCenter({
                 <div
                   className={`
                     w-10 h-10 rounded-full flex items-center justify-center
-                    ${notification.communication_type === "sms" ? "bg-blue-500/10 text-blue-500" : "bg-purple-500/10 text-purple-500"}
+                    ${notification.type === "sms" ? "bg-blue-500/10 text-blue-500" : "bg-purple-500/10 text-purple-500"}
                   `}
                 >
-                  {notification.communication_type === "sms" ? (
+                  {notification.type === "sms" ? (
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -259,7 +259,7 @@ export function NotificationCenter({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-medium truncate">
-                      {notification.recipient}
+                      {notification.to_address || "Unknown"}
                     </span>
                     <Badge variant={STATUS_COLORS[notification.status]}>
                       {STATUS_LABELS[notification.status]}
@@ -273,20 +273,12 @@ export function NotificationCenter({
                   )}
 
                   <p className="text-sm text-text-secondary line-clamp-2">
-                    {notification.message}
+                    {notification.content}
                   </p>
 
                   <div className="flex items-center gap-4 mt-2 text-xs text-text-secondary">
-                    <span>{formatTimestamp(notification.sent_at)}</span>
-                    {notification.delivered_at && (
-                      <span>
-                        Delivered: {formatTimestamp(notification.delivered_at)}
-                      </span>
-                    )}
-                    {notification.error_message && (
-                      <span className="text-danger">
-                        {notification.error_message}
-                      </span>
+                    {(notification.sent_at || notification.created_at) && (
+                      <span>{formatTimestamp(notification.sent_at || notification.created_at || "")}</span>
                     )}
                   </div>
                 </div>
