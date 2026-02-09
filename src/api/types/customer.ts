@@ -30,9 +30,9 @@ export const CUSTOMER_TYPE_LABELS: Record<CustomerType, string> = {
  * Note: Customer.id is integer (string in JSON), not UUID like Prospect
  */
 export const customerSchema = z.object({
-  id: z.string(), // Integer serialized as string
-  first_name: z.string(),
-  last_name: z.string(),
+  id: z.string(), // UUID serialized as string
+  first_name: z.string().nullable(),
+  last_name: z.string().nullable(),
   email: z.string().email().nullable(),
   phone: z.string().nullable(),
   address_line1: z.string().nullable(),
@@ -40,15 +40,16 @@ export const customerSchema = z.object({
   city: z.string().nullable(),
   state: z.string().nullable(),
   postal_code: z.string().nullable(),
-  latitude: z.number().nullable(),
-  longitude: z.number().nullable(),
+  // Backend Decimal may serialize as string — coerce to number
+  latitude: z.union([z.number(), z.string().transform(Number)]).nullable(),
+  longitude: z.union([z.number(), z.string().transform(Number)]).nullable(),
   default_payment_terms: z.string().nullable(),
   is_active: z.boolean(),
   // Prospect/Lead fields (Customer can also be a prospect)
   customer_type: z.string().nullable(), // Using string for flexibility
-  prospect_stage: prospectStageSchema.nullable(),
-  lead_source: leadSourceSchema.nullable(),
-  estimated_value: z.number().nullable(),
+  prospect_stage: prospectStageSchema.or(z.string()).nullable(),
+  lead_source: leadSourceSchema.or(z.string()).nullable(),
+  estimated_value: z.union([z.number(), z.string().transform(Number)]).nullable(),
   assigned_sales_rep: z.string().nullable(),
   next_follow_up_date: z.string().nullable(),
   lead_notes: z.string().nullable(),

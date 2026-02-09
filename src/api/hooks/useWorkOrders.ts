@@ -250,12 +250,36 @@ export function useAssignWorkOrder() {
       return response.data;
     },
     onSuccess: (workOrder, variables) => {
-      // Invalidate all work order queries to refresh views
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
-      queryClient.invalidateQueries({
-        queryKey: workOrderKeys.detail(variables.id),
-      });
-      queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+      // Update the cache directly with the server response instead of
+      // invalidating — invalidateQueries causes a refetch that can return
+      // stale HTTP-cached data, overwriting the optimistic update.
+      queryClient.setQueriesData<{ items: WorkOrder[] }>(
+        { queryKey: workOrderKeys.lists() },
+        (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            items: oldData.items.map((wo) =>
+              wo.id === workOrder.id ? { ...wo, ...workOrder } : wo,
+            ),
+          };
+        },
+      );
+      queryClient.setQueryData(workOrderKeys.detail(variables.id), workOrder);
+
+      // Remove from unscheduled list if it was scheduled
+      if (workOrder.scheduled_date) {
+        queryClient.setQueryData<{ items: WorkOrder[] }>(
+          scheduleKeys.unscheduled(),
+          (oldData) => {
+            if (!oldData) return oldData;
+            return {
+              ...oldData,
+              items: oldData.items.filter((wo) => wo.id !== workOrder.id),
+            };
+          },
+        );
+      }
 
       // Toast notification
       toastSuccess(
@@ -316,10 +340,31 @@ export function useUnscheduleWorkOrder() {
       return response.data;
     },
     onSuccess: (workOrder, id) => {
-      // Invalidate all work order queries to refresh views
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(id) });
-      queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+      // Update cache directly with server response (avoid stale refetch)
+      queryClient.setQueriesData<{ items: WorkOrder[] }>(
+        { queryKey: workOrderKeys.lists() },
+        (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            items: oldData.items.map((wo) =>
+              wo.id === workOrder.id ? { ...wo, ...workOrder } : wo,
+            ),
+          };
+        },
+      );
+      queryClient.setQueryData(workOrderKeys.detail(id), workOrder);
+
+      // Add back to unscheduled list
+      queryClient.setQueryData<{ items: WorkOrder[] }>(
+        scheduleKeys.unscheduled(),
+        (oldData) => {
+          if (!oldData) return { items: [workOrder], total: 1, page: 1, page_size: 200 };
+          const exists = oldData.items.some((wo) => wo.id === workOrder.id);
+          if (exists) return oldData;
+          return { ...oldData, items: [...oldData.items, workOrder] };
+        },
+      );
 
       // Toast notification
       toastSuccess(
