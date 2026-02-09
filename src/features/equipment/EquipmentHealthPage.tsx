@@ -100,55 +100,6 @@ function AIPredictiveMaintenance({
     }
   };
 
-  function generateDemoMaintenanceInsights(
-    s: typeof stats,
-    health: EquipmentHealth[],
-  ): string {
-    const criticalItems = health.filter((eh) => eh.healthScore < 50);
-    const overdueItems = health.filter((eh) => {
-      if (!eh.equipment.next_maintenance) return false;
-      return new Date(eh.equipment.next_maintenance) < new Date();
-    });
-
-    let insights = `**AI Predictive Maintenance Analysis (Demo Mode)**\n\n`;
-    insights += `**Fleet Overview:**\n`;
-    insights += `- Total Equipment: ${s.total}\n`;
-    insights += `- Average Fleet Health: ${s.avgHealth.toFixed(0)}%\n`;
-    insights += `- Critical Items: ${s.critical}\n`;
-    insights += `- Needs Attention: ${s.warning}\n\n`;
-
-    if (criticalItems.length > 0) {
-      insights += `**Immediate Action Required:**\n`;
-      criticalItems.slice(0, 3).forEach((item) => {
-        insights += `- ${item.equipment.name}: Health ${item.healthScore}% - ${item.riskFactors[0] || "Needs inspection"}\n`;
-      });
-      insights += `\n`;
-    }
-
-    if (overdueItems.length > 0) {
-      insights += `**Overdue Maintenance (${overdueItems.length} items):**\n`;
-      insights += `Schedule maintenance for these items immediately to prevent failures.\n\n`;
-    }
-
-    insights += `**AI Predictions:**\n`;
-    if (s.critical > 0) {
-      insights += `- ${s.critical} equipment items at risk of failure within 30 days\n`;
-    }
-    if (s.avgHealth < 70) {
-      insights += `- Fleet health below target. Recommend increasing maintenance frequency\n`;
-    }
-    if (s.avgHealth >= 80) {
-      insights += `- Fleet is in good condition. Continue current maintenance schedule\n`;
-    }
-
-    insights += `\n**Recommendations:**\n`;
-    insights += `1. ${s.critical > 0 ? "Address critical equipment immediately" : "No critical items - maintain current schedule"}\n`;
-    insights += `2. ${s.warning > 2 ? "Schedule batch maintenance for warning items" : "Warning items are manageable"}\n`;
-    insights += `3. Consider predictive replacement for equipment older than 8 years\n`;
-
-    return insights;
-  }
-
   if (!showPanel) {
     return (
       <button
