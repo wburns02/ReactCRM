@@ -5,31 +5,32 @@ import { apiClient } from "@/api/client";
  * Technician performance statistics page
  */
 export function TechStatsPage() {
-  const { data: stats, isLoading } = useQuery({
+  const { data: stats, isLoading, isError } = useQuery({
     queryKey: ["technician-stats"],
     queryFn: async () => {
-      // Try to get stats, fallback to mock data
-      try {
-        const response = await apiClient.get("/analytics/technician-stats");
-        return response.data;
-      } catch {
-        // Return mock stats for now
-        return {
-          jobs_completed_today: 0,
-          jobs_completed_week: 0,
-          jobs_completed_month: 0,
-          first_time_fix_rate: 0,
-          average_job_time: 0,
-          customer_rating: 0,
-        };
-      }
+      const response = await apiClient.get("/analytics/technician-stats");
+      return response.data;
     },
+    retry: 1,
   });
 
   if (isLoading) {
     return (
       <div className="p-4 flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="p-4 pb-20">
+        <h1 className="text-xl font-semibold text-text-primary mb-4">My Stats</h1>
+        <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+          <span className="text-3xl block mb-2">📊</span>
+          <p className="text-text-muted">Unable to load technician stats</p>
+          <p className="text-sm text-text-muted mt-1">Stats will appear once data is available</p>
+        </div>
       </div>
     );
   }

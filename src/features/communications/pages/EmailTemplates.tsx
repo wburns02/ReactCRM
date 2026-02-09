@@ -25,18 +25,15 @@ export function EmailTemplates() {
     content: "",
   });
 
-  const { data: templates, isLoading } = useQuery({
+  const { data: templates, isLoading, isError } = useQuery({
     queryKey: ["email-templates"],
     queryFn: async () => {
-      try {
-        const response = await apiClient.get("/templates", {
-          params: { type: "email" },
-        });
-        return response.data.items || response.data || [];
-      } catch {
-        return [];
-      }
+      const response = await apiClient.get("/templates", {
+        params: { type: "email" },
+      });
+      return response.data.items || response.data || [];
     },
+    retry: 1,
   });
 
   const createMutation = useMutation({
@@ -50,6 +47,9 @@ export function EmailTemplates() {
       queryClient.invalidateQueries({ queryKey: ["email-templates"] });
       setIsCreating(false);
       setNewTemplate({ name: "", category: "", subject: "", content: "" });
+    },
+    onError: () => {
+      // Error is shown via createMutation.isError in the UI
     },
   });
 
@@ -198,6 +198,12 @@ export function EmailTemplates() {
         {isLoading ? (
           <div className="p-8 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        ) : isError ? (
+          <div className="p-8 text-center text-text-muted">
+            <span className="text-4xl block mb-2">📧</span>
+            <p>Unable to load email templates</p>
+            <p className="text-sm mt-2">Please try again later</p>
           </div>
         ) : templates?.length === 0 ? (
           <div className="p-8 text-center text-text-muted">

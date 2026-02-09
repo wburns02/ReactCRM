@@ -7,7 +7,9 @@
  */
 
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils.ts";
+import { apiClient } from "@/api/client";
 import {
   useCreateSurveyAction,
   type SurveyActionType,
@@ -114,14 +116,29 @@ const PRIORITY_CONFIG: Record<
   low: { label: "Low", color: "bg-gray-500 text-white" },
 };
 
-// Mock team members - in production, fetch from API
-const MOCK_TEAM_MEMBERS: TeamMember[] = [
-  { id: 1, name: "Sarah Johnson", role: "CS Manager" },
-  { id: 2, name: "Mike Chen", role: "Senior CSM" },
-  { id: 3, name: "Emily Davis", role: "CSM" },
-  { id: 4, name: "Tom Wilson", role: "CSM" },
-  { id: 5, name: "Lisa Brown", role: "Support Lead" },
-];
+function useTeamMembers() {
+  return useQuery({
+    queryKey: ["team-members"],
+    queryFn: async (): Promise<TeamMember[]> => {
+      try {
+        const response = await apiClient.get("/technicians", {
+          params: { page_size: 50 },
+        });
+        const items = response.data?.items || response.data || [];
+        return items.map(
+          (t: { id: string | number; first_name?: string; last_name?: string; role?: string }) => ({
+            id: typeof t.id === "string" ? parseInt(t.id.slice(0, 8), 16) : t.id,
+            name: `${t.first_name || ""} ${t.last_name || ""}`.trim() || "Unknown",
+            role: t.role || "Technician",
+          }),
+        );
+      } catch {
+        return [];
+      }
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+}
 
 // ============================================
 // Helper Components
@@ -257,6 +274,7 @@ export function CreateActionModal({
   const [reason, setReason] = useState("");
 
   const createAction = useCreateSurveyAction();
+  const { data: teamMembers = [] } = useTeamMembers();
 
   // Auto-generate title based on action type
   useEffect(() => {
@@ -466,7 +484,7 @@ export function CreateActionModal({
                 className="w-full px-3 py-2 border border-border rounded-lg bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="">Unassigned</option>
-                {MOCK_TEAM_MEMBERS.map((member) => (
+                {teamMembers.map((member) => (
                   <option key={member.id} value={member.id}>
                     {member.name} {member.role && `(${member.role})`}
                   </option>

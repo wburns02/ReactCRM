@@ -96,7 +96,7 @@ function AIPredictiveMaintenance({
         result.summary + "\n\n" + (result.insights || []).join("\n");
       setInsights(formatted || "Analysis complete.");
     } catch {
-      setInsights(generateDemoMaintenanceInsights(stats, equipmentHealth));
+      setInsights("**AI Analysis Unavailable**\n\nThe AI maintenance analysis service is currently unavailable. Please check fleet health scores below for equipment status.");
     }
   };
 

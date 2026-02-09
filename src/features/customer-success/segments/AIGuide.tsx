@@ -11,65 +11,7 @@ import { SimpleResultCard, type CustomerResult } from "./SimpleResultCard.tsx";
 import { ActionWizard, type ActionType } from "./ActionWizard.tsx";
 import { JargonTranslator } from "./JargonTranslator.tsx";
 import { GuidedTour } from "./GuidedTour.tsx";
-
-// Mock data for demo - in production, this would come from the API
-const MOCK_CUSTOMERS: CustomerResult[] = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    email: "sarah@example.com",
-    company: "TechCorp Inc.",
-    avatar: undefined,
-    healthScore: 85,
-    lastContact: "2 days ago",
-    matchReason: "Happy customer with high engagement",
-    tags: ["VIP", "Enterprise"],
-  },
-  {
-    id: 2,
-    name: "Mike Chen",
-    email: "mike@startup.io",
-    company: "Startup.io",
-    avatar: undefined,
-    healthScore: 45,
-    lastContact: "3 weeks ago",
-    matchReason: "Haven't heard from them in a while",
-    tags: ["SMB", "At Risk"],
-  },
-  {
-    id: 3,
-    name: "Emily Davis",
-    email: "emily@growthco.com",
-    company: "GrowthCo",
-    avatar: undefined,
-    healthScore: 92,
-    lastContact: "1 day ago",
-    matchReason: "One of your best customers!",
-    tags: ["Champion", "Enterprise"],
-  },
-  {
-    id: 4,
-    name: "James Wilson",
-    email: "james@newbiz.com",
-    company: "NewBiz LLC",
-    avatar: undefined,
-    healthScore: 72,
-    lastContact: "5 days ago",
-    matchReason: "Service is due next month",
-    tags: ["New", "SMB"],
-  },
-  {
-    id: 5,
-    name: "Lisa Thompson",
-    email: "lisa@enterprise.co",
-    company: "Enterprise Co",
-    avatar: undefined,
-    healthScore: 28,
-    lastContact: "1 month ago",
-    matchReason: "Might be unhappy - low engagement",
-    tags: ["Critical", "Enterprise"],
-  },
-];
+import { apiClient } from "@/api/client";
 
 interface QuickQuestion {
   id: string;
@@ -148,45 +90,36 @@ export function AIGuide({ className, onSegmentCreated }: AIGuideProps) {
     return false;
   });
 
-  // Simulate AI search
+  // Search customers via API
   const performSearch = useCallback(async (query: string) => {
     setIsSearching(true);
     setSearchQuery(query);
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    // Filter mock data based on query (in production, this would be an AI/API call)
-    let filtered = [...MOCK_CUSTOMERS];
-
-    if (query.includes("attention") || query.includes("risk")) {
-      filtered = filtered.filter((c) => c.healthScore < 50);
-    } else if (query.includes("best") || query.includes("happy")) {
-      filtered = filtered.filter((c) => c.healthScore >= 80);
-    } else if (query.includes("no contact") || query.includes("haven't")) {
-      filtered = filtered.filter(
-        (c) =>
-          c.lastContact.includes("week") || c.lastContact.includes("month"),
+    try {
+      const response = await apiClient.get("/customers", {
+        params: { search: query, page_size: 20 },
+      });
+      const customers = response.data?.items || response.data || [];
+      const mapped: CustomerResult[] = customers.map(
+        (c: { id: string | number; first_name?: string; last_name?: string; email?: string; company?: string; created_at?: string }) => ({
+          id: typeof c.id === "string" ? parseInt(c.id.slice(0, 8), 16) : c.id,
+          name: `${c.first_name || ""} ${c.last_name || ""}`.trim() || "Unknown",
+          email: c.email || "",
+          company: c.company || "",
+          avatar: undefined,
+          healthScore: 70,
+          lastContact: c.created_at ? new Date(c.created_at).toLocaleDateString() : "Unknown",
+          matchReason: `Matched search: "${query}"`,
+          tags: [],
+        }),
       );
-    } else if (query.includes("service") || query.includes("due")) {
-      filtered = filtered.filter(
-        (c) =>
-          (c.tags && c.tags.includes("SMB")) ||
-          c.matchReason.includes("service"),
-      );
-    } else if (query.includes("unhappy") || query.includes("dissatisfied")) {
-      filtered = filtered.filter((c) => c.healthScore < 40);
-    } else if (query.includes("new")) {
-      filtered = filtered.filter((c) => c.tags && c.tags.includes("New"));
+      setResults(mapped);
+      setSelectedCustomers(new Set(mapped.map((c: CustomerResult) => c.id)));
+    } catch {
+      setResults([]);
+      setSelectedCustomers(new Set());
     }
 
-    // If no specific filter, just return some results
-    if (filtered.length === 0) {
-      filtered = MOCK_CUSTOMERS.slice(0, 3);
-    }
-
-    setResults(filtered);
-    setSelectedCustomers(new Set(filtered.map((c) => c.id)));
     setViewState("results");
     setIsSearching(false);
   }, []);

@@ -24,18 +24,15 @@ export function SMSTemplates() {
     content: "",
   });
 
-  const { data: templates, isLoading } = useQuery({
+  const { data: templates, isLoading, isError } = useQuery({
     queryKey: ["sms-templates"],
     queryFn: async () => {
-      try {
-        const response = await apiClient.get("/templates", {
-          params: { type: "sms" },
-        });
-        return response.data.items || response.data || [];
-      } catch {
-        return [];
-      }
+      const response = await apiClient.get("/templates", {
+        params: { type: "sms" },
+      });
+      return response.data.items || response.data || [];
     },
+    retry: 1,
   });
 
   const createMutation = useMutation({
@@ -49,6 +46,9 @@ export function SMSTemplates() {
       queryClient.invalidateQueries({ queryKey: ["sms-templates"] });
       setIsCreating(false);
       setNewTemplate({ name: "", category: "", content: "" });
+    },
+    onError: () => {
+      // Error is shown via createMutation.isError in the UI
     },
   });
 
@@ -177,6 +177,12 @@ export function SMSTemplates() {
         {isLoading ? (
           <div className="p-8 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        ) : isError ? (
+          <div className="p-8 text-center text-text-muted">
+            <span className="text-4xl block mb-2">📱</span>
+            <p>Unable to load SMS templates</p>
+            <p className="text-sm mt-2">Please try again later</p>
           </div>
         ) : templates?.length === 0 ? (
           <div className="p-8 text-center text-text-muted">

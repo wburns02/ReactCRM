@@ -82,7 +82,7 @@ class WebSocketManager {
       "https://react-crm-api-production.up.railway.app";
     this.url =
       import.meta.env.VITE_WS_URL ||
-      apiUrl.replace("https://", "wss://").replace("http://", "ws://") + "/api/v2/ws";
+      apiUrl.replace("https://", "wss://").replace("http://", "ws://") + "/ws";
   }
 
   // ============================================

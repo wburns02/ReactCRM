@@ -108,8 +108,8 @@ export interface UseWebSocketReturn {
 const DEFAULT_WS_URL =
   import.meta.env.VITE_WS_URL ||
   (import.meta.env.PROD
-    ? "wss://react-crm-api-production.up.railway.app/ws"
-    : "ws://localhost:5001/ws");
+    ? "wss://react-crm-api-production.up.railway.app/api/v2/ws"
+    : "ws://localhost:5001/api/v2/ws");
 
 const DEFAULT_OPTIONS: Required<
   Omit<UseWebSocketOptions, "onMessage" | "onStatusChange" | "onError">
