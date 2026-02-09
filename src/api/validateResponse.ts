@@ -43,6 +43,16 @@ export function validateResponse<T>(
   if (!result.success) {
     const error = result.error;
 
+    // Store for debugging
+    if (typeof window !== 'undefined') {
+      (window as any).__schemaErrors = (window as any).__schemaErrors || [];
+      (window as any).__schemaErrors.push({
+        endpoint,
+        formatted: error.format(),
+        issues: error.issues
+      });
+    }
+
     // Always log to console for debugging
     console.error(`[API Schema Violation] ${endpoint}:`, error.format());
 
