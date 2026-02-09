@@ -57,8 +57,8 @@ export function CustomerForm({
     resolver: zodResolver(customerFormSchema) as any,
     defaultValues: customer
       ? {
-          first_name: customer.first_name,
-          last_name: customer.last_name,
+          first_name: customer.first_name || "",
+          last_name: customer.last_name || "",
           email: customer.email || "",
           phone: customer.phone || "",
           address_line1: customer.address_line1 || "",

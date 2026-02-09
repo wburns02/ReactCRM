@@ -36,6 +36,8 @@ const STATUS_COLORS: Record<
   sent: "default",
   pending: "warning",
   failed: "danger",
+  queued: "default",
+  received: "success",
 };
 
 const STATUS_LABELS: Record<CommunicationStatus, string> = {
@@ -43,6 +45,8 @@ const STATUS_LABELS: Record<CommunicationStatus, string> = {
   sent: "Sent",
   pending: "Pending",
   failed: "Failed",
+  queued: "Queued",
+  received: "Received",
 };
 
 export function NotificationCenter({

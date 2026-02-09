@@ -64,7 +64,7 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
         <div className="ml-2">
           {customer.prospect_stage ? (
             <Badge variant="stage" stage={customer.prospect_stage}>
-              {PROSPECT_STAGE_LABELS[customer.prospect_stage] ||
+              {PROSPECT_STAGE_LABELS[customer.prospect_stage as keyof typeof PROSPECT_STAGE_LABELS] ||
                 customer.prospect_stage}
             </Badge>
           ) : (
@@ -226,7 +226,7 @@ const TableCustomerRow = memo(function TableCustomerRow({
       <td className="px-4 py-3">
         {customer.prospect_stage ? (
           <Badge variant="stage" stage={customer.prospect_stage}>
-            {PROSPECT_STAGE_LABELS[customer.prospect_stage] ||
+            {PROSPECT_STAGE_LABELS[customer.prospect_stage as keyof typeof PROSPECT_STAGE_LABELS] ||
               customer.prospect_stage}
           </Badge>
         ) : (

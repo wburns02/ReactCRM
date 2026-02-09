@@ -19,10 +19,10 @@ interface TriggerPlaybookModalProps {
 
 // Helper to get full name from customer
 function getCustomerName(customer: {
-  first_name: string;
-  last_name: string;
+  first_name: string | null;
+  last_name: string | null;
 }): string {
-  return `${customer.first_name} ${customer.last_name}`.trim();
+  return `${customer.first_name || ""} ${customer.last_name || ""}`.trim();
 }
 
 export function TriggerPlaybookModal({

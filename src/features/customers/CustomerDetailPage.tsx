@@ -157,7 +157,7 @@ export function CustomerDetailPage() {
               Prospect Stage:
             </span>
             <Badge variant="stage" stage={customer.prospect_stage}>
-              {PROSPECT_STAGE_LABELS[customer.prospect_stage]}
+              {PROSPECT_STAGE_LABELS[customer.prospect_stage as keyof typeof PROSPECT_STAGE_LABELS] || customer.prospect_stage}
             </Badge>
             {!customer.is_active && <Badge variant="danger">Inactive</Badge>}
           </div>
@@ -259,7 +259,7 @@ export function CustomerDetailPage() {
                   <div>
                     <dt className="text-sm text-text-secondary">Lead Source</dt>
                     <dd className="font-medium">
-                      {LEAD_SOURCE_LABELS[customer.lead_source]}
+                      {LEAD_SOURCE_LABELS[customer.lead_source as keyof typeof LEAD_SOURCE_LABELS] || customer.lead_source}
                     </dd>
                   </div>
                 )}
