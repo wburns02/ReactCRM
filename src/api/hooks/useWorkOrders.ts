@@ -245,13 +245,24 @@ export function useAssignWorkOrder() {
       const response = await apiClient.patch("/work-orders/" + id, updateData);
       return response.data;
     },
-    onSuccess: (_, variables) => {
+    onSuccess: (workOrder, variables) => {
       // Invalidate all work order queries to refresh views
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: workOrderKeys.detail(variables.id),
       });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+
+      // Toast notification
+      toastSuccess(
+        "Work Order Scheduled",
+        `${workOrder.work_order_number || 'Work order'} scheduled successfully`
+      );
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.detail || error?.message || "Failed to schedule work order";
+      console.error("Schedule assignment failed:", error);
+      toastError("Schedule Failed", message);
     },
   });
 }
@@ -300,11 +311,22 @@ export function useUnscheduleWorkOrder() {
       });
       return response.data;
     },
-    onSuccess: (_, id) => {
+    onSuccess: (workOrder, id) => {
       // Invalidate all work order queries to refresh views
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
       queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+
+      // Toast notification
+      toastSuccess(
+        "Work Order Unscheduled",
+        `${workOrder.work_order_number || 'Work order'} removed from schedule`
+      );
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.detail || error?.message || "Failed to unschedule work order";
+      console.error("Unschedule failed:", error);
+      toastError("Unschedule Failed", message);
     },
   });
 }
