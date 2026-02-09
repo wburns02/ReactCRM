@@ -14,7 +14,7 @@ export const workOrderStatusSchema = z.enum([
   "completed",
   "canceled",
   "requires_followup",
-]);
+]).or(z.string()); // Allow unknown statuses (like quote_request) to pass through
 export type WorkOrderStatus = z.infer<typeof workOrderStatusSchema>;
 
 export const WORK_ORDER_STATUS_LABELS: Record<WorkOrderStatus, string> = {
@@ -144,7 +144,11 @@ export const workOrderSchema = z.object({
   is_recurring: z.boolean().nullable().optional(),
   recurrence_frequency: z.string().nullable().optional(),
   next_recurrence_date: z.string().nullable().optional(),
-  total_amount: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
+  total_amount: z.union([z.number(), z.string(), z.null()]).optional().transform(val => {
+    if (val === null || val === undefined) return null;
+    if (typeof val === 'number') return val;
+    return parseFloat(val as string);
+  }),
 });
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;

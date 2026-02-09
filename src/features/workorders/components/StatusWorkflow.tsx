@@ -26,6 +26,7 @@ const STATUS_TRANSITIONS: Record<WorkOrderStatus, WorkOrderStatus[]> = {
   completed: [], // Terminal state - no transitions allowed
   canceled: ["draft"], // Can only go back to draft to restart
   requires_followup: ["in_progress", "completed", "canceled"],
+  quote_request: ["draft", "scheduled", "canceled"],
 };
 
 /**
@@ -60,6 +61,8 @@ function getQuickActions(currentStatus: WorkOrderStatus): {
       ];
     case "requires_followup":
       return [{ status: "completed", label: "Complete", variant: "primary" }];
+    case "quote_request":
+      return [{ status: "scheduled", label: "Schedule", variant: "primary" }];
     default:
       return [];
   }

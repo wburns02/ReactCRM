@@ -430,6 +430,7 @@ export function EmployeePortalPage() {
       notes: job.notes || null,
       created_at: null,
       updated_at: null,
+      total_amount: null,
     };
   };
 
