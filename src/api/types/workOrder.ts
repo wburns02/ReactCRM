@@ -144,7 +144,7 @@ export const workOrderSchema = z.object({
   is_recurring: z.boolean().nullable().optional(),
   recurrence_frequency: z.string().nullable().optional(),
   next_recurrence_date: z.string().nullable().optional(),
-  total_amount: z.number().nullable().optional(),
+  total_amount: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
 });
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;
