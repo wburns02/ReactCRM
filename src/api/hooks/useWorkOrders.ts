@@ -253,6 +253,10 @@ export function useAssignWorkOrder() {
       // Update the cache directly with the server response instead of
       // invalidating — invalidateQueries causes a refetch that can return
       // stale HTTP-cached data, overwriting the optimistic update.
+      // Filter out null values so we don't overwrite cached customer_name etc.
+      const nonNullFields = Object.fromEntries(
+        Object.entries(workOrder).filter(([, v]) => v != null),
+      );
       queryClient.setQueriesData<{ items: WorkOrder[] }>(
         { queryKey: workOrderKeys.lists() },
         (oldData) => {
@@ -260,12 +264,15 @@ export function useAssignWorkOrder() {
           return {
             ...oldData,
             items: oldData.items.map((wo) =>
-              wo.id === workOrder.id ? { ...wo, ...workOrder } : wo,
+              wo.id === workOrder.id ? { ...wo, ...nonNullFields } : wo,
             ),
           };
         },
       );
-      queryClient.setQueryData(workOrderKeys.detail(variables.id), workOrder);
+      queryClient.setQueryData(
+        workOrderKeys.detail(variables.id),
+        (old: WorkOrder | undefined) => old ? { ...old, ...nonNullFields } : workOrder,
+      );
 
       // Remove from unscheduled list if it was scheduled
       if (workOrder.scheduled_date) {
@@ -341,6 +348,13 @@ export function useUnscheduleWorkOrder() {
     },
     onSuccess: (workOrder, id) => {
       // Update cache directly with server response (avoid stale refetch)
+      // For unschedule, we intentionally keep null fields (scheduled_date: null, etc.)
+      // but preserve customer_name from cache if response has it null
+      const mergeFields = Object.fromEntries(
+        Object.entries(workOrder).filter(
+          ([k, v]) => v != null || ["scheduled_date", "assigned_technician", "time_window_start"].includes(k),
+        ),
+      );
       queryClient.setQueriesData<{ items: WorkOrder[] }>(
         { queryKey: workOrderKeys.lists() },
         (oldData) => {
@@ -348,12 +362,15 @@ export function useUnscheduleWorkOrder() {
           return {
             ...oldData,
             items: oldData.items.map((wo) =>
-              wo.id === workOrder.id ? { ...wo, ...workOrder } : wo,
+              wo.id === workOrder.id ? { ...wo, ...mergeFields } : wo,
             ),
           };
         },
       );
-      queryClient.setQueryData(workOrderKeys.detail(id), workOrder);
+      queryClient.setQueryData(
+        workOrderKeys.detail(id),
+        (old: WorkOrder | undefined) => old ? { ...old, ...mergeFields } : workOrder,
+      );
 
       // Add back to unscheduled list
       queryClient.setQueryData<{ items: WorkOrder[] }>(

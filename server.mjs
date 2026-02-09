@@ -57,7 +57,11 @@ const server = http.createServer((req, res) => {
       res.end('Server Error');
     } else {
       const headers = { 'Content-Type': contentType };
-      if (ext !== '.html') {
+      const basename = path.basename(filePath);
+      if (basename === 'sw.js' || basename === 'registerSW.js') {
+        // Service worker files must never be cached — Chrome needs fresh SW on every load
+        headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+      } else if (ext !== '.html') {
         headers['Cache-Control'] = 'public, max-age=31536000, immutable';
       }
       res.writeHead(200, headers);
