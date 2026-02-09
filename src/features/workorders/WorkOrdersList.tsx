@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
@@ -344,6 +344,12 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
 /**
  * Work Orders data table with pagination
  */
+/**
+ * Sortable column types
+ */
+type SortField = "customer" | "job_type" | "scheduled_date" | "priority" | "status" | "technician";
+type SortDirection = "asc" | "desc";
+
 export function WorkOrdersList({
   workOrders,
   total,
@@ -358,6 +364,84 @@ export function WorkOrdersList({
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
   const isMobileOrTablet = useIsMobileOrTablet();
+
+  // Sort state
+  const [sortField, setSortField] = useState<SortField>("scheduled_date");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+
+  // Priority order mapping for sorting
+  const priorityOrder: Record<Priority, number> = {
+    emergency: 5,
+    urgent: 4,
+    high: 3,
+    normal: 2,
+    low: 1,
+  };
+
+  // Status order mapping for sorting
+  const statusOrder: Record<WorkOrderStatus, number> = {
+    draft: 1,
+    scheduled: 2,
+    confirmed: 3,
+    enroute: 4,
+    on_site: 5,
+    in_progress: 6,
+    completed: 7,
+    canceled: 8,
+    requires_followup: 9,
+  };
+
+  // Sorted work orders
+  const sortedWorkOrders = useMemo(() => {
+    return [...workOrders].sort((a, b) => {
+      let comparison = 0;
+
+      switch (sortField) {
+        case "customer":
+          const aCustomer = a.customer_name || (a.customer ? `${a.customer.first_name} ${a.customer.last_name}` : "");
+          const bCustomer = b.customer_name || (b.customer ? `${b.customer.first_name} ${b.customer.last_name}` : "");
+          comparison = aCustomer.localeCompare(bCustomer);
+          break;
+        case "job_type":
+          comparison = (a.job_type || "").localeCompare(b.job_type || "");
+          break;
+        case "scheduled_date":
+          comparison = (a.scheduled_date || "").localeCompare(b.scheduled_date || "");
+          break;
+        case "technician":
+          comparison = (a.assigned_technician || "").localeCompare(b.assigned_technician || "");
+          break;
+        case "priority":
+          comparison = (priorityOrder[a.priority as Priority] || 0) - (priorityOrder[b.priority as Priority] || 0);
+          break;
+        case "status":
+          comparison = (statusOrder[a.status as WorkOrderStatus] || 0) - (statusOrder[b.status as WorkOrderStatus] || 0);
+          break;
+      }
+
+      return sortDirection === "desc" ? -comparison : comparison;
+    });
+  }, [workOrders, sortField, sortDirection, priorityOrder, statusOrder]);
+
+  // Toggle sort function
+  const toggleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "desc" ? "asc" : "desc");
+    } else {
+      setSortField(field);
+      setSortDirection("desc");
+    }
+  };
+
+  // Sort indicator component
+  const SortIndicator = ({ field }: { field: SortField }) => {
+    if (sortField !== field) {
+      return <span className="text-text-muted opacity-50 ml-1">⇅</span>;
+    }
+    return (
+      <span className="ml-1">{sortDirection === "desc" ? "↓" : "↑"}</span>
+    );
+  };
 
   // Memoized callbacks for child components - must be called before any conditional returns
   const handleEdit = useCallback((wo: WorkOrder) => onEdit?.(wo), [onEdit]);
@@ -389,7 +473,7 @@ export function WorkOrdersList({
     return (
       <div>
         <div className="space-y-3">
-          {workOrders.map((wo) => (
+          {sortedWorkOrders.map((wo) => (
             <MobileWorkOrderCard
               key={wo.id}
               wo={wo}
@@ -444,39 +528,45 @@ export function WorkOrdersList({
             <tr className="border-b border-border bg-bg-muted">
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+                onClick={() => toggleSort("customer")}
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors select-none"
               >
-                Customer
+                Customer <SortIndicator field="customer" />
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+                onClick={() => toggleSort("job_type")}
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors select-none"
               >
-                Job Type
+                Job Type <SortIndicator field="job_type" />
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+                onClick={() => toggleSort("scheduled_date")}
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors select-none"
               >
-                Scheduled
+                Scheduled <SortIndicator field="scheduled_date" />
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+                onClick={() => toggleSort("technician")}
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors select-none"
               >
-                Technician
+                Technician <SortIndicator field="technician" />
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+                onClick={() => toggleSort("priority")}
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors select-none"
               >
-                Priority
+                Priority <SortIndicator field="priority" />
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+                onClick={() => toggleSort("status")}
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors select-none"
               >
-                Status
+                Status <SortIndicator field="status" />
               </th>
               <th
                 scope="col"
@@ -487,7 +577,7 @@ export function WorkOrdersList({
             </tr>
           </thead>
           <tbody className="divide-y divide-border-light">
-            {workOrders.map((wo) => (
+            {sortedWorkOrders.map((wo) => (
               <TableWorkOrderRow
                 key={wo.id}
                 wo={wo}
