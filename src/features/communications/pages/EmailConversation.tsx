@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { toastError, toastSuccess } from "@/components/ui/Toast";
 
 interface EmailMessage {
-  id: number;
+  id: string;
   subject: string;
   body: string;
   direction: "inbound" | "outbound";
@@ -22,13 +23,18 @@ export function EmailConversation() {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState("");
 
-  const { data: conversation, isLoading } = useQuery({
+  const {
+    data: conversation,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["email-conversation", id],
     queryFn: async () => {
       const response = await apiClient.get(`/email/conversations/${id}`);
       return response.data;
     },
     enabled: !!id,
+    retry: 1,
   });
 
   const replyMutation = useMutation({
@@ -42,6 +48,10 @@ export function EmailConversation() {
       setReply("");
       setIsReplying(false);
       queryClient.invalidateQueries({ queryKey: ["email-conversation", id] });
+      toastSuccess("Reply sent");
+    },
+    onError: () => {
+      toastError("Failed to send reply");
     },
   });
 
@@ -49,6 +59,22 @@ export function EmailConversation() {
     return (
       <div className="h-full flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center gap-4">
+        <p className="text-danger font-medium">
+          Failed to load email conversation
+        </p>
+        <Link
+          to="/communications/email-inbox"
+          className="text-primary hover:underline"
+        >
+          Back to Inbox
+        </Link>
       </div>
     );
   }

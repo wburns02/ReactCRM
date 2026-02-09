@@ -5,7 +5,7 @@ import { apiClient } from "@/api/client";
 import { EmailComposeModal } from "../components/EmailComposeModal";
 
 interface EmailConversation {
-  id: number;
+  id: string;
   customer_name: string;
   customer_email: string;
   subject: string;
@@ -22,42 +22,43 @@ export function EmailInbox() {
   const [filter, setFilter] = useState<"all" | "unread">("all");
   const [isComposeOpen, setIsComposeOpen] = useState(false);
 
-  const { data: emails, isLoading } = useQuery({
+  const {
+    data: emails,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["email-conversations", searchQuery, filter],
     queryFn: async () => {
-      try {
-        // Use communications/history endpoint with email type filter
-        const response = await apiClient.get("/communications/history", {
-          params: {
-            type: "email",
-            page: 1,
-            page_size: 50,
-          },
-        });
-        // Transform backend response to match UI expectations
-        const items = response.data.items || [];
-        return items.map(
-          (msg: {
-            id: number;
-            to_address: string;
-            subject: string | null;
-            content: string;
-            created_at: string;
-            status: string;
-          }) => ({
-            id: msg.id,
-            customer_name: msg.to_address.split("@")[0] || "Unknown",
-            customer_email: msg.to_address,
-            subject: msg.subject || "(No Subject)",
-            preview: msg.content.substring(0, 100),
-            received_at: new Date(msg.created_at).toLocaleDateString(),
-            unread: msg.status === "pending",
-          }),
-        );
-      } catch {
-        return [];
-      }
+      const response = await apiClient.get("/communications/history", {
+        params: {
+          message_type: "email",
+          page: 1,
+          page_size: 50,
+        },
+      });
+      const items = response.data.items || [];
+      return items.map(
+        (msg: {
+          id: string;
+          to_address: string | null;
+          subject: string | null;
+          content: string | null;
+          created_at: string | null;
+          status: string;
+        }) => ({
+          id: msg.id,
+          customer_name: msg.to_address?.split("@")[0] || "Unknown",
+          customer_email: msg.to_address || "",
+          subject: msg.subject || "(No Subject)",
+          preview: (msg.content || "").substring(0, 100),
+          received_at: msg.created_at
+            ? new Date(msg.created_at).toLocaleDateString()
+            : "",
+          unread: msg.status === "pending",
+        }),
+      );
     },
+    retry: 1,
   });
 
   return (
@@ -106,6 +107,13 @@ export function EmailInbox() {
         {isLoading ? (
           <div className="p-4 flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        ) : isError ? (
+          <div className="p-8 text-center text-danger">
+            <p className="font-medium">Failed to load emails</p>
+            <p className="text-sm mt-2 text-text-muted">
+              Please try refreshing the page
+            </p>
           </div>
         ) : emails?.length === 0 ? (
           <div className="p-8 text-center text-text-muted">

@@ -90,6 +90,8 @@ export function useSendEmail() {
         });
       }
       queryClient.invalidateQueries({ queryKey: communicationKeys.lists() });
+      // Refresh email inbox
+      queryClient.invalidateQueries({ queryKey: ["email-conversations"] });
     },
   });
 }

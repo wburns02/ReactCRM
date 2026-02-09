@@ -21,6 +21,8 @@ export const CommunicationStatus = {
   DELIVERED: "delivered",
   FAILED: "failed",
   PENDING: "pending",
+  QUEUED: "queued",
+  RECEIVED: "received",
 } as const;
 export type CommunicationStatus =
   (typeof CommunicationStatus)[keyof typeof CommunicationStatus];
@@ -30,24 +32,26 @@ export const communicationStatusSchema = z.enum([
   "delivered",
   "failed",
   "pending",
+  "queued",
+  "received",
 ]);
 
 /**
  * Communication schema - validates API responses
  */
 export const communicationSchema = z.object({
-  id: z.string().uuid(),
-  customer_id: z.string().uuid(),
-  communication_type: communicationTypeSchema,
-  recipient: z.string(),
-  subject: z.string().nullable(),
-  message: z.string(),
-  status: communicationStatusSchema,
-  sent_at: z.string(),
-  delivered_at: z.string().nullable(),
-  error_message: z.string().nullable(),
-  created_by: z.string().nullable(),
-  created_at: z.string(),
+  id: z.string(),
+  customer_id: z.string().nullable().optional(),
+  type: communicationTypeSchema.or(z.string()),
+  direction: z.string().nullable().optional(),
+  status: communicationStatusSchema.or(z.string()),
+  to_address: z.string().nullable().optional(),
+  from_address: z.string().nullable().optional(),
+  subject: z.string().nullable().optional(),
+  content: z.string().nullable().optional(),
+  external_id: z.string().nullable().optional(),
+  sent_at: z.string().nullable().optional(),
+  created_at: z.string().nullable().optional(),
 });
 
 export type Communication = z.infer<typeof communicationSchema>;
@@ -114,6 +118,8 @@ export const COMMUNICATION_STATUS_LABELS: Record<CommunicationStatus, string> =
     delivered: "Delivered",
     failed: "Failed",
     pending: "Pending",
+    queued: "Queued",
+    received: "Received",
   };
 
 /**
