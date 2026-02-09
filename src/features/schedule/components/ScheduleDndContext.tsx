@@ -174,12 +174,15 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
     if (overData?.type === "unschedule") {
       // Only unschedule if it was a scheduled work order
       if (active.data.current?.isScheduled) {
-        // Optimistic update - add to unscheduled cache
-        const previousLists = queryClient.getQueryData(workOrderKeys.lists());
+        // Snapshot ALL matching queries for rollback
+        const previousListQueries = queryClient.getQueriesData<{ items: WorkOrder[] }>({
+          queryKey: workOrderKeys.lists(),
+        });
         const previousUnscheduled = queryClient.getQueryData(
           scheduleKeys.unscheduled(),
         );
 
+        // Optimistic update - add to unscheduled cache
         queryClient.setQueryData(
           scheduleKeys.unscheduled(),
           (oldData: { items: WorkOrder[] } | undefined) => {
@@ -202,10 +205,10 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
           },
         );
 
-        // Remove from scheduled lists
-        queryClient.setQueryData(
-          workOrderKeys.lists(),
-          (oldData: { items: WorkOrder[] } | undefined) => {
+        // Remove from ALL scheduled list queries (partial key match)
+        queryClient.setQueriesData<{ items: WorkOrder[] }>(
+          { queryKey: workOrderKeys.lists() },
+          (oldData) => {
             if (!oldData) return oldData;
             return {
               ...oldData,
@@ -227,8 +230,10 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
         // Perform actual API call
         unscheduleWorkOrder.mutate(workOrder.id, {
           onError: () => {
-            // Rollback on error
-            queryClient.setQueryData(workOrderKeys.lists(), previousLists);
+            // Rollback each snapshotted query
+            previousListQueries.forEach(([key, data]) => {
+              queryClient.setQueryData(key, data);
+            });
             queryClient.setQueryData(
               scheduleKeys.unscheduled(),
               previousUnscheduled,
@@ -257,12 +262,15 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
       timeStart = `${String(dropData.hour).padStart(2, "0")}:00`;
     }
 
-    // Optimistic update - update cache immediately
-    const previousData = queryClient.getQueryData(workOrderKeys.lists());
+    // Snapshot ALL matching work order list queries for rollback
+    const previousQueries = queryClient.getQueriesData<{ items: WorkOrder[] }>({
+      queryKey: workOrderKeys.lists(),
+    });
 
-    queryClient.setQueryData(
-      workOrderKeys.lists(),
-      (oldData: { items: WorkOrder[] } | undefined) => {
+    // Optimistic update - update ALL matching list queries immediately
+    queryClient.setQueriesData<{ items: WorkOrder[] }>(
+      { queryKey: workOrderKeys.lists() },
+      (oldData) => {
         if (!oldData) return oldData;
         return {
           ...oldData,
@@ -282,7 +290,7 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
       },
     );
 
-    // Also update unscheduled cache
+    // Also update unscheduled cache (exact key - fine as-is)
     queryClient.setQueryData(
       scheduleKeys.unscheduled(),
       (oldData: { items: WorkOrder[] } | undefined) => {
@@ -306,8 +314,10 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
       },
       {
         onError: () => {
-          // Rollback on error
-          queryClient.setQueryData(workOrderKeys.lists(), previousData);
+          // Rollback each snapshotted query
+          previousQueries.forEach(([key, data]) => {
+            queryClient.setQueryData(key, data);
+          });
           queryClient.invalidateQueries({
             queryKey: scheduleKeys.unscheduled(),
           });

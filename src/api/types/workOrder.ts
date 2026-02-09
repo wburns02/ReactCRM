@@ -41,7 +41,7 @@ export const jobTypeSchema = z.enum([
   "maintenance",
   "grease_trap",
   "camera_inspection",
-]);
+]).or(z.string()); // Allow unknown job types to pass through
 export type JobType = z.infer<typeof jobTypeSchema>;
 
 export const JOB_TYPE_LABELS: Record<JobType, string> = {
@@ -64,7 +64,7 @@ export const prioritySchema = z.enum([
   "high",
   "urgent",
   "emergency",
-]);
+]).or(z.string()); // Allow unknown priorities to pass through
 export type Priority = z.infer<typeof prioritySchema>;
 
 export const PRIORITY_LABELS: Record<Priority, string> = {
@@ -74,6 +74,14 @@ export const PRIORITY_LABELS: Record<Priority, string> = {
   urgent: "Urgent",
   emergency: "Emergency",
 };
+
+/** Zod transform for numeric fields that may arrive as Decimal strings from Pydantic */
+const numericField = z.union([z.number(), z.string(), z.null()]).optional().transform(val => {
+  if (val === null || val === undefined) return null;
+  if (typeof val === 'number') return val;
+  const parsed = parseFloat(val as string);
+  return isNaN(parsed) ? null : parsed;
+});
 
 /**
  * Work Order schema - validates API responses
@@ -115,7 +123,7 @@ export const workOrderSchema = z.object({
   service_latitude: z.number().nullable(),
   service_longitude: z.number().nullable(),
   // Work details
-  checklist: z.record(z.string(), z.unknown()).nullable(),
+  checklist: z.any().nullable(),
   notes: z.string().nullable(),
   // Pumping details (for pump-out jobs)
   gallons_pumped: z.number().nullable().optional(),
@@ -134,21 +142,17 @@ export const workOrderSchema = z.object({
   total_travel_minutes: z.number().nullable().optional(),
   is_clocked_in: z.boolean().nullable().optional(),
   // GPS tracking
-  clock_in_gps_lat: z.number().nullable().optional(),
-  clock_in_gps_lon: z.number().nullable().optional(),
-  clock_out_gps_lat: z.number().nullable().optional(),
-  clock_out_gps_lon: z.number().nullable().optional(),
+  clock_in_gps_lat: numericField,
+  clock_in_gps_lon: numericField,
+  clock_out_gps_lat: numericField,
+  clock_out_gps_lon: numericField,
   // Additional fields
   estimated_gallons: z.number().nullable().optional(),
   internal_notes: z.string().nullable().optional(),
   is_recurring: z.boolean().nullable().optional(),
   recurrence_frequency: z.string().nullable().optional(),
   next_recurrence_date: z.string().nullable().optional(),
-  total_amount: z.union([z.number(), z.string(), z.null()]).optional().transform(val => {
-    if (val === null || val === undefined) return null;
-    if (typeof val === 'number') return val;
-    return parseFloat(val as string);
-  }),
+  total_amount: numericField,
 });
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;
