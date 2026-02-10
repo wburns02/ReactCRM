@@ -86,20 +86,6 @@ export function WorkOrderContextMenu() {
     setMenuPosition({ top, left });
   }, [isOpen, position]);
 
-  // Close on click outside
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        closeMenu();
-      }
-    };
-    // Use mousedown for faster response
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [isOpen, closeMenu]);
-
   // Close on Escape
   useEffect(() => {
     if (!isOpen) return;
@@ -109,15 +95,6 @@ export function WorkOrderContextMenu() {
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [isOpen, closeMenu]);
-
-  // Close on scroll (any scrollable parent)
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleScroll = () => closeMenu();
-    window.addEventListener("scroll", handleScroll, true);
-    return () => window.removeEventListener("scroll", handleScroll, true);
   }, [isOpen, closeMenu]);
 
   const toggleSection = useCallback((section: ExpandedSection) => {
@@ -211,6 +188,13 @@ export function WorkOrderContextMenu() {
   }
 
   return createPortal(
+    <>
+    {/* Transparent backdrop: clicking anywhere outside closes the menu */}
+    <div
+      className="fixed inset-0 z-[59]"
+      data-testid="wo-context-backdrop"
+      onMouseDown={closeMenu}
+    />
     <div
       ref={menuRef}
       role="menu"
@@ -456,7 +440,8 @@ export function WorkOrderContextMenu() {
           )}
         </div>
       </div>
-    </div>,
+    </div>
+    </>,
     document.body,
   );
 }
