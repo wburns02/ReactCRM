@@ -11,6 +11,8 @@ import { MapView } from "./components/MapView.tsx";
 import { ResourceTimeline } from "./components/ResourceTimeline.tsx";
 import { UnscheduledPanel } from "./components/UnscheduledPanel.tsx";
 import { UnscheduledOrdersTable } from "./components/UnscheduledOrdersTable.tsx";
+import { WorkOrderContextMenu } from "./components/WorkOrderContextMenu.tsx";
+import { ContextMenuProvider } from "./context/ContextMenuContext.tsx";
 import { AIDispatchAssistant } from "@/features/ai-dispatch";
 
 /**
@@ -47,6 +49,7 @@ export function SchedulePage() {
 
   return (
     <ScheduleDndContext>
+      <ContextMenuProvider>
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -119,6 +122,10 @@ export function SchedulePage() {
 
       {/* AI Dispatch Assistant - Floating button */}
       <AIDispatchAssistant />
+
+      {/* Right-click context menu for work orders */}
+      <WorkOrderContextMenu />
+      </ContextMenuProvider>
     </ScheduleDndContext>
   );
 }

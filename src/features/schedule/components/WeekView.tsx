@@ -20,6 +20,7 @@ import {
   type DropTargetData,
 } from "@/api/types/schedule.ts";
 import { useScheduleStore } from "../store/scheduleStore.ts";
+import { useContextMenu } from "../context/ContextMenuContext.tsx";
 
 /**
  * Get status badge variant
@@ -73,6 +74,7 @@ function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
         originalTechnician: workOrder.assigned_technician,
       },
     });
+  const { openMenu } = useContextMenu();
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -85,6 +87,7 @@ function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
       style={style}
       {...attributes}
       {...listeners}
+      onContextMenu={(e) => openMenu(e, workOrder)}
       data-testid={`scheduled-wo-${workOrder.id}`}
       className={`
         block p-2 rounded border-l-4 hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing

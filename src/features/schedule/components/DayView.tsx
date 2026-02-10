@@ -22,6 +22,7 @@ import {
   type DropTargetData,
 } from "@/api/types/schedule.ts";
 import { useScheduleStore } from "../store/scheduleStore.ts";
+import { useContextMenu } from "../context/ContextMenuContext.tsx";
 
 /** Height of one hour slot in pixels */
 const HOUR_HEIGHT = 64;
@@ -73,6 +74,7 @@ function getStatusVariant(
  */
 function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
   const updateDuration = useUpdateWorkOrderDuration();
+  const { openMenu } = useContextMenu();
   const [isResizing, setIsResizing] = useState(false);
   const [resizeDuration, setResizeDuration] = useState<number | null>(null);
   const startY = useRef(0);
@@ -166,6 +168,7 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       }}
       {...attributes}
       {...(isResizing ? {} : listeners)}
+      onContextMenu={(e) => openMenu(e, workOrder)}
       data-testid={`scheduled-wo-${workOrder.id}`}
       className={`
         absolute inset-1 rounded border-l-4 p-1.5 overflow-hidden

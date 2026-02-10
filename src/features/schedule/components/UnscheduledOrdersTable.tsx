@@ -13,6 +13,7 @@ import {
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
 } from "@/api/types/workOrder.ts";
+import { useContextMenu } from "../context/ContextMenuContext.tsx";
 
 /**
  * Priority color mapping for indicators
@@ -42,6 +43,7 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
       id: workOrder.id,
       data: { workOrder },
     });
+  const { openMenu } = useContextMenu();
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -55,6 +57,7 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
       style={style}
       {...attributes}
       {...listeners}
+      onContextMenu={(e) => openMenu(e, workOrder)}
       className={`
         border-b border-border hover:bg-bg-hover transition-colors
         cursor-grab active:cursor-grabbing
