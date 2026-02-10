@@ -33,7 +33,7 @@ interface NavGroup {
  * Matches legacy sidebar structure
  */
 export function AppLayout() {
-  const { user, logout } = useAuth();
+  const { user, logout, isTechnician } = useAuth();
   const location = useLocation();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     // Auto-expand group containing current page
@@ -47,6 +47,13 @@ export function AppLayout() {
     { path: "/customers", label: "Customers", icon: "👥" },
     { path: "/prospects", label: "Prospects", icon: "📋" },
     { path: "/customer-success", label: "Customer Success", icon: "💚" },
+  ];
+
+  // Simplified nav for technicians — just 3 items, big and obvious
+  const techNavItems: NavItem[] = [
+    { path: "/my-dashboard", label: "My Dashboard", icon: "🏠" },
+    { path: "/employee", label: "Time Clock", icon: "⏰" },
+    { path: "/field", label: "Field View", icon: "🗺️" },
   ];
 
   // Collapsible navigation groups - matching legacy structure
@@ -221,74 +228,97 @@ export function AppLayout() {
 
         {/* Navigation - Scrollable */}
         <nav className="flex-1 overflow-y-auto p-4">
-          {/* Top-level items */}
-          <ul className="space-y-1 mb-4">
-            {topNavItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  to={item.path}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive(item.path)
-                      ? "bg-primary-light text-primary"
-                      : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
-                  }`}
-                >
-                  <span>{item.icon}</span>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* Collapsible Groups */}
-          <div className="space-y-2">
-            {navGroups.map((group) => (
-              <div key={group.name} className="border-t border-border/50 pt-2">
-                <button
-                  onClick={() => toggleGroup(group.name)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isGroupActive(group)
-                      ? "text-primary"
-                      : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
-                  }`}
-                >
-                  <span>{group.icon}</span>
-                  <span className="flex-1 text-left">{group.label}</span>
-                  {group.badge && (
-                    <span className="px-1.5 py-0.5 text-xs bg-success/20 text-success rounded">
-                      {group.badge}
-                    </span>
-                  )}
-                  <span
-                    className={`transition-transform ${expandedGroups.has(group.name) ? "rotate-180" : ""}`}
+          {isTechnician ? (
+            /* Simplified nav for technicians — 3 big items, nothing else */
+            <ul className="space-y-2">
+              {techNavItems.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                      isActive(item.path)
+                        ? "bg-primary-light text-primary"
+                        : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
+                    }`}
                   >
-                    ▼
-                  </span>
-                </button>
+                    <span className="text-xl">{item.icon}</span>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <>
+              {/* Top-level items */}
+              <ul className="space-y-1 mb-4">
+                {topNavItems.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                        isActive(item.path)
+                          ? "bg-primary-light text-primary"
+                          : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
+                      }`}
+                    >
+                      <span>{item.icon}</span>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
 
-                {/* Group Items */}
-                {expandedGroups.has(group.name) && (
-                  <ul className="mt-1 ml-4 space-y-1">
-                    {group.items.map((item) => (
-                      <li key={item.path}>
-                        <Link
-                          to={item.path}
-                          className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                            isActive(item.path)
-                              ? "bg-primary-light text-primary font-medium"
-                              : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
-                          }`}
-                        >
-                          <span className="text-xs">{item.icon}</span>
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              {/* Collapsible Groups */}
+              <div className="space-y-2">
+                {navGroups.map((group) => (
+                  <div key={group.name} className="border-t border-border/50 pt-2">
+                    <button
+                      onClick={() => toggleGroup(group.name)}
+                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                        isGroupActive(group)
+                          ? "text-primary"
+                          : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
+                      }`}
+                    >
+                      <span>{group.icon}</span>
+                      <span className="flex-1 text-left">{group.label}</span>
+                      {group.badge && (
+                        <span className="px-1.5 py-0.5 text-xs bg-success/20 text-success rounded">
+                          {group.badge}
+                        </span>
+                      )}
+                      <span
+                        className={`transition-transform ${expandedGroups.has(group.name) ? "rotate-180" : ""}`}
+                      >
+                        ▼
+                      </span>
+                    </button>
+
+                    {/* Group Items */}
+                    {expandedGroups.has(group.name) && (
+                      <ul className="mt-1 ml-4 space-y-1">
+                        {group.items.map((item) => (
+                          <li key={item.path}>
+                            <Link
+                              to={item.path}
+                              className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                                isActive(item.path)
+                                  ? "bg-primary-light text-primary font-medium"
+                                  : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
+                              }`}
+                            >
+                              <span className="text-xs">{item.icon}</span>
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </nav>
 
         {/* User info */}

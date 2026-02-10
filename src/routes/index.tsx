@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout.tsx";
 import { RequireAuth } from "@/features/auth/RequireAuth.tsx";
+import { useAuth } from "@/features/auth/useAuth.ts";
 import { PageLoader } from "./utils";
 
 // Import route modules
@@ -28,6 +29,14 @@ const OnboardingWizard = lazy(() =>
     default: m.OnboardingWizard,
   })),
 );
+
+/**
+ * Redirects technicians to /my-dashboard, everyone else to /dashboard
+ */
+function RoleBasedRedirect() {
+  const { isTechnician } = useAuth();
+  return <Navigate to={isTechnician ? "/my-dashboard" : "/dashboard"} replace />;
+}
 
 /**
  * App routes - standalone deployment at root
@@ -72,8 +81,8 @@ export function AppRoutes() {
           </RequireAuth>
         }
       >
-        {/* Default redirect to dashboard */}
-        <Route index element={<Navigate to="/dashboard" replace />} />
+        {/* Role-based redirect: techs → /my-dashboard, others → /dashboard */}
+        <Route index element={<RoleBasedRedirect />} />
 
         {/* Dashboard */}
         {DashboardRoutes()}

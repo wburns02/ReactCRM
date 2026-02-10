@@ -45,12 +45,28 @@ const PayrollPeriodDetailPage = lazy(() =>
   })),
 );
 
+const TechnicianDashboardPage = lazy(() =>
+  import("@/features/technician-dashboard/TechnicianDashboardPage.tsx").then(
+    (m) => ({ default: m.TechnicianDashboardPage }),
+  ),
+);
+
 /**
  * Technician routes - technicians, schedule, service intervals, employee portal
  */
 export function TechnicianRoutes() {
   return (
     <>
+      {/* Technician Dashboard (simple view for field techs) */}
+      <Route
+        path="my-dashboard"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechnicianDashboardPage />
+          </Suspense>
+        }
+      />
+
       {/* Technicians */}
       <Route
         path="technicians"
