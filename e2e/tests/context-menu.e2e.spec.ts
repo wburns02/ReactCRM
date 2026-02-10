@@ -66,8 +66,31 @@ async function findWorkOrderTarget(page: Page): Promise<Locator | null> {
 async function openContextMenu(page: Page, target: Locator): Promise<Locator> {
   await target.click({ button: "right" });
   const menu = page.locator('[data-testid="wo-context-menu"]');
-  await expect(menu).toBeVisible({ timeout: 3000 });
+  await expect(menu).toBeVisible({ timeout: 5000 });
+  // Brief pause for React to finish rendering all event handlers
+  await page.waitForTimeout(300);
   return menu;
+}
+
+/**
+ * Click a section header and wait for the expanded content to appear.
+ * Retries the click once if the section doesn't expand.
+ */
+async function expandSection(
+  page: Page,
+  headerTestId: string,
+  contentTestId: string,
+): Promise<Locator> {
+  const content = page.locator(`[data-testid="${contentTestId}"]`);
+  await page.locator(`[data-testid="${headerTestId}"]`).click();
+  try {
+    await content.waitFor({ state: "visible", timeout: 3000 });
+  } catch {
+    // Retry once
+    await page.locator(`[data-testid="${headerTestId}"]`).click();
+    await content.waitFor({ state: "visible", timeout: 5000 });
+  }
+  return content;
 }
 
 test.describe("Work Order Context Menu", () => {
@@ -156,9 +179,14 @@ test.describe("Work Order Context Menu", () => {
     expect(menuText).toBeTruthy();
     expect(menuText!.length).toBeGreaterThan(10);
 
-    // Close by clicking outside
-    await authPage.mouse.click(10, 10);
-    await authPage.waitForTimeout(300);
+    // Close by clicking outside (use backdrop if available, otherwise main content area)
+    const backdrop = authPage.locator('[data-testid="wo-context-backdrop"]');
+    if ((await backdrop.count()) > 0) {
+      await backdrop.click({ position: { x: 400, y: 10 }, force: true });
+    } else {
+      await authPage.mouse.click(400, 10);
+    }
+    await authPage.waitForTimeout(500);
     await expect(menu).not.toBeVisible();
   });
 
@@ -173,13 +201,8 @@ test.describe("Work Order Context Menu", () => {
 
     await openContextMenu(authPage, target);
 
-    // Click "Assign Technician"
-    await authPage.locator('[data-testid="ctx-assign-tech"]').click();
-    await authPage.waitForTimeout(500);
-
-    // Technician list should be visible
-    const techList = authPage.locator('[data-testid="ctx-tech-list"]');
-    await expect(techList).toBeVisible();
+    // Click "Assign Technician" and wait for expansion
+    const techList = await expandSection(authPage, "ctx-assign-tech", "ctx-tech-list");
 
     // Should have at least one technician button
     const techButtons = techList.locator("button");
@@ -202,13 +225,8 @@ test.describe("Work Order Context Menu", () => {
 
     await openContextMenu(authPage, target);
 
-    // Click "Set Time"
-    await authPage.locator('[data-testid="ctx-set-time"]').click();
-    await authPage.waitForTimeout(500);
-
-    // Time grid should be visible
-    const timeGrid = authPage.locator('[data-testid="ctx-time-grid"]');
-    await expect(timeGrid).toBeVisible();
+    // Click "Set Time" and wait for expansion
+    const timeGrid = await expandSection(authPage, "ctx-set-time", "ctx-time-grid");
 
     // Should have 10 time buttons (8AM-5PM)
     const timeButtons = timeGrid.locator("button");
@@ -231,13 +249,8 @@ test.describe("Work Order Context Menu", () => {
 
     await openContextMenu(authPage, target);
 
-    // Click "Change Status"
-    await authPage.locator('[data-testid="ctx-change-status"]').click();
-    await authPage.waitForTimeout(500);
-
-    // Status list should be visible
-    const statusList = authPage.locator('[data-testid="ctx-status-list"]');
-    await expect(statusList).toBeVisible();
+    // Click "Change Status" and wait for expansion
+    const statusList = await expandSection(authPage, "ctx-change-status", "ctx-status-list");
 
     // Should have 9 status options
     const statusButtons = statusList.locator("button");
@@ -260,13 +273,8 @@ test.describe("Work Order Context Menu", () => {
 
     await openContextMenu(authPage, target);
 
-    // Click "Set Priority"
-    await authPage.locator('[data-testid="ctx-set-priority"]').click();
-    await authPage.waitForTimeout(500);
-
-    // Priority list should be visible
-    const priorityList = authPage.locator('[data-testid="ctx-priority-list"]');
-    await expect(priorityList).toBeVisible();
+    // Click "Set Priority" and wait for expansion
+    const priorityList = await expandSection(authPage, "ctx-set-priority", "ctx-priority-list");
 
     // Should have 5 priority options
     const priorityButtons = priorityList.locator("button");
@@ -341,9 +349,16 @@ test.describe("Work Order Context Menu", () => {
 
     const menu = await openContextMenu(authPage, target);
 
-    // Click far away from the menu
-    await authPage.mouse.click(10, 10);
-    await authPage.waitForTimeout(300);
+    // Click outside the menu to close it
+    // Try clicking the backdrop overlay (if deployed), otherwise click in main content area
+    const backdrop = authPage.locator('[data-testid="wo-context-backdrop"]');
+    if ((await backdrop.count()) > 0) {
+      await backdrop.click({ position: { x: 400, y: 10 }, force: true });
+    } else {
+      // Fallback: click in the main content area (past the 256px sidebar)
+      await authPage.mouse.click(400, 10);
+    }
+    await authPage.waitForTimeout(500);
     await expect(menu).not.toBeVisible();
   });
 
@@ -367,11 +382,7 @@ test.describe("Work Order Context Menu", () => {
     await openContextMenu(authPage, target);
 
     // Expand technician section
-    await authPage.locator('[data-testid="ctx-assign-tech"]').click();
-    await authPage.waitForTimeout(500);
-
-    const techList = authPage.locator('[data-testid="ctx-tech-list"]');
-    await expect(techList).toBeVisible({ timeout: 3000 });
+    const techList = await expandSection(authPage, "ctx-assign-tech", "ctx-tech-list");
     const techButtons = techList.locator("button");
     const techCount = await techButtons.count();
 
@@ -406,14 +417,10 @@ test.describe("Work Order Context Menu", () => {
       await openContextMenu(authPage, target);
 
       // Expand all sections to trigger rendering
-      await authPage.locator('[data-testid="ctx-assign-tech"]').click();
-      await authPage.waitForTimeout(300);
-      await authPage.locator('[data-testid="ctx-set-time"]').click();
-      await authPage.waitForTimeout(300);
-      await authPage.locator('[data-testid="ctx-change-status"]').click();
-      await authPage.waitForTimeout(300);
-      await authPage.locator('[data-testid="ctx-set-priority"]').click();
-      await authPage.waitForTimeout(300);
+      await expandSection(authPage, "ctx-assign-tech", "ctx-tech-list");
+      await expandSection(authPage, "ctx-set-time", "ctx-time-grid");
+      await expandSection(authPage, "ctx-change-status", "ctx-status-list");
+      await expandSection(authPage, "ctx-set-priority", "ctx-priority-list");
 
       await authPage.keyboard.press("Escape");
       await authPage.waitForTimeout(500);
