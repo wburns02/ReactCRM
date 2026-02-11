@@ -367,8 +367,8 @@ export function AppLayout() {
         </div>
       </main>
 
-      {/* AI Onboarding Assistant */}
-      <OnboardingAssistant />
+      {/* AI Onboarding Assistant — hidden for field technicians */}
+      {!isTechnician && <OnboardingAssistant />}
     </div>
     </EmailComposeProvider>
   );
