@@ -760,22 +760,21 @@ function ComposePanel({
             />
           </div>
 
-          <Button
-            size="lg"
+          <button
             onClick={handleSend}
             disabled={sendMutation.isPending || !to.trim() || !body.trim()}
-            className="w-full h-14 text-lg rounded-xl font-bold"
+            className="w-full h-14 text-lg rounded-xl font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
           >
             {sendMutation.isPending ? (
-              <span className="flex items-center gap-2">
+              <>
                 <span className="animate-spin">🔄</span> Sending...
-              </span>
+              </>
             ) : (
-              <span className="flex items-center gap-2">
+              <>
                 <span>🚀</span> Send {msgType === "sms" ? "SMS" : "Email"}
-              </span>
+              </>
             )}
-          </Button>
+          </button>
 
           <div className="h-4" />
         </div>
