@@ -9,26 +9,31 @@ import {
 
 /**
  * Prospect schema - validates API responses
+ *
+ * Prospects share the backend CustomerResponse schema.
+ * Fields are aligned with customer.ts patterns for consistency.
  */
 export const prospectSchema = z.object({
   id: z.string().uuid(),
-  first_name: z.string(),
-  last_name: z.string(),
-  email: z.string().email().nullable(),
+  first_name: z.string().nullable(),
+  last_name: z.string().nullable(),
+  email: z.string().email().or(z.string()).nullable(),
   phone: z.string().nullable(),
-  company_name: z.string().nullable(),
+  company_name: z.string().nullable().optional(), // Not in backend CustomerResponse
   address_line1: z.string().nullable(),
   city: z.string().nullable(),
-  state: z.string().max(2).nullable(),
+  state: z.string().nullable(),
   postal_code: z.string().nullable(),
-  prospect_stage: prospectStageSchema,
-  lead_source: leadSourceSchema.nullable(),
-  estimated_value: z.number().nullable(),
+  prospect_stage: prospectStageSchema.or(z.string()).nullable(),
+  lead_source: leadSourceSchema.or(z.string()).nullable(),
+  estimated_value: z
+    .union([z.number(), z.string().transform(Number)])
+    .nullable(),
   assigned_sales_rep: z.string().nullable(),
   next_follow_up_date: z.string().nullable(),
   lead_notes: z.string().nullable(),
-  created_at: z.string(),
-  updated_at: z.string(),
+  created_at: z.string().nullable(),
+  updated_at: z.string().nullable(),
 });
 
 export type Prospect = z.infer<typeof prospectSchema>;

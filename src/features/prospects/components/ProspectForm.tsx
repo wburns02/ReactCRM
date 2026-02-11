@@ -56,8 +56,8 @@ export function ProspectForm({
     resolver: zodResolver(prospectFormSchema) as any,
     defaultValues: prospect
       ? {
-          first_name: prospect.first_name,
-          last_name: prospect.last_name,
+          first_name: prospect.first_name || "",
+          last_name: prospect.last_name || "",
           email: prospect.email || "",
           phone: prospect.phone || "",
           company_name: prospect.company_name || "",
@@ -65,7 +65,7 @@ export function ProspectForm({
           city: prospect.city || "",
           state: prospect.state || "",
           postal_code: prospect.postal_code || "",
-          prospect_stage: prospect.prospect_stage,
+          prospect_stage: prospect.prospect_stage || "new_lead",
           lead_source: prospect.lead_source || undefined,
           estimated_value: prospect.estimated_value || undefined,
           assigned_sales_rep: prospect.assigned_sales_rep || "",

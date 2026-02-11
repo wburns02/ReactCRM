@@ -58,7 +58,7 @@ const TableProspectRow = memo(function TableProspectRow({
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
-            {prospect.first_name} {prospect.last_name}
+            {prospect.first_name || ""} {prospect.last_name || ""}
           </p>
           {prospect.company_name && (
             <p className="text-sm text-text-secondary">
@@ -71,7 +71,7 @@ const TableProspectRow = memo(function TableProspectRow({
         <div className="text-sm">
           {prospect.email && (
             <button
-              onClick={(e) => { e.stopPropagation(); openEmailCompose({ to: prospect.email!, customerName: `${prospect.first_name} ${prospect.last_name}` }); }}
+              onClick={(e) => { e.stopPropagation(); openEmailCompose({ to: prospect.email!, customerName: `${prospect.first_name || ""} ${prospect.last_name || ""}` }); }}
               className="text-text-link hover:underline block text-left"
             >
               {prospect.email}
@@ -104,7 +104,7 @@ const TableProspectRow = memo(function TableProspectRow({
             <Button
               variant="ghost"
               size="sm"
-              aria-label={`View ${prospect.first_name} ${prospect.last_name}`}
+              aria-label={`View ${prospect.first_name || ""} ${prospect.last_name || ""}`}
             >
               View
             </Button>
@@ -114,7 +114,7 @@ const TableProspectRow = memo(function TableProspectRow({
               variant="ghost"
               size="sm"
               onClick={() => onEdit(prospect)}
-              aria-label={`Edit ${prospect.first_name} ${prospect.last_name}`}
+              aria-label={`Edit ${prospect.first_name || ""} ${prospect.last_name || ""}`}
             >
               Edit
             </Button>
@@ -124,7 +124,7 @@ const TableProspectRow = memo(function TableProspectRow({
               variant="ghost"
               size="sm"
               onClick={() => onDelete(prospect)}
-              aria-label={`Delete ${prospect.first_name} ${prospect.last_name}`}
+              aria-label={`Delete ${prospect.first_name || ""} ${prospect.last_name || ""}`}
               className="text-danger hover:text-danger hover:bg-danger/10"
             >
               Delete

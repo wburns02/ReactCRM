@@ -47,15 +47,23 @@ describe("Prospect API Contracts", () => {
       });
     });
 
-    it("rejects invalid prospect_stage", () => {
+    it("accepts unknown prospect_stage strings (flexible enum)", () => {
+      // Schema uses .or(z.string()) for forward compatibility with new stages
       const result = prospectSchema.safeParse(invalidFixtures.invalidStage);
-      expect(result.success).toBe(false);
-      if (!result.success) {
-        const stageError = result.error.issues.find((i) =>
-          i.path.includes("prospect_stage"),
-        );
-        expect(stageError).toBeDefined();
-      }
+      expect(result.success).toBe(true);
+    });
+
+    it("accepts null prospect_stage (backend includes IS NULL)", () => {
+      const withNullStage = { ...validProspectMinimal, prospect_stage: null };
+      const result = prospectSchema.safeParse(withNullStage);
+      expect(result.success).toBe(true);
+    });
+
+    it("validates prospect without company_name (not in backend)", () => {
+      // Backend CustomerResponse does not have company_name
+      const { company_name: _, ...withoutCompany } = validProspectComplete;
+      const result = prospectSchema.safeParse(withoutCompany);
+      expect(result.success).toBe(true);
     });
 
     it("rejects invalid UUID for id", () => {
@@ -88,10 +96,10 @@ describe("Prospect API Contracts", () => {
       }
     });
 
-    it("rejects response with invalid item", () => {
+    it("rejects response with invalid item (bad UUID)", () => {
       const invalidResponse = {
         ...validListResponse,
-        items: [invalidFixtures.invalidStage],
+        items: [invalidFixtures.invalidUuid],
       };
       const result = prospectListResponseSchema.safeParse(invalidResponse);
       expect(result.success).toBe(false);

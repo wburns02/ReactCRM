@@ -121,7 +121,7 @@ export function ProspectDetailPage() {
             </Link>
           </div>
           <h1 className="text-2xl font-semibold text-text-primary">
-            {prospect.first_name} {prospect.last_name}
+            {prospect.first_name || ""} {prospect.last_name || ""}
           </h1>
           {prospect.company_name && (
             <p className="text-text-secondary">{prospect.company_name}</p>
@@ -179,7 +179,7 @@ export function ProspectDetailPage() {
                 <dd className="font-medium">
                   {prospect.email ? (
                     <button
-                      onClick={() => openEmailCompose({ to: prospect.email!, customerName: `${prospect.first_name} ${prospect.last_name}` })}
+                      onClick={() => openEmailCompose({ to: prospect.email!, customerName: `${prospect.first_name || ""} ${prospect.last_name || ""}` })}
                       className="text-text-link hover:underline"
                     >
                       {prospect.email}
@@ -336,7 +336,7 @@ export function ProspectDetailPage() {
         onClose={() => setIsDeleteOpen(false)}
         onConfirm={handleDelete}
         title="Delete Prospect"
-        message={`Are you sure you want to delete ${prospect.first_name} ${prospect.last_name}? This action cannot be undone.`}
+        message={`Are you sure you want to delete ${prospect.first_name || ""} ${prospect.last_name || ""}? This action cannot be undone.`}
         confirmLabel="Delete"
         variant="danger"
         isLoading={deleteMutation.isPending}

@@ -99,7 +99,7 @@ const ProspectCard = memo(function ProspectCard({
           className="font-medium text-text-primary hover:text-primary text-sm line-clamp-1"
           onClick={(e) => e.stopPropagation()}
         >
-          {prospect.first_name} {prospect.last_name}
+          {prospect.first_name || ""} {prospect.last_name || ""}
         </Link>
         {prospect.estimated_value && (
           <span className="text-xs font-semibold text-green-600 whitespace-nowrap">
@@ -176,7 +176,7 @@ function DragOverlayCard({ prospect }: { prospect: Prospect }) {
     <div className="bg-white rounded-lg border-2 border-primary p-3 shadow-xl cursor-grabbing w-64">
       <div className="flex items-start justify-between gap-2 mb-2">
         <span className="font-medium text-text-primary text-sm">
-          {prospect.first_name} {prospect.last_name}
+          {prospect.first_name || ""} {prospect.last_name || ""}
         </span>
         {prospect.estimated_value && (
           <span className="text-xs font-semibold text-green-600">

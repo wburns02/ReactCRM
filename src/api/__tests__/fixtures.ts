@@ -23,6 +23,7 @@
  */
 
 import type { Prospect, ProspectListResponse } from "../types/prospect.ts";
+import type { ProspectStage } from "../types/common.ts";
 
 /**
  * Valid complete prospect - all fields populated
@@ -49,7 +50,8 @@ export const validProspectComplete: Prospect = {
 };
 
 /**
- * Valid minimal prospect - only required fields
+ * Valid minimal prospect - only required fields, no company_name
+ * Matches what the backend actually returns (CustomerResponse has no company_name)
  */
 export const validProspectMinimal: Prospect = {
   id: "123e4567-e89b-12d3-a456-426614174001",
@@ -57,7 +59,6 @@ export const validProspectMinimal: Prospect = {
   last_name: "Smith",
   email: null,
   phone: null,
-  company_name: null,
   address_line1: null,
   city: null,
   state: null,
@@ -76,7 +77,7 @@ export const validProspectMinimal: Prospect = {
  * Prospect at each stage for pipeline tests
  * NOTE: Stages match backend enum: new_lead, contacted, qualified, quoted, negotiation, won, lost
  */
-export const prospectsByStage: Record<Prospect["prospect_stage"], Prospect> = {
+export const prospectsByStage: Record<ProspectStage, Prospect> = {
   new_lead: { ...validProspectMinimal, prospect_stage: "new_lead" },
   contacted: {
     ...validProspectMinimal,
