@@ -49,11 +49,16 @@ export function AppLayout() {
     { path: "/customer-success", label: "Customer Success", icon: "💚" },
   ];
 
-  // Simplified nav for technicians — just 3 items, big and obvious
+  // Full nav for technicians — expanded portal with all features
   const techNavItems: NavItem[] = [
     { path: "/my-dashboard", label: "My Dashboard", icon: "🏠" },
-    { path: "/employee", label: "Time Clock", icon: "⏰" },
+    { path: "/portal/jobs", label: "My Jobs", icon: "🔧" },
+    { path: "/portal/schedule", label: "My Schedule", icon: "📅" },
+    { path: "/portal/time-clock", label: "Time Clock", icon: "⏰" },
+    { path: "/portal/pay", label: "Pay & Performance", icon: "💰" },
     { path: "/field", label: "Field View", icon: "🗺️" },
+    { path: "/portal/messages", label: "Messages", icon: "💬" },
+    { path: "/portal/settings", label: "Settings", icon: "⚙️" },
   ];
 
   // Collapsible navigation groups - matching legacy structure
@@ -222,7 +227,7 @@ export function AppLayout() {
             className="flex items-center gap-2 text-mac-dark-blue font-semibold"
           >
             <span className="text-xl">🚽</span>
-            <span>MAC Septic CRM</span>
+            <span>Mac Service Platform</span>
           </Link>
         </div>
 

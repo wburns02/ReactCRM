@@ -128,7 +128,7 @@ export function OnboardingWizard() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-text-primary mb-2">
-            Welcome to ReactCRM
+            Welcome to Mac Service Platform
           </h1>
           <p className="text-text-secondary">
             Let's get your account set up in just a few steps

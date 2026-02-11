@@ -93,7 +93,7 @@ export function IntegrationsPage() {
           Integrations
         </h1>
         <p className="text-text-secondary">
-          Connect MAC Septic CRM with your favorite tools and services
+          Connect Mac Service Platform with your favorite tools and services
         </p>
       </div>
 

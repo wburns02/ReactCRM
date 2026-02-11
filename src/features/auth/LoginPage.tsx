@@ -47,7 +47,8 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   // SECURITY: Sanitize return URL to prevent open redirect
-  const rawReturnUrl = searchParams.get("return") || "/dashboard";
+  // Default to "/" which triggers RoleBasedRedirect (techs → /my-dashboard, others → /dashboard)
+  const rawReturnUrl = searchParams.get("return") || "/";
   const returnUrl = sanitizeRedirectUrl(rawReturnUrl);
 
   const {
@@ -125,7 +126,7 @@ export function LoginPage() {
             <span className="text-4xl">🚽</span>
           </div>
           <h1 className="text-2xl font-bold text-mac-dark-blue">
-            MAC Septic CRM
+            Mac Service Platform
           </h1>
           <p className="text-text-secondary mt-2">Sign in to your account</p>
         </div>

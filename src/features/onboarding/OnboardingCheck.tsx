@@ -18,7 +18,7 @@ const DEMO_USERS = ["will@macseptic.com"];
  */
 export function OnboardingCheck({ children }: OnboardingCheckProps) {
   const location = useLocation();
-  const { isAuthenticated, isLoading, user } = useAuth();
+  const { isAuthenticated, isLoading, user, isTechnician } = useAuth();
 
   // Auto-complete onboarding for demo users
   useEffect(() => {
@@ -40,20 +40,23 @@ export function OnboardingCheck({ children }: OnboardingCheckProps) {
     // Only check for authenticated users
     if (!isAuthenticated) return false;
 
+    // Technicians skip onboarding — they go straight to their portal
+    if (isTechnician) return false;
+
     // Skip onboarding for demo users
     if (user?.email && DEMO_USERS.includes(user.email)) {
       return false;
     }
 
     // Skip check for certain paths
-    const skipPaths = ["/onboarding", "/login", "/portal"];
+    const skipPaths = ["/onboarding", "/login", "/portal", "/my-dashboard", "/field"];
     if (skipPaths.some((path) => location.pathname.startsWith(path))) {
       return false;
     }
 
     // Check if onboarding is completed
     return !isOnboardingCompleted();
-  }, [isAuthenticated, isLoading, location.pathname, user?.email]);
+  }, [isAuthenticated, isLoading, isTechnician, location.pathname, user?.email]);
 
   // Show loading while auth is checking
   if (isLoading) {

@@ -51,6 +51,49 @@ const TechnicianDashboardPage = lazy(() =>
   ),
 );
 
+// Tech Portal pages
+const TechSchedulePage = lazy(() =>
+  import("@/features/technician-portal/TechSchedulePage.tsx").then(
+    (m) => ({ default: m.TechSchedulePage }),
+  ),
+);
+
+const TechJobsPage = lazy(() =>
+  import("@/features/technician-portal/TechJobsPage.tsx").then(
+    (m) => ({ default: m.TechJobsPage }),
+  ),
+);
+
+const TechJobDetailPage = lazy(() =>
+  import("@/features/technician-portal/TechJobDetailPage.tsx").then(
+    (m) => ({ default: m.TechJobDetailPage }),
+  ),
+);
+
+const TechTimeClockPage = lazy(() =>
+  import("@/features/technician-portal/TechTimeClockPage.tsx").then(
+    (m) => ({ default: m.TechTimeClockPage }),
+  ),
+);
+
+const TechPayPage = lazy(() =>
+  import("@/features/technician-portal/TechPayPage.tsx").then(
+    (m) => ({ default: m.TechPayPage }),
+  ),
+);
+
+const TechCommsPage = lazy(() =>
+  import("@/features/technician-portal/TechCommsPage.tsx").then(
+    (m) => ({ default: m.TechCommsPage }),
+  ),
+);
+
+const TechSettingsPage = lazy(() =>
+  import("@/features/technician-portal/TechSettingsPage.tsx").then(
+    (m) => ({ default: m.TechSettingsPage }),
+  ),
+);
+
 /**
  * Technician routes - technicians, schedule, service intervals, employee portal
  */
@@ -63,6 +106,64 @@ export function TechnicianRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <TechnicianDashboardPage />
+          </Suspense>
+        }
+      />
+
+      {/* Tech Portal Pages */}
+      <Route
+        path="portal/schedule"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechSchedulePage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/jobs"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechJobsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/jobs/:jobId"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechJobDetailPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/time-clock"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechTimeClockPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/pay"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechPayPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/messages"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechCommsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/settings"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechSettingsPage />
           </Suspense>
         }
       />

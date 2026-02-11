@@ -32,9 +32,15 @@ const OnboardingWizard = lazy(() =>
 
 /**
  * Redirects technicians to /my-dashboard, everyone else to /dashboard
+ * Waits for auth to finish loading to ensure role is known
  */
 function RoleBasedRedirect() {
-  const { isTechnician } = useAuth();
+  const { isTechnician, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <PageLoader />;
+  }
+
   return <Navigate to={isTechnician ? "/my-dashboard" : "/dashboard"} replace />;
 }
 
