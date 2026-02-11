@@ -677,7 +677,7 @@ function ComposePanel({
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
 
-      <div className="fixed inset-x-4 bottom-4 z-50 bg-bg-card rounded-2xl shadow-2xl border border-border flex flex-col animate-in slide-in-from-bottom duration-300" style={{ maxHeight: "min(70dvh, 480px)" }}>
+      <div className="fixed inset-x-3 bottom-20 z-50 bg-bg-card rounded-2xl shadow-2xl border border-border flex flex-col animate-in slide-in-from-bottom duration-300" style={{ maxHeight: "min(65dvh, 450px)" }}>
         <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
           <div className="w-12 h-1.5 rounded-full bg-bg-muted" />
         </div>
