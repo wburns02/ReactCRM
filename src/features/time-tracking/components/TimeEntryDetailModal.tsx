@@ -107,19 +107,31 @@ export function TimeEntryDetailModal({
     if (editData.clock_out) updatePayload.clock_out = new Date(editData.clock_out).toISOString();
     updatePayload.notes = editData.notes || undefined;
 
-    await updateEntry.mutateAsync({ id: entry.id, data: updatePayload });
-    setIsEditing(false);
-    onClose();
+    try {
+      await updateEntry.mutateAsync({ id: entry.id, data: updatePayload });
+      setIsEditing(false);
+      onClose();
+    } catch {
+      // Error toast handled by mutation's onError callback
+    }
   };
 
   const handleApprove = async () => {
-    await approveEntry.mutateAsync(entry.id);
-    onClose();
+    try {
+      await approveEntry.mutateAsync(entry.id);
+      onClose();
+    } catch {
+      // Error toast handled by mutation's onError callback
+    }
   };
 
   const handleReject = async () => {
-    await rejectEntry.mutateAsync(entry.id);
-    onClose();
+    try {
+      await rejectEntry.mutateAsync(entry.id);
+      onClose();
+    } catch {
+      // Error toast handled by mutation's onError callback
+    }
   };
 
   const handleClose = () => {

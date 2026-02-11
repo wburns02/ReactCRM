@@ -119,37 +119,58 @@ export function TimeEntryList({
   const resetPage = () => setFilters((prev) => ({ ...prev, page: 1 }));
 
   const handleApprove = async (entryId: string) => {
-    await approveEntry.mutateAsync(entryId);
+    try {
+      await approveEntry.mutateAsync(entryId);
+    } catch {
+      // Error toast handled by mutation's onError callback
+    }
   };
 
   const handleReject = async (entryId: string) => {
-    await rejectEntry.mutateAsync(entryId);
+    try {
+      await rejectEntry.mutateAsync(entryId);
+    } catch {
+      // Error toast handled by mutation's onError callback
+    }
   };
 
   const handleDelete = async () => {
     if (!entryToDelete) return;
-    await deleteEntry.mutateAsync(entryToDelete.id);
-    setShowDeleteConfirm(false);
-    setEntryToDelete(null);
+    try {
+      await deleteEntry.mutateAsync(entryToDelete.id);
+    } catch {
+      // Error toast handled by mutation's onError callback
+    } finally {
+      setShowDeleteConfirm(false);
+      setEntryToDelete(null);
+    }
   };
 
   const handleBulkApprove = async () => {
-    await bulkApprove.mutateAsync(Array.from(selectedIds));
-    setSelectedIds(new Set());
-    setShowBulkApproveConfirm(false);
+    try {
+      await bulkApprove.mutateAsync(Array.from(selectedIds));
+    } catch {
+      // Error toast handled by mutation's onError callback
+    } finally {
+      setSelectedIds(new Set());
+      setShowBulkApproveConfirm(false);
+    }
   };
 
   const handleBulkDelete = async () => {
     const ids = Array.from(selectedIds);
-    for (const id of ids) {
-      try {
-        await deleteEntry.mutateAsync(id);
-      } catch {
-        // Some may fail (non-pending) — continue
+    try {
+      for (const id of ids) {
+        try {
+          await deleteEntry.mutateAsync(id);
+        } catch {
+          // Some may fail (non-pending) — continue
+        }
       }
+    } finally {
+      setSelectedIds(new Set());
+      setShowBulkDeleteConfirm(false);
     }
-    setSelectedIds(new Set());
-    setShowBulkDeleteConfirm(false);
   };
 
   const toggleSelectAll = () => {
