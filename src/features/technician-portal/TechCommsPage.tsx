@@ -677,25 +677,28 @@ function ComposePanel({
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
 
-      <div className="fixed inset-x-3 bottom-20 z-50 bg-bg-card rounded-2xl shadow-2xl border border-border flex flex-col animate-in slide-in-from-bottom duration-300" style={{ maxHeight: "min(65dvh, 450px)" }}>
-        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
-          <div className="w-12 h-1.5 rounded-full bg-bg-muted" />
+      {/* Full-screen compose overlay */}
+      <div className="fixed inset-0 z-50 bg-bg-card flex flex-col animate-in slide-in-from-bottom duration-300">
+        {/* Header with Send button — always visible at top */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border flex-shrink-0">
+          <button
+            onClick={onClose}
+            className="px-3 py-1.5 rounded-lg text-text-secondary text-base font-medium hover:bg-bg-hover"
+          >
+            Cancel
+          </button>
+          <h2 className="text-lg font-bold text-text-primary">New Message</h2>
+          <button
+            onClick={handleSend}
+            disabled={sendMutation.isPending || !to.trim() || !body.trim()}
+            className="px-4 py-1.5 rounded-lg font-bold text-base bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            {sendMutation.isPending ? "Sending..." : "Send"}
+          </button>
         </div>
 
         {/* Scrollable form content */}
         <div className="p-4 space-y-4 overflow-y-auto flex-1 min-h-0">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
-              <span className="text-2xl">✏️</span> New Message
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-2 rounded-lg hover:bg-bg-hover text-text-muted text-lg"
-            >
-              ✕
-            </button>
-          </div>
-
           <div className="flex gap-2">
             <button
               onClick={() => setMsgType("sms")}
@@ -756,29 +759,10 @@ function ComposePanel({
               placeholder="Type your message here..."
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              rows={2}
-              className="flex w-full rounded-xl border border-border bg-bg-card px-3 py-2 text-base placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 resize-none"
+              rows={5}
+              className="flex w-full rounded-xl border border-border bg-bg-card px-3 py-3 text-base placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 resize-y"
             />
           </div>
-        </div>
-
-        {/* Sticky Send button — always visible at bottom */}
-        <div className="px-4 pt-2 pb-4 flex-shrink-0 border-t border-border bg-bg-card rounded-b-2xl relative z-[60]">
-          <button
-            onClick={handleSend}
-            disabled={sendMutation.isPending || !to.trim() || !body.trim()}
-            className="w-full h-14 text-lg rounded-xl font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-          >
-            {sendMutation.isPending ? (
-              <>
-                <span className="animate-spin">🔄</span> Sending...
-              </>
-            ) : (
-              <>
-                <span>🚀</span> Send {msgType === "sms" ? "SMS" : "Email"}
-              </>
-            )}
-          </button>
         </div>
       </div>
     </>

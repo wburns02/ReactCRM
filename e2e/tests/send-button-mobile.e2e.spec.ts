@@ -2,12 +2,14 @@ import { test, expect } from "@playwright/test";
 
 const BASE = "https://react.ecbtx.com";
 
-test.describe("Send Button Visibility", () => {
-  test("Send SMS button is bright blue and visible", async ({ page }) => {
+test.describe("Send Button on Mobile", () => {
+  test.use({ viewport: { width: 375, height: 600 } }); // Small mobile
+
+  test("Send button is visible in header on mobile (SMS)", async ({ page }) => {
     await page.goto(`${BASE}/portal/messages`);
     await page.waitForTimeout(3000);
 
-    // SMS tab
+    // Click SMS tab
     const smsTab = page.getByRole("button", { name: /SMS/i }).first();
     await smsTab.click();
     await page.waitForTimeout(1000);
@@ -17,31 +19,27 @@ test.describe("Send Button Visibility", () => {
     await newMsgBtn.click();
     await page.waitForTimeout(1000);
 
-    // Send button should be visible in the header bar
+    // Send button should be in the header — always visible, no scrolling needed
     const sendBtn = page.getByRole("button", { name: /^Send$/i });
     await expect(sendBtn).toBeVisible();
 
-    // Verify it has blue background (Tailwind 4 uses oklch color space)
-    const bgColor = await sendBtn.evaluate((el) => {
-      return window.getComputedStyle(el).backgroundColor;
-    });
-    console.log("Send button background color:", bgColor);
-    // blue-600 = oklch(0.546 0.245 262.881) or rgb(37, 99, 235)
-    expect(
-      bgColor.includes("oklch") || bgColor.includes("37"),
-    ).toBeTruthy();
+    // Verify it's near the TOP of the viewport (in header bar, y < 60px)
+    const box = await sendBtn.boundingBox();
+    expect(box).not.toBeNull();
+    console.log("Send button position:", box);
+    expect(box!.y).toBeLessThan(60);
 
     await page.screenshot({
-      path: "e2e/screenshots/send-button-visible.png",
-      fullPage: true,
+      path: "e2e/screenshots/send-button-mobile.png",
+      fullPage: false,
     });
   });
 
-  test("Send Email button is bright blue and visible", async ({ page }) => {
+  test("Send button is visible in header on mobile (Email)", async ({ page }) => {
     await page.goto(`${BASE}/portal/messages`);
     await page.waitForTimeout(3000);
 
-    // Email tab
+    // Click Email tab
     const emailTab = page.getByRole("button", { name: /Email/i }).first();
     await emailTab.click();
     await page.waitForTimeout(1000);
@@ -51,13 +49,17 @@ test.describe("Send Button Visibility", () => {
     await newEmailBtn.click();
     await page.waitForTimeout(1000);
 
-    // Send button visible in header
+    // Send button in header
     const sendBtn = page.getByRole("button", { name: /^Send$/i });
     await expect(sendBtn).toBeVisible();
 
+    const box = await sendBtn.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y).toBeLessThan(60);
+
     await page.screenshot({
-      path: "e2e/screenshots/send-email-button-visible.png",
-      fullPage: true,
+      path: "e2e/screenshots/send-email-mobile.png",
+      fullPage: false,
     });
   });
 });
