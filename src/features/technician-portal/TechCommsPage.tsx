@@ -516,7 +516,7 @@ function MsgEmptyState({ tab }: { tab: MsgTabKey }) {
 
 // ── SMS/Email Tab Content ─────────────────────────────────────────────────
 
-function MessagingTab({ type }: { type: "sms" | "email" }) {
+function MessagingTab({ type, onCompose }: { type: "sms" | "email"; onCompose: () => void }) {
   const [msgTab, setMsgTab] = useState<MsgTabKey>("inbox");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -556,6 +556,15 @@ function MessagingTab({ type }: { type: "sms" | "email" }) {
 
   return (
     <div className="space-y-3">
+      {/* New Message Button */}
+      <button
+        onClick={onCompose}
+        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-base font-bold shadow-md transition-colors"
+      >
+        <span className="text-xl">✏️</span>
+        New {type === "sms" ? "Text Message" : "Email"}
+      </button>
+
       {/* Sub-tabs: Inbox / Sent */}
       <div className="flex gap-2">
         {MSG_TABS.map((tab) => {
@@ -811,19 +820,8 @@ export function TechCommsPage() {
 
       {/* Tab Content */}
       {activeTab === "phone" && <PhoneTab />}
-      {activeTab === "sms" && <MessagingTab type="sms" />}
-      {activeTab === "email" && <MessagingTab type="email" />}
-
-      {/* Floating Compose Button (SMS/Email tabs only) */}
-      {activeTab !== "phone" && !showCompose && (
-        <button
-          onClick={() => setShowCompose(true)}
-          className="fixed bottom-6 right-6 z-30 w-14 h-14 rounded-full bg-cta text-white shadow-lg hover:bg-cta-hover active:shadow-inner flex items-center justify-center text-2xl transition-transform hover:scale-105"
-          aria-label="Compose message"
-        >
-          ✏️
-        </button>
-      )}
+      {activeTab === "sms" && <MessagingTab type="sms" onCompose={() => setShowCompose(true)} />}
+      {activeTab === "email" && <MessagingTab type="email" onCompose={() => setShowCompose(true)} />}
 
       {/* Compose Panel */}
       {showCompose && (
