@@ -64,8 +64,8 @@ export const paymentSchema = z.object({
     .nullable()
     .optional(),
   amount: z.union([z.number(), z.string().transform(Number)]),
-  payment_method: paymentMethodSchema,
-  status: paymentStatusSchema,
+  payment_method: paymentMethodSchema.or(z.string()),
+  status: paymentStatusSchema.or(z.string()),
   transaction_id: z.string().nullable().optional(),
   reference_number: z.string().nullable().optional(),
   notes: z.string().nullable().optional(),

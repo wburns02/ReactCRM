@@ -285,9 +285,10 @@ export const payrollPeriodSchema = z.object({
   id: z.string(),
   start_date: z.string(),
   end_date: z.string(),
-  status: z.enum(["draft", "processing", "approved", "paid", "void"]),
+  status: z.enum(["draft", "processing", "approved", "paid", "void"]).or(z.string()),
   period_type: z.enum(["weekly", "biweekly", "monthly"]).optional(),
   total_hours: z.number(),
+  total_regular_hours: z.number().optional(),
   total_overtime_hours: z.number(),
   total_gross_pay: z.number(),
   total_commissions: z.number(),
@@ -295,9 +296,9 @@ export const payrollPeriodSchema = z.object({
   total_net_pay: z.number(),
   technician_count: z.number(),
   created_at: z.string(),
-  approved_at: z.string().optional(),
-  approved_by: z.string().optional(),
-  paid_at: z.string().optional(),
+  approved_at: z.string().nullable().optional(),
+  approved_by: z.string().nullable().optional(),
+  paid_at: z.string().nullable().optional(),
 });
 
 export const payrollPeriodsResponseSchema = z.object({

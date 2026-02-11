@@ -116,12 +116,12 @@ export const quoteSchema = z.object({
     })
     .nullable()
     .optional(),
-  status: quoteStatusSchema,
-  line_items: z.array(lineItemSchema),
-  subtotal: z.number(),
-  tax_rate: z.number().default(0),
-  tax: z.number(),
-  total: z.number(),
+  status: quoteStatusSchema.or(z.string()),
+  line_items: z.array(lineItemSchema).nullable().default([]),
+  subtotal: z.union([z.number(), z.string().transform(Number)]).default(0),
+  tax_rate: z.union([z.number(), z.string().transform(Number)]).default(0),
+  tax: z.union([z.number(), z.string().transform(Number)]).default(0),
+  total: z.union([z.number(), z.string().transform(Number)]).default(0),
   valid_until: z.string().nullable(),
   notes: z.string().nullable().optional(),
   terms: z.string().nullable().optional(),
