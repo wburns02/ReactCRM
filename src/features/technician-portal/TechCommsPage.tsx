@@ -677,7 +677,7 @@ function ComposePanel({
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
 
-      <div className="fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-2xl shadow-2xl border-t border-border max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300">
+      <div className="fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-2xl shadow-2xl border-t border-border max-h-[70dvh] flex flex-col animate-in slide-in-from-bottom duration-300" style={{ maxHeight: "70dvh" }}>
         <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
           <div className="w-12 h-1.5 rounded-full bg-bg-muted" />
         </div>
@@ -756,14 +756,14 @@ function ComposePanel({
               placeholder="Type your message here..."
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              rows={3}
-              className="flex w-full rounded-xl border border-border bg-bg-card px-3 py-3 text-base placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 resize-none"
+              rows={2}
+              className="flex w-full rounded-xl border border-border bg-bg-card px-3 py-2 text-base placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 resize-none"
             />
           </div>
         </div>
 
         {/* Sticky Send button — always visible at bottom */}
-        <div className="p-4 pt-2 flex-shrink-0 border-t border-border bg-bg-card">
+        <div className="px-4 pt-2 pb-6 flex-shrink-0 border-t border-border bg-bg-card" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}>
           <button
             onClick={handleSend}
             disabled={sendMutation.isPending || !to.trim() || !body.trim()}
@@ -779,7 +779,6 @@ function ComposePanel({
               </>
             )}
           </button>
-          <div className="h-[env(safe-area-inset-bottom,0px)]" />
         </div>
       </div>
     </>
