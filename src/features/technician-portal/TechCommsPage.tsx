@@ -677,7 +677,7 @@ function ComposePanel({
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
 
-      <div className="fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-2xl shadow-2xl border-t border-border flex flex-col animate-in slide-in-from-bottom duration-300" style={{ maxHeight: "min(60dvh, 400px)" }}>
+      <div className="fixed inset-x-4 bottom-4 z-50 bg-bg-card rounded-2xl shadow-2xl border border-border flex flex-col animate-in slide-in-from-bottom duration-300" style={{ maxHeight: "min(70dvh, 480px)" }}>
         <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
           <div className="w-12 h-1.5 rounded-full bg-bg-muted" />
         </div>
@@ -763,7 +763,7 @@ function ComposePanel({
         </div>
 
         {/* Sticky Send button — always visible at bottom */}
-        <div className="px-4 pt-2 pb-6 flex-shrink-0 border-t border-border bg-bg-card relative z-[60]" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}>
+        <div className="px-4 pt-2 pb-4 flex-shrink-0 border-t border-border bg-bg-card rounded-b-2xl relative z-[60]">
           <button
             onClick={handleSend}
             disabled={sendMutation.isPending || !to.trim() || !body.trim()}
