@@ -46,7 +46,7 @@ export function TimesheetView({
     page_size: 100, // Get all entries for the week
   });
 
-  const entries = data?.items || [];
+  const entries = data?.entries || [];
 
   // Group entries by date and calculate totals
   const { entriesByDay, weekTotals } = useMemo(() => {

@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 // ========================
 // Types
@@ -8,7 +9,9 @@ import { apiClient } from "@/api/client.ts";
 export interface TimeEntry {
   id: string;
   technician_id: string;
+  technician_name?: string;
   entry_date: string;
+  date?: string;
   clock_in: string | null;
   clock_out: string | null;
   regular_hours: number;
@@ -18,6 +21,13 @@ export interface TimeEntry {
   status: string;
   work_order_id: string | null;
   notes: string | null;
+  approved_by?: string | null;
+  approved_at?: string | null;
+  clock_in_latitude?: number | null;
+  clock_in_longitude?: number | null;
+  clock_out_latitude?: number | null;
+  clock_out_longitude?: number | null;
+  created_at?: string;
 }
 
 export interface TimeEntryCreate {
@@ -31,6 +41,15 @@ export interface TimeEntryCreate {
   notes?: string;
 }
 
+export interface TimeEntryUpdate {
+  clock_in?: string;
+  clock_out?: string;
+  notes?: string;
+  status?: "pending" | "approved" | "rejected";
+  regular_hours?: number;
+  overtime_hours?: number;
+}
+
 export interface TimeEntryFilters {
   technician_id?: string;
   start_date?: string;
@@ -38,6 +57,13 @@ export interface TimeEntryFilters {
   status?: string;
   page?: number;
   page_size?: number;
+}
+
+export interface TimeEntriesResponse {
+  entries: TimeEntry[];
+  total: number;
+  page: number;
+  page_size: number;
 }
 
 export interface PayrollPeriod {
@@ -86,7 +112,7 @@ interface ListResponse<T> {
 
 async function fetchTimeEntries(
   filters?: TimeEntryFilters,
-): Promise<ListResponse<TimeEntry>> {
+): Promise<TimeEntriesResponse> {
   const params = new URLSearchParams();
   if (filters?.page) params.append("page", String(filters.page));
   if (filters?.page_size) params.append("page_size", String(filters.page_size));
@@ -97,7 +123,7 @@ async function fetchTimeEntries(
   if (filters?.status) params.append("status", filters.status);
 
   const query = params.toString();
-  const { data } = await apiClient.get<ListResponse<TimeEntry>>(
+  const { data } = await apiClient.get<TimeEntriesResponse>(
     `/payroll/time-entries${query ? `?${query}` : ""}`,
   );
   return data;
@@ -116,6 +142,34 @@ async function createTimeEntry(
 async function approveTimeEntry(entryId: string): Promise<{ status: string }> {
   const { data } = await apiClient.patch<{ status: string }>(
     `/payroll/time-entries/${entryId}/approve`,
+  );
+  return data;
+}
+
+async function updateTimeEntry({
+  id,
+  data: updateData,
+}: {
+  id: string;
+  data: TimeEntryUpdate;
+}): Promise<TimeEntry> {
+  const { data } = await apiClient.patch<TimeEntry>(
+    `/payroll/time-entries/${id}`,
+    updateData,
+  );
+  return data;
+}
+
+async function deleteTimeEntry(entryId: string): Promise<void> {
+  await apiClient.delete(`/payroll/time-entries/${entryId}`);
+}
+
+async function bulkApproveTimeEntries(
+  entryIds: string[],
+): Promise<{ approved: number }> {
+  const { data } = await apiClient.post<{ approved: number }>(
+    "/payroll/time-entries/bulk-approve",
+    { entry_ids: entryIds },
   );
   return data;
 }
@@ -206,6 +260,18 @@ async function clockOut(request: {
   return data;
 }
 
+// CSV Export
+export async function exportTimeEntriesCsv(
+  periodId: string,
+): Promise<Blob> {
+  const { data } = await apiClient.post(
+    `/payroll/${periodId}/export?format=csv`,
+    {},
+    { responseType: "blob" },
+  );
+  return data;
+}
+
 // ========================
 // React Query Hooks
 // ========================
@@ -224,6 +290,10 @@ export function useCreateTimeEntry() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["time-entries"] });
       queryClient.invalidateQueries({ queryKey: ["payroll-stats"] });
+      toastSuccess("Time entry created");
+    },
+    onError: () => {
+      toastError("Failed to create time entry", "Please try again.");
     },
   });
 }
@@ -235,6 +305,79 @@ export function useApproveTimeEntry() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["time-entries"] });
       queryClient.invalidateQueries({ queryKey: ["payroll-stats"] });
+      toastSuccess("Time entry approved");
+    },
+    onError: () => {
+      toastError("Failed to approve time entry", "Please try again.");
+    },
+  });
+}
+
+export function useUpdateTimeEntry() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateTimeEntry,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll-stats"] });
+      toastSuccess("Time entry updated", "Changes have been saved.");
+    },
+    onError: () => {
+      toastError("Failed to update time entry", "Please try again.");
+    },
+  });
+}
+
+export function useDeleteTimeEntry() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteTimeEntry,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll-stats"] });
+      toastSuccess("Time entry deleted");
+    },
+    onError: () => {
+      toastError(
+        "Failed to delete time entry",
+        "Only pending entries can be deleted.",
+      );
+    },
+  });
+}
+
+export function useBulkApproveTimeEntries() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: bulkApproveTimeEntries,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll-stats"] });
+      toastSuccess("Entries approved", `${data.approved} entries approved.`);
+    },
+    onError: () => {
+      toastError("Bulk approve failed", "Please try again.");
+    },
+  });
+}
+
+export function useRejectTimeEntry() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (entryId: string) => {
+      const { data } = await apiClient.patch<TimeEntry>(
+        `/payroll/time-entries/${entryId}`,
+        { status: "rejected" },
+      );
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll-stats"] });
+      toastSuccess("Time entry rejected");
+    },
+    onError: () => {
+      toastError("Failed to reject time entry", "Please try again.");
     },
   });
 }

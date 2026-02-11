@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { usePayrollStats, useCurrentPeriod } from "../api/timeTracking.ts";
+import {
+  usePayrollStats,
+  useCurrentPeriod,
+  exportTimeEntriesCsv,
+} from "../api/timeTracking.ts";
 import { TimeEntryList } from "../components/TimeEntryList.tsx";
 import { TimeClockWidget } from "../components/TimeClockWidget.tsx";
 import {
@@ -8,12 +12,15 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import { formatCurrency, formatDate } from "@/lib/utils.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 type Tab = "entries" | "pending";
 
 export function TimesheetsPage() {
   const [activeTab, setActiveTab] = useState<Tab>("entries");
+  const [isExporting, setIsExporting] = useState(false);
   const { data: stats, isLoading: loadingStats } = usePayrollStats();
   const { data: currentPeriod } = useCurrentPeriod();
 
@@ -27,16 +34,53 @@ export function TimesheetsPage() {
     },
   ];
 
+  const handleExportCsv = async () => {
+    if (!currentPeriod?.id) {
+      toastError(
+        "No current period",
+        "Cannot export without an active payroll period.",
+      );
+      return;
+    }
+    setIsExporting(true);
+    try {
+      const blob = await exportTimeEntriesCsv(currentPeriod.id);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `timesheets-${new Date().toISOString().split("T")[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toastSuccess("Export complete", "Timesheets exported successfully.");
+    } catch {
+      toastError("Export failed", "Could not export timesheets.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-          ⏱️ Timesheets
-        </h1>
-        <p className="text-text-muted mt-1">
-          Track time entries and manage timesheets
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
+            ⏱️ Timesheets
+          </h1>
+          <p className="text-text-muted mt-1">
+            Track time entries and manage timesheets
+          </p>
+        </div>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={handleExportCsv}
+          disabled={isExporting || !currentPeriod}
+        >
+          {isExporting ? "Exporting..." : "📥 Export CSV"}
+        </Button>
       </div>
 
       {/* Time Clock Widget */}
@@ -112,7 +156,7 @@ export function TimesheetsPage() {
       {currentPeriod && (
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">📅</span>
                 <div>
