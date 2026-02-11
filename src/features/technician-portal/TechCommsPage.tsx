@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useTechMessages, useSendMessage } from "@/api/hooks/useTechPortal.ts";
+import { useTechMessages } from "@/api/hooks/useTechPortal.ts";
 import {
   useRCStatus,
   useCallLog,
@@ -648,9 +648,7 @@ function ComposePanel({
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
 
-  const sendMutation = useSendMessage();
-
-  const handleSend = useCallback(async () => {
+  const handleSend = useCallback(() => {
     if (!to.trim()) {
       toastError("Missing recipient", "Please enter a phone number or email");
       return;
@@ -660,18 +658,20 @@ function ComposePanel({
       return;
     }
 
-    try {
-      await sendMutation.mutateAsync({
-        type: msgType,
-        to: to.trim(),
-        subject: msgType === "email" ? subject.trim() : undefined,
-        content: body.trim(),
-      });
-      onSent();
-    } catch {
-      // Error toast is handled by the mutation hook
+    if (msgType === "sms") {
+      // Open native SMS app with pre-filled number and message
+      const phone = to.trim().replace(/\D/g, "");
+      const encoded = encodeURIComponent(body.trim());
+      window.location.href = `sms:${phone}?body=${encoded}`;
+    } else {
+      // Open native email client with pre-filled fields
+      const params = new URLSearchParams();
+      if (subject.trim()) params.set("subject", subject.trim());
+      params.set("body", body.trim());
+      window.location.href = `mailto:${to.trim()}?${params.toString()}`;
     }
-  }, [msgType, to, subject, body, sendMutation, onSent]);
+    onSent();
+  }, [msgType, to, subject, body, onSent]);
 
   return (
     <>
@@ -690,10 +690,10 @@ function ComposePanel({
           <h2 className="text-lg font-bold text-text-primary">New Message</h2>
           <button
             onClick={handleSend}
-            disabled={sendMutation.isPending || !to.trim() || !body.trim()}
+            disabled={!to.trim() || !body.trim()}
             className="px-4 py-1.5 rounded-lg font-bold text-base bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
-            {sendMutation.isPending ? "Sending..." : "Send"}
+            Send
           </button>
         </div>
 
