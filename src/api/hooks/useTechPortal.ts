@@ -51,7 +51,7 @@ export function useTechJobs(filters: JobFilters = {}) {
         if (filters.scheduled_date_from) params.scheduled_date_from = filters.scheduled_date_from;
         if (filters.scheduled_date_to) params.scheduled_date_to = filters.scheduled_date_to;
         // Use employee-portal/jobs which auto-filters by current technician
-        const { data } = await apiClient.get("/employee-portal/jobs", { params });
+        const { data } = await apiClient.get("/employee/jobs", { params });
         // Normalize response shape
         if (Array.isArray(data)) {
           return { items: data, total: data.length, page: 1, page_size: 50 };
@@ -88,7 +88,7 @@ export function useTechSchedule(startDate: string, endDate: string) {
     queryKey: ["tech-portal", "schedule", startDate, endDate],
     queryFn: async (): Promise<ScheduleJob[]> => {
       return withFallback(async () => {
-        const { data } = await apiClient.get("/employee-portal/jobs", {
+        const { data } = await apiClient.get("/employee/jobs", {
           params: {
             scheduled_date_from: startDate,
             scheduled_date_to: endDate,
@@ -226,7 +226,7 @@ export function useUpdateProfile() {
       home_state?: string;
       home_postal_code?: string;
     }) => {
-      const { data } = await apiClient.patch("/employee-portal/profile", input);
+      const { data } = await apiClient.patch("/employee/profile", input);
       return data;
     },
     onSuccess: () => {
@@ -248,7 +248,7 @@ export function useUploadJobPhoto() {
   return useMutation({
     mutationFn: async ({ jobId, photo }: { jobId: string; photo: string }) => {
       const { data } = await apiClient.post(
-        `/employee-portal/jobs/${jobId}/photos`,
+        `/employee/jobs/${jobId}/photos`,
         { photo_data: photo },
       );
       return data;
