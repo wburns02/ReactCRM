@@ -2,6 +2,7 @@ import axios, { type AxiosError, type AxiosInstance } from "axios";
 import { addBreadcrumb, captureException } from "@/lib/sentry";
 import {
   getSecurityHeaders,
+  getSessionToken,
   clearSessionState,
   markSessionInvalid,
   dispatchSecurityEvent,
@@ -74,6 +75,14 @@ apiClient.interceptors.request.use(
     // SECURITY: Add CSRF token and other security headers
     const securityHeaders = getSecurityHeaders(method);
     Object.assign(config.headers, securityHeaders);
+
+    // MOBILE FIX: Send Bearer token as fallback for mobile browsers that
+    // block third-party cookies (iOS Safari ITP, Chrome cookie deprecation).
+    // The backend checks Bearer first, then falls back to cookie (deps.py:86).
+    const sessionToken = getSessionToken();
+    if (sessionToken && !config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${sessionToken}`;
+    }
 
     // Add breadcrumb for API request tracking with correlation info
     addBreadcrumb(
@@ -217,6 +226,7 @@ export function clearAuthToken(): void {
 
 /**
  * Check if user has an active session
+ * Checks sessionStorage metadata AND localStorage Bearer token fallback
  */
 export function hasAuthToken(): boolean {
   const sessionState = sessionStorage.getItem("session_state");
@@ -229,6 +239,13 @@ export function hasAuthToken(): boolean {
     } catch {
       // Ignore parse errors
     }
+  }
+
+  // Also check localStorage for Bearer token (mobile fallback).
+  // On mobile, sessionStorage may be cleared between PWA launches
+  // but localStorage persists.
+  if (getSessionToken()) {
+    return true;
   }
 
   return false;

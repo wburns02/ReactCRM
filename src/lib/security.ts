@@ -105,6 +105,7 @@ export function setSessionState(state: SessionState): void {
 export function clearSessionState(): void {
   sessionStorage.removeItem(SESSION_KEY);
   localStorage.removeItem(SESSION_KEY);
+  clearSessionToken();
 }
 
 /**
@@ -190,6 +191,50 @@ export function onSecurityEvent(
   const listener = (e: Event) => handler(e as CustomEvent);
   window.addEventListener(type, listener);
   return () => window.removeEventListener(type, listener);
+}
+
+// ============================================
+// Bearer Token Fallback (for mobile browsers)
+// ============================================
+
+// Mobile browsers (iOS Safari, Android Chrome) block third-party cookies.
+// Since the frontend (react.ecbtx.com) and API (railway.app) are different
+// domains, the HTTP-only session cookie is silently rejected on mobile.
+// We store the JWT and send it as a Bearer header as a fallback.
+// The backend checks Bearer first, then falls back to cookie.
+const SESSION_TOKEN_KEY = "crm_session_token";
+
+/**
+ * Store JWT token from login response for Bearer auth fallback
+ */
+export function storeSessionToken(token: string): void {
+  try {
+    localStorage.setItem(SESSION_TOKEN_KEY, token);
+  } catch {
+    // localStorage may be unavailable in some contexts
+  }
+}
+
+/**
+ * Get stored JWT token for Bearer auth header
+ */
+export function getSessionToken(): string | null {
+  try {
+    return localStorage.getItem(SESSION_TOKEN_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Clear stored JWT token (on logout or session expiry)
+ */
+export function clearSessionToken(): void {
+  try {
+    localStorage.removeItem(SESSION_TOKEN_KEY);
+  } catch {
+    // Ignore errors
+  }
 }
 
 // ============================================

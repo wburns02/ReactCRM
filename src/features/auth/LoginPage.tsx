@@ -18,6 +18,7 @@ import {
   markSessionValidated,
   sanitizeRedirectUrl,
   cleanupLegacyAuth,
+  storeSessionToken,
 } from "@/lib/security";
 
 /**
@@ -93,23 +94,23 @@ export function LoginPage() {
         password: data.password,
       });
 
-      // SECURITY: Handle different auth responses
-      // Priority: cookie auth (HTTP-only) > token auth (legacy)
-      if (response.data?.user) {
-        // Cookie-based auth (preferred) - backend sets HTTP-only cookie
-        // Mark session as valid and clean up any legacy tokens
-        markSessionValidated(response.data.user.id);
-        cleanupLegacyAuth();
-        queryClient.clear();
-        navigate(returnUrl, { replace: true });
-      } else if (response.data?.token) {
-        // SECURITY: Backend sets HTTP-only cookie, no need to store token in localStorage
-        // Clean up any legacy tokens that might exist
-        cleanupLegacyAuth();
-        markSessionValidated();
-        queryClient.clear();
-        navigate(returnUrl, { replace: true });
+      // Store JWT for Bearer auth fallback — mobile browsers block third-party
+      // cookies (frontend and API are on different domains), so we also send
+      // the token as a Bearer header on every request.
+      const token = response.data?.access_token || response.data?.token;
+      if (token) {
+        storeSessionToken(token);
       }
+      cleanupLegacyAuth();
+
+      if (response.data?.user) {
+        markSessionValidated(response.data.user.id);
+      } else {
+        markSessionValidated();
+      }
+
+      queryClient.clear();
+      navigate(returnUrl, { replace: true });
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
