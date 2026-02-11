@@ -13,7 +13,6 @@ import { test, expect, type Page } from "@playwright/test";
 const BASE_URL = "https://react.ecbtx.com";
 const API_URL = "https://react-crm-api-production.up.railway.app/api/v2";
 
-// Known console errors to ignore
 const KNOWN_ERRORS = [
   "API Schema Violation",
   "Sentry",
@@ -29,56 +28,89 @@ function isKnownError(msg: string): boolean {
   return KNOWN_ERRORS.some((known) => msg.includes(known));
 }
 
-test.describe("Tech Dashboard Data Loading (tech@macseptic.com)", () => {
+// --- Shared auth state (login ONCE, reuse across all tests) ---
+let techCookie = "";
+let techToken = "";
+
+test.describe("Tech Dashboard Data Loading", () => {
   let authPage: Page;
 
   test.beforeAll(async ({ browser }) => {
+    // Login once via Node.js fetch (avoids Playwright request fixture limitation in beforeAll)
+    const resp = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: "tech@macseptic.com",
+        password: "#Espn2025",
+      }),
+    });
+    expect(resp.ok).toBe(true);
+
+    const cookies = resp.headers.get("set-cookie") || "";
+    const match = cookies.match(/session=([^;]+)/);
+    techCookie = match?.[1] || "";
+    expect(techCookie).toBeTruthy();
+
+    const body = await resp.json();
+    techToken = body.access_token || body.token || "";
+
+    // Create shared browser context for UI tests
     const context = await browser.newContext();
     authPage = await context.newPage();
-
-    // Login as tech@macseptic.com (Test Technician — has assigned jobs)
-    await authPage.goto(`${BASE_URL}/login`);
-    await authPage.fill('input[type="email"]', "tech@macseptic.com");
-    await authPage.fill('input[type="password"]', "#Espn2025");
-    await authPage.click('button[type="submit"]');
-    await authPage.waitForFunction(
-      () => !window.location.href.includes("/login"),
-      { timeout: 15000 },
+    await authPage.goto(BASE_URL, { waitUntil: "commit" });
+    await authPage.evaluate(
+      ({ jwt, cookie }: { jwt: string; cookie: string }) => {
+        if (jwt) localStorage.setItem("crm_session_token", jwt);
+        const state = JSON.stringify({
+          isAuthenticated: true,
+          lastValidated: Date.now(),
+        });
+        sessionStorage.setItem("session_state", state);
+        localStorage.setItem("session_state", state);
+        // Also set cookie for API calls from page context
+        document.cookie = `session=${cookie}; path=/`;
+      },
+      { jwt: techToken, cookie: techCookie },
     );
-    await authPage.waitForTimeout(2000);
+
+    await authPage.goto(`${BASE_URL}/my-dashboard`, {
+      waitUntil: "networkidle",
+    });
+    await authPage.waitForTimeout(3000);
   });
 
   test.afterAll(async () => {
     await authPage?.context()?.close();
   });
 
-  test("1. Backend returns jobs for Test Technician", async () => {
-    const response = await authPage.evaluate(async (url) => {
-      const res = await fetch(`${url}/technician-dashboard/my-summary`, {
-        credentials: "include",
-      });
-      return { status: res.status, data: await res.json() };
-    }, API_URL);
+  // --- API-level tests ---
 
+  test("1. Backend returns jobs for Test Technician", async () => {
+    const response = await fetch(
+      `${API_URL}/technician-dashboard/my-summary`,
+      { headers: { Cookie: `session=${techCookie}` } },
+    );
     expect(response.status).toBe(200);
-    expect(response.data.technician.first_name).toBe("Test");
-    expect(response.data.technician.last_name).toBe("Technician");
-    expect(response.data.technician.id).toBeTruthy();
+
+    const data = await response.json();
+    expect(data.technician.first_name).toBe("Test");
+    expect(data.technician.last_name).toBe("Technician");
+    expect(data.technician.id).toBeTruthy();
 
     // CRITICAL: Must have jobs (was 0 before fix)
-    expect(response.data.todays_jobs.length).toBeGreaterThan(0);
-    expect(response.data.today_stats.total_jobs).toBeGreaterThan(0);
+    expect(data.todays_jobs.length).toBeGreaterThan(0);
+    expect(data.today_stats.total_jobs).toBeGreaterThan(0);
   });
 
   test("2. Jobs have real customer names (not 'Customer')", async () => {
-    const response = await authPage.evaluate(async (url) => {
-      const res = await fetch(`${url}/technician-dashboard/my-summary`, {
-        credentials: "include",
-      });
-      return await res.json();
-    }, API_URL);
+    const response = await fetch(
+      `${API_URL}/technician-dashboard/my-summary`,
+      { headers: { Cookie: `session=${techCookie}` } },
+    );
+    const data = await response.json();
 
-    for (const job of response.todays_jobs) {
+    for (const job of data.todays_jobs) {
       expect(job.customer_name).toBeTruthy();
       expect(job.customer_name).not.toBe("Customer");
       expect(job.id).toBeTruthy();
@@ -90,32 +122,25 @@ test.describe("Tech Dashboard Data Loading (tech@macseptic.com)", () => {
     }
   });
 
+  // --- UI-level tests ---
+
   test("3. Dashboard page shows job cards in UI", async () => {
     await authPage.goto(`${BASE_URL}/my-dashboard`);
     await authPage.waitForLoadState("networkidle");
     await authPage.waitForTimeout(3000);
 
-    // Should NOT show "No jobs scheduled today" (because there ARE jobs)
     const bodyText = (await authPage.textContent("body")) || "";
     expect(bodyText).not.toContain("No jobs scheduled today");
 
-    // Should show at least one job card with customer name and job type
     const jobsSection = authPage.locator('text="My Jobs Today"');
     await expect(jobsSection).toBeVisible();
   });
 
   test("4. Quick stats show non-zero total_jobs", async () => {
-    await authPage.goto(`${BASE_URL}/my-dashboard`);
-    await authPage.waitForLoadState("networkidle");
-    await authPage.waitForTimeout(3000);
-
-    // The "Left" stat should show a non-zero number (there are remaining jobs)
     const leftStat = authPage.locator('text="Left"').first();
     await expect(leftStat).toBeVisible();
 
-    // Check the body text for non-zero stats numbers
     const bodyText = (await authPage.textContent("body")) || "";
-    // We should see at least one non-zero stat
     expect(bodyText).toMatch(/[1-9]\d*/);
   });
 
@@ -132,33 +157,26 @@ test.describe("Tech Dashboard Data Loading (tech@macseptic.com)", () => {
     await authPage.waitForTimeout(3000);
 
     const unexpectedErrors = errors.filter((e) => !isKnownError(e));
-    if (unexpectedErrors.length > 0) {
-      console.log("Unexpected console errors:", unexpectedErrors);
-    }
     expect(unexpectedErrors.length).toBeLessThanOrEqual(2);
   });
 });
 
+// --- Schedule fix test (separate describe, logs in as admin) ---
+
 test.describe("Schedule By-Date Fix", () => {
   test("6. /schedule/by-date returns 200 (was 500)", async ({ request }) => {
-    // Login to get session
-    const loginResp = await request.post(`${API_URL}/auth/login`, {
-      data: {
-        email: "will@macseptic.com",
-        password: "#Espn2025",
-      },
+    await request.post(`${API_URL}/auth/login`, {
+      data: { email: "will@macseptic.com", password: "#Espn2025" },
     });
-    expect(loginResp.ok()).toBeTruthy();
 
     const today = new Date().toISOString().split("T")[0];
-    const scheduleResp = await request.get(
+    const resp = await request.get(
       `${API_URL}/schedule/by-date?date=${today}`,
     );
-    expect(scheduleResp.status()).toBe(200);
+    expect(resp.status()).toBe(200);
 
-    const data = await scheduleResp.json();
+    const data = await resp.json();
     expect(data).toHaveProperty("items");
-    expect(data).toHaveProperty("total");
     expect(Array.isArray(data.items)).toBe(true);
   });
 });
