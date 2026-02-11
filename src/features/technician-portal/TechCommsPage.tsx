@@ -1,5 +1,11 @@
 import { useState, useCallback } from "react";
 import { useTechMessages, useSendMessage } from "@/api/hooks/useTechPortal.ts";
+import {
+  useRCStatus,
+  useCallLog,
+  useInitiateCall,
+} from "@/features/phone/api.ts";
+import type { CallRecord } from "@/features/phone/types.ts";
 import { Card, CardContent } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
@@ -9,19 +15,27 @@ import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
-const TABS = [
+const MAIN_TABS = [
+  { key: "phone", label: "Phone", emoji: "📞" },
+  { key: "sms", label: "SMS", emoji: "📱" },
+  { key: "email", label: "Email", emoji: "📧" },
+] as const;
+
+type MainTabKey = (typeof MAIN_TABS)[number]["key"];
+
+const MSG_TABS = [
   { key: "inbox", label: "Inbox", emoji: "📥" },
   { key: "sent", label: "Sent", emoji: "📤" },
 ] as const;
 
-type TabKey = (typeof TABS)[number]["key"];
+type MsgTabKey = (typeof MSG_TABS)[number]["key"];
 
-const TYPE_ICONS: Record<string, string> = {
-  sms: "📱",
-  email: "📧",
-};
+const TYPE_ICONS: Record<string, string> = { sms: "📱", email: "📧" };
 
-const STATUS_VARIANTS: Record<string, "success" | "warning" | "info" | "danger" | "default"> = {
+const STATUS_VARIANTS: Record<
+  string,
+  "success" | "warning" | "info" | "danger" | "default"
+> = {
   delivered: "success",
   sent: "success",
   read: "success",
@@ -43,7 +57,7 @@ const STATUS_LABELS: Record<string, string> = {
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-function formatMessageDate(iso: string | null | undefined): string {
+function formatRelative(iso: string | null | undefined): string {
   if (!iso) return "";
   try {
     const d = new Date(iso);
@@ -62,6 +76,25 @@ function formatMessageDate(iso: string | null | undefined): string {
   }
 }
 
+function formatDuration(seconds: number | null | undefined): string {
+  if (!seconds || seconds <= 0) return "0s";
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  if (m === 0) return `${s}s`;
+  return `${m}m ${s}s`;
+}
+
+function formatPhone(number: string): string {
+  const digits = number.replace(/\D/g, "");
+  if (digits.length === 11 && digits[0] === "1") {
+    return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+  }
+  if (digits.length === 10) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  return number;
+}
+
 function getContactDisplay(msg: {
   direction?: string | null;
   from_number?: string | null;
@@ -70,7 +103,8 @@ function getContactDisplay(msg: {
   to_email?: string | null;
   message_type?: string | null;
 }): { label: string; value: string } {
-  const isInbound = msg.direction === "inbound" || msg.direction === "received";
+  const isInbound =
+    msg.direction === "inbound" || msg.direction === "received";
   if (msg.message_type === "sms") {
     return {
       label: isInbound ? "From" : "To",
@@ -90,18 +124,16 @@ function getPreview(content: string | null | undefined, maxLen = 80): string {
   return stripped.slice(0, maxLen) + "...";
 }
 
-// ── Loading Skeleton ───────────────────────────────────────────────────────
+// ── Skeleton ──────────────────────────────────────────────────────────────
 
 function CommsPageSkeleton() {
   return (
     <div className="space-y-4 p-4 max-w-2xl mx-auto">
-      {/* Tab bar skeleton */}
       <div className="flex gap-2">
-        {Array.from({ length: 2 }).map((_, i) => (
-          <Skeleton key={i} className="h-10 w-28 rounded-full" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <Skeleton key={i} className="h-10 w-24 rounded-full" />
         ))}
       </div>
-      {/* Message card skeletons */}
       {Array.from({ length: 5 }).map((_, i) => (
         <Skeleton key={i} className="h-24 w-full rounded-xl" />
       ))}
@@ -109,7 +141,273 @@ function CommsPageSkeleton() {
   );
 }
 
-// ── Message Card ───────────────────────────────────────────────────────────
+// ── Call Card ──────────────────────────────────────────────────────────────
+
+function CallCard({
+  call,
+  onCall,
+  isCalling,
+}: {
+  call: CallRecord;
+  onCall: (number: string) => void;
+  isCalling: boolean;
+}) {
+  const isInbound = call.direction === "inbound";
+  const isMissed =
+    call.status === "missed" ||
+    call.status === "voicemail" ||
+    (call.duration_seconds ?? 0) === 0;
+  const dirIcon = isMissed ? "📵" : isInbound ? "↙️" : "↗️";
+  const dirColor = isMissed
+    ? "text-red-600"
+    : isInbound
+      ? "text-green-600"
+      : "text-blue-600";
+  const otherNumber = isInbound ? call.from_number : call.to_number;
+  const otherName = isInbound
+    ? call.from_name || call.contact_name
+    : call.to_name || call.contact_name;
+  const dateStr = formatRelative(call.start_time || call.created_at);
+
+  return (
+    <Card className="transition-shadow hover:shadow-md">
+      <CardContent className="pt-3 pb-3">
+        <div className="flex items-center justify-between">
+          {/* Left: direction + number */}
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <span className={`text-2xl ${dirColor}`}>{dirIcon}</span>
+            <div className="min-w-0 flex-1">
+              {otherName && (
+                <p className="text-base font-semibold text-text-primary truncate">
+                  {otherName}
+                </p>
+              )}
+              <p className="text-sm text-text-secondary truncate">
+                {formatPhone(otherNumber)}
+              </p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-xs text-text-muted">{dateStr}</span>
+                {(call.duration_seconds ?? 0) > 0 && (
+                  <span className="text-xs text-text-muted">
+                    {formatDuration(call.duration_seconds)}
+                  </span>
+                )}
+                {isMissed && (
+                  <Badge variant="danger" size="sm">
+                    Missed
+                  </Badge>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: call back button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onCall(otherNumber);
+            }}
+            disabled={isCalling}
+            className="flex-shrink-0 w-12 h-12 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center text-xl shadow-md transition-colors disabled:opacity-50"
+            title={`Call ${formatPhone(otherNumber)}`}
+          >
+            📞
+          </button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ── Phone Tab Content ─────────────────────────────────────────────────────
+
+function PhoneTab() {
+  const [dialNumber, setDialNumber] = useState("");
+  const { data: rcStatus } = useRCStatus();
+  const { data: calls, isLoading: callsLoading } = useCallLog({
+    page: 1,
+    page_size: 30,
+  });
+  const callMutation = useInitiateCall();
+
+  const isConnected = rcStatus?.connected ?? false;
+
+  const handleCall = useCallback(
+    (number: string) => {
+      if (!number.trim()) {
+        toastError("Enter a phone number");
+        return;
+      }
+      if (!isConnected) {
+        toastError("Phone not connected", "RingCentral is not configured");
+        return;
+      }
+      const cleaned = number.replace(/\D/g, "");
+      callMutation.mutate(
+        { to_number: cleaned },
+        {
+          onSuccess: () => {
+            toastSuccess("Calling...", `Dialing ${formatPhone(number)}`);
+            setDialNumber("");
+          },
+          onError: () => {
+            toastError("Call failed", "Could not place the call");
+          },
+        },
+      );
+    },
+    [isConnected, callMutation],
+  );
+
+  const handleDialPad = useCallback((digit: string) => {
+    setDialNumber((prev) => prev + digit);
+  }, []);
+
+  const DIAL_DIGITS = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "*",
+    "0",
+    "#",
+  ];
+
+  return (
+    <div className="space-y-4">
+      {/* Status */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span
+            className={`w-3 h-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-400"}`}
+          />
+          <span className="text-sm text-text-secondary">
+            {isConnected ? "Phone Connected" : "Phone Disconnected"}
+          </span>
+        </div>
+        {rcStatus?.extension && (
+          <span className="text-xs text-text-muted">
+            Ext. {rcStatus.extension}
+          </span>
+        )}
+      </div>
+
+      {/* Dialer */}
+      <Card>
+        <CardContent className="pt-4 pb-4">
+          <h3 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+            <span className="text-xl">📞</span> Quick Dial
+          </h3>
+
+          {/* Number input */}
+          <div className="flex gap-2 mb-3">
+            <Input
+              type="tel"
+              placeholder="(555) 123-4567"
+              value={dialNumber}
+              onChange={(e) => setDialNumber(e.target.value)}
+              className="h-14 text-xl font-mono text-center rounded-xl flex-1"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleCall(dialNumber);
+              }}
+            />
+            {dialNumber && (
+              <button
+                onClick={() => setDialNumber("")}
+                className="w-14 h-14 rounded-xl bg-gray-100 hover:bg-gray-200 text-xl flex items-center justify-center"
+              >
+                ⌫
+              </button>
+            )}
+          </div>
+
+          {/* Dial pad */}
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {DIAL_DIGITS.map((d) => (
+              <button
+                key={d}
+                onClick={() => handleDialPad(d)}
+                className="h-14 rounded-xl bg-gray-50 hover:bg-gray-100 active:bg-gray-200 text-xl font-medium text-text-primary transition-colors"
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+
+          {/* Call button */}
+          <Button
+            onClick={() => handleCall(dialNumber)}
+            disabled={
+              !dialNumber.trim() || callMutation.isPending || !isConnected
+            }
+            className="w-full h-14 text-lg font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white"
+          >
+            {callMutation.isPending ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin">🔄</span> Calling...
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                <span className="text-xl">📞</span> Call
+              </span>
+            )}
+          </Button>
+
+          {!isConnected && (
+            <p className="text-xs text-red-500 text-center mt-2">
+              RingCentral not connected — ask your admin to configure it
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Recent Calls */}
+      <div>
+        <h3 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+          <span className="text-xl">📋</span> Recent Calls
+        </h3>
+
+        {callsLoading ? (
+          <div className="space-y-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-20 w-full rounded-xl" />
+            ))}
+          </div>
+        ) : !calls?.items?.length ? (
+          <Card>
+            <CardContent className="py-12 text-center">
+              <p className="text-4xl mb-3">📵</p>
+              <p className="text-base font-medium text-text-secondary">
+                No recent calls
+              </p>
+              <p className="text-sm text-text-muted mt-1">
+                Your call history will appear here
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-2">
+            {calls.items.map((call: CallRecord) => (
+              <CallCard
+                key={call.id}
+                call={call}
+                onCall={handleCall}
+                isCalling={callMutation.isPending}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Message Card ──────────────────────────────────────────────────────────
 
 function MessageCard({
   message,
@@ -138,7 +436,7 @@ function MessageCard({
   const statusKey = (message.status || "").toLowerCase();
   const badgeVariant = STATUS_VARIANTS[statusKey] || "default";
   const statusLabel = STATUS_LABELS[statusKey] || message.status || "Unknown";
-  const dateStr = formatMessageDate(message.sent_at || message.created_at);
+  const dateStr = formatRelative(message.sent_at || message.created_at);
 
   return (
     <Card
@@ -146,7 +444,6 @@ function MessageCard({
       onClick={onToggle}
     >
       <CardContent className="pt-4 pb-4">
-        {/* Row 1: Type icon + Subject/Contact + Status badge */}
         <div className="flex items-start justify-between mb-1">
           <div className="flex items-center gap-2 flex-1 min-w-0">
             <span className="text-xl flex-shrink-0">{typeIcon}</span>
@@ -169,7 +466,6 @@ function MessageCard({
           </div>
         </div>
 
-        {/* Row 2: Preview (collapsed) or full content (expanded) */}
         {isExpanded ? (
           <div className="mt-3 p-3 rounded-lg bg-bg-muted text-sm text-text-primary whitespace-pre-wrap break-words">
             {message.content || "No content"}
@@ -180,7 +476,6 @@ function MessageCard({
           </p>
         )}
 
-        {/* Tap indicator */}
         <div className="flex justify-end mt-1">
           <span className="text-xs text-text-muted">
             {isExpanded ? "Tap to collapse" : "Tap to read"}
@@ -191,12 +486,20 @@ function MessageCard({
   );
 }
 
-// ── Empty State ────────────────────────────────────────────────────────────
+// ── Empty State ───────────────────────────────────────────────────────────
 
-function EmptyState({ tab }: { tab: TabKey }) {
+function MsgEmptyState({ tab }: { tab: MsgTabKey }) {
   const content = {
-    inbox: { emoji: "📭", text: "No messages yet", sub: "Messages you receive will show up here" },
-    sent: { emoji: "📤", text: "No sent messages", sub: "Messages you send will show up here" },
+    inbox: {
+      emoji: "📭",
+      text: "No messages yet",
+      sub: "Messages you receive will show up here",
+    },
+    sent: {
+      emoji: "📤",
+      text: "No sent messages",
+      sub: "Messages you send will show up here",
+    },
   };
   const c = content[tab];
 
@@ -211,16 +514,127 @@ function EmptyState({ tab }: { tab: TabKey }) {
   );
 }
 
-// ── Compose Panel ──────────────────────────────────────────────────────────
+// ── SMS/Email Tab Content ─────────────────────────────────────────────────
+
+function MessagingTab({ type }: { type: "sms" | "email" }) {
+  const [msgTab, setMsgTab] = useState<MsgTabKey>("inbox");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const {
+    data,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useTechMessages({ message_type: type });
+
+  const messages = (data?.items ?? []).filter((msg) => {
+    if (msgTab === "inbox") {
+      return (
+        msg.direction === "inbound" ||
+        msg.direction === "received" ||
+        !msg.direction
+      );
+    }
+    return msg.direction === "outbound" || msg.direction === "sent";
+  });
+
+  const sorted = [...messages].sort((a, b) => {
+    const da = new Date(a.sent_at || a.created_at || 0).getTime();
+    const db = new Date(b.sent_at || b.created_at || 0).getTime();
+    return db - da;
+  });
+
+  if (isLoading) {
+    return (
+      <div className="space-y-3">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton key={i} className="h-24 w-full rounded-xl" />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {/* Sub-tabs: Inbox / Sent */}
+      <div className="flex gap-2">
+        {MSG_TABS.map((tab) => {
+          const isActive = msgTab === tab.key;
+          return (
+            <button
+              key={tab.key}
+              onClick={() => {
+                setMsgTab(tab.key);
+                setExpandedId(null);
+              }}
+              className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                isActive
+                  ? "bg-primary text-white shadow-sm"
+                  : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
+              }`}
+            >
+              <span>{tab.emoji}</span>
+              {tab.label}
+            </button>
+          );
+        })}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => refetch()}
+          disabled={isFetching}
+          className="text-primary"
+        >
+          {isFetching ? (
+            <span className="animate-spin text-lg">🔄</span>
+          ) : (
+            <span className="text-lg">🔄</span>
+          )}
+        </Button>
+      </div>
+
+      {/* Count */}
+      <p className="text-sm text-text-muted">
+        {sorted.length === 0
+          ? "No messages"
+          : sorted.length === 1
+            ? "1 message"
+            : `${sorted.length} messages`}
+      </p>
+
+      {/* Messages */}
+      {sorted.length === 0 ? (
+        <MsgEmptyState tab={msgTab} />
+      ) : (
+        <div className="space-y-3">
+          {sorted.map((msg) => (
+            <MessageCard
+              key={msg.id}
+              message={msg}
+              isExpanded={expandedId === msg.id}
+              onToggle={() =>
+                setExpandedId((prev) => (prev === msg.id ? null : msg.id))
+              }
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Compose Panel ─────────────────────────────────────────────────────────
 
 function ComposePanel({
+  defaultType,
   onClose,
   onSent,
 }: {
+  defaultType: "sms" | "email";
   onClose: () => void;
   onSent: () => void;
 }) {
-  const [msgType, setMsgType] = useState<"sms" | "email">("sms");
+  const [msgType, setMsgType] = useState<"sms" | "email">(defaultType);
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
@@ -252,21 +666,14 @@ function ComposePanel({
 
   return (
     <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/40 z-40"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
 
-      {/* Slide-up panel */}
       <div className="fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-2xl shadow-2xl border-t border-border max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-300">
-        {/* Handle bar */}
         <div className="flex justify-center pt-3 pb-1">
           <div className="w-12 h-1.5 rounded-full bg-bg-muted" />
         </div>
 
         <div className="p-4 space-y-4">
-          {/* Header */}
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
               <span className="text-2xl">✏️</span> New Message
@@ -279,7 +686,6 @@ function ComposePanel({
             </button>
           </div>
 
-          {/* Type Selector */}
           <div className="flex gap-2">
             <button
               onClick={() => setMsgType("sms")}
@@ -303,13 +709,14 @@ function ComposePanel({
             </button>
           </div>
 
-          {/* To field */}
           <div>
             <label className="text-sm font-medium text-text-secondary mb-1.5 block">
               {msgType === "sms" ? "Phone Number" : "Email Address"}
             </label>
             <Input
-              placeholder={msgType === "sms" ? "(555) 123-4567" : "name@example.com"}
+              placeholder={
+                msgType === "sms" ? "(555) 123-4567" : "name@example.com"
+              }
               value={to}
               onChange={(e) => setTo(e.target.value)}
               type={msgType === "sms" ? "tel" : "email"}
@@ -317,7 +724,6 @@ function ComposePanel({
             />
           </div>
 
-          {/* Subject (email only) */}
           {msgType === "email" && (
             <div>
               <label className="text-sm font-medium text-text-secondary mb-1.5 block">
@@ -332,7 +738,6 @@ function ComposePanel({
             </div>
           )}
 
-          {/* Message body */}
           <div>
             <label className="text-sm font-medium text-text-secondary mb-1.5 block">
               Message
@@ -346,7 +751,6 @@ function ComposePanel({
             />
           </div>
 
-          {/* Send Button */}
           <Button
             size="lg"
             onClick={handleSend}
@@ -364,7 +768,6 @@ function ComposePanel({
             )}
           </Button>
 
-          {/* Bottom spacing for mobile safe area */}
           <div className="h-4" />
         </div>
       </div>
@@ -372,78 +775,28 @@ function ComposePanel({
   );
 }
 
-// ── Main Page ──────────────────────────────────────────────────────────────
+// ── Main Page ─────────────────────────────────────────────────────────────
 
 export function TechCommsPage() {
-  const [activeTab, setActiveTab] = useState<TabKey>("inbox");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<MainTabKey>("phone");
   const [showCompose, setShowCompose] = useState(false);
-
-  const { data, isLoading, isFetching, refetch } = useTechMessages();
-
-  // Filter messages by tab (direction)
-  const messages = (data?.items ?? []).filter((msg) => {
-    if (activeTab === "inbox") {
-      return msg.direction === "inbound" || msg.direction === "received" || !msg.direction;
-    }
-    return msg.direction === "outbound" || msg.direction === "sent";
-  });
-
-  // Sort by date, newest first
-  const sorted = [...messages].sort((a, b) => {
-    const da = new Date(a.sent_at || a.created_at || 0).getTime();
-    const db = new Date(b.sent_at || b.created_at || 0).getTime();
-    return db - da;
-  });
-
-  const handleToggleExpand = useCallback((id: string) => {
-    setExpandedId((prev) => (prev === id ? null : id));
-  }, []);
-
-  const handleComposeSent = useCallback(() => {
-    setShowCompose(false);
-    setActiveTab("sent");
-    refetch();
-  }, [refetch]);
-
-  // ── Render ────────────────────────────────────────────────────────────────
-
-  if (isLoading) return <CommsPageSkeleton />;
 
   return (
     <div className="p-4 max-w-2xl mx-auto pb-24">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
-          <span className="text-3xl">💬</span> Messages
-        </h1>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => refetch()}
-          disabled={isFetching}
-          className="text-primary"
-        >
-          {isFetching ? (
-            <span className="animate-spin text-lg">🔄</span>
-          ) : (
-            <span className="text-lg">🔄</span>
-          )}
-        </Button>
-      </div>
+      <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2 mb-4">
+        <span className="text-3xl">💬</span> Communications
+      </h1>
 
-      {/* Tab Bar */}
+      {/* Main Tab Bar: Phone / SMS / Email */}
       <div className="flex gap-2 mb-4">
-        {TABS.map((tab) => {
+        {MAIN_TABS.map((tab) => {
           const isActive = activeTab === tab.key;
           return (
             <button
               key={tab.key}
-              onClick={() => {
-                setActiveTab(tab.key);
-                setExpandedId(null);
-              }}
-              className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                 isActive
                   ? "bg-primary text-white shadow-sm"
                   : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
@@ -451,48 +804,18 @@ export function TechCommsPage() {
             >
               <span>{tab.emoji}</span>
               {tab.label}
-              {activeTab === tab.key && sorted.length > 0 && (
-                <span className="ml-1 bg-white/20 rounded-full px-1.5 py-0.5 text-xs">
-                  {sorted.length}
-                </span>
-              )}
             </button>
           );
         })}
       </div>
 
-      {/* Results count */}
-      <div className="flex items-center justify-between mb-3">
-        <p className="text-sm text-text-muted">
-          {sorted.length === 0
-            ? "No messages"
-            : sorted.length === 1
-              ? "1 message"
-              : `${sorted.length} messages`}
-        </p>
-        {isFetching && !isLoading && (
-          <span className="text-xs text-text-muted animate-pulse">Refreshing...</span>
-        )}
-      </div>
+      {/* Tab Content */}
+      {activeTab === "phone" && <PhoneTab />}
+      {activeTab === "sms" && <MessagingTab type="sms" />}
+      {activeTab === "email" && <MessagingTab type="email" />}
 
-      {/* Message List */}
-      {sorted.length === 0 ? (
-        <EmptyState tab={activeTab} />
-      ) : (
-        <div className="space-y-3">
-          {sorted.map((msg) => (
-            <MessageCard
-              key={msg.id}
-              message={msg}
-              isExpanded={expandedId === msg.id}
-              onToggle={() => handleToggleExpand(msg.id)}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Floating Compose Button */}
-      {!showCompose && (
+      {/* Floating Compose Button (SMS/Email tabs only) */}
+      {activeTab !== "phone" && !showCompose && (
         <button
           onClick={() => setShowCompose(true)}
           className="fixed bottom-6 right-6 z-30 w-14 h-14 rounded-full bg-cta text-white shadow-lg hover:bg-cta-hover active:shadow-inner flex items-center justify-center text-2xl transition-transform hover:scale-105"
@@ -505,8 +828,11 @@ export function TechCommsPage() {
       {/* Compose Panel */}
       {showCompose && (
         <ComposePanel
+          defaultType={activeTab === "email" ? "email" : "sms"}
           onClose={() => setShowCompose(false)}
-          onSent={handleComposeSent}
+          onSent={() => {
+            setShowCompose(false);
+          }}
         />
       )}
     </div>

@@ -10,6 +10,7 @@ export const techWorkOrderSchema = z.object({
   work_order_number: z.string().nullable().optional(),
   customer_id: z.string().nullable().optional(),
   customer_name: z.string().nullable().optional(),
+  customer_phone: z.string().nullable().optional(),
   technician_id: z.string().nullable().optional(),
   assigned_technician: z.string().nullable().optional(),
   job_type: z.string().nullable().optional(),

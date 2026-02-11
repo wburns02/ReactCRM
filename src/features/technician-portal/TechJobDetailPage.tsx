@@ -15,6 +15,7 @@ import {
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
 } from "@/api/types/techPortal.ts";
+import { useInitiateCall } from "@/features/phone/api.ts";
 import { Card, CardContent } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
@@ -239,6 +240,7 @@ export function TechJobDetailPage() {
   const completeJobMutation = useCompleteJob();
   const uploadPhotoMutation = useUploadJobPhoto();
   const recordPaymentMutation = useRecordPayment();
+  const initiateCall = useInitiateCall();
 
   // ── Derived values ─────────────────────────────────────────────────────
 
@@ -620,16 +622,44 @@ export function TechJobDetailPage() {
                   <span className="text-base underline">{fullAddress}</span>
                 </a>
               )}
-              {job.service_address_line1 && (
-                <a
-                  href={directionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-blue-100 transition-colors"
-                >
-                  <span className="text-xl">🗺️</span> Get Directions
-                </a>
-              )}
+              <div className="flex flex-wrap gap-2 mt-1">
+                {job.customer_phone && (
+                  <>
+                    <a
+                      href={`tel:${job.customer_phone}`}
+                      className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-green-100 transition-colors"
+                    >
+                      <span className="text-xl">📞</span> Call {job.customer_phone}
+                    </a>
+                    <button
+                      onClick={() => {
+                        initiateCall.mutate(
+                          { phoneNumber: job.customer_phone! },
+                          {
+                            onSuccess: () => toastSuccess("Calling customer via RingCentral..."),
+                            onError: () => toastError("RingCentral call failed. Use the direct dial button instead."),
+                          },
+                        );
+                      }}
+                      disabled={initiateCall.isPending}
+                      className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-purple-100 transition-colors disabled:opacity-50"
+                    >
+                      <span className="text-xl">🔗</span>
+                      {initiateCall.isPending ? "Connecting..." : "RC Call"}
+                    </button>
+                  </>
+                )}
+                {job.service_address_line1 && (
+                  <a
+                    href={directionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-blue-100 transition-colors"
+                  >
+                    <span className="text-xl">🗺️</span> Get Directions
+                  </a>
+                )}
+              </div>
             </CardContent>
           </Card>
 
