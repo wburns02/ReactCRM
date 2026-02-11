@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import {
   useTechJobDetail,
   useStartJob,
@@ -16,6 +17,7 @@ import {
   PRIORITY_LABELS,
 } from "@/api/types/techPortal.ts";
 import { useInitiateCall } from "@/features/phone/api.ts";
+import { apiClient } from "@/api/client.ts";
 import { Card, CardContent } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
@@ -222,6 +224,10 @@ export function TechJobDetailPage() {
     null,
   );
 
+  // Quick text state
+  const [showQuickText, setShowQuickText] = useState(false);
+  const [quickTextMsg, setQuickTextMsg] = useState("");
+
   // Payment form state
   const [paymentMethod, setPaymentMethod] = useState("");
   const [paymentAmount, setPaymentAmount] = useState("");
@@ -241,6 +247,12 @@ export function TechJobDetailPage() {
   const uploadPhotoMutation = useUploadJobPhoto();
   const recordPaymentMutation = useRecordPayment();
   const initiateCall = useInitiateCall();
+  const sendSMS = useMutation({
+    mutationFn: async (input: { to: string; body: string; customer_id?: string }) => {
+      const { data } = await apiClient.post("/communications/sms/send", input);
+      return data;
+    },
+  });
 
   // ── Derived values ─────────────────────────────────────────────────────
 
@@ -622,14 +634,15 @@ export function TechJobDetailPage() {
                   <span className="text-base underline">{fullAddress}</span>
                 </a>
               )}
-              <div className="flex flex-wrap gap-2 mt-1">
-                {job.customer_phone && (
-                  <>
+              {job.customer_phone && (
+                <>
+                  {/* Row 1: Call buttons */}
+                  <div className="flex flex-wrap gap-2 mt-1">
                     <a
                       href={`tel:${job.customer_phone}`}
                       className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-green-100 transition-colors"
                     >
-                      <span className="text-xl">📞</span> Call {job.customer_phone}
+                      <span className="text-xl">📞</span> Call
                     </a>
                     <button
                       onClick={() => {
@@ -647,8 +660,93 @@ export function TechJobDetailPage() {
                       <span className="text-xl">🔗</span>
                       {initiateCall.isPending ? "Connecting..." : "RC Call"}
                     </button>
-                  </>
-                )}
+                  </div>
+
+                  {/* Row 2: Text buttons */}
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <a
+                      href={`sms:${job.customer_phone}`}
+                      className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-teal-100 transition-colors"
+                    >
+                      <span className="text-xl">💬</span> Text
+                    </a>
+                    <button
+                      onClick={() => setShowQuickText((v) => !v)}
+                      className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                        showQuickText
+                          ? "bg-purple-200 text-purple-800"
+                          : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+                      }`}
+                    >
+                      <span className="text-xl">📲</span> RC Text
+                    </button>
+                  </div>
+
+                  {/* Quick Text Compose Panel */}
+                  {showQuickText && (
+                    <div className="mt-3 p-4 bg-purple-50 rounded-xl border border-purple-200">
+                      <p className="text-sm font-medium text-purple-800 mb-2">
+                        Send SMS to {job.customer_phone} via RingCentral
+                      </p>
+                      <textarea
+                        value={quickTextMsg}
+                        onChange={(e) => setQuickTextMsg(e.target.value)}
+                        placeholder="Type your message..."
+                        rows={3}
+                        className="w-full px-3 py-2 rounded-lg border border-purple-300 bg-white text-base focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none resize-none"
+                      />
+                      <div className="flex items-center justify-between mt-2">
+                        <span className="text-xs text-purple-600">
+                          {quickTextMsg.length}/160 chars
+                        </span>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => {
+                              setShowQuickText(false);
+                              setQuickTextMsg("");
+                            }}
+                            className="px-4 py-2 text-sm text-purple-600 hover:text-purple-800"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (!quickTextMsg.trim()) {
+                                toastError("Type a message first");
+                                return;
+                              }
+                              sendSMS.mutate(
+                                {
+                                  to: job.customer_phone!,
+                                  body: quickTextMsg.trim(),
+                                  customer_id: job.customer_id || undefined,
+                                },
+                                {
+                                  onSuccess: () => {
+                                    toastSuccess("Text sent to customer!");
+                                    setQuickTextMsg("");
+                                    setShowQuickText(false);
+                                  },
+                                  onError: () => {
+                                    toastError("Failed to send text. Try the direct Text button instead.");
+                                  },
+                                },
+                              );
+                            }}
+                            disabled={sendSMS.isPending || !quickTextMsg.trim()}
+                            className="px-5 py-2 bg-purple-600 text-white text-sm font-bold rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors"
+                          >
+                            {sendSMS.isPending ? "Sending..." : "Send"}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Directions button */}
+              <div className="flex flex-wrap gap-2 mt-2">
                 {job.service_address_line1 && (
                   <a
                     href={directionsUrl}
