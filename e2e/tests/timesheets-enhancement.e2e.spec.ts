@@ -98,6 +98,7 @@ test.describe("Timesheets Enhancement", () => {
 
     if (tableVisible) {
       // Check column headers
+      await expect(authPage.locator("th").filter({ hasText: "Employee" }).first()).toBeVisible();
       await expect(authPage.locator("th").filter({ hasText: "Date" }).first()).toBeVisible();
       await expect(authPage.locator("th").filter({ hasText: "Type" }).first()).toBeVisible();
       await expect(authPage.locator("th").filter({ hasText: "Status" }).first()).toBeVisible();

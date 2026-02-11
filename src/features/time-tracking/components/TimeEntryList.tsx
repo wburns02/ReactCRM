@@ -21,6 +21,7 @@ interface TimeEntryListProps {
 }
 
 type SortField =
+  | "technician_name"
   | "entry_date"
   | "entry_type"
   | "regular_hours"
@@ -90,6 +91,9 @@ export function TimeEntryList({
     return [...filteredEntries].sort((a, b) => {
       let cmp = 0;
       switch (sortBy) {
+        case "technician_name":
+          cmp = (a.technician_name || "").localeCompare(b.technician_name || "");
+          break;
         case "entry_date":
           cmp = (a.entry_date || "").localeCompare(b.entry_date || "");
           break;
@@ -423,7 +427,7 @@ export function TimeEntryList({
       {/* Time entry table */}
       {!isLoading && sortedEntries.length > 0 && (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px]">
+          <table className="w-full min-w-[1050px]">
             <thead>
               <tr className="border-b border-border">
                 <th className="py-3 px-4 w-10">
@@ -438,6 +442,9 @@ export function TimeEntryList({
                     aria-label="Select all"
                   />
                 </th>
+                <SortHeader field="technician_name" className="text-left">
+                  Employee
+                </SortHeader>
                 <SortHeader field="entry_date" className="text-left">
                   Date
                 </SortHeader>
@@ -485,6 +492,11 @@ export function TimeEntryList({
                       className="rounded border-border"
                       aria-label={`Select entry ${entry.entry_date}`}
                     />
+                  </td>
+                  <td className="py-3 px-4">
+                    <span className="font-medium text-text-primary truncate max-w-[150px] block">
+                      {entry.technician_name || "—"}
+                    </span>
                   </td>
                   <td className="py-3 px-4">
                     <span className="font-medium text-text-primary">
@@ -581,7 +593,7 @@ export function TimeEntryList({
             </tbody>
             <tfoot>
               <tr className="border-t-2 border-border bg-bg-hover/50">
-                <td colSpan={5} className="py-3 px-4 font-semibold text-text-primary">
+                <td colSpan={6} className="py-3 px-4 font-semibold text-text-primary">
                   Page Totals
                 </td>
                 <td className="py-3 px-4 text-right font-mono font-semibold text-text-primary">
