@@ -240,25 +240,119 @@ export function useUpdateProfile() {
   });
 }
 
-// ── Job Photos Upload ───────────────────────────────────────────────────
+// ── Job Photos ──────────────────────────────────────────────────────────
+
+export function useJobPhotos(jobId: string) {
+  return useQuery({
+    queryKey: ["tech-portal", "jobs", jobId, "photos"],
+    queryFn: async () => {
+      return withFallback(async () => {
+        const { data } = await apiClient.get(`/employee/jobs/${jobId}/photos`);
+        return data as Array<{
+          id: string;
+          work_order_id: string;
+          photo_type: string;
+          data_url: string;
+          thumbnail_url: string | null;
+          timestamp: string | null;
+          gps_lat: number | null;
+          gps_lng: number | null;
+          created_at: string | null;
+        }>;
+      }, []);
+    },
+    enabled: !!jobId,
+    staleTime: 30_000,
+  });
+}
 
 export function useUploadJobPhoto() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ jobId, photo }: { jobId: string; photo: string }) => {
+    mutationFn: async ({
+      jobId,
+      photo,
+      photoType = "other",
+    }: {
+      jobId: string;
+      photo: string;
+      photoType?: string;
+    }) => {
       const { data } = await apiClient.post(
-        `/employee/jobs/${jobId}/photos`,
-        { photo_data: photo },
+        `/employee/jobs/${jobId}/photos/base64`,
+        { photo_data: photo, photo_type: photoType },
       );
       return data;
     },
     onSuccess: (_, { jobId }) => {
+      queryClient.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId, "photos"] });
       queryClient.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId] });
       toastSuccess("Photo uploaded!");
     },
     onError: () => {
       toastError("Failed to upload photo");
+    },
+  });
+}
+
+// ── Job Payments ────────────────────────────────────────────────────────
+
+export function useJobPayments(jobId: string) {
+  return useQuery({
+    queryKey: ["tech-portal", "jobs", jobId, "payments"],
+    queryFn: async () => {
+      return withFallback(async () => {
+        const { data } = await apiClient.get(`/employee/jobs/${jobId}/payments`);
+        return data as Array<{
+          id: string;
+          work_order_id: string | null;
+          amount: number;
+          payment_method: string;
+          status: string;
+          description: string | null;
+          payment_date: string | null;
+          created_at: string | null;
+        }>;
+      }, []);
+    },
+    enabled: !!jobId,
+    staleTime: 30_000,
+  });
+}
+
+export function useRecordPayment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      jobId,
+      payment_method,
+      amount,
+      check_number,
+      notes,
+    }: {
+      jobId: string;
+      payment_method: string;
+      amount: number;
+      check_number?: string;
+      notes?: string;
+    }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/payment`, {
+        payment_method,
+        amount,
+        check_number,
+        notes,
+      });
+      return data;
+    },
+    onSuccess: (_, { jobId }) => {
+      queryClient.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId, "payments"] });
+      queryClient.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId] });
+      toastSuccess("Payment recorded!");
+    },
+    onError: () => {
+      toastError("Failed to record payment");
     },
   });
 }
