@@ -3,6 +3,8 @@ import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Invoice Status enum
+ * Backend PostgreSQL enum includes "partial" in addition to these.
+ * Use .or(z.string()) for forward compatibility.
  */
 export const invoiceStatusSchema = z.enum([
   "draft",
@@ -10,6 +12,7 @@ export const invoiceStatusSchema = z.enum([
   "paid",
   "overdue",
   "void",
+  "partial",
 ]);
 export type InvoiceStatus = z.infer<typeof invoiceStatusSchema>;
 
@@ -19,18 +22,21 @@ export const INVOICE_STATUS_LABELS: Record<InvoiceStatus, string> = {
   paid: "Paid",
   overdue: "Overdue",
   void: "Void",
+  partial: "Partial",
 };
 
 /**
  * Line Item schema
+ * Line items are stored as JSON in the database.
+ * The `id` field comes back as null (not undefined) from PostgreSQL JSON.
  */
 export const lineItemSchema = z.object({
-  id: z.string().optional(),
+  id: z.string().nullable().optional(),
   service: z.string(),
-  description: z.string().optional(),
-  quantity: z.number().min(0),
-  rate: z.number().min(0),
-  amount: z.number().min(0),
+  description: z.string().nullable().optional(),
+  quantity: z.union([z.number(), z.string().transform(Number)]).default(0),
+  rate: z.union([z.number(), z.string().transform(Number)]).default(0),
+  amount: z.union([z.number(), z.string().transform(Number)]).default(0),
 });
 
 export type LineItem = z.infer<typeof lineItemSchema>;
@@ -54,12 +60,12 @@ export const invoiceSchema = z.object({
     .nullable()
     .optional(),
   work_order_id: z.string().nullable().optional(),
-  status: invoiceStatusSchema,
-  line_items: z.array(lineItemSchema),
-  subtotal: z.number(),
-  tax_rate: z.number().default(0),
-  tax: z.number(),
-  total: z.number(),
+  status: invoiceStatusSchema.or(z.string()),
+  line_items: z.array(lineItemSchema).nullable().default([]),
+  subtotal: z.union([z.number(), z.string().transform(Number)]).default(0),
+  tax_rate: z.union([z.number(), z.string().transform(Number)]).default(0),
+  tax: z.union([z.number(), z.string().transform(Number)]).default(0),
+  total: z.union([z.number(), z.string().transform(Number)]).default(0),
   due_date: z.string().nullable(),
   paid_date: z.string().nullable(),
   notes: z.string().nullable().optional(),
