@@ -105,7 +105,11 @@ export function setSessionState(state: SessionState): void {
 export function clearSessionState(): void {
   sessionStorage.removeItem(SESSION_KEY);
   localStorage.removeItem(SESSION_KEY);
-  clearSessionToken();
+  // NOTE: Do NOT call clearSessionToken() here!
+  // On mobile, cookies are blocked (cross-domain), so Bearer token is the
+  // only auth mechanism. A 401 from a missing cookie must NOT wipe the
+  // Bearer token — otherwise mobile users get stuck in a login loop.
+  // Bearer token is cleared explicitly only during logout.
 }
 
 /**

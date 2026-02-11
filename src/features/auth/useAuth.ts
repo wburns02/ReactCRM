@@ -6,6 +6,7 @@ import {
   markSessionValidated,
   markSessionInvalid,
   clearSessionState,
+  clearSessionToken,
   onSecurityEvent,
   dispatchSecurityEvent,
 } from "@/lib/security";
@@ -109,6 +110,7 @@ export function useAuth() {
     setSentryUser(null);
     markSessionInvalid();
     clearSessionState();
+    clearSessionToken(); // Explicitly clear Bearer token on logout
     clearAuthToken();
 
     // Clear all cached data

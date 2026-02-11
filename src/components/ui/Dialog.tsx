@@ -193,12 +193,13 @@ export function DialogContent({
       className={cn(
         "bg-bg-card rounded-lg shadow-xl border border-border",
         "animate-in fade-in-0 zoom-in-95 duration-200",
+        "w-[calc(100vw-2rem)] mx-4",
         {
-          "w-[400px]": size === "sm",
-          "w-[500px]": size === "md",
-          "w-[600px]": size === "lg",
-          "w-[800px]": size === "xl",
-          "w-[1100px]": size === "2xl",
+          "sm:w-[400px]": size === "sm",
+          "sm:w-[500px]": size === "md",
+          "sm:w-[600px]": size === "lg",
+          "sm:w-[800px]": size === "xl",
+          "sm:w-[1100px]": size === "2xl",
         },
         className,
       )}

@@ -6,6 +6,8 @@ import { NotificationCenter } from "@/features/notifications/index.ts";
 import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
 import { OnboardingAssistant } from "@/features/onboarding/components/OnboardingAssistant";
 import { EmailComposeProvider } from "@/context/EmailComposeContext";
+import { MobileBottomNav } from "@/components/navigation/MobileBottomNav";
+import { MobileHeader } from "@/components/navigation/MobileHeader";
 
 /**
  * Navigation item type
@@ -218,8 +220,10 @@ export function AppLayout() {
         Skip to main content
       </a>
 
-      {/* Sidebar */}
-      <aside className="w-64 bg-bg-sidebar border-r border-border flex flex-col overflow-hidden">
+      {/* Sidebar — hidden on mobile for technicians, always visible on desktop */}
+      <aside className={`w-64 bg-bg-sidebar border-r border-border flex-col overflow-hidden ${
+        isTechnician ? "hidden md:flex" : "hidden md:flex"
+      }`}>
         {/* Logo */}
         <div className="h-16 flex items-center px-4 border-b border-border flex-shrink-0">
           <Link
@@ -234,7 +238,7 @@ export function AppLayout() {
         {/* Navigation - Scrollable */}
         <nav className="flex-1 overflow-y-auto p-4">
           {isTechnician ? (
-            /* Simplified nav for technicians — 3 big items, nothing else */
+            /* Simplified nav for technicians — big items */
             <ul className="space-y-2">
               {techNavItems.map((item) => (
                 <li key={item.path}>
@@ -348,24 +352,47 @@ export function AppLayout() {
         </div>
       </aside>
 
+      {/* Mobile header — visible only on mobile for technicians */}
+      {isTechnician && (
+        <div className="md:hidden contents">
+          {/* contents so it participates in parent flex without adding a wrapper */}
+        </div>
+      )}
+
       {/* Main content */}
       <main
         id="main-content"
-        className="flex-1 overflow-auto flex flex-col"
+        className="flex-1 overflow-auto flex flex-col min-w-0"
         tabIndex={-1}
       >
-        {/* Top bar with connection status, notifications and RingCentral status */}
-        <div className="h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4">
+        {/* Mobile header for technicians (replaces desktop top bar on small screens) */}
+        {isTechnician && (
+          <div className="md:hidden">
+            <MobileHeader />
+          </div>
+        )}
+
+        {/* Desktop top bar — hidden on mobile for technicians */}
+        <div className={`h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4 ${
+          isTechnician ? "hidden md:flex" : ""
+        }`}>
           <ConnectionStatus showTooltip size="sm" />
           <NotificationCenter />
           <RCStatusIndicator />
         </div>
 
-        {/* Page content */}
-        <div className="flex-1 overflow-auto">
+        {/* Page content — extra bottom padding on mobile for technicians to clear bottom nav */}
+        <div className={`flex-1 overflow-auto ${isTechnician ? "pb-20 md:pb-0" : ""}`}>
           <Outlet />
         </div>
       </main>
+
+      {/* Mobile bottom nav — only for technicians, only on mobile */}
+      {isTechnician && (
+        <div className="md:hidden">
+          <MobileBottomNav />
+        </div>
+      )}
 
       {/* AI Onboarding Assistant — hidden for field technicians */}
       {!isTechnician && <OnboardingAssistant />}

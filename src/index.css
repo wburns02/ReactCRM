@@ -336,6 +336,28 @@ body {
   }
 }
 
+/* Mobile touch optimization */
+@media (max-width: 767px) {
+  /* Prevent 300ms tap delay on mobile */
+  html {
+    touch-action: manipulation;
+  }
+
+  /* Prevent iOS zoom on input focus (font-size < 16px triggers zoom) */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Active state feedback for touch */
+  button:active,
+  a:active,
+  [role="button"]:active {
+    opacity: 0.85;
+  }
+}
+
 /* Standalone mode adjustments */
 @media (display-mode: standalone) {
   /* Add padding for notch on iOS */

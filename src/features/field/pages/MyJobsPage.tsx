@@ -90,12 +90,12 @@ export function MyJobsPage() {
   return (
     <div className="p-4 pb-20">
       {/* Filter Tabs */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4 overflow-x-auto">
         {(["today", "upcoming", "all"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-colors touch-manipulation whitespace-nowrap ${
               filter === f
                 ? "bg-primary text-white"
                 : "bg-bg-card text-text-secondary hover:bg-bg-hover"

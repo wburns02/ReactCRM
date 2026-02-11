@@ -160,15 +160,13 @@ function JobCard({
     >
       <CardContent className="pt-4 pb-4">
         {/* Header: job type + status badge */}
-        <div className="flex items-start justify-between mb-2">
-          <div>
-            <p className="text-lg font-bold text-text-primary">
-              {job.job_type_label}
-              {" · "}
-              {job.customer_name}
-            </p>
-          </div>
-          <Badge variant={badgeVariant} size="md">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <p className="text-base sm:text-lg font-bold text-text-primary min-w-0">
+            {job.job_type_label}
+            {" · "}
+            {job.customer_name}
+          </p>
+          <Badge variant={badgeVariant} size="md" className="flex-shrink-0">
             {job.status_label}
           </Badge>
         </div>
@@ -249,25 +247,25 @@ function QuickStats({
   remainingJobs: number;
 }) {
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-2 sm:gap-3">
       <Card>
-        <CardContent className="pt-4 pb-4 text-center">
-          <p className="text-4xl font-bold text-green-600">{completedJobs}</p>
-          <p className="text-sm text-text-secondary mt-1">Done</p>
+        <CardContent className="pt-3 pb-3 sm:pt-4 sm:pb-4 text-center">
+          <p className="text-2xl sm:text-4xl font-bold text-green-600">{completedJobs}</p>
+          <p className="text-xs sm:text-sm text-text-secondary mt-1">Done</p>
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="pt-4 pb-4 text-center">
-          <p className="text-4xl font-bold text-blue-600">{hoursWorked}</p>
-          <p className="text-sm text-text-secondary mt-1">Hours</p>
+        <CardContent className="pt-3 pb-3 sm:pt-4 sm:pb-4 text-center">
+          <p className="text-2xl sm:text-4xl font-bold text-blue-600">{hoursWorked}</p>
+          <p className="text-xs sm:text-sm text-text-secondary mt-1">Hours</p>
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="pt-4 pb-4 text-center">
-          <p className={`text-4xl font-bold ${remainingJobs > 0 ? "text-orange-500" : "text-green-600"}`}>
+        <CardContent className="pt-3 pb-3 sm:pt-4 sm:pb-4 text-center">
+          <p className={`text-2xl sm:text-4xl font-bold ${remainingJobs > 0 ? "text-orange-500" : "text-green-600"}`}>
             {remainingJobs}
           </p>
-          <p className="text-sm text-text-secondary mt-1">Left</p>
+          <p className="text-xs sm:text-sm text-text-secondary mt-1">Left</p>
         </CardContent>
       </Card>
     </div>
@@ -305,7 +303,7 @@ function PayThisPeriod({
         <div className="space-y-3">
           <div className="flex justify-between items-baseline">
             <span className="text-text-secondary">Earned so far</span>
-            <span className="text-3xl font-bold text-green-600">
+            <span className="text-xl sm:text-3xl font-bold text-green-600">
               {formatCurrency(commissionsEarned)}
             </span>
           </div>

@@ -108,7 +108,7 @@ function ElapsedTimer({ clockInTime }: { clockInTime: string }) {
 
   return (
     <div className="text-center">
-      <p className="text-5xl font-mono font-black text-text-primary tracking-wider">
+      <p className="text-3xl sm:text-4xl md:text-5xl font-mono font-black text-text-primary tracking-wider">
         {formatElapsedReadable(elapsed)}
       </p>
       <p className="text-sm text-text-muted mt-1">Time on the clock</p>
@@ -228,11 +228,11 @@ function TodayHoursCard({ hoursWorked }: { hoursWorked: number }) {
     <Card>
       <CardContent className="py-5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">⏱️</span>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-2xl sm:text-3xl">⏱️</span>
             <div>
               <p className="text-sm text-text-muted">Today's Hours</p>
-              <p className="text-3xl font-black text-text-primary">
+              <p className="text-2xl sm:text-3xl font-black text-text-primary">
                 {hoursWorked.toFixed(1)}h
               </p>
             </div>
@@ -380,7 +380,7 @@ function TimeHistoryList({
         </h2>
 
         {/* Weekly summary bar */}
-        <div className="flex items-center gap-4 mb-3 py-2 px-3 rounded-lg bg-bg-muted/50">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-3 py-2 px-3 rounded-lg bg-bg-muted/50">
           <div>
             <span className="text-xs text-text-muted">Total</span>
             <p className="text-lg font-bold text-text-primary">
