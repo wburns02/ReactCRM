@@ -28,8 +28,8 @@ setup('authenticate', async ({ page, baseURL }) => {
   // Click sign in button
   await page.getByRole('button', { name: 'Sign In' }).click();
 
-  // Wait for successful login - may redirect to dashboard or onboarding
-  await page.waitForURL(/\/(dashboard|onboarding)/, { timeout: 15000 });
+  // Wait for successful login - redirects through / → /dashboard, /my-dashboard, or /onboarding
+  await page.waitForFunction(() => !location.href.includes("/login"), { timeout: 15000 });
 
   // Set onboarding as completed to bypass wizard for tests
   // This simulates an existing user who has already completed onboarding
@@ -55,6 +55,9 @@ setup('authenticate', async ({ page, baseURL }) => {
 
   // If we're on onboarding, navigate to dashboard
   if (page.url().includes('/onboarding')) {
+    await page.goto((baseURL || 'https://react.ecbtx.com') + '/dashboard');
+  } else if (!page.url().includes('/dashboard')) {
+    // Ensure we end up at dashboard for the shared auth state
     await page.goto((baseURL || 'https://react.ecbtx.com') + '/dashboard');
   }
 
