@@ -677,12 +677,13 @@ function ComposePanel({
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
 
-      <div className="fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-2xl shadow-2xl border-t border-border max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-300">
-        <div className="flex justify-center pt-3 pb-1">
+      <div className="fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-2xl shadow-2xl border-t border-border max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300">
+        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
           <div className="w-12 h-1.5 rounded-full bg-bg-muted" />
         </div>
 
-        <div className="p-4 space-y-4">
+        {/* Scrollable form content */}
+        <div className="p-4 space-y-4 overflow-y-auto flex-1 min-h-0">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
               <span className="text-2xl">✏️</span> New Message
@@ -755,11 +756,14 @@ function ComposePanel({
               placeholder="Type your message here..."
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              rows={4}
-              className="flex w-full rounded-xl border border-border bg-bg-card px-3 py-3 text-base placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 resize-y"
+              rows={3}
+              className="flex w-full rounded-xl border border-border bg-bg-card px-3 py-3 text-base placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 resize-none"
             />
           </div>
+        </div>
 
+        {/* Sticky Send button — always visible at bottom */}
+        <div className="p-4 pt-2 flex-shrink-0 border-t border-border bg-bg-card">
           <button
             onClick={handleSend}
             disabled={sendMutation.isPending || !to.trim() || !body.trim()}
@@ -775,8 +779,7 @@ function ComposePanel({
               </>
             )}
           </button>
-
-          <div className="h-4" />
+          <div className="h-[env(safe-area-inset-bottom,0px)]" />
         </div>
       </div>
     </>
