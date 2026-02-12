@@ -185,18 +185,18 @@ export function ReportsTab() {
       </div>
 
       {/* Revenue by Tier */}
-      {stats.revenue_by_tier && Object.keys(stats.revenue_by_tier).length > 0 && (
+      {stats.revenue_by_tier && stats.revenue_by_tier.length > 0 && (
         <Card>
           <CardHeader>
             <CardTitle>Revenue by Tier</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {Object.entries(stats.revenue_by_tier as Record<string, number>)
-                .sort(([, a], [, b]) => b - a)
-                .map(([tier, revenue]) => {
-                  const totalTierRevenue = Object.values(stats.revenue_by_tier as Record<string, number>).reduce((s, v) => s + v, 0);
-                  const pct = totalTierRevenue > 0 ? Math.round((revenue / totalTierRevenue) * 100) : 0;
+              {[...stats.revenue_by_tier]
+                .sort((a, b) => b.total_value - a.total_value)
+                .map((item) => {
+                  const totalTierRevenue = stats.revenue_by_tier!.reduce((s, v) => s + v.total_value, 0);
+                  const pct = totalTierRevenue > 0 ? Math.round((item.total_value / totalTierRevenue) * 100) : 0;
                   const tierLabels: Record<string, string> = {
                     residential: "Residential",
                     commercial_small: "Commercial Small",
@@ -205,10 +205,13 @@ export function ReportsTab() {
                     neighborhood: "Neighborhood",
                   };
                   return (
-                    <div key={tier}>
+                    <div key={item.tier}>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-text-primary">{tierLabels[tier] || tier}</span>
-                        <span className="text-sm font-bold text-text-primary">{formatCurrency(revenue)}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-text-primary">{tierLabels[item.tier] || item.tier}</span>
+                          <span className="text-xs text-text-muted">{item.count} contracts</span>
+                        </div>
+                        <span className="text-sm font-bold text-text-primary">{formatCurrency(item.total_value)}</span>
                       </div>
                       <div className="h-2 bg-bg-muted rounded-full overflow-hidden">
                         <div
@@ -233,26 +236,18 @@ export function ReportsTab() {
               <CardTitle>Neighborhood Bundles</CardTitle>
             </CardHeader>
             <CardContent>
-              {stats.neighborhood_stats.total_bundles === 0 ? (
+              {stats.neighborhood_stats.total_bundle_contracts === 0 ? (
                 <div className="text-center py-6 text-text-muted">No neighborhood bundles yet</div>
               ) : (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-3 bg-bg-hover rounded-lg text-center">
-                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.total_bundles}</p>
-                      <p className="text-xs text-text-muted">Active Bundles</p>
-                    </div>
-                    <div className="p-3 bg-bg-hover rounded-lg text-center">
-                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.total_contracts}</p>
+                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.total_bundle_contracts}</p>
                       <p className="text-xs text-text-muted">Bundled Contracts</p>
                     </div>
                     <div className="p-3 bg-bg-hover rounded-lg text-center">
-                      <p className="text-2xl font-bold text-success">{formatCurrency(stats.neighborhood_stats.total_revenue)}</p>
+                      <p className="text-2xl font-bold text-success">{formatCurrency(stats.neighborhood_stats.bundle_revenue)}</p>
                       <p className="text-xs text-text-muted">Bundle Revenue</p>
-                    </div>
-                    <div className="p-3 bg-bg-hover rounded-lg text-center">
-                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.avg_discount}%</p>
-                      <p className="text-xs text-text-muted">Avg Discount</p>
                     </div>
                   </div>
                 </div>
@@ -288,30 +283,20 @@ export function ReportsTab() {
                   </div>
                   <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-green-700 dark:text-green-400">Total Credits Issued</p>
-                      <p className="text-xs text-green-600/70 dark:text-green-400/70">Referral credits applied</p>
+                      <p className="text-sm font-medium text-green-700 dark:text-green-400">Referral Revenue</p>
+                      <p className="text-xs text-green-600/70 dark:text-green-400/70">Revenue from referred contracts</p>
                     </div>
-                    <span className="text-2xl font-bold text-green-700 dark:text-green-300">{formatCurrency(stats.referral_stats.total_credits)}</span>
+                    <span className="text-2xl font-bold text-green-700 dark:text-green-300">{formatCurrency(stats.referral_stats.referral_revenue)}</span>
                   </div>
                 </>
               )}
               {stats.add_on_stats && (
-                <div className="p-3 bg-bg-hover rounded-lg">
-                  <p className="text-sm font-medium text-text-primary mb-2">Popular Add-Ons</p>
-                  {Object.keys(stats.add_on_stats).length === 0 ? (
-                    <p className="text-xs text-text-muted">No add-on data yet</p>
-                  ) : (
-                    <div className="space-y-1">
-                      {Object.entries(stats.add_on_stats as Record<string, number>)
-                        .sort(([, a], [, b]) => b - a)
-                        .map(([name, count]) => (
-                          <div key={name} className="flex items-center justify-between text-sm">
-                            <span className="capitalize text-text-muted">{name}</span>
-                            <span className="font-medium text-text-primary">{count} contracts</span>
-                          </div>
-                        ))}
-                    </div>
-                  )}
+                <div className="p-3 bg-bg-hover rounded-lg flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-text-primary">Contracts with Add-Ons</p>
+                    <p className="text-xs text-text-muted">Using telemetry, emergency, pumping, or chlorine</p>
+                  </div>
+                  <span className="text-2xl font-bold text-text-primary">{stats.add_on_stats.contracts_with_add_ons}</span>
                 </div>
               )}
             </div>
