@@ -32,6 +32,7 @@ const PAYMENT_METHODS = [
   { value: "cash", label: "Cash", emoji: "💵", desc: "Cash collected" },
   { value: "check", label: "Check", emoji: "📋", desc: "Personal or business check" },
   { value: "card", label: "Card", emoji: "💳", desc: "Card on POS terminal" },
+  { value: "clover", label: "Clover POS", emoji: "☘️", desc: "Clover terminal payment" },
   { value: "ach", label: "ACH/Bank", emoji: "🏦", desc: "Bank transfer" },
   { value: "other", label: "Other", emoji: "📎", desc: "Other payment method" },
 ] as const;
