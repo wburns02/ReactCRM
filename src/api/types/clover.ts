@@ -11,9 +11,43 @@ export const cloverConfigSchema = z.object({
   is_configured: z.boolean(),
   rest_api_available: z.boolean().optional().default(false),
   ecommerce_available: z.boolean().optional().default(false),
+  oauth_configured: z.boolean().optional().default(false),
+  oauth_connected: z.boolean().optional().default(false),
 });
 
 export type CloverConfig = z.infer<typeof cloverConfigSchema>;
+
+// =============================================================================
+// Clover OAuth
+// =============================================================================
+
+export const cloverOAuthAuthorizeSchema = z.object({
+  authorization_url: z.string(),
+  state: z.string(),
+});
+
+export type CloverOAuthAuthorize = z.infer<typeof cloverOAuthAuthorizeSchema>;
+
+export const cloverOAuthStatusSchema = z.object({
+  oauth_configured: z.boolean(),
+  oauth_connected: z.boolean(),
+  merchant_id: z.string().nullable().optional(),
+  merchant_name: z.string().nullable().optional(),
+  connected_by: z.string().nullable().optional(),
+  connected_at: z.string().nullable().optional(),
+  env_configured: z.boolean().optional().default(false),
+});
+
+export type CloverOAuthStatus = z.infer<typeof cloverOAuthStatusSchema>;
+
+export const cloverOAuthCallbackResultSchema = z.object({
+  success: z.boolean(),
+  merchant_id: z.string().nullable().optional(),
+  merchant_name: z.string().nullable().optional(),
+  connected_by: z.string().nullable().optional(),
+});
+
+export type CloverOAuthCallbackResult = z.infer<typeof cloverOAuthCallbackResultSchema>;
 
 // =============================================================================
 // Clover Merchant

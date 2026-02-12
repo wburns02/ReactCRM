@@ -70,14 +70,19 @@ export function CloverDashboard() {
     return (
       <Card>
         <CardContent className="py-12 text-center">
-          <div className="text-4xl mb-4">&#x1F4B3;</div>
+          <div className="text-4xl mb-4">☘️</div>
           <h3 className="text-lg font-semibold text-text-primary mb-2">
             Clover Not Configured
           </h3>
-          <p className="text-text-secondary max-w-md mx-auto">
-            Set CLOVER_MERCHANT_ID and CLOVER_API_KEY environment variables
-            on Railway to connect your Clover account.
+          <p className="text-text-secondary max-w-md mx-auto mb-4">
+            Connect your Clover merchant account to sync payments and process cards.
           </p>
+          <a
+            href="/integrations?selected=clover"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors"
+          >
+            Configure in Integrations
+          </a>
         </CardContent>
       </Card>
     );

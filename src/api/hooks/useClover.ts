@@ -9,6 +9,9 @@ import {
   cloverItemsResponseSchema,
   cloverSyncResultSchema,
   cloverReconciliationSchema,
+  cloverOAuthAuthorizeSchema,
+  cloverOAuthStatusSchema,
+  cloverOAuthCallbackResultSchema,
   type CloverConfig,
   type CloverMerchant,
   type CloverPaymentsResponse,
@@ -16,6 +19,9 @@ import {
   type CloverItemsResponse,
   type CloverSyncResult,
   type CloverReconciliation,
+  type CloverOAuthAuthorize,
+  type CloverOAuthStatus,
+  type CloverOAuthCallbackResult,
 } from "../types/clover.ts";
 
 /**
@@ -29,6 +35,7 @@ export const cloverKeys = {
   orders: (limit?: number) => [...cloverKeys.all, "orders", limit] as const,
   items: () => [...cloverKeys.all, "items"] as const,
   reconciliation: () => [...cloverKeys.all, "reconciliation"] as const,
+  oauthStatus: () => [...cloverKeys.all, "oauth-status"] as const,
 };
 
 /**
@@ -134,6 +141,96 @@ export function useCloverSync() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: cloverKeys.reconciliation() });
       queryClient.invalidateQueries({ queryKey: ["payments"] });
+    },
+  });
+}
+
+// =============================================================================
+// OAuth Hooks
+// =============================================================================
+
+/**
+ * Fetch Clover OAuth connection status
+ */
+export function useCloverOAuthStatus() {
+  return useQuery({
+    queryKey: cloverKeys.oauthStatus(),
+    queryFn: async (): Promise<CloverOAuthStatus> => {
+      const { data } = await apiClient.get("/payments/clover/oauth/status");
+      return validateResponse(cloverOAuthStatusSchema, data, "/payments/clover/oauth/status");
+    },
+    retry: false,
+    staleTime: 30 * 1000, // 30 sec
+  });
+}
+
+/**
+ * Get Clover OAuth authorization URL
+ */
+export function useCloverOAuthAuthorize() {
+  return useMutation({
+    mutationFn: async (): Promise<CloverOAuthAuthorize> => {
+      const { data } = await apiClient.get("/payments/clover/oauth/authorize");
+      return validateResponse(cloverOAuthAuthorizeSchema, data, "/payments/clover/oauth/authorize");
+    },
+  });
+}
+
+/**
+ * Exchange OAuth code for token (callback)
+ */
+export function useCloverOAuthCallback() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (params: { code: string; merchant_id?: string; state?: string }): Promise<CloverOAuthCallbackResult> => {
+      const queryStr = new URLSearchParams({
+        code: params.code,
+        ...(params.merchant_id ? { merchant_id: params.merchant_id } : {}),
+        ...(params.state ? { state: params.state } : {}),
+      }).toString();
+      const { data } = await apiClient.post(`/payments/clover/oauth/callback?${queryStr}`);
+      return validateResponse(cloverOAuthCallbackResultSchema, data, "/payments/clover/oauth/callback");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: cloverKeys.all });
+    },
+  });
+}
+
+/**
+ * Disconnect Clover OAuth
+ */
+export function useCloverOAuthDisconnect() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      const { data } = await apiClient.post("/payments/clover/oauth/disconnect");
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: cloverKeys.all });
+    },
+  });
+}
+
+/**
+ * Charge a payment via Clover ecommerce
+ */
+export function useCloverCharge() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (params: {
+      invoice_id: string;
+      amount: number;
+      token: string;
+      customer_email?: string;
+    }) => {
+      const { data } = await apiClient.post("/payments/clover/charge", params);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payments"] });
+      queryClient.invalidateQueries({ queryKey: cloverKeys.reconciliation() });
     },
   });
 }

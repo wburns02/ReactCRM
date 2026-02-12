@@ -5,9 +5,11 @@ import { RingCentralSettings } from "./components/RingCentralSettings.tsx";
 import { SamsaraSettings } from "./components/SamsaraSettings.tsx";
 import { YelpSettings } from "./components/YelpSettings.tsx";
 import { FacebookSettings } from "./components/FacebookSettings.tsx";
+import { CloverSettings } from "./components/CloverSettings.tsx";
 import { useRCStatus } from "@/features/phone/api.ts";
 import { useFleetLocations } from "@/features/fleet/api.ts";
 import { useSocialIntegrationsStatus } from "@/api/hooks/useSocialIntegrations.ts";
+import { useCloverConfig } from "@/api/hooks/useClover.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -22,17 +24,30 @@ export function IntegrationsPage() {
   const { data: rcStatus } = useRCStatus();
   const { data: vehicles } = useFleetLocations();
   const { data: socialStatus } = useSocialIntegrationsStatus();
+  const { data: cloverConfig } = useCloverConfig();
 
   // Handle OAuth callback success messages
   useEffect(() => {
     if (searchParams.get("facebook") === "connected") {
       toastSuccess("Facebook page connected successfully!");
-      // Clean up URL
       window.history.replaceState({}, "", "/integrations");
+    }
+    // Auto-select Clover settings on callback or explicit selection
+    if (searchParams.get("clover") === "callback" || searchParams.get("selected") === "clover") {
+      setSelectedIntegration("clover");
     }
   }, [searchParams]);
 
   const integrations = [
+    {
+      id: "clover",
+      name: "Clover Payments",
+      description:
+        "POS payments, card processing, and order management via Clover",
+      icon: "☘️",
+      connected: cloverConfig?.is_configured || false,
+      lastSync: cloverConfig?.is_configured ? new Date().toISOString() : undefined,
+    },
     {
       id: "ringcentral",
       name: "RingCentral",
@@ -109,7 +124,7 @@ export function IntegrationsPage() {
               connected={integration.connected}
               lastSync={integration.lastSync}
               onConfigure={
-                ["ringcentral", "samsara", "yelp", "facebook"].includes(integration.id)
+                ["ringcentral", "samsara", "yelp", "facebook", "clover"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)
                   : undefined
               }
@@ -146,6 +161,7 @@ export function IntegrationsPage() {
           {selectedIntegration === "samsara" && <SamsaraSettings />}
           {selectedIntegration === "yelp" && <YelpSettings />}
           {selectedIntegration === "facebook" && <FacebookSettings />}
+          {selectedIntegration === "clover" && <CloverSettings />}
         </div>
       )}
 
@@ -158,11 +174,15 @@ export function IntegrationsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { name: "Mailchimp", icon: "📧", description: "Email marketing" },
-              { name: "Stripe", icon: "💳", description: "Payment processing" },
               {
                 name: "Zapier",
                 icon: "⚡",
                 description: "Workflow automation",
+              },
+              {
+                name: "Google Calendar",
+                icon: "📅",
+                description: "Schedule sync",
               },
             ].map((item) => (
               <div

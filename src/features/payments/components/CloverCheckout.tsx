@@ -1,80 +1,52 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { apiClient } from "@/api/client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { useCloverConfig, useCloverCharge } from "@/api/hooks/useClover";
 
 interface CloverCheckoutProps {
   invoiceId: string;
   amount: number; // in dollars
   customerEmail?: string;
-  onSuccess: () => void;
+  customerName?: string;
+  invoiceNumber?: string;
+  onSuccess: (result: { paymentId: string; chargeId: string }) => void;
   onCancel: () => void;
-}
-
-interface CloverConfig {
-  merchant_id: string;
-  environment: string;
-  is_configured: boolean;
-}
-
-/**
- * Hook to get Clover config
- */
-function useCloverConfig() {
-  return useQuery({
-    queryKey: ["clover-config"],
-    queryFn: async () => {
-      const { data } = await apiClient.get<CloverConfig>("/payments/clover/config");
-      return data;
-    },
-    retry: false,
-  });
-}
-
-/**
- * Hook to charge via Clover
- */
-function useCloverCharge() {
-  return useMutation({
-    mutationFn: async (params: {
-      invoice_id: string;
-      amount: number;
-      token: string;
-      customer_email?: string;
-    }) => {
-      const { data } = await apiClient.post("/payments/clover/charge", params);
-      return data;
-    },
-  });
 }
 
 /**
  * Clover Checkout Component
  *
- * Uses Clover's hosted iframe for secure card entry.
- * See: https://docs.clover.com/docs/using-the-clover-hosted-iframe
+ * Uses Clover's hosted iframe for PCI-compliant card entry.
+ * Processes payment via backend /payments/clover/charge endpoint.
  */
 export function CloverCheckout({
   invoiceId,
   amount,
   customerEmail,
+  customerName,
+  invoiceNumber,
   onSuccess,
   onCancel,
 }: CloverCheckoutProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // Note: cardToken state reserved for future Clover tokenization integration
+  const [sdkReady, setSdkReady] = useState(false);
   const cloverInstanceRef = useRef<any>(null);
+  const cardElementRef = useRef<any>(null);
 
   const { data: config, isLoading: configLoading, error: configError } = useCloverConfig();
-  const chargePayment = useCloverCharge();
+  const chargeMutation = useCloverCharge();
 
   // Initialize Clover SDK
   useEffect(() => {
-    if (!config?.is_configured) return;
+    if (!config?.is_configured || !config?.ecommerce_available) return;
 
-    // Load Clover SDK script
+    const existingScript = document.querySelector('script[src*="clover.com/sdk"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
     const script = document.createElement("script");
     script.src = config.environment === "production"
       ? "https://checkout.clover.com/sdk.js"
@@ -82,32 +54,37 @@ export function CloverCheckout({
     script.async = true;
 
     script.onload = () => {
-      // Initialize Clover
-      const clover = new (window as any).Clover(config.merchant_id, {
-        // Elements options
-      });
-      cloverInstanceRef.current = clover;
+      try {
+        const clover = new (window as any).Clover(config.merchant_id);
+        cloverInstanceRef.current = clover;
 
-      // Mount card input
-      const elements = clover.elements();
-      const cardElement = elements.create("CARD");
+        const elements = clover.elements();
+        const cardElement = elements.create("CARD");
+        cardElementRef.current = cardElement;
 
-      const cardContainer = document.getElementById("clover-card-element");
-      if (cardContainer) {
-        cardElement.mount("#clover-card-element");
+        const cardContainer = document.getElementById("clover-card-element");
+        if (cardContainer) {
+          cardElement.mount("#clover-card-element");
+          setSdkReady(true);
+        }
+      } catch (err) {
+        setError("Failed to initialize payment form. Please refresh and try again.");
       }
+    };
 
-      // Store reference for tokenization
-      (window as any).__cloverCardElement = cardElement;
+    script.onerror = () => {
+      setError("Failed to load payment SDK. Please check your connection.");
     };
 
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
+      cloverInstanceRef.current = null;
+      cardElementRef.current = null;
+      setSdkReady(false);
     };
   }, [config]);
 
@@ -118,9 +95,8 @@ export function CloverCheckout({
 
     try {
       const clover = cloverInstanceRef.current;
-      const cardElement = (window as any).__cloverCardElement;
 
-      if (!clover || !cardElement) {
+      if (!clover) {
         throw new Error("Payment form not ready. Please try again.");
       }
 
@@ -137,7 +113,7 @@ export function CloverCheckout({
       }
 
       // Charge via backend
-      const chargeResult = await chargePayment.mutateAsync({
+      const chargeResult = await chargeMutation.mutateAsync({
         invoice_id: invoiceId,
         amount: Math.round(amount * 100), // Convert to cents
         token: result.token,
@@ -145,39 +121,68 @@ export function CloverCheckout({
       });
 
       if (chargeResult.success) {
-        onSuccess();
+        toastSuccess(
+          "Payment Successful!",
+          `$${amount.toFixed(2)} charged${customerName ? ` for ${customerName}` : ""}`,
+        );
+        onSuccess({
+          paymentId: chargeResult.payment_id || "",
+          chargeId: chargeResult.charge_id || "",
+        });
       } else {
         throw new Error(chargeResult.error_message || "Payment failed");
       }
     } catch (err: any) {
-      console.error("Payment error:", err);
-      setError(err.message || "An unexpected error occurred. Please try again.");
+      const msg = err.message || "An unexpected error occurred. Please try again.";
+      setError(msg);
+      toastError("Payment Failed", msg);
     } finally {
       setIsProcessing(false);
     }
   };
 
-  // Show loading state
+  // Loading state
   if (configLoading) {
     return (
       <Card>
         <CardContent className="py-12">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-3">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+            <span className="text-text-secondary">Loading payment form...</span>
           </div>
         </CardContent>
       </Card>
     );
   }
 
-  // Show error if Clover not configured
+  // Not configured
   if (configError || !config?.is_configured) {
     return (
       <Card>
         <CardContent className="py-8 text-center">
-          <div className="text-red-500 mb-4 text-4xl">⚠️</div>
-          <p className="text-red-700 mb-4">
-            Payment system is not configured. Please contact support.
+          <div className="text-red-500 mb-4 text-4xl">☘️</div>
+          <p className="text-text-secondary mb-4">
+            Payment system is not configured. Please connect Clover in Integrations.
+          </p>
+          <Button onClick={onCancel} variant="secondary">
+            Go Back
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Ecommerce not available
+  if (!config.ecommerce_available) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center">
+          <div className="text-amber-500 mb-4 text-4xl">☘️</div>
+          <p className="text-text-secondary mb-4">
+            Online card payments are not yet enabled. Clover ecommerce API access is required.
+          </p>
+          <p className="text-xs text-text-muted mb-4">
+            Contact your Clover representative to enable ecommerce API access.
           </p>
           <Button onClick={onCancel} variant="secondary">
             Go Back
@@ -194,18 +199,42 @@ export function CloverCheckout({
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="p-4 bg-bg-muted rounded-lg">
+          {/* Payment Summary */}
+          <div className="p-4 bg-bg-muted rounded-lg space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-text-secondary">Amount Due</span>
               <span className="text-2xl font-bold text-text-primary">
                 ${amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </span>
             </div>
+            {invoiceNumber && (
+              <div className="flex justify-between text-sm">
+                <span className="text-text-muted">Invoice</span>
+                <span className="text-text-secondary">{invoiceNumber}</span>
+              </div>
+            )}
+            {customerName && (
+              <div className="flex justify-between text-sm">
+                <span className="text-text-muted">Customer</span>
+                <span className="text-text-secondary">{customerName}</span>
+              </div>
+            )}
           </div>
 
           {/* Clover Card Element Container */}
-          <div className="border border-border-default rounded-lg p-4 bg-white min-h-[100px]">
-            <div id="clover-card-element" className="w-full" />
+          <div>
+            <label className="text-sm font-medium text-text-secondary mb-2 block">
+              Card Details
+            </label>
+            <div className="border border-border-default rounded-lg p-4 bg-white min-h-[100px]">
+              <div id="clover-card-element" className="w-full" />
+              {!sdkReady && (
+                <div className="flex items-center justify-center py-4">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary" />
+                  <span className="ml-2 text-sm text-text-muted">Loading card form...</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {error && (
@@ -226,7 +255,7 @@ export function CloverCheckout({
             </Button>
             <Button
               type="submit"
-              disabled={isProcessing}
+              disabled={isProcessing || !sdkReady}
               className="flex-1"
             >
               {isProcessing ? "Processing..." : `Pay $${amount.toFixed(2)}`}
@@ -234,7 +263,7 @@ export function CloverCheckout({
           </div>
 
           <p className="text-xs text-center text-text-muted">
-            Payments are securely processed by Clover
+            Payments are securely processed by Clover. Card details never touch our servers.
           </p>
         </form>
       </CardContent>
