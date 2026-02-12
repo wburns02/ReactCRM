@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -10,6 +10,8 @@ import {
   useJobPayments,
   useRecordPayment,
 } from "@/api/hooks/useTechPortal.ts";
+import { useUpdateWorkOrder } from "@/api/hooks/useWorkOrders.ts";
+import { useCustomer, useUpdateCustomer } from "@/api/hooks/useCustomers.ts";
 import {
   STATUS_LABELS,
   STATUS_COLORS,
@@ -73,7 +75,24 @@ const PAYMENT_METHODS = [
   { value: "other", label: "Other", emoji: "📋" },
 ] as const;
 
-type TabKey = "info" | "photos" | "payment" | "complete";
+const STATUS_OPTIONS = [
+  { value: "scheduled", label: "Scheduled", emoji: "📅" },
+  { value: "en_route", label: "En Route", emoji: "🚛" },
+  { value: "in_progress", label: "In Progress", emoji: "🔧" },
+  { value: "completed", label: "Completed", emoji: "✅" },
+  { value: "on_hold", label: "On Hold", emoji: "⏸️" },
+  { value: "requires_followup", label: "Needs Follow-Up", emoji: "🔄" },
+] as const;
+
+const PRIORITY_OPTIONS = [
+  { value: "low", label: "Low", emoji: "🟢" },
+  { value: "normal", label: "Normal", emoji: "🔵" },
+  { value: "high", label: "High", emoji: "🟡" },
+  { value: "urgent", label: "Urgent", emoji: "🟠" },
+  { value: "emergency", label: "Emergency", emoji: "🔴" },
+] as const;
+
+type TabKey = "info" | "customer" | "photos" | "payment" | "complete";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -234,6 +253,27 @@ export function TechJobDetailPage() {
   const [checkNumber, setCheckNumber] = useState("");
   const [paymentNotes, setPaymentNotes] = useState("");
 
+  // Edit mode state
+  const [isEditing, setIsEditing] = useState(false);
+  const [editStatus, setEditStatus] = useState("");
+  const [editPriority, setEditPriority] = useState("");
+  const [editNotes, setEditNotes] = useState("");
+  const [editInternalNotes, setEditInternalNotes] = useState("");
+  const [editDuration, setEditDuration] = useState("");
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
+
+  // Customer edit state
+  const [isEditingCustomer, setIsEditingCustomer] = useState(false);
+  const [editCustPhone, setEditCustPhone] = useState("");
+  const [editCustEmail, setEditCustEmail] = useState("");
+  const [editCustAddress, setEditCustAddress] = useState("");
+  const [editCustCity, setEditCustCity] = useState("");
+  const [editCustState, setEditCustState] = useState("");
+  const [editCustPostal, setEditCustPostal] = useState("");
+  const [editCustNotes, setEditCustNotes] = useState("");
+  const [isSavingCustomer, setIsSavingCustomer] = useState(false);
+  const [showCompleteConfirm, setShowCompleteConfirm] = useState(false);
+
   // Data hooks
   const { data: job, isLoading, refetch } = useTechJobDetail(jobId || "");
   const { data: photos = [], refetch: refetchPhotos } = useJobPhotos(
@@ -246,6 +286,8 @@ export function TechJobDetailPage() {
   const completeJobMutation = useCompleteJob();
   const uploadPhotoMutation = useUploadJobPhoto();
   const recordPaymentMutation = useRecordPayment();
+  const updateWorkOrderMutation = useUpdateWorkOrder();
+  const updateCustomerMutation = useUpdateCustomer();
   const initiateCall = useInitiateCall();
   const sendSMS = useMutation({
     mutationFn: async (input: { to: string; body: string; customer_id?: string }) => {
@@ -253,6 +295,34 @@ export function TechJobDetailPage() {
       return data;
     },
   });
+
+  // Fetch full customer profile when we have a customer_id
+  const customerId = job?.customer_id || undefined;
+  const { data: customer, isLoading: isLoadingCustomer, refetch: refetchCustomer } = useCustomer(customerId);
+
+  // Initialize edit fields when job data loads
+  useEffect(() => {
+    if (job && !isEditing) {
+      setEditStatus(job.status || "");
+      setEditPriority(job.priority || "normal");
+      setEditNotes(job.notes || "");
+      setEditInternalNotes(job.internal_notes || "");
+      setEditDuration(job.estimated_duration_hours ? String(job.estimated_duration_hours) : "");
+    }
+  }, [job, isEditing]);
+
+  // Initialize customer edit fields when customer data loads
+  useEffect(() => {
+    if (customer && !isEditingCustomer) {
+      setEditCustPhone(customer.phone || "");
+      setEditCustEmail(customer.email || "");
+      setEditCustAddress(customer.address_line1 || "");
+      setEditCustCity(customer.city || "");
+      setEditCustState(customer.state || "");
+      setEditCustPostal(customer.postal_code || "");
+      setEditCustNotes(customer.lead_notes || "");
+    }
+  }, [customer, isEditingCustomer]);
 
   // ── Derived values ─────────────────────────────────────────────────────
 
@@ -383,6 +453,122 @@ export function TechJobDetailPage() {
     recordPaymentMutation,
     refetchPayments,
   ]);
+
+  // ── Edit Mode Handlers ───────────────────────────────────────────────
+
+  const handleEnterEdit = useCallback(() => {
+    if (!job) return;
+    setEditStatus(job.status || "");
+    setEditPriority(job.priority || "normal");
+    setEditNotes(job.notes || "");
+    setEditInternalNotes(job.internal_notes || "");
+    setEditDuration(job.estimated_duration_hours ? String(job.estimated_duration_hours) : "");
+    setIsEditing(true);
+  }, [job]);
+
+  const handleCancelEdit = useCallback(() => {
+    setIsEditing(false);
+  }, []);
+
+  const handleSaveEdit = useCallback(async () => {
+    if (!jobId) return;
+
+    // Confirmation for completing via status change
+    if (editStatus === "completed" && job?.status !== "completed") {
+      setShowCompleteConfirm(true);
+      return;
+    }
+
+    setIsSavingEdit(true);
+    try {
+      const updates: Record<string, unknown> = {};
+      if (editStatus !== (job?.status || "")) updates.status = editStatus;
+      if (editPriority !== (job?.priority || "normal")) updates.priority = editPriority;
+      if (editNotes !== (job?.notes || "")) updates.notes = editNotes;
+      if (editInternalNotes !== (job?.internal_notes || "")) updates.internal_notes = editInternalNotes;
+      const dur = editDuration ? parseFloat(editDuration) : null;
+      if (dur !== (job?.estimated_duration_hours ?? null)) updates.estimated_duration_hours = dur;
+
+      if (Object.keys(updates).length === 0) {
+        setIsEditing(false);
+        return;
+      }
+
+      await updateWorkOrderMutation.mutateAsync({ id: jobId, data: updates as any });
+      setIsEditing(false);
+      refetch();
+    } catch {
+      // toast handled by mutation
+    } finally {
+      setIsSavingEdit(false);
+    }
+  }, [jobId, job, editStatus, editPriority, editNotes, editInternalNotes, editDuration, updateWorkOrderMutation, refetch]);
+
+  const handleConfirmStatusComplete = useCallback(async () => {
+    if (!jobId) return;
+    setShowCompleteConfirm(false);
+    setIsSavingEdit(true);
+    try {
+      const updates: Record<string, unknown> = { status: "completed" };
+      if (editNotes !== (job?.notes || "")) updates.notes = editNotes;
+      if (editInternalNotes !== (job?.internal_notes || "")) updates.internal_notes = editInternalNotes;
+      await updateWorkOrderMutation.mutateAsync({ id: jobId, data: updates as any });
+      setIsEditing(false);
+      refetch();
+    } catch {
+      // toast handled by mutation
+    } finally {
+      setIsSavingEdit(false);
+    }
+  }, [jobId, job, editNotes, editInternalNotes, updateWorkOrderMutation, refetch]);
+
+  // ── Customer Edit Handlers ─────────────────────────────────────────────
+
+  const handleEnterCustomerEdit = useCallback(() => {
+    if (!customer) return;
+    setEditCustPhone(customer.phone || "");
+    setEditCustEmail(customer.email || "");
+    setEditCustAddress(customer.address_line1 || "");
+    setEditCustCity(customer.city || "");
+    setEditCustState(customer.state || "");
+    setEditCustPostal(customer.postal_code || "");
+    setEditCustNotes(customer.lead_notes || "");
+    setIsEditingCustomer(true);
+  }, [customer]);
+
+  const handleCancelCustomerEdit = useCallback(() => {
+    setIsEditingCustomer(false);
+  }, []);
+
+  const handleSaveCustomerEdit = useCallback(async () => {
+    if (!customerId) return;
+    setIsSavingCustomer(true);
+    try {
+      const updates: Record<string, unknown> = {};
+      if (editCustPhone !== (customer?.phone || "")) updates.phone = editCustPhone;
+      if (editCustEmail !== (customer?.email || "")) updates.email = editCustEmail || undefined;
+      if (editCustAddress !== (customer?.address_line1 || "")) updates.address_line1 = editCustAddress;
+      if (editCustCity !== (customer?.city || "")) updates.city = editCustCity;
+      if (editCustState !== (customer?.state || "")) updates.state = editCustState;
+      if (editCustPostal !== (customer?.postal_code || "")) updates.postal_code = editCustPostal;
+      if (editCustNotes !== (customer?.lead_notes || "")) updates.lead_notes = editCustNotes;
+
+      if (Object.keys(updates).length === 0) {
+        setIsEditingCustomer(false);
+        return;
+      }
+
+      await updateCustomerMutation.mutateAsync({ id: customerId, data: updates as any });
+      toastSuccess("Customer Updated", "Customer info saved successfully");
+      setIsEditingCustomer(false);
+      refetchCustomer();
+      refetch(); // Also refresh work order for updated customer_name
+    } catch {
+      toastError("Update Failed", "Could not save customer changes. Please try again.");
+    } finally {
+      setIsSavingCustomer(false);
+    }
+  }, [customerId, customer, editCustPhone, editCustEmail, editCustAddress, editCustCity, editCustState, editCustPostal, editCustNotes, updateCustomerMutation, refetchCustomer, refetch]);
 
   // ── Loading / Error States ─────────────────────────────────────────────
 
@@ -568,12 +754,18 @@ export function TechJobDetailPage() {
       )}
 
       {/* ── Tab Navigation ────────────────────────────────────────────── */}
-      <div className="flex gap-2">
+      <div className="flex gap-1.5">
         <TabButton
           label="Job Info"
           emoji="📋"
           active={activeTab === "info"}
           onClick={() => setActiveTab("info")}
+        />
+        <TabButton
+          label="Customer"
+          emoji="👤"
+          active={activeTab === "customer"}
+          onClick={() => setActiveTab("customer")}
         />
         <TabButton
           label="Photos"
@@ -602,19 +794,67 @@ export function TechJobDetailPage() {
           onClick={() => setActiveTab("payment")}
         />
         <TabButton
-          label="Complete"
+          label="Done"
           emoji="✅"
           active={activeTab === "complete"}
           onClick={() => setActiveTab("complete")}
         />
       </div>
 
+      {/* ── Confirm Complete Dialog ─────────────────────────────────── */}
+      {showCompleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-bg-surface rounded-2xl p-6 w-[calc(100vw-2rem)] sm:w-[400px] shadow-2xl">
+            <h3 className="text-lg font-bold text-text-primary mb-2">Complete This Job?</h3>
+            <p className="text-text-secondary text-sm mb-6">
+              This will mark the job as completed. This action creates a commission record and cannot be easily undone.
+            </p>
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={() => setShowCompleteConfirm(false)} className="flex-1 h-12 rounded-xl">
+                Cancel
+              </Button>
+              <Button onClick={handleConfirmStatusComplete} disabled={isSavingEdit} className="flex-1 h-12 rounded-xl bg-green-600 hover:bg-green-700 text-white">
+                {isSavingEdit ? "Saving..." : "Yes, Complete"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ═══════════════════════════════════════════════════════════════════
-          TAB: JOB INFO
+          TAB: JOB INFO (EDITABLE)
           ═══════════════════════════════════════════════════════════════ */}
       {activeTab === "info" && (
         <>
-          {/* Customer Info */}
+          {/* Edit Toggle */}
+          <div className="flex justify-end">
+            {!isEditing ? (
+              <button
+                onClick={handleEnterEdit}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-blue-700 text-sm font-medium hover:bg-blue-100 transition-colors"
+              >
+                <span>✏️</span> Edit Job Details
+              </button>
+            ) : (
+              <div className="flex gap-2">
+                <button
+                  onClick={handleCancelEdit}
+                  className="px-4 py-2 rounded-xl bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSaveEdit}
+                  disabled={isSavingEdit}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-bold hover:bg-green-700 disabled:opacity-50 transition-colors"
+                >
+                  {isSavingEdit ? "Saving..." : "Save Changes"}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Customer Quick Contact */}
           <Card>
             <CardContent className="pt-5 pb-5">
               <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
@@ -636,13 +876,18 @@ export function TechJobDetailPage() {
               )}
               {job.customer_phone && (
                 <>
-                  {/* Row 1: Call buttons */}
                   <div className="flex flex-wrap gap-2 mt-1">
                     <a
                       href={`tel:${job.customer_phone}`}
                       className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-green-100 transition-colors"
                     >
                       <span className="text-xl">📞</span> Call
+                    </a>
+                    <a
+                      href={`sms:${job.customer_phone}`}
+                      className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-teal-100 transition-colors"
+                    >
+                      <span className="text-xl">💬</span> Text
                     </a>
                     <button
                       onClick={() => {
@@ -662,14 +907,8 @@ export function TechJobDetailPage() {
                     </button>
                   </div>
 
-                  {/* Row 2: Text buttons */}
+                  {/* Quick Text Compose */}
                   <div className="flex flex-wrap gap-2 mt-2">
-                    <a
-                      href={`sms:${job.customer_phone}`}
-                      className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-teal-100 transition-colors"
-                    >
-                      <span className="text-xl">💬</span> Text
-                    </a>
                     <button
                       onClick={() => setShowQuickText((v) => !v)}
                       className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl text-base font-medium transition-colors ${
@@ -682,7 +921,6 @@ export function TechJobDetailPage() {
                     </button>
                   </div>
 
-                  {/* Quick Text Compose Panel */}
                   {showQuickText && (
                     <div className="mt-3 p-4 bg-purple-50 rounded-xl border border-purple-200">
                       <p className="text-sm font-medium text-purple-800 mb-2">
@@ -701,35 +939,19 @@ export function TechJobDetailPage() {
                         </span>
                         <div className="flex gap-2">
                           <button
-                            onClick={() => {
-                              setShowQuickText(false);
-                              setQuickTextMsg("");
-                            }}
+                            onClick={() => { setShowQuickText(false); setQuickTextMsg(""); }}
                             className="px-4 py-2 text-sm text-purple-600 hover:text-purple-800"
                           >
                             Cancel
                           </button>
                           <button
                             onClick={() => {
-                              if (!quickTextMsg.trim()) {
-                                toastError("Type a message first");
-                                return;
-                              }
+                              if (!quickTextMsg.trim()) { toastError("Type a message first"); return; }
                               sendSMS.mutate(
+                                { to: job.customer_phone!, body: quickTextMsg.trim(), customer_id: job.customer_id || undefined },
                                 {
-                                  to: job.customer_phone!,
-                                  body: quickTextMsg.trim(),
-                                  customer_id: job.customer_id || undefined,
-                                },
-                                {
-                                  onSuccess: () => {
-                                    toastSuccess("Text sent to customer!");
-                                    setQuickTextMsg("");
-                                    setShowQuickText(false);
-                                  },
-                                  onError: () => {
-                                    toastError("Failed to send text. Try the direct Text button instead.");
-                                  },
+                                  onSuccess: () => { toastSuccess("Text sent to customer!"); setQuickTextMsg(""); setShowQuickText(false); },
+                                  onError: () => { toastError("Failed to send text. Try the direct Text button instead."); },
                                 },
                               );
                             }}
@@ -746,8 +968,8 @@ export function TechJobDetailPage() {
               )}
 
               {/* Directions button */}
-              <div className="flex flex-wrap gap-2 mt-2">
-                {job.service_address_line1 && (
+              {job.service_address_line1 && (
+                <div className="flex flex-wrap gap-2 mt-2">
                   <a
                     href={directionsUrl}
                     target="_blank"
@@ -756,145 +978,202 @@ export function TechJobDetailPage() {
                   >
                     <span className="text-xl">🗺️</span> Get Directions
                   </a>
-                )}
-              </div>
+                </div>
+              )}
             </CardContent>
           </Card>
 
-          {/* Schedule & Job Details */}
-          <Card>
-            <CardContent className="pt-5 pb-5">
-              <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                <span className="text-xl">📋</span> Job Details
-              </h2>
-              <div className="divide-y divide-border">
-                <InfoRow
-                  emoji="📅"
-                  label="Scheduled Date"
-                  value={formatDate(job.scheduled_date)}
-                />
-                {timeWindow && (
-                  <InfoRow
-                    emoji="🕐"
-                    label="Time Window"
-                    value={timeWindow}
-                  />
-                )}
-                <InfoRow
-                  emoji="⏱️"
-                  label="Estimated Duration"
-                  value={
-                    job.estimated_duration_hours
-                      ? `${job.estimated_duration_hours} hours`
-                      : null
-                  }
-                />
-                <InfoRow
-                  emoji={jobTypeEmoji}
-                  label="Job Type"
-                  value={jobTypeLabel}
-                />
-                <InfoRow
-                  emoji={priorityEmoji}
-                  label="Priority"
-                  value={priorityLabel}
-                />
-                {amount > 0 && (
-                  <InfoRow
-                    emoji="💰"
-                    label="Estimated Value"
-                    value={formatCurrency(amount)}
-                    valueClassName="text-green-600"
-                  />
-                )}
-                {job.assigned_technician && (
-                  <InfoRow
-                    emoji="🔧"
-                    label="Assigned Technician"
-                    value={job.assigned_technician}
-                  />
-                )}
-                {job.actual_start_time && (
-                  <InfoRow
-                    emoji="▶️"
-                    label="Started At"
-                    value={new Date(job.actual_start_time).toLocaleString(
-                      "en-US",
-                      {
-                        month: "short",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "2-digit",
-                        hour12: true,
-                      },
-                    )}
-                  />
-                )}
-                {job.actual_end_time && (
-                  <InfoRow
-                    emoji="⏹️"
-                    label="Completed At"
-                    value={new Date(job.actual_end_time).toLocaleString(
-                      "en-US",
-                      {
-                        month: "short",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "2-digit",
-                        hour12: true,
-                      },
-                    )}
-                  />
-                )}
-                {job.total_labor_minutes != null &&
-                  job.total_labor_minutes > 0 && (
-                    <InfoRow
-                      emoji="⏳"
-                      label="Total Labor"
-                      value={
-                        job.total_labor_minutes >= 60
-                          ? `${Math.floor(job.total_labor_minutes / 60)}h ${job.total_labor_minutes % 60}m`
-                          : `${job.total_labor_minutes}m`
-                      }
-                    />
-                  )}
-              </div>
-            </CardContent>
-          </Card>
+          {/* Status & Priority (Editable) */}
+          {isEditing ? (
+            <Card>
+              <CardContent className="pt-5 pb-5 space-y-4">
+                <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
+                  <span className="text-xl">🔄</span> Status & Priority
+                </h2>
 
-          {/* Notes */}
-          {(job.notes || job.internal_notes) && (
+                {/* Status Selector */}
+                <div>
+                  <label className="text-sm font-medium text-text-secondary mb-2 block">Status</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {STATUS_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setEditStatus(opt.value)}
+                        className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                          editStatus === opt.value
+                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            : "border-border bg-bg-surface text-text-secondary hover:border-blue-300"
+                        }`}
+                      >
+                        <span className="text-lg">{opt.emoji}</span>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Priority Selector */}
+                <div>
+                  <label className="text-sm font-medium text-text-secondary mb-2 block">Priority</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {PRIORITY_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setEditPriority(opt.value)}
+                        className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                          editPriority === opt.value
+                            ? "border-blue-500 bg-blue-50 text-blue-700"
+                            : "border-border bg-bg-surface text-text-secondary hover:border-blue-300"
+                        }`}
+                      >
+                        <span>{opt.emoji}</span>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Estimated Duration */}
+                <div>
+                  <label className="text-sm font-medium text-text-secondary mb-2 block">
+                    Estimated Duration (hours)
+                  </label>
+                  <input
+                    type="number"
+                    inputMode="decimal"
+                    step="0.5"
+                    min="0"
+                    placeholder="e.g. 2.5"
+                    value={editDuration}
+                    onChange={(e) => setEditDuration(e.target.value)}
+                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            /* Job Details (Read-Only) */
             <Card>
               <CardContent className="pt-5 pb-5">
                 <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                  <span className="text-xl">📝</span> Notes
+                  <span className="text-xl">📋</span> Job Details
                 </h2>
-                {job.notes && (
-                  <div className="mb-3">
-                    <p className="text-xs text-text-muted uppercase tracking-wide mb-1">
-                      Job Notes
-                    </p>
-                    <p className="text-base text-text-primary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">
-                      {job.notes}
-                    </p>
-                  </div>
-                )}
-                {job.internal_notes && (
-                  <div>
-                    <p className="text-xs text-text-muted uppercase tracking-wide mb-1">
-                      Internal Notes
-                    </p>
-                    <p className="text-base text-text-secondary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">
-                      {job.internal_notes}
-                    </p>
-                  </div>
-                )}
+                <div className="divide-y divide-border">
+                  <InfoRow emoji="📅" label="Scheduled Date" value={formatDate(job.scheduled_date)} />
+                  {timeWindow && <InfoRow emoji="🕐" label="Time Window" value={timeWindow} />}
+                  <InfoRow
+                    emoji="⏱️"
+                    label="Estimated Duration"
+                    value={job.estimated_duration_hours ? `${job.estimated_duration_hours} hours` : null}
+                  />
+                  <InfoRow emoji={jobTypeEmoji} label="Job Type" value={jobTypeLabel} />
+                  <InfoRow emoji={priorityEmoji} label="Priority" value={priorityLabel} />
+                  {amount > 0 && (
+                    <InfoRow emoji="💰" label="Estimated Value" value={formatCurrency(amount)} valueClassName="text-green-600" />
+                  )}
+                  {job.assigned_technician && (
+                    <InfoRow emoji="🔧" label="Assigned Technician" value={job.assigned_technician} />
+                  )}
+                  {job.actual_start_time && (
+                    <InfoRow
+                      emoji="▶️"
+                      label="Started At"
+                      value={new Date(job.actual_start_time).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true })}
+                    />
+                  )}
+                  {job.actual_end_time && (
+                    <InfoRow
+                      emoji="⏹️"
+                      label="Completed At"
+                      value={new Date(job.actual_end_time).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true })}
+                    />
+                  )}
+                  {job.total_labor_minutes != null && job.total_labor_minutes > 0 && (
+                    <InfoRow
+                      emoji="⏳"
+                      label="Total Labor"
+                      value={job.total_labor_minutes >= 60
+                        ? `${Math.floor(job.total_labor_minutes / 60)}h ${job.total_labor_minutes % 60}m`
+                        : `${job.total_labor_minutes}m`}
+                    />
+                  )}
+                </div>
               </CardContent>
             </Card>
           )}
 
+          {/* Notes (Always visible, editable in edit mode) */}
+          <Card>
+            <CardContent className="pt-5 pb-5">
+              <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                <span className="text-xl">📝</span> Notes
+              </h2>
+              {isEditing ? (
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-text-secondary mb-2 block">
+                      Job Notes
+                    </label>
+                    <textarea
+                      value={editNotes}
+                      onChange={(e) => setEditNotes(e.target.value)}
+                      placeholder="Add notes about this job..."
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-text-secondary mb-2 block">
+                      Internal Notes (not visible to customer)
+                    </label>
+                    <textarea
+                      value={editInternalNotes}
+                      onChange={(e) => setEditInternalNotes(e.target.value)}
+                      placeholder="Internal team notes..."
+                      rows={3}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {job.notes ? (
+                    <div className="mb-3">
+                      <p className="text-xs text-text-muted uppercase tracking-wide mb-1">Job Notes</p>
+                      <p className="text-base text-text-primary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">{job.notes}</p>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-text-muted italic mb-3">No job notes yet. Tap "Edit Job Details" to add notes.</p>
+                  )}
+                  {job.internal_notes && (
+                    <div>
+                      <p className="text-xs text-text-muted uppercase tracking-wide mb-1">Internal Notes</p>
+                      <p className="text-base text-text-secondary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">{job.internal_notes}</p>
+                    </div>
+                  )}
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Save Button (sticky at bottom when editing) */}
+          {isEditing && (
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={handleCancelEdit} className="flex-1 h-14 rounded-xl text-base">
+                Cancel
+              </Button>
+              <Button
+                onClick={handleSaveEdit}
+                disabled={isSavingEdit}
+                className="flex-1 h-14 rounded-xl bg-green-600 hover:bg-green-700 text-white text-base font-bold shadow-lg disabled:opacity-50"
+              >
+                {isSavingEdit ? "Saving..." : "Save Changes"}
+              </Button>
+            </div>
+          )}
+
           {/* Checklist if present */}
-          {job.checklist && Array.isArray(job.checklist) && job.checklist.length > 0 && (
+          {!isEditing && job.checklist && Array.isArray(job.checklist) && job.checklist.length > 0 && (
             <Card>
               <CardContent className="pt-5 pb-5">
                 <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
@@ -903,22 +1182,283 @@ export function TechJobDetailPage() {
                 <div className="space-y-2">
                   {(job.checklist as Array<{ item?: string; label?: string; completed?: boolean }>).map(
                     (item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-3 py-2 px-3 bg-bg-muted rounded-lg"
-                      >
-                        <span className="text-lg">
-                          {item.completed ? "✅" : "⬜"}
-                        </span>
-                        <span className="text-base">
-                          {item.label || item.item || `Item ${idx + 1}`}
-                        </span>
+                      <div key={idx} className="flex items-center gap-3 py-2 px-3 bg-bg-muted rounded-lg">
+                        <span className="text-lg">{item.completed ? "✅" : "⬜"}</span>
+                        <span className="text-base">{item.label || item.item || `Item ${idx + 1}`}</span>
                       </div>
                     ),
                   )}
                 </div>
               </CardContent>
             </Card>
+          )}
+        </>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          TAB: CUSTOMER INFO (NEW)
+          ═══════════════════════════════════════════════════════════════ */}
+      {activeTab === "customer" && (
+        <>
+          {isLoadingCustomer ? (
+            <div className="space-y-4">
+              <Skeleton className="h-32 w-full rounded-xl" />
+              <Skeleton className="h-48 w-full rounded-xl" />
+            </div>
+          ) : !customer ? (
+            <Card>
+              <CardContent className="py-12 text-center">
+                <p className="text-4xl mb-3">👤</p>
+                <p className="text-lg font-medium text-text-secondary">No customer linked</p>
+                <p className="text-sm text-text-muted mt-1">This work order has no customer ID associated with it.</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <>
+              {/* Customer Profile Header */}
+              <Card className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white border-0">
+                <CardContent className="pt-5 pb-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
+                      {(customer.first_name || "?")[0]}
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold">
+                        {customer.first_name} {customer.last_name}
+                      </h2>
+                      <p className="text-indigo-200 text-sm">
+                        {customer.customer_type ? customer.customer_type.charAt(0).toUpperCase() + customer.customer_type.slice(1) : "Customer"}
+                      </p>
+                    </div>
+                  </div>
+                  {customer.is_active === false && (
+                    <Badge variant="danger" size="sm" className="mt-2">Inactive</Badge>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Edit Toggle */}
+              <div className="flex justify-end">
+                {!isEditingCustomer ? (
+                  <button
+                    onClick={handleEnterCustomerEdit}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-700 text-sm font-medium hover:bg-indigo-100 transition-colors"
+                  >
+                    <span>✏️</span> Edit Customer Info
+                  </button>
+                ) : (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleCancelCustomerEdit}
+                      className="px-4 py-2 rounded-xl bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSaveCustomerEdit}
+                      disabled={isSavingCustomer}
+                      className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-bold hover:bg-green-700 disabled:opacity-50 transition-colors"
+                    >
+                      {isSavingCustomer ? "Saving..." : "Save Customer"}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Contact Info */}
+              <Card>
+                <CardContent className="pt-5 pb-5">
+                  <h3 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                    <span className="text-xl">📱</span> Contact Info
+                  </h3>
+                  {isEditingCustomer ? (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm font-medium text-text-secondary mb-1 block">Phone</label>
+                        <input
+                          type="tel"
+                          inputMode="tel"
+                          value={editCustPhone}
+                          onChange={(e) => setEditCustPhone(e.target.value)}
+                          placeholder="(555) 123-4567"
+                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-text-secondary mb-1 block">Email</label>
+                        <input
+                          type="email"
+                          inputMode="email"
+                          value={editCustEmail}
+                          onChange={(e) => setEditCustEmail(e.target.value)}
+                          placeholder="customer@email.com"
+                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-border">
+                      <InfoRow emoji="📞" label="Phone" value={customer.phone} />
+                      <InfoRow emoji="📧" label="Email" value={customer.email} />
+                      {!customer.phone && !customer.email && (
+                        <p className="text-sm text-text-muted italic py-2">No contact info on file</p>
+                      )}
+                    </div>
+                  )}
+                  {/* Quick Contact Buttons */}
+                  {!isEditingCustomer && (customer.phone || customer.email) && (
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {customer.phone && (
+                        <>
+                          <a href={`tel:${customer.phone}`} className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium hover:bg-green-100 transition-colors">
+                            <span>📞</span> Call
+                          </a>
+                          <a href={`sms:${customer.phone}`} className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-3 rounded-xl text-sm font-medium hover:bg-teal-100 transition-colors">
+                            <span>💬</span> Text
+                          </a>
+                        </>
+                      )}
+                      {customer.email && (
+                        <a href={`mailto:${customer.email}`} className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-3 rounded-xl text-sm font-medium hover:bg-blue-100 transition-colors">
+                          <span>📧</span> Email
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Address */}
+              <Card>
+                <CardContent className="pt-5 pb-5">
+                  <h3 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                    <span className="text-xl">📍</span> Address
+                  </h3>
+                  {isEditingCustomer ? (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm font-medium text-text-secondary mb-1 block">Street Address</label>
+                        <input
+                          type="text"
+                          value={editCustAddress}
+                          onChange={(e) => setEditCustAddress(e.target.value)}
+                          placeholder="123 Main St"
+                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                        />
+                      </div>
+                      <div className="grid grid-cols-5 gap-2">
+                        <div className="col-span-2">
+                          <label className="text-sm font-medium text-text-secondary mb-1 block">City</label>
+                          <input
+                            type="text"
+                            value={editCustCity}
+                            onChange={(e) => setEditCustCity(e.target.value)}
+                            placeholder="City"
+                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-text-secondary mb-1 block">State</label>
+                          <input
+                            type="text"
+                            maxLength={2}
+                            value={editCustState}
+                            onChange={(e) => setEditCustState(e.target.value.toUpperCase())}
+                            placeholder="TX"
+                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base text-center focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                          />
+                        </div>
+                        <div className="col-span-2">
+                          <label className="text-sm font-medium text-text-secondary mb-1 block">ZIP</label>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            value={editCustPostal}
+                            onChange={(e) => setEditCustPostal(e.target.value)}
+                            placeholder="77001"
+                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {customer.address_line1 ? (
+                        <a
+                          href={buildMapsUrl(customer.address_line1, customer.city, customer.state)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-start gap-2 text-primary hover:text-primary/80"
+                        >
+                          <span className="text-xl mt-0.5">📍</span>
+                          <div>
+                            <p className="text-base underline">{customer.address_line1}</p>
+                            {customer.address_line2 && <p className="text-base">{customer.address_line2}</p>}
+                            <p className="text-sm text-text-secondary">
+                              {[customer.city, customer.state, customer.postal_code].filter(Boolean).join(", ")}
+                            </p>
+                          </div>
+                        </a>
+                      ) : (
+                        <p className="text-sm text-text-muted italic">No address on file</p>
+                      )}
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Customer Notes */}
+              <Card>
+                <CardContent className="pt-5 pb-5">
+                  <h3 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                    <span className="text-xl">📝</span> Customer Notes
+                  </h3>
+                  {isEditingCustomer ? (
+                    <textarea
+                      value={editCustNotes}
+                      onChange={(e) => setEditCustNotes(e.target.value)}
+                      placeholder="Notes about this customer..."
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                    />
+                  ) : customer.lead_notes ? (
+                    <p className="text-base text-text-primary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">{customer.lead_notes}</p>
+                  ) : (
+                    <p className="text-sm text-text-muted italic">No notes. Tap "Edit Customer Info" to add notes.</p>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Customer Details (Read-Only) */}
+              <Card>
+                <CardContent className="pt-5 pb-5">
+                  <h3 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                    <span className="text-xl">ℹ️</span> Account Details
+                  </h3>
+                  <div className="divide-y divide-border">
+                    <InfoRow emoji="🏷️" label="Customer Type" value={customer.customer_type ? customer.customer_type.charAt(0).toUpperCase() + customer.customer_type.slice(1) : null} />
+                    <InfoRow emoji="💳" label="Payment Terms" value={customer.default_payment_terms} />
+                    <InfoRow emoji="📅" label="Customer Since" value={customer.created_at ? formatDate(customer.created_at) : null} />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Save Button for Customer Edit */}
+              {isEditingCustomer && (
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={handleCancelCustomerEdit} className="flex-1 h-14 rounded-xl text-base">
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleSaveCustomerEdit}
+                    disabled={isSavingCustomer}
+                    className="flex-1 h-14 rounded-xl bg-green-600 hover:bg-green-700 text-white text-base font-bold shadow-lg disabled:opacity-50"
+                  >
+                    {isSavingCustomer ? "Saving..." : "Save Customer Info"}
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}
