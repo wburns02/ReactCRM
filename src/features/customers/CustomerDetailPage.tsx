@@ -36,6 +36,7 @@ import { DialButton, CallLog } from "@/features/phone/index.ts";
 import { CustomerHealthScore } from "./components/CustomerHealthScore.tsx";
 import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
 import { useEmailCompose } from "@/context/EmailComposeContext";
+import { ContractList } from "@/features/contracts/components/ContractList.tsx";
 
 /**
  * Customer detail page - view/edit individual customer
@@ -384,7 +385,7 @@ export function CustomerDetailPage() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <Link to={`/work-orders?customer_id=${id}`}>
                 <Button variant="secondary">
                   View All Work Orders ({workOrders.length})
@@ -392,6 +393,9 @@ export function CustomerDetailPage() {
               </Link>
               <Link to={`/work-orders?new=true&customer_id=${id}`}>
                 <Button>Create Work Order</Button>
+              </Link>
+              <Link to="/contracts">
+                <Button variant="secondary">🤝 View Contracts</Button>
               </Link>
             </div>
           </CardContent>
@@ -477,6 +481,24 @@ export function CustomerDetailPage() {
                 )}
               </div>
             )}
+          </CardContent>
+        </Card>
+
+        {/* Contract History */}
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>Contract History</CardTitle>
+              <Link
+                to="/contracts"
+                className="text-sm text-primary hover:underline"
+              >
+                Manage contracts
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <ContractList customerId={id} />
           </CardContent>
         </Card>
 

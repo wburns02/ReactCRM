@@ -3,4 +3,7 @@ export { ContractList } from "./components/ContractList.tsx";
 export { ContractDetails } from "./components/ContractDetails.tsx";
 export { ContractTemplates } from "./components/ContractTemplates.tsx";
 export { ExpiringContractsAlert } from "./components/ExpiringContractsAlert.tsx";
+export { NewContractForm } from "./components/NewContractForm.tsx";
+export { RenewalsTab } from "./components/RenewalsTab.tsx";
+export { ReportsTab } from "./components/ReportsTab.tsx";
 export { ContractsPage } from "./pages/ContractsPage.tsx";

@@ -48,6 +48,7 @@ export function AppLayout() {
     { path: "/dashboard", label: "Dashboard", icon: "📊" },
     { path: "/customers", label: "Customers", icon: "👥" },
     { path: "/prospects", label: "Prospects", icon: "📋" },
+    { path: "/contracts", label: "Contracts & Maintenance", icon: "🤝" },
     { path: "/customer-success", label: "Customer Success", icon: "💚" },
   ];
 
@@ -78,7 +79,6 @@ export function AppLayout() {
         { path: "/employee", label: "Employee Portal", icon: "📱" },
         { path: "/service-intervals", label: "Service Intervals", icon: "🔄" },
         { path: "/compliance", label: "Compliance", icon: "✅" },
-        { path: "/contracts", label: "Contracts", icon: "📄" },
         { path: "/timesheets", label: "Timesheets", icon: "⏱️" },
       ],
     },
