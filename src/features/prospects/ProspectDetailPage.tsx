@@ -314,7 +314,7 @@ export function ProspectDetailPage() {
               <span>Created: {formatDate(prospect.created_at)}</span>
               <span>Last Updated: {formatDate(prospect.updated_at)}</span>
               <span className="text-xs font-mono text-text-muted">
-                ID: {prospect.id}
+                ID: {String(prospect.id).slice(0, 8)}
               </span>
             </div>
           </CardContent>

@@ -541,7 +541,7 @@ export function CustomerDetailPage() {
               <span>Created: {formatDate(customer.created_at)}</span>
               <span>Last Updated: {formatDate(customer.updated_at)}</span>
               <span className="text-xs font-mono text-text-muted">
-                ID: {customer.id}
+                ID: {String(customer.id).slice(0, 8)}
               </span>
             </div>
           </CardContent>

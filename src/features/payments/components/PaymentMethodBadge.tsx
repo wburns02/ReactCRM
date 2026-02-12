@@ -1,18 +1,15 @@
 import { Badge } from "@/components/ui/Badge.tsx";
-import {
-  PAYMENT_METHOD_LABELS,
-  type PaymentMethod,
-} from "@/api/types/payment.ts";
+import { getPaymentMethodLabel } from "@/api/types/payment.ts";
 
 interface PaymentMethodBadgeProps {
-  method: PaymentMethod;
+  method: string;
 }
 
 /**
- * Payment method badge component
+ * Payment method badge component — normalizes Clover and legacy method names
  */
 export function PaymentMethodBadge({ method }: PaymentMethodBadgeProps) {
   return (
-    <Badge variant="default">{PAYMENT_METHOD_LABELS[method] || method}</Badge>
+    <Badge variant="default">{getPaymentMethodLabel(method)}</Badge>
   );
 }

@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils.ts";
 import { formatCurrency } from "./utils/pricingEngine.ts";
 import { useProcessRefund } from "./hooks/usePayments.ts";
 import type { Payment } from "@/api/types/payment.ts";
+import { getPaymentMethodLabel } from "@/api/types/payment.ts";
 
 // ============================================================================
 // TYPES
@@ -132,22 +133,9 @@ export function RefundProcessor({
     }
   };
 
-  // Get payment method display
+  // Get payment method display — uses shared normalizer
   const getPaymentMethodDisplay = () => {
-    switch (payment.payment_method) {
-      case "card":
-        return "Credit/Debit Card";
-      case "cash":
-        return "Cash";
-      case "check":
-        return "Check";
-      case "bank_transfer":
-        return "ACH/Bank Transfer";
-      case "payment_link":
-        return "Payment Link";
-      default:
-        return "Other";
-    }
+    return getPaymentMethodLabel(payment.payment_method);
   };
 
   return (

@@ -19,8 +19,8 @@ import { usePaymentHistory, useDownloadReceipt } from "./hooks/usePayments.ts";
 import type {
   Payment,
   PaymentStatus,
-  PaymentMethod,
 } from "@/api/types/payment.ts";
+import { getPaymentMethodLabel as getMethodLabel } from "@/api/types/payment.ts";
 
 // ============================================================================
 // TYPES
@@ -60,7 +60,7 @@ const getStatusVariant = (
 };
 
 // Payment method icons
-const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
+const PaymentMethodIcon = ({ method }: { method: string }) => {
   switch (method) {
     case "card":
       return (
@@ -152,23 +152,8 @@ const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
   }
 };
 
-// Format payment method label
-const getPaymentMethodLabel = (method: PaymentMethod): string => {
-  switch (method) {
-    case "card":
-      return "Card";
-    case "cash":
-      return "Cash";
-    case "check":
-      return "Check";
-    case "bank_transfer":
-      return "ACH";
-    case "payment_link":
-      return "Payment Link";
-    default:
-      return "Other";
-  }
-};
+// Format payment method label — uses shared normalizer
+const getPaymentMethodLabel = (method: string): string => getMethodLabel(method);
 
 // ============================================================================
 // COMPONENT

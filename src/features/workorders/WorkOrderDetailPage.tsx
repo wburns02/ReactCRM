@@ -966,8 +966,8 @@ export function WorkOrderDetailPage() {
                   <dl className="space-y-3">
                     <div>
                       <dt className="text-sm text-text-muted">Work Order ID</dt>
-                      <dd className="text-text-primary font-mono text-xs break-all">
-                        {workOrder.id}
+                      <dd className="text-text-primary font-mono text-xs">
+                        {workOrder.work_order_number || String(workOrder.id).slice(0, 8)}
                       </dd>
                     </div>
                     <div>

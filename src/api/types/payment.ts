@@ -19,9 +19,30 @@ export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
   cash: "Cash",
   check: "Check",
   payment_link: "Payment Link",
-  bank_transfer: "Bank Transfer",
+  bank_transfer: "ACH / Bank Transfer",
   other: "Other",
 };
+
+/**
+ * Normalize any payment method string to a display label.
+ * Handles Clover tender types, legacy values, and inconsistencies.
+ */
+export function getPaymentMethodLabel(method: string | null | undefined): string {
+  if (!method) return "Other";
+  const lower = method.toLowerCase().trim();
+  // Exact matches
+  if (lower in PAYMENT_METHOD_LABELS) return PAYMENT_METHOD_LABELS[lower as PaymentMethod];
+  // Card variants (Clover tender types)
+  if (lower.includes("visa") || lower.includes("mastercard") || lower.includes("amex")
+    || lower.includes("discover") || lower === "credit_card" || lower === "credit card"
+    || lower === "debit" || lower === "debit_card") return "Card";
+  // ACH variants
+  if (lower === "ach" || lower === "bank" || lower === "wire") return "ACH / Bank Transfer";
+  // Clover POS
+  if (lower === "clover" || lower === "clover_pos") return "Clover POS";
+  // Capitalize first letter for unknown methods
+  return method.charAt(0).toUpperCase() + method.slice(1);
+}
 
 /**
  * Payment Status enum

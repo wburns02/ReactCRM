@@ -59,7 +59,7 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
           <h3 className="font-medium text-text-primary truncate">
             {customer.first_name} {customer.last_name}
           </h3>
-          <p className="text-xs text-text-muted">ID: {customer.id}</p>
+          {customer.email && <p className="text-xs text-text-muted">{customer.email}</p>}
         </div>
         <div className="ml-2">
           {customer.prospect_stage ? (
@@ -188,7 +188,7 @@ const TableCustomerRow = memo(function TableCustomerRow({
           <p className="font-medium text-text-primary">
             {customer.first_name} {customer.last_name}
           </p>
-          <p className="text-sm text-text-secondary">ID: {customer.id}</p>
+          {customer.email && <p className="text-sm text-text-secondary">{customer.email}</p>}
         </div>
       </td>
       <td className="px-4 py-3">
