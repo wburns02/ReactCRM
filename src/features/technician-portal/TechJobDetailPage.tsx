@@ -9,7 +9,10 @@ import {
   useJobPhotos,
   useJobPayments,
   useRecordPayment,
+  useCustomerServiceHistory,
+  useJobPhotosGallery,
 } from "@/api/hooks/useTechPortal.ts";
+import type { ServiceHistoryItem, PhotoGalleryItem } from "@/api/hooks/useTechPortal.ts";
 import { useUpdateWorkOrder } from "@/api/hooks/useWorkOrders.ts";
 import { useCustomer, useUpdateCustomer } from "@/api/hooks/useCustomers.ts";
 import {
@@ -92,7 +95,7 @@ const PRIORITY_OPTIONS = [
   { value: "emergency", label: "Emergency", emoji: "🔴" },
 ] as const;
 
-type TabKey = "info" | "customer" | "photos" | "payment" | "complete";
+type TabKey = "info" | "customer" | "photos" | "history" | "payment" | "complete";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -299,6 +302,16 @@ export function TechJobDetailPage() {
   // Fetch full customer profile when we have a customer_id
   const customerId = job?.customer_id || undefined;
   const { data: customer, isLoading: isLoadingCustomer, refetch: refetchCustomer } = useCustomer(customerId);
+
+  // Service history for this customer
+  const { data: serviceHistory, isLoading: isLoadingHistory } = useCustomerServiceHistory(customerId);
+
+  // Photo gallery with full-res data
+  const { data: galleryPhotos = [] } = useJobPhotosGallery(jobId);
+
+  // Photo lightbox state
+  const [lightboxPhoto, setLightboxPhoto] = useState<PhotoGalleryItem | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   // Initialize edit fields when job data loads
   useEffect(() => {
@@ -754,9 +767,9 @@ export function TechJobDetailPage() {
       )}
 
       {/* ── Tab Navigation ────────────────────────────────────────────── */}
-      <div className="flex gap-1.5">
+      <div className="flex gap-1 overflow-x-auto scrollbar-none -mx-1 px-1">
         <TabButton
-          label="Job Info"
+          label="Info"
           emoji="📋"
           active={activeTab === "info"}
           onClick={() => setActiveTab("info")}
@@ -780,6 +793,14 @@ export function TechJobDetailPage() {
               : "bg-red-500 text-white"
           }
           onClick={() => setActiveTab("photos")}
+        />
+        <TabButton
+          label="History"
+          emoji="📜"
+          active={activeTab === "history"}
+          badge={serviceHistory ? String(serviceHistory.total_jobs) : undefined}
+          badgeColor="bg-blue-500 text-white"
+          onClick={() => setActiveTab("history")}
         />
         <TabButton
           label="Payment"
@@ -1564,8 +1585,32 @@ export function TechJobDetailPage() {
                 </span>
               </Button>
 
-              {/* Show all uploaded photos */}
-              {photos.length > 0 && (
+              {/* Show all uploaded photos in gallery grid */}
+              {galleryPhotos.length > 0 && (
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {galleryPhotos.map((photo, idx) => (
+                    <button
+                      key={photo.id}
+                      onClick={() => { setLightboxPhoto(photo); setLightboxIndex(idx); }}
+                      className="relative group cursor-pointer"
+                    >
+                      <img
+                        src={photo.thumbnail_url || photo.data_url || ""}
+                        alt={photo.photo_type}
+                        className="w-full h-24 object-cover rounded-lg group-hover:opacity-80 transition-opacity"
+                      />
+                      <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded">
+                        {photo.photo_type}
+                      </span>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="bg-black/40 text-white rounded-full p-1 text-xs">🔍</span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {/* Fallback if gallery hasn't loaded yet but old photos exist */}
+              {galleryPhotos.length === 0 && photos.length > 0 && (
                 <div className="mt-4 grid grid-cols-3 gap-2">
                   {photos.map((photo) => (
                     <div key={photo.id} className="relative">
@@ -1579,6 +1624,238 @@ export function TechJobDetailPage() {
                       </span>
                     </div>
                   ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          PHOTO LIGHTBOX
+          ═══════════════════════════════════════════════════════════════ */}
+      {lightboxPhoto && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex flex-col"
+          onClick={() => setLightboxPhoto(null)}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 text-white" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-2">
+              <span className="text-lg capitalize font-medium">{lightboxPhoto.photo_type} Photo</span>
+              {lightboxPhoto.timestamp && (
+                <span className="text-sm text-white/70">
+                  {new Date(lightboxPhoto.timestamp).toLocaleString("en-US", {
+                    month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true,
+                  })}
+                </span>
+              )}
+            </div>
+            <button
+              onClick={() => setLightboxPhoto(null)}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-xl"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Image */}
+          <div className="flex-1 flex items-center justify-center p-4 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={lightboxPhoto.data_url || lightboxPhoto.thumbnail_url}
+              alt={lightboxPhoto.photo_type}
+              className="max-w-full max-h-full object-contain rounded-lg"
+            />
+          </div>
+
+          {/* Navigation */}
+          {galleryPhotos.length > 1 && (
+            <div className="flex items-center justify-center gap-6 p-4" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => {
+                  const prev = (lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+                  setLightboxIndex(prev);
+                  setLightboxPhoto(galleryPhotos[prev]);
+                }}
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white text-xl"
+              >
+                ◀
+              </button>
+              <span className="text-white/70 text-sm">
+                {lightboxIndex + 1} / {galleryPhotos.length}
+              </span>
+              <button
+                onClick={() => {
+                  const next = (lightboxIndex + 1) % galleryPhotos.length;
+                  setLightboxIndex(next);
+                  setLightboxPhoto(galleryPhotos[next]);
+                }}
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white text-xl"
+              >
+                ▶
+              </button>
+            </div>
+          )}
+
+          {/* GPS info if available */}
+          {(lightboxPhoto.gps_lat && lightboxPhoto.gps_lng) && (
+            <div className="flex justify-center pb-4" onClick={(e) => e.stopPropagation()}>
+              <a
+                href={`https://maps.google.com/?q=${lightboxPhoto.gps_lat},${lightboxPhoto.gps_lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 text-xs hover:text-white/80 underline"
+              >
+                📍 View location ({lightboxPhoto.gps_lat.toFixed(4)}, {lightboxPhoto.gps_lng.toFixed(4)})
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          TAB: SERVICE HISTORY
+          ═══════════════════════════════════════════════════════════════ */}
+      {activeTab === "history" && (
+        <>
+          {/* Customer Stats Summary */}
+          {serviceHistory && (
+            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200">
+              <CardContent className="pt-5 pb-5">
+                <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                  <span className="text-xl">📊</span> Customer Stats
+                </h2>
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-indigo-700">{serviceHistory.total_jobs}</p>
+                    <p className="text-xs text-text-muted">Total Jobs</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-green-700">{serviceHistory.completed_jobs}</p>
+                    <p className="text-xs text-text-muted">Completed</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-blue-700">
+                      {serviceHistory.last_service_date
+                        ? (() => {
+                            const d = new Date(serviceHistory.last_service_date);
+                            const now = new Date();
+                            const diff = Math.floor((now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
+                            return diff === 0 ? "Today" : `${diff}d`;
+                          })()
+                        : "—"}
+                    </p>
+                    <p className="text-xs text-text-muted">Last Service</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Service History List */}
+          <Card>
+            <CardContent className="pt-5 pb-5">
+              <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                <span className="text-xl">📜</span> Service History
+              </h2>
+
+              {isLoadingHistory && (
+                <div className="space-y-3">
+                  {[1, 2, 3].map((i) => (
+                    <Skeleton key={i} className="h-20 w-full rounded-xl" />
+                  ))}
+                </div>
+              )}
+
+              {!isLoadingHistory && (!serviceHistory || serviceHistory.work_orders.length === 0) && (
+                <div className="py-8 text-center">
+                  <p className="text-3xl mb-2">📭</p>
+                  <p className="text-text-secondary font-medium">No previous service history</p>
+                  <p className="text-sm text-text-muted">This appears to be a new customer</p>
+                </div>
+              )}
+
+              {serviceHistory && serviceHistory.work_orders.length > 0 && (
+                <div className="space-y-3">
+                  {serviceHistory.work_orders.map((wo) => {
+                    const isCurrent = wo.id === jobId;
+                    const woStatusColor = STATUS_COLORS[wo.status || ""] || "gray";
+                    const woStatusLabel = STATUS_LABELS[wo.status || ""] || wo.status || "Unknown";
+                    const woTypeEmoji = JOB_TYPE_EMOJIS[wo.job_type || "other"] || "📦";
+                    const woTypeLabel = JOB_TYPE_LABELS[wo.job_type || "other"] || wo.job_type || "Other";
+
+                    return (
+                      <button
+                        key={wo.id}
+                        onClick={() => {
+                          if (!isCurrent) navigate(`/portal/jobs/${wo.id}`);
+                        }}
+                        disabled={isCurrent}
+                        className={`w-full text-left rounded-xl border p-4 transition-all ${
+                          isCurrent
+                            ? "border-blue-300 bg-blue-50 ring-2 ring-blue-200"
+                            : "border-border-default bg-bg-surface hover:bg-bg-muted hover:shadow-sm"
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className="text-lg flex-shrink-0">{woTypeEmoji}</span>
+                            <div className="min-w-0">
+                              <p className="font-semibold text-text-primary truncate">
+                                {woTypeLabel}
+                                {isCurrent && (
+                                  <span className="ml-2 text-xs text-blue-600 font-bold">(Current Job)</span>
+                                )}
+                              </p>
+                              {wo.work_order_number && (
+                                <p className="text-xs text-text-muted">#{wo.work_order_number}</p>
+                              )}
+                            </div>
+                          </div>
+                          <Badge
+                            variant={STATUS_BADGE_VARIANT[woStatusColor] || "default"}
+                            size="sm"
+                            className="flex-shrink-0"
+                          >
+                            {woStatusLabel}
+                          </Badge>
+                        </div>
+
+                        <div className="flex items-center gap-4 mt-2 text-sm text-text-muted">
+                          {wo.scheduled_date && (
+                            <span className="flex items-center gap-1">
+                              📅 {formatDate(wo.scheduled_date)}
+                            </span>
+                          )}
+                          {wo.total_amount != null && wo.total_amount > 0 && (
+                            <span className="flex items-center gap-1">
+                              💰 {formatCurrency(wo.total_amount)}
+                            </span>
+                          )}
+                          {wo.photo_count > 0 && (
+                            <span className="flex items-center gap-1">
+                              📸 {wo.photo_count}
+                            </span>
+                          )}
+                          {wo.total_labor_minutes != null && wo.total_labor_minutes > 0 && (
+                            <span className="flex items-center gap-1">
+                              ⏱️ {Math.round(wo.total_labor_minutes / 60 * 10) / 10}h
+                            </span>
+                          )}
+                        </div>
+
+                        {wo.notes && (
+                          <p className="mt-2 text-sm text-text-secondary line-clamp-2">{wo.notes}</p>
+                        )}
+
+                        {wo.assigned_technician && (
+                          <p className="mt-1 text-xs text-text-muted">
+                            👷 {wo.assigned_technician}
+                          </p>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </CardContent>

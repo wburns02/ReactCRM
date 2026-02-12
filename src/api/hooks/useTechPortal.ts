@@ -372,3 +372,68 @@ export function useUpdateLocation() {
     },
   });
 }
+
+// ── Customer Service History ────────────────────────────────────────────
+
+export interface ServiceHistoryItem {
+  id: string;
+  work_order_number: string | null;
+  job_type: string | null;
+  status: string | null;
+  priority: string | null;
+  scheduled_date: string | null;
+  notes: string | null;
+  total_amount: number | null;
+  assigned_technician: string | null;
+  photo_count: number;
+  service_address_line1: string | null;
+  actual_start_time: string | null;
+  actual_end_time: string | null;
+  total_labor_minutes: number | null;
+  created_at: string | null;
+}
+
+export interface ServiceHistoryResponse {
+  customer_id: string;
+  total_jobs: number;
+  completed_jobs: number;
+  last_service_date: string | null;
+  work_orders: ServiceHistoryItem[];
+}
+
+export function useCustomerServiceHistory(customerId: string | undefined) {
+  return useQuery({
+    queryKey: ["tech-portal", "customer-history", customerId],
+    queryFn: async (): Promise<ServiceHistoryResponse> => {
+      const { data } = await apiClient.get(`/employee/customers/${customerId}/service-history`);
+      return data;
+    },
+    enabled: !!customerId,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+// ── Photo Gallery (full-res) ────────────────────────────────────────────
+
+export interface PhotoGalleryItem {
+  id: string;
+  work_order_id: string;
+  photo_type: string;
+  data_url: string;
+  thumbnail_url: string;
+  timestamp: string | null;
+  gps_lat: number | null;
+  gps_lng: number | null;
+  created_at: string | null;
+}
+
+export function useJobPhotosGallery(jobId: string | undefined) {
+  return useQuery({
+    queryKey: ["tech-portal", "jobs", jobId, "photos-gallery"],
+    queryFn: async (): Promise<PhotoGalleryItem[]> => {
+      const { data } = await apiClient.get(`/employee/jobs/${jobId}/photos/gallery`);
+      return data;
+    },
+    enabled: !!jobId,
+  });
+}
