@@ -216,12 +216,25 @@ export function RenewalsTab() {
                           {contract.auto_renew && (
                             <Badge variant="info">Auto-Renew</Badge>
                           )}
+                          {"tier" in contract && contract.tier && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                              {(contract.tier as string).replace("commercial_", "Comm. ").replace("residential", "Res.")}
+                            </span>
+                          )}
+                          {isOverdue && (contract as OverdueContract).days_overdue > 30 && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 font-semibold">
+                              Churn Risk
+                            </span>
+                          )}
                         </div>
                         <div className="flex items-center gap-3 text-sm text-text-muted mt-1">
                           <span>{contract.customer_name || "Unknown"}</span>
                           <span>{contract.name}</span>
                           {contract.total_value && (
                             <span className="font-medium">{formatCurrency(contract.total_value)}</span>
+                          )}
+                          {"discount_percent" in contract && (contract.discount_percent as number) > 0 && (
+                            <span className="text-green-600 dark:text-green-400 font-medium">{contract.discount_percent as number}% off</span>
                           )}
                         </div>
                       </div>

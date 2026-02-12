@@ -184,6 +184,171 @@ export function ReportsTab() {
         </Card>
       </div>
 
+      {/* Revenue by Tier */}
+      {stats.revenue_by_tier && Object.keys(stats.revenue_by_tier).length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Revenue by Tier</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {Object.entries(stats.revenue_by_tier as Record<string, number>)
+                .sort(([, a], [, b]) => b - a)
+                .map(([tier, revenue]) => {
+                  const totalTierRevenue = Object.values(stats.revenue_by_tier as Record<string, number>).reduce((s, v) => s + v, 0);
+                  const pct = totalTierRevenue > 0 ? Math.round((revenue / totalTierRevenue) * 100) : 0;
+                  const tierLabels: Record<string, string> = {
+                    residential: "Residential",
+                    commercial_small: "Commercial Small",
+                    commercial_medium: "Commercial Medium",
+                    commercial_large: "Commercial Large",
+                    neighborhood: "Neighborhood",
+                  };
+                  return (
+                    <div key={tier}>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium text-text-primary">{tierLabels[tier] || tier}</span>
+                        <span className="text-sm font-bold text-text-primary">{formatCurrency(revenue)}</span>
+                      </div>
+                      <div className="h-2 bg-bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-primary transition-all"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Neighborhood Bundle Performance + Upsell & Referral Stats */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Neighborhood Stats */}
+        {stats.neighborhood_stats && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Neighborhood Bundles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {stats.neighborhood_stats.total_bundles === 0 ? (
+                <div className="text-center py-6 text-text-muted">No neighborhood bundles yet</div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-3 bg-bg-hover rounded-lg text-center">
+                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.total_bundles}</p>
+                      <p className="text-xs text-text-muted">Active Bundles</p>
+                    </div>
+                    <div className="p-3 bg-bg-hover rounded-lg text-center">
+                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.total_contracts}</p>
+                      <p className="text-xs text-text-muted">Bundled Contracts</p>
+                    </div>
+                    <div className="p-3 bg-bg-hover rounded-lg text-center">
+                      <p className="text-2xl font-bold text-success">{formatCurrency(stats.neighborhood_stats.total_revenue)}</p>
+                      <p className="text-xs text-text-muted">Bundle Revenue</p>
+                    </div>
+                    <div className="p-3 bg-bg-hover rounded-lg text-center">
+                      <p className="text-2xl font-bold text-text-primary">{stats.neighborhood_stats.avg_discount}%</p>
+                      <p className="text-xs text-text-muted">Avg Discount</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Upsell & Referral Stats */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Upsells & Referrals</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {stats.upsell_conversions != null && (
+                <div className="p-3 bg-bg-hover rounded-lg flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-text-primary">Upsell Conversions</p>
+                    <p className="text-xs text-text-muted">Contracts upgraded from previous tier</p>
+                  </div>
+                  <span className="text-2xl font-bold text-text-primary">{stats.upsell_conversions}</span>
+                </div>
+              )}
+              {stats.referral_stats && (
+                <>
+                  <div className="p-3 bg-bg-hover rounded-lg flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">Referral Contracts</p>
+                      <p className="text-xs text-text-muted">Signed via referral codes</p>
+                    </div>
+                    <span className="text-2xl font-bold text-text-primary">{stats.referral_stats.total_referrals}</span>
+                  </div>
+                  <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-700 dark:text-green-400">Total Credits Issued</p>
+                      <p className="text-xs text-green-600/70 dark:text-green-400/70">Referral credits applied</p>
+                    </div>
+                    <span className="text-2xl font-bold text-green-700 dark:text-green-300">{formatCurrency(stats.referral_stats.total_credits)}</span>
+                  </div>
+                </>
+              )}
+              {stats.add_on_stats && (
+                <div className="p-3 bg-bg-hover rounded-lg">
+                  <p className="text-sm font-medium text-text-primary mb-2">Popular Add-Ons</p>
+                  {Object.keys(stats.add_on_stats).length === 0 ? (
+                    <p className="text-xs text-text-muted">No add-on data yet</p>
+                  ) : (
+                    <div className="space-y-1">
+                      {Object.entries(stats.add_on_stats as Record<string, number>)
+                        .sort(([, a], [, b]) => b - a)
+                        .map(([name, count]) => (
+                          <div key={name} className="flex items-center justify-between text-sm">
+                            <span className="capitalize text-text-muted">{name}</span>
+                            <span className="font-medium text-text-primary">{count} contracts</span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Churn by Tier */}
+      {stats.churn_by_tier && Object.keys(stats.churn_by_tier).length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Churn Rate by Tier</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {Object.entries(stats.churn_by_tier as Record<string, number>).map(([tier, rate]) => {
+                const tierLabels: Record<string, string> = {
+                  residential: "Residential",
+                  commercial_small: "Comm. Small",
+                  commercial_medium: "Comm. Medium",
+                  commercial_large: "Comm. Large",
+                  neighborhood: "Neighborhood",
+                };
+                return (
+                  <div key={tier} className="p-3 bg-bg-hover rounded-lg text-center">
+                    <p className={`text-2xl font-bold ${rate > 10 ? "text-danger" : rate > 5 ? "text-warning" : "text-success"}`}>
+                      {rate}%
+                    </p>
+                    <p className="text-xs text-text-muted mt-1">{tierLabels[tier] || tier}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Monthly Trend */}
       {stats.monthly_data.length > 0 && (
         <Card>

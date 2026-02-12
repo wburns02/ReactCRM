@@ -25,6 +25,19 @@ export interface Contract {
   company_signed: boolean;
   document_url: string | null;
   created_at: string | null;
+  // Commercial & Tier
+  tier: string | null;
+  system_size: string | null;
+  daily_flow_gallons: number | null;
+  // Neighborhood bundle
+  bundle_id: string | null;
+  neighborhood_group_name: string | null;
+  discount_percent: number | null;
+  // Add-ons & Upsells
+  add_ons: { name: string; price: number }[] | null;
+  referral_code: string | null;
+  referral_credit: number | null;
+  annual_increase_percent: number | null;
 }
 
 export interface ContractTemplate {
@@ -66,6 +79,8 @@ export interface ContractFilters {
   customer_id?: string;
   status?: string;
   contract_type?: string;
+  tier?: string;
+  bundle_id?: string;
   expiring_within_days?: number;
 }
 
@@ -129,6 +144,30 @@ export interface GenerateContractRequest {
   }[];
   covered_properties?: string[];
   special_terms?: string;
+  // Commercial & extras
+  tier?: string;
+  system_size?: string;
+  daily_flow_gallons?: number;
+  add_ons?: { name: string; price: number }[];
+  bundle_id?: string;
+  neighborhood_group_name?: string;
+  discount_percent?: number;
+  referral_code?: string;
+  referral_credit?: number;
+}
+
+export interface NeighborhoodBundle {
+  id: string;
+  name: string;
+  discount_percent: number;
+  min_contracts: number;
+  status: string;
+  notes: string | null;
+  created_by: string | null;
+  created_at: string | null;
+  contract_count: number;
+  total_value: number;
+  contracts?: Contract[];
 }
 
 export interface ContractsDashboard {
@@ -169,6 +208,26 @@ export interface ContractReportsStats {
   expiring_60: number;
   expiring_90: number;
   overdue_count: number;
+  // Enhanced analytics
+  revenue_by_tier?: {
+    tier: string;
+    count: number;
+    total_value: number;
+    avg_value: number;
+  }[];
+  churn_by_tier?: Record<string, number>;
+  upsell_conversions?: number;
+  referral_stats?: {
+    total_referrals: number;
+    referral_revenue: number;
+  };
+  neighborhood_stats?: {
+    total_bundle_contracts: number;
+    bundle_revenue: number;
+  };
+  add_on_stats?: {
+    contracts_with_add_ons: number;
+  };
 }
 
 export interface RenewalsDashboard {
@@ -242,6 +301,8 @@ async function fetchContracts(
   if (filters?.status) params.append("status", filters.status);
   if (filters?.contract_type)
     params.append("contract_type", filters.contract_type);
+  if (filters?.tier) params.append("tier", filters.tier);
+  if (filters?.bundle_id) params.append("bundle_id", filters.bundle_id);
   if (filters?.expiring_within_days)
     params.append("expiring_within_days", String(filters.expiring_within_days));
 
@@ -609,6 +670,60 @@ export function useSeedTemplates() {
     onError: (error: any) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to seed templates";
       toastError("Seed Failed", message);
+    },
+  });
+}
+
+// ========================
+// Neighborhood Bundle API
+// ========================
+
+async function fetchNeighborhoodBundles(): Promise<{ items: NeighborhoodBundle[]; total: number }> {
+  const { data } = await apiClient.get("/contracts/neighborhood-bundles/list");
+  return data;
+}
+
+async function fetchNeighborhoodBundle(id: string): Promise<NeighborhoodBundle> {
+  const { data } = await apiClient.get<NeighborhoodBundle>(`/contracts/neighborhood-bundles/${id}`);
+  return data;
+}
+
+async function createNeighborhoodBundle(bundleData: {
+  name: string;
+  discount_percent?: number;
+  min_contracts?: number;
+  notes?: string;
+}): Promise<NeighborhoodBundle> {
+  const { data } = await apiClient.post<NeighborhoodBundle>("/contracts/neighborhood-bundles", bundleData);
+  return data;
+}
+
+export function useNeighborhoodBundles() {
+  return useQuery({
+    queryKey: ["neighborhood-bundles"],
+    queryFn: fetchNeighborhoodBundles,
+  });
+}
+
+export function useNeighborhoodBundle(id: string) {
+  return useQuery({
+    queryKey: ["neighborhood-bundles", id],
+    queryFn: () => fetchNeighborhoodBundle(id),
+    enabled: !!id,
+  });
+}
+
+export function useCreateNeighborhoodBundle() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createNeighborhoodBundle,
+    onSuccess: (bundle) => {
+      queryClient.invalidateQueries({ queryKey: ["neighborhood-bundles"] });
+      toastSuccess("Bundle Created", `${bundle.name} created with ${bundle.discount_percent}% discount`);
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.detail || error?.message || "Failed to create bundle";
+      toastError("Bundle Creation Failed", message);
     },
   });
 }

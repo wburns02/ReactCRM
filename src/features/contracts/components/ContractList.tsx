@@ -24,11 +24,13 @@ export function ContractList({
   });
   const [statusFilter, setStatusFilter] = useState<string>("");
   const [typeFilter, setTypeFilter] = useState<string>("");
+  const [tierFilter, setTierFilter] = useState<string>("");
 
   const { data, isLoading, error } = useContracts({
     ...filters,
     status: statusFilter || undefined,
     contract_type: typeFilter || undefined,
+    tier: tierFilter || undefined,
   });
 
   const contracts = data?.items || [];
@@ -66,6 +68,24 @@ export function ContractList({
       return <Badge variant="info">{days} days left</Badge>;
     }
     return null;
+  };
+
+  const getTierBadge = (tier?: string | null) => {
+    if (!tier) return null;
+    const labels: Record<string, { label: string; color: string }> = {
+      residential: { label: "Residential", color: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" },
+      commercial_small: { label: "Commercial S", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" },
+      commercial_medium: { label: "Commercial M", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400" },
+      commercial_large: { label: "Commercial L", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400" },
+      neighborhood: { label: "Neighborhood", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" },
+    };
+    const info = labels[tier];
+    if (!info) return null;
+    return (
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${info.color}`}>
+        {info.label}
+      </span>
+    );
   };
 
   if (error) {
@@ -112,6 +132,22 @@ export function ContractList({
           <option value="annual">Annual</option>
           <option value="multi-year">Multi-Year</option>
         </select>
+        <select
+          value={tierFilter}
+          onChange={(e) => {
+            setTierFilter(e.target.value);
+            setFilters((prev) => ({ ...prev, page: 1 }));
+          }}
+          className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
+          aria-label="Filter by tier"
+        >
+          <option value="">All Tiers</option>
+          <option value="residential">Residential</option>
+          <option value="commercial_small">Commercial Small</option>
+          <option value="commercial_medium">Commercial Medium</option>
+          <option value="commercial_large">Commercial Large</option>
+          <option value="neighborhood">Neighborhood</option>
+        </select>
       </div>
 
       {/* Loading state */}
@@ -131,7 +167,7 @@ export function ContractList({
             No contracts found
           </h3>
           <p className="text-text-muted">
-            {statusFilter || typeFilter
+            {statusFilter || typeFilter || tierFilter
               ? "Try adjusting your filters"
               : "Contracts will appear here"}
           </p>
@@ -155,19 +191,26 @@ export function ContractList({
                 <div className="flex items-center gap-4">
                   <div className="p-2 rounded-full bg-blue-100 text-lg">📄</div>
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-medium text-text-primary">
                         {contract.contract_number}
                       </span>
                       <Badge variant={getStatusVariant(contract.status)}>
                         {contract.status}
                       </Badge>
+                      {getTierBadge(contract.tier)}
                       {getDaysUntilExpiryBadge(contract.days_until_expiry)}
+                      {contract.discount_percent && contract.discount_percent > 0 && (
+                        <Badge variant="success">{contract.discount_percent}% off</Badge>
+                      )}
                     </div>
                     <div className="flex items-center gap-4 text-sm text-text-muted mt-1">
                       <span>{contract.name}</span>
                       {contract.customer_name && (
                         <span>• {contract.customer_name}</span>
+                      )}
+                      {contract.neighborhood_group_name && (
+                        <span>• {contract.neighborhood_group_name}</span>
                       )}
                     </div>
                   </div>

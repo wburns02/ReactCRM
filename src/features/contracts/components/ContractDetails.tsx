@@ -166,6 +166,73 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
           </div>
         </div>
 
+        {/* Tier & Commercial Details */}
+        {contract.tier && (
+          <div className="p-4 bg-bg-hover rounded-lg space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-sm font-semibold text-text-primary uppercase tracking-wide">
+                {contract.tier === "residential" ? "Residential" :
+                 contract.tier === "neighborhood" ? "Neighborhood Plan" :
+                 `Commercial (${contract.tier.replace("commercial_", "").charAt(0).toUpperCase() + contract.tier.replace("commercial_", "").slice(1)})`}
+              </span>
+              {contract.discount_percent && contract.discount_percent > 0 && (
+                <Badge variant="success">{contract.discount_percent}% discount</Badge>
+              )}
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+              {contract.system_size && (
+                <div>
+                  <p className="text-text-muted">System Size</p>
+                  <p className="font-medium text-text-primary">{contract.system_size}</p>
+                </div>
+              )}
+              {contract.daily_flow_gallons && (
+                <div>
+                  <p className="text-text-muted">Daily Flow</p>
+                  <p className="font-medium text-text-primary">{contract.daily_flow_gallons.toLocaleString()} gal/day</p>
+                </div>
+              )}
+              {contract.annual_increase_percent != null && (
+                <div>
+                  <p className="text-text-muted">Annual Increase</p>
+                  <p className="font-medium text-text-primary">{contract.annual_increase_percent}%</p>
+                </div>
+              )}
+            </div>
+            {contract.neighborhood_group_name && (
+              <div className="text-sm">
+                <p className="text-text-muted">Neighborhood Group</p>
+                <p className="font-medium text-text-primary">{contract.neighborhood_group_name}</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Add-Ons */}
+        {contract.add_ons && contract.add_ons.length > 0 && (
+          <div>
+            <p className="text-sm font-medium text-text-muted mb-2">Add-Ons</p>
+            <div className="flex flex-wrap gap-2">
+              {contract.add_ons.map((addon: { name: string; price: number }, i: number) => (
+                <span key={i} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 text-sm">
+                  {addon.name} <span className="font-semibold">${addon.price}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Referral Info */}
+        {contract.referral_code && (
+          <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-sm">
+            <span className="font-medium text-green-700 dark:text-green-400">Referral:</span>
+            <span className="text-text-primary">{contract.referral_code}</span>
+            {contract.referral_credit && (
+              <Badge variant="success">${contract.referral_credit} credit</Badge>
+            )}
+          </div>
+        )}
+
         {/* Contract period */}
         <div className="p-4 bg-bg-hover rounded-lg">
           <div className="flex justify-between items-center">
