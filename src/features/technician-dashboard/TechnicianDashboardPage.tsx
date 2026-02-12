@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/Badge.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { formatCurrency } from "@/lib/utils.ts";
+import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
 
 // ─── Helpers ──────────────────────────────────────────────
 
@@ -134,17 +135,20 @@ function JobCard({
   job,
   onStartJob,
   onCompleteJob,
+  onCollectPayment,
   isActionLoading,
 }: {
   job: TechDashboardJob;
   onStartJob: (id: string) => void;
   onCompleteJob: (id: string) => void;
+  onCollectPayment: (job: TechDashboardJob) => void;
   isActionLoading: boolean;
 }) {
   const isCompleted = job.status === "completed";
   const isCancelled = job.status === "cancelled";
   const canStart = job.status === "scheduled" || job.status === "en_route";
   const canComplete = job.status === "in_progress";
+  const canCollectPayment = job.status === "in_progress" || job.status === "completed";
   const borderColor = STATUS_BORDER_COLOR[job.status_color] || "border-l-gray-400";
   const badgeVariant = STATUS_BADGE_VARIANT[job.status_color] || "default";
 
@@ -198,6 +202,14 @@ function JobCard({
           </p>
         )}
 
+        {/* Amount display */}
+        {job.total_amount != null && job.total_amount > 0 && (
+          <p className="flex items-center gap-2 text-green-600 text-sm font-semibold mb-1">
+            <span className="text-lg">💰</span>
+            {formatCurrency(job.total_amount)}
+          </p>
+        )}
+
         {/* Notes */}
         {job.notes && (
           <p className="flex items-center gap-2 text-text-secondary text-sm mb-3 line-clamp-2">
@@ -217,18 +229,42 @@ function JobCard({
           </Button>
         )}
         {canComplete && (
-          <Button
-            onClick={() => onCompleteJob(job.id)}
-            disabled={isActionLoading}
-            className="w-full h-14 text-lg font-bold rounded-xl mt-2 bg-green-600 hover:bg-green-700 text-white"
-          >
-            {isActionLoading ? "..." : "COMPLETE JOB"}
-          </Button>
+          <div className="flex gap-2 mt-2">
+            <Button
+              onClick={() => onCompleteJob(job.id)}
+              disabled={isActionLoading}
+              className="flex-1 h-14 text-lg font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white"
+            >
+              {isActionLoading ? "..." : "COMPLETE"}
+            </Button>
+            <Button
+              onClick={() => onCollectPayment(job)}
+              className="flex-1 h-14 text-lg font-bold rounded-xl bg-amber-500 hover:bg-amber-600 text-white"
+            >
+              💰 PAY
+            </Button>
+          </div>
         )}
         {isCompleted && (
-          <p className="text-center text-green-600 font-medium mt-2 text-lg">
-            ✅ All Done
-          </p>
+          <div className="mt-2 space-y-2">
+            <p className="text-center text-green-600 font-medium text-lg">
+              ✅ All Done
+            </p>
+            <Button
+              onClick={() => onCollectPayment(job)}
+              className="w-full h-12 text-base font-bold rounded-xl bg-amber-500 hover:bg-amber-600 text-white"
+            >
+              💰 Collect Payment
+            </Button>
+          </div>
+        )}
+        {canCollectPayment === false && !canStart && !isCompleted && !isCancelled && (
+          <Button
+            onClick={() => onCollectPayment(job)}
+            className="w-full h-12 text-base font-bold rounded-xl mt-2 bg-amber-500 hover:bg-amber-600 text-white"
+          >
+            💰 Collect Payment
+          </Button>
         )}
       </CardContent>
     </Card>
@@ -428,6 +464,7 @@ export function TechnicianDashboardPage() {
   const startJob = useStartJob();
   const completeJob = useCompleteJob();
   const [actionJobId, setActionJobId] = useState<string | null>(null);
+  const [paymentJob, setPaymentJob] = useState<TechDashboardJob | null>(null);
 
   const invalidateAndRefetch = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: ["technician-dashboard"] });
@@ -563,6 +600,7 @@ export function TechnicianDashboardPage() {
                 job={job}
                 onStartJob={handleStartJob}
                 onCompleteJob={handleCompleteJob}
+                onCollectPayment={setPaymentJob}
                 isActionLoading={actionJobId === job.id}
               />
             ))}
@@ -592,6 +630,20 @@ export function TechnicianDashboardPage() {
         jobsThisWeek={perf?.jobs_this_week || 0}
         jobsLastWeek={perf?.jobs_last_week || 0}
         avgDurationMinutes={perf?.avg_job_duration_minutes || 0}
+      />
+
+      {/* Collect Payment Modal */}
+      <CollectPaymentModal
+        open={paymentJob !== null}
+        onClose={() => setPaymentJob(null)}
+        workOrderId={paymentJob?.id}
+        customerName={paymentJob?.customer_name}
+        suggestedAmount={paymentJob?.total_amount}
+        isTechnician={true}
+        onSuccess={() => {
+          invalidateAndRefetch();
+          setPaymentJob(null);
+        }}
       />
     </div>
   );

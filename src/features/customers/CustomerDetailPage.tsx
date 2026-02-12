@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/Badge.tsx";
 import { ApiError } from "@/components/ui/ApiError.tsx";
 import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
 import { formatCurrency, formatDate, formatPhone } from "@/lib/utils.ts";
+import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
 import {
   PROSPECT_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
@@ -59,6 +60,7 @@ export function CustomerDetailPage() {
   // Modal state
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   // Mutations
   const updateMutation = useUpdateCustomer();
@@ -397,6 +399,12 @@ export function CustomerDetailPage() {
               <Link to="/contracts">
                 <Button variant="secondary">🤝 View Contracts</Button>
               </Link>
+              <Button
+                onClick={() => setIsPaymentOpen(true)}
+                className="bg-green-600 hover:bg-green-700 text-white"
+              >
+                Collect Payment
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -559,6 +567,15 @@ export function CustomerDetailPage() {
         confirmLabel="Delete"
         variant="danger"
         isLoading={deleteMutation.isPending}
+      />
+
+      {/* Collect Payment Modal */}
+      <CollectPaymentModal
+        open={isPaymentOpen}
+        onClose={() => setIsPaymentOpen(false)}
+        customerId={id}
+        customerName={`${customer.first_name} ${customer.last_name}`}
+        onSuccess={() => setIsPaymentOpen(false)}
       />
     </div>
   );

@@ -28,6 +28,7 @@ import { InvoiceStatusBadge } from "./components/InvoiceStatusBadge.tsx";
 import { LineItemsTable } from "./components/LineItemsTable.tsx";
 import { CustomerFinancingCard } from "@/features/financing";
 import { CloverCheckout } from "@/features/payments/components/CloverCheckout.tsx";
+import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
 import { formatDate, formatCurrency, isValidId } from "@/lib/utils.ts";
 import type { Invoice, InvoiceFormData } from "@/api/types/invoice.ts";
 import { useAIAnalyze } from "@/hooks/useAI";
@@ -634,17 +635,19 @@ export function InvoiceDetailPage() {
       </Dialog>
 
       {/* Payment Modal */}
-      <Dialog open={isPaymentOpen} onClose={() => setIsPaymentOpen(false)}>
-        <DialogContent size="md">
-          <CloverCheckout
-            invoiceId={invoice.id}
-            amount={invoice.total}
-            customerEmail={invoice.customer?.email ?? undefined}
-            onSuccess={handlePaymentSuccess}
-            onCancel={() => setIsPaymentOpen(false)}
-          />
-        </DialogContent>
-      </Dialog>
+      <CollectPaymentModal
+        open={isPaymentOpen}
+        onClose={() => setIsPaymentOpen(false)}
+        invoiceId={invoice.id}
+        customerId={invoice.customer_id ?? undefined}
+        customerName={
+          invoice.customer
+            ? `${invoice.customer.first_name} ${invoice.customer.last_name}`
+            : undefined
+        }
+        suggestedAmount={invoice.total != null ? Number(invoice.total) : undefined}
+        onSuccess={handlePaymentSuccess}
+      />
     </div>
   );
 }

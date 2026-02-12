@@ -28,10 +28,11 @@ import {
 } from "@/api/hooks/useWorkOrders.ts";
 import { useWorkOrderPhotoOperations } from "@/api/hooks/useWorkOrderPhotos.ts";
 import { WorkOrderForm } from "./components/WorkOrderForm.tsx";
+import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
 import { StatusWorkflow } from "./components/StatusWorkflow.tsx";
 import { WorkOrderTimeline } from "./components/WorkOrderTimeline.tsx";
 import { DialButton } from "@/features/phone/components/DialButton.tsx";
-import { formatDate } from "@/lib/utils.ts";
+import { formatDate, formatCurrency } from "@/lib/utils.ts";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
@@ -128,6 +129,7 @@ export function WorkOrderDetailPage() {
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   // Tab state
   const [activeTab, setActiveTab] = useState("overview");
@@ -1275,6 +1277,33 @@ export function WorkOrderDetailPage() {
         {/* Payment Tab Content */}
         <TabContent value="payment">
           <div className="space-y-6">
+            {/* Quick Collect Payment */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Collect Payment</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-text-secondary">
+                      Record a cash, check, or card payment for this work order.
+                    </p>
+                    {workOrder.total_amount != null && Number(workOrder.total_amount) > 0 && (
+                      <p className="text-sm font-semibold text-green-600 mt-1">
+                        Job total: {formatCurrency(Number(workOrder.total_amount))}
+                      </p>
+                    )}
+                  </div>
+                  <Button
+                    onClick={() => setIsPaymentOpen(true)}
+                    className="h-12 px-6 text-base font-bold bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Collect Payment
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Invoice Generator */}
             <InvoiceGenerator
               customer={
@@ -1380,6 +1409,17 @@ export function WorkOrderDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Collect Payment Modal */}
+      <CollectPaymentModal
+        open={isPaymentOpen}
+        onClose={() => setIsPaymentOpen(false)}
+        workOrderId={workOrder.id}
+        customerId={workOrder.customer_id}
+        customerName={customerName}
+        suggestedAmount={workOrder.total_amount != null ? Number(workOrder.total_amount) : undefined}
+        onSuccess={() => setIsPaymentOpen(false)}
+      />
     </div>
   );
 }

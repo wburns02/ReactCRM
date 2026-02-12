@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { formatCurrency, formatDate } from "@/lib/utils.ts";
+import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -107,9 +108,11 @@ function JobsPageSkeleton() {
 function JobCard({
   job,
   onClick,
+  onCollectPayment,
 }: {
   job: {
     id: string;
+    customer_id?: string | null;
     customer_name?: string | null;
     service_address_line1?: string | null;
     service_city?: string | null;
@@ -122,6 +125,7 @@ function JobCard({
     priority?: string | null;
   };
   onClick: () => void;
+  onCollectPayment: () => void;
 }) {
   const status = job.status || "pending";
   const colorKey = STATUS_COLORS[status] || "gray";
@@ -212,6 +216,17 @@ function JobCard({
           </p>
         )}
 
+        {/* Collect Payment button for active/completed jobs */}
+        {(status === "in_progress" || status === "completed") && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onCollectPayment(); }}
+            className="w-full h-11 mt-3 flex items-center justify-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-bold text-sm transition-colors"
+          >
+            <span>💰</span> Collect Payment
+            {amount > 0 && <span className="opacity-80">({formatCurrency(amount)})</span>}
+          </button>
+        )}
+
         {/* Tap indicator */}
         <div className="flex justify-end mt-2">
           <span className="text-xs text-text-muted">Tap for details →</span>
@@ -252,6 +267,11 @@ export function TechJobsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [page, setPage] = useState(1);
+  const [paymentJob, setPaymentJob] = useState<{
+    id: string;
+    customer_name?: string | null;
+    total_amount?: number | string | null;
+  } | null>(null);
 
   // Build API filters
   const apiFilters = useMemo(() => {
@@ -389,6 +409,7 @@ export function TechJobsPage() {
               key={job.id}
               job={job}
               onClick={() => navigate(`/portal/jobs/${job.id}`)}
+              onCollectPayment={() => setPaymentJob(job)}
             />
           ))}
         </div>
@@ -420,6 +441,20 @@ export function TechJobsPage() {
           </Button>
         </div>
       )}
+
+      {/* Collect Payment Modal */}
+      <CollectPaymentModal
+        open={paymentJob !== null}
+        onClose={() => setPaymentJob(null)}
+        workOrderId={paymentJob?.id}
+        customerName={paymentJob?.customer_name ?? undefined}
+        suggestedAmount={paymentJob?.total_amount != null ? parseAmount(paymentJob.total_amount) : undefined}
+        isTechnician={true}
+        onSuccess={() => {
+          refetch();
+          setPaymentJob(null);
+        }}
+      />
     </div>
   );
 }

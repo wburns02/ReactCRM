@@ -6,6 +6,7 @@ import { z } from "zod";
 
 export const techDashboardJobSchema = z.object({
   id: z.string(),
+  customer_id: z.string().nullable().optional(),
   customer_name: z.string(),
   job_type: z.string(),
   job_type_label: z.string(),
@@ -20,6 +21,7 @@ export const techDashboardJobSchema = z.object({
   longitude: z.number().nullable().optional(),
   notes: z.string().nullable().optional(),
   estimated_duration_hours: z.number().nullable().optional(),
+  total_amount: z.number().nullable().optional(),
 });
 
 export const techDashboardResponseSchema = z.object({
