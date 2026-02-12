@@ -44,14 +44,16 @@ export function DashboardPage() {
   const totalProspects = prospectsData?.total || 0;
   const totalCustomers = customersData?.total || 0;
 
-  const pipelineValue = prospects.reduce(
-    (sum, p) => sum + (p.estimated_value || 0),
-    0,
-  );
-
   const activeProspects = prospects.filter(
     (p) => !["won", "lost"].includes(p.prospect_stage),
   ).length;
+
+  const estimatedSum = prospects.reduce(
+    (sum, p) => sum + (p.estimated_value || 0),
+    0,
+  );
+  // Use actual estimated values if available, otherwise $500 avg per active prospect
+  const pipelineValue = estimatedSum > 0 ? estimatedSum : activeProspects * 500;
 
   // Work order stats
   const totalWorkOrders = workOrdersData?.total || 0;
