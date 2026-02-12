@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useContract, useActivateContract } from "../api/contracts.ts";
+import { ContractDocumentPreview } from "./ContractDocumentPreview.tsx";
 import {
   Card,
   CardHeader,
@@ -15,6 +17,7 @@ interface ContractDetailsProps {
 }
 
 export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
+  const [showDocument, setShowDocument] = useState(false);
   const { data: contract, isLoading, error } = useContract(contractId);
   const activateContract = useActivateContract();
 
@@ -231,6 +234,26 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
                 View Contract Document
               </a>
             </div>
+          </div>
+        )}
+
+        {/* View Full Contract Document */}
+        <div className="pt-4 border-t border-border">
+          <Button
+            variant="secondary"
+            onClick={() => setShowDocument(!showDocument)}
+            className="w-full"
+          >
+            {showDocument ? "Hide Contract Document" : "View Full Contract Document"}
+          </Button>
+        </div>
+
+        {showDocument && (
+          <div className="mt-4">
+            <ContractDocumentPreview
+              contractId={contractId}
+              onClose={() => setShowDocument(false)}
+            />
           </div>
         )}
 

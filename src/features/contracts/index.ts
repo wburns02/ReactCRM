@@ -1,6 +1,7 @@
 export * from "./api/contracts.ts";
 export { ContractList } from "./components/ContractList.tsx";
 export { ContractDetails } from "./components/ContractDetails.tsx";
+export { ContractDocumentPreview } from "./components/ContractDocumentPreview.tsx";
 export { ContractTemplates } from "./components/ContractTemplates.tsx";
 export { ExpiringContractsAlert } from "./components/ExpiringContractsAlert.tsx";
 export { NewContractForm } from "./components/NewContractForm.tsx";

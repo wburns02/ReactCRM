@@ -36,11 +36,28 @@ export interface ContractTemplate {
   default_duration_months: number;
   default_billing_frequency: string;
   default_auto_renew?: boolean;
+  default_payment_terms?: string | null;
   default_services?: { service_code: string; description: string; frequency: string; quantity: number }[];
+  variables?: string[];
   base_price: number | null;
   is_active: boolean;
   version: number;
+  has_content?: boolean;
+  terms_and_conditions?: string | null;
   created_at: string | null;
+}
+
+export interface ContractDocument {
+  template_id?: string;
+  contract_id?: string;
+  template_name?: string;
+  template_code?: string;
+  contract_number?: string;
+  customer_name?: string;
+  document: string | null;
+  terms_and_conditions: string | null;
+  variables?: string[];
+  message?: string;
 }
 
 export interface ContractFilters {
@@ -354,13 +371,41 @@ async function fetchRenewalsDashboard(): Promise<RenewalsDashboard> {
   return data;
 }
 
-async function seedTemplates(): Promise<{
+async function fetchTemplateDocument(
+  templateId: string,
+  variables?: Record<string, string>,
+): Promise<ContractDocument> {
+  const params = new URLSearchParams();
+  if (variables) {
+    for (const [key, value] of Object.entries(variables)) {
+      if (value) params.append(key, value);
+    }
+  }
+  const query = params.toString();
+  const { data } = await apiClient.get<ContractDocument>(
+    `/contracts/templates/${templateId}/document${query ? `?${query}` : ""}`,
+  );
+  return data;
+}
+
+async function fetchContractDocument(contractId: string): Promise<ContractDocument> {
+  const { data } = await apiClient.get<ContractDocument>(
+    `/contracts/${contractId}/document`,
+  );
+  return data;
+}
+
+async function seedTemplates(forceUpdate: boolean = false): Promise<{
   created: string[];
+  updated: string[];
   skipped: string[];
   total_created: number;
+  total_updated: number;
   total_skipped: number;
 }> {
-  const { data } = await apiClient.post("/contracts/seed-templates");
+  const { data } = await apiClient.post(
+    `/contracts/seed-templates?force_update=${forceUpdate}`,
+  );
   return data;
 }
 
@@ -534,13 +579,32 @@ export function useRenewalsDashboard() {
   });
 }
 
+export function useTemplateDocument(templateId: string, variables?: Record<string, string>) {
+  return useQuery({
+    queryKey: ["template-document", templateId, variables],
+    queryFn: () => fetchTemplateDocument(templateId, variables),
+    enabled: !!templateId,
+  });
+}
+
+export function useContractDocument(contractId: string) {
+  return useQuery({
+    queryKey: ["contract-document", contractId],
+    queryFn: () => fetchContractDocument(contractId),
+    enabled: !!contractId,
+  });
+}
+
 export function useSeedTemplates() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: seedTemplates,
+    mutationFn: (forceUpdate: boolean = false) => seedTemplates(forceUpdate),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ["contract-templates"] });
-      toastSuccess("Templates Seeded", `${result.total_created} templates created, ${result.total_skipped} skipped`);
+      const msg = result.total_updated > 0
+        ? `${result.total_created} created, ${result.total_updated} updated, ${result.total_skipped} skipped`
+        : `${result.total_created} templates created, ${result.total_skipped} skipped`;
+      toastSuccess("Templates Seeded", msg);
     },
     onError: (error: any) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to seed templates";
