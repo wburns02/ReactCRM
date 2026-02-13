@@ -79,6 +79,15 @@ export function AdminRoutes() {
           </Suspense>
         }
       />
+      {/* Settings alias (dashboard quick link points here) */}
+      <Route
+        path="settings"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <AdminSettingsPage />
+          </Suspense>
+        }
+      />
 
       {/* Data Import */}
       <Route
