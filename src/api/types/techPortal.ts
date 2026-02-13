@@ -22,7 +22,7 @@ export const techWorkOrderSchema = z.object({
   time_window_start: z.string().nullable().optional(),
   time_window_end: z.string().nullable().optional(),
   estimated_duration_hours: z.number().nullable().optional(),
-  total_amount: z.union([z.number(), z.string()]).nullable().optional(),
+  total_amount: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
   service_address_line1: z.string().nullable().optional(),
   service_city: z.string().nullable().optional(),
   service_state: z.string().nullable().optional(),
@@ -72,9 +72,9 @@ export const commissionSchema = z.object({
   work_order_id: z.string().nullable().optional(),
   job_type: z.string().nullable().optional(),
   commission_type: z.string().nullable().optional(),
-  base_amount: z.union([z.number(), z.string()]).nullable().optional(),
-  rate: z.union([z.number(), z.string()]).nullable().optional(),
-  commission_amount: z.union([z.number(), z.string()]).nullable().optional(),
+  base_amount: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
+  rate: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
+  commission_amount: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
   status: z.string().nullable().optional(),
   earned_date: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
@@ -96,8 +96,8 @@ export const payrollPeriodSchema = z.object({
   status: z.string().nullable().optional(),
   total_regular_hours: z.number().nullable().optional(),
   total_overtime_hours: z.number().nullable().optional(),
-  total_gross_pay: z.union([z.number(), z.string()]).nullable().optional(),
-  total_commissions: z.union([z.number(), z.string()]).nullable().optional(),
+  total_gross_pay: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
+  total_commissions: z.union([z.number(), z.string().transform(Number)]).nullable().optional(),
 });
 
 export type PayrollPeriod = z.infer<typeof payrollPeriodSchema>;

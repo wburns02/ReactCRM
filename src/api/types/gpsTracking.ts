@@ -4,7 +4,7 @@
  */
 
 export interface TechnicianLocation {
-  technician_id: number;
+  technician_id: string;
   technician_name: string;
   latitude: number;
   longitude: number;
@@ -14,7 +14,7 @@ export interface TechnicianLocation {
   is_online: boolean;
   battery_level?: number;
   current_status: string;
-  current_work_order_id?: number;
+  current_work_order_id?: string;
   captured_at: string;
   received_at: string;
   minutes_since_update: number;
@@ -37,7 +37,7 @@ export interface LocationUpdate {
   battery_level?: number;
   captured_at: string;
   current_status?: string;
-  work_order_id?: number;
+  work_order_id?: string;
 }
 
 export interface LocationHistoryPoint {
@@ -52,7 +52,7 @@ export interface LocationHistoryPoint {
 }
 
 export interface LocationHistoryResponse {
-  technician_id: number;
+  technician_id: string;
   technician_name: string;
   date: string;
   points: LocationHistoryPoint[];
@@ -62,8 +62,8 @@ export interface LocationHistoryResponse {
 }
 
 export interface ETAResponse {
-  work_order_id: number;
-  technician_id: number;
+  work_order_id: string;
+  technician_id: string;
   technician_name: string;
   technician_latitude: number;
   technician_longitude: number;
@@ -96,7 +96,7 @@ export type GeofenceAction =
   | "log_only";
 
 export interface Geofence {
-  id: number;
+  id: string;
   name: string;
   description?: string;
   geofence_type: GeofenceType;
@@ -105,8 +105,8 @@ export interface Geofence {
   center_longitude?: number;
   radius_meters?: number;
   polygon_coordinates?: number[][];
-  customer_id?: number;
-  work_order_id?: number;
+  customer_id?: string;
+  work_order_id?: string;
   entry_action: GeofenceAction;
   exit_action: GeofenceAction;
   notify_on_entry: boolean;
@@ -123,8 +123,8 @@ export interface GeofenceCreate {
   center_longitude?: number;
   radius_meters?: number;
   polygon_coordinates?: number[][];
-  customer_id?: number;
-  work_order_id?: number;
+  customer_id?: string;
+  work_order_id?: string;
   entry_action?: GeofenceAction;
   exit_action?: GeofenceAction;
   notify_on_entry?: boolean;
@@ -136,10 +136,10 @@ export interface GeofenceCreate {
 }
 
 export interface GeofenceEvent {
-  id: number;
-  geofence_id: number;
+  id: string;
+  geofence_id: string;
   geofence_name: string;
-  technician_id: number;
+  technician_id: string;
   technician_name: string;
   event_type: "entry" | "exit";
   latitude: number;
@@ -150,12 +150,12 @@ export interface GeofenceEvent {
 }
 
 export interface TrackingLink {
-  id: number;
+  id: string;
   token: string;
   tracking_url: string;
-  work_order_id: number;
+  work_order_id: string;
   customer_id: string;
-  technician_id: number;
+  technician_id: string;
   status: "active" | "expired" | "viewed" | "completed";
   expires_at: string;
   view_count: number;
@@ -163,7 +163,7 @@ export interface TrackingLink {
 }
 
 export interface TrackingLinkCreate {
-  work_order_id: number;
+  work_order_id: string;
   show_technician_name?: boolean;
   show_technician_photo?: boolean;
   show_live_map?: boolean;
@@ -172,7 +172,7 @@ export interface TrackingLinkCreate {
 }
 
 export interface PublicTrackingInfo {
-  work_order_id: number;
+  work_order_id: string;
   service_type: string;
   scheduled_date: string;
   technician_name?: string;
@@ -196,12 +196,12 @@ export interface PublicTrackingInfo {
 }
 
 export interface DispatchMapTechnician {
-  id: number;
+  id: string;
   name: string;
   latitude: number;
   longitude: number;
   status: string;
-  current_work_order_id?: number;
+  current_work_order_id?: string;
   current_job_address?: string;
   battery_level?: number;
   speed?: number;
@@ -210,14 +210,14 @@ export interface DispatchMapTechnician {
 }
 
 export interface DispatchMapWorkOrder {
-  id: number;
+  id: string;
   customer_name: string;
   address: string;
   latitude: number;
   longitude: number;
   status: string;
   scheduled_time?: string;
-  assigned_technician_id?: number;
+  assigned_technician_id?: string;
   assigned_technician_name?: string;
   service_type: string;
   priority: string;
@@ -246,8 +246,8 @@ export interface DispatchMapData {
 }
 
 export interface GPSConfig {
-  id: number;
-  technician_id?: number;
+  id: string;
+  technician_id?: string;
   active_interval: number;
   idle_interval: number;
   background_interval: number;

@@ -14,7 +14,7 @@ import {
  * Fields are aligned with customer.ts patterns for consistency.
  */
 export const prospectSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   first_name: z.string().nullable(),
   last_name: z.string().nullable(),
   email: z.string().email().or(z.string()).nullable(),
