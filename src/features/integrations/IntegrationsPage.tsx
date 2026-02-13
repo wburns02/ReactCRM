@@ -6,10 +6,12 @@ import { SamsaraSettings } from "./components/SamsaraSettings.tsx";
 import { YelpSettings } from "./components/YelpSettings.tsx";
 import { FacebookSettings } from "./components/FacebookSettings.tsx";
 import { CloverSettings } from "./components/CloverSettings.tsx";
+import { QuickBooksSettings } from "./components/QuickBooksSettings.tsx";
 import { useRCStatus } from "@/features/phone/api.ts";
 import { useFleetLocations } from "@/features/fleet/api.ts";
 import { useSocialIntegrationsStatus } from "@/api/hooks/useSocialIntegrations.ts";
 import { useCloverConfig } from "@/api/hooks/useClover.ts";
+import { useQBOStatus } from "@/api/hooks/useQuickBooks.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -25,6 +27,7 @@ export function IntegrationsPage() {
   const { data: vehicles } = useFleetLocations();
   const { data: socialStatus } = useSocialIntegrationsStatus();
   const { data: cloverConfig } = useCloverConfig();
+  const { data: qboStatus } = useQBOStatus();
 
   // Handle OAuth callback success messages
   useEffect(() => {
@@ -71,8 +74,8 @@ export function IntegrationsPage() {
       name: "QuickBooks",
       description: "Accounting and invoicing integration",
       icon: "💰",
-      connected: false,
-      lastSync: undefined,
+      connected: qboStatus?.connected || false,
+      lastSync: qboStatus?.last_sync || undefined,
     },
     {
       id: "hubspot",
@@ -124,7 +127,7 @@ export function IntegrationsPage() {
               connected={integration.connected}
               lastSync={integration.lastSync}
               onConfigure={
-                ["ringcentral", "samsara", "yelp", "facebook", "clover"].includes(integration.id)
+                ["ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)
                   : undefined
               }
@@ -162,6 +165,7 @@ export function IntegrationsPage() {
           {selectedIntegration === "yelp" && <YelpSettings />}
           {selectedIntegration === "facebook" && <FacebookSettings />}
           {selectedIntegration === "clover" && <CloverSettings />}
+          {selectedIntegration === "quickbooks" && <QuickBooksSettings />}
         </div>
       )}
 
