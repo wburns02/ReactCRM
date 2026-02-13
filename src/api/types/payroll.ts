@@ -370,10 +370,14 @@ export const payRateSchema = z.object({
   pay_type: z.enum(["hourly", "salary"]),
   hourly_rate: z.number().nullable(),
   overtime_rate: z.number().nullable(),
+  overtime_multiplier: z.number().nullable().optional(),
   salary_amount: z.number().nullable(),
   commission_rate: z.number(),
+  job_commission_rate: z.number().nullable().optional(),
+  upsell_commission_rate: z.number().nullable().optional(),
+  weekly_overtime_threshold: z.number().nullable().optional(),
   effective_date: z.string(),
-  end_date: z.string().optional(),
+  end_date: z.string().nullable().optional(),
   is_active: z.boolean(),
 });
 
