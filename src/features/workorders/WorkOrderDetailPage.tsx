@@ -75,6 +75,7 @@ import {
   useAutoGenerateInvoice,
   useWorkOrderInvoice,
 } from "./Payments/hooks/usePayments.ts";
+import { SmartAssign } from "./components/SmartAssign.tsx";
 import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
@@ -916,6 +917,11 @@ export function WorkOrderDetailPage() {
                   </dl>
                 </CardContent>
               </Card>
+
+              {/* Smart Dispatch - show for unassigned or reassignable work orders */}
+              {workOrder.status !== "completed" && workOrder.status !== "canceled" && (
+                <SmartAssign workOrderId={workOrder.id} />
+              )}
 
               {/* Job Details */}
               <Card>
