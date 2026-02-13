@@ -107,28 +107,6 @@ export function WorkOrdersPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkAction, setBulkAction] = useState<string>("");
 
-  const toggleSelection = useCallback((id: string) => {
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }, []);
-
-  const toggleSelectAll = useCallback(() => {
-    if (!data?.items) return;
-    setSelectedIds((prev) => {
-      if (prev.size === data.items.length) return new Set();
-      return new Set(data.items.map((wo) => wo.id));
-    });
-  }, [data?.items]);
-
-  const clearSelection = useCallback(() => {
-    setSelectedIds(new Set());
-    setBulkAction("");
-  }, []);
-
   // Fetch work orders with extended filters
   const apiFilters = useMemo(() => {
     const today = new Date().toISOString().split("T")[0];
@@ -171,6 +149,29 @@ export function WorkOrdersPage() {
   const bulkStatusMutation = useBulkUpdateStatus();
   const bulkAssignMutation = useBulkAssignTechnician();
   const bulkDeleteMutation = useBulkDeleteWorkOrders();
+
+  // Selection callbacks (must be after data hooks to avoid TDZ)
+  const toggleSelection = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAll = useCallback(() => {
+    if (!data?.items) return;
+    setSelectedIds((prev) => {
+      if (prev.size === data.items.length) return new Set();
+      return new Set(data.items.map((wo) => wo.id));
+    });
+  }, [data?.items]);
+
+  const clearSelection = useCallback(() => {
+    setSelectedIds(new Set());
+    setBulkAction("");
+  }, []);
 
   const handleBulkAction = useCallback(async () => {
     const ids = Array.from(selectedIds);
