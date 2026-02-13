@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { getSessionToken } from "@/lib/security.ts";
 
 // ============================================
 // Types
@@ -369,7 +370,7 @@ export function useWebSocket(
       opts.onStatusChange?.("connecting");
 
       // Add auth token to WebSocket URL if available
-      const token = localStorage.getItem("auth_token");
+      const token = getSessionToken();
       let wsUrl: URL;
       try {
         wsUrl = new URL(opts.url);

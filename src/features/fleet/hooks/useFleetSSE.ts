@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { getSessionToken } from "@/lib/security.ts";
 import { useFleetStore } from "../stores/fleetStore.ts";
 import type { Vehicle } from "../types.ts";
 
@@ -25,7 +26,7 @@ export function useFleetSSE() {
   const gaveUpRef = useRef(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("auth_token");
+    const token = getSessionToken();
     if (!token) return;
 
     function connect() {
