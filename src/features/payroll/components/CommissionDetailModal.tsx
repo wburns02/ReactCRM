@@ -90,7 +90,7 @@ export function CommissionDetailModal({
               <div>
                 <dt className="text-sm text-text-muted">Technician</dt>
                 <dd className="font-medium text-text-primary">
-                  {commission.technician_name || `Tech #${commission.technician_id.slice(0, 8)}`}
+                  {commission.technician_name || "Unassigned"}
                 </dd>
               </div>
               <div>

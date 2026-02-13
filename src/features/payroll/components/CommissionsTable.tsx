@@ -228,8 +228,7 @@ export function CommissionsTable({
                 </td>
                 <td className="px-4 py-3">
                   <div className="font-medium text-text-primary">
-                    {commission.technician_name ||
-                      `Tech #${commission.technician_id}`}
+                    {commission.technician_name || "Unassigned"}
                   </div>
                 </td>
                 <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>

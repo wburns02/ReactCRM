@@ -1087,7 +1087,7 @@ export function PayrollSummaryDashboard({
                 >
                   <td className="p-4">
                     <div className="font-medium text-text-primary">
-                      {s.technician_name || `Tech #${s.technician_id.slice(0, 8)}`}
+                      {s.technician_name || "Unassigned"}
                     </div>
                   </td>
                   <td className="p-4 text-right text-text-primary">

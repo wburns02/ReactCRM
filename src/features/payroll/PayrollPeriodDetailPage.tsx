@@ -78,8 +78,8 @@ export function PayrollPeriodDetailPage() {
     if (tech) {
       return `${tech.first_name} ${tech.last_name}`;
     }
-    // Shortened UUID as fallback if technician not found
-    return `Tech #${technicianId.slice(0, 8)}...`;
+    // Fallback if technician not found
+    return "Unassigned";
   };
 
   // Populate edit form when period loads

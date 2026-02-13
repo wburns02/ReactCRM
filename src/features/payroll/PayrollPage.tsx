@@ -564,7 +564,7 @@ function TimeEntriesTab() {
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="font-medium text-text-primary">
-                      {entry.technician_name || `Tech #${entry.technician_id}`}
+                      {entry.technician_name || "Unassigned"}
                     </div>
                     <div className="text-sm text-text-secondary">
                       {formatDate(entry.date)}

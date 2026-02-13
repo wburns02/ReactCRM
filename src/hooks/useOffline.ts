@@ -97,7 +97,7 @@ const SYNC_DEBOUNCE = 2000; // 2 seconds debounce after coming online
 function getEndpointForEntity(entity: SyncQueueItem["entity"]): string {
   switch (entity) {
     case "customer":
-      return "/customers/";
+      return "/customers";
     case "workOrder":
       return "/work-orders";
     case "invoice":
@@ -105,9 +105,9 @@ function getEndpointForEntity(entity: SyncQueueItem["entity"]): string {
     case "payment":
       return "/payments";
     case "prospect":
-      return "/prospects/";
+      return "/prospects";
     case "activity":
-      return "/activities/";
+      return "/activities";
     default:
       throw new Error(`Unknown entity type: ${entity}`);
   }
