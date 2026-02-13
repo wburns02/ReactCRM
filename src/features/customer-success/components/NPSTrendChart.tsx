@@ -83,8 +83,8 @@ export function NPSTrendChart({
   onPeriodChange,
 }: NPSTrendChartProps) {
   const chartData = useMemo(() => {
-    return data || generateSampleData(period);
-  }, [data, period]);
+    return data || [];
+  }, [data]);
 
   const stats = useMemo(() => {
     if (chartData.length === 0) return null;

@@ -577,12 +577,12 @@ export function SurveyAnalyticsDashboard({
   surveyId: _surveyId,
   surveyName,
   surveyType,
-  npsScore = 42,
-  promoters = 65,
-  passives = 20,
-  detractors = 15,
-  totalResponses = 156,
-  responseRate = 34,
+  npsScore = 0,
+  promoters = 0,
+  passives = 0,
+  detractors = 0,
+  totalResponses = 0,
+  responseRate = 0,
   questions: propQuestions,
   themes: propThemes,
   onExport,
@@ -593,11 +593,10 @@ export function SurveyAnalyticsDashboard({
   const [isExporting, setIsExporting] = useState(false);
 
   const { responseRateData, themes, questions } = useMemo(() => {
-    const sampleData = generateSampleData();
     return {
-      responseRateData: sampleData.responseRateData,
-      themes: propThemes || sampleData.themes,
-      questions: propQuestions || sampleData.questions,
+      responseRateData: [] as { date: string; rate: number }[],
+      themes: propThemes || [],
+      questions: propQuestions || [],
     };
   }, [propThemes, propQuestions]);
 

@@ -175,11 +175,10 @@ export function TrendChart({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
-  // Use provided data or generate sample
   const data = useMemo(() => {
     if (propData && propData.length > 0) return propData;
-    return generateSampleData(30, metricType);
-  }, [propData, metricType]);
+    return [];
+  }, [propData]);
 
   const config = METRIC_CONFIG[metricType];
   const actualBenchmark = benchmarkValue ?? config.benchmark;

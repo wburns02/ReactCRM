@@ -161,46 +161,45 @@ function KPICard({
 }
 
 export function ExecutiveKPICards({ data, isLoading }: ExecutiveKPICardsProps) {
-  // Default data for display
   const kpiData: KPIData = {
     nps: {
-      current: data?.nps?.current ?? 42,
-      previous: data?.nps?.previous ?? 38,
-      target: data?.nps?.target ?? 50,
-      promoters: data?.nps?.promoters ?? 65,
-      passives: data?.nps?.passives ?? 20,
-      detractors: data?.nps?.detractors ?? 15,
+      current: data?.nps?.current ?? 0,
+      previous: data?.nps?.previous ?? 0,
+      target: data?.nps?.target ?? 0,
+      promoters: data?.nps?.promoters ?? 0,
+      passives: data?.nps?.passives ?? 0,
+      detractors: data?.nps?.detractors ?? 0,
     },
     churnRate: {
-      current: data?.churnRate?.current ?? 2.8,
-      previous: data?.churnRate?.previous ?? 3.2,
-      target: data?.churnRate?.target ?? 2.0,
-      atRiskCount: data?.churnRate?.atRiskCount ?? 12,
+      current: data?.churnRate?.current ?? 0,
+      previous: data?.churnRate?.previous ?? 0,
+      target: data?.churnRate?.target ?? 0,
+      atRiskCount: data?.churnRate?.atRiskCount ?? 0,
     },
     adoptionRate: {
-      current: data?.adoptionRate?.current ?? 78,
-      previous: data?.adoptionRate?.previous ?? 72,
-      target: data?.adoptionRate?.target ?? 85,
-      activeUsers: data?.adoptionRate?.activeUsers ?? 234,
-      totalUsers: data?.adoptionRate?.totalUsers ?? 300,
+      current: data?.adoptionRate?.current ?? 0,
+      previous: data?.adoptionRate?.previous ?? 0,
+      target: data?.adoptionRate?.target ?? 0,
+      activeUsers: data?.adoptionRate?.activeUsers ?? 0,
+      totalUsers: data?.adoptionRate?.totalUsers ?? 0,
     },
     timeToValue: {
-      averageDays: data?.timeToValue?.averageDays ?? 14,
-      previousDays: data?.timeToValue?.previousDays ?? 18,
-      targetDays: data?.timeToValue?.targetDays ?? 10,
-      onboardingCount: data?.timeToValue?.onboardingCount ?? 8,
+      averageDays: data?.timeToValue?.averageDays ?? 0,
+      previousDays: data?.timeToValue?.previousDays ?? 0,
+      targetDays: data?.timeToValue?.targetDays ?? 0,
+      onboardingCount: data?.timeToValue?.onboardingCount ?? 0,
     },
     engagementScore: {
-      current: data?.engagementScore?.current ?? 7.2,
-      previous: data?.engagementScore?.previous ?? 6.8,
-      target: data?.engagementScore?.target ?? 8.0,
+      current: data?.engagementScore?.current ?? 0,
+      previous: data?.engagementScore?.previous ?? 0,
+      target: data?.engagementScore?.target ?? 0,
     },
     expansionRevenue: {
-      current: data?.expansionRevenue?.current ?? 125000,
-      previous: data?.expansionRevenue?.previous ?? 98000,
-      target: data?.expansionRevenue?.target ?? 150000,
-      upsells: data?.expansionRevenue?.upsells ?? 15,
-      crossSells: data?.expansionRevenue?.crossSells ?? 8,
+      current: data?.expansionRevenue?.current ?? 0,
+      previous: data?.expansionRevenue?.previous ?? 0,
+      target: data?.expansionRevenue?.target ?? 0,
+      upsells: data?.expansionRevenue?.upsells ?? 0,
+      crossSells: data?.expansionRevenue?.crossSells ?? 0,
     },
   };
 

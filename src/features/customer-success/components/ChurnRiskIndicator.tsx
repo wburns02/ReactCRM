@@ -113,37 +113,12 @@ function getTrendIcon(trend: "improving" | "stable" | "worsening") {
   }
 }
 
-// Default sample data
 const defaultData: ChurnRiskData = {
-  score: 45,
+  score: 0,
   trend: "stable",
   predictedChurnDate: undefined,
-  factors: [
-    {
-      name: "Product Usage Decline",
-      impact: "high",
-      description: "Login frequency down 40% in last 30 days",
-      trend: "worsening",
-    },
-    {
-      name: "Support Tickets",
-      impact: "medium",
-      description: "3 unresolved tickets older than 7 days",
-      trend: "stable",
-    },
-    {
-      name: "Contract Renewal",
-      impact: "low",
-      description: "Renewal in 45 days, no engagement yet",
-      trend: "stable",
-    },
-  ],
-  recommendations: [
-    "Schedule executive business review",
-    "Offer personalized training session",
-    "Review and resolve open support tickets",
-    "Send renewal discussion email",
-  ],
+  factors: [],
+  recommendations: [],
 };
 
 export function ChurnRiskIndicator({

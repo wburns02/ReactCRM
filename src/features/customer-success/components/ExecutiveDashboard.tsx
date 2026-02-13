@@ -294,24 +294,24 @@ export function ExecutiveDashboard({
             {[
               {
                 label: "Healthy",
-                count: dashboardData?.health_distribution?.healthy || 43,
+                count: dashboardData?.health_distribution?.healthy || 0,
                 color: "bg-success",
               },
               {
                 label: "At Risk",
-                count: dashboardData?.health_distribution?.at_risk || 46,
+                count: dashboardData?.health_distribution?.at_risk || 0,
                 color: "bg-warning",
               },
               {
                 label: "Critical",
-                count: dashboardData?.health_distribution?.critical || 11,
+                count: dashboardData?.health_distribution?.critical || 0,
                 color: "bg-danger",
               },
             ].map((item) => {
               const total =
-                (dashboardData?.health_distribution?.healthy || 43) +
-                (dashboardData?.health_distribution?.at_risk || 46) +
-                (dashboardData?.health_distribution?.critical || 11);
+                (dashboardData?.health_distribution?.healthy || 0) +
+                (dashboardData?.health_distribution?.at_risk || 0) +
+                (dashboardData?.health_distribution?.critical || 0);
               const percent = total > 0 ? (item.count / total) * 100 : 0;
               return (
                 <div key={item.label}>
