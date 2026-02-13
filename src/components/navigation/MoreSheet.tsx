@@ -67,14 +67,14 @@ export function MoreSheet({ open, onClose }: MoreSheetProps) {
       {/* Sheet */}
       <div
         ref={sheetRef}
-        className={`fixed left-0 right-0 bottom-0 z-[70] bg-white rounded-t-2xl transition-transform duration-300 ease-out ${
+        className={`fixed left-0 right-0 bottom-0 z-[70] bg-bg-card rounded-t-2xl transition-transform duration-300 ease-out ${
           open ? "translate-y-0" : "translate-y-full"
         }`}
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
         {/* Drag handle */}
         <div className="flex justify-center pt-3 pb-2">
-          <div className="w-10 h-1 bg-gray-300 rounded-full" />
+          <div className="w-10 h-1 bg-border rounded-full" />
         </div>
 
         {/* Nav items */}

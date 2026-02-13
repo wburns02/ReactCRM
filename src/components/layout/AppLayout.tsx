@@ -8,6 +8,7 @@ import { OnboardingAssistant } from "@/features/onboarding/components/Onboarding
 import { EmailComposeProvider } from "@/context/EmailComposeContext";
 import { MobileBottomNav } from "@/components/navigation/MobileBottomNav";
 import { MobileHeader } from "@/components/navigation/MobileHeader";
+import { useTheme } from "@/hooks/useTheme";
 
 /**
  * Navigation item type
@@ -37,6 +38,7 @@ interface NavGroup {
 export function AppLayout() {
   const { user, logout, isTechnician } = useAuth();
   const location = useLocation();
+  const { isDark, toggle: toggleTheme } = useTheme();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     // Auto-expand group containing current page
     const saved = localStorage.getItem("sidebarExpandedGroups");
@@ -344,12 +346,22 @@ export function AppLayout() {
               <p className="text-xs text-text-muted truncate">{user?.email}</p>
             </div>
           </div>
-          <button
-            onClick={logout}
-            className="mt-3 w-full text-sm text-text-secondary hover:text-danger transition-colors text-left"
-          >
-            Sign out
-          </button>
+          <div className="mt-3 flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDark ? "☀️" : "🌙"} {isDark ? "Light" : "Dark"}
+            </button>
+            <span className="text-border">|</span>
+            <button
+              onClick={logout}
+              className="text-sm text-text-secondary hover:text-danger transition-colors"
+            >
+              Sign out
+            </button>
+          </div>
         </div>
       </aside>
 
@@ -377,6 +389,14 @@ export function AppLayout() {
         <div className={`h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4 ${
           isTechnician ? "hidden md:flex" : ""
         }`}>
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-bg-hover transition-colors"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {isDark ? "☀️" : "🌙"}
+          </button>
           <ConnectionStatus showTooltip size="sm" />
           <NotificationCenter />
           <RCStatusIndicator />

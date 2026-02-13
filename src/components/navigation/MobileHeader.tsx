@@ -11,7 +11,7 @@ import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
  */
 export function MobileHeader() {
   return (
-    <header className="h-12 flex items-center justify-between px-4 bg-white border-b border-gray-200 flex-shrink-0">
+    <header className="h-12 flex items-center justify-between px-4 bg-bg-card border-b border-border flex-shrink-0">
       {/* Logo */}
       <Link
         to="/my-dashboard"

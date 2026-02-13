@@ -221,8 +221,8 @@ export function RoleSwitcher() {
         <div
           className={cn(
             "absolute top-full right-0 mt-2 w-80",
-            "bg-white rounded-xl shadow-2xl",
-            "border border-gray-200",
+            "bg-bg-card rounded-xl shadow-2xl",
+            "border border-border",
             "overflow-hidden",
             "animate-in fade-in slide-in-from-top-2 duration-200",
           )}

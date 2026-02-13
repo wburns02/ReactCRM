@@ -154,7 +154,7 @@ export function AIAssistantDemo({
 
   return (
     <div
-      className={`flex flex-col h-full bg-white border border-gray-200 rounded-lg ${className}`}
+      className={`flex flex-col h-full bg-bg-card border border-border rounded-lg ${className}`}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
