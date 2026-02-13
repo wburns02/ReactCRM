@@ -33,6 +33,7 @@ import { StatusWorkflow } from "./components/StatusWorkflow.tsx";
 import { WorkOrderTimeline } from "./components/WorkOrderTimeline.tsx";
 import { DialButton } from "@/features/phone/components/DialButton.tsx";
 import { formatDate, formatCurrency } from "@/lib/utils.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
@@ -70,6 +71,10 @@ import {
   type CustomerInfo,
   type WorkOrderReference,
 } from "./Payments/InvoiceGenerator.tsx";
+import {
+  useAutoGenerateInvoice,
+  useWorkOrderInvoice,
+} from "./Payments/hooks/usePayments.ts";
 import { useEmailCompose } from "@/context/EmailComposeContext";
 
 /**
@@ -125,6 +130,8 @@ export function WorkOrderDetailPage() {
   const { data: workOrder, isLoading, error } = useWorkOrder(id);
   const updateMutation = useUpdateWorkOrder();
   const deleteMutation = useDeleteWorkOrder();
+  const autoGenerateInvoice = useAutoGenerateInvoice();
+  const { data: existingInvoice } = useWorkOrderInvoice(id);
 
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -1303,6 +1310,74 @@ export function WorkOrderDetailPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Quick Auto-Generate Invoice */}
+            {workOrder.status === "completed" && !existingInvoice && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Invoice</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-text-secondary">
+                        Auto-generate an invoice from this completed work order with calculated line items and tax.
+                      </p>
+                      {workOrder.total_amount != null && Number(workOrder.total_amount) > 0 && (
+                        <p className="text-sm font-semibold text-blue-600 mt-1">
+                          Estimated total: {formatCurrency(Number(workOrder.total_amount) * 1.0825)}
+                          <span className="text-text-secondary font-normal"> (incl. 8.25% tax)</span>
+                        </p>
+                      )}
+                    </div>
+                    <Button
+                      onClick={async () => {
+                        try {
+                          const result = await autoGenerateInvoice.mutateAsync(workOrder.id);
+                          toastSuccess(`Invoice ${result.invoice_number} created`);
+                          navigate(`/invoices/${result.id}`);
+                        } catch (err: unknown) {
+                          const msg = err instanceof Error ? err.message : "Failed to generate invoice";
+                          toastError(msg);
+                        }
+                      }}
+                      disabled={autoGenerateInvoice.isPending}
+                      className="h-12 px-6 text-base font-bold bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      {autoGenerateInvoice.isPending ? "Generating..." : "Generate Invoice"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Existing invoice link */}
+            {existingInvoice && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Invoice</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold">
+                        {existingInvoice.invoice_number}
+                      </p>
+                      <p className="text-sm text-text-secondary">
+                        Status: <span className="capitalize">{existingInvoice.status}</span>
+                        {existingInvoice.total != null && ` — ${formatCurrency(Number(existingInvoice.total))}`}
+                      </p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate(`/invoices/${existingInvoice.id}`)}
+                    >
+                      View Invoice
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Invoice Generator */}
             <InvoiceGenerator

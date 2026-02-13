@@ -532,3 +532,26 @@ export function useGenerateInvoicePDF() {
     },
   });
 }
+
+/**
+ * Auto-generate invoice from a completed work order (one-click)
+ */
+export function useAutoGenerateInvoice() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (workOrderId: string) => {
+      const { data } = await apiClient.post(
+        `/work-orders/${workOrderId}/generate-invoice`,
+      );
+      return data;
+    },
+    onSuccess: (_data, workOrderId) => {
+      queryClient.invalidateQueries({
+        queryKey: workOrderPaymentKeys.invoice(workOrderId),
+      });
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+    },
+  });
+}
