@@ -24,6 +24,9 @@ import {
   useDeleteWorkOrder,
   useScheduleStats,
   useUpdateWorkOrderStatus,
+  useBulkUpdateStatus,
+  useBulkAssignTechnician,
+  useBulkDeleteWorkOrders,
 } from "@/api/hooks/useWorkOrders.ts";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import { WorkOrdersList } from "./WorkOrdersList.tsx";
@@ -100,6 +103,32 @@ export function WorkOrdersPage() {
     null,
   );
 
+  // Bulk selection state
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkAction, setBulkAction] = useState<string>("");
+
+  const toggleSelection = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAll = useCallback(() => {
+    if (!data?.items) return;
+    setSelectedIds((prev) => {
+      if (prev.size === data.items.length) return new Set();
+      return new Set(data.items.map((wo) => wo.id));
+    });
+  }, [data?.items]);
+
+  const clearSelection = useCallback(() => {
+    setSelectedIds(new Set());
+    setBulkAction("");
+  }, []);
+
   // Fetch work orders with extended filters
   const apiFilters = useMemo(() => {
     const today = new Date().toISOString().split("T")[0];
@@ -139,6 +168,36 @@ export function WorkOrdersPage() {
   const updateMutation = useUpdateWorkOrder();
   const deleteMutation = useDeleteWorkOrder();
   const updateStatusMutation = useUpdateWorkOrderStatus();
+  const bulkStatusMutation = useBulkUpdateStatus();
+  const bulkAssignMutation = useBulkAssignTechnician();
+  const bulkDeleteMutation = useBulkDeleteWorkOrders();
+
+  const handleBulkAction = useCallback(async () => {
+    const ids = Array.from(selectedIds);
+    if (ids.length === 0) return;
+
+    if (bulkAction.startsWith("status:")) {
+      await bulkStatusMutation.mutateAsync({
+        ids,
+        status: bulkAction.replace("status:", ""),
+      });
+    } else if (bulkAction.startsWith("assign:")) {
+      await bulkAssignMutation.mutateAsync({
+        ids,
+        assigned_technician: bulkAction.replace("assign:", ""),
+      });
+    } else if (bulkAction === "delete") {
+      await bulkDeleteMutation.mutateAsync(ids);
+    }
+    clearSelection();
+  }, [
+    selectedIds,
+    bulkAction,
+    bulkStatusMutation,
+    bulkAssignMutation,
+    bulkDeleteMutation,
+    clearSelection,
+  ]);
 
   // Filter work orders by search query
   const filteredWorkOrders = useMemo(() => {
@@ -611,6 +670,59 @@ export function WorkOrdersPage() {
                 </Link>
               </div>
             </CardHeader>
+            {/* Bulk Action Toolbar */}
+            {selectedIds.size > 0 && (
+              <div className="flex items-center gap-3 px-4 py-2 bg-blue-50 border-b">
+                <span className="text-sm font-medium text-blue-700">
+                  {selectedIds.size} selected
+                </span>
+                <Select
+                  value={bulkAction}
+                  onChange={(e) => setBulkAction(e.target.value)}
+                  className="text-sm h-8 w-48"
+                >
+                  <option value="">Choose action...</option>
+                  <optgroup label="Set Status">
+                    <option value="status:scheduled">Scheduled</option>
+                    <option value="status:confirmed">Confirmed</option>
+                    <option value="status:in_progress">In Progress</option>
+                    <option value="status:completed">Completed</option>
+                    <option value="status:canceled">Canceled</option>
+                  </optgroup>
+                  {technicians?.items?.length && (
+                    <optgroup label="Assign Technician">
+                      {technicians.items.map((t) => (
+                        <option
+                          key={t.id}
+                          value={`assign:${t.first_name} ${t.last_name}`}
+                        >
+                          {t.first_name} {t.last_name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  )}
+                  <optgroup label="Danger">
+                    <option value="delete">Delete Selected</option>
+                  </optgroup>
+                </Select>
+                <Button
+                  size="sm"
+                  variant={bulkAction === "delete" ? "danger" : "primary"}
+                  onClick={handleBulkAction}
+                  disabled={
+                    !bulkAction ||
+                    bulkStatusMutation.isPending ||
+                    bulkAssignMutation.isPending ||
+                    bulkDeleteMutation.isPending
+                  }
+                >
+                  Apply
+                </Button>
+                <Button size="sm" variant="ghost" onClick={clearSelection}>
+                  Cancel
+                </Button>
+              </div>
+            )}
             <CardContent className="p-0">
               <WorkOrdersList
                 workOrders={
@@ -625,6 +737,9 @@ export function WorkOrdersPage() {
                 onPageChange={handlePageChange}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                selectedIds={selectedIds}
+                onToggleSelection={toggleSelection}
+                onToggleSelectAll={toggleSelectAll}
               />
             </CardContent>
           </Card>

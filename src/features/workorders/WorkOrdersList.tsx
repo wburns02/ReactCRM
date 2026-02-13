@@ -24,6 +24,9 @@ interface WorkOrdersListProps {
   onPageChange: (page: number) => void;
   onEdit?: (workOrder: WorkOrder) => void;
   onDelete?: (workOrder: WorkOrder) => void;
+  selectedIds?: Set<string>;
+  onToggleSelection?: (id: string) => void;
+  onToggleSelectAll?: () => void;
 }
 
 /**
@@ -79,6 +82,8 @@ interface WorkOrderRowProps {
   wo: WorkOrder;
   onEdit?: (wo: WorkOrder) => void;
   onDelete?: (wo: WorkOrder) => void;
+  isSelected?: boolean;
+  onToggleSelection?: (id: string) => void;
 }
 
 const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
@@ -226,6 +231,8 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
   wo,
   onEdit,
   onDelete,
+  isSelected,
+  onToggleSelection,
 }: WorkOrderRowProps) {
   const navigate = useNavigate();
 
@@ -259,6 +266,17 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
       role="row"
       aria-label={`View work order for ${customerName}`}
     >
+      {onToggleSelection && (
+        <td className="w-10 px-3 py-3" onClick={(e) => e.stopPropagation()}>
+          <input
+            type="checkbox"
+            checked={!!isSelected}
+            onChange={() => onToggleSelection(wo.id)}
+            className="rounded border-gray-300"
+            aria-label={`Select work order for ${customerName}`}
+          />
+        </td>
+      )}
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
@@ -359,7 +377,11 @@ export function WorkOrdersList({
   onPageChange,
   onEdit,
   onDelete,
+  selectedIds,
+  onToggleSelection,
+  onToggleSelectAll,
 }: WorkOrdersListProps) {
+  const hasSelection = selectedIds && onToggleSelection;
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
@@ -526,6 +548,17 @@ export function WorkOrdersList({
         <table className="w-full" role="grid" aria-label="Work orders list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
+              {hasSelection && (
+                <th scope="col" className="w-10 px-3 py-3">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.size === workOrders.length && workOrders.length > 0}
+                    onChange={onToggleSelectAll}
+                    className="rounded border-gray-300"
+                    aria-label="Select all"
+                  />
+                </th>
+              )}
               <th
                 scope="col"
                 onClick={() => toggleSort("customer")}
@@ -583,6 +616,8 @@ export function WorkOrdersList({
                 wo={wo}
                 onEdit={onEdit ? handleEdit : undefined}
                 onDelete={onDelete ? handleDelete : undefined}
+                isSelected={selectedIds?.has(wo.id)}
+                onToggleSelection={onToggleSelection}
               />
             ))}
           </tbody>

@@ -484,3 +484,85 @@ export function useScheduleStats() {
 
   return stats;
 }
+
+// ============================================
+// Bulk Operations
+// ============================================
+
+interface BulkResult {
+  success_count: number;
+  failed_count: number;
+  errors: Array<{ id: string; error: string }>;
+}
+
+/**
+ * Bulk update work order status
+ */
+export function useBulkUpdateStatus() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: { ids: string[]; status: string }) => {
+      const res = await apiClient.patch<BulkResult>(
+        "/work-orders/bulk/status",
+        data,
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.all });
+      toastSuccess(
+        `Updated ${data.success_count} work orders${data.failed_count ? ` (${data.failed_count} failed)` : ""}`,
+      );
+    },
+    onError: () => toastError("Failed to update work orders"),
+  });
+}
+
+/**
+ * Bulk assign technician
+ */
+export function useBulkAssignTechnician() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: {
+      ids: string[];
+      assigned_technician?: string;
+      technician_id?: string;
+    }) => {
+      const res = await apiClient.patch<BulkResult>(
+        "/work-orders/bulk/assign",
+        data,
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.all });
+      toastSuccess(
+        `Assigned ${data.success_count} work orders${data.failed_count ? ` (${data.failed_count} failed)` : ""}`,
+      );
+    },
+    onError: () => toastError("Failed to assign work orders"),
+  });
+}
+
+/**
+ * Bulk delete work orders
+ */
+export function useBulkDeleteWorkOrders() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (ids: string[]) => {
+      const res = await apiClient.delete<BulkResult>("/work-orders/bulk", {
+        data: { ids },
+      });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.all });
+      toastSuccess(
+        `Deleted ${data.success_count} work orders${data.failed_count ? ` (${data.failed_count} failed)` : ""}`,
+      );
+    },
+    onError: () => toastError("Failed to delete work orders"),
+  });
+}
