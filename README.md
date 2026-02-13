@@ -1,80 +1,93 @@
-# React + TypeScript + Vite
+# Mac Service Platform — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Production CRM for MAC Septic Services. React 19 + TypeScript + Vite + Tailwind 4.
 
-Currently, two official plugins are available:
+**Live:** https://react.ecbtx.com
+**API:** https://react-crm-api-production.up.railway.app/api/v2
+**API Docs:** https://react-crm-api-production.up.railway.app/docs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Quick Start
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/wburns02/ReactCRM.git
+cd ReactCRM
+npm install
+npm run dev          # http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Dev server (port 5173) |
+| `npm run build` | Production build |
+| `npm run typecheck` | TypeScript check (no emit) |
+| `npm run lint` | ESLint |
+| `npm run test` | Vitest unit tests |
+| `npm run test:e2e` | Playwright E2E tests |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech Stack
+
+- **React 19** + React Router 7 + React Hook Form
+- **TanStack Query** — 78 hooks in `src/api/hooks/`
+- **Zod** validation on all API responses
+- **Tailwind 4** with CSS variable theming (light/dark mode)
+- **Zustand** for global state, **IndexedDB** for offline sync
+- **Recharts** dashboards, **Leaflet/MapLibre** maps
+- **Vite 7** with PWA (vite-plugin-pwa), chunk splitting
+- **Playwright** E2E tests in `e2e/tests/`
+
+## Project Structure
+
+```
+src/
+  api/
+    hooks/         # 78 TanStack Query hooks (useCustomers, useWorkOrders, etc.)
+    types/         # 35 Zod schema files
+    client.ts      # Axios instance (cookie auth)
+  features/        # Feature modules (workorders, customers, payroll, etc.)
+  components/
+    layout/        # AppLayout, MobileBottomNav, MobileHeader
+    ui/            # Shared components (Button, Dialog, DataTable, etc.)
+    RoleSwitcher/  # Demo role switching (will@macseptic.com only)
+  hooks/           # Shared hooks (useTheme, useDebounce, etc.)
+  providers/       # Auth, Role, Theme providers
+  routes/          # Route definitions
+e2e/
+  tests/           # Playwright test files
+  auth.setup.ts    # Shared auth setup
+```
+
+## Key Architecture
+
+- **Auth**: Cookie-based JWT. Login at `/login`. No Bearer token.
+- **API Client**: All calls via `src/api/client.ts` (Axios). Base URL from `VITE_API_URL`.
+- **Validation**: Every API response validated with Zod in all environments.
+- **Offline**: IndexedDB sync queue (`offlineClient.ts`) queues mutations when offline.
+- **Real-time**: WebSocket at `/api/v2/ws` for live updates.
+- **Theming**: CSS variables in `index.css`. `.dark` class on `<html>`. Toggle in sidebar/topbar.
+- **Mobile**: Responsive breakpoints. Technicians get bottom nav + slim header.
+- **PWA**: Service worker auto-registers. NetworkFirst for API, CacheFirst for assets.
+
+## Roles
+
+| Role | Default Route | Description |
+|------|---------------|-------------|
+| Admin | `/` (dashboard) | Full system access |
+| Technician | `/my-dashboard` | Mobile-first field view |
+| Demo | All routes | `will@macseptic.com` — floating role switcher |
+
+## Environment Variables
+
+```env
+VITE_API_URL=https://react-crm-api-production.up.railway.app/api/v2
+VITE_SENTRY_DSN=        # Optional — Sentry error tracking
 ```
 
 ## Deployment
 
-This React app is deployed on Railway at `react.ecbtx.com`. The API backend is the FastAPI service at `react-crm-api-production.up.railway.app`.
+Railway auto-deploys on push to `master`. Never use `railway up`.
 
-Environment variables (set in Railway):
-- `VITE_API_URL`: Points to the FastAPI backend (build-time variable)
+```bash
+git push origin master
+```
