@@ -96,9 +96,11 @@ function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
       `}
     >
       <div className="flex items-start justify-between gap-1 mb-1">
-        <span className="text-xs font-medium text-text-primary truncate">
-          {formatTimeDisplay(workOrder.time_window_start)}
-        </span>
+        {workOrder.time_window_start ? (
+          <span className="text-xs font-medium text-text-primary truncate">
+            {formatTimeDisplay(workOrder.time_window_start)}
+          </span>
+        ) : null}
         <Badge
           variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
           className="text-[10px] px-1 py-0"

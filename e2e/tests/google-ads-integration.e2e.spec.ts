@@ -1,4 +1,4 @@
-import { test, expect, Page } from "@playwright/test";
+import { test, expect, Page, Browser } from "@playwright/test";
 
 /**
  * Google Ads Integration E2E Tests
@@ -8,6 +8,8 @@ import { test, expect, Page } from "@playwright/test";
  * - Frontend: Google Ads dashboard page loads, KPI cards render, no errors
  * - Graceful fallback when credentials not yet configured
  * - Marketing hub overview includes ads data
+ *
+ * Uses shared auth context (login once, reuse across tests) to avoid rate limiting.
  */
 
 const APP_URL = "https://react.ecbtx.com";
@@ -29,52 +31,44 @@ function isKnownError(msg: string): boolean {
   return KNOWN_ERRORS.some((known) => msg.includes(known));
 }
 
-async function loginAndNavigate(page: Page, path: string) {
-  await page.goto(`${APP_URL}${path}`, { waitUntil: "domcontentloaded" });
-  await page.waitForTimeout(2000);
-
-  if (page.url().includes("/login")) {
-    await page.fill('input[type="email"]', "will@macseptic.com");
-    await page.fill('input[type="password"]', "#Espn2025");
-    await page.click('button[type="submit"]');
-
-    try {
-      await page.waitForFunction(
-        () => !window.location.href.includes("/login"),
-        { timeout: 30000 },
-      );
-    } catch {
-      // Retry login once
-      await page.fill('input[type="email"]', "will@macseptic.com");
-      await page.fill('input[type="password"]', "#Espn2025");
-      await page.click('button[type="submit"]');
-      await page.waitForFunction(
-        () => !window.location.href.includes("/login"),
-        { timeout: 30000 },
-      );
-    }
-    await page.waitForTimeout(1000);
-
-    if (!page.url().includes(path)) {
-      await page.goto(`${APP_URL}${path}`, {
-        waitUntil: "domcontentloaded",
-      });
-    }
-    await page.waitForTimeout(1000);
-  }
-}
-
 test.describe("Google Ads Integration", () => {
+  let authPage: Page;
+
+  test.beforeAll(async ({ browser }: { browser: Browser }) => {
+    const context = await browser.newContext();
+    authPage = await context.newPage();
+
+    await authPage.goto(`${APP_URL}/login`, {
+      waitUntil: "domcontentloaded",
+    });
+    await authPage.waitForTimeout(1000);
+    await authPage.fill('input[type="email"]', "will@macseptic.com");
+    await authPage.fill('input[type="password"]', "#Espn2025");
+    await authPage.click('button[type="submit"]');
+    await authPage.waitForFunction(
+      () => !window.location.href.includes("/login"),
+      { timeout: 30000 },
+    );
+    await authPage.waitForTimeout(1000);
+  });
+
+  test.afterAll(async () => {
+    if (authPage) {
+      await authPage.context().close();
+    }
+  });
+
   // =========================================================================
-  // API Tests (use page.evaluate for browser cookie auth)
+  // API Tests (use authPage.evaluate for browser cookie auth)
   // =========================================================================
 
-  test("API: /marketing-hub/ads/status returns valid response", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/marketing");
+  test("API: /marketing-hub/ads/status returns valid response", async () => {
+    await authPage.goto(`${APP_URL}/marketing`, {
+      waitUntil: "domcontentloaded",
+    });
+    await authPage.waitForTimeout(1000);
 
-    const data = await page.evaluate(async (apiUrl) => {
+    const data = await authPage.evaluate(async (apiUrl) => {
       const res = await fetch(`${apiUrl}/marketing-hub/ads/status`, {
         credentials: "include",
       });
@@ -90,12 +84,8 @@ test.describe("Google Ads Integration", () => {
     expect(typeof data.body.daily_limit).toBe("number");
   });
 
-  test("API: /marketing-hub/ads/performance returns metrics", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/marketing");
-
-    const data = await page.evaluate(async (apiUrl) => {
+  test("API: /marketing-hub/ads/performance returns metrics", async () => {
+    const data = await authPage.evaluate(async (apiUrl) => {
       const res = await fetch(
         `${apiUrl}/marketing-hub/ads/performance?days=30`,
         { credentials: "include" },
@@ -103,7 +93,9 @@ test.describe("Google Ads Integration", () => {
       return { status: res.status, ok: res.ok, body: await res.json() };
     }, API_URL);
 
-    console.log(`Ads Performance: ${JSON.stringify(data.body).slice(0, 200)}`);
+    console.log(
+      `Ads Performance: ${JSON.stringify(data.body).slice(0, 200)}`,
+    );
 
     expect(data.ok).toBeTruthy();
     expect(data.body.success).toBe(true);
@@ -125,12 +117,8 @@ test.describe("Google Ads Integration", () => {
     expect(Array.isArray(data.body.recommendations)).toBe(true);
   });
 
-  test("API: /marketing-hub/settings shows google_ads config status", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/marketing");
-
-    const data = await page.evaluate(async (apiUrl) => {
+  test("API: /marketing-hub/settings shows google_ads config status", async () => {
+    const data = await authPage.evaluate(async (apiUrl) => {
       const res = await fetch(`${apiUrl}/marketing-hub/settings`, {
         credentials: "include",
       });
@@ -148,12 +136,8 @@ test.describe("Google Ads Integration", () => {
     );
   });
 
-  test("API: /marketing-hub/overview returns valid structure", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/marketing");
-
-    const data = await page.evaluate(async (apiUrl) => {
+  test("API: /marketing-hub/overview returns valid structure", async () => {
+    const data = await authPage.evaluate(async (apiUrl) => {
       const res = await fetch(
         `${apiUrl}/marketing-hub/overview?days=30`,
         { credentials: "include" },
@@ -161,7 +145,9 @@ test.describe("Google Ads Integration", () => {
       return { status: res.status, ok: res.ok, body: await res.json() };
     }, API_URL);
 
-    console.log(`Overview: ${JSON.stringify(data.body).slice(0, 200)}`);
+    console.log(
+      `Overview: ${JSON.stringify(data.body).slice(0, 200)}`,
+    );
 
     expect(data.ok).toBeTruthy();
     expect(data.body.success).toBe(true);
@@ -175,42 +161,51 @@ test.describe("Google Ads Integration", () => {
   // Frontend Tests
   // =========================================================================
 
-  test("Google Ads page loads with KPI cards", async ({ page }) => {
+  test("Google Ads page loads with KPI cards", async () => {
     const consoleErrors: string[] = [];
-    page.on("console", (msg) => {
+    authPage.on("console", (msg) => {
       if (msg.type() === "error" && !isKnownError(msg.text())) {
         consoleErrors.push(msg.text());
       }
     });
 
-    await loginAndNavigate(page, "/marketing/ads");
+    await authPage.goto(`${APP_URL}/marketing/ads`, {
+      waitUntil: "domcontentloaded",
+    });
+    await authPage.waitForTimeout(3000);
 
     // Page should have the Google Ads Dashboard title
     await expect(
-      page.locator("text=Google Ads Dashboard").first(),
+      authPage.locator("text=Google Ads Dashboard").first(),
     ).toBeVisible({ timeout: 15000 });
 
     // KPI cards should be present
-    await expect(page.locator("text=Total Spend").first()).toBeVisible();
-    await expect(page.locator("text=Clicks").first()).toBeVisible();
-    await expect(page.locator("text=Impressions").first()).toBeVisible();
-    await expect(page.locator("text=Conversions").first()).toBeVisible();
+    await expect(
+      authPage.locator("text=Total Spend").first(),
+    ).toBeVisible();
+    await expect(authPage.locator("text=Clicks").first()).toBeVisible();
+    await expect(
+      authPage.locator("text=Impressions").first(),
+    ).toBeVisible();
+    await expect(
+      authPage.locator("text=Conversions").first(),
+    ).toBeVisible();
 
     // Performance metrics section
     await expect(
-      page.locator("text=Performance Metrics").first(),
+      authPage.locator("text=Performance Metrics").first(),
     ).toBeVisible();
     await expect(
-      page.locator("text=Active Campaigns").first(),
+      authPage.locator("text=Active Campaigns").first(),
     ).toBeVisible();
 
     // Period selector should be present
-    const selector = page.locator("select").first();
+    const selector = authPage.locator("select").first();
     await expect(selector).toBeVisible();
 
     // Recommendations section
     await expect(
-      page.locator("text=Optimization Recommendations").first(),
+      authPage.locator("text=Optimization Recommendations").first(),
     ).toBeVisible();
 
     // No unexpected console errors
@@ -219,14 +214,21 @@ test.describe("Google Ads Integration", () => {
       console.log("Console errors:", realErrors);
     }
     expect(realErrors.length).toBe(0);
+
+    // Remove listener to avoid accumulating across tests
+    authPage.removeAllListeners("console");
   });
 
-  test("Google Ads page shows connection status badge", async ({ page }) => {
-    await loginAndNavigate(page, "/marketing/ads");
+  test("Google Ads page shows connection status badge", async () => {
+    // Should already be on /marketing/ads from previous test, but navigate anyway
+    await authPage.goto(`${APP_URL}/marketing/ads`, {
+      waitUntil: "domcontentloaded",
+    });
+    await authPage.waitForTimeout(2000);
 
     // Should show either "Connected" or "Not Connected" badge
-    const connected = page.locator("text=Connected").first();
-    const notConnected = page.locator("text=Not Connected").first();
+    const connected = authPage.locator("text=Connected").first();
+    const notConnected = authPage.locator("text=Not Connected").first();
 
     // One of these badges should be visible
     const connectedVisible = await connected
@@ -239,53 +241,62 @@ test.describe("Google Ads Integration", () => {
     expect(connectedVisible || notConnectedVisible).toBe(true);
   });
 
-  test("Marketing Hub page loads without errors", async ({ page }) => {
+  test("Marketing Hub page loads without errors", async () => {
     const consoleErrors: string[] = [];
-    page.on("console", (msg) => {
+    authPage.on("console", (msg) => {
       if (msg.type() === "error" && !isKnownError(msg.text())) {
         consoleErrors.push(msg.text());
       }
     });
 
-    await loginAndNavigate(page, "/marketing");
+    await authPage.goto(`${APP_URL}/marketing`, {
+      waitUntil: "domcontentloaded",
+    });
+    await authPage.waitForTimeout(3000);
 
     // Marketing hub should load
     await expect(
-      page.locator("text=Marketing Hub").first(),
+      authPage.locator("text=Marketing Hub").first(),
     ).toBeVisible({ timeout: 15000 });
 
     // Google Ads section in integration status
-    await expect(page.locator("text=Google Ads").first()).toBeVisible();
+    await expect(
+      authPage.locator("text=Google Ads").first(),
+    ).toBeVisible();
 
     // No unexpected console errors
     const realErrors = consoleErrors.filter((e) => !isKnownError(e));
     expect(realErrors.length).toBe(0);
+
+    authPage.removeAllListeners("console");
   });
 
-  test("Google Ads page period selector changes data fetch", async ({
-    page,
-  }) => {
-    await loginAndNavigate(page, "/marketing/ads");
-    await page.waitForTimeout(2000);
+  test("Google Ads page period selector changes data fetch", async () => {
+    await authPage.goto(`${APP_URL}/marketing/ads`, {
+      waitUntil: "domcontentloaded",
+    });
+    await authPage.waitForTimeout(3000);
 
     // Change period to 7 days
-    const selector = page.locator("select").first();
+    const selector = authPage.locator("select").first();
     await selector.selectOption("7");
-    await page.waitForTimeout(2000);
+    await authPage.waitForTimeout(2000);
 
     // Page should still show the dashboard (no crash)
     await expect(
-      page.locator("text=Google Ads Dashboard").first(),
+      authPage.locator("text=Google Ads Dashboard").first(),
     ).toBeVisible();
-    await expect(page.locator("text=Total Spend").first()).toBeVisible();
+    await expect(
+      authPage.locator("text=Total Spend").first(),
+    ).toBeVisible();
 
     // Change to 90 days
     await selector.selectOption("90");
-    await page.waitForTimeout(2000);
+    await authPage.waitForTimeout(2000);
 
     // Still stable
     await expect(
-      page.locator("text=Google Ads Dashboard").first(),
+      authPage.locator("text=Google Ads Dashboard").first(),
     ).toBeVisible();
   });
 
@@ -293,7 +304,7 @@ test.describe("Google Ads Integration", () => {
   // Backend Health Check
   // =========================================================================
 
-  test("Backend version is 2.8.0+", async ({ request }) => {
+  test("Backend health check shows healthy", async ({ request }) => {
     const response = await request.get(
       "https://react-crm-api-production.up.railway.app/health",
     );
@@ -304,7 +315,7 @@ test.describe("Google Ads Integration", () => {
     expect(response.ok()).toBeTruthy();
     expect(body.status).toBe("healthy");
 
-    // Version should be 2.8.0 or higher
+    // Version should exist
     const version = body.version || "";
     console.log(`Backend version: ${version}`);
     expect(version).toBeTruthy();
