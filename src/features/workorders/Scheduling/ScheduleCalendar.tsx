@@ -28,6 +28,7 @@ import type { WorkOrder, WorkOrderStatus } from "@/api/types/workOrder.ts";
 import {
   STATUS_COLORS,
   WORK_ORDER_STATUS_LABELS,
+  JOB_TYPE_LABELS,
 } from "@/api/types/workOrder.ts";
 
 type ViewMode = "month" | "week" | "day";
@@ -350,19 +351,30 @@ export function ScheduleCalendar({
                       borderLeftColor: STATUS_COLORS[wo.status],
                     }}
                   >
-                    <div className="font-medium text-text-primary truncate">
-                      {wo.time_window_start?.slice(0, 5) || "TBD"}
+                    <div className="flex items-center gap-1">
+                      {wo.time_window_start && (
+                        <span className="font-medium text-text-primary">
+                          {wo.time_window_start.slice(0, 5)}
+                        </span>
+                      )}
+                      <Badge
+                        variant={getStatusVariant(wo.status)}
+                        size="sm"
+                      >
+                        {WORK_ORDER_STATUS_LABELS[wo.status]?.slice(0, 4)}
+                      </Badge>
                     </div>
                     <div className="text-text-secondary truncate">
                       {wo.customer_name || `Customer #${wo.customer_id}`}
                     </div>
-                    <Badge
-                      variant={getStatusVariant(wo.status)}
-                      size="sm"
-                      className="mt-1"
-                    >
-                      {WORK_ORDER_STATUS_LABELS[wo.status]}
-                    </Badge>
+                    <div className="text-text-muted truncate">
+                      {wo.job_type ? (JOB_TYPE_LABELS[wo.job_type as keyof typeof JOB_TYPE_LABELS] || wo.job_type) : ""}
+                    </div>
+                    {wo.assigned_technician && (
+                      <div className="text-text-muted truncate">
+                        {wo.assigned_technician}
+                      </div>
+                    )}
                   </div>
                 </button>
               ))}
@@ -428,15 +440,21 @@ export function ScheduleCalendar({
                             {WORK_ORDER_STATUS_LABELS[wo.status]}
                           </Badge>
                         </div>
-                        <div className="text-xs text-text-secondary mt-1">
-                          {wo.time_window_start?.slice(0, 5)} -{" "}
-                          {wo.time_window_end?.slice(0, 5) || "TBD"}
-                          {wo.estimated_duration_hours && (
-                            <span className="ml-2">
-                              ({wo.estimated_duration_hours}h)
-                            </span>
-                          )}
-                        </div>
+                        {(wo.time_window_start || wo.estimated_duration_hours) && (
+                          <div className="text-xs text-text-secondary mt-1">
+                            {wo.time_window_start && (
+                              <>
+                                {wo.time_window_start.slice(0, 5)}
+                                {wo.time_window_end && ` - ${wo.time_window_end.slice(0, 5)}`}
+                              </>
+                            )}
+                            {wo.estimated_duration_hours && (
+                              <span className={wo.time_window_start ? "ml-2" : ""}>
+                                ({wo.estimated_duration_hours}h)
+                              </span>
+                            )}
+                          </div>
+                        )}
                         {wo.service_city && (
                           <div className="text-xs text-text-muted mt-1">
                             {wo.service_city}, {wo.service_state}
