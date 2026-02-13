@@ -112,7 +112,7 @@ export function JobCostingPage() {
                 <option value="">Select a work order...</option>
                 {workOrdersData?.work_orders.map((wo) => (
                   <option key={wo.id} value={wo.id}>
-                    {wo.id.slice(0, 8)}... - {wo.job_type || "Unknown"} - {wo.status} - {formatCurrency(wo.total_amount)}
+                    {wo.customer_name || "Unknown Customer"} - {wo.job_type || "Unknown"} - {wo.status} - {formatCurrency(wo.total_amount)}
                   </option>
                 ))}
               </select>

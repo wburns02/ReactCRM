@@ -366,6 +366,7 @@ export interface DumpSiteOption {
 export interface RecentWorkOrder {
   id: string;
   customer_id: string | null;
+  customer_name: string | null;
   job_type: string | null;
   status: string | null;
   total_amount: number;
