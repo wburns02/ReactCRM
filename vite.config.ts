@@ -12,9 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.svg', 'pwa-512x512.svg'],
       manifest: {
-        name: 'ECBTX CRM',
-        short_name: 'ECBTX',
-        description: 'Septic Service CRM - Manage work orders, customers, and schedules',
+        name: 'Mac Service Platform',
+        short_name: 'Mac Service',
+        description: 'Mac Service Platform - Manage work orders, customers, and schedules',
         theme_color: '#1e3a5f',
         background_color: '#ffffff',
         display: 'standalone',

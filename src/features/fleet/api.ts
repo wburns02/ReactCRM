@@ -47,7 +47,7 @@ export function useFleetLocations() {
 
       return data;
     },
-    staleTime: 30_000,
+    staleTime: 10_000,
     // When SSE is connected, poll less frequently (fallback only)
     // When SSE is disconnected, poll every 10 seconds for fresher data
     refetchInterval: sseConnected ? 60_000 : 10_000,
