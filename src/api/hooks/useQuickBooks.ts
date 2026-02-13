@@ -28,8 +28,8 @@ export function useQBOStatus() {
   return useQuery({
     queryKey: qboKeys.status(),
     queryFn: async (): Promise<QBOConnectionStatus> => {
-      const { data } = await apiClient.get("/quickbooks/status");
-      return validateResponse(qboConnectionStatusSchema, data, "/quickbooks/status");
+      const { data } = await apiClient.get("/integrations/quickbooks/status");
+      return validateResponse(qboConnectionStatusSchema, data, "/integrations/quickbooks/status");
     },
     retry: false,
     staleTime: 30 * 1000,
@@ -43,8 +43,8 @@ export function useQBOSettings() {
   return useQuery({
     queryKey: qboKeys.settings(),
     queryFn: async (): Promise<QBOSettings> => {
-      const { data } = await apiClient.get("/quickbooks/settings");
-      return validateResponse(qboSettingsSchema, data, "/quickbooks/settings");
+      const { data } = await apiClient.get("/integrations/quickbooks/settings");
+      return validateResponse(qboSettingsSchema, data, "/integrations/quickbooks/settings");
     },
     retry: false,
     staleTime: 60 * 1000,
@@ -57,8 +57,8 @@ export function useQBOSettings() {
 export function useQBOConnect() {
   return useMutation({
     mutationFn: async (): Promise<QBOAuthURL> => {
-      const { data } = await apiClient.get("/quickbooks/connect");
-      return validateResponse(qboAuthURLSchema, data, "/quickbooks/connect");
+      const { data } = await apiClient.get("/integrations/quickbooks/connect");
+      return validateResponse(qboAuthURLSchema, data, "/integrations/quickbooks/connect");
     },
   });
 }
@@ -70,7 +70,7 @@ export function useQBODisconnect() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
-      const { data } = await apiClient.post("/quickbooks/disconnect");
+      const { data } = await apiClient.post("/integrations/quickbooks/disconnect");
       return data;
     },
     onSuccess: () => {
@@ -86,10 +86,10 @@ export function useQBOSyncCustomers() {
   return useMutation({
     mutationFn: async (customerIds?: string[]): Promise<QBOSyncResult> => {
       const { data } = await apiClient.post(
-        "/quickbooks/customers/sync",
+        "/integrations/quickbooks/customers/sync",
         customerIds ? { customer_ids: customerIds } : undefined,
       );
-      return validateResponse(qboSyncResultSchema, data, "/quickbooks/customers/sync");
+      return validateResponse(qboSyncResultSchema, data, "/integrations/quickbooks/customers/sync");
     },
   });
 }
@@ -101,10 +101,10 @@ export function useQBOSyncInvoices() {
   return useMutation({
     mutationFn: async (invoiceIds?: string[]): Promise<QBOSyncResult> => {
       const { data } = await apiClient.post(
-        "/quickbooks/invoices/sync",
+        "/integrations/quickbooks/invoices/sync",
         invoiceIds ? { invoice_ids: invoiceIds } : undefined,
       );
-      return validateResponse(qboSyncResultSchema, data, "/quickbooks/invoices/sync");
+      return validateResponse(qboSyncResultSchema, data, "/integrations/quickbooks/invoices/sync");
     },
   });
 }
@@ -116,10 +116,10 @@ export function useQBOSyncPayments() {
   return useMutation({
     mutationFn: async (paymentIds?: string[]): Promise<QBOSyncResult> => {
       const { data } = await apiClient.post(
-        "/quickbooks/payments/sync",
+        "/integrations/quickbooks/payments/sync",
         paymentIds ? { payment_ids: paymentIds } : undefined,
       );
-      return validateResponse(qboSyncResultSchema, data, "/quickbooks/payments/sync");
+      return validateResponse(qboSyncResultSchema, data, "/integrations/quickbooks/payments/sync");
     },
   });
 }

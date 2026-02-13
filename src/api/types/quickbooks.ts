@@ -37,8 +37,8 @@ export const qboSettingsSchema = z.object({
   sync_interval_minutes: z.number(),
   default_income_account: z.string().nullable().optional(),
   default_payment_account: z.string().nullable().optional(),
-  client_id_configured: z.boolean(),
-  redirect_uri: z.string(),
+  client_id_configured: z.boolean().optional().default(false),
+  redirect_uri: z.string().optional().default(""),
 });
 
 export type QBOConnectionStatus = z.infer<typeof qboConnectionStatusSchema>;
