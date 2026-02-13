@@ -471,8 +471,12 @@ export function useScheduleStats() {
         stats.unscheduledJobs++;
       }
 
-      // Emergency priority
-      if (wo.priority === "emergency") {
+      // Emergency priority (active/upcoming only - not completed)
+      if (
+        wo.priority === "emergency" &&
+        wo.status !== "completed" &&
+        wo.status !== "canceled"
+      ) {
         stats.emergencyJobs++;
       }
     });
