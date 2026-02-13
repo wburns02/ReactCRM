@@ -11,6 +11,7 @@ import {
   type JobType,
   type Priority,
   WORK_ORDER_STATUS_LABELS,
+  WORK_ORDER_STATUS_SHORT,
   JOB_TYPE_LABELS,
 } from "@/api/types/workOrder.ts";
 import {
@@ -105,10 +106,9 @@ function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
           variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
           className="text-[10px] px-1 py-0"
         >
-          {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(
-            0,
-            4,
-          ) || workOrder.status}
+          {WORK_ORDER_STATUS_SHORT[workOrder.status] ||
+            WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(0, 4) ||
+            workOrder.status}
         </Badge>
       </div>
       <p className="text-xs text-text-primary font-medium truncate">

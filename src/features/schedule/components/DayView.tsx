@@ -13,6 +13,7 @@ import {
   type JobType,
   type Priority,
   WORK_ORDER_STATUS_LABELS,
+  WORK_ORDER_STATUS_SHORT,
   JOB_TYPE_LABELS,
 } from "@/api/types/workOrder.ts";
 import {
@@ -187,10 +188,8 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
           variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
           className="text-[9px] px-1 py-0 shrink-0"
         >
-          {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(
-            0,
-            3,
-          )}
+          {WORK_ORDER_STATUS_SHORT[workOrder.status] ||
+            WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(0, 4)}
         </Badge>
       </div>
       <p className="text-[10px] text-text-secondary truncate">

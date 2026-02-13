@@ -29,6 +29,19 @@ export const WORK_ORDER_STATUS_LABELS: Record<WorkOrderStatus, string> = {
   requires_followup: "Requires Follow-up",
 };
 
+/** Short abbreviations for compact schedule views (3-4 chars, human-readable). */
+export const WORK_ORDER_STATUS_SHORT: Record<string, string> = {
+  draft: "DFT",
+  scheduled: "SCHD",
+  confirmed: "CNFM",
+  enroute: "ENRT",
+  on_site: "SITE",
+  in_progress: "PROG",
+  completed: "DONE",
+  canceled: "CNCL",
+  requires_followup: "F/UP",
+};
+
 /**
  * Job/Service Type enum - matches backend ServiceType
  */
