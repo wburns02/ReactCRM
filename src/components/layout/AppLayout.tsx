@@ -49,6 +49,7 @@ export function AppLayout() {
     { path: "/customers", label: "Customers", icon: "👥" },
     { path: "/prospects", label: "Prospects", icon: "📋" },
     { path: "/contracts", label: "Contracts & Maintenance", icon: "🤝" },
+    { path: "/bookings", label: "Bookings", icon: "📅" },
     { path: "/customer-success", label: "Customer Success", icon: "💚" },
   ];
 

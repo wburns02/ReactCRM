@@ -33,6 +33,12 @@ const CustomerSuccessPage = lazy(() =>
   })),
 );
 
+const BookingsPage = lazy(() =>
+  import("@/features/bookings/index.ts").then((m) => ({
+    default: m.BookingsPage,
+  })),
+);
+
 /**
  * Customer routes - Prospects, Customers, Customer Success
  */
@@ -81,6 +87,16 @@ export function CustomerRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <CustomerSuccessPage />
+          </Suspense>
+        }
+      />
+
+      {/* Bookings (admin management) */}
+      <Route
+        path="bookings"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <BookingsPage />
           </Suspense>
         }
       />
