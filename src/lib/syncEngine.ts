@@ -347,22 +347,25 @@ export class SyncEngine {
 
       const successIds: string[] = [];
 
+      const deadItemIds: string[] = [];
+
       for (const item of queue) {
         // Check if aborted or offline
         if (this.abortController.signal.aborted || !navigator.onLine) {
           break;
         }
 
-        // Check retry limit
+        // Check retry limit — remove permanently exhausted items
         if (item.retries >= this.config.maxRetries) {
           result.errors.push({
             itemId: item.id,
             entity: item.entity,
-            message: `Max retries (${this.config.maxRetries}) exceeded`,
+            message: `Max retries (${this.config.maxRetries}) exceeded — removed from queue`,
             retryable: false,
           });
           result.failedItems.push(item.id);
           result.failed++;
+          deadItemIds.push(item.id);
           continue;
         }
 
@@ -372,42 +375,61 @@ export class SyncEngine {
           await this.delay(backoffDelay);
         }
 
-        const itemResult = await this.processItem(item);
+        try {
+          const itemResult = await this.processItem(item);
 
-        if (itemResult.success) {
-          successIds.push(item.id);
-          result.syncedItems.push(item.id);
-          result.success++;
+          if (itemResult.success) {
+            successIds.push(item.id);
+            result.syncedItems.push(item.id);
+            result.success++;
 
-          if (itemResult.conflict) {
-            result.conflicts++;
-            result.conflictItems.push(itemResult.conflict);
+            if (itemResult.conflict) {
+              result.conflicts++;
+              result.conflictItems.push(itemResult.conflict);
+            }
+
+            this.emit("item_synced", { itemId: item.id, entity: item.entity });
+          } else {
+            // Update retry count
+            const updatedItem: SyncQueueItem = {
+              ...item,
+              retries: item.retries + 1,
+              lastError: itemResult.error?.message || "Unknown error",
+            };
+            await updateSyncQueueItem(updatedItem);
+
+            if (!itemResult.error?.retryable) {
+              result.failedItems.push(item.id);
+              result.failed++;
+            }
+
+            if (itemResult.error) {
+              result.errors.push(itemResult.error);
+            }
+
+            this.emit("item_failed", {
+              itemId: item.id,
+              error: itemResult.error,
+            });
           }
-
-          this.emit("item_synced", { itemId: item.id, entity: item.entity });
-        } else {
-          // Update retry count
-          const updatedItem: SyncQueueItem = {
-            ...item,
-            retries: item.retries + 1,
-            lastError: itemResult.error?.message || "Unknown error",
-          };
-          await updateSyncQueueItem(updatedItem);
-
-          if (!itemResult.error?.retryable) {
-            result.failedItems.push(item.id);
-            result.failed++;
-          }
-
-          if (itemResult.error) {
-            result.errors.push(itemResult.error);
-          }
-
-          this.emit("item_failed", {
+        } catch (itemError) {
+          // Catch unexpected errors from processItem so one bad item
+          // doesn't stop the entire sync loop
+          console.error(`Sync item ${item.id} threw unexpectedly:`, itemError);
+          result.errors.push({
             itemId: item.id,
-            error: itemResult.error,
+            entity: item.entity,
+            message: String(itemError),
+            retryable: false,
           });
+          result.failedItems.push(item.id);
+          result.failed++;
         }
+      }
+
+      // Remove items that exhausted all retries
+      if (deadItemIds.length > 0) {
+        await batchRemoveSyncQueueItems(deadItemIds);
       }
 
       // Batch remove successful items
