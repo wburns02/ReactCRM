@@ -105,6 +105,13 @@ export function PaymentsPage() {
     [],
   );
 
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters((prev) => ({ ...prev, search: e.target.value, page: 1 }));
+    },
+    [],
+  );
+
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
   }, []);
@@ -246,6 +253,14 @@ export function PaymentsPage() {
           <Card className="mb-6">
             <CardContent className="py-4">
               <div className="flex flex-wrap items-center gap-4">
+                <div className="w-64">
+                  <Input
+                    type="text"
+                    value={filters.search || ""}
+                    onChange={handleSearchChange}
+                    placeholder="Search by customer name..."
+                  />
+                </div>
                 <div className="w-48">
                   <Select
                     value={filters.status || ""}
@@ -301,7 +316,8 @@ export function PaymentsPage() {
                 {(filters.status ||
                   filters.payment_method ||
                   filters.date_from ||
-                  filters.date_to) && (
+                  filters.date_to ||
+                  filters.search) && (
                   <Button
                     variant="ghost"
                     size="sm"
@@ -312,6 +328,7 @@ export function PaymentsPage() {
                         payment_method: "",
                         date_from: "",
                         date_to: "",
+                        search: "",
                         page: 1,
                       }))
                     }

@@ -38,6 +38,7 @@ export function usePayments(filters: PaymentFilters = {}) {
       if (filters.customer_id) params.set("customer_id", filters.customer_id);
       if (filters.date_from) params.set("date_from", filters.date_from);
       if (filters.date_to) params.set("date_to", filters.date_to);
+      if (filters.search) params.set("search", filters.search);
 
       const url = "/payments?" + params.toString();
       const { data } = await apiClient.get(url);

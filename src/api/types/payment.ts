@@ -115,6 +115,7 @@ export interface PaymentFilters {
   customer_id?: string;
   date_from?: string;
   date_to?: string;
+  search?: string;
 }
 
 /**
