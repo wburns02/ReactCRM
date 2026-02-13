@@ -167,7 +167,11 @@ function generateMessageId(): string {
 export function useWebSocket(
   options: UseWebSocketOptions = {},
 ): UseWebSocketReturn {
-  const opts = { ...DEFAULT_OPTIONS, ...options };
+  // Filter out undefined values so they don't override defaults
+  const definedOptions = Object.fromEntries(
+    Object.entries(options).filter(([, v]) => v !== undefined),
+  );
+  const opts = { ...DEFAULT_OPTIONS, ...definedOptions };
 
   // State
   const [status, setStatus] = useState<WebSocketStatus>("disconnected");
