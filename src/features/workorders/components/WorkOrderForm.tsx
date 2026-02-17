@@ -170,6 +170,14 @@ export function WorkOrderForm({
                     disabled={isEdit}
                   >
                     <option value="">Select customer...</option>
+                    {/* Include current WO's customer if not already in list */}
+                    {isEdit && workOrder?.customer_id && !customers.some(c => String(c.id) === String(workOrder.customer_id)) && (
+                      <option key={workOrder.customer_id} value={String(workOrder.customer_id)}>
+                        {workOrder.customer_name || workOrder.customer?.first_name
+                          ? `${workOrder.customer?.first_name ?? ""} ${workOrder.customer?.last_name ?? ""}`.trim()
+                          : "Unknown Customer"}
+                      </option>
+                    )}
                     {customers.map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.first_name} {c.last_name}

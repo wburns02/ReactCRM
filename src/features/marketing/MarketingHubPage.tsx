@@ -409,7 +409,7 @@ export function MarketingHubPage() {
 
       {/* Marketing Tools */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Link to="/email-marketing">
+        <Link to="/marketing/email-marketing">
           <Card className="hover:bg-surface-hover transition-colors cursor-pointer">
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">

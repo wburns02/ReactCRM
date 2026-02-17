@@ -118,7 +118,7 @@ const DEFAULT_OPTIONS: Required<
   url: DEFAULT_WS_URL,
   autoConnect: true,
   autoReconnect: true,
-  maxReconnectAttempts: 10,
+  maxReconnectAttempts: 5,
   reconnectBaseDelay: 1000,
   reconnectMaxDelay: 30000,
   heartbeatInterval: 30000,

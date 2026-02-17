@@ -90,7 +90,7 @@ export function MarketingRoutes() {
 
       {/* Email Marketing */}
       <Route
-        path="email-marketing"
+        path="marketing/email-marketing"
         element={
           <Suspense fallback={<PageLoader />}>
             <EmailMarketingPage />

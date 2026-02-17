@@ -790,6 +790,7 @@ export function WorkOrdersPage() {
 
         {/* Create/Edit Form Modal */}
         <WorkOrderForm
+          key={editingWorkOrder?.id || "new"}
           open={isFormOpen}
           onClose={() => {
             setIsFormOpen(false);

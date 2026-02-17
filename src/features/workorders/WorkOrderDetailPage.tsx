@@ -1450,6 +1450,7 @@ export function WorkOrderDetailPage() {
 
       {/* Edit Modal */}
       <WorkOrderForm
+        key={workOrder?.id || "new"}
         open={isEditOpen}
         onClose={() => setIsEditOpen(false)}
         onSubmit={handleUpdate}
