@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/features/auth/useAuth.ts";
 
 /**
@@ -27,9 +27,18 @@ export function FieldLayout() {
     <div className="flex flex-col h-screen bg-bg-body">
       {/* Header - Simplified for mobile */}
       <header className="h-14 bg-bg-card border-b border-border flex items-center px-4 flex-shrink-0">
+        <Link
+          to="/my-dashboard"
+          className="flex items-center justify-center w-9 h-9 -ml-1 mr-2 rounded-lg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors"
+          aria-label="Back to dashboard"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </Link>
         <div className="flex items-center gap-2">
           <span className="text-xl">🚽</span>
-          <span className="font-semibold text-text-primary">MAC Septic</span>
+          <span className="font-semibold text-text-primary">Field View</span>
         </div>
         <div className="flex-1" />
         <div className="flex items-center gap-3">
