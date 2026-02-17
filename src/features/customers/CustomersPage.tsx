@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   useCustomers,
   useCreateCustomer,
@@ -28,6 +29,8 @@ import type {
  * - Error handling with retry and fallback to legacy
  */
 export function CustomersPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   // Filter state
   const [filters, setFilters] = useState<CustomerFiltersType>({
     page: 1,
@@ -36,6 +39,14 @@ export function CustomersPage() {
 
   // Modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  // Auto-open create modal when navigating from /customers/new
+  useEffect(() => {
+    if (searchParams.get("action") === "new") {
+      setIsFormOpen(true);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
   const [deletingCustomer, setDeletingCustomer] = useState<Customer | null>(
     null,

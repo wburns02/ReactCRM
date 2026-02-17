@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 // Customer-related lazy imports
@@ -71,6 +71,10 @@ export function CustomerRoutes() {
             <CustomersPage />
           </Suspense>
         }
+      />
+      <Route
+        path="customers/new"
+        element={<Navigate to="/customers?action=new" replace />}
       />
       <Route
         path="customers/:id"
