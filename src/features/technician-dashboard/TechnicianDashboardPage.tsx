@@ -91,20 +91,20 @@ function WelcomeBanner({
   isClockLoading: boolean;
 }) {
   return (
-    <Card className="bg-gradient-to-r from-blue-600 to-blue-800 text-white border-0">
+    <Card className="bg-gradient-to-r from-mac-navy to-mac-dark-blue text-white border-0">
       <CardContent className="pt-6 pb-6">
         <div className="mb-4">
           <h1 className="text-2xl font-bold">
             {getGreeting()}, {firstName || "there"}!
           </h1>
-          <p className="text-blue-100 text-lg mt-1">
+          <p className="text-white/80 text-lg mt-1">
             {formatTodayDate()}
             {totalJobs > 0 && ` · ${totalJobs} job${totalJobs !== 1 ? "s" : ""} today`}
           </p>
         </div>
 
         {isClockedIn && clockInTime && (
-          <p className="text-blue-200 text-sm mb-3">
+          <p className="text-white/70 text-sm mb-3">
             Clocked in {formatElapsedTime(clockInTime)} ago
           </p>
         )}
@@ -223,7 +223,7 @@ function JobCard({
           <Button
             onClick={() => onStartJob(job.id)}
             disabled={isActionLoading}
-            className="w-full h-14 text-lg font-bold rounded-xl mt-2 bg-blue-600 hover:bg-blue-700 text-white"
+            className="w-full h-14 text-lg font-bold rounded-xl mt-2 bg-cta hover:bg-cta-hover text-white"
           >
             {isActionLoading ? "..." : "START JOB"}
           </Button>
@@ -292,7 +292,7 @@ function QuickStats({
       </Card>
       <Card>
         <CardContent className="pt-3 pb-3 sm:pt-4 sm:pb-4 text-center">
-          <p className="text-2xl sm:text-4xl font-bold text-blue-600">{hoursWorked}</p>
+          <p className="text-2xl sm:text-4xl font-bold text-primary">{hoursWorked}</p>
           <p className="text-xs sm:text-sm text-text-secondary mt-1">Hours</p>
         </CardContent>
       </Card>
@@ -361,7 +361,7 @@ function PayThisPeriod({
             <div className="w-full bg-bg-muted rounded-full h-4 overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
-                  onTrack ? "bg-green-500" : "bg-blue-500"
+                  onTrack ? "bg-green-500" : "bg-primary"
                 }`}
                 style={{ width: `${progressPct}%` }}
               />

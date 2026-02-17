@@ -85,7 +85,7 @@ export function MoreSheet({ open, onClose }: MoreSheetProps) {
               to={item.path}
               className={`flex items-center gap-4 px-4 py-4 rounded-xl text-base font-medium transition-colors touch-manipulation ${
                 isActive(item.path)
-                  ? "bg-blue-50 text-blue-600"
+                  ? "bg-primary/10 text-primary"
                   : "text-gray-700 active:bg-gray-100"
               }`}
             >

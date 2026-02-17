@@ -46,7 +46,7 @@ export function DarkModeToggle() {
         "h-8 w-16 rounded-full",
         "border border-gray-300 dark:border-gray-600",
         "transition-colors duration-300 ease-in-out",
-        "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         isDark ? "bg-gray-700" : "bg-yellow-100",
       ].join(" ")}
     >

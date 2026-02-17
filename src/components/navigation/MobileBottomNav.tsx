@@ -72,7 +72,7 @@ export function MobileBottomNav() {
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center flex-1 min-w-0 py-1 transition-colors touch-manipulation ${
                   isActive
-                    ? "text-blue-600"
+                    ? "text-primary"
                     : "text-gray-500 active:text-gray-700"
                 }`
               }
@@ -86,7 +86,7 @@ export function MobileBottomNav() {
           <button
             onClick={() => setMoreOpen(true)}
             className={`flex flex-col items-center justify-center flex-1 min-w-0 py-1 transition-colors touch-manipulation ${
-              isMoreActive ? "text-blue-600" : "text-gray-500 active:text-gray-700"
+              isMoreActive ? "text-primary" : "text-gray-500 active:text-gray-700"
             }`}
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

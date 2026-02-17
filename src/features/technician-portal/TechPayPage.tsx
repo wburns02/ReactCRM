@@ -461,14 +461,14 @@ function YTDSummary({
   }, [commissions]);
 
   return (
-    <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-200 dark:border-blue-800">
+    <Card className="bg-gradient-to-r from-primary/10 to-mac-navy/10 dark:from-primary/5 dark:to-mac-navy/5 border-primary/30 dark:border-primary/20">
       <CardContent className="pt-5 pb-5">
         <h2 className="text-lg font-bold text-text-primary flex items-center gap-2 mb-4">
           <span className="text-2xl">📅</span> Year to Date
         </h2>
 
         <div className="text-center mb-3">
-          <p className="text-4xl font-black text-blue-700 dark:text-blue-400">
+          <p className="text-4xl font-black text-mac-navy dark:text-mac-light-blue">
             {formatCurrency(ytd.total)}
           </p>
           <p className="text-sm text-text-muted mt-1">Total YTD Earnings</p>
@@ -540,8 +540,8 @@ function PerformanceSection({
 
         <div className="grid grid-cols-2 gap-4 mb-5">
           {/* Efficiency */}
-          <div className="text-center p-3 rounded-xl bg-gradient-to-b from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-950/30">
-            <p className="text-3xl font-black text-purple-600">
+          <div className="text-center p-3 rounded-xl bg-gradient-to-b from-mac-navy/10 to-mac-navy/15 dark:from-mac-navy/10 dark:to-mac-navy/15">
+            <p className="text-3xl font-black text-mac-navy">
               {efficiencyScore}
             </p>
             <p className="text-xs text-text-muted mt-1">Efficiency Score</p>
@@ -556,8 +556,8 @@ function PerformanceSection({
           </div>
 
           {/* Avg Time */}
-          <div className="text-center p-3 rounded-xl bg-gradient-to-b from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-950/30">
-            <p className="text-3xl font-black text-blue-600">{avgTimeStr}</p>
+          <div className="text-center p-3 rounded-xl bg-gradient-to-b from-primary/10 to-primary/15 dark:from-primary/10 dark:to-primary/15">
+            <p className="text-3xl font-black text-primary">{avgTimeStr}</p>
             <p className="text-xs text-text-muted mt-1">Avg Job Time</p>
           </div>
 
@@ -583,13 +583,13 @@ function PerformanceSection({
             value={efficiencyScore}
             max={100}
             label="Efficiency (target: 100)"
-            color="bg-purple-500"
+            color="bg-mac-navy"
           />
           <ProgressBar
             value={completedJobs}
             max={40}
             label="Monthly jobs (target: 40)"
-            color="bg-blue-500"
+            color="bg-primary"
           />
         </div>
       </CardContent>

@@ -251,7 +251,7 @@ function TodayHoursCard({ hoursWorked }: { hoursWorked: number }) {
                 hoursWorked >= 8
                   ? "bg-green-500"
                   : hoursWorked >= 6
-                    ? "bg-blue-500"
+                    ? "bg-primary"
                     : "bg-orange-400"
               }`}
               style={{ width: `${Math.min(100, (hoursWorked / 8) * 100)}%` }}

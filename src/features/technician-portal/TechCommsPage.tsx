@@ -162,7 +162,7 @@ function CallCard({
     ? "text-red-600"
     : isInbound
       ? "text-green-600"
-      : "text-blue-600";
+      : "text-primary";
   const otherNumber = isInbound ? call.from_number : call.to_number;
   const otherName = isInbound
     ? call.from_name || call.contact_name
@@ -559,7 +559,7 @@ function MessagingTab({ type, onCompose }: { type: "sms" | "email"; onCompose: (
       {/* New Message Button */}
       <button
         onClick={onCompose}
-        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-base font-bold shadow-md transition-colors"
+        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-base font-bold shadow-md transition-colors"
       >
         <span className="text-xl">✏️</span>
         New {type === "sms" ? "Text Message" : "Email"}
@@ -691,7 +691,7 @@ function ComposePanel({
           <button
             onClick={handleSend}
             disabled={!to.trim() || !body.trim()}
-            className="px-4 py-1.5 rounded-lg font-bold text-base bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-1.5 rounded-lg font-bold text-base bg-primary hover:bg-primary/90 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             Send
           </button>

@@ -195,7 +195,7 @@ export function VoiceCommandButton({ onClockIn, onClockOut }: VoiceCommandButton
         "text-xl leading-none",
         "transition-all duration-200",
         "hover:scale-105 active:scale-95",
-        "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         isListening ? "ring-2 ring-red-500 animate-pulse" : "",
       ].join(" ")}
       title={isListening ? "Listening... tap to stop" : "Voice command"}

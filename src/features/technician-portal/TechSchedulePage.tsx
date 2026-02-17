@@ -166,7 +166,7 @@ function WeekHeader({
       {!isCurrentWeek && (
         <button
           onClick={onToday}
-          className="mt-2 w-full h-11 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 active:bg-blue-800 transition-colors"
+          className="mt-2 w-full h-11 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 active:bg-primary/80 transition-colors"
         >
           Jump to Today
         </button>
@@ -331,7 +331,7 @@ function DayColumn({
     <div
       className={`rounded-xl border transition-colors ${
         today
-          ? "border-blue-500 bg-blue-50/50 dark:bg-blue-950/20 shadow-sm"
+          ? "border-primary bg-primary/5 dark:bg-primary/10 shadow-sm"
           : "border-border bg-bg-card"
       } ${isPast ? "opacity-75" : ""}`}
     >
@@ -339,14 +339,14 @@ function DayColumn({
       <div
         className={`flex items-center gap-2 px-3 py-2.5 border-b ${
           today
-            ? "border-blue-200 dark:border-blue-800"
+            ? "border-primary/30 dark:border-primary/20"
             : "border-border"
         }`}
       >
         <div
           className={`flex items-center justify-center w-9 h-9 rounded-full font-bold text-sm ${
             today
-              ? "bg-blue-600 text-white"
+              ? "bg-primary text-white"
               : "bg-bg-muted text-text-secondary"
           }`}
         >
@@ -354,12 +354,12 @@ function DayColumn({
         </div>
         <span
           className={`text-sm font-semibold ${
-            today ? "text-blue-700 dark:text-blue-400" : "text-text-secondary"
+            today ? "text-primary dark:text-mac-light-blue" : "text-text-secondary"
           }`}
         >
           {dayName}
           {today && (
-            <span className="ml-1.5 text-xs font-normal text-blue-500">
+            <span className="ml-1.5 text-xs font-normal text-primary">
               Today
             </span>
           )}
@@ -368,7 +368,7 @@ function DayColumn({
           <span
             className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${
               today
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                ? "bg-primary/15 text-primary dark:bg-primary/20 dark:text-mac-light-blue"
                 : "bg-bg-muted text-text-muted"
             }`}
           >
@@ -458,7 +458,7 @@ function ScheduleError({ onRetry }: { onRetry: () => void }) {
           </p>
           <button
             onClick={onRetry}
-            className="inline-flex items-center justify-center h-11 px-6 rounded-lg bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 active:bg-blue-800 transition-colors"
+            className="inline-flex items-center justify-center h-11 px-6 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 active:bg-primary/80 transition-colors"
           >
             Try Again
           </button>

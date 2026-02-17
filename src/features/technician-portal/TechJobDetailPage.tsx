@@ -211,23 +211,25 @@ function TabButton({
   return (
     <button
       onClick={onClick}
-      className={`flex-1 flex flex-col items-center gap-1 py-3 px-2 rounded-xl text-sm font-medium transition-all relative ${
+      className={`flex-1 flex flex-col items-center gap-0.5 py-2.5 px-1.5 rounded-xl text-sm font-medium transition-all relative ${
         active
-          ? "bg-blue-600 text-white shadow-md"
+          ? "bg-primary text-white shadow-md"
           : "bg-bg-surface text-text-secondary hover:bg-bg-muted"
       }`}
     >
-      <span className="text-lg">{emoji}</span>
-      <span className="text-xs">{label}</span>
-      {badge != null && (
-        <span
-          className={`absolute -top-1 -right-1 min-w-[20px] h-5 flex items-center justify-center rounded-full text-[10px] font-bold px-1 ${
-            badgeColor || "bg-red-500 text-white"
-          }`}
-        >
-          {badge}
-        </span>
-      )}
+      <span className="text-lg relative">
+        {emoji}
+        {badge != null && (
+          <span
+            className={`absolute -top-2 -right-3 min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold px-0.5 shadow-sm border border-white/50 ${
+              badgeColor || "bg-danger text-white"
+            }`}
+          >
+            {badge}
+          </span>
+        )}
+      </span>
+      <span className="text-[11px] leading-tight">{label}</span>
     </button>
   );
 }
@@ -679,7 +681,7 @@ export function TechJobDetailPage() {
       </Button>
 
       {/* ── Header Card ─────────────────────────────────────────────────── */}
-      <Card className="bg-gradient-to-r from-blue-600 to-blue-800 text-white border-0">
+      <Card className="bg-gradient-to-br from-mac-navy to-mac-dark-blue text-white border-0 shadow-lg">
         <CardContent className="pt-5 pb-5">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3">
@@ -687,7 +689,7 @@ export function TechJobDetailPage() {
               <div>
                 <h1 className="text-xl font-bold">{jobTypeLabel}</h1>
                 {job.work_order_number && (
-                  <p className="text-blue-200 text-sm">
+                  <p className="text-white/70 text-sm">
                     #{job.work_order_number}
                   </p>
                 )}
@@ -701,7 +703,7 @@ export function TechJobDetailPage() {
               {statusLabel}
             </Badge>
           </div>
-          <div className="flex items-center gap-2 text-blue-100">
+          <div className="flex items-center gap-2 text-white/80">
             <span>{priorityEmoji}</span>
             <span className="text-sm font-medium">
               Priority: {priorityLabel}
@@ -723,7 +725,7 @@ export function TechJobDetailPage() {
         <Button
           onClick={handleStartJob}
           disabled={isStarting}
-          className="w-full h-14 text-lg font-bold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
+          className="w-full h-14 text-lg font-bold rounded-xl bg-cta hover:bg-cta-hover text-white shadow-lg"
         >
           {isStarting ? (
             <span className="flex items-center gap-2">
@@ -800,7 +802,7 @@ export function TechJobDetailPage() {
           emoji="📜"
           active={activeTab === "history"}
           badge={serviceHistory ? String(serviceHistory.total_jobs) : undefined}
-          badgeColor="bg-blue-500 text-white"
+          badgeColor="bg-primary text-white"
           onClick={() => setActiveTab("history")}
         />
         <TabButton
@@ -853,7 +855,7 @@ export function TechJobDetailPage() {
             {!isEditing ? (
               <button
                 onClick={handleEnterEdit}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-blue-700 text-sm font-medium hover:bg-blue-100 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-light text-primary text-sm font-medium hover:bg-primary/10 transition-colors"
               >
                 <span>✏️</span> Edit Job Details
               </button>
@@ -922,7 +924,7 @@ export function TechJobDetailPage() {
                         );
                       }}
                       disabled={initiateCall.isPending}
-                      className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-purple-100 transition-colors disabled:opacity-50"
+                      className="inline-flex items-center gap-2 bg-mac-navy/10 text-mac-navy px-4 py-3 rounded-xl text-base font-medium hover:bg-mac-navy/15 transition-colors disabled:opacity-50"
                     >
                       <span className="text-xl">🔗</span>
                       {initiateCall.isPending ? "Connecting..." : "RC Call"}
@@ -935,8 +937,8 @@ export function TechJobDetailPage() {
                       onClick={() => setShowQuickText((v) => !v)}
                       className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                         showQuickText
-                          ? "bg-purple-200 text-purple-800"
-                          : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+                          ? "bg-mac-navy/20 text-mac-navy"
+                          : "bg-mac-navy/10 text-mac-navy hover:bg-mac-navy/15"
                       }`}
                     >
                       <span className="text-xl">📲</span> RC Text
@@ -944,8 +946,8 @@ export function TechJobDetailPage() {
                   </div>
 
                   {showQuickText && (
-                    <div className="mt-3 p-4 bg-purple-50 rounded-xl border border-purple-200">
-                      <p className="text-sm font-medium text-purple-800 mb-2">
+                    <div className="mt-3 p-4 bg-mac-navy/5 rounded-xl border border-mac-navy/20">
+                      <p className="text-sm font-medium text-mac-navy mb-2">
                         Send SMS to {job.customer_phone} via RingCentral
                       </p>
                       <textarea
@@ -953,16 +955,16 @@ export function TechJobDetailPage() {
                         onChange={(e) => setQuickTextMsg(e.target.value)}
                         placeholder="Type your message..."
                         rows={3}
-                        className="w-full px-3 py-2 rounded-lg border border-purple-300 bg-white text-base focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none resize-none"
+                        className="w-full px-3 py-2 rounded-lg border border-mac-navy/30 bg-white text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
                       />
                       <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-purple-600">
+                        <span className="text-xs text-mac-navy/70">
                           {quickTextMsg.length}/160 chars
                         </span>
                         <div className="flex gap-2">
                           <button
                             onClick={() => { setShowQuickText(false); setQuickTextMsg(""); }}
-                            className="px-4 py-2 text-sm text-purple-600 hover:text-purple-800"
+                            className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
                           >
                             Cancel
                           </button>
@@ -978,7 +980,7 @@ export function TechJobDetailPage() {
                               );
                             }}
                             disabled={sendSMS.isPending || !quickTextMsg.trim()}
-                            className="px-5 py-2 bg-purple-600 text-white text-sm font-bold rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors"
+                            className="px-5 py-2 bg-mac-navy text-white text-sm font-bold rounded-lg hover:bg-mac-navy/90 disabled:opacity-50 transition-colors"
                           >
                             {sendSMS.isPending ? "Sending..." : "Send"}
                           </button>
@@ -996,7 +998,7 @@ export function TechJobDetailPage() {
                     href={directionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-blue-100 transition-colors"
+                    className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-3 rounded-xl text-base font-medium hover:bg-primary/15 transition-colors"
                   >
                     <span className="text-xl">🗺️</span> Get Directions
                   </a>
@@ -1023,8 +1025,8 @@ export function TechJobDetailPage() {
                         onClick={() => setEditStatus(opt.value)}
                         className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
                           editStatus === opt.value
-                            ? "border-blue-500 bg-blue-50 text-blue-700"
-                            : "border-border bg-bg-surface text-text-secondary hover:border-blue-300"
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border bg-bg-surface text-text-secondary hover:border-primary/40"
                         }`}
                       >
                         <span className="text-lg">{opt.emoji}</span>
@@ -1044,8 +1046,8 @@ export function TechJobDetailPage() {
                         onClick={() => setEditPriority(opt.value)}
                         className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
                           editPriority === opt.value
-                            ? "border-blue-500 bg-blue-50 text-blue-700"
-                            : "border-border bg-bg-surface text-text-secondary hover:border-blue-300"
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border bg-bg-surface text-text-secondary hover:border-primary/40"
                         }`}
                       >
                         <span>{opt.emoji}</span>
@@ -1068,7 +1070,7 @@ export function TechJobDetailPage() {
                     placeholder="e.g. 2.5"
                     value={editDuration}
                     onChange={(e) => setEditDuration(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                   />
                 </div>
               </CardContent>
@@ -1141,7 +1143,7 @@ export function TechJobDetailPage() {
                       onChange={(e) => setEditNotes(e.target.value)}
                       placeholder="Add notes about this job..."
                       rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
                     />
                   </div>
                   <div>
@@ -1153,7 +1155,7 @@ export function TechJobDetailPage() {
                       onChange={(e) => setEditInternalNotes(e.target.value)}
                       placeholder="Internal team notes..."
                       rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
                     />
                   </div>
                 </div>
@@ -1238,17 +1240,17 @@ export function TechJobDetailPage() {
           ) : (
             <>
               {/* Customer Profile Header */}
-              <Card className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white border-0">
+              <Card className="bg-gradient-to-br from-mac-navy to-primary text-white border-0 shadow-lg">
                 <CardContent className="pt-5 pb-5">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
+                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold">
                       {(customer.first_name || "?")[0]}
                     </div>
                     <div>
                       <h2 className="text-xl font-bold">
                         {customer.first_name} {customer.last_name}
                       </h2>
-                      <p className="text-indigo-200 text-sm">
+                      <p className="text-white/70 text-sm">
                         {customer.customer_type ? customer.customer_type.charAt(0).toUpperCase() + customer.customer_type.slice(1) : "Customer"}
                       </p>
                     </div>
@@ -1264,7 +1266,7 @@ export function TechJobDetailPage() {
                 {!isEditingCustomer ? (
                   <button
                     onClick={handleEnterCustomerEdit}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-700 text-sm font-medium hover:bg-indigo-100 transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-light text-primary text-sm font-medium hover:bg-primary/10 transition-colors"
                   >
                     <span>✏️</span> Edit Customer Info
                   </button>
@@ -1303,7 +1305,7 @@ export function TechJobDetailPage() {
                           value={editCustPhone}
                           onChange={(e) => setEditCustPhone(e.target.value)}
                           placeholder="(555) 123-4567"
-                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                         />
                       </div>
                       <div>
@@ -1314,7 +1316,7 @@ export function TechJobDetailPage() {
                           value={editCustEmail}
                           onChange={(e) => setEditCustEmail(e.target.value)}
                           placeholder="customer@email.com"
-                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                         />
                       </div>
                     </div>
@@ -1341,7 +1343,7 @@ export function TechJobDetailPage() {
                         </>
                       )}
                       {customer.email && (
-                        <a href={`mailto:${customer.email}`} className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-3 rounded-xl text-sm font-medium hover:bg-blue-100 transition-colors">
+                        <a href={`mailto:${customer.email}`} className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-3 rounded-xl text-sm font-medium hover:bg-primary/15 transition-colors">
                           <span>📧</span> Email
                         </a>
                       )}
@@ -1365,7 +1367,7 @@ export function TechJobDetailPage() {
                           value={editCustAddress}
                           onChange={(e) => setEditCustAddress(e.target.value)}
                           placeholder="123 Main St"
-                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                          className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                         />
                       </div>
                       <div className="grid grid-cols-5 gap-2">
@@ -1376,7 +1378,7 @@ export function TechJobDetailPage() {
                             value={editCustCity}
                             onChange={(e) => setEditCustCity(e.target.value)}
                             placeholder="City"
-                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                           />
                         </div>
                         <div>
@@ -1387,7 +1389,7 @@ export function TechJobDetailPage() {
                             value={editCustState}
                             onChange={(e) => setEditCustState(e.target.value.toUpperCase())}
                             placeholder="TX"
-                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base text-center focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base text-center focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                           />
                         </div>
                         <div className="col-span-2">
@@ -1398,7 +1400,7 @@ export function TechJobDetailPage() {
                             value={editCustPostal}
                             onChange={(e) => setEditCustPostal(e.target.value)}
                             placeholder="77001"
-                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                            className="w-full h-12 px-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                           />
                         </div>
                       </div>
@@ -1441,7 +1443,7 @@ export function TechJobDetailPage() {
                       onChange={(e) => setEditCustNotes(e.target.value)}
                       placeholder="Notes about this customer..."
                       rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
                     />
                   ) : customer.lead_notes ? (
                     <p className="text-base text-text-primary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">{customer.lead_notes}</p>
@@ -1721,14 +1723,14 @@ export function TechJobDetailPage() {
         <>
           {/* Customer Stats Summary */}
           {serviceHistory && (
-            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200">
+            <Card className="bg-gradient-to-r from-primary/10 to-mac-navy/10 border-primary/30">
               <CardContent className="pt-5 pb-5">
                 <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
                   <span className="text-xl">📊</span> Customer Stats
                 </h2>
                 <div className="grid grid-cols-3 gap-3">
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-indigo-700">{serviceHistory.total_jobs}</p>
+                    <p className="text-2xl font-bold text-mac-navy">{serviceHistory.total_jobs}</p>
                     <p className="text-xs text-text-muted">Total Jobs</p>
                   </div>
                   <div className="text-center">
@@ -1736,7 +1738,7 @@ export function TechJobDetailPage() {
                     <p className="text-xs text-text-muted">Completed</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-blue-700">
+                    <p className="text-2xl font-bold text-primary">
                       {serviceHistory.last_service_date
                         ? (() => {
                             const d = new Date(serviceHistory.last_service_date);
@@ -1794,7 +1796,7 @@ export function TechJobDetailPage() {
                         disabled={isCurrent}
                         className={`w-full text-left rounded-xl border p-4 transition-all ${
                           isCurrent
-                            ? "border-blue-300 bg-blue-50 ring-2 ring-blue-200"
+                            ? "border-primary/40 bg-primary/10 ring-2 ring-primary/20"
                             : "border-border-default bg-bg-surface hover:bg-bg-muted hover:shadow-sm"
                         }`}
                       >
@@ -1805,7 +1807,7 @@ export function TechJobDetailPage() {
                               <p className="font-semibold text-text-primary truncate">
                                 {woTypeLabel}
                                 {isCurrent && (
-                                  <span className="ml-2 text-xs text-blue-600 font-bold">(Current Job)</span>
+                                  <span className="ml-2 text-xs text-primary font-bold">(Current Job)</span>
                                 )}
                               </p>
                               {wo.work_order_number && (
@@ -1943,8 +1945,8 @@ export function TechJobDetailPage() {
                       onClick={() => setPaymentMethod(method.value)}
                       className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all ${
                         paymentMethod === method.value
-                          ? "border-blue-500 bg-blue-50 text-blue-700"
-                          : "border-border bg-bg-surface text-text-secondary hover:border-blue-300"
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-border bg-bg-surface text-text-secondary hover:border-primary/40"
                       }`}
                     >
                       <span className="text-2xl">{method.emoji}</span>
@@ -1972,13 +1974,13 @@ export function TechJobDetailPage() {
                     placeholder={amount > 0 ? String(amount) : "0.00"}
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full h-14 pl-10 pr-4 text-xl font-bold rounded-xl border border-border bg-bg-surface focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full h-14 pl-10 pr-4 text-xl font-bold rounded-xl border border-border bg-bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                   />
                 </div>
                 {amount > 0 && (
                   <button
                     onClick={() => setPaymentAmount(String(amount))}
-                    className="text-sm text-blue-600 mt-1 hover:underline"
+                    className="text-sm text-primary mt-1 hover:underline"
                   >
                     Use estimated amount: {formatCurrency(amount)}
                   </button>
@@ -1996,7 +1998,7 @@ export function TechJobDetailPage() {
                     placeholder="Enter check number"
                     value={checkNumber}
                     onChange={(e) => setCheckNumber(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
                   />
                 </div>
               )}
@@ -2011,7 +2013,7 @@ export function TechJobDetailPage() {
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
                   rows={2}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
                 />
               </div>
 
@@ -2156,7 +2158,7 @@ export function TechJobDetailPage() {
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div
                     className={`h-3 rounded-full transition-all ${
-                      completionReady ? "bg-green-500" : "bg-blue-500"
+                      completionReady ? "bg-green-500" : "bg-primary"
                     }`}
                     style={{
                       width: `${
@@ -2218,7 +2220,7 @@ export function TechJobDetailPage() {
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full h-14 text-lg font-bold rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors border border-blue-200"
+          className="flex items-center justify-center gap-2 w-full h-14 text-lg font-bold rounded-xl bg-primary/10 text-primary hover:bg-primary/15 transition-colors border border-primary/30"
         >
           <span className="text-xl">🗺️</span> Get Directions
         </a>
