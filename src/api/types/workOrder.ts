@@ -259,12 +259,23 @@ export const PRIORITY_COLORS: Record<Priority, string> = {
  * Photo types for work order documentation
  */
 export const photoTypeSchema = z.enum([
+  // Standard photos (all systems)
   "before",
   "after",
-  "manifest",
-  "damage",
   "lid",
   "tank",
+  "inlet",
+  "outlet",
+  // Aerobic-only photos
+  "disc_filter",
+  "control_panel",
+  "breaker",
+  "pump_intake",
+  "driveway",
+  "atu_refill",
+  // Legacy/general types
+  "manifest",
+  "damage",
   "access",
   "equipment",
   "other",
