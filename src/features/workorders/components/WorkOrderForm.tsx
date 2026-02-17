@@ -92,6 +92,7 @@ export function WorkOrderForm({
           gallons_pumped: workOrder.gallons_pumped || undefined,
           dump_site_id: workOrder.dump_site_id || "",
           dump_fee: workOrder.dump_fee || undefined,
+          system_type: workOrder.system_type || "conventional",
           notes: workOrder.notes || "",
         }
       : {
@@ -110,6 +111,7 @@ export function WorkOrderForm({
           service_city: "",
           service_state: "",
           service_postal_code: "",
+          system_type: "conventional",
           notes: "",
         },
   });
@@ -232,6 +234,14 @@ export function WorkOrderForm({
                         {label}
                       </option>
                     ))}
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="system_type">System Type</Label>
+                  <Select id="system_type" {...register("system_type")}>
+                    <option value="conventional">🏗️ Conventional</option>
+                    <option value="aerobic">💨 Aerobic</option>
                   </Select>
                 </div>
               </div>

@@ -217,6 +217,8 @@ export const workOrderFormSchema = z.object({
   gallons_pumped: z.coerce.number().min(0).optional(),
   dump_site_id: z.string().optional(),
   dump_fee: z.coerce.number().min(0).optional(),
+  // System type
+  system_type: z.string().optional(),
   // Work details
   notes: z.string().optional(),
 });

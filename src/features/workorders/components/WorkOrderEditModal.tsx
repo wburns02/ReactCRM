@@ -442,6 +442,7 @@ export function WorkOrderEditModal({
           service_city: workOrder.service_city || "",
           service_state: workOrder.service_state || "",
           service_postal_code: workOrder.service_postal_code || "",
+          system_type: workOrder.system_type || "conventional",
           notes: workOrder.notes || "",
         }
       : {
@@ -460,6 +461,7 @@ export function WorkOrderEditModal({
           service_city: "",
           service_state: "",
           service_postal_code: "",
+          system_type: "conventional",
           notes: "",
         },
   });
@@ -818,6 +820,15 @@ export function WorkOrderEditModal({
                             {label}
                           </option>
                         ))}
+                      </Select>
+                    </div>
+
+                    {/* System Type */}
+                    <div className="space-y-2">
+                      <Label htmlFor="system_type">System Type</Label>
+                      <Select id="system_type" {...register("system_type")}>
+                        <option value="conventional">🏗️ Conventional</option>
+                        <option value="aerobic">💨 Aerobic</option>
                       </Select>
                     </div>
 
