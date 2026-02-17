@@ -28,10 +28,10 @@ export function RoleSelector({ value, onChange, disabled }: RoleSelectorProps) {
         }
         disabled={disabled}
       >
-        <option value="admin">Admin</option>
-        <option value="manager">Manager</option>
-        <option value="technician">Technician</option>
         <option value="office">Office</option>
+        <option value="technician">Technician</option>
+        <option value="manager">Manager</option>
+        <option value="admin">Admin</option>
       </Select>
       <p className="text-xs text-text-muted mt-1">{roleDescriptions[value]}</p>
     </div>
