@@ -8,7 +8,7 @@ import { SessionTimeoutProvider } from "@/components/SessionTimeoutProvider";
 import { WebSocketProvider } from "@/providers/WebSocketProvider";
 import { RoleProvider } from "@/providers/RoleProvider";
 import { RoleSwitcher } from "@/components/RoleSwitcher";
-import { OnboardingCheck } from "@/features/onboarding/OnboardingCheck";
+
 import { PWAProvider } from "@/components/pwa";
 import { initWebVitals } from "@/lib/webVitals";
 import "./index.css";
@@ -54,7 +54,6 @@ const queryClient = new QueryClient({
  * 6. BrowserRouter - client-side routing
  * 7. RoleProvider - demo mode role switching
  * 8. PWAProvider - install prompts, update notifications, offline banner
- * 9. OnboardingCheck - redirects new users to onboarding wizard
  */
 function App() {
   return (
@@ -66,11 +65,9 @@ function App() {
               <BrowserRouter basename="/">
                 <RoleProvider>
                   <PWAProvider>
-                    <OnboardingCheck>
-                      <OfflineIndicator />
-                      <RoleSwitcher />
-                      <AppRoutes />
-                    </OnboardingCheck>
+                    <OfflineIndicator />
+                    <RoleSwitcher />
+                    <AppRoutes />
                   </PWAProvider>
                 </RoleProvider>
               </BrowserRouter>

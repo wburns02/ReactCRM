@@ -4,7 +4,6 @@ import { useAuth } from "@/features/auth/useAuth.ts";
 import { RCStatusIndicator } from "@/features/phone/index.ts";
 import { NotificationCenter } from "@/features/notifications/index.ts";
 import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
-import { OnboardingAssistant } from "@/features/onboarding/components/OnboardingAssistant";
 import { EmailComposeProvider } from "@/context/EmailComposeContext";
 import { MobileBottomNav } from "@/components/navigation/MobileBottomNav";
 import { MobileHeader } from "@/components/navigation/MobileHeader";
@@ -415,8 +414,6 @@ export function AppLayout() {
         </div>
       )}
 
-      {/* AI Onboarding Assistant — hidden for field technicians */}
-      {!isTechnician && <OnboardingAssistant />}
     </div>
     </EmailComposeProvider>
   );

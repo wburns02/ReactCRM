@@ -23,12 +23,6 @@ import { EnterpriseRoutes } from "./app/enterprise.routes";
 import { AdminRoutes } from "./app/admin.routes";
 import { MiscRoutes } from "./app/misc.routes";
 
-// Onboarding wizard (needs auth but separate layout)
-const OnboardingWizard = lazy(() =>
-  import("@/features/onboarding/index.ts").then((m) => ({
-    default: m.OnboardingWizard,
-  })),
-);
 
 /**
  * Redirects technicians to /my-dashboard, everyone else to /dashboard
@@ -65,18 +59,6 @@ export function AppRoutes() {
 
       {/* Field Service routes (mobile technician) */}
       {FieldRoutes()}
-
-      {/* Onboarding wizard (auth required, separate layout) */}
-      <Route
-        path="/onboarding"
-        element={
-          <RequireAuth>
-            <Suspense fallback={<PageLoader />}>
-              <OnboardingWizard />
-            </Suspense>
-          </RequireAuth>
-        }
-      />
 
       {/* Protected app routes */}
       <Route
