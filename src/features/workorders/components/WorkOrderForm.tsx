@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
@@ -23,7 +23,7 @@ import {
   type JobType,
   type Priority,
 } from "@/api/types/workOrder.ts";
-import { useCustomers } from "@/api/hooks/useCustomers.ts";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox.tsx";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import { useDumpSites } from "@/api/hooks/useDumpSites.ts";
 import { formatCurrency } from "@/lib/utils";
@@ -48,8 +48,7 @@ export function WorkOrderForm({
 }: WorkOrderFormProps) {
   const isEdit = !!workOrder;
 
-  // Fetch customers, technicians, and dump sites for dropdowns
-  const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
+  // Fetch technicians and dump sites for dropdowns
   const { data: techniciansData } = useTechnicians({
     page: 1,
     page_size: 100,
@@ -57,12 +56,12 @@ export function WorkOrderForm({
   });
   const { data: dumpSites } = useDumpSites({ is_active: true });
 
-  const customers = customersData?.items || [];
   const technicians = techniciansData?.items || [];
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isDirty },
     reset,
     watch,
@@ -162,35 +161,26 @@ export function WorkOrderForm({
                 Job Information
               </h4>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="customer_id" required>
-                    Customer
-                  </Label>
-                  <Select
-                    id="customer_id"
-                    {...register("customer_id")}
-                    disabled={isEdit}
-                  >
-                    <option value="">Select customer...</option>
-                    {/* Include current WO's customer if not already in list */}
-                    {isEdit && workOrder?.customer_id && !customers.some(c => String(c.id) === String(workOrder.customer_id)) && (
-                      <option key={workOrder.customer_id} value={String(workOrder.customer_id)}>
-                        {workOrder.customer_name || workOrder.customer?.first_name
-                          ? `${workOrder.customer?.first_name ?? ""} ${workOrder.customer?.last_name ?? ""}`.trim()
-                          : "Unknown Customer"}
-                      </option>
+                <div className="col-span-2">
+                  <Controller
+                    name="customer_id"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomerCombobox
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={isEdit}
+                        error={errors.customer_id?.message}
+                        onCustomerCreated={(c) => {
+                          // Auto-fill service address from new customer
+                          if (c.address_line1) setValue("service_address_line1", c.address_line1);
+                          if (c.city) setValue("service_city", c.city);
+                          if (c.state) setValue("service_state", c.state);
+                          if (c.postal_code) setValue("service_postal_code", c.postal_code);
+                        }}
+                      />
                     )}
-                    {customers.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.first_name} {c.last_name}
-                      </option>
-                    ))}
-                  </Select>
-                  {errors.customer_id && (
-                    <p className="text-sm text-danger">
-                      {errors.customer_id.message}
-                    </p>
-                  )}
+                  />
                 </div>
 
                 <div className="space-y-2">

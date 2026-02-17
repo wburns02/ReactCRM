@@ -51,6 +51,7 @@ import WorkOrderTimeline from "./WorkOrderTimeline";
 // Hooks and types
 import { useCustomers } from "@/api/hooks/useCustomers";
 import { useTechnicians } from "@/api/hooks/useTechnicians";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox";
 import { useWorkOrderPhotoOperations } from "@/api/hooks/useWorkOrderPhotos";
 import {
   workOrderFormSchema,
@@ -98,152 +99,6 @@ interface RequiredPhoto {
   label: string;
   required: boolean;
   captured: boolean;
-}
-
-// ============================================================================
-// CUSTOMER SELECT COMPONENT
-// ============================================================================
-
-interface CustomerSelectProps {
-  value: string;
-  onChange: (value: string) => void;
-  disabled?: boolean;
-  error?: string;
-}
-
-function CustomerSelect({
-  value,
-  onChange,
-  disabled,
-  error,
-}: CustomerSelectProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-
-  const { data: customersData, isLoading } = useCustomers({
-    page: 1,
-    page_size: 200,
-  });
-
-  const customers = customersData?.items || [];
-
-  const filteredCustomers = useMemo(() => {
-    if (!searchQuery) return customers;
-    const query = searchQuery.toLowerCase();
-    return customers.filter(
-      (c) =>
-        `${c.first_name} ${c.last_name}`.toLowerCase().includes(query) ||
-        c.email?.toLowerCase().includes(query) ||
-        c.phone?.includes(query),
-    );
-  }, [customers, searchQuery]);
-
-  const selectedCustomer = useMemo(
-    () => customers.find((c) => String(c.id) === String(value)),
-    [customers, value],
-  );
-
-  return (
-    <div className="space-y-2">
-      <Label htmlFor="customer-search" required>
-        Customer
-      </Label>
-
-      {/* Search Input */}
-      <div className="relative">
-        <Input
-          id="customer-search"
-          type="text"
-          placeholder="Search customers..."
-          value={
-            isOpen
-              ? searchQuery
-              : selectedCustomer
-                ? `${selectedCustomer.first_name} ${selectedCustomer.last_name}`
-                : ""
-          }
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            if (!isOpen) setIsOpen(true);
-          }}
-          onFocus={() => setIsOpen(true)}
-          disabled={disabled}
-        />
-
-        {/* Dropdown */}
-        {isOpen && !disabled && (
-          <div className="absolute z-50 w-full mt-1 max-h-60 overflow-auto bg-bg-card border border-border rounded-md shadow-lg">
-            {isLoading ? (
-              <div className="p-4 text-center text-text-muted">
-                Loading customers...
-              </div>
-            ) : filteredCustomers.length === 0 ? (
-              <div className="p-4 text-center text-text-muted">
-                No customers found
-              </div>
-            ) : (
-              filteredCustomers.map((customer) => (
-                <button
-                  key={customer.id}
-                  type="button"
-                  className={cn(
-                    "w-full px-4 py-2 text-left hover:bg-bg-hover",
-                    String(customer.id) === String(value) && "bg-primary/10",
-                  )}
-                  onClick={() => {
-                    onChange(String(customer.id));
-                    setSearchQuery("");
-                    setIsOpen(false);
-                  }}
-                >
-                  <div className="font-medium">
-                    {customer.first_name} {customer.last_name}
-                  </div>
-                  <div className="text-xs text-text-muted">
-                    {customer.email} {customer.phone && `| ${customer.phone}`}
-                  </div>
-                </button>
-              ))
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Selected Customer Preview Card */}
-      {selectedCustomer && !isOpen && (
-        <Card className="p-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-primary font-semibold">
-                {selectedCustomer.first_name?.[0]}
-                {selectedCustomer.last_name?.[0]}
-              </span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-medium truncate">
-                {selectedCustomer.first_name} {selectedCustomer.last_name}
-              </p>
-              <p className="text-sm text-text-muted truncate">
-                {selectedCustomer.email}
-              </p>
-              {selectedCustomer.phone && (
-                <p className="text-sm text-text-muted">
-                  {selectedCustomer.phone}
-                </p>
-              )}
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {error && <p className="text-sm text-danger">{error}</p>}
-
-      {/* Click outside to close */}
-      {isOpen && (
-        <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-      )}
-    </div>
-  );
 }
 
 // ============================================================================
@@ -421,6 +276,7 @@ export function WorkOrderEditModal({
     formState: { errors, isDirty },
     reset,
     watch,
+    setValue,
   } = useForm<WorkOrderFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(workOrderFormSchema) as any,
@@ -760,11 +616,18 @@ export function WorkOrderEditModal({
                       name="customer_id"
                       control={control}
                       render={({ field }) => (
-                        <CustomerSelect
+                        <CustomerCombobox
                           value={field.value}
                           onChange={field.onChange}
                           disabled={isEdit}
                           error={errors.customer_id?.message}
+                          onCustomerCreated={(c) => {
+                            // Auto-fill service address from new customer
+                            if (c.address_line1) setValue("service_address_line1", c.address_line1);
+                            if (c.city) setValue("service_city", c.city);
+                            if (c.state) setValue("service_state", c.state);
+                            if (c.postal_code) setValue("service_postal_code", c.postal_code);
+                          }}
                         />
                       )}
                     />
