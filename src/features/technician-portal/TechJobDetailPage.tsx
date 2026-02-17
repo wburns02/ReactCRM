@@ -29,6 +29,8 @@ import { Button } from "@/components/ui/Button.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { formatCurrency, formatDate } from "@/lib/utils.ts";
+import { getRequiredPhotos, SYSTEM_TYPE_INFO } from "./photoCategories.ts";
+import type { PhotoCategory } from "./photoCategories.ts";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -63,12 +65,7 @@ const STATUS_BADGE_VARIANT: Record<
   gray: "default",
 };
 
-const REQUIRED_PHOTO_TYPES = [
-  { type: "before", label: "Before", emoji: "📷" },
-  { type: "after", label: "After", emoji: "📸" },
-  { type: "lid", label: "Lid", emoji: "🔲" },
-  { type: "tank", label: "Tank", emoji: "🪣" },
-] as const;
+// Photo requirements are now dynamic based on system_type — see photoCategories.ts
 
 const PAYMENT_METHODS = [
   { value: "cash", label: "Cash", emoji: "💵" },
@@ -349,12 +346,17 @@ export function TechJobDetailPage() {
   const isCompleted = status === "completed";
   const isCancelled = status === "cancelled";
 
-  // Check which required photos have been uploaded
+  // Dynamic photo requirements based on system type (conventional vs aerobic)
+  const requiredPhotos = getRequiredPhotos(job?.system_type);
   const uploadedPhotoTypes = new Set(photos.map((p) => p.photo_type));
-  const missingPhotos = REQUIRED_PHOTO_TYPES.filter(
+  const missingPhotos = requiredPhotos.filter(
     (r) => !uploadedPhotoTypes.has(r.type),
   );
   const photosComplete = missingPhotos.length === 0;
+  const photosUploaded = requiredPhotos.length - missingPhotos.length;
+  const photoProgressPct = requiredPhotos.length > 0
+    ? Math.round((photosUploaded / requiredPhotos.length) * 100)
+    : 0;
 
   // Check payment status
   const totalPaid = payments.reduce((sum, p) => sum + (p.amount || 0), 0);
@@ -717,6 +719,14 @@ export function TechJobDetailPage() {
               </>
             )}
           </div>
+          {/* System type badge */}
+          {job.system_type && SYSTEM_TYPE_INFO[job.system_type] && (
+            <div className="mt-2">
+              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${SYSTEM_TYPE_INFO[job.system_type].color}`}>
+                {SYSTEM_TYPE_INFO[job.system_type].emoji} {SYSTEM_TYPE_INFO[job.system_type].label} System
+              </span>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -1492,69 +1502,142 @@ export function TechJobDetailPage() {
           ═══════════════════════════════════════════════════════════════ */}
       {activeTab === "photos" && (
         <>
-          {/* Required Photos */}
+          {/* Required Photos — dynamic based on system type */}
           <Card>
             <CardContent className="pt-5 pb-5">
-              <h2 className="text-lg font-bold text-text-primary mb-1 flex items-center gap-2">
-                <span className="text-xl">📸</span> Required Photos
-              </h2>
-              <p className="text-sm text-text-muted mb-4">
-                All 4 photos are required before completing the job.
+              <div className="flex items-center justify-between mb-1">
+                <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
+                  <span className="text-xl">📸</span> Required Photos
+                </h2>
+                {job?.system_type && SYSTEM_TYPE_INFO[job.system_type] && (
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${SYSTEM_TYPE_INFO[job.system_type].color}`}>
+                    {SYSTEM_TYPE_INFO[job.system_type].emoji} {SYSTEM_TYPE_INFO[job.system_type].label}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-text-muted mb-3">
+                {requiredPhotos.length} photos required{job?.system_type === "aerobic" ? " (includes aerobic-specific)" : ""} before completing the job.
               </p>
 
-              <div className="grid grid-cols-2 gap-3">
-                {REQUIRED_PHOTO_TYPES.map((req) => {
-                  const uploaded = photos.find(
-                    (p) => p.photo_type === req.type,
-                  );
-                  const isUploading =
-                    uploadPhotoMutation.isPending &&
-                    uploadingPhotoType === req.type;
-
-                  return (
-                    <button
-                      key={req.type}
-                      onClick={() => handlePhotoCapture(req.type)}
-                      disabled={isUploading}
-                      className={`relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-4 transition-all min-h-[140px] ${
-                        uploaded
-                          ? "border-green-400 bg-green-50"
-                          : "border-red-300 bg-red-50 hover:border-red-400"
-                      }`}
-                    >
-                      {uploaded ? (
-                        <>
-                          <img
-                            src={uploaded.data_url || uploaded.thumbnail_url || ""}
-                            alt={req.label}
-                            className="w-full h-20 object-cover rounded-lg mb-2"
-                          />
-                          <span className="text-green-700 text-sm font-medium flex items-center gap-1">
-                            ✅ {req.label}
-                          </span>
-                          <span className="text-xs text-green-600 mt-1">
-                            Tap to retake
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          {isUploading ? (
-                            <span className="text-3xl animate-pulse">⏳</span>
-                          ) : (
-                            <span className="text-3xl">{req.emoji}</span>
-                          )}
-                          <span className="text-red-700 text-sm font-bold mt-2">
-                            {req.label}
-                          </span>
-                          <span className="text-xs text-red-500 font-medium mt-1">
-                            REQUIRED — Tap to take photo
-                          </span>
-                        </>
-                      )}
-                    </button>
-                  );
-                })}
+              {/* Progress bar */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between text-sm mb-1">
+                  <span className="font-medium text-text-secondary">
+                    {photosUploaded} of {requiredPhotos.length} photos
+                  </span>
+                  <span className={`font-bold ${photosComplete ? "text-green-600" : "text-orange-600"}`}>
+                    {photoProgressPct}%
+                  </span>
+                </div>
+                <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${
+                      photosComplete ? "bg-green-500" : photoProgressPct > 50 ? "bg-yellow-500" : "bg-red-500"
+                    }`}
+                    style={{ width: `${photoProgressPct}%` }}
+                  />
+                </div>
               </div>
+
+              {/* Standard photos section */}
+              <div className="mb-3">
+                <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+                  Standard Photos
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {requiredPhotos.filter((r) => !r.aerobicOnly).map((req) => {
+                    const uploaded = photos.find((p) => p.photo_type === req.type);
+                    const isUploading = uploadPhotoMutation.isPending && uploadingPhotoType === req.type;
+                    return (
+                      <button
+                        key={req.type}
+                        onClick={() => handlePhotoCapture(req.type)}
+                        disabled={isUploading}
+                        className={`relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-3 transition-all min-h-[130px] ${
+                          uploaded
+                            ? "border-green-400 bg-green-50"
+                            : "border-red-300 bg-red-50 hover:border-red-400 active:bg-red-100"
+                        }`}
+                      >
+                        {uploaded ? (
+                          <>
+                            <img
+                              src={uploaded.data_url || uploaded.thumbnail_url || ""}
+                              alt={req.label}
+                              className="w-full h-20 object-cover rounded-lg mb-2"
+                            />
+                            <span className="text-green-700 text-sm font-medium flex items-center gap-1">
+                              ✅ {req.label}
+                            </span>
+                            <span className="text-xs text-green-600 mt-0.5">Tap to retake</span>
+                          </>
+                        ) : (
+                          <>
+                            {isUploading ? (
+                              <span className="text-3xl animate-pulse">⏳</span>
+                            ) : (
+                              <span className="text-3xl">{req.emoji}</span>
+                            )}
+                            <span className="text-red-700 text-sm font-bold mt-2">{req.label}</span>
+                            <span className="text-xs text-red-500 mt-0.5 text-center leading-tight">{req.guidance}</span>
+                          </>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Aerobic-only photos section — only shown for aerobic systems */}
+              {requiredPhotos.some((r) => r.aerobicOnly) && (
+                <div className="mt-4">
+                  <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide mb-2 flex items-center gap-1">
+                    💨 Aerobic System Photos
+                  </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    {requiredPhotos.filter((r) => r.aerobicOnly).map((req) => {
+                      const uploaded = photos.find((p) => p.photo_type === req.type);
+                      const isUploading = uploadPhotoMutation.isPending && uploadingPhotoType === req.type;
+                      return (
+                        <button
+                          key={req.type}
+                          onClick={() => handlePhotoCapture(req.type)}
+                          disabled={isUploading}
+                          className={`relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-3 transition-all min-h-[130px] ${
+                            uploaded
+                              ? "border-green-400 bg-green-50"
+                              : "border-purple-300 bg-purple-50 hover:border-purple-400 active:bg-purple-100"
+                          }`}
+                        >
+                          {uploaded ? (
+                            <>
+                              <img
+                                src={uploaded.data_url || uploaded.thumbnail_url || ""}
+                                alt={req.label}
+                                className="w-full h-20 object-cover rounded-lg mb-2"
+                              />
+                              <span className="text-green-700 text-sm font-medium flex items-center gap-1">
+                                ✅ {req.label}
+                              </span>
+                              <span className="text-xs text-green-600 mt-0.5">Tap to retake</span>
+                            </>
+                          ) : (
+                            <>
+                              {isUploading ? (
+                                <span className="text-3xl animate-pulse">⏳</span>
+                              ) : (
+                                <span className="text-3xl">{req.emoji}</span>
+                              )}
+                              <span className="text-purple-700 text-sm font-bold mt-2">{req.label}</span>
+                              <span className="text-xs text-purple-500 mt-0.5 text-center leading-tight">{req.guidance}</span>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Status summary */}
               <div
@@ -1566,7 +1649,7 @@ export function TechJobDetailPage() {
               >
                 {photosComplete
                   ? "All required photos uploaded ✓"
-                  : `${missingPhotos.length} of ${REQUIRED_PHOTO_TYPES.length} required photos still needed`}
+                  : `${missingPhotos.length} of ${requiredPhotos.length} required photos still needed`}
               </div>
             </CardContent>
           </Card>
@@ -2068,8 +2151,8 @@ export function TechJobDetailPage() {
               </h2>
 
               <div className="space-y-3">
-                {/* Required Photos */}
-                {REQUIRED_PHOTO_TYPES.map((req) => {
+                {/* Required Photos — dynamic based on system type */}
+                {requiredPhotos.map((req) => {
                   const done = uploadedPhotoTypes.has(req.type);
                   return (
                     <button
@@ -2082,7 +2165,9 @@ export function TechJobDetailPage() {
                       className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${
                         done
                           ? "border-green-300 bg-green-50"
-                          : "border-red-300 bg-red-50 hover:bg-red-100"
+                          : req.aerobicOnly
+                            ? "border-purple-300 bg-purple-50 hover:bg-purple-100"
+                            : "border-red-300 bg-red-50 hover:bg-red-100"
                       }`}
                     >
                       <span className="text-2xl">
@@ -2090,16 +2175,18 @@ export function TechJobDetailPage() {
                       </span>
                       <div className="flex-1 text-left">
                         <p
-                          className={`font-medium ${done ? "text-green-700" : "text-red-700"}`}
+                          className={`font-medium ${done ? "text-green-700" : req.aerobicOnly ? "text-purple-700" : "text-red-700"}`}
                         >
                           {req.emoji} {req.label} Photo
                         </p>
                         <p className="text-xs text-text-muted">
-                          {done ? "Uploaded" : "Required — tap to upload"}
+                          {done ? "Uploaded" : req.guidance}
                         </p>
                       </div>
                       {!done && (
-                        <span className="text-red-500 text-xs font-bold bg-red-100 px-2 py-1 rounded">
+                        <span className={`text-xs font-bold px-2 py-1 rounded ${
+                          req.aerobicOnly ? "text-purple-500 bg-purple-100" : "text-red-500 bg-red-100"
+                        }`}>
                           REQUIRED
                         </span>
                       )}
@@ -2148,11 +2235,8 @@ export function TechJobDetailPage() {
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-text-muted">Completion Progress</span>
                   <span className="font-medium">
-                    {REQUIRED_PHOTO_TYPES.filter((r) =>
-                      uploadedPhotoTypes.has(r.type),
-                    ).length +
-                      (paymentRecorded ? 1 : 0)}
-                    /{REQUIRED_PHOTO_TYPES.length + 1}
+                    {photosUploaded + (paymentRecorded ? 1 : 0)}
+                    /{requiredPhotos.length + 1}
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
@@ -2162,11 +2246,8 @@ export function TechJobDetailPage() {
                     }`}
                     style={{
                       width: `${
-                        ((REQUIRED_PHOTO_TYPES.filter((r) =>
-                          uploadedPhotoTypes.has(r.type),
-                        ).length +
-                          (paymentRecorded ? 1 : 0)) /
-                          (REQUIRED_PHOTO_TYPES.length + 1)) *
+                        ((photosUploaded + (paymentRecorded ? 1 : 0)) /
+                          (requiredPhotos.length + 1)) *
                         100
                       }%`,
                     }}

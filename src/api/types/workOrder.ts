@@ -137,6 +137,7 @@ export const workOrderSchema = z.object({
   service_longitude: z.number().nullable(),
   // Work details
   checklist: z.any().nullable(),
+  system_type: z.string().nullable().optional(),
   notes: z.string().nullable(),
   // Pumping details (for pump-out jobs)
   gallons_pumped: z.number().nullable().optional(),

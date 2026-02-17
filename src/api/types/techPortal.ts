@@ -33,6 +33,7 @@ export const techWorkOrderSchema = z.object({
   actual_end_time: z.string().nullable().optional(),
   total_labor_minutes: z.number().nullable().optional(),
   checklist: z.any().nullable().optional(),
+  system_type: z.string().nullable().optional(),
   created_at: z.string().nullable().optional(),
   updated_at: z.string().nullable().optional(),
 });
