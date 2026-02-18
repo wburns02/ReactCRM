@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { ReminderModal } from "../components/ReminderModal";
+import { CommunicationsNav } from "../components/CommunicationsNav";
 import { cn } from "@/lib/utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -401,27 +402,8 @@ export function ReminderConfig() {
         </div>
       </div>
 
-      {/* ── Bottom nav ─────────────────────────────────────────────── */}
-      <div className="flex-shrink-0 border-t border-border bg-bg-card px-4 py-2 flex items-center gap-2 overflow-x-auto">
-        <Link
-          to="/communications"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          Unified Inbox
-        </Link>
-        <Link
-          to="/communications/templates"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          Templates
-        </Link>
-        <Link
-          to="/communications/sms"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          SMS Inbox
-        </Link>
-      </div>
+      {/* ── Navigation ─────────────────────────────────────────────── */}
+      <CommunicationsNav />
 
       {/* Create Reminder Modal */}
       <ReminderModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />

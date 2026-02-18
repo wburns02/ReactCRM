@@ -267,7 +267,7 @@ export function SMSTemplates() {
                 />
                 <div className="flex items-center justify-between mt-1.5">
                   <div className="flex items-center gap-2 flex-wrap">
-                    {VARIABLES.map((v) => (
+                    {SMS_VARIABLES.map((v) => (
                       <button
                         key={v.name}
                         type="button"
@@ -462,24 +462,14 @@ export function SMSTemplates() {
                               ? "1 SMS"
                               : `${Math.ceil(template.content.length / 153)} SMS`}
                           </p>
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (
-                                  confirm(
-                                    "Are you sure you want to delete this template?",
-                                  )
-                                ) {
-                                  deleteMutation.mutate(template.id);
-                                  setEditingId(null);
-                                }
-                              }}
-                              className="px-3 py-1.5 text-xs font-medium border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
-                            >
-                              Delete
-                            </button>
-                          </div>
+                          <ConfirmDeleteButton
+                            itemName="template"
+                            disabled={deleteMutation.isPending}
+                            onConfirm={() => {
+                              deleteMutation.mutate(template.id);
+                              setEditingId(null);
+                            }}
+                          />
                         </div>
                       </div>
                     </div>

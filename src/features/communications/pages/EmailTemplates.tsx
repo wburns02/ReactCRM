@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { ConfirmDeleteButton } from "../components/ConfirmDeleteButton";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { relativeTime, getCategoryColor, EMAIL_CATEGORIES, EMAIL_VARIABLES } from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -16,78 +18,6 @@ interface Template {
   content: string;
   created_at: string;
 }
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-function relativeTime(dateStr: string): string {
-  if (!dateStr) return "";
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  if (isNaN(then)) return "";
-  const diff = now - then;
-  const days = Math.floor(diff / 86400000);
-  if (days === 0) return "Today";
-  if (days === 1) return "Yesterday";
-  if (days < 7) return `${days}d ago`;
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function getCategoryColor(category: string): {
-  bg: string;
-  text: string;
-} {
-  const map: Record<string, { bg: string; text: string }> = {
-    Welcome: {
-      bg: "bg-purple-50 dark:bg-purple-500/10",
-      text: "text-purple-600",
-    },
-    Appointment: {
-      bg: "bg-blue-50 dark:bg-blue-500/10",
-      text: "text-blue-600",
-    },
-    Invoice: {
-      bg: "bg-emerald-50 dark:bg-emerald-500/10",
-      text: "text-emerald-600",
-    },
-    "Follow-up": {
-      bg: "bg-amber-50 dark:bg-amber-500/10",
-      text: "text-amber-600",
-    },
-    "Service Report": {
-      bg: "bg-cyan-50 dark:bg-cyan-500/10",
-      text: "text-cyan-600",
-    },
-    Marketing: {
-      bg: "bg-rose-50 dark:bg-rose-500/10",
-      text: "text-rose-600",
-    },
-  };
-  return (
-    map[category] || {
-      bg: "bg-gray-50 dark:bg-gray-500/10",
-      text: "text-gray-600",
-    }
-  );
-}
-
-const CATEGORIES = [
-  "Welcome",
-  "Appointment",
-  "Invoice",
-  "Follow-up",
-  "Service Report",
-  "Marketing",
-];
-
-const VARIABLES = [
-  { name: "{{customer_name}}", desc: "Customer's name" },
-  { name: "{{company_name}}", desc: "Company name" },
-  { name: "{{date}}", desc: "Date" },
-  { name: "{{invoice_number}}", desc: "Invoice #" },
-];
 
 // ── Component ────────────────────────────────────────────────────────────
 
@@ -318,7 +248,7 @@ export function EmailTemplates() {
                     className="w-full px-3.5 py-2 border border-border rounded-lg bg-bg-card text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
                     <option value="">Select category</option>
-                    {CATEGORIES.map((cat) => (
+                    {EMAIL_CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
                         {cat}
                       </option>
@@ -354,7 +284,7 @@ export function EmailTemplates() {
                   className="w-full px-3.5 py-2 border border-border rounded-lg bg-bg-card text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
                 />
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                  {VARIABLES.map((v) => (
+                  {EMAIL_VARIABLES.map((v) => (
                     <button
                       key={v.name}
                       type="button"
@@ -567,22 +497,14 @@ export function EmailTemplates() {
                           </div>
                         </div>
                         <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (
-                                confirm(
-                                  "Are you sure you want to delete this template?",
-                                )
-                              ) {
-                                deleteMutation.mutate(template.id);
-                                setExpandedId(null);
-                              }
+                          <ConfirmDeleteButton
+                            itemName="template"
+                            disabled={deleteMutation.isPending}
+                            onConfirm={() => {
+                              deleteMutation.mutate(template.id);
+                              setExpandedId(null);
                             }}
-                            className="px-3 py-1.5 text-xs font-medium border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
-                          >
-                            Delete
-                          </button>
+                          />
                         </div>
                       </div>
                     </div>
