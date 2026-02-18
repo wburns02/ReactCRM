@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import { jsPDF } from "jspdf";
 import {
   EQUIPMENT_ITEMS,
   INSPECTION_STEPS,
@@ -19,6 +20,8 @@ import {
   useSaveInspectionState,
   useUploadJobPhoto,
   useCreateEstimateFromInspection,
+  useInspectionAIAnalysis,
+  type AIInspectionAnalysis,
 } from "@/api/hooks/useTechPortal.ts";
 import { EstimateSignature } from "./EstimateSignature.tsx";
 import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
@@ -125,7 +128,6 @@ async function generateReportPDF(
   customerName: string,
   jobId: string,
 ): Promise<Blob> {
-  const { jsPDF } = await import("jspdf");
   const doc = new jsPDF();
   const steps = INSPECTION_STEPS;
   const pageW = 210;
@@ -452,6 +454,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const saveMutation = useSaveInspectionState();
   const uploadPhotoMutation = useUploadJobPhoto();
   const createEstimateMutation = useCreateEstimateFromInspection();
+  const aiAnalysisMutation = useInspectionAIAnalysis();
 
   // Local state (mirrors server, syncs on changes)
   const [localState, setLocalState] = useState<InspectionState>(createDefaultInspectionState());
@@ -463,7 +466,10 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [sendingReport, setSendingReport] = useState<string | null>(null);
   const [estimateQuoteId, setEstimateQuoteId] = useState<string | null>(null);
+  const [aiAnalysis, setAiAnalysis] = useState<AIInspectionAnalysis | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const sludgePhotoRef = useRef<HTMLInputElement>(null);
+  const psiPhotoRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   // Sync from server
@@ -517,7 +523,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     setLocalState((s) => ({ ...s, equipmentItems: all }));
   };
 
-  const updateStepField = (field: keyof StepState, value: string | string[]) => {
+  const updateStepField = (field: keyof StepState, value: string | string[] | undefined) => {
     setLocalState((s) => ({
       ...s,
       steps: {
@@ -554,6 +560,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
         photos: update.photos,
         sludge_level: update.sludgeLevel,
         psi_reading: update.psiReading,
+        selected_parts: update.selectedParts,
       },
     });
 
@@ -582,6 +589,52 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
 
   const handlePhotoCapture = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleEvidencePhoto = (ref: React.RefObject<HTMLInputElement | null>) => {
+    ref.current?.click();
+  };
+
+  const handleEvidenceFileSelected = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    photoType: string,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingPhoto(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result as string;
+        await uploadPhotoMutation.mutateAsync({ jobId, photo: base64, photoType });
+        const existing = localState.steps[currentStep]?.photos || [];
+        updateStepField("photos", [...existing, photoType]);
+        onPhotoUploaded?.();
+        toastSuccess("Evidence photo captured!");
+        setUploadingPhoto(false);
+      };
+      reader.readAsDataURL(file);
+    } catch {
+      toastError("Failed to upload photo");
+      setUploadingPhoto(false);
+    }
+    e.target.value = "";
+  };
+
+  const togglePartSelection = (partName: string) => {
+    const current = currentStepState.selectedParts || [];
+    const updated = current.includes(partName)
+      ? current.filter((p) => p !== partName)
+      : [...current, partName];
+    updateStepField("selectedParts", updated);
+  };
+
+  const handleAIAnalysis = async () => {
+    try {
+      const result = await aiAnalysisMutation.mutateAsync(jobId);
+      setAiAnalysis(result);
+      toastSuccess("AI analysis complete!");
+    } catch { /* error toast from hook */ }
   };
 
   const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -986,6 +1039,90 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
           </div>
         )}
 
+        {/* AI Analysis */}
+        <div className="border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xl">🤖</span>
+            <h4 className="font-semibold text-purple-800 dark:text-purple-300">AI Inspection Insights</h4>
+          </div>
+          {!aiAnalysis ? (
+            <div>
+              <p className="text-xs text-purple-700 dark:text-purple-400 mb-3">
+                Get AI-powered analysis of your findings — prioritized repairs, what to tell the customer, and maintenance recommendations.
+              </p>
+              <button
+                onClick={handleAIAnalysis}
+                disabled={aiAnalysisMutation.isPending}
+                className="w-full py-3 rounded-lg bg-purple-600 text-white font-semibold text-sm hover:bg-purple-700 active:scale-[0.98] transition-all disabled:opacity-50"
+              >
+                {aiAnalysisMutation.isPending ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="animate-spin">⚙️</span> Analyzing with Claude Sonnet...
+                  </span>
+                ) : "🧠 Analyze with AI"}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3 text-sm">
+              {/* Overall Assessment */}
+              <div>
+                <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">Overall Assessment</p>
+                <p className="text-text-primary">{aiAnalysis.overall_assessment}</p>
+              </div>
+
+              {/* Priority Repairs */}
+              {aiAnalysis.priority_repairs?.length > 0 && (
+                <div>
+                  <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">Priority Repairs</p>
+                  {aiAnalysis.priority_repairs.map((repair, i) => (
+                    <div key={i} className="ml-2 mb-2 border-l-2 border-purple-300 pl-2">
+                      <p className="font-medium text-text-primary text-xs">{repair.issue}</p>
+                      <p className="text-text-secondary text-xs">{repair.why_it_matters}</p>
+                      <span className={`inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold ${
+                        repair.urgency === "Fix today" ? "bg-red-100 text-red-700" :
+                        repair.urgency === "Schedule this week" ? "bg-yellow-100 text-yellow-700" :
+                        "bg-blue-100 text-blue-700"
+                      }`}>{repair.urgency}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* What to Say */}
+              <div>
+                <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">💬 What to Tell the Customer</p>
+                <div className="bg-white dark:bg-bg-body rounded-lg p-3 text-xs text-text-primary whitespace-pre-line border border-purple-100 dark:border-purple-900">
+                  {aiAnalysis.homeowner_script}
+                </div>
+              </div>
+
+              {/* Maintenance */}
+              <div>
+                <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">🔧 Maintenance Recommendation</p>
+                <p className="text-text-primary text-xs">{aiAnalysis.maintenance_recommendation}</p>
+              </div>
+
+              {/* Cost Notes */}
+              {aiAnalysis.cost_notes && (
+                <div>
+                  <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">💰 Cost Notes</p>
+                  <p className="text-text-secondary text-xs">{aiAnalysis.cost_notes}</p>
+                </div>
+              )}
+
+              <p className="text-[10px] text-purple-500 text-right">Powered by {aiAnalysis.model_used || "Claude Sonnet"}</p>
+
+              <button
+                onClick={handleAIAnalysis}
+                disabled={aiAnalysisMutation.isPending}
+                className="w-full py-2 rounded-lg border border-purple-300 text-purple-700 dark:text-purple-300 text-xs font-medium hover:bg-purple-100 dark:hover:bg-purple-900/40"
+              >
+                {aiAnalysisMutation.isPending ? "Re-analyzing..." : "🔄 Re-analyze"}
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* Step Review */}
         <div className="border border-border rounded-lg p-4">
           <h4 className="font-semibold text-text-primary mb-2">Steps Completed</h4>
@@ -1222,16 +1359,44 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
               </a>
             )}
 
-            {/* Parts needed for this step */}
+            {/* Parts — selectable when finding is Attention or Critical */}
             {currentStepDef.parts && currentStepDef.parts.length > 0 && (
               <div className="bg-bg-hover rounded-lg p-3">
-                <p className="text-xs font-semibold text-text-primary mb-1">🔩 Parts (if needed)</p>
-                {currentStepDef.parts.map((part, i) => (
-                  <div key={i} className="flex justify-between text-xs text-text-secondary">
-                    <span>{part.name} {part.partNumber && <span className="text-text-muted">({part.partNumber})</span>}</span>
-                    {part.estimatedCost && <span className="text-text-primary">${part.estimatedCost}</span>}
-                  </div>
-                ))}
+                <p className="text-xs font-semibold text-text-primary mb-1">
+                  🔩 Parts {currentStepState.findings !== "ok" ? "(select needed)" : "(if needed)"}
+                </p>
+                {currentStepDef.parts.map((part, i) => {
+                  const isSelectable = currentStepState.findings !== "ok";
+                  const isSelected = (currentStepState.selectedParts || []).includes(part.name);
+                  return (
+                    <label
+                      key={i}
+                      className={`flex items-center gap-2 py-1 ${isSelectable ? "cursor-pointer" : ""}`}
+                    >
+                      {isSelectable && (
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => togglePartSelection(part.name)}
+                          className="w-4 h-4 rounded accent-primary"
+                        />
+                      )}
+                      <span className={`flex-1 text-xs ${isSelected ? "text-text-primary font-medium" : "text-text-secondary"}`}>
+                        {part.name} {part.partNumber && <span className="text-text-muted">({part.partNumber})</span>}
+                      </span>
+                      {part.estimatedCost && (
+                        <span className={`text-xs ${isSelected ? "text-primary font-medium" : "text-text-primary"}`}>
+                          ${part.estimatedCost}
+                        </span>
+                      )}
+                    </label>
+                  );
+                })}
+                {currentStepState.findings !== "ok" && (currentStepState.selectedParts?.length || 0) > 0 && (
+                  <p className="text-xs text-primary font-medium mt-1">
+                    {currentStepState.selectedParts!.length} part{currentStepState.selectedParts!.length > 1 ? "s" : ""} selected
+                  </p>
+                )}
               </div>
             )}
 
@@ -1311,10 +1476,10 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
               </div>
             )}
 
-            {/* Sludge Level Input */}
+            {/* Sludge Level Input + Evidence Photo */}
             {currentStepDef.hasSludgeLevel && (
-              <div>
-                <p className="text-xs font-semibold text-text-primary mb-1">📏 Sludge Level</p>
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-text-primary">📏 Sludge Level</p>
                 <input
                   type="text"
                   value={currentStepState.sludgeLevel || ""}
@@ -1322,13 +1487,28 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
                   placeholder='e.g., "8 inches" or "1/3 full"'
                   className="w-full p-3 rounded-lg border border-border bg-bg-body text-sm text-text-primary"
                 />
+                <input
+                  ref={sludgePhotoRef}
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  className="hidden"
+                  onChange={(e) => handleEvidenceFileSelected(e, "sludge_level_evidence")}
+                />
+                <button
+                  onClick={() => handleEvidencePhoto(sludgePhotoRef)}
+                  disabled={uploadingPhoto}
+                  className="w-full py-2 rounded-lg border border-dashed border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-xs font-medium flex items-center justify-center gap-1 active:scale-[0.98] transition-transform"
+                >
+                  📸 Photo of Sludge Level {(currentStepState.photos || []).includes("sludge_level_evidence") ? "✅" : "(required)"}
+                </button>
               </div>
             )}
 
-            {/* PSI Reading Input */}
+            {/* PSI Reading Input + Evidence Photo */}
             {currentStepDef.hasPsiReading && (
-              <div>
-                <p className="text-xs font-semibold text-text-primary mb-1">🔧 PSI Reading</p>
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-text-primary">🔧 PSI Reading</p>
                 <input
                   type="text"
                   value={currentStepState.psiReading || ""}
@@ -1336,6 +1516,21 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
                   placeholder="e.g., 25 PSI"
                   className="w-full p-3 rounded-lg border border-border bg-bg-body text-sm text-text-primary"
                 />
+                <input
+                  ref={psiPhotoRef}
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  className="hidden"
+                  onChange={(e) => handleEvidenceFileSelected(e, "psi_reading_evidence")}
+                />
+                <button
+                  onClick={() => handleEvidencePhoto(psiPhotoRef)}
+                  disabled={uploadingPhoto}
+                  className="w-full py-2 rounded-lg border border-dashed border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-medium flex items-center justify-center gap-1 active:scale-[0.98] transition-transform"
+                >
+                  📸 Photo of PSI Gauge {(currentStepState.photos || []).includes("psi_reading_evidence") ? "✅" : "(required)"}
+                </button>
               </div>
             )}
 
@@ -1350,7 +1545,16 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
                 ] as const).map((opt) => (
                   <button
                     key={opt.value}
-                    onClick={() => updateStepField("findings", opt.value)}
+                    onClick={() => {
+                      updateStepField("findings", opt.value);
+                      // Auto-select all parts when changing to non-OK
+                      if (opt.value !== "ok" && currentStepDef?.parts?.length) {
+                        const allPartNames = currentStepDef.parts.map((p) => p.name);
+                        updateStepField("selectedParts", allPartNames);
+                      } else if (opt.value === "ok") {
+                        updateStepField("selectedParts", []);
+                      }
+                    }}
                     className={`flex-1 py-2 rounded-lg border text-xs font-medium transition-colors ${
                       currentStepState.findings === opt.value
                         ? opt.color

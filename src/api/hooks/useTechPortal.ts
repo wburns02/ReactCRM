@@ -457,6 +457,7 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
       photos: v.photos ?? [],
       sludgeLevel: v.sludge_level ?? v.sludgeLevel ?? "",
       psiReading: v.psi_reading ?? v.psiReading ?? "",
+      selectedParts: v.selected_parts ?? v.selectedParts ?? [],
     };
   }
   // Map summary
@@ -535,6 +536,7 @@ export function useUpdateInspectionStep() {
         photos?: string[];
         sludge_level?: string;
         psi_reading?: string;
+        selected_parts?: string[];
       };
     }) => {
       const { data } = await apiClient.patch(
@@ -631,5 +633,26 @@ export function useCreateEstimateFromInspection() {
     },
     onSuccess: () => toastSuccess("Estimate created!"),
     onError: () => toastError("Failed to create estimate"),
+  });
+}
+
+// ── AI Inspection Analysis ──────────────────────────────────────────────
+
+export interface AIInspectionAnalysis {
+  overall_assessment: string;
+  priority_repairs: { issue: string; why_it_matters: string; urgency: string }[];
+  homeowner_script: string;
+  maintenance_recommendation: string;
+  cost_notes: string;
+  model_used: string;
+}
+
+export function useInspectionAIAnalysis() {
+  return useMutation({
+    mutationFn: async (jobId: string): Promise<AIInspectionAnalysis> => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/ai-analysis`);
+      return data;
+    },
+    onError: () => toastError("AI analysis unavailable — try again later"),
   });
 }

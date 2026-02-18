@@ -50,6 +50,8 @@ export interface StepState {
   sludgeLevel?: string;
   /** PSI reading */
   psiReading?: string;
+  /** Tech-selected parts for this step (part names from step definition) */
+  selectedParts?: string[];
 }
 
 export interface InspectionState {
@@ -235,6 +237,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     hasSludgeLevel: true,
     estimatedMinutes: 3,
     parts: [
+      { name: "Replacement lid", partNumber: "LID-24-GRN", estimatedCost: 125 },
       { name: "Replacement lid screws", partNumber: "LID-SCR-SS", estimatedCost: 8 },
       { name: "Riser extension", partNumber: "RSR-24-GRN", estimatedCost: 65 },
     ],
@@ -474,6 +477,7 @@ export function createDefaultStepState(): StepState {
     photos: [],
     sludgeLevel: "",
     psiReading: "",
+    selectedParts: [],
   };
 }
 
@@ -584,10 +588,14 @@ export function calculateEstimate(state: InspectionState): { items: { name: stri
     if (!stepState || stepState.findings === "ok") continue;
     if (!step.parts) continue;
 
+    // Use selectedParts if tech has made selections, otherwise include all parts
+    const selected = stepState.selectedParts;
+    const hasSelections = selected && selected.length > 0;
+
     for (const part of step.parts) {
-      if (part.estimatedCost) {
-        items.push({ name: part.name, cost: part.estimatedCost });
-      }
+      if (!part.estimatedCost) continue;
+      if (hasSelections && !selected.includes(part.name)) continue;
+      items.push({ name: part.name, cost: part.estimatedCost });
     }
   }
 
