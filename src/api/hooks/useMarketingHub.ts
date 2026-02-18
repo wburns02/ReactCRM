@@ -127,9 +127,11 @@ export interface IntegrationSettings {
   integrations: {
     ga4: { configured: boolean; property_id?: string };
     google_ads: { configured: boolean; customer_id?: string };
+    search_console: { configured: boolean; site_url?: string };
+    google_business_profile: { configured: boolean; account_id?: string };
+    google_calendar: { configured: boolean; calendar_id?: string };
     anthropic: { configured: boolean };
     openai: { configured: boolean };
-    search_console: { configured: boolean };
   };
   automation: {
     ai_advisor_enabled: boolean;

@@ -7,11 +7,17 @@ import { YelpSettings } from "./components/YelpSettings.tsx";
 import { FacebookSettings } from "./components/FacebookSettings.tsx";
 import { CloverSettings } from "./components/CloverSettings.tsx";
 import { QuickBooksSettings } from "./components/QuickBooksSettings.tsx";
+import { GoogleAdsSettings } from "./components/GoogleAdsSettings.tsx";
+import { GoogleAnalyticsSettings } from "./components/GoogleAnalyticsSettings.tsx";
+import { GoogleSearchConsoleSettings } from "./components/GoogleSearchConsoleSettings.tsx";
+import { GoogleBusinessProfileSettings } from "./components/GoogleBusinessProfileSettings.tsx";
+import { GoogleCalendarSettings } from "./components/GoogleCalendarSettings.tsx";
 import { useRCStatus } from "@/features/phone/api.ts";
 import { useFleetLocations } from "@/features/fleet/api.ts";
 import { useSocialIntegrationsStatus } from "@/api/hooks/useSocialIntegrations.ts";
 import { useCloverConfig } from "@/api/hooks/useClover.ts";
 import { useQBOStatus } from "@/api/hooks/useQuickBooks.ts";
+import { useIntegrationSettings } from "@/api/hooks/useMarketingHub.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -28,6 +34,7 @@ export function IntegrationsPage() {
   const { data: socialStatus } = useSocialIntegrationsStatus();
   const { data: cloverConfig } = useCloverConfig();
   const { data: qboStatus } = useQBOStatus();
+  const { data: integrationSettings } = useIntegrationSettings();
 
   // Handle OAuth callback success messages
   useEffect(() => {
@@ -101,6 +108,46 @@ export function IntegrationsPage() {
       connected: socialStatus?.facebook?.connected || false,
       lastSync: socialStatus?.facebook?.last_sync,
     },
+    {
+      id: "google_ads",
+      name: "Google Ads",
+      description: "Live campaign data, spend tracking, and AI optimization suggestions",
+      icon: "📈",
+      connected: integrationSettings?.integrations?.google_ads?.configured || false,
+      lastSync: integrationSettings?.integrations?.google_ads?.configured ? new Date().toISOString() : undefined,
+    },
+    {
+      id: "google_analytics",
+      name: "Google Analytics 4",
+      description: "Website traffic, user behavior, and attribution tracking",
+      icon: "📊",
+      connected: integrationSettings?.integrations?.ga4?.configured || false,
+      lastSync: integrationSettings?.integrations?.ga4?.configured ? new Date().toISOString() : undefined,
+    },
+    {
+      id: "google_search_console",
+      name: "Google Search Console",
+      description: "Keyword rankings, click-through rates, and index coverage",
+      icon: "🔍",
+      connected: integrationSettings?.integrations?.search_console?.configured || false,
+      lastSync: integrationSettings?.integrations?.search_console?.configured ? new Date().toISOString() : undefined,
+    },
+    {
+      id: "google_business_profile",
+      name: "Google Business Profile",
+      description: "Auto-pull Google reviews, business insights, and post updates",
+      icon: "📍",
+      connected: integrationSettings?.integrations?.google_business_profile?.configured || false,
+      lastSync: integrationSettings?.integrations?.google_business_profile?.configured ? new Date().toISOString() : undefined,
+    },
+    {
+      id: "google_calendar",
+      name: "Google Calendar",
+      description: "Two-way sync between CRM schedule and Google Calendar",
+      icon: "📅",
+      connected: integrationSettings?.integrations?.google_calendar?.configured || false,
+      lastSync: integrationSettings?.integrations?.google_calendar?.configured ? new Date().toISOString() : undefined,
+    },
   ];
 
   return (
@@ -127,7 +174,7 @@ export function IntegrationsPage() {
               connected={integration.connected}
               lastSync={integration.lastSync}
               onConfigure={
-                ["ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks"].includes(integration.id)
+                ["ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks", "google_ads", "google_analytics", "google_search_console", "google_business_profile", "google_calendar"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)
                   : undefined
               }
@@ -166,6 +213,11 @@ export function IntegrationsPage() {
           {selectedIntegration === "facebook" && <FacebookSettings />}
           {selectedIntegration === "clover" && <CloverSettings />}
           {selectedIntegration === "quickbooks" && <QuickBooksSettings />}
+          {selectedIntegration === "google_ads" && <GoogleAdsSettings />}
+          {selectedIntegration === "google_analytics" && <GoogleAnalyticsSettings />}
+          {selectedIntegration === "google_search_console" && <GoogleSearchConsoleSettings />}
+          {selectedIntegration === "google_business_profile" && <GoogleBusinessProfileSettings />}
+          {selectedIntegration === "google_calendar" && <GoogleCalendarSettings />}
         </div>
       )}
 
@@ -182,11 +234,6 @@ export function IntegrationsPage() {
                 name: "Zapier",
                 icon: "⚡",
                 description: "Workflow automation",
-              },
-              {
-                name: "Google Calendar",
-                icon: "📅",
-                description: "Schedule sync",
               },
             ].map((item) => (
               <div
