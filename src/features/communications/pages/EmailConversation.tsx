@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { toastError, toastSuccess } from "@/components/ui/Toast";
 import { cn } from "@/lib/utils";
+import { getInitials, getAvatarColor, formatDate } from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -22,48 +23,6 @@ interface ConversationData {
   customer_name?: string;
   customer_email?: string;
   messages?: EmailMessage[];
-}
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-function getInitials(name: string): string {
-  if (!name || name === "Unknown") return "?";
-  const parts = name.trim().split(/\s+/);
-  if (parts.length >= 2)
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  return name[0].toUpperCase();
-}
-
-function getAvatarColor(name: string): string {
-  const colors = [
-    "bg-blue-500",
-    "bg-purple-500",
-    "bg-emerald-500",
-    "bg-amber-500",
-    "bg-rose-500",
-    "bg-cyan-500",
-    "bg-indigo-500",
-    "bg-teal-500",
-  ];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
-}
-
-function formatDate(dateStr: string): string {
-  if (!dateStr) return "";
-  const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return dateStr;
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
 }
 
 // ── Component ────────────────────────────────────────────────────────────

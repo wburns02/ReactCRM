@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { ConfirmDeleteButton } from "../components/ConfirmDeleteButton";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { relativeTime, SMS_CATEGORIES, SMS_VARIABLES } from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -16,39 +18,6 @@ interface Template {
   variables: string[];
   created_at: string;
 }
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-function relativeTime(dateStr: string): string {
-  if (!dateStr) return "";
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  if (isNaN(then)) return "";
-  const diff = now - then;
-  const days = Math.floor(diff / 86400000);
-  if (days === 0) return "Today";
-  if (days === 1) return "Yesterday";
-  if (days < 7) return `${days}d ago`;
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
-
-const CATEGORIES = [
-  "Appointment Reminder",
-  "Service Complete",
-  "Follow-up",
-  "Payment",
-  "General",
-];
-
-const VARIABLES = [
-  { name: "{{customer_name}}", desc: "Customer's full name" },
-  { name: "{{date}}", desc: "Appointment date" },
-  { name: "{{time}}", desc: "Appointment time" },
-  { name: "{{address}}", desc: "Service address" },
-];
 
 // ── Component ────────────────────────────────────────────────────────────
 
@@ -275,7 +244,7 @@ export function SMSTemplates() {
                     className="w-full px-3.5 py-2 border border-border rounded-lg bg-bg-card text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select category</option>
-                    {CATEGORIES.map((cat) => (
+                    {SMS_CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
                         {cat}
                       </option>

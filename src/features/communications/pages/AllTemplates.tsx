@@ -5,6 +5,7 @@ import { apiClient } from "@/api/client";
 import { TemplateModal } from "../components/TemplateModal";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { relativeTime, getCategoryColor } from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -16,79 +17,6 @@ interface Template {
   content: string;
   subject?: string;
   created_at: string;
-}
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-function relativeTime(dateStr: string): string {
-  if (!dateStr) return "";
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  if (isNaN(then)) return "";
-  const diff = now - then;
-  const days = Math.floor(diff / 86400000);
-  if (days === 0) return "Today";
-  if (days === 1) return "Yesterday";
-  if (days < 7) return `${days}d ago`;
-  if (days < 30) return `${Math.floor(days / 7)}w ago`;
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function getCategoryColor(category: string): {
-  bg: string;
-  text: string;
-} {
-  const map: Record<string, { bg: string; text: string }> = {
-    "Appointment Reminder": {
-      bg: "bg-blue-50 dark:bg-blue-500/10",
-      text: "text-blue-600",
-    },
-    "Service Complete": {
-      bg: "bg-green-50 dark:bg-green-500/10",
-      text: "text-green-600",
-    },
-    "Follow-up": {
-      bg: "bg-amber-50 dark:bg-amber-500/10",
-      text: "text-amber-600",
-    },
-    Payment: {
-      bg: "bg-emerald-50 dark:bg-emerald-500/10",
-      text: "text-emerald-600",
-    },
-    General: {
-      bg: "bg-gray-50 dark:bg-gray-500/10",
-      text: "text-gray-600",
-    },
-    Welcome: {
-      bg: "bg-purple-50 dark:bg-purple-500/10",
-      text: "text-purple-600",
-    },
-    Appointment: {
-      bg: "bg-blue-50 dark:bg-blue-500/10",
-      text: "text-blue-600",
-    },
-    Invoice: {
-      bg: "bg-emerald-50 dark:bg-emerald-500/10",
-      text: "text-emerald-600",
-    },
-    "Service Report": {
-      bg: "bg-cyan-50 dark:bg-cyan-500/10",
-      text: "text-cyan-600",
-    },
-    Marketing: {
-      bg: "bg-rose-50 dark:bg-rose-500/10",
-      text: "text-rose-600",
-    },
-  };
-  return (
-    map[category] || {
-      bg: "bg-gray-50 dark:bg-gray-500/10",
-      text: "text-gray-600",
-    }
-  );
 }
 
 // ── Filter type ──────────────────────────────────────────────────────────

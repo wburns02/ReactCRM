@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { SMSComposeModal } from "@/features/sms/SMSComposeModal";
+import { CommunicationsNav } from "../components/CommunicationsNav";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { getInitials, getAvatarColor, relativeTime } from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -16,53 +18,6 @@ interface Conversation {
   last_message_time: string;
   unread_count: number;
   direction?: "inbound" | "outbound";
-}
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-function getInitials(name: string): string {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  if (parts.length >= 2)
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  return name[0].toUpperCase();
-}
-
-function getAvatarColor(name: string): string {
-  const colors = [
-    "bg-blue-500",
-    "bg-purple-500",
-    "bg-emerald-500",
-    "bg-amber-500",
-    "bg-rose-500",
-    "bg-cyan-500",
-    "bg-indigo-500",
-    "bg-teal-500",
-  ];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
-}
-
-function relativeTime(dateStr: string | null): string {
-  if (!dateStr) return "";
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  if (isNaN(then)) return dateStr;
-  const diff = now - then;
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "Just now";
-  if (mins < 60) return `${mins}m ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days < 7) return `${days}d ago`;
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
 }
 
 // ── Component ────────────────────────────────────────────────────────────
@@ -304,26 +259,7 @@ export function SMSInbox() {
       </div>
 
       {/* ── Bottom nav ─────────────────────────────────────────────── */}
-      <div className="flex-shrink-0 border-t border-border bg-bg-card px-4 py-2 flex items-center gap-2 overflow-x-auto">
-        <Link
-          to="/communications"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          Unified Inbox
-        </Link>
-        <Link
-          to="/communications/email-inbox"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          Email Inbox
-        </Link>
-        <Link
-          to="/communications/templates"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          Templates
-        </Link>
-      </div>
+      <CommunicationsNav />
 
       {/* Compose Modal */}
       <SMSComposeModal

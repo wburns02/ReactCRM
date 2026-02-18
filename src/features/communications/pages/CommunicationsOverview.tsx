@@ -4,9 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { SMSComposeModal } from "@/features/sms/SMSComposeModal";
 import { EmailComposeModal } from "../components/EmailComposeModal";
+import { CommunicationsNav } from "../components/CommunicationsNav";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import {
+  getInitials,
+  getAvatarColor,
+  relativeTime,
+  getStatusBadge,
+  CHANNEL_CONFIG,
+} from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -31,107 +39,11 @@ interface CommStats {
   pending_reminders: number;
 }
 
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-const CHANNEL_CONFIG: Record<
-  string,
-  { icon: string; label: string; color: string; bgColor: string }
-> = {
-  sms: {
-    icon: "💬",
-    label: "SMS",
-    color: "text-blue-600",
-    bgColor: "bg-blue-50 dark:bg-blue-500/10",
-  },
-  email: {
-    icon: "📧",
-    label: "Email",
-    color: "text-purple-600",
-    bgColor: "bg-purple-50 dark:bg-purple-500/10",
-  },
-  call: {
-    icon: "📞",
-    label: "Call",
-    color: "text-green-600",
-    bgColor: "bg-green-50 dark:bg-green-500/10",
-  },
-  note: {
-    icon: "📝",
-    label: "Note",
-    color: "text-amber-600",
-    bgColor: "bg-amber-50 dark:bg-amber-500/10",
-  },
-};
-
-function getInitials(name: string): string {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  if (parts.length >= 2)
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  return name[0].toUpperCase();
-}
-
-function getAvatarColor(name: string): string {
-  const colors = [
-    "bg-blue-500",
-    "bg-purple-500",
-    "bg-emerald-500",
-    "bg-amber-500",
-    "bg-rose-500",
-    "bg-cyan-500",
-    "bg-indigo-500",
-    "bg-teal-500",
-  ];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
-}
-
-function relativeTime(dateStr: string | null): string {
-  if (!dateStr) return "";
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  const diff = now - then;
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "Just now";
-  if (mins < 60) return `${mins}m ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days < 7) return `${days}d ago`;
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
-
 function getPreview(item: ActivityItem): string {
   if (item.subject && item.content) return `${item.subject} — ${item.content}`;
   if (item.subject) return item.subject;
   if (item.content) return item.content;
   return "No content";
-}
-
-function getStatusBadge(
-  status: string,
-): { variant: "success" | "warning" | "danger" | "info" | "default"; label: string } | null {
-  switch (status) {
-    case "delivered":
-      return { variant: "success", label: "Delivered" };
-    case "sent":
-      return { variant: "info", label: "Sent" };
-    case "failed":
-      return { variant: "danger", label: "Failed" };
-    case "pending":
-    case "queued":
-      return { variant: "warning", label: "Pending" };
-    case "received":
-      return { variant: "info", label: "New" };
-    default:
-      return null;
-  }
 }
 
 // ── Channel tabs ─────────────────────────────────────────────────────────
@@ -664,38 +576,7 @@ export function CommunicationsOverview() {
       </div>
 
       {/* ── Quick nav links (bottom bar on mobile) ─────────────────── */}
-      <div className="flex-shrink-0 border-t border-border bg-bg-card px-4 py-2 flex items-center gap-2 overflow-x-auto">
-        <Link
-          to="/communications/sms"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          💬 SMS Inbox
-        </Link>
-        <Link
-          to="/communications/email-inbox"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          📧 Email Inbox
-        </Link>
-        <Link
-          to="/calls"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          📞 Call Center
-        </Link>
-        <Link
-          to="/communications/templates"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          📝 Templates
-        </Link>
-        <Link
-          to="/communications/reminders"
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
-        >
-          🔔 Reminders
-        </Link>
-      </div>
+      <CommunicationsNav />
 
       {/* ── Modals ─────────────────────────────────────────────────── */}
       <SMSComposeModal

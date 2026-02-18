@@ -2,7 +2,15 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 import { cn } from "@/lib/utils";
+import {
+  getInitials,
+  getAvatarColor,
+  formatMessageTime,
+  getDateLabel,
+  getStatusIcon,
+} from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -18,91 +26,6 @@ interface ConversationData {
   customer_name?: string;
   phone_number?: string;
   messages?: Message[];
-}
-
-// ── Helpers ──────────────────────────────────────────────────────────────
-
-function getInitials(name: string): string {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  if (parts.length >= 2)
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  return name[0].toUpperCase();
-}
-
-function getAvatarColor(name: string): string {
-  const colors = [
-    "bg-blue-500",
-    "bg-purple-500",
-    "bg-emerald-500",
-    "bg-amber-500",
-    "bg-rose-500",
-    "bg-cyan-500",
-    "bg-indigo-500",
-    "bg-teal-500",
-  ];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
-}
-
-function formatMessageTime(dateStr: string): string {
-  if (!dateStr) return "";
-  const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return dateStr;
-  const now = new Date();
-  const isToday = date.toDateString() === now.toDateString();
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const isYesterday = date.toDateString() === yesterday.toDateString();
-
-  const time = date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-
-  if (isToday) return time;
-  if (isYesterday) return `Yesterday ${time}`;
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
-}
-
-function getDateLabel(dateStr: string): string {
-  const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return "";
-  const now = new Date();
-  if (date.toDateString() === now.toDateString()) return "Today";
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
-  return date.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-}
-
-function getStatusIcon(status: string): string | null {
-  switch (status) {
-    case "delivered":
-      return "Delivered";
-    case "sent":
-      return "Sent";
-    case "failed":
-      return "Failed";
-    case "pending":
-    case "queued":
-      return "Sending...";
-    default:
-      return null;
-  }
 }
 
 // ── Component ────────────────────────────────────────────────────────────
@@ -135,6 +58,9 @@ export function SMSConversation() {
       setMessage("");
       if (textareaRef.current) textareaRef.current.style.height = "auto";
       queryClient.invalidateQueries({ queryKey: ["sms-conversation", id] });
+    },
+    onError: () => {
+      toastError("Failed to send", "Your message could not be delivered. Please try again.");
     },
   });
 
