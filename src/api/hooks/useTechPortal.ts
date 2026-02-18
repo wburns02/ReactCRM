@@ -455,6 +455,8 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
       findings: v.findings ?? "ok",
       findingDetails: v.finding_details ?? v.findingDetails ?? "",
       photos: v.photos ?? [],
+      sludgeLevel: v.sludge_level ?? v.sludgeLevel ?? "",
+      psiReading: v.psi_reading ?? v.psiReading ?? "",
     };
   }
   // Map summary
@@ -468,6 +470,9 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
     upsellOpportunities: rawSummary.upsell_opportunities ?? rawSummary.upsellOpportunities ?? [],
     nextServiceDate: rawSummary.next_service_date ?? rawSummary.nextServiceDate ?? null,
     techNotes: rawSummary.tech_notes ?? rawSummary.techNotes ?? "",
+    reportSentVia: rawSummary.report_sent_via ?? rawSummary.reportSentVia ?? [],
+    reportSentAt: rawSummary.report_sent_at ?? rawSummary.reportSentAt ?? null,
+    estimateTotal: rawSummary.estimate_total ?? rawSummary.estimateTotal ?? null,
   } : null;
   return {
     startedAt: raw.started_at ?? raw.startedAt ?? null,
@@ -479,6 +484,7 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
     steps,
     summary,
     voiceGuidanceEnabled: raw.voice_guidance_enabled ?? raw.voiceGuidanceEnabled ?? false,
+    recommendPumping: raw.recommend_pumping ?? raw.recommendPumping ?? false,
   };
 }
 
@@ -527,6 +533,8 @@ export function useUpdateInspectionStep() {
         findings?: string;
         finding_details?: string;
         photos?: string[];
+        sludge_level?: string;
+        psi_reading?: string;
       };
     }) => {
       const { data } = await apiClient.patch(
@@ -544,8 +552,23 @@ export function useUpdateInspectionStep() {
 export function useSaveInspectionState() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async ({ jobId, inspection }: { jobId: string; inspection: unknown }) => {
-      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/save`, { inspection });
+    mutationFn: async ({
+      jobId,
+      state,
+      sendReport,
+    }: {
+      jobId: string;
+      state?: unknown;
+      sendReport?: { method: "email" | "sms"; to: string; pdfBase64?: string };
+    }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/save`, {
+        inspection: state,
+        send_report: sendReport ? {
+          method: sendReport.method,
+          to: sendReport.to,
+          pdf_base64: sendReport.pdfBase64,
+        } : undefined,
+      });
       return data;
     },
     onSuccess: (_data, vars) => {
@@ -557,9 +580,10 @@ export function useSaveInspectionState() {
 export function useCompleteInspection() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async ({ jobId, techNotes }: { jobId: string; techNotes?: string }) => {
+    mutationFn: async ({ jobId, techNotes, recommendPumping }: { jobId: string; techNotes?: string; recommendPumping?: boolean }) => {
       const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/complete`, {
         tech_notes: techNotes,
+        recommend_pumping: recommendPumping,
       });
       return data;
     },

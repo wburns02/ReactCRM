@@ -2157,6 +2157,7 @@ export function TechJobDetailPage() {
               jobId={jobId!}
               customerPhone={customer?.phone || undefined}
               customerName={customer ? `${customer.first_name || ""} ${customer.last_name || ""}`.trim() : undefined}
+              customerEmail={customer?.email || undefined}
               onPhotoUploaded={() => refetchPhotos()}
             />
           </CardContent>

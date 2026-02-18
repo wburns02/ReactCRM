@@ -25,6 +25,14 @@ export interface InspectionStep {
   talkingPoints?: string[];
   avoidPhrases?: string[];
   estimatedMinutes: number;
+  /** Video tutorial link (placeholder — populated per step when videos available) */
+  videoLink?: string;
+  /** Parts/materials that may be needed for this step */
+  parts?: { name: string; partNumber?: string; estimatedCost?: number }[];
+  /** Whether this step has a sludge level reading */
+  hasSludgeLevel?: boolean;
+  /** Whether this step has a PSI reading */
+  hasPsiReading?: boolean;
 }
 
 export type StepStatus = "pending" | "in_progress" | "completed" | "skipped";
@@ -38,6 +46,10 @@ export interface StepState {
   findings: FindingLevel;
   findingDetails: string;
   photos: string[]; // photo IDs
+  /** Sludge level reading (e.g., "3 inches", "12 inches") */
+  sludgeLevel?: string;
+  /** PSI reading */
+  psiReading?: string;
 }
 
 export interface InspectionState {
@@ -50,6 +62,8 @@ export interface InspectionState {
   steps: Record<number, StepState>;
   summary: InspectionSummary | null;
   voiceGuidanceEnabled: boolean;
+  /** Tech recommends pumping service */
+  recommendPumping?: boolean;
 }
 
 export interface InspectionSummary {
@@ -61,6 +75,10 @@ export interface InspectionSummary {
   upsellOpportunities: string[];
   nextServiceDate: string | null;
   techNotes: string;
+  /** Customer-facing report data */
+  reportSentVia?: ("email" | "sms" | "print")[];
+  reportSentAt?: string | null;
+  estimateTotal?: number | null;
 }
 
 // ─── Equipment Checklist (Step 1) ───────────────────────────────────────────
@@ -99,11 +117,11 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     detailedInstructions: [
       "Check truck inventory against the equipment list",
       "Verify all tools are in working condition",
-      "Ensure safety gear is present and clean",
+      "Ensure PPE is present and clean",
       "Report any missing or damaged equipment",
     ],
     requiresPhoto: false,
-    estimatedMinutes: 3,
+    estimatedMinutes: 2,
   },
   {
     stepNumber: 2,
@@ -120,10 +138,10 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     customerFacing: true,
     talkingPoints: [
       "Hi, this is [Your Name] from MAC Septic. I'm here for your scheduled inspection.",
-      "I'll be working around the septic system area. The inspection typically takes 45-60 minutes.",
+      "I'll be working around the septic system area. The inspection typically takes about 25 minutes.",
       "I'll knock when I'm finished to go over my findings with you.",
     ],
-    estimatedMinutes: 2,
+    estimatedMinutes: 1,
   },
   {
     stepNumber: 3,
@@ -139,7 +157,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "inspection_location",
     photoGuidance: "Photo of property showing septic area access",
-    estimatedMinutes: 2,
+    estimatedMinutes: 1,
   },
   {
     stepNumber: 4,
@@ -156,10 +174,10 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     customerFacing: true,
     talkingPoints: [
       "Good morning/afternoon! I'm [Name] from MAC Septic, here for your inspection.",
-      "I'll be checking your septic system — should take about 45 minutes.",
+      "I'll be checking your septic system — should take about 25 minutes.",
       "Is there anything specific you've noticed or any concerns?",
     ],
-    estimatedMinutes: 3,
+    estimatedMinutes: 1,
   },
   {
     stepNumber: 5,
@@ -168,7 +186,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     description: "Clearly explain what the inspection covers and what to expect.",
     detailedInstructions: [
       "Explain the inspection scope: system health, components, efficiency",
-      "Set expectations on timeline (45-60 minutes)",
+      "Set expectations on timeline (~25 minutes)",
       "Ask about any recent issues: odors, slow drains, wet spots in yard",
       "Note any concerns the homeowner mentions for follow-up",
     ],
@@ -176,11 +194,11 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     customerFacing: true,
     talkingPoints: [
       "I'll be inspecting all major components of your system today.",
-      "I'll check the tank, control panel, floats, timer, and spray heads.",
+      "I'll check the tank, control panel, floats, timer, and spray or drip system.",
       "When I'm done, I'll walk you through everything I found.",
       "Have you noticed any issues? Slow drains, odors, or wet spots?",
     ],
-    estimatedMinutes: 3,
+    estimatedMinutes: 1,
   },
   {
     stepNumber: 6,
@@ -196,7 +214,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "inspection_tank_location",
     photoGuidance: "Photo showing tank location and control panel",
-    estimatedMinutes: 5,
+    estimatedMinutes: 2,
   },
   {
     stepNumber: 7,
@@ -204,17 +222,22 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     emoji: "🔓",
     description: "Carefully open all septic tank and distribution box lids.",
     detailedInstructions: [
-      "Use appropriate tools to remove lid screws/bolts",
+      "Remove lid screws/bolts carefully — avoid stripping screws and lid",
       "Lift lids carefully — they can be heavy",
       "Set lids on solid ground away from opening",
       "Check lid condition: cracks, deterioration, proper seal",
-      "Note sludge level using sludge judge",
+      "Measure and record sludge level using sludge judge",
     ],
     requiresPhoto: true,
     photoType: "lid",
     photoGuidance: "Photo of opened lids showing tank interior and sludge level",
     safetyWarning: "Stand upwind. Never lean into the tank opening. Toxic gases present.",
-    estimatedMinutes: 5,
+    hasSludgeLevel: true,
+    estimatedMinutes: 3,
+    parts: [
+      { name: "Replacement lid screws", partNumber: "LID-SCR-SS", estimatedCost: 8 },
+      { name: "Riser extension", partNumber: "RSR-24-GRN", estimatedCost: 65 },
+    ],
   },
   {
     stepNumber: 8,
@@ -223,7 +246,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     description: "Test all float switches and verify pump operation.",
     detailedInstructions: [
       "Locate the override float switch",
-      "Manually activate to test pump engagement",
+      "Manually activate pump float switch to test pump operation",
       "Verify pump turns on and moves water",
       "Test alarm float — should trigger audible/visual alarm",
       "Check float wiring for corrosion or damage",
@@ -232,8 +255,12 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "inspection_float_test",
     photoGuidance: "Photo of float switches and pump during test",
-
-    estimatedMinutes: 8,
+    hasPsiReading: true,
+    estimatedMinutes: 3,
+    parts: [
+      { name: "Replacement float switch", partNumber: "FLT-UNI-120", estimatedCost: 45 },
+      { name: "Float switch wire nuts", partNumber: "WN-14-WP", estimatedCost: 5 },
+    ],
   },
   {
     stepNumber: 9,
@@ -242,7 +269,8 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     description: "Inspect and test the aerobic system control panel.",
     detailedInstructions: [
       "Open control panel door carefully",
-      "Check for error codes or warning lights",
+      "Check for warning lights",
+      "Check for corrosion or defects inside control panel",
       "Verify all indicator lights function",
       "Test alarm silence/reset button",
       "Check wiring connections — no loose wires",
@@ -251,8 +279,11 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "control_panel",
     photoGuidance: "Photo of control panel with all lights/indicators visible",
-
-    estimatedMinutes: 5,
+    estimatedMinutes: 2,
+    parts: [
+      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
+      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
+    ],
   },
   {
     stepNumber: 10,
@@ -270,8 +301,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "inspection_timer",
     photoGuidance: "Photo of timer showing current settings and pin positions",
-
-    estimatedMinutes: 5,
+    estimatedMinutes: 2,
   },
   {
     stepNumber: 11,
@@ -288,8 +318,11 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "inspection_alarm",
     photoGuidance: "Photo of alarm light/buzzer during test",
-
-    estimatedMinutes: 3,
+    estimatedMinutes: 1,
+    parts: [
+      { name: "Alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
+      { name: "Buzzer unit", partNumber: "BZR-12V-WP", estimatedCost: 25 },
+    ],
   },
   {
     stepNumber: 12,
@@ -308,7 +341,12 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     photoType: "inspection_corrosion",
     photoGuidance: "Photo of any corrosion found or clean connections",
     safetyWarning: "Leave panel door open 4-5 minutes for ventilation before closing.",
-    estimatedMinutes: 8,
+    estimatedMinutes: 2,
+    parts: [
+      { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ", estimatedCost: 8 },
+      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
+      { name: "Conduit sealant", partNumber: "CND-SEAL-GRY", estimatedCost: 12 },
+    ],
   },
   {
     stepNumber: 13,
@@ -326,27 +364,31 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     photoType: "breaker",
     photoGuidance: "Photo of breaker panel showing ALL breakers in ON position",
     safetyWarning: "ALWAYS turn breakers back on. Leaving them off will cause system failure and sewage backup.",
-    estimatedMinutes: 2,
+    estimatedMinutes: 1,
   },
   {
     stepNumber: 14,
-    title: "Check Valve & Clean Spray Heads",
+    title: "Check Valve & Spray/Drip System",
     emoji: "🚿",
-    description: "Inspect check valve in drip box and clean spray heads if needed.",
+    description: "Inspect check valve in distribution box and clean drip filter. Check spray heads OR drip emitters (system-dependent).",
     detailedInstructions: [
-      "Open drip distribution box",
+      "Open distribution box",
       "Inspect check valve — should move freely",
-      "Clean or replace check valve if stuck",
-      "Inspect all spray heads in the drip field",
-      "Clean clogged spray heads with water",
-      "Note any spray heads with poor or no output",
+      "Clean drip filter",
+      "For SPRAY systems: Check spray heads for proper output and coverage",
+      "For DRIP systems: Check drip emitters and distribution lines",
+      "Note any heads/emitters with poor or no output",
       "Check distribution uniformity",
     ],
     requiresPhoto: true,
-    photoType: "inspection_spray_heads",
-    photoGuidance: "Photo of spray heads operating and drip box check valve",
-
-    estimatedMinutes: 10,
+    photoType: "inspection_spray_drip",
+    photoGuidance: "Photo of spray heads or drip emitters and distribution box",
+    estimatedMinutes: 2,
+    parts: [
+      { name: "Drip filter", partNumber: "DRP-FLT-STD", estimatedCost: 18 },
+      { name: "Check valve", partNumber: "CHK-VLV-1IN", estimatedCost: 22 },
+      { name: "Spray head (replacement)", partNumber: "SPR-HD-360", estimatedCost: 15 },
+    ],
   },
   {
     stepNumber: 15,
@@ -365,7 +407,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     photoType: "after",
     photoGuidance: "Photo showing all lids secured and clean work area",
     safetyWarning: "Verify ALL lids are secured. An open septic lid is a fatal hazard.",
-    estimatedMinutes: 5,
+    estimatedMinutes: 1,
   },
   {
     stepNumber: 16,
@@ -377,6 +419,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Walk through your findings clearly and honestly",
       "Show relevant photos on your phone if helpful",
       "Explain any issues found and recommended actions",
+      "Recommend pumping if sludge level is high",
       "Prime for future services: pumping schedule, maintenance plan",
       "Offer to set up reminders for next service",
       "Thank them for choosing MAC Septic",
@@ -386,8 +429,9 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     talkingPoints: [
       "I completed the inspection and wanted to go over what I found.",
       "Your system is [functional/showing some wear]. Here's what I noticed...",
-      "I'd recommend scheduling [pumping/maintenance] in the next [timeframe].",
+      "Based on the sludge levels, I'd recommend scheduling pumping in the next [timeframe].",
       "We can set up automatic reminders so you never have to worry about it.",
+      "I'm going to send you a full inspection report with photos — would you prefer email or text?",
       "Do you have any questions about your system or what we found today?",
     ],
     avoidPhrases: [
@@ -396,7 +440,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "You don't need to worry about anything",
       "This system will last forever",
     ],
-    estimatedMinutes: 5,
+    estimatedMinutes: 2,
   },
 ];
 
@@ -428,6 +472,8 @@ export function createDefaultStepState(): StepState {
     findings: "ok",
     findingDetails: "",
     photos: [],
+    sludgeLevel: "",
+    psiReading: "",
   };
 }
 
@@ -449,6 +495,7 @@ export function createDefaultInspectionState(): InspectionState {
     steps: {},
     summary: null,
     voiceGuidanceEnabled: false,
+    recommendPumping: false,
   };
 }
 
@@ -504,13 +551,54 @@ export function generateRecommendations(state: InspectionState): string[] {
     }
   }
 
-  // Always add pumping recommendation
-  recs.push(
-    "Schedule next pumping service based on tank sludge level observed during inspection.",
-  );
+  // Pumping recommendation based on sludge level
+  const step7 = state.steps[7];
+  if (step7?.sludgeLevel) {
+    recs.push(
+      `Sludge level measured at ${step7.sludgeLevel}. Schedule pumping based on current level.`,
+    );
+  }
+
+  if (state.recommendPumping) {
+    recs.push(
+      "Technician recommends scheduling pumping service.",
+    );
+  }
+
   recs.push(
     "Consider a maintenance plan for regular inspections and preventive care.",
   );
 
   return recs;
+}
+
+/**
+ * Calculate estimate total from parts needed (based on findings)
+ */
+export function calculateEstimate(state: InspectionState): { items: { name: string; cost: number }[]; total: number } {
+  const items: { name: string; cost: number }[] = [];
+  const steps = getInspectionSteps();
+
+  for (const step of steps) {
+    const stepState = state.steps[step.stepNumber];
+    if (!stepState || stepState.findings === "ok") continue;
+    if (!step.parts) continue;
+
+    for (const part of step.parts) {
+      if (part.estimatedCost) {
+        items.push({ name: part.name, cost: part.estimatedCost });
+      }
+    }
+  }
+
+  // Add labor estimate for non-OK steps
+  const issueSteps = steps.filter((s) => {
+    const ss = state.steps[s.stepNumber];
+    return ss && ss.findings !== "ok";
+  });
+  if (issueSteps.length > 0) {
+    items.push({ name: "Labor (estimated)", cost: issueSteps.length * 75 });
+  }
+
+  return { items, total: items.reduce((sum, i) => sum + i.cost, 0) };
 }
