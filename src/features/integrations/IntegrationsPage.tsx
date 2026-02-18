@@ -12,12 +12,14 @@ import { GoogleAnalyticsSettings } from "./components/GoogleAnalyticsSettings.ts
 import { GoogleSearchConsoleSettings } from "./components/GoogleSearchConsoleSettings.tsx";
 import { GoogleBusinessProfileSettings } from "./components/GoogleBusinessProfileSettings.tsx";
 import { GoogleCalendarSettings } from "./components/GoogleCalendarSettings.tsx";
+import { ClaudeSettings } from "./components/ClaudeSettings.tsx";
 import { useRCStatus } from "@/features/phone/api.ts";
 import { useFleetLocations } from "@/features/fleet/api.ts";
 import { useSocialIntegrationsStatus } from "@/api/hooks/useSocialIntegrations.ts";
 import { useCloverConfig } from "@/api/hooks/useClover.ts";
 import { useQBOStatus } from "@/api/hooks/useQuickBooks.ts";
 import { useIntegrationSettings } from "@/api/hooks/useMarketingHub.ts";
+import { useAnthropicStatus } from "@/api/hooks/useAnthropic.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -35,6 +37,7 @@ export function IntegrationsPage() {
   const { data: cloverConfig } = useCloverConfig();
   const { data: qboStatus } = useQBOStatus();
   const { data: integrationSettings } = useIntegrationSettings();
+  const { data: claudeStatus } = useAnthropicStatus();
 
   // Handle OAuth callback success messages
   useEffect(() => {
@@ -49,6 +52,15 @@ export function IntegrationsPage() {
   }, [searchParams]);
 
   const integrations = [
+    {
+      id: "claude",
+      name: "Claude AI (Anthropic)",
+      description:
+        "AI-powered chat, summarization, sentiment analysis, and dispatch optimization",
+      icon: "🧠",
+      connected: claudeStatus?.connected || false,
+      lastSync: claudeStatus?.last_used_at || undefined,
+    },
     {
       id: "clover",
       name: "Clover Payments",
@@ -174,7 +186,7 @@ export function IntegrationsPage() {
               connected={integration.connected}
               lastSync={integration.lastSync}
               onConfigure={
-                ["ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks", "google_ads", "google_analytics", "google_search_console", "google_business_profile", "google_calendar"].includes(integration.id)
+                ["claude", "ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks", "google_ads", "google_analytics", "google_search_console", "google_business_profile", "google_calendar"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)
                   : undefined
               }
@@ -207,6 +219,7 @@ export function IntegrationsPage() {
             ← Back to all integrations
           </button>
 
+          {selectedIntegration === "claude" && <ClaudeSettings />}
           {selectedIntegration === "ringcentral" && <RingCentralSettings />}
           {selectedIntegration === "samsara" && <SamsaraSettings />}
           {selectedIntegration === "yelp" && <YelpSettings />}
