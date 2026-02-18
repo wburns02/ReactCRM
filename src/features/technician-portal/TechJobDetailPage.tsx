@@ -31,6 +31,7 @@ import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { formatCurrency, formatDate } from "@/lib/utils.ts";
 import { getRequiredPhotos, SYSTEM_TYPE_INFO } from "./photoCategories.ts";
 import type { PhotoCategory } from "./photoCategories.ts";
+import { InspectionChecklist } from "./components/InspectionChecklist.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -93,7 +94,7 @@ const PRIORITY_OPTIONS = [
   { value: "emergency", label: "Emergency", emoji: "🔴" },
 ] as const;
 
-type TabKey = "info" | "customer" | "photos" | "history" | "payment" | "complete";
+type TabKey = "info" | "customer" | "photos" | "history" | "payment" | "complete" | "inspection";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -827,6 +828,14 @@ export function TechJobDetailPage() {
           }
           onClick={() => setActiveTab("payment")}
         />
+        {job?.system_type === "aerobic" && (
+          <TabButton
+            label="Inspect"
+            emoji="🔍"
+            active={activeTab === "inspection"}
+            onClick={() => setActiveTab("inspection")}
+          />
+        )}
         <TabButton
           label="Done"
           emoji="✅"
@@ -2136,6 +2145,22 @@ export function TechJobDetailPage() {
               : "No payment recorded yet — REQUIRED before completion"}
           </div>
         </>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          TAB: INSPECTION (Aerobic Systems Only)
+          ═══════════════════════════════════════════════════════════════ */}
+      {activeTab === "inspection" && job?.system_type === "aerobic" && (
+        <Card>
+          <CardContent className="p-4">
+            <InspectionChecklist
+              jobId={id!}
+              customerPhone={customer?.phone || undefined}
+              customerName={customer ? `${customer.first_name || ""} ${customer.last_name || ""}`.trim() : undefined}
+              onPhotoUploaded={() => refetchPhotos()}
+            />
+          </CardContent>
+        </Card>
       )}
 
       {/* ═══════════════════════════════════════════════════════════════════

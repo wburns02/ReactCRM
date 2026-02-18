@@ -437,3 +437,122 @@ export function useJobPhotosGallery(jobId: string | undefined) {
     enabled: !!jobId,
   });
 }
+
+// ── Inspection Checklist Hooks ──────────────────────────────────────────
+
+export function useInspectionState(jobId: string | undefined) {
+  return useQuery({
+    queryKey: ["tech-portal", "jobs", jobId, "inspection"],
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/employee/jobs/${jobId}/inspection`);
+      return data?.inspection ?? null;
+    },
+    enabled: !!jobId,
+  });
+}
+
+export function useStartInspection() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ jobId, equipmentItems }: { jobId: string; equipmentItems?: Record<string, boolean> }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/start`, {
+        equipment_items: equipmentItems,
+      });
+      return data;
+    },
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", vars.jobId, "inspection"] });
+      toastSuccess("Inspection started!");
+    },
+    onError: () => toastError("Failed to start inspection"),
+  });
+}
+
+export function useUpdateInspectionStep() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      jobId,
+      stepNumber,
+      update,
+    }: {
+      jobId: string;
+      stepNumber: number;
+      update: {
+        status?: string;
+        notes?: string;
+        voice_notes?: string;
+        findings?: string;
+        finding_details?: string;
+        photos?: string[];
+      };
+    }) => {
+      const { data } = await apiClient.patch(
+        `/employee/jobs/${jobId}/inspection/step/${stepNumber}`,
+        update,
+      );
+      return data;
+    },
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", vars.jobId, "inspection"] });
+    },
+  });
+}
+
+export function useSaveInspectionState() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ jobId, inspection }: { jobId: string; inspection: unknown }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/save`, { inspection });
+      return data;
+    },
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", vars.jobId, "inspection"] });
+    },
+  });
+}
+
+export function useCompleteInspection() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ jobId, techNotes }: { jobId: string; techNotes?: string }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/complete`, {
+        tech_notes: techNotes,
+      });
+      return data;
+    },
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", vars.jobId, "inspection"] });
+      toastSuccess("Inspection complete! Summary generated.");
+    },
+    onError: () => toastError("Failed to complete inspection"),
+  });
+}
+
+export function useNotifyArrival() {
+  return useMutation({
+    mutationFn: async ({
+      jobId,
+      customerPhone,
+      customMessage,
+    }: {
+      jobId: string;
+      customerPhone?: string;
+      customMessage?: string;
+    }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/notify-arrival`, {
+        customer_phone: customerPhone,
+        custom_message: customMessage,
+      });
+      return data;
+    },
+    onSuccess: (data) => {
+      if (data?.sms_sent) {
+        toastSuccess("Arrival notification sent to homeowner!");
+      } else {
+        toastSuccess("Arrival recorded (SMS unavailable)");
+      }
+    },
+    onError: () => toastError("Failed to send arrival notification"),
+  });
+}
