@@ -12,6 +12,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@/components/ui/Dialog.tsx";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox.tsx";
 import {
   paymentFormSchema,
   type PaymentFormData,
@@ -21,7 +22,6 @@ import {
   type PaymentMethod,
   type PaymentStatus,
 } from "@/api/types/payment.ts";
-import { useCustomers } from "@/api/hooks/useCustomers.ts";
 import { useInvoices } from "@/api/hooks/useInvoices.ts";
 
 export interface PaymentFormProps {
@@ -48,12 +48,9 @@ export function PaymentForm({
 }: PaymentFormProps) {
   const isEdit = !!payment;
 
-  // Fetch customers and invoices for dropdowns
-  // Note: customers max=500, invoices max=100 per backend validation
-  const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
+  // Fetch invoices for dropdown
   const { data: invoicesData } = useInvoices({ page: 1, page_size: 100 });
 
-  const customers = customersData?.items || [];
   const invoices = invoicesData?.items || [];
 
   // Get today's date for default payment_date
@@ -64,6 +61,8 @@ export function PaymentForm({
     handleSubmit,
     formState: { errors, isDirty },
     reset,
+    watch,
+    setValue,
   } = useForm<PaymentFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(paymentFormSchema) as any,
@@ -127,22 +126,12 @@ export function PaymentForm({
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="customer_id" required>
-                    Customer
-                  </Label>
-                  <Select id="customer_id" {...register("customer_id")}>
-                    <option value="">Select customer...</option>
-                    {customers.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.first_name} {c.last_name}
-                      </option>
-                    ))}
-                  </Select>
-                  {errors.customer_id && (
-                    <p className="text-sm text-danger">
-                      {errors.customer_id.message}
-                    </p>
-                  )}
+                  <CustomerCombobox
+                    value={watch("customer_id") || ""}
+                    onChange={(id) => setValue("customer_id", id, { shouldValidate: true })}
+                    disabled={isLoading}
+                    error={errors.customer_id?.message}
+                  />
                 </div>
 
                 <div className="space-y-2">

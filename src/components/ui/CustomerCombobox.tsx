@@ -1,5 +1,5 @@
-import { useState, useMemo, useCallback } from "react";
-import { useCustomers, useCreateCustomer } from "@/api/hooks/useCustomers.ts";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { useCustomers, useCustomer, useCreateCustomer } from "@/api/hooks/useCustomers.ts";
 import type { Customer } from "@/api/types/customer.ts";
 import { Input } from "@/components/ui/Input.tsx";
 import { Label } from "@/components/ui/Label.tsx";
@@ -18,6 +18,8 @@ export interface CustomerComboboxProps {
   error?: string;
   /** Called after a new customer is created via quick-add (use to auto-fill address) */
   onCustomerCreated?: (customer: Customer) => void;
+  /** Hide the label (useful when parent provides its own label) */
+  hideLabel?: boolean;
 }
 
 // ── Quick-Add Form State ─────────────────────────────────────────────────
@@ -26,6 +28,7 @@ interface QuickAddForm {
   first_name: string;
   last_name: string;
   phone: string;
+  email: string;
   address_line1: string;
   city: string;
   state: string;
@@ -36,11 +39,23 @@ const EMPTY_FORM: QuickAddForm = {
   first_name: "",
   last_name: "",
   phone: "",
+  email: "",
   address_line1: "",
   city: "",
   state: "",
   postal_code: "",
 };
+
+// ── Debounce hook ────────────────────────────────────────────────────────
+
+function useDebounce(value: string, delay: number): string {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+  return debounced;
+}
 
 // ── Component ────────────────────────────────────────────────────────────
 
@@ -50,47 +65,44 @@ export function CustomerCombobox({
   disabled,
   error,
   onCustomerCreated,
+  hideLabel,
 }: CustomerComboboxProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showQuickAdd, setShowQuickAdd] = useState(false);
   const [quickAddForm, setQuickAddForm] = useState<QuickAddForm>(EMPTY_FORM);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
+  const listRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const { data: customersData, isLoading } = useCustomers({
+  // Debounce search for server-side query
+  const debouncedSearch = useDebounce(searchQuery, 300);
+
+  // Server-side search — fetch matching customers from API
+  const { data: searchData, isLoading: isSearching } = useCustomers({
     page: 1,
-    page_size: 500,
+    page_size: 50,
+    search: debouncedSearch || undefined,
   });
+
+  // Fetch selected customer by ID for preview card
+  const { data: selectedCustomer } = useCustomer(value || undefined);
+
   const createCustomer = useCreateCustomer();
 
-  const customers = customersData?.items || [];
-
-  const filteredCustomers = useMemo(() => {
-    if (!searchQuery) return customers;
-    const query = searchQuery.toLowerCase();
-    return customers.filter(
-      (c) =>
-        `${c.first_name} ${c.last_name}`.toLowerCase().includes(query) ||
-        c.email?.toLowerCase().includes(query) ||
-        c.phone?.includes(query),
-    );
-  }, [customers, searchQuery]);
-
-  const selectedCustomer = useMemo(
-    () => customers.find((c) => String(c.id) === String(value)),
-    [customers, value],
-  );
+  const customers = useMemo(() => searchData?.items || [], [searchData]);
 
   const handleSelect = useCallback(
     (customerId: string) => {
       onChange(customerId);
       setSearchQuery("");
       setIsOpen(false);
+      setHighlightIndex(-1);
     },
     [onChange],
   );
 
   const handleOpenQuickAdd = useCallback(() => {
-    // Pre-fill first/last name from search query if it looks like a name
     const parts = searchQuery.trim().split(/\s+/);
     setQuickAddForm({
       ...EMPTY_FORM,
@@ -111,6 +123,7 @@ export function CustomerCombobox({
         first_name: quickAddForm.first_name.trim(),
         last_name: quickAddForm.last_name.trim(),
         phone: quickAddForm.phone.trim() || undefined,
+        email: quickAddForm.email.trim() || undefined,
         address_line1: quickAddForm.address_line1.trim() || undefined,
         city: quickAddForm.city.trim() || undefined,
         state: quickAddForm.state.trim() || undefined,
@@ -121,10 +134,8 @@ export function CustomerCombobox({
       );
       setShowQuickAdd(false);
       setQuickAddForm(EMPTY_FORM);
-      // Auto-select the new customer
       onChange(String(newCustomer.id));
       setSearchQuery("");
-      // Notify parent (for address auto-fill)
       onCustomerCreated?.(newCustomer);
     } catch {
       toastError("Failed to create customer. Please try again.");
@@ -138,44 +149,117 @@ export function CustomerCombobox({
     [],
   );
 
+  // Keyboard navigation
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!isOpen) {
+        if (e.key === "ArrowDown" || e.key === "Enter") {
+          e.preventDefault();
+          setIsOpen(true);
+        }
+        return;
+      }
+
+      const totalItems = customers.length + 1; // +1 for "Create New" button
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setHighlightIndex((prev) => (prev + 1) % totalItems);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setHighlightIndex((prev) => (prev - 1 + totalItems) % totalItems);
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (highlightIndex >= 0 && highlightIndex < customers.length) {
+          handleSelect(String(customers[highlightIndex].id));
+        } else if (highlightIndex === customers.length) {
+          handleOpenQuickAdd();
+        }
+      } else if (e.key === "Escape") {
+        setIsOpen(false);
+        setHighlightIndex(-1);
+      }
+    },
+    [isOpen, customers, highlightIndex, handleSelect, handleOpenQuickAdd],
+  );
+
+  // Scroll highlighted item into view
+  useEffect(() => {
+    if (highlightIndex >= 0 && listRef.current) {
+      const items = listRef.current.querySelectorAll("[data-item]");
+      items[highlightIndex]?.scrollIntoView({ block: "nearest" });
+    }
+  }, [highlightIndex]);
+
   return (
     <div className="space-y-2">
-      <Label htmlFor="customer-search" required>
-        Customer
-      </Label>
+      {!hideLabel && (
+        <Label htmlFor="customer-search" required>
+          Customer
+        </Label>
+      )}
 
       {/* Search Input */}
       <div className="relative">
-        <Input
-          id="customer-search"
-          type="text"
-          placeholder="Search customers by name, email, or phone..."
-          value={
-            isOpen
-              ? searchQuery
-              : selectedCustomer
-                ? `${selectedCustomer.first_name} ${selectedCustomer.last_name}`
-                : ""
-          }
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            if (!isOpen) setIsOpen(true);
-          }}
-          onFocus={() => setIsOpen(true)}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") setIsOpen(false);
-          }}
-          disabled={disabled}
-        />
+        <div className="relative">
+          <Input
+            ref={inputRef}
+            id="customer-search"
+            type="text"
+            placeholder="Search by name, email, or phone..."
+            value={
+              isOpen
+                ? searchQuery
+                : selectedCustomer
+                  ? `${selectedCustomer.first_name} ${selectedCustomer.last_name}`
+                  : ""
+            }
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setHighlightIndex(-1);
+              if (!isOpen) setIsOpen(true);
+            }}
+            onFocus={() => setIsOpen(true)}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            aria-expanded={isOpen}
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            role="combobox"
+          />
+          {/* Search/loading indicator */}
+          {isOpen && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              {isSearching ? (
+                <svg className="w-4 h-4 animate-spin text-text-muted" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
+                  <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Dropdown */}
         {isOpen && !disabled && (
-          <div className="absolute z-50 w-full mt-1 max-h-60 overflow-auto bg-bg-card border border-border rounded-md shadow-lg">
-            {isLoading ? (
+          <div
+            ref={listRef}
+            className="absolute z-50 w-full mt-1 max-h-60 overflow-auto bg-bg-card border border-border rounded-md shadow-lg"
+            role="listbox"
+          >
+            {isSearching && customers.length === 0 ? (
               <div className="p-4 text-center text-text-muted">
-                Loading customers...
+                <svg className="w-5 h-5 animate-spin mx-auto mb-2" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
+                  <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75" />
+                </svg>
+                Searching customers...
               </div>
-            ) : filteredCustomers.length === 0 ? (
+            ) : customers.length === 0 ? (
               <div className="p-4 text-center text-text-muted">
                 No customers found
                 {searchQuery && (
@@ -185,22 +269,29 @@ export function CustomerCombobox({
                 )}
               </div>
             ) : (
-              filteredCustomers.map((customer) => (
+              customers.map((customer, idx) => (
                 <button
                   key={customer.id}
                   type="button"
+                  data-item
                   className={cn(
-                    "w-full px-4 py-2 text-left hover:bg-bg-hover transition-colors",
+                    "w-full px-4 py-2.5 text-left hover:bg-bg-hover transition-colors",
                     String(customer.id) === String(value) && "bg-primary/10",
+                    highlightIndex === idx && "bg-bg-hover",
                   )}
                   onClick={() => handleSelect(String(customer.id))}
+                  role="option"
+                  aria-selected={String(customer.id) === String(value)}
                 >
-                  <div className="font-medium">
+                  <div className="font-medium text-text-primary">
                     {customer.first_name} {customer.last_name}
                   </div>
-                  <div className="text-xs text-text-muted">
-                    {customer.email}
-                    {customer.phone && ` | ${customer.phone}`}
+                  <div className="text-xs text-text-muted flex items-center gap-2 flex-wrap">
+                    {customer.phone && <span>{customer.phone}</span>}
+                    {customer.email && <span>{customer.email}</span>}
+                    {customer.city && customer.state && (
+                      <span>{customer.city}, {customer.state}</span>
+                    )}
                   </div>
                 </button>
               ))
@@ -209,10 +300,14 @@ export function CustomerCombobox({
             {/* Quick-Add Button — always visible at bottom */}
             <button
               type="button"
-              className="w-full px-4 py-3 text-left border-t border-border hover:bg-bg-hover transition-colors flex items-center gap-2 text-primary font-medium"
+              data-item
+              className={cn(
+                "w-full px-4 py-3 text-left border-t border-border hover:bg-bg-hover transition-colors flex items-center gap-2 text-primary font-medium",
+                highlightIndex === customers.length && "bg-bg-hover",
+              )}
               onClick={handleOpenQuickAdd}
             >
-              <span className="text-lg">+</span> Create New Customer
+              <span className="text-lg leading-none">+</span> Create New Customer
               {searchQuery && (
                 <span className="text-text-muted font-normal text-sm ml-1">
                   "{searchQuery}"
@@ -237,24 +332,30 @@ export function CustomerCombobox({
               <p className="font-medium truncate">
                 {selectedCustomer.first_name} {selectedCustomer.last_name}
               </p>
-              {selectedCustomer.email && (
-                <p className="text-sm text-text-muted truncate">
-                  {selectedCustomer.email}
-                </p>
-              )}
-              {selectedCustomer.phone && (
-                <p className="text-sm text-text-muted">
-                  {selectedCustomer.phone}
+              <div className="text-sm text-text-muted flex items-center gap-2 flex-wrap">
+                {selectedCustomer.email && (
+                  <span className="truncate">{selectedCustomer.email}</span>
+                )}
+                {selectedCustomer.phone && (
+                  <span>{selectedCustomer.phone}</span>
+                )}
+              </div>
+              {selectedCustomer.address_line1 && (
+                <p className="text-xs text-text-muted truncate">
+                  {selectedCustomer.address_line1}
+                  {selectedCustomer.city && `, ${selectedCustomer.city}`}
+                  {selectedCustomer.state && `, ${selectedCustomer.state}`}
                 </p>
               )}
             </div>
             {!disabled && (
               <button
                 type="button"
-                className="text-text-muted hover:text-text-primary text-sm"
+                className="text-text-muted hover:text-text-primary text-sm flex-shrink-0"
                 onClick={() => {
                   setSearchQuery("");
                   setIsOpen(true);
+                  setTimeout(() => inputRef.current?.focus(), 0);
                 }}
               >
                 Change
@@ -270,7 +371,10 @@ export function CustomerCombobox({
       {isOpen && (
         <div
           className="fixed inset-0 z-40"
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            setIsOpen(false);
+            setHighlightIndex(-1);
+          }}
         />
       )}
 
@@ -311,15 +415,27 @@ export function CustomerCombobox({
               </div>
             </div>
 
-            <div className="space-y-1">
-              <Label htmlFor="qa-phone">Phone</Label>
-              <Input
-                id="qa-phone"
-                type="tel"
-                value={quickAddForm.phone}
-                onChange={(e) => updateField("phone", e.target.value)}
-                placeholder="(555) 123-4567"
-              />
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <Label htmlFor="qa-phone">Phone</Label>
+                <Input
+                  id="qa-phone"
+                  type="tel"
+                  value={quickAddForm.phone}
+                  onChange={(e) => updateField("phone", e.target.value)}
+                  placeholder="(555) 123-4567"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="qa-email">Email</Label>
+                <Input
+                  id="qa-email"
+                  type="email"
+                  value={quickAddForm.email}
+                  onChange={(e) => updateField("email", e.target.value)}
+                  placeholder="john@example.com"
+                />
+              </div>
             </div>
 
             <div className="space-y-1">

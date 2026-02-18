@@ -10,8 +10,8 @@ import {
   type ContractTemplate,
   type ContractCreate,
 } from "../api/contracts.ts";
-import { useCustomers } from "@/api/hooks/useCustomers.ts";
-import { useCreateCustomer } from "@/api/hooks/useCustomers.ts";
+import { useCustomer, useCreateCustomer } from "@/api/hooks/useCustomers.ts";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import {
@@ -184,8 +184,6 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<ContractTemplate | null>(null);
   const [customerId, setCustomerId] = useState<string>("");
   const [customerName, setCustomerName] = useState("");
-  const [showNewCustomer, setShowNewCustomer] = useState(false);
-  const [customerSearch, setCustomerSearch] = useState("");
 
   // Add-ons state
   const [selectedAddOns, setSelectedAddOns] = useState<{ name: string; price: number }[]>([]);
@@ -204,11 +202,15 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
   const [dailyFlow, setDailyFlow] = useState<number | "">("");
 
   const { data: templatesData } = useContractTemplates({ active_only: true });
-  const { data: customersData } = useCustomers({ page: 1, page_size: 200, search: customerSearch || undefined });
   const { data: bundlesData } = useNeighborhoodBundles();
-  const customers = customersData?.items || [];
   const templates = templatesData?.items || [];
   const bundles = bundlesData?.items || [];
+
+  // Resolve customer name from selected ID
+  const { data: selectedCustomerData } = useCustomer(customerId || undefined);
+  const resolvedCustomerName = selectedCustomerData
+    ? `${selectedCustomerData.first_name || ""} ${selectedCustomerData.last_name || ""}`.trim()
+    : customerName;
 
   const createContract = useCreateContract();
   const generateFromTemplate = useGenerateFromTemplate();
@@ -225,26 +227,6 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
       special_terms: "",
       coverage_details: "",
       service_address: "",
-    },
-  });
-
-  const {
-    register: registerCustomer,
-    handleSubmit: handleNewCustomerSubmit,
-    reset: resetCustomerForm,
-  } = useForm({
-    defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      address_line1: "",
-      city: "",
-      state: "TX",
-      postal_code: "",
-      company_name: "",
-      property_type: "residential",
-      notes: "",
     },
   });
 
@@ -265,23 +247,15 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
     setStep("customer");
   };
 
-  const handleCustomerSelect = (id: string, name: string) => {
+  const handleCustomerSelect = (id: string) => {
     setCustomerId(id);
-    setCustomerName(name);
-    setStep("details");
+    // Name will be resolved from the combobox's selected customer
   };
 
-  const handleCreateNewCustomer = async (data: any) => {
-    try {
-      const customer = await createCustomer.mutateAsync(data);
-      setCustomerId(customer.id);
-      setCustomerName(`${customer.first_name} ${customer.last_name}`);
-      setShowNewCustomer(false);
-      resetCustomerForm();
-      setStep("details");
-    } catch {
-      // Error handled by mutation
-    }
+  const handleCustomerCreated = (customer: { id: string; first_name: string | null; last_name: string | null }) => {
+    setCustomerId(customer.id);
+    setCustomerName(`${customer.first_name || ""} ${customer.last_name || ""}`.trim());
+    setStep("details");
   };
 
   const toggleAddOn = (addOn: { name: string; price: number }) => {
@@ -342,7 +316,7 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
         await generateFromTemplate.mutateAsync({
           template_id: selectedTemplate.id,
           customer_id: customerId,
-          customer_name: customerName,
+          customer_name: resolvedCustomerName,
           start_date: startDate,
           total_value: totalPrice,
           special_terms: watchDetails("special_terms") || undefined,
@@ -358,10 +332,10 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
 
     // Direct contract creation
     const contractData: ContractCreate = {
-      name: `${selectedType.name} - ${customerName}`,
+      name: `${selectedType.name} - ${resolvedCustomerName}`,
       contract_type: selectedType.type,
       customer_id: customerId,
-      customer_name: customerName,
+      customer_name: resolvedCustomerName,
       start_date: startDate,
       end_date: endDateStr,
       auto_renew: selectedType.autoRenew,
@@ -544,122 +518,24 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
       {/* Step 2: Choose Customer */}
       {step === "customer" && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-text-primary">Choose Customer</h3>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => setShowNewCustomer(!showNewCustomer)}
-            >
-              {showNewCustomer ? "Search Existing" : "+ New Customer"}
-            </Button>
-          </div>
-
-          {!showNewCustomer ? (
-            <div className="space-y-3">
-              <Input
-                placeholder="Search customers by name, email, or phone..."
-                value={customerSearch}
-                onChange={(e) => setCustomerSearch(e.target.value)}
-              />
-              <div className="max-h-80 overflow-auto space-y-2">
-                {customers.map((customer) => (
-                  <button
-                    key={customer.id}
-                    onClick={() =>
-                      handleCustomerSelect(
-                        customer.id,
-                        `${customer.first_name} ${customer.last_name}`,
-                      )
-                    }
-                    className="w-full p-3 text-left rounded-lg border border-border hover:bg-bg-hover transition-colors"
-                  >
-                    <div className="font-medium text-text-primary">
-                      {customer.first_name} {customer.last_name}
-                    </div>
-                    <div className="text-sm text-text-muted flex items-center gap-3">
-                      {customer.phone && <span>{customer.phone}</span>}
-                      {customer.email && <span>{customer.email}</span>}
-                      {customer.city && <span>{customer.city}, {customer.state}</span>}
-                    </div>
-                  </button>
-                ))}
-                {customers.length === 0 && (
-                  <div className="text-center py-8 text-text-muted">
-                    No customers found. Try a different search or create a new customer.
-                  </div>
-                )}
-              </div>
+          <h3 className="text-lg font-semibold text-text-primary">Choose Customer</h3>
+          <CustomerCombobox
+            value={customerId}
+            onChange={(id) => handleCustomerSelect(id)}
+            onCustomerCreated={handleCustomerCreated}
+          />
+          {customerId && (
+            <div className="flex justify-end">
+              <Button onClick={() => {
+                // Update customer name from resolved data
+                if (resolvedCustomerName) {
+                  setCustomerName(resolvedCustomerName);
+                }
+                setStep("details");
+              }}>
+                Continue to Details
+              </Button>
             </div>
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle>New Customer</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleNewCustomerSubmit(handleCreateNewCustomer)} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">First Name *</label>
-                      <Input {...registerCustomer("first_name", { required: true })} placeholder="John" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">Last Name *</label>
-                      <Input {...registerCustomer("last_name", { required: true })} placeholder="Smith" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">Phone</label>
-                      <Input {...registerCustomer("phone")} placeholder="(555) 123-4567" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">Email</label>
-                      <Input {...registerCustomer("email")} type="email" placeholder="john@example.com" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">Company</label>
-                      <Input {...registerCustomer("company_name")} placeholder="Company name (optional)" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">Property Type</label>
-                      <select
-                        {...registerCustomer("property_type")}
-                        className="w-full px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
-                      >
-                        <option value="residential">Residential</option>
-                        <option value="commercial">Commercial</option>
-                        <option value="industrial">Industrial</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-text-primary mb-1">Address</label>
-                    <Input {...registerCustomer("address_line1")} placeholder="123 Main St" />
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">City</label>
-                      <Input {...registerCustomer("city")} placeholder="Beaumont" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">State</label>
-                      <Input {...registerCustomer("state")} placeholder="TX" maxLength={2} />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-text-primary mb-1">Zip</label>
-                      <Input {...registerCustomer("postal_code")} placeholder="77701" />
-                    </div>
-                  </div>
-                  <div className="flex justify-end gap-2 pt-2">
-                    <Button type="button" variant="secondary" onClick={() => setShowNewCustomer(false)}>
-                      Cancel
-                    </Button>
-                    <Button type="submit" disabled={createCustomer.isPending}>
-                      {createCustomer.isPending ? "Creating..." : "Create & Continue"}
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
           )}
         </div>
       )}
@@ -899,7 +775,7 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
                 </div>
                 <div>
                   <p className="text-sm text-text-muted">Customer</p>
-                  <p className="font-semibold text-text-primary">{customerName}</p>
+                  <p className="font-semibold text-text-primary">{resolvedCustomerName}</p>
                 </div>
                 <div>
                   <p className="text-sm text-text-muted">Duration</p>

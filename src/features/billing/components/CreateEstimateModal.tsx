@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { CustomerSelect } from "@/features/workorders/components/CustomerSelect";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox";
 import { useCreateQuote } from "@/api/hooks/useQuotes";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 
@@ -181,10 +181,7 @@ export function CreateEstimateModal({
         <DialogBody className="space-y-6 max-h-[60vh] overflow-y-auto">
           {/* Customer Selection */}
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2">
-              Customer *
-            </label>
-            <CustomerSelect
+            <CustomerCombobox
               value={customerId}
               onChange={setCustomerId}
               disabled={createQuote.isPending}

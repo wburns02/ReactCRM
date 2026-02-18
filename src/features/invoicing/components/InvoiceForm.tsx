@@ -13,6 +13,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@/components/ui/Dialog.tsx";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox.tsx";
 import { LineItemsTable } from "./LineItemsTable.tsx";
 import {
   invoiceFormSchema,
@@ -22,7 +23,6 @@ import {
   INVOICE_STATUS_LABELS,
   type InvoiceStatus,
 } from "@/api/types/invoice.ts";
-import { useCustomers } from "@/api/hooks/useCustomers.ts";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
 import { formatCurrency } from "@/lib/utils.ts";
 
@@ -46,11 +46,9 @@ export function InvoiceForm({
 }: InvoiceFormProps) {
   const isEdit = !!invoice;
 
-  // Fetch customers and work orders for dropdowns
-  const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
+  // Fetch work orders for dropdown
   const { data: workOrdersData } = useWorkOrders({ page: 1, page_size: 200 });
 
-  const customers = customersData?.items || [];
   const workOrders = workOrdersData?.items || [];
 
   // Local state for line items (needed for real-time calculations)
@@ -144,26 +142,12 @@ export function InvoiceForm({
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="customer_id" required>
-                    Customer
-                  </Label>
-                  <Select
-                    id="customer_id"
-                    {...register("customer_id")}
+                  <CustomerCombobox
+                    value={watch("customer_id") || ""}
+                    onChange={(id) => setValue("customer_id", id, { shouldValidate: true })}
                     disabled={isEdit}
-                  >
-                    <option value="">Select customer...</option>
-                    {customers.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.first_name} {c.last_name}
-                      </option>
-                    ))}
-                  </Select>
-                  {errors.customer_id && (
-                    <p className="text-sm text-danger">
-                      {errors.customer_id.message}
-                    </p>
-                  )}
+                    error={errors.customer_id?.message}
+                  />
                 </div>
 
                 <div className="space-y-2">

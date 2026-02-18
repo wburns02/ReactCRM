@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
-import { CustomerSelect } from "@/features/workorders/components/CustomerSelect";
+import { CustomerCombobox } from "@/components/ui/CustomerCombobox";
 
 interface LineItem {
   service: string;
@@ -186,10 +186,7 @@ export function InvoiceCreatePage() {
             <h2 className="font-medium text-text-primary mb-4">Customer</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-text-muted mb-1">
-                  Select Customer *
-                </label>
-                <CustomerSelect
+                <CustomerCombobox
                   value={invoice.customer_id}
                   onChange={(customerId) =>
                     setInvoice({ ...invoice, customer_id: customerId })
