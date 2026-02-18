@@ -40,7 +40,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Tabs, TabList, TabTrigger } from "@/components/ui/Tabs";
-import { cn } from "@/lib/utils";
+import { cn, formatPhone } from "@/lib/utils";
 import { SecureCallRecordingPlayer } from "@/features/calls/components/SecureCallRecordingPlayer.tsx";
 import { useCallTranscript, useAnalyzeCall } from "../api";
 import type {
@@ -80,16 +80,6 @@ function formatTimestamp(timestamp: string): string {
   });
 }
 
-function formatPhoneNumber(phone: string): string {
-  const cleaned = phone.replace(/\D/g, "");
-  if (cleaned.length === 10) {
-    return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
-  }
-  if (cleaned.length === 11 && cleaned.startsWith("1")) {
-    return `+1 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7)}`;
-  }
-  return phone;
-}
 
 // Sentiment configuration
 const SENTIMENT_CONFIG: Record<
@@ -441,8 +431,8 @@ export function CallDetailModal({
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   <span>
-                    {formatPhoneNumber(call.from_number)} →{" "}
-                    {formatPhoneNumber(call.to_number)}
+                    {formatPhone(call.from_number)} →{" "}
+                    {formatPhone(call.to_number)}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">

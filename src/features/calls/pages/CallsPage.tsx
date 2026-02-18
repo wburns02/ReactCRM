@@ -10,7 +10,7 @@ import {
 } from "../api/calls.ts";
 import { CommunicationsNav } from "@/features/communications/components/CommunicationsNav";
 import { Input } from "@/components/ui/Input";
-import { cn } from "@/lib/utils";
+import { cn, formatPhone } from "@/lib/utils";
 
 // ── Helpers ──────────────────────────────────────────────────────────────
 
@@ -21,17 +21,6 @@ function formatDuration(seconds: number | null | undefined): string {
   return `${mins}:${String(secs).padStart(2, "0")}`;
 }
 
-function formatPhone(phone: string | null | undefined): string {
-  if (!phone) return "--";
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length === 10) {
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-  }
-  if (digits.length === 11 && digits[0] === "1") {
-    return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
-  }
-  return phone;
-}
 
 function relativeCallTime(dateStr: string | null | undefined): string {
   if (!dateStr) return "--";

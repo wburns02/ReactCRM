@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
-import { formatDate } from "@/lib/utils.ts";
+import { formatDate, formatPhone, formatDurationSeconds } from "@/lib/utils.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 interface CallDetailsProps {
   callId: number;
@@ -27,24 +28,6 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
   const [showDispositionPicker, setShowDispositionPicker] = useState(false);
   const [notes, setNotes] = useState("");
 
-  const formatDuration = (seconds: number | null | undefined): string => {
-    if (!seconds) return "0s";
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
-  };
-
-  const formatPhoneNumber = (phone: string | null | undefined): string => {
-    if (!phone) return "-";
-    const digits = phone.replace(/\D/g, "");
-    if (digits.length === 10) {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-    }
-    if (digits.length === 11 && digits.startsWith("1")) {
-      return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
-    }
-    return phone;
-  };
 
   const handleSetDisposition = async (dispositionName: string) => {
     try {
@@ -55,8 +38,9 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
       });
       setShowDispositionPicker(false);
       setNotes("");
-    } catch (err) {
-      console.error("Failed to set disposition:", err);
+      toastSuccess("Disposition saved");
+    } catch {
+      toastError("Failed to set disposition");
     }
   };
 
@@ -110,13 +94,13 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
           <div>
             <p className="text-sm font-medium text-text-muted mb-1">From</p>
             <p className="text-lg font-mono">
-              {formatPhoneNumber(call.caller_number)}
+              {formatPhone(call.caller_number)}
             </p>
           </div>
           <div>
             <p className="text-sm font-medium text-text-muted mb-1">To</p>
             <p className="text-lg font-mono">
-              {formatPhoneNumber(call.called_number)}
+              {formatPhone(call.called_number)}
             </p>
           </div>
         </div>
@@ -137,7 +121,7 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
             <div>
               <p className="text-sm text-text-muted">Duration</p>
               <p className="font-medium">
-                {formatDuration(call.duration_seconds)}
+                {formatDurationSeconds(call.duration_seconds)}
               </p>
             </div>
           </div>

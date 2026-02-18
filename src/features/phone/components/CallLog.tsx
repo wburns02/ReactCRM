@@ -7,7 +7,7 @@ import {
   CardContent,
 } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
-import { formatDate } from "@/lib/utils.ts";
+import { formatDate, formatPhone, formatDurationSeconds } from "@/lib/utils.ts";
 import { CallDispositionModal } from "./CallDispositionModal.tsx";
 import type { CallRecord } from "../types.ts";
 
@@ -37,27 +37,6 @@ export function CallLog({
     setDispositionModalOpen(true);
   };
 
-  const formatDuration = (seconds: number | null | undefined): string => {
-    if (!seconds) return "0s";
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return mins > 0 ? mins + "m " + secs + "s" : secs + "s";
-  };
-
-  const formatPhoneNumber = (phone: string): string => {
-    const digits = phone.replace(/\D/g, "");
-    if (digits.length === 10) {
-      return (
-        "(" +
-        digits.slice(0, 3) +
-        ") " +
-        digits.slice(3, 6) +
-        "-" +
-        digits.slice(6)
-      );
-    }
-    return phone;
-  };
 
   if (isLoading) {
     return (
@@ -121,13 +100,13 @@ export function CallLog({
                         {call.direction === "inbound" ? "Inbound" : "Outbound"}
                       </Badge>
                       <span className="text-sm text-text-secondary">
-                        {formatDuration(call.duration_seconds)}
+                        {formatDurationSeconds(call.duration_seconds)}
                       </span>
                     </div>
                     <p className="font-medium text-text-primary font-mono">
                       {call.direction === "inbound"
-                        ? "From: " + formatPhoneNumber(call.from_number)
-                        : "To: " + formatPhoneNumber(call.to_number)}
+                        ? "From: " + formatPhone(call.from_number)
+                        : "To: " + formatPhone(call.to_number)}
                     </p>
                     {call.start_time && (
                       <p className="text-xs text-text-muted">

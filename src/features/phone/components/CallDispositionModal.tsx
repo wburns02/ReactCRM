@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/Label.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { useDispositions, useLogDisposition } from "../api.ts";
 import { DISPOSITION_CATEGORY_LABELS } from "../types.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 interface CallDispositionModalProps {
   open: boolean;
@@ -45,8 +46,9 @@ export function CallDispositionModal({
       setSelectedDispositionId("");
       setNotes("");
       onClose();
-    } catch (error) {
-      console.error("Failed to log disposition:", error);
+      toastSuccess("Disposition saved");
+    } catch {
+      toastError("Failed to save disposition");
     }
   };
 

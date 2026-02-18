@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { useInitiateCall, useMyExtension } from "../api.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 interface DialerModalProps {
   open: boolean;
@@ -49,8 +50,9 @@ export function DialerModal({
       });
       handleClear();
       onClose();
-    } catch (error) {
-      console.error("Failed to initiate call:", error);
+      toastSuccess("Call initiated");
+    } catch {
+      toastError("Failed to initiate call");
     }
   };
 

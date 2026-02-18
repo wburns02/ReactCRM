@@ -8,7 +8,7 @@ import {
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
-import { formatDate } from "@/lib/utils.ts";
+import { formatDate, formatPhone, formatDurationSeconds } from "@/lib/utils.ts";
 
 interface CallListProps {
   customerId?: number;
@@ -35,24 +35,6 @@ export function CallList({ customerId, onCallSelect }: CallListProps) {
   const total = data?.total || 0;
   const totalPages = Math.ceil(total / (filters.page_size || 20));
 
-  const formatDuration = (seconds: number | null | undefined): string => {
-    if (!seconds) return "0s";
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
-  };
-
-  const formatPhoneNumber = (phone: string | null | undefined): string => {
-    if (!phone) return "-";
-    const digits = phone.replace(/\D/g, "");
-    if (digits.length === 10) {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-    }
-    if (digits.length === 11 && digits.startsWith("1")) {
-      return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
-    }
-    return phone;
-  };
 
   const getDispositionColor = (
     dispositionName: string | null | undefined,
@@ -164,8 +146,8 @@ export function CallList({ customerId, onCallSelect }: CallListProps) {
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-text-primary">
                         {call.direction === "inbound"
-                          ? formatPhoneNumber(call.caller_number)
-                          : formatPhoneNumber(call.called_number)}
+                          ? formatPhone(call.caller_number)
+                          : formatPhone(call.called_number)}
                       </span>
                       <Badge
                         variant={
@@ -180,7 +162,7 @@ export function CallList({ customerId, onCallSelect }: CallListProps) {
                         {call.call_date ? formatDate(call.call_date) : "-"}
                       </span>
                       <span>{call.call_time || ""}</span>
-                      <span>{formatDuration(call.duration_seconds)}</span>
+                      <span>{formatDurationSeconds(call.duration_seconds)}</span>
                     </div>
                   </div>
                 </div>

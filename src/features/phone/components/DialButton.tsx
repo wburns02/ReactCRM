@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button.tsx";
 import { useInitiateCall, useMyExtension } from "../api.ts";
 import type { InitiateCallRequest } from "../types.ts";
+import { toastError } from "@/components/ui/Toast";
 
 interface DialButtonProps {
   phoneNumber: string;
@@ -46,8 +47,8 @@ export function DialButton({
 
     try {
       await initiateMutation.mutateAsync(request);
-    } catch (error) {
-      console.error("Failed to initiate call:", error);
+    } catch {
+      toastError("Failed to initiate call");
     } finally {
       setIsDialing(false);
     }

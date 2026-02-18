@@ -937,9 +937,8 @@ export function CallIntelligenceDashboard() {
     qualityHeatmapQuery.isLoading ||
     coachingInsightsQuery.isLoading;
 
-  // Note: With withFallback, queries gracefully return default data on 404/500
-  // so hasError will be false for expected missing endpoints.
-  // We only show errors for truly unexpected failures (non-404/500 errors)
+  // 404/500 errors are expected for endpoints not yet implemented.
+  // Only show error banner for truly unexpected failures.
   const hasUnexpectedError =
     (analyticsQuery.isError && !is404or500(analyticsQuery.error)) ||
     (callsQuery.isError && !is404or500(callsQuery.error)) ||
