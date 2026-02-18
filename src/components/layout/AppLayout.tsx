@@ -133,9 +133,10 @@ export function AppLayout() {
       label: "Assets",
       icon: "📦",
       items: [
+        { path: "/equipment", label: "Asset Management", icon: "🏗️" },
         { path: "/inventory", label: "Inventory", icon: "📦" },
-        { path: "/equipment", label: "Equipment", icon: "🛠️" },
         { path: "/fleet", label: "Fleet Map", icon: "🚛" },
+        { path: "/equipment/health", label: "Equipment Health", icon: "💚" },
       ],
     },
     {

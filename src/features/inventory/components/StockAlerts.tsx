@@ -67,7 +67,7 @@ export function StockAlerts({ items }: StockAlertsProps) {
                 <ul className="space-y-1">
                   {lowStock.slice(0, 5).map((item) => (
                     <li key={item.id} className="text-sm text-text-secondary">
-                      {item.name}: {item.quantity} left (reorder at{" "}
+                      {item.name}: {item.quantity_on_hand} left (reorder at{" "}
                       {item.reorder_level})
                     </li>
                   ))}

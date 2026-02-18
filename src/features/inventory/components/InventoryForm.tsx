@@ -59,22 +59,22 @@ export function InventoryForm({
       ? {
           name: item.name,
           sku: item.sku || "",
-          category: item.category,
-          quantity: item.quantity,
+          category: item.category ?? "",
+          quantity_on_hand: item.quantity_on_hand,
           reorder_level: item.reorder_level,
-          unit_cost: item.unit_cost,
-          supplier: item.supplier || "",
-          location: item.location || "",
+          unit_price: item.unit_price ?? 0,
+          supplier_name: item.supplier_name || "",
+          warehouse_location: item.warehouse_location || "",
         }
       : {
           name: "",
           sku: "",
           category: "",
-          quantity: 0,
+          quantity_on_hand: 0,
           reorder_level: 0,
-          unit_cost: 0,
-          supplier: "",
-          location: "",
+          unit_price: 0,
+          supplier_name: "",
+          warehouse_location: "",
         },
   });
 
@@ -87,8 +87,8 @@ export function InventoryForm({
     const cleanedData: InventoryFormData = {
       ...data,
       sku: data.sku || undefined,
-      supplier: data.supplier || undefined,
-      location: data.location || undefined,
+      supplier_name: data.supplier_name || undefined,
+      warehouse_location: data.warehouse_location || undefined,
     };
 
     await onSubmit(cleanedData);
@@ -157,20 +157,20 @@ export function InventoryForm({
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="quantity" required>
+                  <Label htmlFor="quantity_on_hand" required>
                     Current Quantity
                   </Label>
                   <Input
-                    id="quantity"
+                    id="quantity_on_hand"
                     type="number"
                     min="0"
-                    {...register("quantity")}
-                    error={!!errors.quantity}
+                    {...register("quantity_on_hand")}
+                    error={!!errors.quantity_on_hand}
                     placeholder="0"
                   />
-                  {errors.quantity && (
+                  {errors.quantity_on_hand && (
                     <p className="text-sm text-danger">
-                      {errors.quantity.message}
+                      {errors.quantity_on_hand.message}
                     </p>
                   )}
                 </div>
@@ -198,21 +198,21 @@ export function InventoryForm({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="unit_cost" required>
-                    Unit Cost ($)
+                  <Label htmlFor="unit_price" required>
+                    Unit Price ($)
                   </Label>
                   <Input
-                    id="unit_cost"
+                    id="unit_price"
                     type="number"
                     min="0"
                     step="0.01"
-                    {...register("unit_cost")}
-                    error={!!errors.unit_cost}
+                    {...register("unit_price")}
+                    error={!!errors.unit_price}
                     placeholder="0.00"
                   />
-                  {errors.unit_cost && (
+                  {errors.unit_price && (
                     <p className="text-sm text-danger">
-                      {errors.unit_cost.message}
+                      {errors.unit_price.message}
                     </p>
                   )}
                 </div>
@@ -226,19 +226,19 @@ export function InventoryForm({
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="supplier">Supplier</Label>
+                  <Label htmlFor="supplier_name">Supplier</Label>
                   <Input
-                    id="supplier"
-                    {...register("supplier")}
+                    id="supplier_name"
+                    {...register("supplier_name")}
                     placeholder="ABC Supplies Inc."
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="location">Storage Location</Label>
+                  <Label htmlFor="warehouse_location">Storage Location</Label>
                   <Input
-                    id="location"
-                    {...register("location")}
+                    id="warehouse_location"
+                    {...register("warehouse_location")}
                     placeholder="Warehouse A - Shelf 3"
                   />
                 </div>

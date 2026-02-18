@@ -89,13 +89,13 @@ export function InventoryList({
                 <span>
                   <span className="text-text-secondary">Qty: </span>
                   <span className={`font-medium ${getStockLevel(item) === "out" ? "text-danger" : getStockLevel(item) === "low" ? "text-warning" : "text-text-primary"}`}>
-                    {item.quantity}
+                    {item.quantity_on_hand}
                   </span>
                 </span>
                 <span className="text-text-secondary">Reorder: {item.reorder_level}</span>
-                <span className="text-text-secondary">${item.unit_cost.toFixed(2)}/unit</span>
+                <span className="text-text-secondary">${(item.unit_price ?? 0).toFixed(2)}/unit</span>
               </div>
-              {item.location && <p className="text-xs text-text-muted mb-3">{item.location}</p>}
+              {item.warehouse_location && <p className="text-xs text-text-muted mb-3">{item.warehouse_location}</p>}
               <div className="flex gap-2">
                 {onAdjust && (
                   <Button variant="primary" size="sm" onClick={() => onAdjust(item)}>Adjust</Button>
@@ -150,7 +150,7 @@ export function InventoryList({
                 scope="col"
                 className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
               >
-                Unit Cost
+                Unit Price
               </th>
               <th
                 scope="col"
@@ -176,8 +176,8 @@ export function InventoryList({
                 <td className="px-4 py-3">
                   <div>
                     <p className="font-medium text-text-primary">{item.name}</p>
-                    {item.location && (
-                      <p className="text-xs text-text-muted">{item.location}</p>
+                    {item.warehouse_location && (
+                      <p className="text-xs text-text-muted">{item.warehouse_location}</p>
                     )}
                   </div>
                 </td>
@@ -197,14 +197,14 @@ export function InventoryList({
                           : "text-text-primary"
                     }`}
                   >
-                    {item.quantity}
+                    {item.quantity_on_hand}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right text-sm text-text-secondary">
                   {item.reorder_level}
                 </td>
                 <td className="px-4 py-3 text-right text-sm text-text-secondary">
-                  ${item.unit_cost.toFixed(2)}
+                  ${(item.unit_price ?? 0).toFixed(2)}
                 </td>
                 <td className="px-4 py-3">{getStockBadge(item)}</td>
                 <td className="px-4 py-3 text-right">

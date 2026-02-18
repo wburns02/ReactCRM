@@ -3,19 +3,34 @@ import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Inventory item schema - validates API responses
+ * Matches backend inventory_to_response() exactly
  */
 export const inventoryItemSchema = z.object({
   id: z.string(),
+  sku: z.string(),
   name: z.string(),
-  sku: z.string().nullable(),
-  category: z.string(),
-  quantity: z.number(),
-  reorder_level: z.number(),
-  unit_cost: z.number(),
-  supplier: z.string().nullable(),
-  location: z.string().nullable(),
-  created_at: z.string().nullable(),
-  updated_at: z.string().nullable(),
+  description: z.string().nullable().optional(),
+  category: z.string().nullable().optional(),
+  unit_price: z.number().nullable().optional(),
+  cost_price: z.number().nullable().optional(),
+  markup_percent: z.number().nullable().optional(),
+  quantity_on_hand: z.number().default(0),
+  quantity_reserved: z.number().default(0),
+  quantity_available: z.number().default(0),
+  reorder_level: z.number().default(0),
+  reorder_quantity: z.number().nullable().optional(),
+  needs_reorder: z.boolean().default(false),
+  unit: z.string().default("each"),
+  supplier_name: z.string().nullable().optional(),
+  supplier_sku: z.string().nullable().optional(),
+  supplier_phone: z.string().nullable().optional(),
+  warehouse_location: z.string().nullable().optional(),
+  vehicle_id: z.string().nullable().optional(),
+  is_active: z.boolean().default(true),
+  is_taxable: z.boolean().default(true),
+  notes: z.string().nullable().optional(),
+  created_at: z.string().nullable().optional(),
+  updated_at: z.string().nullable().optional(),
 });
 
 export type InventoryItem = z.infer<typeof inventoryItemSchema>;
@@ -40,25 +55,30 @@ export interface InventoryFilters {
 
 /**
  * Create/update inventory item request
+ * Field names match backend InventoryItemCreate schema
  */
 export const inventoryFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  sku: z.string().optional(),
+  sku: z.string().min(1, "SKU is required"),
   category: z.string().min(1, "Category is required"),
-  quantity: z.coerce.number().min(0, "Quantity must be 0 or greater"),
+  quantity_on_hand: z.coerce.number().min(0, "Quantity must be 0 or greater"),
   reorder_level: z.coerce.number().min(0, "Reorder level must be 0 or greater"),
-  unit_cost: z.coerce.number().min(0, "Unit cost must be 0 or greater"),
-  supplier: z.string().optional(),
-  location: z.string().optional(),
+  unit_price: z.coerce.number().min(0, "Unit price must be 0 or greater"),
+  cost_price: z.coerce.number().min(0).optional(),
+  supplier_name: z.string().optional(),
+  warehouse_location: z.string().optional(),
+  unit: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 export type InventoryFormData = z.infer<typeof inventoryFormSchema>;
 
 /**
  * Inventory adjustment request
+ * Backend expects: { adjustment: number, reason?: string }
  */
 export const inventoryAdjustmentSchema = z.object({
-  quantity_change: z.coerce.number(),
+  adjustment: z.coerce.number(),
   reason: z.string().optional(),
 });
 
@@ -68,8 +88,8 @@ export type InventoryAdjustmentData = z.infer<typeof inventoryAdjustmentSchema>;
  * Stock level helpers
  */
 export function getStockLevel(item: InventoryItem): "out" | "low" | "ok" {
-  if (item.quantity === 0) return "out";
-  if (item.quantity <= item.reorder_level) return "low";
+  if (item.quantity_on_hand === 0) return "out";
+  if (item.quantity_on_hand <= item.reorder_level) return "low";
   return "ok";
 }
 

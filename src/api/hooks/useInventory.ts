@@ -125,7 +125,7 @@ export function useAdjustInventory() {
       id: string;
       data: InventoryAdjustmentData;
     }): Promise<InventoryItem> => {
-      const response = await apiClient.patch(
+      const response = await apiClient.post(
         "/inventory/" + id + "/adjust",
         data,
       );

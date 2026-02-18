@@ -1,10 +1,12 @@
 /**
- * Equipment feature module
+ * Equipment / Asset Management feature module
  *
- * Provides equipment management components including:
- * - Equipment listing and management
- * - Equipment health monitoring
- * - Maintenance tracking
+ * Provides:
+ * - Company asset management (trucks, pumps, tools, PPE)
+ * - Asset dashboard with KPIs
+ * - Maintenance tracking and alerts
+ * - Check-out/check-in system
+ * - Equipment health monitoring (legacy)
  */
 
 export { EquipmentPage } from "./EquipmentPage.tsx";

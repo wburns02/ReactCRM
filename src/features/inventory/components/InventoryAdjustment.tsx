@@ -45,13 +45,13 @@ export function InventoryAdjustment({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(inventoryAdjustmentSchema) as any,
     defaultValues: {
-      quantity_change: 0,
+      adjustment: 0,
       reason: "",
     },
   });
 
-  const quantityChange = watch("quantity_change");
-  const newQuantity = item ? item.quantity + (Number(quantityChange) || 0) : 0;
+  const quantityChange = watch("adjustment");
+  const newQuantity = item ? item.quantity_on_hand + (Number(quantityChange) || 0) : 0;
 
   const handleClose = () => {
     reset();
@@ -80,7 +80,7 @@ export function InventoryAdjustment({
                   Current Quantity
                 </span>
                 <span className="text-lg font-semibold text-text-primary">
-                  {item.quantity}
+                  {item.quantity_on_hand}
                 </span>
               </div>
               {quantityChange !== 0 && (
@@ -111,19 +111,19 @@ export function InventoryAdjustment({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="quantity_change" required>
+              <Label htmlFor="adjustment" required>
                 Quantity Change
               </Label>
               <Input
-                id="quantity_change"
+                id="adjustment"
                 type="number"
-                {...register("quantity_change")}
-                error={!!errors.quantity_change}
+                {...register("adjustment")}
+                error={!!errors.adjustment}
                 placeholder="Enter positive to add, negative to remove"
               />
-              {errors.quantity_change && (
+              {errors.adjustment && (
                 <p className="text-sm text-danger">
-                  {errors.quantity_change.message}
+                  {errors.adjustment.message}
                 </p>
               )}
               <p className="text-xs text-text-muted">

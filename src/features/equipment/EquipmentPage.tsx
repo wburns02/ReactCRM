@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
   Card,
   CardHeader,
@@ -16,227 +16,608 @@ import {
   DialogFooter,
 } from "@/components/ui/Dialog.tsx";
 import {
-  useEquipment,
-  useCreateEquipment,
-  useUpdateEquipment,
-  useDeleteEquipment,
-} from "@/api/hooks/useEquipment.ts";
-import { EquipmentList } from "./components/EquipmentList.tsx";
-import { EquipmentForm } from "./components/EquipmentForm.tsx";
+  useAssets,
+  useAssetDashboard,
+  useCreateAsset,
+  useUpdateAsset,
+  useDeleteAsset,
+  useAssetMaintenance,
+  useCreateMaintenanceLog,
+  useAssetAssignments,
+  useCheckoutAsset,
+  useCheckinAsset,
+} from "@/api/hooks/useAssets.ts";
 import {
-  type Equipment,
-  type EquipmentFormData,
-  type EquipmentFilters,
-  type EquipmentStatus,
-  EQUIPMENT_STATUS_LABELS,
-} from "@/api/types/equipment.ts";
+  type Asset,
+  type AssetFormData,
+  type AssetFilters,
+  ASSET_STATUS_LABELS,
+  ASSET_STATUS_COLORS,
+  ASSET_CONDITION_LABELS,
+  ASSET_CONDITION_COLORS,
+  ASSET_TYPES,
+  ASSET_TYPE_MAP,
+} from "@/api/types/assets.ts";
 
 const PAGE_SIZE = 20;
 
+// ---- Tab Types ----
+type MainTab = "dashboard" | "assets" | "maintenance";
+
 /**
- * Equipment list page with CRUD operations
+ * Asset Management Page - Company Assets (Trucks, Pumps, Tools, PPE)
+ * Replaces the old Equipment page with a world-class asset management system.
  */
 export function EquipmentPage() {
-  // Filters state
-  const [filters, setFilters] = useState<EquipmentFilters>({
-    page: 1,
-    page_size: PAGE_SIZE,
-    search: "",
-    status: undefined,
-  });
+  const [activeTab, setActiveTab] = useState<MainTab>("dashboard");
 
-  // Form modal state
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingEquipment, setEditingEquipment] = useState<Equipment | null>(
-    null,
+  return (
+    <div className="p-4 sm:p-6 max-w-[1600px] mx-auto">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Asset Management
+          </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            Track, maintain, and manage company assets
+          </p>
+        </div>
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="flex gap-1 mb-6 border-b border-border">
+        {[
+          { id: "dashboard" as const, label: "Dashboard", icon: "📊" },
+          { id: "assets" as const, label: "All Assets", icon: "📦" },
+          { id: "maintenance" as const, label: "Maintenance", icon: "🔧" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === tab.id
+                ? "border-primary text-primary"
+                : "border-transparent text-text-secondary hover:text-text-primary hover:border-border"
+            }`}
+          >
+            <span className="mr-1.5">{tab.icon}</span>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === "dashboard" && <AssetDashboardTab />}
+      {activeTab === "assets" && <AssetListTab />}
+      {activeTab === "maintenance" && <MaintenanceTab />}
+    </div>
   );
+}
 
-  // Delete confirmation state
-  const [deletingEquipment, setDeletingEquipment] = useState<Equipment | null>(
-    null,
-  );
+// ============================================================
+// Dashboard Tab
+// ============================================================
 
-  // Fetch equipment
-  const { data, isLoading, error } = useEquipment(filters);
+function AssetDashboardTab() {
+  const { data: dashboard, isLoading } = useAssetDashboard();
 
-  // Mutations
-  const createMutation = useCreateEquipment();
-  const updateMutation = useUpdateEquipment();
-  const deleteMutation = useDeleteEquipment();
-
-  // Handlers
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, search: e.target.value, page: 1 }));
-  }, []);
-
-  const handleStatusFilter = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const value = e.target.value;
-      setFilters((prev) => ({
-        ...prev,
-        status: value ? (value as EquipmentStatus) : undefined,
-        page: 1,
-      }));
-    },
-    [],
-  );
-
-  const handlePageChange = useCallback((page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  }, []);
-
-  const handleCreate = useCallback(() => {
-    setEditingEquipment(null);
-    setIsFormOpen(true);
-  }, []);
-
-  const handleEdit = useCallback((equipment: Equipment) => {
-    setEditingEquipment(equipment);
-    setIsFormOpen(true);
-  }, []);
-
-  const handleDelete = useCallback((equipment: Equipment) => {
-    setDeletingEquipment(equipment);
-  }, []);
-
-  const handleFormSubmit = useCallback(
-    async (data: EquipmentFormData) => {
-      if (editingEquipment) {
-        await updateMutation.mutateAsync({ id: editingEquipment.id, data });
-      } else {
-        await createMutation.mutateAsync(data);
-      }
-      setIsFormOpen(false);
-      setEditingEquipment(null);
-    },
-    [editingEquipment, createMutation, updateMutation],
-  );
-
-  const handleConfirmDelete = useCallback(async () => {
-    if (deletingEquipment) {
-      await deleteMutation.mutateAsync(deletingEquipment.id);
-      setDeletingEquipment(null);
-    }
-  }, [deletingEquipment, deleteMutation]);
-
-  if (error) {
+  if (isLoading) {
     return (
-      <div className="p-6">
-        <Card>
-          <CardContent className="py-12 text-center">
-            <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">
-              Failed to load equipment. Please try again.
-            </p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <Card key={i}>
+            <CardContent className="py-6">
+              <div className="animate-pulse h-16 bg-surface-secondary rounded" />
+            </CardContent>
+          </Card>
+        ))}
       </div>
     );
   }
 
+  const d = dashboard || {
+    total_assets: 0,
+    total_value: 0,
+    by_status: {},
+    by_type: {},
+    by_condition: {},
+    maintenance_due: 0,
+    maintenance_overdue: 0,
+    recently_added: [],
+    recent_maintenance: [],
+    low_condition_assets: [],
+  };
+
   return (
-    <div className="p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-semibold text-text-primary">
-            Equipment
-          </h1>
-          <p className="text-sm text-text-secondary mt-1">
-            Manage your company equipment and assets
-          </p>
-        </div>
-        <Button onClick={handleCreate}>+ Add Equipment</Button>
+    <div className="space-y-6">
+      {/* KPI Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard
+          label="Total Assets"
+          value={d.total_assets}
+          icon="📦"
+          color="text-blue-600"
+        />
+        <StatCard
+          label="Total Value"
+          value={`$${d.total_value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
+          icon="💰"
+          color="text-green-600"
+        />
+        <StatCard
+          label="Maintenance Due"
+          value={d.maintenance_due}
+          icon="🔧"
+          color="text-amber-600"
+          alert={d.maintenance_due > 0}
+        />
+        <StatCard
+          label="Overdue"
+          value={d.maintenance_overdue}
+          icon="⚠️"
+          color="text-red-600"
+          alert={d.maintenance_overdue > 0}
+        />
       </div>
 
-      {/* Filters */}
-      <Card className="mb-6">
-        <CardContent className="py-4">
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex-1 min-w-[200px]">
-              <Input
-                type="search"
-                placeholder="Search by name, type, or serial number..."
-                value={filters.search || ""}
-                onChange={handleSearch}
-              />
-            </div>
-            <div className="w-48">
-              <Select
-                value={filters.status || ""}
-                onChange={handleStatusFilter}
-              >
-                <option value="">All Statuses</option>
-                {Object.entries(EQUIPMENT_STATUS_LABELS).map(
-                  ([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ),
-                )}
-              </Select>
-            </div>
+      {/* Status & Type Breakdown */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* By Status */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Assets by Status</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {Object.keys(d.by_status).length === 0 ? (
+              <p className="text-sm text-text-secondary">No assets yet</p>
+            ) : (
+              <div className="space-y-3">
+                {Object.entries(d.by_status).map(([status, count]) => (
+                  <div key={status} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                          ASSET_STATUS_COLORS[status as keyof typeof ASSET_STATUS_COLORS] || "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        {ASSET_STATUS_LABELS[status as keyof typeof ASSET_STATUS_LABELS] || status}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-text-primary">
+                      {count}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* By Type */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Assets by Type</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {Object.keys(d.by_type).length === 0 ? (
+              <p className="text-sm text-text-secondary">No assets yet</p>
+            ) : (
+              <div className="space-y-3">
+                {Object.entries(d.by_type)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([type, count]) => {
+                    const info = ASSET_TYPE_MAP[type];
+                    return (
+                      <div
+                        key={type}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">
+                            {info?.icon || "📦"}
+                          </span>
+                          <span className="text-sm text-text-primary">
+                            {info?.label || type}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-2 bg-surface-secondary rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-primary rounded-full"
+                              style={{
+                                width: `${Math.min((count / Math.max(d.total_assets, 1)) * 100, 100)}%`,
+                              }}
+                            />
+                          </div>
+                          <span className="text-sm font-medium text-text-primary w-8 text-right">
+                            {count}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Recently Added & Condition Alerts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recently Added */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recently Added</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {d.recently_added.length === 0 ? (
+              <p className="text-sm text-text-secondary">
+                No assets added yet. Click "Add Asset" to get started.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {d.recently_added.map((asset) => (
+                  <div
+                    key={asset.id}
+                    className="flex items-center justify-between py-2 border-b border-border last:border-0"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-lg">
+                        {ASSET_TYPE_MAP[asset.asset_type]?.icon || "📦"}
+                      </span>
+                      <div>
+                        <p className="text-sm font-medium text-text-primary">
+                          {asset.name}
+                        </p>
+                        <p className="text-xs text-text-secondary">
+                          {asset.asset_tag} &middot;{" "}
+                          {ASSET_TYPE_MAP[asset.asset_type]?.label || asset.asset_type}
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                        ASSET_STATUS_COLORS[asset.status as keyof typeof ASSET_STATUS_COLORS] || "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      {ASSET_STATUS_LABELS[asset.status as keyof typeof ASSET_STATUS_LABELS] || asset.status}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Condition Alerts */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Condition Alerts</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {d.low_condition_assets.length === 0 ? (
+              <div className="text-center py-4">
+                <span className="text-2xl">✅</span>
+                <p className="text-sm text-text-secondary mt-2">
+                  All assets in good condition
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {d.low_condition_assets.map((asset) => (
+                  <div
+                    key={asset.id}
+                    className="flex items-center justify-between py-2 border-b border-border last:border-0"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">
+                        {asset.name}
+                      </p>
+                      <p className="text-xs text-text-secondary">
+                        {asset.asset_tag}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                        ASSET_CONDITION_COLORS[asset.condition as keyof typeof ASSET_CONDITION_COLORS] || "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      {ASSET_CONDITION_LABELS[asset.condition as keyof typeof ASSET_CONDITION_LABELS] || asset.condition}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  icon,
+  color,
+  alert,
+}: {
+  label: string;
+  value: string | number;
+  icon: string;
+  color: string;
+  alert?: boolean;
+}) {
+  return (
+    <Card className={alert ? "ring-2 ring-amber-300 dark:ring-amber-700" : ""}>
+      <CardContent className="py-4 sm:py-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs sm:text-sm text-text-secondary">{label}</p>
+            <p className={`text-xl sm:text-2xl font-bold ${color} mt-1`}>
+              {value}
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <span className="text-2xl sm:text-3xl">{icon}</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
-      {/* List */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {data?.total
-              ? `${data.total} item${data.total !== 1 ? "s" : ""}`
-              : "Equipment"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <EquipmentList
-            equipment={data?.items || []}
-            total={data?.total || 0}
-            page={filters.page || 1}
-            pageSize={PAGE_SIZE}
-            isLoading={isLoading}
-            onPageChange={handlePageChange}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+// ============================================================
+// Asset List Tab
+// ============================================================
+
+function AssetListTab() {
+  const [filters, setFilters] = useState<AssetFilters>({
+    page: 1,
+    page_size: PAGE_SIZE,
+    search: "",
+  });
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingAsset, setEditingAsset] = useState<Asset | null>(null);
+  const [deletingAsset, setDeletingAsset] = useState<Asset | null>(null);
+  const [detailAsset, setDetailAsset] = useState<Asset | null>(null);
+
+  const { data, isLoading } = useAssets(filters);
+  const createMutation = useCreateAsset();
+  const updateMutation = useUpdateAsset();
+  const deleteMutation = useDeleteAsset();
+
+  const handleCreate = useCallback(() => {
+    setEditingAsset(null);
+    setIsFormOpen(true);
+  }, []);
+
+  const handleEdit = useCallback((asset: Asset) => {
+    setEditingAsset(asset);
+    setIsFormOpen(true);
+  }, []);
+
+  const handleFormSubmit = useCallback(
+    async (formData: AssetFormData) => {
+      if (editingAsset) {
+        await updateMutation.mutateAsync({ id: editingAsset.id, data: formData });
+      } else {
+        await createMutation.mutateAsync(formData);
+      }
+      setIsFormOpen(false);
+      setEditingAsset(null);
+    },
+    [editingAsset, createMutation, updateMutation],
+  );
+
+  const handleConfirmDelete = useCallback(async () => {
+    if (deletingAsset) {
+      await deleteMutation.mutateAsync(deletingAsset.id);
+      setDeletingAsset(null);
+    }
+  }, [deletingAsset, deleteMutation]);
+
+  // Mobile detection
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 768;
+
+  return (
+    <>
+      {/* Filters + Add Button */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <div className="flex-1">
+          <Input
+            type="search"
+            placeholder="Search assets by name, tag, serial number..."
+            value={filters.search || ""}
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                search: e.target.value,
+                page: 1,
+              }))
+            }
           />
-        </CardContent>
-      </Card>
+        </div>
+        <div className="flex gap-2">
+          <Select
+            value={filters.asset_type || ""}
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                asset_type: e.target.value || undefined,
+                page: 1,
+              }))
+            }
+          >
+            <option value="">All Types</option>
+            {ASSET_TYPES.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.icon} {t.label}
+              </option>
+            ))}
+          </Select>
+          <Select
+            value={filters.status || ""}
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                status: e.target.value || undefined,
+                page: 1,
+              }))
+            }
+          >
+            <option value="">All Statuses</option>
+            {Object.entries(ASSET_STATUS_LABELS).map(([val, label]) => (
+              <option key={val} value={val}>
+                {label}
+              </option>
+            ))}
+          </Select>
+          <Button onClick={handleCreate}>+ Add Asset</Button>
+        </div>
+      </div>
 
-      {/* Create/Edit Form Modal */}
-      <EquipmentForm
+      {/* Results Count */}
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-text-secondary">
+          {data?.total
+            ? `${data.total} asset${data.total !== 1 ? "s" : ""}`
+            : "No assets found"}
+        </p>
+      </div>
+
+      {/* Asset Grid / List */}
+      {isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <Card key={i}>
+              <CardContent className="py-6">
+                <div className="animate-pulse space-y-3">
+                  <div className="h-4 bg-surface-secondary rounded w-3/4" />
+                  <div className="h-3 bg-surface-secondary rounded w-1/2" />
+                  <div className="h-3 bg-surface-secondary rounded w-1/3" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : !data?.items?.length ? (
+        <Card>
+          <CardContent className="py-16 text-center">
+            <span className="text-5xl block mb-4">📦</span>
+            <h3 className="text-lg font-medium text-text-primary mb-2">
+              No assets found
+            </h3>
+            <p className="text-sm text-text-secondary mb-6">
+              {filters.search || filters.asset_type || filters.status
+                ? "Try adjusting your filters"
+                : "Add your first asset to get started tracking your equipment"}
+            </p>
+            {!filters.search && !filters.asset_type && !filters.status && (
+              <Button onClick={handleCreate}>+ Add Your First Asset</Button>
+            )}
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {data.items.map((asset) => (
+              <AssetCard
+                key={asset.id}
+                asset={asset}
+                onView={() => setDetailAsset(asset)}
+                onEdit={() => handleEdit(asset)}
+                onDelete={() => setDeletingAsset(asset)}
+              />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {data.total > PAGE_SIZE && (
+            <div className="flex items-center justify-between mt-6">
+              <p className="text-sm text-text-secondary">
+                Showing {(filters.page! - 1) * PAGE_SIZE + 1} to{" "}
+                {Math.min(filters.page! * PAGE_SIZE, data.total)} of {data.total}
+              </p>
+              <div className="flex gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  disabled={filters.page === 1}
+                  onClick={() =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      page: (prev.page || 1) - 1,
+                    }))
+                  }
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  disabled={filters.page! * PAGE_SIZE >= data.total}
+                  onClick={() =>
+                    setFilters((prev) => ({
+                      ...prev,
+                      page: (prev.page || 1) + 1,
+                    }))
+                  }
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Create/Edit Form */}
+      <AssetFormModal
         open={isFormOpen}
         onClose={() => {
           setIsFormOpen(false);
-          setEditingEquipment(null);
+          setEditingAsset(null);
         }}
         onSubmit={handleFormSubmit}
-        equipment={editingEquipment}
+        asset={editingAsset}
         isLoading={createMutation.isPending || updateMutation.isPending}
       />
 
-      {/* Delete Confirmation Dialog */}
+      {/* Detail Modal */}
+      {detailAsset && (
+        <AssetDetailModal
+          asset={detailAsset}
+          onClose={() => setDetailAsset(null)}
+          onEdit={() => {
+            setDetailAsset(null);
+            handleEdit(detailAsset);
+          }}
+        />
+      )}
+
+      {/* Delete Confirmation */}
       <Dialog
-        open={!!deletingEquipment}
-        onClose={() => setDeletingEquipment(null)}
+        open={!!deletingAsset}
+        onClose={() => setDeletingAsset(null)}
       >
         <DialogContent size="sm">
-          <DialogHeader onClose={() => setDeletingEquipment(null)}>
-            Delete Equipment
+          <DialogHeader onClose={() => setDeletingAsset(null)}>
+            Retire Asset
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete{" "}
+              Are you sure you want to retire{" "}
               <span className="font-medium text-text-primary">
-                {deletingEquipment?.name}
+                {deletingAsset?.name}
               </span>
-              ? This action cannot be undone.
+              ? The asset will be marked as retired and hidden from active views.
             </p>
           </DialogBody>
           <DialogFooter>
             <Button
               variant="secondary"
-              onClick={() => setDeletingEquipment(null)}
+              onClick={() => setDeletingAsset(null)}
               disabled={deleteMutation.isPending}
             >
               Cancel
@@ -246,11 +627,1343 @@ export function EquipmentPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? "Deleting..." : "Delete"}
+              {deleteMutation.isPending ? "Retiring..." : "Retire Asset"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </>
+  );
+}
+
+// ---- Asset Card Component ----
+
+function AssetCard({
+  asset,
+  onView,
+  onEdit,
+  onDelete,
+}: {
+  asset: Asset;
+  onView: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  const typeInfo = ASSET_TYPE_MAP[asset.asset_type];
+
+  return (
+    <Card
+      className="hover:shadow-md transition-shadow cursor-pointer"
+      onClick={onView}
+    >
+      <CardContent className="py-4">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{typeInfo?.icon || "📦"}</span>
+            <div>
+              <h3 className="text-sm font-semibold text-text-primary leading-tight">
+                {asset.name}
+              </h3>
+              <p className="text-xs text-text-secondary mt-0.5">
+                {asset.asset_tag || "No tag"}
+                {asset.serial_number && ` · S/N: ${asset.serial_number}`}
+              </p>
+            </div>
+          </div>
+          <span
+            className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+              ASSET_STATUS_COLORS[asset.status as keyof typeof ASSET_STATUS_COLORS] || "bg-gray-100 text-gray-700"
+            }`}
+          >
+            {ASSET_STATUS_LABELS[asset.status as keyof typeof ASSET_STATUS_LABELS] || asset.status}
+          </span>
+        </div>
+
+        {/* Details Grid */}
+        <div className="grid grid-cols-2 gap-2 text-xs mb-3">
+          {asset.make && (
+            <div>
+              <span className="text-text-secondary">Make/Model: </span>
+              <span className="text-text-primary">
+                {asset.make} {asset.model || ""}
+              </span>
+            </div>
+          )}
+          {asset.year && (
+            <div>
+              <span className="text-text-secondary">Year: </span>
+              <span className="text-text-primary">{asset.year}</span>
+            </div>
+          )}
+          {asset.condition && (
+            <div>
+              <span className="text-text-secondary">Condition: </span>
+              <span
+                className={`font-medium ${
+                  asset.condition === "poor"
+                    ? "text-red-600"
+                    : asset.condition === "fair"
+                      ? "text-amber-600"
+                      : "text-green-600"
+                }`}
+              >
+                {ASSET_CONDITION_LABELS[asset.condition as keyof typeof ASSET_CONDITION_LABELS] || asset.condition}
+              </span>
+            </div>
+          )}
+          {asset.assigned_technician_name && (
+            <div>
+              <span className="text-text-secondary">Assigned: </span>
+              <span className="text-text-primary">
+                {asset.assigned_technician_name}
+              </span>
+            </div>
+          )}
+          {asset.purchase_price != null && (
+            <div>
+              <span className="text-text-secondary">Value: </span>
+              <span className="text-text-primary">
+                ${(asset.depreciated_value ?? asset.purchase_price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+              </span>
+            </div>
+          )}
+          {asset.next_maintenance_date && (
+            <div>
+              <span className="text-text-secondary">Next Maint: </span>
+              <span
+                className={`text-text-primary ${
+                  new Date(asset.next_maintenance_date) < new Date()
+                    ? "text-red-600 font-medium"
+                    : ""
+                }`}
+              >
+                {new Date(asset.next_maintenance_date).toLocaleDateString()}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* QR Code */}
+        {asset.qr_code && (
+          <div className="flex items-center gap-1 mb-3">
+            <span className="text-xs text-text-secondary">QR:</span>
+            <code className="text-xs bg-surface-secondary px-1.5 py-0.5 rounded font-mono">
+              {asset.qr_code}
+            </code>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div className="flex gap-2 pt-2 border-t border-border">
+          <Button
+            variant="secondary"
+            size="sm"
+            className="flex-1"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit();
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="text-red-600 hover:bg-red-50"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
+          >
+            Retire
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================
+// Asset Form Modal
+// ============================================================
+
+function AssetFormModal({
+  open,
+  onClose,
+  onSubmit,
+  asset,
+  isLoading,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (data: AssetFormData) => Promise<void>;
+  asset: Asset | null;
+  isLoading: boolean;
+}) {
+  const [formData, setFormData] = useState<AssetFormData>({
+    name: "",
+    asset_type: "tool",
+    status: "available",
+    condition: "good",
+  });
+
+  // Reset form when asset changes
+  useState(() => {
+    if (asset) {
+      setFormData({
+        name: asset.name,
+        asset_tag: asset.asset_tag || undefined,
+        asset_type: asset.asset_type,
+        category: asset.category || undefined,
+        description: asset.description || undefined,
+        make: asset.make || undefined,
+        model: asset.model || undefined,
+        serial_number: asset.serial_number || undefined,
+        year: asset.year || undefined,
+        purchase_date: asset.purchase_date || undefined,
+        purchase_price: asset.purchase_price || undefined,
+        current_value: asset.current_value || undefined,
+        salvage_value: asset.salvage_value || undefined,
+        useful_life_years: asset.useful_life_years || undefined,
+        status: asset.status || "available",
+        condition: asset.condition || "good",
+        location_description: asset.location_description || undefined,
+        samsara_vehicle_id: asset.samsara_vehicle_id || undefined,
+        maintenance_interval_days: asset.maintenance_interval_days || undefined,
+        total_hours: asset.total_hours || undefined,
+        odometer_miles: asset.odometer_miles || undefined,
+        warranty_expiry: asset.warranty_expiry || undefined,
+        insurance_policy: asset.insurance_policy || undefined,
+        insurance_expiry: asset.insurance_expiry || undefined,
+        notes: asset.notes || undefined,
+      });
+    } else {
+      setFormData({
+        name: "",
+        asset_type: "tool",
+        status: "available",
+        condition: "good",
+      });
+    }
+  });
+
+  // Also reset when open state changes
+  const handleOpen = useCallback(() => {
+    if (asset) {
+      setFormData({
+        name: asset.name,
+        asset_tag: asset.asset_tag || undefined,
+        asset_type: asset.asset_type,
+        category: asset.category || undefined,
+        description: asset.description || undefined,
+        make: asset.make || undefined,
+        model: asset.model || undefined,
+        serial_number: asset.serial_number || undefined,
+        year: asset.year || undefined,
+        purchase_date: asset.purchase_date || undefined,
+        purchase_price: asset.purchase_price || undefined,
+        current_value: asset.current_value || undefined,
+        salvage_value: asset.salvage_value || undefined,
+        useful_life_years: asset.useful_life_years || undefined,
+        status: asset.status || "available",
+        condition: asset.condition || "good",
+        location_description: asset.location_description || undefined,
+        samsara_vehicle_id: asset.samsara_vehicle_id || undefined,
+        maintenance_interval_days: asset.maintenance_interval_days || undefined,
+        total_hours: asset.total_hours || undefined,
+        odometer_miles: asset.odometer_miles || undefined,
+        warranty_expiry: asset.warranty_expiry || undefined,
+        insurance_policy: asset.insurance_policy || undefined,
+        insurance_expiry: asset.insurance_expiry || undefined,
+        notes: asset.notes || undefined,
+      });
+    } else {
+      setFormData({
+        name: "",
+        asset_type: "tool",
+        status: "available",
+        condition: "good",
+      });
+    }
+  }, [asset]);
+
+  // Trigger reset when dialog opens
+  useMemo(() => {
+    if (open) handleOpen();
+  }, [open, handleOpen]);
+
+  const updateField = (field: keyof AssetFormData, value: unknown) => {
+    setFormData((prev) => ({ ...prev, [field]: value || undefined }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.asset_type) return;
+    await onSubmit(formData);
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogContent size="lg">
+        <DialogHeader onClose={onClose}>
+          {asset ? "Edit Asset" : "Add New Asset"}
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <DialogBody className="max-h-[70vh] overflow-y-auto">
+            <div className="space-y-6">
+              {/* Basic Info */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Basic Information
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Name *
+                    </label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => updateField("name", e.target.value)}
+                      placeholder="e.g., Ford F-550 Vacuum Truck"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Asset Type *
+                    </label>
+                    <Select
+                      value={formData.asset_type}
+                      onChange={(e) => updateField("asset_type", e.target.value)}
+                      required
+                    >
+                      {ASSET_TYPES.map((t) => (
+                        <option key={t.value} value={t.value}>
+                          {t.icon} {t.label}
+                        </option>
+                      ))}
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Category
+                    </label>
+                    <Input
+                      value={formData.category || ""}
+                      onChange={(e) => updateField("category", e.target.value)}
+                      placeholder="e.g., Vacuum Truck, Jetter, Shovel"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Asset Tag
+                    </label>
+                    <Input
+                      value={formData.asset_tag || ""}
+                      onChange={(e) => updateField("asset_tag", e.target.value)}
+                      placeholder="Auto-generated if empty"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Make/Model/Serial */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Identification
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Make
+                    </label>
+                    <Input
+                      value={formData.make || ""}
+                      onChange={(e) => updateField("make", e.target.value)}
+                      placeholder="e.g., Ford, CAT"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Model
+                    </label>
+                    <Input
+                      value={formData.model || ""}
+                      onChange={(e) => updateField("model", e.target.value)}
+                      placeholder="e.g., F-550, 320D"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Serial Number
+                    </label>
+                    <Input
+                      value={formData.serial_number || ""}
+                      onChange={(e) => updateField("serial_number", e.target.value)}
+                      placeholder="Enter serial number"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Year
+                    </label>
+                    <Input
+                      type="number"
+                      value={formData.year || ""}
+                      onChange={(e) =>
+                        updateField("year", e.target.value ? Number(e.target.value) : undefined)
+                      }
+                      placeholder="e.g., 2024"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Financial */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Financial
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Purchase Date
+                    </label>
+                    <Input
+                      type="date"
+                      value={formData.purchase_date || ""}
+                      onChange={(e) => updateField("purchase_date", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Purchase Price ($)
+                    </label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      value={formData.purchase_price || ""}
+                      onChange={(e) =>
+                        updateField(
+                          "purchase_price",
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      placeholder="0.00"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Useful Life (years)
+                    </label>
+                    <Input
+                      type="number"
+                      value={formData.useful_life_years || ""}
+                      onChange={(e) =>
+                        updateField(
+                          "useful_life_years",
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      placeholder="10"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Status & Condition */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Status
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Status
+                    </label>
+                    <Select
+                      value={formData.status || "available"}
+                      onChange={(e) => updateField("status", e.target.value)}
+                    >
+                      {Object.entries(ASSET_STATUS_LABELS).map(([val, label]) => (
+                        <option key={val} value={val}>
+                          {label}
+                        </option>
+                      ))}
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Condition
+                    </label>
+                    <Select
+                      value={formData.condition || "good"}
+                      onChange={(e) => updateField("condition", e.target.value)}
+                    >
+                      {Object.entries(ASSET_CONDITION_LABELS).map(
+                        ([val, label]) => (
+                          <option key={val} value={val}>
+                            {label}
+                          </option>
+                        ),
+                      )}
+                    </Select>
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Location & Tracking */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Location & Tracking
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Location
+                    </label>
+                    <Input
+                      value={formData.location_description || ""}
+                      onChange={(e) =>
+                        updateField("location_description", e.target.value)
+                      }
+                      placeholder="e.g., Main shop, Truck #1"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Samsara Vehicle ID
+                    </label>
+                    <Input
+                      value={formData.samsara_vehicle_id || ""}
+                      onChange={(e) =>
+                        updateField("samsara_vehicle_id", e.target.value)
+                      }
+                      placeholder="Link to Samsara GPS"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Maintenance */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Maintenance
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Maintenance Interval (days)
+                    </label>
+                    <Input
+                      type="number"
+                      value={formData.maintenance_interval_days || ""}
+                      onChange={(e) =>
+                        updateField(
+                          "maintenance_interval_days",
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      placeholder="e.g., 90"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Total Hours
+                    </label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      value={formData.total_hours || ""}
+                      onChange={(e) =>
+                        updateField(
+                          "total_hours",
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      placeholder="0"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Odometer (miles)
+                    </label>
+                    <Input
+                      type="number"
+                      step="0.1"
+                      value={formData.odometer_miles || ""}
+                      onChange={(e) =>
+                        updateField(
+                          "odometer_miles",
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Warranty & Insurance */}
+              <fieldset>
+                <legend className="text-sm font-semibold text-text-primary mb-3">
+                  Warranty & Insurance
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Warranty Expiry
+                    </label>
+                    <Input
+                      type="date"
+                      value={formData.warranty_expiry || ""}
+                      onChange={(e) =>
+                        updateField("warranty_expiry", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Insurance Policy #
+                    </label>
+                    <Input
+                      value={formData.insurance_policy || ""}
+                      onChange={(e) =>
+                        updateField("insurance_policy", e.target.value)
+                      }
+                      placeholder="Policy number"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">
+                      Insurance Expiry
+                    </label>
+                    <Input
+                      type="date"
+                      value={formData.insurance_expiry || ""}
+                      onChange={(e) =>
+                        updateField("insurance_expiry", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Notes */}
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  Notes
+                </label>
+                <textarea
+                  className="w-full px-3 py-2 border border-border rounded-md bg-surface-primary text-text-primary text-sm resize-none"
+                  rows={3}
+                  value={formData.notes || ""}
+                  onChange={(e) => updateField("notes", e.target.value)}
+                  placeholder="Any additional notes..."
+                />
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="secondary" onClick={onClose} disabled={isLoading}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={isLoading || !formData.name}>
+              {isLoading
+                ? "Saving..."
+                : asset
+                  ? "Update Asset"
+                  : "Create Asset"}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ============================================================
+// Asset Detail Modal
+// ============================================================
+
+function AssetDetailModal({
+  asset,
+  onClose,
+  onEdit,
+}: {
+  asset: Asset;
+  onClose: () => void;
+  onEdit: () => void;
+}) {
+  const [activeDetailTab, setActiveDetailTab] = useState<
+    "overview" | "maintenance" | "assignments"
+  >("overview");
+  const { data: maintenanceData } = useAssetMaintenance(asset.id);
+  const { data: assignmentData } = useAssetAssignments(asset.id);
+
+  // Maintenance form state
+  const [showMaintForm, setShowMaintForm] = useState(false);
+  const createMaintLog = useCreateMaintenanceLog();
+
+  const typeInfo = ASSET_TYPE_MAP[asset.asset_type];
+
+  return (
+    <Dialog open onClose={onClose}>
+      <DialogContent size="lg">
+        <DialogHeader onClose={onClose}>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{typeInfo?.icon || "📦"}</span>
+            <div>
+              <span className="text-lg font-semibold">{asset.name}</span>
+              <span className="block text-xs text-text-secondary">
+                {asset.asset_tag} &middot;{" "}
+                {typeInfo?.label || asset.asset_type}
+              </span>
+            </div>
+          </div>
+        </DialogHeader>
+
+        {/* Detail Tabs */}
+        <div className="flex gap-1 px-6 border-b border-border">
+          {(
+            [
+              { id: "overview", label: "Overview" },
+              { id: "maintenance", label: `Maintenance (${maintenanceData?.total || 0})` },
+              { id: "assignments", label: `History (${assignmentData?.total || 0})` },
+            ] as const
+          ).map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveDetailTab(tab.id)}
+              className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+                activeDetailTab === tab.id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-text-secondary hover:text-text-primary"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <DialogBody className="max-h-[60vh] overflow-y-auto">
+          {activeDetailTab === "overview" && (
+            <div className="space-y-4">
+              {/* Status Badges */}
+              <div className="flex gap-2 flex-wrap">
+                <span
+                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                    ASSET_STATUS_COLORS[asset.status as keyof typeof ASSET_STATUS_COLORS] || "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {ASSET_STATUS_LABELS[asset.status as keyof typeof ASSET_STATUS_LABELS] || asset.status}
+                </span>
+                {asset.condition && (
+                  <span
+                    className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                      ASSET_CONDITION_COLORS[asset.condition as keyof typeof ASSET_CONDITION_COLORS] || "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {ASSET_CONDITION_LABELS[asset.condition as keyof typeof ASSET_CONDITION_LABELS] || asset.condition}
+                  </span>
+                )}
+              </div>
+
+              {/* Info Grid */}
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <DetailField label="Make" value={asset.make} />
+                <DetailField label="Model" value={asset.model} />
+                <DetailField label="Year" value={asset.year?.toString()} />
+                <DetailField label="Serial #" value={asset.serial_number} />
+                <DetailField label="Category" value={asset.category} />
+                <DetailField label="Location" value={asset.location_description} />
+                <DetailField
+                  label="Purchase Date"
+                  value={
+                    asset.purchase_date
+                      ? new Date(asset.purchase_date).toLocaleDateString()
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Purchase Price"
+                  value={
+                    asset.purchase_price != null
+                      ? `$${asset.purchase_price.toLocaleString()}`
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Depreciated Value"
+                  value={
+                    asset.depreciated_value != null
+                      ? `$${asset.depreciated_value.toLocaleString()}`
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Useful Life"
+                  value={
+                    asset.useful_life_years
+                      ? `${asset.useful_life_years} years`
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Warranty Expiry"
+                  value={
+                    asset.warranty_expiry
+                      ? new Date(asset.warranty_expiry).toLocaleDateString()
+                      : undefined
+                  }
+                />
+                <DetailField label="Insurance" value={asset.insurance_policy} />
+                <DetailField
+                  label="Next Maintenance"
+                  value={
+                    asset.next_maintenance_date
+                      ? new Date(
+                          asset.next_maintenance_date,
+                        ).toLocaleDateString()
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Maint. Interval"
+                  value={
+                    asset.maintenance_interval_days
+                      ? `${asset.maintenance_interval_days} days`
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Total Hours"
+                  value={asset.total_hours?.toString()}
+                />
+                <DetailField
+                  label="Odometer"
+                  value={
+                    asset.odometer_miles
+                      ? `${asset.odometer_miles.toLocaleString()} mi`
+                      : undefined
+                  }
+                />
+                <DetailField
+                  label="Assigned To"
+                  value={asset.assigned_technician_name}
+                />
+                <DetailField
+                  label="Samsara ID"
+                  value={asset.samsara_vehicle_id}
+                />
+              </div>
+
+              {/* QR Code */}
+              {asset.qr_code && (
+                <div className="p-3 bg-surface-secondary rounded-lg">
+                  <p className="text-xs text-text-secondary mb-1">QR Code</p>
+                  <code className="text-sm font-mono">{asset.qr_code}</code>
+                </div>
+              )}
+
+              {/* Notes */}
+              {asset.notes && (
+                <div>
+                  <p className="text-xs font-medium text-text-secondary mb-1">
+                    Notes
+                  </p>
+                  <p className="text-sm text-text-primary whitespace-pre-wrap">
+                    {asset.notes}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeDetailTab === "maintenance" && (
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <p className="text-sm text-text-secondary">
+                  {maintenanceData?.total || 0} service records
+                </p>
+                <Button
+                  size="sm"
+                  onClick={() => setShowMaintForm(!showMaintForm)}
+                >
+                  {showMaintForm ? "Cancel" : "+ Log Maintenance"}
+                </Button>
+              </div>
+
+              {/* Inline Maintenance Form */}
+              {showMaintForm && (
+                <MaintenanceForm
+                  assetId={asset.id}
+                  onSubmit={async (data) => {
+                    await createMaintLog.mutateAsync(data);
+                    setShowMaintForm(false);
+                  }}
+                  isLoading={createMaintLog.isPending}
+                />
+              )}
+
+              {/* Maintenance History */}
+              {maintenanceData?.items?.length === 0 && !showMaintForm ? (
+                <div className="text-center py-8">
+                  <span className="text-3xl block mb-2">🔧</span>
+                  <p className="text-sm text-text-secondary">
+                    No maintenance records yet
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {maintenanceData?.items?.map((log) => (
+                    <div
+                      key={log.id}
+                      className="p-3 border border-border rounded-lg"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-text-primary">
+                            {log.title}
+                          </p>
+                          <p className="text-xs text-text-secondary mt-0.5">
+                            {log.maintenance_type} &middot;{" "}
+                            {log.performed_at
+                              ? new Date(log.performed_at).toLocaleDateString()
+                              : "Unknown date"}
+                            {log.performed_by_name &&
+                              ` by ${log.performed_by_name}`}
+                          </p>
+                        </div>
+                        {log.cost != null && log.cost > 0 && (
+                          <span className="text-sm font-medium text-text-primary">
+                            ${log.cost.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                      {log.description && (
+                        <p className="text-xs text-text-secondary mt-2">
+                          {log.description}
+                        </p>
+                      )}
+                      {log.condition_before && log.condition_after && (
+                        <p className="text-xs mt-1">
+                          <span className="text-text-secondary">
+                            Condition:{" "}
+                          </span>
+                          {log.condition_before} → {log.condition_after}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeDetailTab === "assignments" && (
+            <div className="space-y-3">
+              {assignmentData?.items?.length === 0 ? (
+                <div className="text-center py-8">
+                  <span className="text-3xl block mb-2">📋</span>
+                  <p className="text-sm text-text-secondary">
+                    No assignment history
+                  </p>
+                </div>
+              ) : (
+                assignmentData?.items?.map((a) => (
+                  <div
+                    key={a.id}
+                    className="p-3 border border-border rounded-lg"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-text-primary">
+                          {a.assigned_to_name || "Unknown"}
+                        </p>
+                        <p className="text-xs text-text-secondary">
+                          {a.assigned_to_type === "technician"
+                            ? "Technician"
+                            : "Work Order"}{" "}
+                          &middot; Checked out{" "}
+                          {a.checked_out_at
+                            ? new Date(a.checked_out_at).toLocaleDateString()
+                            : "Unknown"}
+                        </p>
+                      </div>
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                          a.checked_in_at
+                            ? "bg-green-100 text-green-700"
+                            : "bg-amber-100 text-amber-700"
+                        }`}
+                      >
+                        {a.checked_in_at ? "Returned" : "Checked Out"}
+                      </span>
+                    </div>
+                    {a.checked_in_at && (
+                      <p className="text-xs text-text-secondary mt-1">
+                        Returned{" "}
+                        {new Date(a.checked_in_at).toLocaleDateString()}
+                        {a.condition_at_checkin &&
+                          ` · Condition: ${a.condition_at_checkin}`}
+                      </p>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </DialogBody>
+
+        <DialogFooter>
+          <Button variant="secondary" onClick={onClose}>
+            Close
+          </Button>
+          <Button onClick={onEdit}>Edit Asset</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ---- Detail Field ----
+function DetailField({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | null;
+}) {
+  if (!value) return null;
+  return (
+    <div>
+      <p className="text-xs text-text-secondary">{label}</p>
+      <p className="text-sm font-medium text-text-primary">{value}</p>
+    </div>
+  );
+}
+
+// ---- Maintenance Form ----
+function MaintenanceForm({
+  assetId,
+  onSubmit,
+  isLoading,
+}: {
+  assetId: string;
+  onSubmit: (data: {
+    asset_id: string;
+    maintenance_type: string;
+    title: string;
+    description?: string;
+    cost?: number;
+    condition_before?: string;
+    condition_after?: string;
+    notes?: string;
+  }) => Promise<void>;
+  isLoading: boolean;
+}) {
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState("scheduled");
+  const [description, setDescription] = useState("");
+  const [cost, setCost] = useState("");
+  const [condBefore, setCondBefore] = useState("");
+  const [condAfter, setCondAfter] = useState("");
+
+  return (
+    <div className="p-4 border border-border rounded-lg bg-surface-secondary">
+      <h4 className="text-sm font-semibold mb-3">Log Maintenance</h4>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label className="block text-xs text-text-secondary mb-1">
+            Title *
+          </label>
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="e.g., Oil Change, Brake Inspection"
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-text-secondary mb-1">Type</label>
+          <Select value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="scheduled">Scheduled</option>
+            <option value="repair">Repair</option>
+            <option value="inspection">Inspection</option>
+            <option value="preventive">Preventive</option>
+          </Select>
+        </div>
+        <div className="sm:col-span-2">
+          <label className="block text-xs text-text-secondary mb-1">
+            Description
+          </label>
+          <textarea
+            className="w-full px-3 py-2 border border-border rounded-md bg-surface-primary text-text-primary text-sm resize-none"
+            rows={2}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Describe the maintenance performed"
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-text-secondary mb-1">
+            Cost ($)
+          </label>
+          <Input
+            type="number"
+            step="0.01"
+            value={cost}
+            onChange={(e) => setCost(e.target.value)}
+            placeholder="0.00"
+          />
+        </div>
+        <div className="flex gap-2">
+          <div className="flex-1">
+            <label className="block text-xs text-text-secondary mb-1">
+              Condition Before
+            </label>
+            <Select
+              value={condBefore}
+              onChange={(e) => setCondBefore(e.target.value)}
+            >
+              <option value="">Select...</option>
+              {Object.entries(ASSET_CONDITION_LABELS).map(([val, label]) => (
+                <option key={val} value={val}>
+                  {label}
+                </option>
+              ))}
+            </Select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-xs text-text-secondary mb-1">
+              Condition After
+            </label>
+            <Select
+              value={condAfter}
+              onChange={(e) => setCondAfter(e.target.value)}
+            >
+              <option value="">Select...</option>
+              {Object.entries(ASSET_CONDITION_LABELS).map(([val, label]) => (
+                <option key={val} value={val}>
+                  {label}
+                </option>
+              ))}
+            </Select>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end mt-3">
+        <Button
+          size="sm"
+          disabled={isLoading || !title}
+          onClick={() =>
+            onSubmit({
+              asset_id: assetId,
+              maintenance_type: type,
+              title,
+              description: description || undefined,
+              cost: cost ? Number(cost) : undefined,
+              condition_before: condBefore || undefined,
+              condition_after: condAfter || undefined,
+            })
+          }
+        >
+          {isLoading ? "Saving..." : "Save Maintenance Log"}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// Maintenance Tab (Overview)
+// ============================================================
+
+function MaintenanceTab() {
+  const { data: dashboard } = useAssetDashboard();
+  const { data: assetsData } = useAssets({ page_size: 100 });
+
+  const maintenanceAssets = useMemo(() => {
+    if (!assetsData?.items) return { overdue: [], upcoming: [] };
+    const today = new Date();
+    const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    const overdue = assetsData.items.filter(
+      (a) => a.next_maintenance_date && new Date(a.next_maintenance_date) < today,
+    );
+    const upcoming = assetsData.items.filter(
+      (a) =>
+        a.next_maintenance_date &&
+        new Date(a.next_maintenance_date) >= today &&
+        new Date(a.next_maintenance_date) <= nextWeek,
+    );
+
+    return {
+      overdue: overdue.sort(
+        (a, b) =>
+          new Date(a.next_maintenance_date!).getTime() -
+          new Date(b.next_maintenance_date!).getTime(),
+      ),
+      upcoming: upcoming.sort(
+        (a, b) =>
+          new Date(a.next_maintenance_date!).getTime() -
+          new Date(b.next_maintenance_date!).getTime(),
+      ),
+    };
+  }, [assetsData]);
+
+  return (
+    <div className="space-y-6">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Card className={dashboard?.maintenance_overdue ? "ring-2 ring-red-300" : ""}>
+          <CardContent className="py-4">
+            <p className="text-sm text-text-secondary">Overdue</p>
+            <p className="text-2xl font-bold text-red-600 mt-1">
+              {dashboard?.maintenance_overdue || 0}
+            </p>
+          </CardContent>
+        </Card>
+        <Card className={dashboard?.maintenance_due ? "ring-2 ring-amber-300" : ""}>
+          <CardContent className="py-4">
+            <p className="text-sm text-text-secondary">Due This Week</p>
+            <p className="text-2xl font-bold text-amber-600 mt-1">
+              {dashboard?.maintenance_due || 0}
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="py-4">
+            <p className="text-sm text-text-secondary">Recent Service</p>
+            <p className="text-2xl font-bold text-green-600 mt-1">
+              {dashboard?.recent_maintenance?.length || 0}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Overdue Assets */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-red-600">
+            Overdue Maintenance ({maintenanceAssets.overdue.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {maintenanceAssets.overdue.length === 0 ? (
+            <div className="text-center py-6">
+              <span className="text-2xl">✅</span>
+              <p className="text-sm text-text-secondary mt-2">
+                No overdue maintenance
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {maintenanceAssets.overdue.map((asset) => (
+                <MaintenanceAlertRow key={asset.id} asset={asset} />
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Upcoming */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-amber-600">
+            Due This Week ({maintenanceAssets.upcoming.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {maintenanceAssets.upcoming.length === 0 ? (
+            <div className="text-center py-6">
+              <span className="text-2xl">📅</span>
+              <p className="text-sm text-text-secondary mt-2">
+                No maintenance due this week
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {maintenanceAssets.upcoming.map((asset) => (
+                <MaintenanceAlertRow key={asset.id} asset={asset} />
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Recent Service History */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Recent Service History</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!dashboard?.recent_maintenance?.length ? (
+            <p className="text-sm text-text-secondary text-center py-6">
+              No recent maintenance records
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {dashboard.recent_maintenance.map((log) => (
+                <div
+                  key={log.id}
+                  className="flex items-center justify-between py-2 border-b border-border last:border-0"
+                >
+                  <div>
+                    <p className="text-sm font-medium text-text-primary">
+                      {log.title}
+                    </p>
+                    <p className="text-xs text-text-secondary">
+                      {log.maintenance_type} &middot;{" "}
+                      {log.performed_at
+                        ? new Date(log.performed_at).toLocaleDateString()
+                        : "Unknown"}
+                    </p>
+                  </div>
+                  {log.cost != null && log.cost > 0 && (
+                    <span className="text-sm font-medium">
+                      ${log.cost.toFixed(2)}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function MaintenanceAlertRow({ asset }: { asset: Asset }) {
+  const typeInfo = ASSET_TYPE_MAP[asset.asset_type];
+  const daysOverdue = asset.next_maintenance_date
+    ? Math.floor(
+        (new Date().getTime() -
+          new Date(asset.next_maintenance_date).getTime()) /
+          (1000 * 60 * 60 * 24),
+      )
+    : 0;
+
+  return (
+    <div className="flex items-center justify-between py-2 px-3 rounded-lg bg-surface-secondary">
+      <div className="flex items-center gap-3">
+        <span className="text-lg">{typeInfo?.icon || "📦"}</span>
+        <div>
+          <p className="text-sm font-medium text-text-primary">{asset.name}</p>
+          <p className="text-xs text-text-secondary">
+            {asset.asset_tag}
+            {asset.next_maintenance_date &&
+              ` · Due ${new Date(asset.next_maintenance_date).toLocaleDateString()}`}
+          </p>
+        </div>
+      </div>
+      {daysOverdue > 0 && (
+        <span className="text-xs font-medium text-red-600 bg-red-50 px-2 py-0.5 rounded-full">
+          {daysOverdue}d overdue
+        </span>
+      )}
     </div>
   );
 }
