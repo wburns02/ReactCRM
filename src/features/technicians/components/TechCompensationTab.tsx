@@ -306,7 +306,7 @@ export function TechCompensationTab({ technicianId }: TechCompensationTabProps) 
 
               {/* Mobile Cards */}
               <div className="sm:hidden space-y-3">
-                {commissionsData.items.map((comm) => (
+                {commissionsData.map((comm) => (
                   <div
                     key={comm.id}
                     className="p-3 rounded-lg border border-border"
