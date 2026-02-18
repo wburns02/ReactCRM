@@ -475,6 +475,9 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
     reportSentAt: rawSummary.report_sent_at ?? rawSummary.reportSentAt ?? null,
     estimateTotal: rawSummary.estimate_total ?? rawSummary.estimateTotal ?? null,
   } : null;
+  // Map persisted AI analysis (snake_case keys from backend)
+  const rawAi = (raw.ai_analysis ?? raw.aiAnalysis ?? null) as Record<string, unknown> | null;
+
   return {
     startedAt: raw.started_at ?? raw.startedAt ?? null,
     completedAt: raw.completed_at ?? raw.completedAt ?? null,
@@ -486,6 +489,7 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
     summary,
     voiceGuidanceEnabled: raw.voice_guidance_enabled ?? raw.voiceGuidanceEnabled ?? false,
     recommendPumping: raw.recommend_pumping ?? raw.recommendPumping ?? false,
+    aiAnalysis: rawAi as AIInspectionAnalysis | null,
   };
 }
 
@@ -627,8 +631,19 @@ export function useNotifyArrival() {
 
 export function useCreateEstimateFromInspection() {
   return useMutation({
-    mutationFn: async (jobId: string): Promise<{ quote_id: string; quote_number: string; total: number }> => {
-      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/create-estimate`);
+    mutationFn: async ({
+      jobId,
+      includePumping,
+      pumpingRate,
+    }: {
+      jobId: string;
+      includePumping?: boolean;
+      pumpingRate?: number;
+    }): Promise<{ quote_id: string; quote_number: string; total: number }> => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/create-estimate`, {
+        include_pumping: includePumping,
+        pumping_rate: pumpingRate,
+      });
       return data;
     },
     onSuccess: () => toastSuccess("Estimate created!"),
@@ -645,6 +660,10 @@ export interface AIInspectionAnalysis {
   maintenance_recommendation: string;
   cost_notes: string;
   model_used: string;
+  what_to_expect?: string;
+  maintenance_schedule?: { timeframe: string; task: string; why: string }[];
+  seasonal_tips?: { season: string; tip: string }[];
+  generated_at?: string;
 }
 
 export function useInspectionAIAnalysis() {

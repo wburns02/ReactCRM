@@ -66,6 +66,8 @@ export interface InspectionState {
   voiceGuidanceEnabled: boolean;
   /** Tech recommends pumping service */
   recommendPumping?: boolean;
+  /** Persisted AI analysis (survives page refresh) */
+  aiAnalysis?: import("@/api/hooks/useTechPortal").AIInspectionAnalysis | null;
 }
 
 export interface InspectionSummary {
@@ -579,7 +581,10 @@ export function generateRecommendations(state: InspectionState): string[] {
 /**
  * Calculate estimate total from parts needed (based on findings)
  */
-export function calculateEstimate(state: InspectionState): { items: { name: string; cost: number }[]; total: number } {
+export function calculateEstimate(
+  state: InspectionState,
+  options?: { includePumping?: boolean },
+): { items: { name: string; cost: number }[]; total: number } {
   const items: { name: string; cost: number }[] = [];
   const steps = getInspectionSteps();
 
@@ -606,6 +611,11 @@ export function calculateEstimate(state: InspectionState): { items: { name: stri
   });
   if (issueSteps.length > 0) {
     items.push({ name: "Labor (estimated)", cost: issueSteps.length * 75 });
+  }
+
+  // Add pumping if included
+  if (options?.includePumping) {
+    items.push({ name: "Septic Tank Pumping", cost: 295 });
   }
 
   return { items, total: items.reduce((sum, i) => sum + i.cost, 0) };

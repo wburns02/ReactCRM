@@ -127,6 +127,8 @@ async function generateReportPDF(
   state: InspectionState,
   customerName: string,
   jobId: string,
+  aiAnalysis?: AIInspectionAnalysis | null,
+  includePumping?: boolean,
 ): Promise<Blob> {
   const doc = new jsPDF();
   const steps = INSPECTION_STEPS;
@@ -362,8 +364,96 @@ async function generateReportPDF(
     }
   }
 
+  // ═══ AI EXPERT ANALYSIS (if available) ═══
+  if (aiAnalysis) {
+    newPageIfNeeded(50);
+    y += 5;
+    // Section header
+    setF([30, 64, 175]); // blue
+    doc.rect(margin, y - 2, contentW, 22, "F");
+    setC([255, 255, 255]);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("Expert Analysis", margin + 8, y + 7);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("AI-assisted professional assessment", margin + 8, y + 14);
+    y += 28;
+
+    // Overall Assessment
+    setC([0, 0, 0]);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    const assessLines = doc.splitTextToSize(aiAnalysis.overall_assessment || "", contentW - 4);
+    doc.text(assessLines, margin + 2, y);
+    y += assessLines.length * 4.5 + 6;
+
+    // What to Expect
+    if (aiAnalysis.what_to_expect) {
+      newPageIfNeeded(25);
+      setC([30, 64, 175]);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("What to Expect", margin, y);
+      y += 6;
+      setC([0, 0, 0]);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      const expectLines = doc.splitTextToSize(aiAnalysis.what_to_expect, contentW - 4);
+      doc.text(expectLines, margin + 2, y);
+      y += expectLines.length * 4 + 6;
+    }
+
+    // Maintenance Schedule
+    if (aiAnalysis.maintenance_schedule?.length) {
+      newPageIfNeeded(30);
+      setC([30, 64, 175]);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("Recommended Maintenance Schedule", margin, y);
+      y += 7;
+      for (const item of aiAnalysis.maintenance_schedule) {
+        newPageIfNeeded(12);
+        // Row background
+        setF([245, 247, 250]);
+        doc.rect(margin, y - 3, contentW, 10, "F");
+        setC([0, 0, 0]);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.text(item.timeframe + ":", margin + 3, y + 1);
+        doc.setFont("helvetica", "normal");
+        const taskText = doc.splitTextToSize(`${item.task} — ${item.why}`, contentW - 50);
+        doc.text(taskText, margin + 42, y + 1);
+        y += Math.max(10, taskText.length * 4 + 2);
+      }
+      y += 4;
+    }
+
+    // Seasonal Tips
+    if (aiAnalysis.seasonal_tips?.length) {
+      newPageIfNeeded(30);
+      setC([30, 64, 175]);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("Seasonal Care Tips for Central Texas", margin, y);
+      y += 7;
+      for (const tip of aiAnalysis.seasonal_tips) {
+        newPageIfNeeded(10);
+        setC([0, 0, 0]);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.text(`${tip.season}:`, margin + 3, y);
+        doc.setFont("helvetica", "normal");
+        const tipLines = doc.splitTextToSize(tip.tip, contentW - 30);
+        doc.text(tipLines, margin + 25, y);
+        y += tipLines.length * 4 + 3;
+      }
+      y += 4;
+    }
+  }
+
   // ═══ ESTIMATED COSTS TABLE ═══
-  const estimate = calculateEstimate(state);
+  const estimate = calculateEstimate(state, { includePumping });
   if (estimate.items.length > 0) {
     newPageIfNeeded(30);
     y += 5;
@@ -467,6 +557,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const [sendingReport, setSendingReport] = useState<string | null>(null);
   const [estimateQuoteId, setEstimateQuoteId] = useState<string | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<AIInspectionAnalysis | null>(null);
+  const [includePumping, setIncludePumping] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const sludgePhotoRef = useRef<HTMLInputElement>(null);
   const psiPhotoRef = useRef<HTMLInputElement>(null);
@@ -478,6 +569,8 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
       setLocalState(serverState);
       if (serverState.currentStep) setCurrentStep(serverState.currentStep);
       if (serverState.completedAt) setShowSummary(true);
+      // Restore persisted AI analysis
+      if (serverState.aiAnalysis) setAiAnalysis(serverState.aiAnalysis);
     }
   }, [serverState]);
 
@@ -723,7 +816,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const handleDownloadPDF = async () => {
     setSendingReport("pdf");
     try {
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -740,7 +833,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const handlePrintReport = async () => {
     setSendingReport("print");
     try {
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false);
       const url = URL.createObjectURL(blob);
       const iframe = document.createElement("iframe");
       iframe.style.display = "none";
@@ -767,7 +860,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     }
     setSendingReport("email");
     try {
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false);
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
         jobId,
@@ -808,7 +901,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
       ? "\n\nFindings:\n" + issues.map((r: string) => `- ${r}`).join("\n")
       : "";
 
-    const estimate = calculateEstimate(localState);
+    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false });
     const estimateLine = estimate.total > 0
       ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
       : "";
@@ -935,7 +1028,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
 
   if (showSummary && localState.summary) {
     const s = localState.summary;
-    const estimate = calculateEstimate(localState);
+    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false });
     const conditionColors = {
       good: "text-success bg-success/10 border-success/30",
       fair: "text-yellow-600 bg-yellow-50 border-yellow-300",
@@ -959,6 +1052,136 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
               {s.criticalIssues > 0 && ` (${s.criticalIssues} critical)`}
             </p>
           </div>
+        </div>
+
+        {/* AI-Powered Report — PRIMARY ACTION */}
+        <div className="border-2 border-primary/30 bg-primary/5 rounded-xl p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xl">📝</span>
+            <h4 className="font-semibold text-text-primary text-base">Customer Report</h4>
+            {aiAnalysis?.generated_at && (
+              <span className="ml-auto text-[10px] text-text-tertiary">
+                Generated {new Date(aiAnalysis.generated_at).toLocaleTimeString()}
+              </span>
+            )}
+          </div>
+          {!aiAnalysis ? (
+            <div>
+              <p className="text-sm text-text-secondary mb-3">
+                Generate a professional AI-powered report with personalized recommendations, maintenance schedule, and seasonal tips.
+              </p>
+              <button
+                onClick={handleAIAnalysis}
+                disabled={aiAnalysisMutation.isPending}
+                className="w-full py-4 rounded-xl bg-primary text-white font-bold text-base hover:bg-primary/90 active:scale-[0.98] transition-all disabled:opacity-50"
+              >
+                {aiAnalysisMutation.isPending ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="animate-spin">⚙️</span> Generating Report with Claude...
+                  </span>
+                ) : "Generate AI Report"}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3 text-sm">
+              {/* Overall Assessment */}
+              <div>
+                <p className="font-semibold text-primary text-xs mb-1">Overall Assessment</p>
+                <p className="text-text-primary">{aiAnalysis.overall_assessment}</p>
+              </div>
+
+              {/* What to Expect */}
+              {aiAnalysis.what_to_expect && (
+                <div>
+                  <p className="font-semibold text-primary text-xs mb-1">🔮 What to Expect</p>
+                  <p className="text-text-primary text-xs">{aiAnalysis.what_to_expect}</p>
+                </div>
+              )}
+
+              {/* Priority Repairs */}
+              {aiAnalysis.priority_repairs?.length > 0 && (
+                <div>
+                  <p className="font-semibold text-primary text-xs mb-1">Priority Repairs</p>
+                  {aiAnalysis.priority_repairs.map((repair, i) => (
+                    <div key={i} className="ml-2 mb-2 border-l-2 border-primary/30 pl-2">
+                      <p className="font-medium text-text-primary text-xs">{repair.issue}</p>
+                      <p className="text-text-secondary text-xs">{repair.why_it_matters}</p>
+                      <span className={`inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold ${
+                        repair.urgency === "Fix today" ? "bg-red-100 text-red-700" :
+                        repair.urgency === "Schedule this week" ? "bg-yellow-100 text-yellow-700" :
+                        "bg-blue-100 text-blue-700"
+                      }`}>{repair.urgency}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Maintenance Schedule */}
+              {aiAnalysis.maintenance_schedule && aiAnalysis.maintenance_schedule.length > 0 && (
+                <div>
+                  <p className="font-semibold text-primary text-xs mb-1">📅 Maintenance Schedule</p>
+                  <div className="space-y-1">
+                    {aiAnalysis.maintenance_schedule.map((item, i) => (
+                      <div key={i} className="flex gap-2 text-xs bg-bg-secondary/50 rounded p-2">
+                        <span className="font-bold text-primary whitespace-nowrap">{item.timeframe}</span>
+                        <div>
+                          <span className="text-text-primary">{item.task}</span>
+                          <span className="text-text-tertiary"> — {item.why}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Seasonal Tips */}
+              {aiAnalysis.seasonal_tips && aiAnalysis.seasonal_tips.length > 0 && (
+                <div>
+                  <p className="font-semibold text-primary text-xs mb-1">🌡️ Seasonal Care Tips</p>
+                  <div className="grid grid-cols-2 gap-1">
+                    {aiAnalysis.seasonal_tips.map((tip, i) => (
+                      <div key={i} className="text-xs bg-bg-secondary/50 rounded p-2">
+                        <span className="font-bold text-text-primary">{tip.season}: </span>
+                        <span className="text-text-secondary">{tip.tip}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* What to Say */}
+              <div>
+                <p className="font-semibold text-primary text-xs mb-1">💬 What to Tell the Customer</p>
+                <div className="bg-white dark:bg-bg-body rounded-lg p-3 text-xs text-text-primary whitespace-pre-line border border-primary/10">
+                  {aiAnalysis.homeowner_script}
+                </div>
+              </div>
+
+              {/* Maintenance */}
+              <div>
+                <p className="font-semibold text-primary text-xs mb-1">🔧 Maintenance Recommendation</p>
+                <p className="text-text-primary text-xs">{aiAnalysis.maintenance_recommendation}</p>
+              </div>
+
+              {/* Cost Notes */}
+              {aiAnalysis.cost_notes && (
+                <div>
+                  <p className="font-semibold text-primary text-xs mb-1">💰 Cost Notes</p>
+                  <p className="text-text-secondary text-xs">{aiAnalysis.cost_notes}</p>
+                </div>
+              )}
+
+              <p className="text-[10px] text-text-tertiary text-right">Powered by {aiAnalysis.model_used || "Claude Sonnet"}</p>
+
+              <button
+                onClick={handleAIAnalysis}
+                disabled={aiAnalysisMutation.isPending}
+                className="w-full py-2 rounded-lg border border-primary/30 text-primary text-xs font-medium hover:bg-primary/10"
+              >
+                {aiAnalysisMutation.isPending ? "Re-generating..." : "🔄 Re-generate Report"}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Sludge Level & PSI Summary */}
@@ -1012,10 +1235,29 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
                 <span className="font-bold text-primary">${estimate.total.toFixed(2)}</span>
               </div>
             </div>
+            {/* Pumping toggle — visible when tech recommended pumping */}
+            {localState.recommendPumping && (
+              <label className="flex items-center gap-3 mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg cursor-pointer border border-blue-200 dark:border-blue-800">
+                <input
+                  type="checkbox"
+                  checked={includePumping}
+                  onChange={(e) => setIncludePumping(e.target.checked)}
+                  className="w-5 h-5 rounded accent-primary"
+                />
+                <div className="flex-1">
+                  <p className="font-medium text-text-primary text-sm">🚛 Septic Tank Pumping</p>
+                  <p className="text-xs text-text-secondary">Standard pump out — up to 1000 gal</p>
+                </div>
+                <span className="font-bold text-primary text-sm">$295.00</span>
+              </label>
+            )}
             <button
               onClick={async () => {
                 try {
-                  const result = await createEstimateMutation.mutateAsync(jobId);
+                  const result = await createEstimateMutation.mutateAsync({
+                    jobId,
+                    includePumping: localState.recommendPumping ? includePumping : false,
+                  });
                   setEstimateQuoteId(result.quote_id);
                 } catch { /* error toast from hook */ }
               }}
@@ -1039,89 +1281,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
           </div>
         )}
 
-        {/* AI Analysis */}
-        <div className="border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xl">🤖</span>
-            <h4 className="font-semibold text-purple-800 dark:text-purple-300">AI Inspection Insights</h4>
-          </div>
-          {!aiAnalysis ? (
-            <div>
-              <p className="text-xs text-purple-700 dark:text-purple-400 mb-3">
-                Get AI-powered analysis of your findings — prioritized repairs, what to tell the customer, and maintenance recommendations.
-              </p>
-              <button
-                onClick={handleAIAnalysis}
-                disabled={aiAnalysisMutation.isPending}
-                className="w-full py-3 rounded-lg bg-purple-600 text-white font-semibold text-sm hover:bg-purple-700 active:scale-[0.98] transition-all disabled:opacity-50"
-              >
-                {aiAnalysisMutation.isPending ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="animate-spin">⚙️</span> Analyzing with Claude Sonnet...
-                  </span>
-                ) : "🧠 Analyze with AI"}
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-3 text-sm">
-              {/* Overall Assessment */}
-              <div>
-                <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">Overall Assessment</p>
-                <p className="text-text-primary">{aiAnalysis.overall_assessment}</p>
-              </div>
-
-              {/* Priority Repairs */}
-              {aiAnalysis.priority_repairs?.length > 0 && (
-                <div>
-                  <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">Priority Repairs</p>
-                  {aiAnalysis.priority_repairs.map((repair, i) => (
-                    <div key={i} className="ml-2 mb-2 border-l-2 border-purple-300 pl-2">
-                      <p className="font-medium text-text-primary text-xs">{repair.issue}</p>
-                      <p className="text-text-secondary text-xs">{repair.why_it_matters}</p>
-                      <span className={`inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold ${
-                        repair.urgency === "Fix today" ? "bg-red-100 text-red-700" :
-                        repair.urgency === "Schedule this week" ? "bg-yellow-100 text-yellow-700" :
-                        "bg-blue-100 text-blue-700"
-                      }`}>{repair.urgency}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* What to Say */}
-              <div>
-                <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">💬 What to Tell the Customer</p>
-                <div className="bg-white dark:bg-bg-body rounded-lg p-3 text-xs text-text-primary whitespace-pre-line border border-purple-100 dark:border-purple-900">
-                  {aiAnalysis.homeowner_script}
-                </div>
-              </div>
-
-              {/* Maintenance */}
-              <div>
-                <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">🔧 Maintenance Recommendation</p>
-                <p className="text-text-primary text-xs">{aiAnalysis.maintenance_recommendation}</p>
-              </div>
-
-              {/* Cost Notes */}
-              {aiAnalysis.cost_notes && (
-                <div>
-                  <p className="font-semibold text-purple-800 dark:text-purple-300 text-xs mb-1">💰 Cost Notes</p>
-                  <p className="text-text-secondary text-xs">{aiAnalysis.cost_notes}</p>
-                </div>
-              )}
-
-              <p className="text-[10px] text-purple-500 text-right">Powered by {aiAnalysis.model_used || "Claude Sonnet"}</p>
-
-              <button
-                onClick={handleAIAnalysis}
-                disabled={aiAnalysisMutation.isPending}
-                className="w-full py-2 rounded-lg border border-purple-300 text-purple-700 dark:text-purple-300 text-xs font-medium hover:bg-purple-100 dark:hover:bg-purple-900/40"
-              >
-                {aiAnalysisMutation.isPending ? "Re-analyzing..." : "🔄 Re-analyze"}
-              </button>
-            </div>
-          )}
-        </div>
+        {/* AI Analysis — moved to top, see above condition card */}
 
         {/* Step Review */}
         <div className="border border-border rounded-lg p-4">
