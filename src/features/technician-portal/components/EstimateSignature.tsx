@@ -24,8 +24,8 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-        <div className="bg-bg-primary rounded-xl p-8 flex items-center gap-3">
+      <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-8 flex items-center gap-3">
           <div className="animate-spin w-6 h-6 border-3 border-primary border-t-transparent rounded-full" />
           <span className="text-text-secondary">Loading estimate...</span>
         </div>
@@ -35,8 +35,8 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
 
   if (!quote) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-        <div className="bg-bg-primary rounded-xl p-8 text-center">
+      <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-8 text-center">
           <p className="text-text-primary font-medium">Estimate not found</p>
           <button onClick={onClose} className="mt-4 px-4 py-2 bg-primary text-white rounded-lg">Close</button>
         </div>
@@ -95,8 +95,8 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
   // ─── Done view ───
   if (view === "done") {
     return (
-      <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-        <div className="bg-bg-primary rounded-xl p-8 max-w-md w-full text-center">
+      <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-8 max-w-md w-full text-center">
           <div className="text-5xl mb-4">✅</div>
           <h2 className="text-xl font-bold text-text-primary mb-2">All Done!</h2>
           <p className="text-text-secondary mb-6">Thank you for choosing MAC Septic Services.</p>
@@ -114,8 +114,8 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
   // ─── Signed — payment options ───
   if (view === "signed") {
     return (
-      <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-        <div className="bg-bg-primary rounded-xl max-w-md w-full overflow-hidden">
+      <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full overflow-hidden">
           <div className="bg-green-600 text-white p-4 text-center">
             <div className="text-3xl mb-1">✅</div>
             <h2 className="text-lg font-bold">Estimate Accepted</h2>
@@ -155,9 +155,9 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
 
   // ─── Review + Sign view ───
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm overflow-y-auto">
       <div className="min-h-full flex items-start justify-center p-4 pt-8 pb-8">
-        <div className="bg-bg-primary rounded-xl max-w-lg w-full overflow-hidden shadow-xl">
+        <div className="bg-white dark:bg-gray-900 rounded-xl max-w-lg w-full overflow-hidden shadow-2xl">
 
           {/* Header */}
           <div className="bg-[#1e40af] text-white p-5 text-center">
