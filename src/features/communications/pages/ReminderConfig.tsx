@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { ReminderModal } from "../components/ReminderModal";
 import { CommunicationsNav } from "../components/CommunicationsNav";
+import { CHANNEL_CONFIG } from "../utils";
 import { cn } from "@/lib/utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -54,29 +55,6 @@ const DEFAULT_REMINDERS: Reminder[] = [
     enabled: true,
   },
 ];
-
-// ── Channel config ───────────────────────────────────────────────────────
-
-const CHANNEL_BADGE: Record<
-  string,
-  { bg: string; text: string; icon: string }
-> = {
-  sms: {
-    bg: "bg-blue-50 dark:bg-blue-500/10",
-    text: "text-blue-600",
-    icon: "SMS",
-  },
-  email: {
-    bg: "bg-purple-50 dark:bg-purple-500/10",
-    text: "text-purple-600",
-    icon: "Email",
-  },
-  push: {
-    bg: "bg-green-50 dark:bg-green-500/10",
-    text: "text-green-600",
-    icon: "Push",
-  },
-};
 
 // ── Component ────────────────────────────────────────────────────────────
 
@@ -313,17 +291,17 @@ export function ReminderConfig() {
                   </p>
                   <div className="flex items-center gap-1.5 mt-1.5">
                     {reminder.channels.map((ch) => {
-                      const cfg = CHANNEL_BADGE[ch] || CHANNEL_BADGE.sms;
+                      const cfg = CHANNEL_CONFIG[ch] || CHANNEL_CONFIG.sms;
                       return (
                         <span
                           key={ch}
                           className={cn(
                             "inline-flex text-[10px] font-semibold px-2 py-0.5 rounded-full",
-                            cfg.bg,
-                            cfg.text,
+                            cfg.bgColor,
+                            cfg.color,
                           )}
                         >
-                          {cfg.icon}
+                          {cfg.label}
                         </span>
                       );
                     })}

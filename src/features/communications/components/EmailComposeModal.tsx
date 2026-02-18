@@ -94,105 +94,10 @@ export function EmailComposeModal({
       setShowAiPanel(false);
       setAiPrompt("");
       toastSuccess("AI-generated email content ready!");
-    } catch (error) {
-      // Demo fallback for when AI backend isn't available
-      const demoContent = generateDemoEmail(aiPrompt, customerName);
-      setSubject(demoContent.subject);
-      setBody(demoContent.body);
-      setShowAiPanel(false);
-      setAiPrompt("");
-      toastSuccess("AI draft generated (demo mode)");
+    } catch {
+      toastError("AI generation unavailable — write your message manually");
     }
   };
-
-  // Demo email generator for when backend unavailable
-  function generateDemoEmail(
-    prompt: string,
-    name?: string,
-  ): { subject: string; body: string } {
-    const lowerPrompt = prompt.toLowerCase();
-    const greeting = name ? `Dear ${name}` : "Dear Valued Customer";
-
-    if (lowerPrompt.includes("follow") || lowerPrompt.includes("check")) {
-      return {
-        subject: "Following Up on Your Recent Service",
-        body: `${greeting},
-
-I wanted to follow up on your recent service with us. We hope everything is working perfectly!
-
-If you have any questions or need any additional assistance, please don't hesitate to reach out. We're always here to help.
-
-Thank you for choosing us for your service needs.
-
-Best regards,
-The Service Team`,
-      };
-    }
-
-    if (lowerPrompt.includes("thank") || lowerPrompt.includes("appreciation")) {
-      return {
-        subject: "Thank You for Your Business",
-        body: `${greeting},
-
-Thank you so much for choosing our services! We truly appreciate your business and trust in us.
-
-It was a pleasure serving you, and we look forward to assisting you again in the future. If you have any feedback or suggestions, we'd love to hear from you.
-
-Warm regards,
-The Service Team`,
-      };
-    }
-
-    if (
-      lowerPrompt.includes("appointment") ||
-      lowerPrompt.includes("schedule")
-    ) {
-      return {
-        subject: "Your Upcoming Appointment Confirmation",
-        body: `${greeting},
-
-This is a friendly reminder about your upcoming service appointment.
-
-Our technician will arrive at the scheduled time. Please ensure someone is available to provide access to the service area.
-
-If you need to reschedule or have any questions, please contact us at your earliest convenience.
-
-Best regards,
-The Service Team`,
-      };
-    }
-
-    if (lowerPrompt.includes("invoice") || lowerPrompt.includes("payment")) {
-      return {
-        subject: "Invoice & Payment Information",
-        body: `${greeting},
-
-Please find attached your invoice for the recent service. You can make payment through our secure online portal or contact us for alternative payment options.
-
-If you have any questions about the charges or need to discuss payment arrangements, please don't hesitate to reach out.
-
-Thank you for your prompt attention to this matter.
-
-Best regards,
-The Service Team`,
-      };
-    }
-
-    // Default professional email
-    return {
-      subject: "Message from Our Service Team",
-      body: `${greeting},
-
-Thank you for your continued trust in our services.
-
-${prompt}
-
-Please let us know if you have any questions or if there's anything else we can assist you with.
-
-Best regards,
-The Service Team`,
-    };
-  }
 
   return (
     <Dialog open={open} onClose={handleClose}>

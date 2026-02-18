@@ -5,6 +5,7 @@ import {
   useGenerateFollowUp,
 } from "@/api/hooks/useCommunicationAI";
 import { Button } from "@/components/ui/Button";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 /**
  * AI-powered communication optimizer panel
@@ -23,26 +24,45 @@ export function CommunicationOptimizerPanel() {
     "after_service" | "missed_appointment" | "quote_sent" | "overdue_payment"
   >("after_service");
 
-  const { data: analytics, isLoading: loadingAnalytics } =
+  const { data: analytics, isLoading: loadingAnalytics, isError: analyticsError } =
     useCommunicationAnalytics();
   const optimizeMessage = useOptimizeMessage();
   const generateFollowUp = useGenerateFollowUp();
 
   const handleOptimize = () => {
     if (messageToOptimize.trim()) {
-      optimizeMessage.mutate({
-        message: messageToOptimize,
-        channel: "sms",
-        purpose: selectedPurpose,
-      });
+      optimizeMessage.mutate(
+        {
+          message: messageToOptimize,
+          channel: "sms",
+          purpose: selectedPurpose,
+        },
+        {
+          onSuccess: () => toastSuccess("Message optimized"),
+          onError: () => toastError("Optimization unavailable"),
+        },
+      );
     }
   };
 
   const handleGenerate = () => {
-    generateFollowUp.mutate({
-      customer_id: "demo",
-      context: selectedContext,
-    });
+    generateFollowUp.mutate(
+      {
+        customer_id: "demo",
+        context: selectedContext,
+      },
+      {
+        onSuccess: () => toastSuccess("Follow-up generated"),
+        onError: () => toastError("Generation unavailable"),
+      },
+    );
+  };
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text).then(
+      () => toastSuccess("Copied to clipboard"),
+      () => toastError("Copy failed"),
+    );
   };
 
   if (!showPanel) {
@@ -103,6 +123,10 @@ export function CommunicationOptimizerPanel() {
               <div className="animate-spin h-4 w-4 border-2 border-purple-500 border-t-transparent rounded-full" />
               <span className="text-sm">Analyzing...</span>
             </div>
+          ) : analyticsError ? (
+            <p className="text-sm text-text-muted py-4 text-center">
+              Analytics unavailable — connect AI backend to view insights
+            </p>
           ) : (
             analytics && (
               <>
@@ -239,9 +263,19 @@ export function CommunicationOptimizerPanel() {
           {optimizeMessage.data && (
             <div className="space-y-3">
               <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
-                <span className="text-xs text-green-400 block mb-1">
-                  Optimized Message
-                </span>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs text-green-400">
+                    Optimized Message
+                  </span>
+                  <button
+                    onClick={() =>
+                      handleCopy(optimizeMessage.data!.optimized)
+                    }
+                    className="text-xs text-purple-400 hover:text-purple-300"
+                  >
+                    Copy
+                  </button>
+                </div>
                 <p className="text-sm text-text-primary">
                   {optimizeMessage.data.optimized}
                 </p>
@@ -353,11 +387,13 @@ export function CommunicationOptimizerPanel() {
                 </span>
               </div>
               <div className="flex gap-2">
-                <Button size="sm" variant="secondary" className="flex-1">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="flex-1"
+                  onClick={() => handleCopy(generateFollowUp.data!.message)}
+                >
                   Copy
-                </Button>
-                <Button size="sm" className="flex-1">
-                  Send Now
                 </Button>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 /**
  * Reminder Detail/Editor Page
@@ -11,28 +12,13 @@ export function ReminderDetail() {
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
 
-  const { data: reminder, isLoading } = useQuery({
+  const { data: reminder, isLoading, isError } = useQuery({
     queryKey: ["reminder", id],
     queryFn: async () => {
-      try {
-        const response = await apiClient.get(`/reminders/${id}`);
-        return response.data;
-      } catch {
-        // Return mock data for demo
-        return {
-          id,
-          name: "Appointment Reminder - 24 Hours",
-          trigger: "scheduled_appointment",
-          timing_value: 24,
-          timing_unit: "hours",
-          channels: ["sms"],
-          enabled: true,
-          template_id: null,
-          custom_message:
-            "Hi {{customer_name}}, this is a reminder about your appointment tomorrow at {{time}}.",
-        };
-      }
+      const response = await apiClient.get(`/reminders/${id}`);
+      return response.data;
     },
+    retry: 1,
     enabled: !!id,
   });
 
@@ -43,6 +29,10 @@ export function ReminderDetail() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reminder", id] });
       setIsEditing(false);
+      toastSuccess("Reminder updated");
+    },
+    onError: () => {
+      toastError("Failed to update reminder");
     },
   });
 
@@ -54,6 +44,10 @@ export function ReminderDetail() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reminder", id] });
+      toastSuccess(reminder?.enabled ? "Reminder paused" : "Reminder enabled");
+    },
+    onError: () => {
+      toastError("Failed to toggle reminder");
     },
   });
 
@@ -61,6 +55,22 @@ export function ReminderDetail() {
     return (
       <div className="p-6 flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (isError || !reminder) {
+    return (
+      <div className="p-6">
+        <Link
+          to="/communications/reminders"
+          className="text-text-muted hover:text-text-primary mb-4 inline-block"
+        >
+          &larr; Back to Reminders
+        </Link>
+        <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+          <p className="text-text-muted">Reminder not found or failed to load.</p>
+        </div>
       </div>
     );
   }
