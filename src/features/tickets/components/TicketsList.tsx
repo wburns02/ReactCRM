@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import {
   type Ticket,
   TICKET_TYPE_LABELS,
@@ -32,6 +33,8 @@ export function TicketsList({
   onEdit,
   onDelete,
 }: TicketsListProps) {
+  const isMobile = useIsMobileOrTablet();
+  const navigate = useNavigate();
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
@@ -76,7 +79,50 @@ export function TicketsList({
 
   return (
     <div>
-      {/* Table */}
+      {isMobile ? (
+        /* Mobile card view */
+        <div className="space-y-3">
+          {tickets.map((ticket) => (
+            <article
+              key={ticket.id}
+              className="bg-bg-card border border-border rounded-xl p-4 cursor-pointer active:bg-bg-hover transition-colors touch-manipulation"
+              onClick={() => navigate(`/tickets/${ticket.id}`)}
+              aria-label={`Ticket: ${ticket.title}`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <h3 className="font-medium text-text-primary flex-1 mr-2">{ticket.title}</h3>
+                <Badge variant={getPriorityBadgeVariant(ticket.priority)}>
+                  {TICKET_PRIORITY_LABELS[ticket.priority]}
+                </Badge>
+              </div>
+              {ticket.description && (
+                <p className="text-sm text-text-secondary line-clamp-2 mb-2">{ticket.description}</p>
+              )}
+              <div className="flex items-center gap-2 mb-3">
+                <Badge variant={getStatusBadgeVariant(ticket.status)}>
+                  {TICKET_STATUS_LABELS[ticket.status]}
+                </Badge>
+                <Badge variant="default">{TICKET_TYPE_LABELS[ticket.type]}</Badge>
+                {ticket.rice_score !== null && (
+                  <span className="text-xs text-text-muted ml-auto">RICE: {ticket.rice_score.toFixed(1)}</span>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <Link to={`/tickets/${ticket.id}`} onClick={(e) => e.stopPropagation()}>
+                  <Button variant="primary" size="sm">View</Button>
+                </Link>
+                {onEdit && (
+                  <Button variant="secondary" size="sm" onClick={(e) => { e.stopPropagation(); onEdit(ticket); }}>Edit</Button>
+                )}
+                {onDelete && (
+                  <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); onDelete(ticket); }} className="text-danger hover:text-danger ml-auto">Delete</Button>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+      /* Desktop Table */
       <div className="overflow-x-auto">
         <table className="w-full" role="grid" aria-label="Tickets list">
           <thead>
@@ -208,6 +254,7 @@ export function TicketsList({
           </tbody>
         </table>
       </div>
+      )}
 
       {/* Pagination */}
       <div className="flex items-center justify-between px-4 py-3 border-t border-border">

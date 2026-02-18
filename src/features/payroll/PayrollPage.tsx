@@ -58,7 +58,7 @@ function TabButton({
 }) {
   return (
     <button
-      className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+      className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap flex-shrink-0 touch-manipulation ${
         active
           ? "bg-primary text-white"
           : "bg-bg-muted text-text-secondary hover:bg-bg-muted/80"
@@ -1347,8 +1347,8 @@ export function PayrollPage() {
         </p>
       </div>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2">
+      {/* Tabs — horizontal scroll on mobile */}
+      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none">
         <TabButton
           active={activeTab === "summary"}
           onClick={() => setActiveTab("summary")}

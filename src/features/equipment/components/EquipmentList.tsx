@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button.tsx";
 import { EquipmentStatusBadge } from "./EquipmentStatusBadge.tsx";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import type { Equipment } from "@/api/types/equipment.ts";
 
 interface EquipmentListProps {
@@ -26,6 +27,7 @@ export function EquipmentList({
   onEdit,
   onDelete,
 }: EquipmentListProps) {
+  const isMobile = useIsMobileOrTablet();
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
@@ -50,7 +52,48 @@ export function EquipmentList({
 
   return (
     <div>
-      {/* Table */}
+      {isMobile ? (
+        /* Mobile card view */
+        <div className="space-y-3">
+          {equipment.map((item) => (
+            <article
+              key={item.id}
+              className="bg-bg-card border border-border rounded-xl p-4 touch-manipulation"
+              aria-label={`Equipment: ${item.name}`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <h3 className="font-medium text-text-primary">{item.name}</h3>
+                  <p className="text-sm text-text-secondary">{item.type}</p>
+                </div>
+                <EquipmentStatusBadge status={item.status} />
+              </div>
+              <div className="space-y-1 text-sm mb-3">
+                {item.serial_number && (
+                  <p className="text-text-secondary">SN: {item.serial_number}</p>
+                )}
+                <p className="text-text-secondary">
+                  Assigned: {item.assigned_to || "Unassigned"}
+                </p>
+                {item.next_maintenance && (
+                  <p className="text-text-secondary">
+                    Next maintenance: {new Date(item.next_maintenance).toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+              <div className="flex gap-2">
+                {onEdit && (
+                  <Button variant="secondary" size="sm" onClick={() => onEdit(item)}>Edit</Button>
+                )}
+                {onDelete && (
+                  <Button variant="ghost" size="sm" onClick={() => onDelete(item)} className="text-danger hover:text-danger ml-auto">Delete</Button>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+      /* Desktop Table */
       <div className="overflow-x-auto">
         <table className="w-full" role="grid" aria-label="Equipment list">
           <thead>
@@ -158,6 +201,7 @@ export function EquipmentList({
           </tbody>
         </table>
       </div>
+      )}
 
       {/* Pagination */}
       <div className="flex items-center justify-between px-4 py-3 border-t border-border">

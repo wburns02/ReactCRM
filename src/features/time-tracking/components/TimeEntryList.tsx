@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
 import { formatDate } from "@/lib/utils.ts";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import { TimeEntryDetailModal } from "./TimeEntryDetailModal.tsx";
 
 interface TimeEntryListProps {
@@ -243,6 +244,8 @@ export function TimeEntryList({
     }
   };
 
+  const isMobile = useIsMobileOrTablet();
+
   const hasActiveFilters =
     statusFilter !== defaultStatus || startDate || endDate || entryTypeFilter;
 
@@ -424,8 +427,63 @@ export function TimeEntryList({
         </div>
       )}
 
-      {/* Time entry table */}
-      {!isLoading && sortedEntries.length > 0 && (
+      {/* Time entries */}
+      {!isLoading && sortedEntries.length > 0 && isMobile && (
+        <div className="space-y-3">
+          {sortedEntries.map((entry: TimeEntry) => (
+            <article
+              key={entry.id}
+              className="bg-bg-card border border-border rounded-xl p-4 cursor-pointer active:bg-bg-hover transition-colors touch-manipulation"
+              onClick={() => {
+                setSelectedEntry(entry);
+                setShowDetailModal(true);
+              }}
+              aria-label={`Time entry for ${entry.technician_name || "Unknown"}`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <h3 className="font-medium text-text-primary">{entry.technician_name || "—"}</h3>
+                  <p className="text-sm text-text-secondary">{formatDate(entry.entry_date)}</p>
+                </div>
+                <Badge variant={getStatusVariant(entry.status)}>{entry.status}</Badge>
+              </div>
+              <div className="flex items-center gap-3 text-sm mb-3">
+                <span>{getEntryTypeIcon(entry.entry_type)} <span className="capitalize">{entry.entry_type}</span></span>
+                <span className="text-text-secondary">{formatTime(entry.clock_in)} - {formatTime(entry.clock_out)}</span>
+              </div>
+              <div className="flex items-center gap-4 text-sm">
+                <span><span className="text-text-secondary">Regular:</span> <span className="font-mono font-medium">{formatHours(entry.regular_hours)}h</span></span>
+                {entry.overtime_hours > 0 && (
+                  <span><span className="text-text-secondary">OT:</span> <span className="font-mono font-medium text-warning">{formatHours(entry.overtime_hours)}h</span></span>
+                )}
+                <div className="flex gap-1 ml-auto" onClick={(e) => e.stopPropagation()}>
+                  {entry.status === "pending" && (
+                    <>
+                      <Button variant="ghost" size="sm" className="min-w-[36px] min-h-[36px] p-1" onClick={() => handleApprove(entry.id)} disabled={approveEntry.isPending} title="Approve">
+                        <span className="text-success">✓</span>
+                      </Button>
+                      <Button variant="ghost" size="sm" className="min-w-[36px] min-h-[36px] p-1" onClick={() => handleReject(entry.id)} disabled={rejectEntry.isPending} title="Reject">
+                        <span className="text-danger">✕</span>
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+          {/* Mobile page totals */}
+          <div className="bg-bg-muted rounded-lg p-3 flex items-center justify-between text-sm font-medium">
+            <span>Page Totals</span>
+            <div className="flex gap-4">
+              <span className="font-mono">{pageTotalRegular.toFixed(2)}h regular</span>
+              {pageTotalOT > 0 && <span className="font-mono text-warning">{pageTotalOT.toFixed(2)}h OT</span>}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Time entry table */}
+      {!isLoading && sortedEntries.length > 0 && !isMobile && (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1050px]">
             <thead>

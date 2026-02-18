@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import {
   Dialog,
   DialogContent,
@@ -453,6 +454,7 @@ function BookingDetailModal({
 }
 
 export function BookingsPage() {
+  const isMobile = useIsMobileOrTablet();
   const [statusFilter, setStatusFilter] = useState<string>("");
   const [page, setPage] = useState(1);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
@@ -511,7 +513,7 @@ export function BookingsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 overflow-x-auto scrollbar-none -mx-1 px-1">
         {["", "confirmed", "in_progress", "completed", "cancelled"].map(
           (status) => (
             <Button
@@ -552,6 +554,53 @@ export function BookingsPage() {
                 Bookings are created when customers submit the online booking
                 form.
               </p>
+            </div>
+          ) : isMobile ? (
+            /* Mobile card view */
+            <div className="space-y-3 p-4">
+              {bookings.map((booking) => {
+                const name = [booking.customer_first_name, booking.customer_last_name]
+                  .filter(Boolean)
+                  .join(" ") || "Unknown";
+                return (
+                  <article
+                    key={booking.id}
+                    className="bg-bg-card border border-border rounded-xl p-4 cursor-pointer active:bg-bg-hover transition-colors touch-manipulation"
+                    onClick={() => setSelectedBookingId(booking.id)}
+                    aria-label={`Booking for ${name}`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className="font-medium text-text-primary">{name}</h3>
+                        {booking.customer_phone && (
+                          <p className="text-sm text-text-secondary">{booking.customer_phone}</p>
+                        )}
+                      </div>
+                      <span className="text-lg font-semibold text-text-primary">
+                        {booking.final_amount
+                          ? formatCurrency(Number(booking.final_amount))
+                          : booking.base_price
+                            ? formatCurrency(Number(booking.base_price))
+                            : "$575.00"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant={STATUS_COLORS[booking.status] || "default"}>
+                        {booking.status.replace("_", " ")}
+                      </Badge>
+                      <Badge variant={PAYMENT_COLORS[booking.payment_status] || "default"}>
+                        {booking.payment_status}
+                      </Badge>
+                      {booking.is_test && <Badge variant="default">TEST</Badge>}
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-text-secondary">
+                      <span>{booking.scheduled_date ? formatDate(booking.scheduled_date) : "TBD"}</span>
+                      <span className="capitalize">{booking.time_slot || "Any time"}</span>
+                      <span className="font-mono text-xs text-text-muted ml-auto">{booking.id.slice(0, 8)}</span>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           ) : (
             <div className="overflow-x-auto">

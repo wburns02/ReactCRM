@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import type { InventoryItem } from "@/api/types/inventory.ts";
 import { getStockLevel, getStockLevelLabel } from "@/api/types/inventory.ts";
 
@@ -29,6 +30,7 @@ export function InventoryList({
   onAdjust,
   onDelete,
 }: InventoryListProps) {
+  const isMobile = useIsMobileOrTablet();
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
@@ -66,7 +68,50 @@ export function InventoryList({
 
   return (
     <div>
-      {/* Table */}
+      {isMobile ? (
+        /* Mobile card view */
+        <div className="space-y-3">
+          {items.map((item) => (
+            <article
+              key={item.id}
+              className="bg-bg-card border border-border rounded-xl p-4 touch-manipulation"
+              aria-label={`Inventory: ${item.name}`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <h3 className="font-medium text-text-primary">{item.name}</h3>
+                  <p className="text-sm text-text-secondary">{item.category}</p>
+                  {item.sku && <p className="text-xs text-text-muted font-mono">SKU: {item.sku}</p>}
+                </div>
+                {getStockBadge(item)}
+              </div>
+              <div className="flex items-center gap-4 text-sm mb-3">
+                <span>
+                  <span className="text-text-secondary">Qty: </span>
+                  <span className={`font-medium ${getStockLevel(item) === "out" ? "text-danger" : getStockLevel(item) === "low" ? "text-warning" : "text-text-primary"}`}>
+                    {item.quantity}
+                  </span>
+                </span>
+                <span className="text-text-secondary">Reorder: {item.reorder_level}</span>
+                <span className="text-text-secondary">${item.unit_cost.toFixed(2)}/unit</span>
+              </div>
+              {item.location && <p className="text-xs text-text-muted mb-3">{item.location}</p>}
+              <div className="flex gap-2">
+                {onAdjust && (
+                  <Button variant="primary" size="sm" onClick={() => onAdjust(item)}>Adjust</Button>
+                )}
+                {onEdit && (
+                  <Button variant="secondary" size="sm" onClick={() => onEdit(item)}>Edit</Button>
+                )}
+                {onDelete && (
+                  <Button variant="ghost" size="sm" onClick={() => onDelete(item)} className="text-danger hover:text-danger ml-auto">Delete</Button>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+      /* Desktop Table */
       <div className="overflow-x-auto">
         <table className="w-full" role="grid" aria-label="Inventory list">
           <thead>
@@ -202,6 +247,7 @@ export function InventoryList({
           </tbody>
         </table>
       </div>
+      )}
 
       {/* Pagination */}
       <div className="flex items-center justify-between px-4 py-3 border-t border-border">

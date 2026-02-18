@@ -7,6 +7,9 @@ import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
 import { EmailComposeProvider } from "@/context/EmailComposeContext";
 import { MobileBottomNav } from "@/components/navigation/MobileBottomNav";
 import { MobileHeader } from "@/components/navigation/MobileHeader";
+import { AdminMobileHeader } from "@/components/navigation/AdminMobileHeader";
+import { AdminMobileDrawer } from "@/components/navigation/AdminMobileDrawer";
+import { AdminMobileBottomNav } from "@/components/navigation/AdminMobileBottomNav";
 import { useTheme } from "@/hooks/useTheme";
 
 /**
@@ -38,6 +41,7 @@ export function AppLayout() {
   const { user, logout, isTechnician } = useAuth();
   const location = useLocation();
   const { isDark, toggle: toggleTheme } = useTheme();
+  const [adminDrawerOpen, setAdminDrawerOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     // Auto-expand group containing current page
     const saved = localStorage.getItem("sidebarExpandedGroups");
@@ -364,11 +368,12 @@ export function AppLayout() {
         </div>
       </aside>
 
-      {/* Mobile header — visible only on mobile for technicians */}
-      {isTechnician && (
-        <div className="md:hidden contents">
-          {/* contents so it participates in parent flex without adding a wrapper */}
-        </div>
+      {/* Admin mobile drawer — visible only on mobile for non-technicians */}
+      {!isTechnician && (
+        <AdminMobileDrawer
+          open={adminDrawerOpen}
+          onClose={() => setAdminDrawerOpen(false)}
+        />
       )}
 
       {/* Main content */}
@@ -377,17 +382,22 @@ export function AppLayout() {
         className="flex-1 overflow-auto flex flex-col min-w-0"
         tabIndex={-1}
       >
-        {/* Mobile header for technicians (replaces desktop top bar on small screens) */}
+        {/* Mobile header for technicians */}
         {isTechnician && (
           <div className="md:hidden">
             <MobileHeader />
           </div>
         )}
 
-        {/* Desktop top bar — hidden on mobile for technicians */}
-        <div className={`h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4 ${
-          isTechnician ? "hidden md:flex" : ""
-        }`}>
+        {/* Mobile header for admins */}
+        {!isTechnician && (
+          <div className="md:hidden">
+            <AdminMobileHeader onMenuOpen={() => setAdminDrawerOpen(true)} />
+          </div>
+        )}
+
+        {/* Desktop top bar — hidden on mobile for all roles */}
+        <div className="h-12 border-b border-border bg-bg-card px-6 hidden md:flex items-center justify-end gap-4">
           <button
             onClick={toggleTheme}
             className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-bg-hover transition-colors"
@@ -401,16 +411,23 @@ export function AppLayout() {
           <RCStatusIndicator />
         </div>
 
-        {/* Page content — extra bottom padding on mobile for technicians to clear bottom nav */}
-        <div className={`flex-1 overflow-auto ${isTechnician ? "pb-20 md:pb-0" : ""}`}>
+        {/* Page content — extra bottom padding on mobile for bottom nav */}
+        <div className="flex-1 overflow-auto pb-20 md:pb-0">
           <Outlet />
         </div>
       </main>
 
-      {/* Mobile bottom nav — only for technicians, only on mobile */}
+      {/* Mobile bottom nav — technicians */}
       {isTechnician && (
         <div className="md:hidden">
           <MobileBottomNav />
+        </div>
+      )}
+
+      {/* Mobile bottom nav — admins */}
+      {!isTechnician && (
+        <div className="md:hidden">
+          <AdminMobileBottomNav />
         </div>
       )}
 

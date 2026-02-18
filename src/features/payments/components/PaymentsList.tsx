@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { PaymentMethodBadge } from "./PaymentMethodBadge.tsx";
 import { formatDate, formatCurrency } from "@/lib/utils.ts";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import {
   PAYMENT_STATUS_LABELS,
   type Payment,
@@ -55,6 +56,7 @@ export function PaymentsList({
   onDelete,
   onRowClick,
 }: PaymentsListProps) {
+  const isMobile = useIsMobileOrTablet();
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
@@ -79,7 +81,62 @@ export function PaymentsList({
 
   return (
     <div>
-      {/* Table */}
+      {isMobile ? (
+        /* Mobile card view */
+        <div className="space-y-3">
+          {payments.map((payment) => (
+            <article
+              key={payment.id}
+              className="bg-bg-card border border-border rounded-xl p-4 cursor-pointer active:bg-bg-hover transition-colors touch-manipulation"
+              onClick={() => onRowClick?.(payment)}
+              aria-label={`Payment from ${payment.customer_name || "Clover POS"}`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <h3 className="font-medium text-text-primary">
+                    {payment.customer_name ||
+                      (payment.customer
+                        ? `${payment.customer.first_name} ${payment.customer.last_name}`
+                        : payment.customer_id
+                          ? `Customer #${payment.customer_id}`
+                          : "Clover POS Payment")}
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    {formatDate(payment.payment_date || payment.created_at)}
+                  </p>
+                </div>
+                <span className="text-lg font-semibold text-text-primary">
+                  {formatCurrency(Number(payment.amount) || 0)}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 mb-3">
+                <Badge variant={getStatusVariant(payment.status)}>
+                  {PAYMENT_STATUS_LABELS[payment.status] || payment.status}
+                </Badge>
+                <PaymentMethodBadge method={payment.payment_method} />
+                {payment.invoice_id && (
+                  <Link
+                    to={`/invoices/${payment.invoice_id}`}
+                    className="text-xs text-text-link hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Invoice
+                  </Link>
+                )}
+              </div>
+              <div className="flex gap-2">
+                {onEdit && (
+                  <Button variant="secondary" size="sm" onClick={(e) => { e.stopPropagation(); onEdit(payment); }}>Edit</Button>
+                )}
+                {onDelete && (
+                  <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); onDelete(payment); }} className="text-danger hover:text-danger ml-auto">Delete</Button>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+      /* Desktop Table */
       <div className="overflow-x-auto">
         <table className="w-full" role="grid" aria-label="Payments list">
           <thead>
@@ -224,6 +281,7 @@ export function PaymentsList({
           </tbody>
         </table>
       </div>
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (
