@@ -440,12 +440,54 @@ export function useJobPhotosGallery(jobId: string | undefined) {
 
 // ── Inspection Checklist Hooks ──────────────────────────────────────────
 
+// Map snake_case server inspection state to camelCase frontend InspectionState
+function mapServerInspection(raw: Record<string, unknown> | null) {
+  if (!raw) return null;
+  // Map step states from snake_case to camelCase
+  const rawSteps = (raw.steps ?? {}) as Record<string, Record<string, unknown>>;
+  const steps: Record<number, Record<string, unknown>> = {};
+  for (const [k, v] of Object.entries(rawSteps)) {
+    steps[Number(k)] = {
+      status: v.status ?? "pending",
+      completedAt: v.completed_at ?? v.completedAt ?? null,
+      notes: v.notes ?? "",
+      voiceNotes: v.voice_notes ?? v.voiceNotes ?? "",
+      findings: v.findings ?? "ok",
+      findingDetails: v.finding_details ?? v.findingDetails ?? "",
+      photos: v.photos ?? [],
+    };
+  }
+  // Map summary
+  const rawSummary = raw.summary as Record<string, unknown> | null;
+  const summary = rawSummary ? {
+    generatedAt: rawSummary.generated_at ?? rawSummary.generatedAt ?? "",
+    overallCondition: rawSummary.overall_condition ?? rawSummary.overallCondition ?? "good",
+    totalIssues: rawSummary.total_issues ?? rawSummary.totalIssues ?? 0,
+    criticalIssues: rawSummary.critical_issues ?? rawSummary.criticalIssues ?? 0,
+    recommendations: rawSummary.recommendations ?? [],
+    upsellOpportunities: rawSummary.upsell_opportunities ?? rawSummary.upsellOpportunities ?? [],
+    nextServiceDate: rawSummary.next_service_date ?? rawSummary.nextServiceDate ?? null,
+    techNotes: rawSummary.tech_notes ?? rawSummary.techNotes ?? "",
+  } : null;
+  return {
+    startedAt: raw.started_at ?? raw.startedAt ?? null,
+    completedAt: raw.completed_at ?? raw.completedAt ?? null,
+    equipmentVerified: raw.equipment_verified ?? raw.equipmentVerified ?? false,
+    equipmentItems: (raw.equipment_items ?? raw.equipmentItems ?? {}) as Record<string, boolean>,
+    homeownerNotifiedAt: raw.homeowner_notified_at ?? raw.homeownerNotifiedAt ?? null,
+    currentStep: raw.current_step ?? raw.currentStep ?? 1,
+    steps,
+    summary,
+    voiceGuidanceEnabled: raw.voice_guidance_enabled ?? raw.voiceGuidanceEnabled ?? false,
+  };
+}
+
 export function useInspectionState(jobId: string | undefined) {
   return useQuery({
     queryKey: ["tech-portal", "jobs", jobId, "inspection"],
     queryFn: async () => {
       const { data } = await apiClient.get(`/employee/jobs/${jobId}/inspection`);
-      return data?.inspection ?? null;
+      return mapServerInspection(data?.inspection ?? null);
     },
     enabled: !!jobId,
   });
