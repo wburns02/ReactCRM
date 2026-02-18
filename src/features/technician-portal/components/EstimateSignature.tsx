@@ -45,9 +45,9 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
   }
 
   const lineItems = quote.line_items || [];
-  const customerName = quote.customer_name || quote.customer
-    ? `${quote.customer?.first_name || ""} ${quote.customer?.last_name || ""}`.trim()
-    : "Customer";
+  const customerName = quote.customer_name
+    || (quote.customer ? `${quote.customer.first_name || ""} ${quote.customer.last_name || ""}`.trim() : "")
+    || "Customer";
 
   const handleSignature = (base64: string) => {
     setSignatureData(base64);
