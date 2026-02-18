@@ -218,11 +218,17 @@ export function useAcceptQuote() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string): Promise<Quote> => {
-      const response = await apiClient.post(`/quotes/${id}/accept`);
+    mutationFn: async (params: string | { id: string; signatureData?: string; signedBy?: string }): Promise<Quote> => {
+      const id = typeof params === "string" ? params : params.id;
+      const body = typeof params === "string" ? {} : {
+        signature_data: params.signatureData,
+        signed_by: params.signedBy,
+      };
+      const response = await apiClient.post(`/quotes/${id}/accept`, body);
       return response.data;
     },
-    onSuccess: (_, id) => {
+    onSuccess: (_, params) => {
+      const id = typeof params === "string" ? params : params.id;
       queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },

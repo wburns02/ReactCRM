@@ -622,3 +622,14 @@ export function useNotifyArrival() {
     onError: () => toastError("Failed to send arrival notification"),
   });
 }
+
+export function useCreateEstimateFromInspection() {
+  return useMutation({
+    mutationFn: async (jobId: string): Promise<{ quote_id: string; quote_number: string; total: number }> => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/create-estimate`);
+      return data;
+    },
+    onSuccess: () => toastSuccess("Estimate created!"),
+    onError: () => toastError("Failed to create estimate"),
+  });
+}

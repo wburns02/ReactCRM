@@ -19,7 +19,9 @@ import {
   useNotifyArrival,
   useSaveInspectionState,
   useUploadJobPhoto,
+  useCreateEstimateFromInspection,
 } from "@/api/hooks/useTechPortal.ts";
+import { EstimateSignature } from "./EstimateSignature.tsx";
 import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 
 interface Props {
@@ -60,6 +62,63 @@ function ProgressRing({ percent, size = 80 }: { percent: number; size?: number }
   );
 }
 
+// ─── PDF Colors ──────────────────────────────────────────────────────────────
+
+const PDF_COLORS = {
+  green: { r: 34, g: 197, b: 94 },   // #22c55e
+  yellow: { r: 245, g: 158, b: 11 },  // #f59e0b
+  red: { r: 239, g: 68, b: 68 },      // #ef4444
+  blue: { r: 30, g: 64, b: 175 },     // #1e40af
+  lightGreen: { r: 220, g: 252, b: 231 },
+  lightYellow: { r: 254, g: 249, b: 195 },
+  lightRed: { r: 254, g: 226, b: 226 },
+  gray: { r: 107, g: 114, b: 128 },
+  lightGray: { r: 243, g: 244, b: 246 },
+  white: { r: 255, g: 255, b: 255 },
+  black: { r: 30, g: 30, b: 30 },
+};
+
+function findingColor(f: string) {
+  if (f === "ok") return PDF_COLORS.green;
+  if (f === "needs_attention") return PDF_COLORS.yellow;
+  if (f === "critical") return PDF_COLORS.red;
+  return PDF_COLORS.gray;
+}
+
+function findingBg(f: string) {
+  if (f === "ok") return PDF_COLORS.lightGreen;
+  if (f === "needs_attention") return PDF_COLORS.lightYellow;
+  if (f === "critical") return PDF_COLORS.lightRed;
+  return PDF_COLORS.lightGray;
+}
+
+function findingLabel(f: string) {
+  if (f === "ok") return "All Good!";
+  if (f === "needs_attention") return "Needs Attention";
+  if (f === "critical") return "Needs Fixing Now";
+  return "Not Checked";
+}
+
+// Simple language mappings for step titles
+const SIMPLE_DESCRIPTIONS: Record<number, string> = {
+  1: "We checked that all our tools and safety equipment are ready.",
+  2: "We let the homeowner know we arrived.",
+  3: "We confirmed we are at the right address.",
+  4: "We knocked on the door and introduced ourselves.",
+  5: "We explained what the inspection covers.",
+  6: "We found where the septic tank and control panel are located.",
+  7: "We carefully opened the tank lids to look inside.",
+  8: "We tested the switches that turn the pump on and off.",
+  9: "We checked the control panel for any warning lights or damage.",
+  10: "We tested the timer that controls when the pump runs.",
+  11: "We checked that the alarm light bulb and buzzer work.",
+  12: "We looked for rust, damage, and made sure everything is sealed properly.",
+  13: "We turned the power back on to the system.",
+  14: "We checked the valve and the spray or drip system that spreads treated water.",
+  15: "We put all the lids back on securely and cleaned up.",
+  16: "We discussed everything we found with you.",
+};
+
 // ─── PDF Report Generation (client-side) ────────────────────────────────────
 
 async function generateReportPDF(
@@ -67,142 +126,319 @@ async function generateReportPDF(
   customerName: string,
   jobId: string,
 ): Promise<Blob> {
-  // Dynamic import jsPDF (already in bundle for invoices)
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF();
   const steps = INSPECTION_STEPS;
-  let y = 20;
+  const pageW = 210;
+  const margin = 15;
+  const contentW = pageW - margin * 2;
+  let y = 0;
 
-  // Header
-  doc.setFontSize(20);
-  doc.setFont("helvetica", "bold");
-  doc.text("MAC Septic Services", 105, y, { align: "center" });
-  y += 8;
-  doc.setFontSize(14);
-  doc.text("Aerobic System Inspection Report", 105, y, { align: "center" });
-  y += 10;
-
-  // Customer info
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  doc.text(`Customer: ${customerName}`, 20, y);
-  y += 6;
-  doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, y);
-  y += 6;
-  doc.text(`Work Order: ${jobId.slice(0, 8)}...`, 20, y);
-  y += 10;
-
-  // Overall condition
-  const condition = state.summary?.overallCondition || "N/A";
-  doc.setFontSize(12);
-  doc.setFont("helvetica", "bold");
-  doc.text(`Overall System Condition: ${condition.toUpperCase()}`, 20, y);
-  y += 10;
-
-  // Separator
-  doc.setDrawColor(200);
-  doc.line(20, y, 190, y);
-  y += 8;
-
-  // Step results
-  doc.setFontSize(11);
-  doc.setFont("helvetica", "bold");
-  doc.text("Inspection Details", 20, y);
-  y += 8;
-
-  for (const step of steps) {
-    if (y > 260) {
-      doc.addPage();
-      y = 20;
-    }
-    const ss = state.steps[step.stepNumber];
-    const finding = ss?.findings || "pending";
-    const icon = finding === "ok" ? "[OK]" : finding === "needs_attention" ? "[ATTENTION]" : finding === "critical" ? "[CRITICAL]" : "[--]";
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text(`${step.stepNumber}. ${step.title} ${icon}`, 20, y);
-    y += 5;
-
-    if (ss?.notes) {
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(9);
-      const noteLines = doc.splitTextToSize(`Notes: ${ss.notes}`, 160);
-      doc.text(noteLines, 25, y);
-      y += noteLines.length * 4 + 2;
-    }
-    if (ss?.findingDetails) {
-      doc.setFont("helvetica", "italic");
-      doc.setFontSize(9);
-      const detailLines = doc.splitTextToSize(`Issue: ${ss.findingDetails}`, 160);
-      doc.text(detailLines, 25, y);
-      y += detailLines.length * 4 + 2;
-    }
-    if (ss?.sludgeLevel) {
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(9);
-      doc.text(`Sludge Level: ${ss.sludgeLevel}`, 25, y);
-      y += 5;
-    }
-    if (ss?.psiReading) {
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(9);
-      doc.text(`PSI Reading: ${ss.psiReading}`, 25, y);
-      y += 5;
-    }
-    y += 3;
+  function setC(c: { r: number; g: number; b: number }) {
+    doc.setTextColor(c.r, c.g, c.b);
+  }
+  function setF(c: { r: number; g: number; b: number }) {
+    doc.setFillColor(c.r, c.g, c.b);
+  }
+  function setD(c: { r: number; g: number; b: number }) {
+    doc.setDrawColor(c.r, c.g, c.b);
+  }
+  function newPageIfNeeded(need: number) {
+    if (y + need > 275) { doc.addPage(); y = 15; }
   }
 
-  // Recommendations
-  if (state.summary?.recommendations?.length) {
-    if (y > 240) { doc.addPage(); y = 20; }
-    y += 5;
+  // ═══ HEADER BAR ═══
+  setF(PDF_COLORS.blue);
+  doc.rect(0, 0, pageW, 35, "F");
+  setC(PDF_COLORS.white);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.text("MAC Septic Services", pageW / 2, 14, { align: "center" });
+  doc.setFontSize(13);
+  doc.setFont("helvetica", "normal");
+  doc.text("Septic System Inspection Report", pageW / 2, 24, { align: "center" });
+  doc.setFontSize(9);
+  doc.text(`${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`, pageW / 2, 31, { align: "center" });
+  y = 42;
+
+  // ═══ CUSTOMER INFO ═══
+  setC(PDF_COLORS.black);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text(`Prepared for: ${customerName}`, margin, y);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  setC(PDF_COLORS.gray);
+  doc.text(`Reference: WO-${jobId.slice(0, 8).toUpperCase()}`, pageW - margin, y, { align: "right" });
+  y += 10;
+
+  // ═══ QUICK SUMMARY BOX ═══
+  const condition = state.summary?.overallCondition || "unknown";
+  const issues = state.summary?.totalIssues || 0;
+  const bannerColor = condition === "good" ? PDF_COLORS.green : condition === "fair" ? PDF_COLORS.yellow : PDF_COLORS.red;
+  const bannerBg = condition === "good" ? PDF_COLORS.lightGreen : condition === "fair" ? PDF_COLORS.lightYellow : PDF_COLORS.lightRed;
+  const bannerText = condition === "good"
+    ? "Your septic system is working great!"
+    : condition === "fair"
+    ? "Your system needs some attention — see details below."
+    : "Your system needs repairs — please review the items below.";
+
+  setF(bannerBg);
+  setD(bannerColor);
+  doc.setLineWidth(1);
+  doc.roundedRect(margin, y, contentW, 22, 3, 3, "FD");
+  setC(bannerColor);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.text(bannerText, pageW / 2, y + 10, { align: "center" });
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  const issueText = issues === 0 ? "No issues found" : `${issues} item${issues > 1 ? "s" : ""} noted during inspection`;
+  doc.text(issueText, pageW / 2, y + 18, { align: "center" });
+  y += 30;
+
+  // ═══ INSPECTION RESULTS ═══
+  setC(PDF_COLORS.blue);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text("What We Checked", margin, y);
+  y += 3;
+  setD(PDF_COLORS.blue);
+  doc.setLineWidth(0.5);
+  doc.line(margin, y, margin + 50, y);
+  y += 7;
+
+  for (const step of steps) {
+    newPageIfNeeded(20);
+    const ss = state.steps[step.stepNumber];
+    const finding = ss?.findings || "pending";
+    const fc = findingColor(finding);
+    const bg = findingBg(finding);
+    const label = findingLabel(finding);
+    const desc = SIMPLE_DESCRIPTIONS[step.stepNumber] || step.description;
+
+    // Row background
+    setF(bg);
+    doc.rect(margin, y - 3, contentW, 14, "F");
+
+    // Color bar on left
+    setF(fc);
+    doc.rect(margin, y - 3, 3, 14, "F");
+
+    // Step title
+    setC(PDF_COLORS.black);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
-    doc.text("Recommendations", 20, y);
+    doc.setFontSize(10);
+    doc.text(`${step.stepNumber}. ${step.title}`, margin + 6, y + 2);
+
+    // Finding badge on right
+    setC(fc);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text(label, pageW - margin - 2, y + 2, { align: "right" });
+
+    y += 11;
+
+    // Simple description
+    setC(PDF_COLORS.gray);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.text(desc, margin + 6, y);
+    y += 5;
+
+    // Notes / details / sludge / PSI
+    if (ss?.notes) {
+      newPageIfNeeded(8);
+      setC(PDF_COLORS.black);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      const noteLines = doc.splitTextToSize(`Notes: ${ss.notes}`, contentW - 10);
+      doc.text(noteLines, margin + 6, y);
+      y += noteLines.length * 3.5 + 2;
+    }
+    if (ss?.findingDetails) {
+      newPageIfNeeded(8);
+      setC(fc);
+      doc.setFont("helvetica", "italic");
+      doc.setFontSize(8);
+      const detailLines = doc.splitTextToSize(`Detail: ${ss.findingDetails}`, contentW - 10);
+      doc.text(detailLines, margin + 6, y);
+      y += detailLines.length * 3.5 + 2;
+    }
+    if (ss?.sludgeLevel) {
+      setC(PDF_COLORS.blue);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text(`Sludge Level: ${ss.sludgeLevel}`, margin + 6, y);
+      y += 4;
+    }
+    if (ss?.psiReading) {
+      setC(PDF_COLORS.blue);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text(`PSI Reading: ${ss.psiReading}`, margin + 6, y);
+      y += 4;
+    }
+    y += 2;
+  }
+
+  // ═══ WHAT NEEDS TO BE DONE ═══
+  const actionItems = steps.filter((s) => {
+    const ss = state.steps[s.stepNumber];
+    return ss && ss.findings !== "ok" && ss.findings !== "pending";
+  });
+
+  if (actionItems.length > 0) {
+    newPageIfNeeded(25);
+    y += 5;
+    setC(PDF_COLORS.red);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("What Needs To Be Done", margin, y);
+    y += 3;
+    setD(PDF_COLORS.red);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, margin + 55, y);
     y += 7;
+
+    for (const step of actionItems) {
+      newPageIfNeeded(16);
+      const ss = state.steps[step.stepNumber]!;
+      const fc = findingColor(ss.findings);
+      const urgency = ss.findings === "critical" ? "Fix Right Away" : "Fix Soon";
+
+      // Colored bullet
+      setF(fc);
+      doc.circle(margin + 3, y - 1, 2, "F");
+
+      // Item text
+      setC(PDF_COLORS.black);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text(step.title, margin + 8, y);
+
+      // Urgency tag
+      setC(fc);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text(`[${urgency}]`, pageW - margin, y, { align: "right" });
+      y += 5;
+
+      if (ss.findingDetails) {
+        setC(PDF_COLORS.gray);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        const lines = doc.splitTextToSize(ss.findingDetails, contentW - 12);
+        doc.text(lines, margin + 8, y);
+        y += lines.length * 3.5 + 2;
+      }
+      y += 3;
+    }
+  }
+
+  // ═══ RECOMMENDATIONS ═══
+  if (state.summary?.recommendations?.length) {
+    newPageIfNeeded(20);
+    y += 5;
+    setC(PDF_COLORS.blue);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("What To Watch For", margin, y);
+    y += 3;
+    setD(PDF_COLORS.blue);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, margin + 48, y);
+    y += 7;
+
+    setC(PDF_COLORS.black);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     for (const rec of state.summary.recommendations) {
-      if (y > 270) { doc.addPage(); y = 20; }
-      const lines = doc.splitTextToSize(`• ${rec}`, 165);
-      doc.text(lines, 22, y);
+      newPageIfNeeded(8);
+      const lines = doc.splitTextToSize(`  •  ${rec}`, contentW - 5);
+      doc.text(lines, margin, y);
       y += lines.length * 4 + 2;
     }
   }
 
-  // Estimate
+  // ═══ ESTIMATED COSTS TABLE ═══
   const estimate = calculateEstimate(state);
   if (estimate.items.length > 0) {
-    if (y > 230) { doc.addPage(); y = 20; }
+    newPageIfNeeded(30);
     y += 5;
+    setC(PDF_COLORS.blue);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("Estimated Repair Costs", margin, y);
+    y += 3;
+    setD(PDF_COLORS.blue);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, margin + 55, y);
+    y += 7;
+
+    // Table header
+    setF(PDF_COLORS.blue);
+    doc.rect(margin, y - 3, contentW, 8, "F");
+    setC(PDF_COLORS.white);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text("Item", margin + 4, y + 2);
+    doc.text("Cost", pageW - margin - 4, y + 2, { align: "right" });
+    y += 9;
+
+    // Table rows (alternating)
+    for (let i = 0; i < estimate.items.length; i++) {
+      newPageIfNeeded(8);
+      const item = estimate.items[i];
+      if (i % 2 === 0) {
+        setF(PDF_COLORS.lightGray);
+        doc.rect(margin, y - 3, contentW, 7, "F");
+      }
+      setC(PDF_COLORS.black);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.text(item.name, margin + 4, y + 1);
+      doc.text(`$${item.cost.toFixed(2)}`, pageW - margin - 4, y + 1, { align: "right" });
+      y += 7;
+    }
+
+    // Total row
+    y += 2;
+    setF(PDF_COLORS.blue);
+    doc.rect(margin, y - 3, contentW, 10, "F");
+    setC(PDF_COLORS.white);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.text("Estimated Repair Costs", 20, y);
-    y += 7;
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    for (const item of estimate.items) {
-      doc.text(`${item.name}`, 22, y);
-      doc.text(`$${item.cost.toFixed(2)}`, 170, y, { align: "right" });
-      y += 5;
-    }
-    y += 2;
-    doc.setFont("helvetica", "bold");
-    doc.line(20, y, 190, y);
-    y += 5;
-    doc.text("Estimated Total:", 22, y);
-    doc.text(`$${estimate.total.toFixed(2)}`, 170, y, { align: "right" });
+    doc.text("Estimated Total", margin + 4, y + 3);
+    doc.text(`$${estimate.total.toFixed(2)}`, pageW - margin - 4, y + 3, { align: "right" });
+    y += 14;
   }
 
-  // Footer
-  if (y > 260) { doc.addPage(); y = 20; }
+  // ═══ SIGNATURE LINE ═══
+  newPageIfNeeded(30);
+  y += 10;
+  setC(PDF_COLORS.gray);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.text("Customer Signature:", margin, y);
+  setD(PDF_COLORS.gray);
+  doc.setLineWidth(0.3);
+  doc.line(margin + 38, y, margin + 110, y);
+  doc.text("Date:", margin + 118, y);
+  doc.line(margin + 130, y, pageW - margin, y);
+
+  // ═══ FOOTER ═══
   y += 15;
+  newPageIfNeeded(15);
+  setF(PDF_COLORS.lightGray);
+  doc.rect(margin, y - 3, contentW, 16, "F");
+  setC(PDF_COLORS.gray);
+  doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
-  doc.setFont("helvetica", "italic");
-  doc.text("This report was generated by MAC Septic Services. For questions, call (512) 555-0100.", 105, y, { align: "center" });
-  y += 4;
-  doc.text(`Report generated: ${new Date().toLocaleString()}`, 105, y, { align: "center" });
+  doc.text("Questions? Call MAC Septic Services at (512) 555-0100", pageW / 2, y + 2, { align: "center" });
+  doc.text("We're here to help keep your septic system running smoothly.", pageW / 2, y + 7, { align: "center" });
+  doc.setFontSize(7);
+  doc.text(`Report generated: ${new Date().toLocaleString()}`, pageW / 2, y + 12, { align: "center" });
 
   return doc.output("blob");
 }
@@ -217,6 +453,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const notifyMutation = useNotifyArrival();
   const saveMutation = useSaveInspectionState();
   const uploadPhotoMutation = useUploadJobPhoto();
+  const createEstimateMutation = useCreateEstimateFromInspection();
 
   // Local state (mirrors server, syncs on changes)
   const [localState, setLocalState] = useState<InspectionState>(createDefaultInspectionState());
@@ -227,6 +464,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [sendingReport, setSendingReport] = useState<string | null>(null);
+  const [estimateQuoteId, setEstimateQuoteId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
@@ -478,7 +716,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     try {
       const blob = await generateReportPDF(localState, customerName || "Customer", jobId);
       const base64 = await blobToBase64(blob);
-      await saveMutation.mutateAsync({
+      const result = await saveMutation.mutateAsync({
         jobId,
         state: {
           ...localState,
@@ -490,7 +728,11 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
         },
         sendReport: { method: "email", to: customerEmail, pdfBase64: base64 },
       });
-      toastSuccess(`Report emailed to ${customerEmail}!`);
+      if (result?.report_sent === false) {
+        toastError("Email service unavailable — download PDF instead");
+      } else {
+        toastSuccess(`Report emailed to ${customerEmail}!`);
+      }
     } catch {
       toastError("Failed to send email");
     }
@@ -504,8 +746,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     }
     setSendingReport("sms");
     try {
-      // For SMS, we send a link or summary text (PDF too large for MMS)
-      await saveMutation.mutateAsync({
+      const result = await saveMutation.mutateAsync({
         jobId,
         state: {
           ...localState,
@@ -517,12 +758,27 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
         },
         sendReport: { method: "sms", to: customerPhone },
       });
-      toastSuccess(`Report summary texted to ${customerPhone}!`);
+      if (result?.report_sent === false) {
+        toastError("Text message failed — check phone number");
+      } else {
+        toastSuccess(`Report summary texted to ${customerPhone}!`);
+      }
     } catch {
       toastError("Failed to send text");
     }
     setSendingReport(null);
   };
+
+  // ─── Estimate Signature Modal (overlay — renders above all views) ────────
+
+  if (estimateQuoteId) {
+    return (
+      <EstimateSignature
+        quoteId={estimateQuoteId}
+        onClose={() => setEstimateQuoteId(null)}
+      />
+    );
+  }
 
   // ─── Loading ──────────────────────────────────────────────────────────────
 
@@ -696,6 +952,18 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
                 <span className="font-bold text-primary">${estimate.total.toFixed(2)}</span>
               </div>
             </div>
+            <button
+              onClick={async () => {
+                try {
+                  const result = await createEstimateMutation.mutateAsync(jobId);
+                  setEstimateQuoteId(result.quote_id);
+                } catch { /* error toast from hook */ }
+              }}
+              disabled={createEstimateMutation.isPending}
+              className="w-full mt-3 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              {createEstimateMutation.isPending ? "⏳ Creating..." : "📋 Create Estimate for Customer"}
+            </button>
           </div>
         )}
 

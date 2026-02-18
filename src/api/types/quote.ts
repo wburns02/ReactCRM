@@ -125,6 +125,10 @@ export const quoteSchema = z.object({
   valid_until: z.string().nullable(),
   notes: z.string().nullable().optional(),
   terms: z.string().nullable().optional(),
+  signature_data: z.string().nullable().optional(),
+  signed_at: z.string().nullable().optional(),
+  signed_by: z.string().nullable().optional(),
+  approval_status: z.string().nullable().optional(),
   created_at: z.string().nullable(),
   updated_at: z.string().nullable(),
 });
