@@ -9,6 +9,10 @@ export function FieldLayout() {
   const { user, logout } = useAuth();
   const location = useLocation();
 
+  // Admins go back to admin dashboard, technicians to their dashboard
+  const isTechnician = user?.role === "technician";
+  const backPath = isTechnician ? "/my-dashboard" : "/dashboard";
+
   const navItems = [
     { path: "/field", label: "My Jobs", icon: "📋", exact: true },
     { path: "/field/route", label: "Route", icon: "🗺️" },
@@ -28,8 +32,8 @@ export function FieldLayout() {
       {/* Header - Simplified for mobile */}
       <header className="h-14 bg-bg-card border-b border-border flex items-center px-4 flex-shrink-0">
         <Link
-          to="/my-dashboard"
-          className="flex items-center justify-center w-9 h-9 -ml-1 mr-2 rounded-lg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors"
+          to={backPath}
+          className="flex items-center justify-center w-10 h-10 -ml-1 mr-2 rounded-lg text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors touch-manipulation"
           aria-label="Back to dashboard"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
