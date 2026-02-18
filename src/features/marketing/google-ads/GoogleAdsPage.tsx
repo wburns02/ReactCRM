@@ -357,55 +357,61 @@ export function GoogleAdsPage() {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
+      {/* Quick Actions — All functional links */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="hover:bg-surface-hover transition-colors cursor-pointer">
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <span className="text-3xl">🔑</span>
-              <div>
-                <h3 className="font-semibold text-text-primary">
-                  Keyword Ideas
-                </h3>
-                <p className="text-sm text-text-secondary">
-                  Get AI-powered keyword suggestions
-                </p>
+        <Link to="/marketing/seo">
+          <Card className="hover:bg-surface-hover hover:border-primary/30 transition-all cursor-pointer border border-transparent">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">🔑</span>
+                <div>
+                  <h3 className="font-semibold text-text-primary">
+                    Keyword Research
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    Rankings, volume data & SEO insights
+                  </p>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="hover:bg-surface-hover transition-colors cursor-pointer">
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <span className="text-3xl">📝</span>
-              <div>
-                <h3 className="font-semibold text-text-primary">
-                  Ad Copy Generator
-                </h3>
-                <p className="text-sm text-text-secondary">
-                  Generate headlines and descriptions
-                </p>
+        <Link to="/marketing/ai-content">
+          <Card className="hover:bg-surface-hover hover:border-primary/30 transition-all cursor-pointer border border-transparent">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">📝</span>
+                <div>
+                  <h3 className="font-semibold text-text-primary">
+                    Ad Copy Generator
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    AI-generated headlines & descriptions
+                  </p>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="hover:bg-surface-hover transition-colors cursor-pointer">
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <span className="text-3xl">🎯</span>
-              <div>
-                <h3 className="font-semibold text-text-primary">
-                  Competitor Analysis
-                </h3>
-                <p className="text-sm text-text-secondary">
-                  See what competitors are bidding on
-                </p>
+        <Link to="/marketing/analytics">
+          <Card className="hover:bg-surface-hover hover:border-primary/30 transition-all cursor-pointer border border-transparent">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">📉</span>
+                <div>
+                  <h3 className="font-semibold text-text-primary">
+                    ROI & Attribution
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    Track ad spend ROI & customer acquisition
+                  </p>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );

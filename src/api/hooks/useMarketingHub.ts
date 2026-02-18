@@ -138,6 +138,64 @@ export interface IntegrationSettings {
   };
 }
 
+export interface MarketingAnalytics {
+  success: boolean;
+  period_days: number;
+  revenue: {
+    total: number;
+    completed_jobs: number;
+    avg_job_value: number;
+    ltv_estimate: number;
+  };
+  acquisition: {
+    new_customers: number;
+    customer_acquisition_cost: number;
+    lead_sources: Record<string, number>;
+  };
+  campaigns: {
+    total: number;
+    emails_sent: number;
+    emails_opened: number;
+    emails_clicked: number;
+    conversions: number;
+    open_rate: number;
+    click_rate: number;
+  };
+  ads: {
+    spend: number;
+    conversions: number;
+    roas: number;
+  };
+  roi: {
+    total_spend: number;
+    total_revenue: number;
+    roi_percent: number;
+  };
+}
+
+export interface HotLead {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  stage: string;
+  estimated_value: number;
+  lead_source: string;
+  heat_score: number;
+  city: string;
+  last_activity: string | null;
+  assigned_to: string | null;
+}
+
+export interface BlogIdea {
+  title: string;
+  category: string;
+  estimated_traffic: number;
+  difficulty: string;
+  priority: string;
+  reason: string;
+}
+
 // Query Keys
 export const marketingKeys = {
   all: ["marketing"] as const,
@@ -155,6 +213,8 @@ export const marketingKeys = {
   aiRecommendations: () =>
     [...marketingKeys.all, "ai", "recommendations"] as const,
   blogIdeas: () => [...marketingKeys.all, "seo", "blog-ideas"] as const,
+  analytics: (days: number) =>
+    [...marketingKeys.all, "analytics", days] as const,
 };
 
 // Hooks
@@ -434,6 +494,21 @@ export function useSaveIntegrationSettings() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: marketingKeys.settings() });
+    },
+  });
+}
+
+/**
+ * Get Marketing Analytics / ROI
+ */
+export function useMarketingAnalytics(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.analytics(days),
+    queryFn: async () => {
+      const response = await apiClient.get<MarketingAnalytics>(
+        `/marketing-hub/analytics/overview?days=${days}`,
+      );
+      return response.data;
     },
   });
 }

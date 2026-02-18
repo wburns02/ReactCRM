@@ -146,11 +146,13 @@ export function AppLayout() {
       badge: "AI",
       items: [
         { path: "/marketing", label: "Marketing Hub", icon: "📊" },
+        { path: "/marketing/leads", label: "Lead Pipeline", icon: "🔥" },
         { path: "/marketing/ads", label: "Google Ads", icon: "📈" },
         { path: "/marketing/reviews", label: "Reviews", icon: "⭐" },
+        { path: "/marketing/seo", label: "SEO Dashboard", icon: "🔍" },
         { path: "/marketing/ai-content", label: "AI Content", icon: "🤖" },
         { path: "/marketing/email-marketing", label: "Email Marketing", icon: "📧" },
-        { path: "/reports", label: "Reports", icon: "📈" },
+        { path: "/marketing/analytics", label: "Analytics & ROI", icon: "📉" },
       ],
     },
     {

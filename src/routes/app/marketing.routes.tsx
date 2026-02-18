@@ -39,8 +39,29 @@ const EmailMarketingPage = lazy(() =>
   })),
 );
 
+const LeadPipelinePage = lazy(() =>
+  import("@/features/marketing/leads/LeadPipelinePage.tsx").then((m) => ({
+    default: m.LeadPipelinePage,
+  })),
+);
+
+const SEODashboardPage = lazy(() =>
+  import("@/features/marketing/seo/SEODashboardPage.tsx").then((m) => ({
+    default: m.SEODashboardPage,
+  })),
+);
+
+const MarketingAnalyticsPage = lazy(() =>
+  import("@/features/marketing/analytics/MarketingAnalyticsPage.tsx").then(
+    (m) => ({
+      default: m.MarketingAnalyticsPage,
+    }),
+  ),
+);
+
 /**
- * Marketing routes - Marketing Hub, Ads, Reviews, AI Content, Email Marketing
+ * Marketing routes - Marketing Hub, Ads, Reviews, AI Content, Email Marketing,
+ * Lead Pipeline, SEO Dashboard, Marketing Analytics
  */
 export function MarketingRoutes() {
   return (
@@ -94,6 +115,36 @@ export function MarketingRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <EmailMarketingPage />
+          </Suspense>
+        }
+      />
+
+      {/* Lead Pipeline */}
+      <Route
+        path="marketing/leads"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <LeadPipelinePage />
+          </Suspense>
+        }
+      />
+
+      {/* SEO Dashboard */}
+      <Route
+        path="marketing/seo"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <SEODashboardPage />
+          </Suspense>
+        }
+      />
+
+      {/* Marketing Analytics */}
+      <Route
+        path="marketing/analytics"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <MarketingAnalyticsPage />
           </Suspense>
         }
       />

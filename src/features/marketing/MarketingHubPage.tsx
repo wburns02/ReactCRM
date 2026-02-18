@@ -15,6 +15,7 @@ import {
   usePendingReviews,
   useAIRecommendations,
   useIntegrationSettings,
+  useMarketingAnalytics,
 } from "@/api/hooks/useMarketingHub.ts";
 
 interface QuickActionItem {
@@ -27,11 +28,18 @@ interface QuickActionItem {
 
 const QUICK_ACTIONS: QuickActionItem[] = [
   {
+    id: "leads",
+    label: "Lead Pipeline",
+    icon: "🔥",
+    href: "/marketing/leads",
+    description: "Manage prospects & AI lead scoring",
+  },
+  {
     id: "google-ads",
     label: "Google Ads",
     icon: "📈",
     href: "/marketing/ads",
-    description: "View ad performance & manage campaigns",
+    description: "Campaign performance & optimization",
   },
   {
     id: "reviews",
@@ -41,6 +49,13 @@ const QUICK_ACTIONS: QuickActionItem[] = [
     description: "Respond to customer reviews",
   },
   {
+    id: "seo",
+    label: "SEO Tools",
+    icon: "🔍",
+    href: "/marketing/seo",
+    description: "Keywords, rankings & content strategy",
+  },
+  {
     id: "ai-content",
     label: "AI Content",
     icon: "🤖",
@@ -48,11 +63,11 @@ const QUICK_ACTIONS: QuickActionItem[] = [
     description: "Generate marketing content with AI",
   },
   {
-    id: "seo",
-    label: "SEO Tools",
-    icon: "🔍",
-    href: "/marketing/seo",
-    description: "Keywords & search optimization",
+    id: "analytics",
+    label: "Analytics & ROI",
+    icon: "📉",
+    href: "/marketing/analytics",
+    description: "Revenue attribution & campaign ROI",
   },
 ];
 
@@ -68,6 +83,7 @@ export function MarketingHubPage() {
   const { data: reviewsData, isLoading: loadingReviews } = usePendingReviews();
   const { data: aiRecs, isLoading: loadingRecs } = useAIRecommendations();
   const { data: settings } = useIntegrationSettings();
+  const { data: analytics } = useMarketingAnalytics(periodDays);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -82,8 +98,11 @@ export function MarketingHubPage() {
     return new Intl.NumberFormat("en-US").format(value);
   };
 
+  const totalPipeline = leadsData?.total_pipeline || 0;
+  const pipelineValue = leadsData?.pipeline_value || 0;
+
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -91,7 +110,7 @@ export function MarketingHubPage() {
             Marketing Hub
           </h1>
           <p className="text-sm text-text-secondary mt-1">
-            Centralized marketing automation and insights
+            Centralized marketing automation, analytics & AI-powered insights
           </p>
         </div>
         <div className="flex gap-2">
@@ -102,22 +121,18 @@ export function MarketingHubPage() {
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Quick Actions Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {QUICK_ACTIONS.map((action) => (
           <Link key={action.id} to={action.href}>
-            <Card className="hover:bg-surface-hover transition-colors cursor-pointer h-full">
-              <CardContent className="pt-4 pb-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{action.icon}</span>
-                  <div>
-                    <div className="font-medium text-text-primary">
-                      {action.label}
-                    </div>
-                    <div className="text-xs text-text-secondary">
-                      {action.description}
-                    </div>
-                  </div>
+            <Card className="hover:bg-surface-hover hover:border-primary/30 transition-all cursor-pointer h-full border border-transparent">
+              <CardContent className="pt-4 pb-4 text-center">
+                <span className="text-2xl block mb-2">{action.icon}</span>
+                <div className="font-medium text-text-primary text-sm">
+                  {action.label}
+                </div>
+                <div className="text-xs text-text-secondary mt-1 line-clamp-1">
+                  {action.description}
                 </div>
               </CardContent>
             </Card>
@@ -126,28 +141,27 @@ export function MarketingHubPage() {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card>
-          <CardContent className="pt-6">
-            <div className="text-sm text-text-secondary">Website Traffic</div>
-            <div className="text-2xl font-bold text-primary">
-              {loadingOverview
-                ? "..."
-                : formatNumber(
-                    overview?.overview?.website_traffic?.sessions || 0,
-                  )}
+          <CardContent className="pt-4 pb-4">
+            <div className="text-xs text-text-secondary uppercase tracking-wide">
+              Revenue
             </div>
-            <div className="text-xs text-text-secondary mt-1">
-              {formatNumber(overview?.overview?.website_traffic?.users || 0)}{" "}
-              users
+            <div className="text-xl font-bold text-text-primary mt-1">
+              {formatCurrency(analytics?.revenue?.total || 0)}
+            </div>
+            <div className="text-xs text-success mt-1">
+              {analytics?.revenue?.completed_jobs || 0} jobs
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="text-sm text-text-secondary">Ad Spend</div>
-            <div className="text-2xl font-bold text-text-primary">
+          <CardContent className="pt-4 pb-4">
+            <div className="text-xs text-text-secondary uppercase tracking-wide">
+              Ad Spend
+            </div>
+            <div className="text-xl font-bold text-text-primary mt-1">
               {loadingAds ? "..." : formatCurrency(adsData?.metrics?.cost || 0)}
             </div>
             <div className="text-xs text-success mt-1">
@@ -157,25 +171,45 @@ export function MarketingHubPage() {
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="text-sm text-text-secondary">Hot Leads</div>
-            <div className="text-2xl font-bold text-warning">
-              {loadingLeads ? "..." : leadsData?.pipeline?.new || 0}
+          <CardContent className="pt-4 pb-4">
+            <div className="text-xs text-text-secondary uppercase tracking-wide">
+              Pipeline
+            </div>
+            <div className="text-xl font-bold text-warning mt-1">
+              {loadingLeads ? "..." : totalPipeline}
             </div>
             <div className="text-xs text-text-secondary mt-1">
-              {(leadsData?.conversion_rate || 0).toFixed(1)}% conversion rate
+              {formatCurrency(pipelineValue)} value
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="text-sm text-text-secondary">Pending Reviews</div>
-            <div className="text-2xl font-bold text-info">
+          <CardContent className="pt-4 pb-4">
+            <div className="text-xs text-text-secondary uppercase tracking-wide">
+              Conversion
+            </div>
+            <div className="text-xl font-bold text-success mt-1">
+              {loadingLeads
+                ? "..."
+                : `${leadsData?.conversion_rate || 0}%`}
+            </div>
+            <div className="text-xs text-text-secondary mt-1">
+              pipeline to won
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="pt-4 pb-4">
+            <div className="text-xs text-text-secondary uppercase tracking-wide">
+              Reviews
+            </div>
+            <div className="text-xl font-bold text-info mt-1">
               {loadingReviews ? "..." : reviewsData?.reviews?.length || 0}
             </div>
             <div className="text-xs text-text-secondary mt-1">
-              Awaiting response
+              awaiting response
             </div>
           </CardContent>
         </Card>
@@ -191,7 +225,7 @@ export function MarketingHubPage() {
               </CardTitle>
               <Link to="/marketing/ads">
                 <Button variant="ghost" size="sm">
-                  View All
+                  Details
                 </Button>
               </Link>
             </div>
@@ -205,33 +239,37 @@ export function MarketingHubPage() {
             ) : (
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">Clicks</span>
-                  <span className="font-medium">
+                  <span className="text-text-secondary text-sm">Clicks</span>
+                  <span className="font-medium text-sm">
                     {formatNumber(adsData?.metrics?.clicks || 0)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">Impressions</span>
-                  <span className="font-medium">
+                  <span className="text-text-secondary text-sm">
+                    Impressions
+                  </span>
+                  <span className="font-medium text-sm">
                     {formatNumber(adsData?.metrics?.impressions || 0)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">CTR</span>
-                  <span className="font-medium">
+                  <span className="text-text-secondary text-sm">CTR</span>
+                  <span className="font-medium text-sm">
                     {((adsData?.metrics?.ctr || 0) * 100).toFixed(2)}%
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">Cost/Conversion</span>
-                  <span className="font-medium">
+                  <span className="text-text-secondary text-sm">CPA</span>
+                  <span className="font-medium text-sm">
                     {formatCurrency(adsData?.metrics?.cpa || 0)}
                   </span>
                 </div>
                 {!settings?.integrations?.google_ads?.configured && (
-                  <div className="mt-4 p-2 bg-warning/10 rounded text-sm text-warning">
-                    Connect Google Ads to see real data
-                  </div>
+                  <Link to="/integrations">
+                    <div className="mt-3 p-2 bg-warning/10 rounded text-sm text-warning text-center cursor-pointer hover:bg-warning/20 transition-colors">
+                      Connect Google Ads to see real data
+                    </div>
+                  </Link>
                 )}
               </div>
             )}
@@ -245,9 +283,9 @@ export function MarketingHubPage() {
               <CardTitle className="flex items-center gap-2">
                 <span>🔥</span> Lead Pipeline
               </CardTitle>
-              <Link to="/prospects">
+              <Link to="/marketing/leads">
                 <Button variant="ghost" size="sm">
-                  View All
+                  Kanban
                 </Button>
               </Link>
             </div>
@@ -261,23 +299,29 @@ export function MarketingHubPage() {
             ) : (
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary">New</span>
+                  <span className="text-text-secondary text-sm">New</span>
                   <Badge variant="info">{leadsData?.pipeline?.new || 0}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary">Engaged</span>
+                  <span className="text-text-secondary text-sm">Contacted</span>
                   <Badge variant="warning">
-                    {leadsData?.pipeline?.engaged || 0}
+                    {leadsData?.pipeline?.contacted || 0}
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary">Qualified</span>
+                  <span className="text-text-secondary text-sm">Qualified</span>
                   <Badge variant="default">
                     {leadsData?.pipeline?.qualified || 0}
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-text-secondary">Converted</span>
+                  <span className="text-text-secondary text-sm">Quoted</span>
+                  <Badge variant="warning">
+                    {leadsData?.pipeline?.quoted || 0}
+                  </Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-text-secondary text-sm">Converted</span>
                   <Badge variant="success">
                     {leadsData?.pipeline?.converted || 0}
                   </Badge>
@@ -315,25 +359,32 @@ export function MarketingHubPage() {
                     className="border-b border-border pb-2 last:border-0"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="text-yellow-500">
+                      <span className="text-yellow-500 text-sm">
                         {"★".repeat(review.rating)}
                         {"☆".repeat(5 - review.rating)}
                       </span>
-                      <span className="text-sm text-text-secondary">
+                      <span className="text-xs text-text-secondary">
                         {review.author}
                       </span>
                     </div>
                     <p className="text-sm text-text-primary line-clamp-2 mt-1">
                       {review.text}
                     </p>
-                    <p className="text-xs text-text-secondary mt-1">
-                      {review.date}
-                    </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-text-secondary text-sm">No pending reviews</p>
+              <div className="text-center py-4">
+                <p className="text-text-secondary text-sm mb-2">
+                  {(reviewsData as Record<string, unknown>)?.message ||
+                    "No pending reviews"}
+                </p>
+                <Link to="/integrations">
+                  <Button variant="secondary" size="sm">
+                    Connect Reviews
+                  </Button>
+                </Link>
+              </div>
             )}
           </CardContent>
         </Card>
@@ -348,7 +399,7 @@ export function MarketingHubPage() {
             </CardTitle>
             <Link to="/marketing/ai-content">
               <Button variant="secondary" size="sm">
-                Generate Content
+                AI Content Studio
               </Button>
             </Link>
           </div>
@@ -365,7 +416,13 @@ export function MarketingHubPage() {
                 .slice(0, 6)
                 .map(
                   (
-                    rec: { type: string; message: string; priority: string },
+                    rec: {
+                      type: string;
+                      message: string;
+                      priority: string;
+                      action?: string;
+                      href?: string;
+                    },
                     index: number,
                   ) => (
                     <div
@@ -389,6 +446,17 @@ export function MarketingHubPage() {
                         </span>
                       </div>
                       <p className="text-sm text-text-primary">{rec.message}</p>
+                      {rec.action && rec.href && (
+                        <Link to={rec.href}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="mt-2 text-primary"
+                          >
+                            {rec.action} →
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   ),
                 )}
@@ -396,8 +464,7 @@ export function MarketingHubPage() {
           ) : (
             <div className="text-center py-8">
               <p className="text-text-secondary mb-4">
-                Connect your Google Ads and Analytics to get AI-powered
-                recommendations
+                AI recommendations will appear once your data accumulates
               </p>
               <Link to="/integrations">
                 <Button variant="primary">Set Up Integrations</Button>
@@ -407,19 +474,19 @@ export function MarketingHubPage() {
         </CardContent>
       </Card>
 
-      {/* Marketing Tools */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Marketing Tools Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link to="/marketing/email-marketing">
-          <Card className="hover:bg-surface-hover transition-colors cursor-pointer">
-            <CardContent className="pt-6">
+          <Card className="hover:bg-surface-hover transition-colors cursor-pointer h-full">
+            <CardContent className="pt-6 pb-6">
               <div className="flex items-center gap-4">
-                <span className="text-4xl">📧</span>
+                <span className="text-3xl">📧</span>
                 <div>
-                  <h3 className="text-lg font-semibold text-text-primary">
+                  <h3 className="font-semibold text-text-primary">
                     Email Marketing
                   </h3>
                   <p className="text-sm text-text-secondary">
-                    Create campaigns, templates, and segments
+                    Campaigns, templates & automation
                   </p>
                 </div>
               </div>
@@ -427,17 +494,35 @@ export function MarketingHubPage() {
           </Card>
         </Link>
 
-        <Link to="/marketing/sms">
-          <Card className="hover:bg-surface-hover transition-colors cursor-pointer">
-            <CardContent className="pt-6">
+        <Link to="/marketing/analytics">
+          <Card className="hover:bg-surface-hover transition-colors cursor-pointer h-full">
+            <CardContent className="pt-6 pb-6">
               <div className="flex items-center gap-4">
-                <span className="text-4xl">📱</span>
+                <span className="text-3xl">📉</span>
                 <div>
-                  <h3 className="text-lg font-semibold text-text-primary">
-                    SMS Consent
+                  <h3 className="font-semibold text-text-primary">
+                    Analytics & ROI
                   </h3>
                   <p className="text-sm text-text-secondary">
-                    Manage SMS opt-ins and TCPA compliance
+                    Revenue attribution & performance
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link to="/marketing/seo">
+          <Card className="hover:bg-surface-hover transition-colors cursor-pointer h-full">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex items-center gap-4">
+                <span className="text-3xl">🔍</span>
+                <div>
+                  <h3 className="font-semibold text-text-primary">
+                    SEO Dashboard
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    Rankings, keywords & content ideas
                   </p>
                 </div>
               </div>
