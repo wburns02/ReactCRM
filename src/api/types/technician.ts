@@ -55,6 +55,14 @@ export const technicianSchema = z.object({
   license_expiry: z.string().nullable(),
   // Payroll
   hourly_rate: z.number().nullable(),
+  overtime_rate: z.number().nullable().optional(),
+  pay_type: z.string().nullable().optional(),
+  salary_amount: z.number().nullable().optional(),
+  pto_balance_hours: z.number().nullable().optional(),
+  // Employment
+  hire_date: z.string().nullable().optional(),
+  department: z.string().nullable().optional(),
+  external_payroll_id: z.string().nullable().optional(),
   // Notes
   notes: z.string().nullable(),
   // Timestamps
