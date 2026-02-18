@@ -16,7 +16,6 @@ import {
   useStartInspection,
   useUpdateInspectionStep,
   useCompleteInspection,
-  useNotifyArrival,
   useSaveInspectionState,
   useUploadJobPhoto,
   useCreateEstimateFromInspection,
@@ -450,7 +449,6 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const startMutation = useStartInspection();
   const updateStepMutation = useUpdateInspectionStep();
   const completeMutation = useCompleteInspection();
-  const notifyMutation = useNotifyArrival();
   const saveMutation = useSaveInspectionState();
   const uploadPhotoMutation = useUploadJobPhoto();
   const createEstimateMutation = useCreateEstimateFromInspection();
@@ -572,8 +570,10 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     }
   };
 
-  const handleNotifyHomeowner = async () => {
-    await notifyMutation.mutateAsync({ jobId, customerPhone });
+  const handleNotifyHomeowner = () => {
+    if (!customerPhone) return;
+    const msg = `Hi${customerName ? ` ${customerName}` : ""}, this is your technician from MAC Septic Services. I've arrived and will be checking your septic system — should take about 25 minutes.`;
+    window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
     setLocalState((s) => ({
       ...s,
       homeownerNotifiedAt: new Date().toISOString(),
@@ -739,34 +739,41 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     setSendingReport(null);
   };
 
-  const handleTextReport = async () => {
+  const handleTextReport = () => {
     if (!customerPhone) {
       toastInfo("No customer phone on file");
       return;
     }
-    setSendingReport("sms");
-    try {
-      const result = await saveMutation.mutateAsync({
-        jobId,
-        state: {
-          ...localState,
-          summary: {
-            ...localState.summary!,
-            reportSentVia: [...(localState.summary?.reportSentVia || []), "sms"],
-            reportSentAt: new Date().toISOString(),
-          },
-        },
-        sendReport: { method: "sms", to: customerPhone },
-      });
-      if (result?.report_sent === false) {
-        toastError("Text message failed — check phone number");
-      } else {
-        toastSuccess(`Report summary texted to ${customerPhone}!`);
-      }
-    } catch {
-      toastError("Failed to send text");
-    }
-    setSendingReport(null);
+    const s = localState.summary!;
+    const condition = s.overallCondition === "good" ? "Good"
+      : s.overallCondition === "fair" ? "Fair — needs attention"
+      : s.overallCondition === "poor" ? "Poor — multiple issues"
+      : "Critical — repairs needed";
+
+    const issues = s.recommendations?.filter((r: string) => r.startsWith("URGENT") || r.startsWith("Step")).slice(0, 3) || [];
+    const issueLines = issues.length > 0
+      ? "\n\nFindings:\n" + issues.map((r: string) => `- ${r}`).join("\n")
+      : "";
+
+    const estimate = calculateEstimate(localState);
+    const estimateLine = estimate.total > 0
+      ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
+      : "";
+
+    const msg = `MAC Septic Services — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}${estimateLine}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 392-1232.`;
+
+    window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
+
+    // Track that report was sent
+    setLocalState((prev) => ({
+      ...prev,
+      summary: {
+        ...prev.summary!,
+        reportSentVia: [...(prev.summary?.reportSentVia || []), "sms"],
+        reportSentAt: new Date().toISOString(),
+      },
+    }));
+    toastSuccess("Opening text message...");
   };
 
   // ─── Estimate Signature Modal (overlay — renders above all views) ────────
@@ -1025,10 +1032,10 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
             </button>
             <button
               onClick={handleTextReport}
-              disabled={sendingReport === "sms" || !customerPhone}
+              disabled={!customerPhone}
               className="py-3 rounded-lg border border-blue-300 bg-blue-50 text-sm font-medium text-blue-700 hover:bg-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 dark:bg-blue-900/20 dark:border-blue-700 dark:text-blue-300"
             >
-              {sendingReport === "sms" ? "⏳ Sending..." : `💬 Text${customerPhone ? "" : " (no phone)"}`}
+              {`💬 Text${customerPhone ? "" : " (no phone)"}`}
             </button>
           </div>
           {s.reportSentVia && s.reportSentVia.length > 0 && (
@@ -1233,12 +1240,10 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
               <div className="space-y-2">
                 <button
                   onClick={handleNotifyHomeowner}
-                  disabled={!!localState.homeownerNotifiedAt || notifyMutation.isPending}
+                  disabled={!!localState.homeownerNotifiedAt}
                   className="w-full py-3 rounded-lg text-sm font-bold text-white bg-blue-600 disabled:opacity-50 active:scale-[0.98] transition-transform"
                 >
-                  {notifyMutation.isPending
-                    ? "Sending..."
-                    : localState.homeownerNotifiedAt
+                  {localState.homeownerNotifiedAt
                       ? "✅ Homeowner Notified"
                       : `📱 Send Arrival Text${customerName ? ` to ${customerName}` : ""}`}
                 </button>
