@@ -14,6 +14,7 @@ const NAV_ITEMS: NavItem[] = [
   { to: "/communications/sms", label: "SMS", icon: "💬" },
   { to: "/communications/email-inbox", label: "Email", icon: "📧" },
   { to: "/calls", label: "Calls", icon: "📞", exact: true },
+  { to: "/phone", label: "Phone", icon: "📱", exact: true },
   { to: "/communications/templates", label: "Templates", icon: "📝" },
   { to: "/communications/reminders", label: "Reminders", icon: "🔔" },
 ];
