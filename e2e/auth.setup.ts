@@ -61,13 +61,11 @@ setup('authenticate', async ({ page, baseURL }) => {
     await page.goto((baseURL || 'https://react.ecbtx.com') + '/dashboard');
   }
 
-  // Wait for page to fully load
-  await page.waitForLoadState('networkidle', { timeout: 10000 });
+  // Wait for page to load (don't use networkidle - WebSocket keeps it pending)
+  await page.waitForLoadState('domcontentloaded', { timeout: 10000 });
 
-  // Verify we're logged in by checking for dashboard content or navigation
-  // Use multiple possible selectors for robustness
-  const loggedInIndicator = page.locator('h1, [data-testid="dashboard"], .sidebar, header button, [class*="layout"]').first();
-  await expect(loggedInIndicator).toBeVisible({ timeout: 10000 });
+  // Verify we're logged in by checking for sidebar navigation (visible on desktop)
+  await expect(page.locator('nav').first()).toBeVisible({ timeout: 10000 });
 
   // Save authentication state
   await page.context().storageState({ path: authFile });

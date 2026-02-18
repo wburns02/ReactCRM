@@ -110,7 +110,7 @@ test.describe.serial("Full CRM Site Crawl", () => {
   const results: PageResult[] = [];
 
   test.beforeAll(async ({ browser }) => {
-    const context = await browser.newContext();
+    const context = await browser.newContext({ storageState: undefined });
     page = await context.newPage();
 
     // Login with retry for rate limiting
