@@ -1,5 +1,7 @@
 // Landing page feature exports
 export { LandingPage } from "./LandingPage";
+export { PrivacyPage } from "./PrivacyPage";
+export { TermsPage } from "./TermsPage";
 export { HeroSection } from "./components/HeroSection";
 export { TrustSignals } from "./components/TrustSignals";
 export { ServicesSection } from "./components/ServicesSection";

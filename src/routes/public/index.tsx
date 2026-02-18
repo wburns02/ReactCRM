@@ -10,6 +10,18 @@ const LandingPage = lazy(() =>
   })),
 );
 
+const PrivacyPage = lazy(() =>
+  import("@/features/landing/index.ts").then((m) => ({
+    default: m.PrivacyPage,
+  })),
+);
+
+const TermsPage = lazy(() =>
+  import("@/features/landing/index.ts").then((m) => ({
+    default: m.TermsPage,
+  })),
+);
+
 const CustomerTrackingPage = lazy(() =>
   import("@/features/tracking/index.ts").then((m) => ({
     default: m.CustomerTrackingPage,
@@ -53,6 +65,26 @@ export function PublicRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <LandingPage />
+          </Suspense>
+        }
+      />
+
+      {/* Privacy Policy */}
+      <Route
+        path="/privacy"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PrivacyPage />
+          </Suspense>
+        }
+      />
+
+      {/* Terms of Service */}
+      <Route
+        path="/terms"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TermsPage />
           </Suspense>
         }
       />

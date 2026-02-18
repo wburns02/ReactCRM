@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#2a5280"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon: Simplified septic/service truck silhouette -->
+  <g transform="translate(8, 12)">
+    <!-- Truck body -->
+    <rect x="0" y="16" width="38" height="24" rx="3" fill="#1e3a5f"/>
+    <!-- Tank (rounded barrel on truck bed) -->
+    <ellipse cx="19" cy="22" rx="16" ry="10" fill="#2a5280"/>
+    <rect x="3" y="22" width="32" height="14" rx="2" fill="#1e3a5f"/>
+    <!-- Truck cab -->
+    <path d="M38 24 L50 24 L54 32 L54 40 L38 40 Z" fill="#1e3a5f"/>
+    <!-- Cab window -->
+    <path d="M40 26 L48 26 L52 32 L40 32 Z" fill="#a8c4e0" opacity="0.7"/>
+    <!-- Wheels -->
+    <circle cx="12" cy="42" r="5" fill="#1e3a5f"/>
+    <circle cx="12" cy="42" r="2.5" fill="#ffffff"/>
+    <circle cx="46" cy="42" r="5" fill="#1e3a5f"/>
+    <circle cx="46" cy="42" r="2.5" fill="#ffffff"/>
+    <!-- Ground line -->
+    <line x1="0" y1="47" x2="56" y2="47" stroke="#1e3a5f" stroke-width="1" opacity="0.3"/>
+    <!-- Water drop accent -->
+    <path d="M26 8 Q28 14 30 8 Q28 4 26 8 Z" fill="#4a90d9" opacity="0.8"/>
+  </g>
+
+  <!-- "MAC" text -->
+  <text
+    x="80"
+    y="46"
+    font-size="38"
+    font-weight="800"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="url(#logoGrad)"
+    letter-spacing="3"
+  >MAC</text>
+
+  <!-- "SEPTIC SERVICES" subtitle -->
+  <text
+    x="80"
+    y="64"
+    font-size="13"
+    font-weight="600"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="#4a6d8c"
+    letter-spacing="4"
+  >SEPTIC SERVICES</text>
+</svg>

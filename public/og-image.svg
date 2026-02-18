@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#152d4a"/>
+      <stop offset="50%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#254872"/>
+    </linearGradient>
+    <!-- Subtle pattern overlay -->
+    <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1" fill="#ffffff" opacity="0.05"/>
+    </pattern>
+    <!-- Accent gradient for decorative elements -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4a90d9"/>
+      <stop offset="100%" stop-color="#6bb3f0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1200" height="5" fill="url(#accentGrad)"/>
+
+  <!-- Decorative water drop icon (top-right) -->
+  <g transform="translate(1050, 60)" opacity="0.12">
+    <path d="M0 80 Q40 0 80 80 Q80 130 40 140 Q0 130 0 80 Z" fill="#ffffff"/>
+  </g>
+
+  <!-- Decorative circle (bottom-left) -->
+  <circle cx="100" cy="550" r="120" fill="#ffffff" opacity="0.03"/>
+  <circle cx="100" cy="550" r="80" fill="#ffffff" opacity="0.03"/>
+
+  <!-- Company Name -->
+  <text
+    x="600"
+    y="210"
+    font-size="72"
+    font-weight="800"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="#ffffff"
+    text-anchor="middle"
+    letter-spacing="4"
+  >MAC SEPTIC SERVICES</text>
+
+  <!-- Divider line -->
+  <rect x="440" y="235" width="320" height="3" rx="1.5" fill="url(#accentGrad)"/>
+
+  <!-- Subtitle -->
+  <text
+    x="600"
+    y="290"
+    font-size="30"
+    font-weight="400"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="#a8c4e0"
+    text-anchor="middle"
+    letter-spacing="6"
+  >CENTRAL TEXAS SEPTIC EXPERTS</text>
+
+  <!-- Phone Number -->
+  <text
+    x="600"
+    y="370"
+    font-size="48"
+    font-weight="700"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="#ffffff"
+    text-anchor="middle"
+    letter-spacing="2"
+  >(936) 564-1440</text>
+
+  <!-- Trust signals background pill -->
+  <rect x="240" y="420" width="720" height="56" rx="28" fill="#ffffff" opacity="0.1"/>
+
+  <!-- Trust signals -->
+  <text
+    x="600"
+    y="456"
+    font-size="24"
+    font-weight="600"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="#ffffff"
+    text-anchor="middle"
+    letter-spacing="2"
+  >4.9&#9733;  |  28+ YEARS  |  SAME-DAY SERVICE</text>
+
+  <!-- Bottom bar with location -->
+  <rect x="0" y="540" width="1200" height="90" fill="#152d4a"/>
+  <text
+    x="600"
+    y="595"
+    font-size="20"
+    font-weight="500"
+    font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    fill="#6b8fad"
+    text-anchor="middle"
+    letter-spacing="3"
+  >NACOGDOCHES  |  LUFKIN  |  DIBOLL  |  HUNTINGTON  |  CENTRAL TEXAS</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="625" width="1200" height="5" fill="url(#accentGrad)"/>
+</svg>

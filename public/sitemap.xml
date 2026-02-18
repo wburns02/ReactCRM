@@ -3,7 +3,7 @@
   <!-- Landing Page - Primary -->
   <url>
     <loc>https://react.ecbtx.com/home</loc>
-    <lastmod>2026-01-28</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,7 +11,15 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://react.ecbtx.com/privacy</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://react.ecbtx.com/terms</loc>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
