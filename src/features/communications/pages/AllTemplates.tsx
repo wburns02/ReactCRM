@@ -5,6 +5,7 @@ import { apiClient } from "@/api/client";
 import { TemplateModal } from "../components/TemplateModal";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { CommunicationsNav } from "../components/CommunicationsNav";
 import { relativeTime, getCategoryColor } from "../utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -31,16 +32,13 @@ export function AllTemplates() {
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
 
-  const { data: templates, isLoading } = useQuery({
+  const { data: templates, isLoading, isError } = useQuery({
     queryKey: ["message-templates"],
     queryFn: async () => {
-      try {
-        const response = await apiClient.get("/templates");
-        return response.data.items || response.data || [];
-      } catch {
-        return [];
-      }
+      const response = await apiClient.get("/templates");
+      return response.data.items || response.data || [];
     },
+    retry: 1,
   });
 
   const smsCount = useMemo(
@@ -327,6 +325,16 @@ export function AllTemplates() {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
             <p className="text-sm text-text-muted">Loading templates...</p>
           </div>
+        ) : isError ? (
+          <div className="p-12 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-red-50 dark:bg-red-500/10 flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <h3 className="font-semibold text-text-primary mb-1">Failed to load templates</h3>
+            <p className="text-sm text-text-muted">Check your connection and try again.</p>
+          </div>
         ) : filteredTemplates.length === 0 ? (
           <div className="p-12 text-center">
             <div className="w-16 h-16 rounded-2xl bg-bg-hover flex items-center justify-center mx-auto mb-4">
@@ -464,6 +472,9 @@ export function AllTemplates() {
           </div>
         )}
       </div>
+
+      {/* ── Navigation ─────────────────────────────────────────────── */}
+      <CommunicationsNav />
 
       {/* Template Modal */}
       <TemplateModal
