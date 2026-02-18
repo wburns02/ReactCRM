@@ -2154,7 +2154,7 @@ export function TechJobDetailPage() {
         <Card>
           <CardContent className="p-4">
             <InspectionChecklist
-              jobId={id!}
+              jobId={jobId!}
               customerPhone={customer?.phone || undefined}
               customerName={customer ? `${customer.first_name || ""} ${customer.last_name || ""}`.trim() : undefined}
               onPhotoUploaded={() => refetchPhotos()}
