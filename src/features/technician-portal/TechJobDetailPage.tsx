@@ -32,6 +32,7 @@ import { formatCurrency, formatDate } from "@/lib/utils.ts";
 import { getRequiredPhotos, SYSTEM_TYPE_INFO } from "./photoCategories.ts";
 import type { PhotoCategory } from "./photoCategories.ts";
 import { InspectionChecklist } from "./components/InspectionChecklist.tsx";
+import { NextJobCard } from "./components/NextJobCard.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -752,25 +753,28 @@ export function TechJobDetailPage() {
 
       {/* ── Completed / Cancelled Banner ──────────────────────────────── */}
       {isCompleted && (
-        <Card className="bg-green-50 border-green-200">
-          <CardContent className="py-4 text-center">
-            <p className="text-lg font-bold text-green-700">
-              Job Completed
-            </p>
-            {job.actual_end_time && (
-              <p className="text-sm text-green-600 mt-1">
-                Finished{" "}
-                {new Date(job.actual_end_time).toLocaleString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "2-digit",
-                  hour12: true,
-                })}
+        <>
+          <Card className="bg-green-50 border-green-200">
+            <CardContent className="py-4 text-center">
+              <p className="text-lg font-bold text-green-700">
+                Job Completed
               </p>
-            )}
-          </CardContent>
-        </Card>
+              {job.actual_end_time && (
+                <p className="text-sm text-green-600 mt-1">
+                  Finished{" "}
+                  {new Date(job.actual_end_time).toLocaleString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                </p>
+              )}
+            </CardContent>
+          </Card>
+          <NextJobCard currentJobId={jobId!} />
+        </>
       )}
       {isCancelled && (
         <Card className="bg-red-50 border-red-200">
