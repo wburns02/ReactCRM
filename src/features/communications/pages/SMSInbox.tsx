@@ -1,21 +1,72 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { SMSComposeModal } from "@/features/sms/SMSComposeModal";
+import { Input } from "@/components/ui/Input";
+import { cn } from "@/lib/utils";
+
+// ── Types ────────────────────────────────────────────────────────────────
 
 interface Conversation {
-  id: number;
+  id: number | string;
   customer_name: string;
   phone_number: string;
   last_message: string;
   last_message_time: string;
   unread_count: number;
+  direction?: "inbound" | "outbound";
 }
 
-/**
- * SMS Inbox - List of SMS conversations
- */
+// ── Helpers ──────────────────────────────────────────────────────────────
+
+function getInitials(name: string): string {
+  if (!name) return "?";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2)
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  return name[0].toUpperCase();
+}
+
+function getAvatarColor(name: string): string {
+  const colors = [
+    "bg-blue-500",
+    "bg-purple-500",
+    "bg-emerald-500",
+    "bg-amber-500",
+    "bg-rose-500",
+    "bg-cyan-500",
+    "bg-indigo-500",
+    "bg-teal-500",
+  ];
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return colors[Math.abs(hash) % colors.length];
+}
+
+function relativeTime(dateStr: string | null): string {
+  if (!dateStr) return "";
+  const now = Date.now();
+  const then = new Date(dateStr).getTime();
+  if (isNaN(then)) return dateStr;
+  const diff = now - then;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "Just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}d ago`;
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+
+// ── Component ────────────────────────────────────────────────────────────
+
 export function SMSInbox() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isComposeOpen, setIsComposeOpen] = useState(false);
@@ -34,85 +85,244 @@ export function SMSInbox() {
     },
   });
 
+  const filteredConversations = useMemo(() => {
+    const items: Conversation[] = conversations || [];
+    if (!searchQuery) return items;
+    const q = searchQuery.toLowerCase();
+    return items.filter(
+      (c) =>
+        c.customer_name?.toLowerCase().includes(q) ||
+        c.phone_number?.includes(q) ||
+        c.last_message?.toLowerCase().includes(q),
+    );
+  }, [conversations, searchQuery]);
+
+  const totalUnread = useMemo(
+    () =>
+      (conversations || []).reduce(
+        (sum: number, c: Conversation) => sum + (c.unread_count || 0),
+        0,
+      ),
+    [conversations],
+  );
+
   return (
-    <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="p-4 border-b border-border bg-bg-card">
-        <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col h-[calc(100vh-64px)]">
+      {/* ── Header ────────────────────────────────────────────────── */}
+      <div className="flex-shrink-0 border-b border-border bg-bg-card px-6 py-4">
+        <div className="flex items-center justify-between mb-3">
           <div>
-            <h1 className="text-xl font-semibold text-text-primary">
+            <h1 className="text-xl font-semibold text-text-primary flex items-center gap-2">
               SMS Inbox
+              {totalUnread > 0 && (
+                <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 text-xs font-bold bg-blue-500 text-white rounded-full">
+                  {totalUnread}
+                </span>
+              )}
             </h1>
-            <p className="text-sm text-text-muted">Manage SMS conversations</p>
+            <p className="text-sm text-text-muted mt-0.5">
+              {filteredConversations.length} conversation
+              {filteredConversations.length !== 1 ? "s" : ""}
+            </p>
           </div>
           <button
             onClick={() => setIsComposeOpen(true)}
-            className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors shadow-sm"
           >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
             New Message
           </button>
         </div>
 
         {/* Search */}
-        <input
-          type="text"
-          placeholder="Search conversations..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
-        />
+        <div className="relative">
+          <svg
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <Input
+            type="text"
+            placeholder="Search by name, phone number, or message..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 h-10 text-sm"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary text-xs font-medium"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Conversations List */}
-      <div className="flex-1 overflow-auto">
+      {/* ── Conversations List ─────────────────────────────────────── */}
+      <div className="flex-1 overflow-y-auto">
         {isLoading ? (
-          <div className="p-4 flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          </div>
-        ) : conversations?.length === 0 ? (
-          <div className="p-8 text-center text-text-muted">
-            <span className="text-4xl block mb-2">📱</span>
-            <p>No SMS conversations</p>
-            <p className="text-sm mt-2">
-              Start a conversation by sending an SMS
+          <div className="p-8 flex flex-col items-center gap-3">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+            <p className="text-sm text-text-muted">
+              Loading conversations...
             </p>
+          </div>
+        ) : filteredConversations.length === 0 ? (
+          <div className="p-12 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+              <svg
+                className="w-8 h-8 text-blue-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
+            </div>
+            <h3 className="font-semibold text-text-primary mb-1">
+              {searchQuery ? "No conversations found" : "No SMS conversations yet"}
+            </h3>
+            <p className="text-sm text-text-muted max-w-sm mx-auto">
+              {searchQuery
+                ? `No results for "${searchQuery}"`
+                : "Start texting your customers. SMS conversations will appear here as they come in."}
+            </p>
+            {!searchQuery && (
+              <button
+                onClick={() => setIsComposeOpen(true)}
+                className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+              >
+                Send first message
+              </button>
+            )}
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {conversations?.map((conversation: Conversation) => (
-              <Link
-                key={conversation.id}
-                to={`/communications/sms/${conversation.id}`}
-                className="block p-4 hover:bg-bg-hover transition-colors"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-medium">
-                    {conversation.customer_name?.charAt(0) || "?"}
+            {filteredConversations.map((conversation: Conversation) => {
+              const hasUnread = conversation.unread_count > 0;
+              return (
+                <Link
+                  key={conversation.id}
+                  to={`/communications/sms/${conversation.id}`}
+                  className={cn(
+                    "flex items-start gap-3 px-4 sm:px-6 py-4 hover:bg-bg-hover transition-colors",
+                    hasUnread && "bg-blue-50/50 dark:bg-blue-500/5",
+                  )}
+                >
+                  {/* Avatar */}
+                  <div
+                    className={cn(
+                      "w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 text-white text-sm font-semibold",
+                      getAvatarColor(
+                        conversation.customer_name || conversation.phone_number,
+                      ),
+                    )}
+                  >
+                    {getInitials(
+                      conversation.customer_name || conversation.phone_number,
+                    )}
                   </div>
+
+                  {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-medium text-text-primary truncate">
-                        {conversation.customer_name ||
-                          conversation.phone_number}
+                    <div className="flex items-center justify-between mb-0.5">
+                      <h3
+                        className={cn(
+                          "text-sm truncate",
+                          hasUnread
+                            ? "font-bold text-text-primary"
+                            : "font-medium text-text-primary",
+                        )}
+                      >
+                        {conversation.customer_name || conversation.phone_number}
                       </h3>
-                      <span className="text-xs text-text-muted">
-                        {conversation.last_message_time}
+                      <span className="text-xs text-text-muted ml-2 flex-shrink-0">
+                        {relativeTime(conversation.last_message_time)}
                       </span>
                     </div>
-                    <p className="text-sm text-text-secondary truncate">
-                      {conversation.last_message}
+                    {conversation.customer_name && (
+                      <p className="text-xs text-text-muted mb-0.5">
+                        {conversation.phone_number}
+                      </p>
+                    )}
+                    <p
+                      className={cn(
+                        "text-sm truncate",
+                        hasUnread
+                          ? "text-text-primary font-medium"
+                          : "text-text-muted",
+                      )}
+                    >
+                      {conversation.direction === "outbound" && (
+                        <span className="text-text-muted font-normal">
+                          You:{" "}
+                        </span>
+                      )}
+                      {conversation.last_message || "No messages yet"}
                     </p>
                   </div>
-                  {conversation.unread_count > 0 && (
-                    <span className="px-2 py-1 bg-primary text-white text-xs rounded-full">
-                      {conversation.unread_count}
-                    </span>
+
+                  {/* Unread badge */}
+                  {hasUnread && (
+                    <div className="flex-shrink-0 mt-1">
+                      <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 text-xs font-bold bg-blue-500 text-white rounded-full">
+                        {conversation.unread_count}
+                      </span>
+                    </div>
                   )}
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         )}
+      </div>
+
+      {/* ── Bottom nav ─────────────────────────────────────────────── */}
+      <div className="flex-shrink-0 border-t border-border bg-bg-card px-4 py-2 flex items-center gap-2 overflow-x-auto">
+        <Link
+          to="/communications"
+          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
+        >
+          Unified Inbox
+        </Link>
+        <Link
+          to="/communications/email-inbox"
+          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
+        >
+          Email Inbox
+        </Link>
+        <Link
+          to="/communications/templates"
+          className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-bg-hover transition-colors text-text-secondary"
+        >
+          Templates
+        </Link>
       </div>
 
       {/* Compose Modal */}
