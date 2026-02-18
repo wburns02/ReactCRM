@@ -369,9 +369,9 @@ async function generateReportPDF(
     newPageIfNeeded(50);
     y += 5;
     // Section header
-    setF([30, 64, 175]); // blue
+    setF(PDF_COLORS.blue);
     doc.rect(margin, y - 2, contentW, 22, "F");
-    setC([255, 255, 255]);
+    setC(PDF_COLORS.white);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
     doc.text("Expert Analysis", margin + 8, y + 7);
@@ -381,7 +381,7 @@ async function generateReportPDF(
     y += 28;
 
     // Overall Assessment
-    setC([0, 0, 0]);
+    setC(PDF_COLORS.black);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     const assessLines = doc.splitTextToSize(aiAnalysis.overall_assessment || "", contentW - 4);
@@ -391,12 +391,12 @@ async function generateReportPDF(
     // What to Expect
     if (aiAnalysis.what_to_expect) {
       newPageIfNeeded(25);
-      setC([30, 64, 175]);
+      setC(PDF_COLORS.blue);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
       doc.text("What to Expect", margin, y);
       y += 6;
-      setC([0, 0, 0]);
+      setC(PDF_COLORS.black);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
       const expectLines = doc.splitTextToSize(aiAnalysis.what_to_expect, contentW - 4);
@@ -407,7 +407,7 @@ async function generateReportPDF(
     // Maintenance Schedule
     if (aiAnalysis.maintenance_schedule?.length) {
       newPageIfNeeded(30);
-      setC([30, 64, 175]);
+      setC(PDF_COLORS.blue);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
       doc.text("Recommended Maintenance Schedule", margin, y);
@@ -415,9 +415,9 @@ async function generateReportPDF(
       for (const item of aiAnalysis.maintenance_schedule) {
         newPageIfNeeded(12);
         // Row background
-        setF([245, 247, 250]);
+        setF(PDF_COLORS.lightGray);
         doc.rect(margin, y - 3, contentW, 10, "F");
-        setC([0, 0, 0]);
+        setC(PDF_COLORS.black);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(9);
         doc.text(item.timeframe + ":", margin + 3, y + 1);
@@ -432,14 +432,14 @@ async function generateReportPDF(
     // Seasonal Tips
     if (aiAnalysis.seasonal_tips?.length) {
       newPageIfNeeded(30);
-      setC([30, 64, 175]);
+      setC(PDF_COLORS.blue);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
       doc.text("Seasonal Care Tips for Central Texas", margin, y);
       y += 7;
       for (const tip of aiAnalysis.seasonal_tips) {
         newPageIfNeeded(10);
-        setC([0, 0, 0]);
+        setC(PDF_COLORS.black);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(9);
         doc.text(`${tip.season}:`, margin + 3, y);
