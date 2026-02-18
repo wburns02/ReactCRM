@@ -261,11 +261,20 @@ export function useAssignWorkOrder() {
         { queryKey: workOrderKeys.lists() },
         (oldData) => {
           if (!oldData) return oldData;
+          const exists = oldData.items.some((wo) => wo.id === workOrder.id);
+          if (exists) {
+            return {
+              ...oldData,
+              items: oldData.items.map((wo) =>
+                wo.id === workOrder.id ? { ...wo, ...nonNullFields } : wo,
+              ),
+            };
+          }
+          // Add to this query's cache if not already present
+          // (happens when scheduling an unscheduled WO — it wasn't in date-filtered queries)
           return {
             ...oldData,
-            items: oldData.items.map((wo) =>
-              wo.id === workOrder.id ? { ...wo, ...nonNullFields } : wo,
-            ),
+            items: [...oldData.items, { ...workOrder, ...nonNullFields }],
           };
         },
       );

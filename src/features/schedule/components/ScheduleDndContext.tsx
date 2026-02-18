@@ -267,25 +267,38 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
       queryKey: workOrderKeys.lists(),
     });
 
-    // Optimistic update - update ALL matching list queries immediately
+    // Build the updated work order for optimistic update
+    const updatedWo: WorkOrder = {
+      ...workOrder,
+      scheduled_date: dropData.date,
+      assigned_technician:
+        dropData.technician || workOrder.assigned_technician,
+      time_window_start: timeStart || workOrder.time_window_start,
+      status: "scheduled",
+    };
+
+    // Optimistic update - update or ADD to ALL matching list queries immediately
+    // Key fix: unscheduled WOs aren't in the WeekView query cache yet,
+    // so .map() alone won't add them. We must also append if missing.
     queryClient.setQueriesData<{ items: WorkOrder[] }>(
       { queryKey: workOrderKeys.lists() },
       (oldData) => {
         if (!oldData) return oldData;
+        const exists = oldData.items.some(
+          (wo: WorkOrder) => wo.id === workOrder.id,
+        );
+        if (exists) {
+          return {
+            ...oldData,
+            items: oldData.items.map((wo: WorkOrder) =>
+              wo.id === workOrder.id ? updatedWo : wo,
+            ),
+          };
+        }
+        // Add the newly-scheduled WO to this query's items
         return {
           ...oldData,
-          items: oldData.items.map((wo: WorkOrder) =>
-            wo.id === workOrder.id
-              ? {
-                  ...wo,
-                  scheduled_date: dropData.date,
-                  assigned_technician:
-                    dropData.technician || wo.assigned_technician,
-                  time_window_start: timeStart || wo.time_window_start,
-                  status: "scheduled",
-                }
-              : wo,
-          ),
+          items: [...oldData.items, updatedWo],
         };
       },
     );
