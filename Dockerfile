@@ -1,6 +1,6 @@
 # Multi-stage build for React frontend
 # Stage 1: Build React app
-FROM node:20-alpine AS builder
+FROM node@sha256:c3324aa3efea082c8d294a93b97ba82adc5498a202bd48802f5a8af152e7dd9e AS builder
 WORKDIR /app
 
 # Skip Playwright browser downloads (not needed for build)
@@ -22,7 +22,7 @@ RUN npm run build
 RUN ls -la dist/ && test -f dist/index.html
 
 # Stage 2: Serve with Node.js
-FROM node:20-alpine
+FROM node@sha256:c3324aa3efea082c8d294a93b97ba82adc5498a202bd48802f5a8af152e7dd9e
 WORKDIR /app
 
 # Copy built files from builder stage
