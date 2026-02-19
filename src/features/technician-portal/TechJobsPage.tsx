@@ -189,10 +189,12 @@ function JobCard({
               {formatDate(job.scheduled_date)}
             </span>
           )}
-          {job.estimated_duration_hours && (
+          {job.estimated_duration_hours != null && job.estimated_duration_hours > 0 && (
             <span className="flex items-center gap-1">
               <span>🕐</span>
-              {job.estimated_duration_hours}h est.
+              {job.estimated_duration_hours >= 1
+                ? `${job.estimated_duration_hours}h est.`
+                : `${Math.round(job.estimated_duration_hours * 60)}m est.`}
             </span>
           )}
           {amount > 0 && (

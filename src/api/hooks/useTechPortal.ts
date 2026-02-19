@@ -17,6 +17,7 @@ export {
   useClockOut,
   useStartJob,
   useCompleteJob,
+  useRevertJobStatus,
   useTimeClockStatus,
   useTimeClockHistory,
   useEmployeeProfile,

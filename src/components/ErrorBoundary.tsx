@@ -53,7 +53,9 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: null, errorId: null });
+    // Force a full page reload so component state is fresh
+    // (Just resetting error state re-renders the same broken component)
+    window.location.reload();
   };
 
   handleGoToDashboard = () => {

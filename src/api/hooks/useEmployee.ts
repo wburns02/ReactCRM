@@ -248,6 +248,25 @@ export function useStartJob() {
 }
 
 /**
+ * Revert Job Status (undo accidental start)
+ * en_route → scheduled, in_progress → en_route
+ */
+export function useRevertJobStatus() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ jobId }: { jobId: string }) => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/revert-status`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
+    },
+  });
+}
+
+/**
  * Complete Job
  */
 export function useCompleteJob() {

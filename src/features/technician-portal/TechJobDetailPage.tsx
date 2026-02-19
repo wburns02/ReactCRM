@@ -5,6 +5,7 @@ import {
   useTechJobDetail,
   useStartJob,
   useCompleteJob,
+  useRevertJobStatus,
   useUploadJobPhoto,
   useJobPhotos,
   useJobPayments,
@@ -289,6 +290,7 @@ export function TechJobDetailPage() {
   );
   const startJobMutation = useStartJob();
   const completeJobMutation = useCompleteJob();
+  const revertStatusMutation = useRevertJobStatus();
   const uploadPhotoMutation = useUploadJobPhoto();
   const recordPaymentMutation = useRecordPayment();
   const updateWorkOrderMutation = useUpdateWorkOrder();
@@ -374,14 +376,29 @@ export function TechJobDetailPage() {
     setIsStarting(true);
     try {
       await startJobMutation.mutateAsync({ jobId });
-      toastSuccess("Job started! Let's get it done!");
+      if (status === "scheduled") {
+        toastSuccess("En route! Drive safe.");
+      } else {
+        toastSuccess("Job started! Let's get it done!");
+      }
       refetch();
     } catch {
       toastError("Couldn't start job. Please try again.");
     } finally {
       setIsStarting(false);
     }
-  }, [jobId, startJobMutation, refetch]);
+  }, [jobId, status, startJobMutation, refetch]);
+
+  const handleRevertStatus = useCallback(async () => {
+    if (!jobId) return;
+    try {
+      await revertStatusMutation.mutateAsync({ jobId });
+      toastSuccess("Status reverted.");
+      refetch();
+    } catch {
+      toastError("Couldn't revert status.");
+    }
+  }, [jobId, revertStatusMutation, refetch]);
 
   const handleCompleteJob = useCallback(async () => {
     if (!jobId) return;
@@ -732,23 +749,53 @@ export function TechJobDetailPage() {
         </CardContent>
       </Card>
 
-      {/* ── Start Job Button (always visible at top when available) ──── */}
+      {/* ── Status Action Buttons ──── */}
       {canStart && (
-        <Button
-          onClick={handleStartJob}
-          disabled={isStarting}
-          className="w-full h-14 text-lg font-bold rounded-xl bg-cta hover:bg-cta-hover text-white shadow-lg"
-        >
-          {isStarting ? (
-            <span className="flex items-center gap-2">
-              <span className="animate-spin">⏳</span> Starting...
-            </span>
-          ) : (
-            <span className="flex items-center gap-2">
-              <span className="text-xl">▶️</span> START JOB
-            </span>
+        <div className="space-y-2">
+          <Button
+            onClick={handleStartJob}
+            disabled={isStarting}
+            className={`w-full h-14 text-lg font-bold rounded-xl text-white shadow-lg ${
+              status === "scheduled"
+                ? "bg-blue-600 hover:bg-blue-700"
+                : "bg-cta hover:bg-cta-hover"
+            }`}
+          >
+            {isStarting ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin">⏳</span> {status === "scheduled" ? "Heading out..." : "Starting..."}
+              </span>
+            ) : status === "scheduled" ? (
+              <span className="flex items-center gap-2">
+                <span className="text-xl">🚛</span> EN ROUTE
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                <span className="text-xl">▶️</span> START JOB
+              </span>
+            )}
+          </Button>
+          {/* Undo button — only show for en_route (accidental tap of En Route) */}
+          {status === "en_route" && (
+            <button
+              onClick={handleRevertStatus}
+              disabled={revertStatusMutation.isPending}
+              className="w-full py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+            >
+              {revertStatusMutation.isPending ? "Reverting..." : "↩ Undo — go back to Scheduled"}
+            </button>
           )}
-        </Button>
+        </div>
+      )}
+      {/* Undo for in_progress — small link below the tab bar */}
+      {status === "in_progress" && (
+        <button
+          onClick={handleRevertStatus}
+          disabled={revertStatusMutation.isPending}
+          className="w-full py-1 text-xs text-text-muted hover:text-text-secondary transition-colors"
+        >
+          {revertStatusMutation.isPending ? "Reverting..." : "↩ Accidentally started? Go back to En Route"}
+        </button>
       )}
 
       {/* ── Completed / Cancelled Banner ──────────────────────────────── */}
