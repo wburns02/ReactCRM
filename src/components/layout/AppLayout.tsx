@@ -11,6 +11,7 @@ import { AdminMobileHeader } from "@/components/navigation/AdminMobileHeader";
 import { AdminMobileDrawer } from "@/components/navigation/AdminMobileDrawer";
 import { AdminMobileBottomNav } from "@/components/navigation/AdminMobileBottomNav";
 import { useTheme } from "@/hooks/useTheme";
+import { EntitySwitcher } from "@/components/layout/EntitySwitcher";
 import {
   LayoutDashboard,
   Users,
@@ -231,6 +232,7 @@ export function AppLayout() {
       icon: Settings,
       items: [
         { path: "/users", label: "Users", icon: User },
+        { path: "/admin/entities", label: "Entities (LLCs)", icon: Building2 },
         { path: "/admin", label: "Settings", icon: Settings },
         { path: "/admin/import", label: "Data Import", icon: Download },
         { path: "/admin/dump-sites", label: "Dump Sites", icon: Truck },
@@ -284,6 +286,9 @@ export function AppLayout() {
             </div>
           </Link>
         </div>
+
+        {/* Entity Switcher (multi-LLC) */}
+        <EntitySwitcher />
 
         {/* Navigation — Scrollable */}
         <nav className="flex-1 overflow-y-auto py-3 px-3 sidebar-scroll">

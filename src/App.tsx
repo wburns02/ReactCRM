@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/ui/Toast";
 import { SessionTimeoutProvider } from "@/components/SessionTimeoutProvider";
 import { WebSocketProvider } from "@/providers/WebSocketProvider";
 import { RoleProvider } from "@/providers/RoleProvider";
+import { EntityProvider } from "@/providers/EntityProvider";
 
 import { PWAProvider } from "@/components/pwa";
 import { initWebVitals } from "@/lib/webVitals";
@@ -51,8 +52,9 @@ const queryClient = new QueryClient({
  * 4. WebSocketProvider - real-time updates
  * 5. SessionTimeoutProvider - session management
  * 6. BrowserRouter - client-side routing
- * 7. RoleProvider - demo mode role switching
- * 8. PWAProvider - install prompts, update notifications, offline banner
+ * 7. EntityProvider - multi-LLC entity context
+ * 8. RoleProvider - demo mode role switching
+ * 9. PWAProvider - install prompts, update notifications, offline banner
  */
 function App() {
   return (
@@ -62,12 +64,14 @@ function App() {
           <WebSocketProvider autoConnect>
             <SessionTimeoutProvider>
               <BrowserRouter basename="/">
-                <RoleProvider>
-                  <PWAProvider>
-                    <OfflineIndicator />
-                    <AppRoutes />
-                  </PWAProvider>
-                </RoleProvider>
+                <EntityProvider>
+                  <RoleProvider>
+                    <PWAProvider>
+                      <OfflineIndicator />
+                      <AppRoutes />
+                    </PWAProvider>
+                  </RoleProvider>
+                </EntityProvider>
               </BrowserRouter>
             </SessionTimeoutProvider>
           </WebSocketProvider>

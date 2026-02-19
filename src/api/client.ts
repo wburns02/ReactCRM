@@ -76,6 +76,12 @@ apiClient.interceptors.request.use(
     const securityHeaders = getSecurityHeaders(method);
     Object.assign(config.headers, securityHeaders);
 
+    // MULTI-ENTITY: Send selected entity ID on every request
+    const entityId = localStorage.getItem("selected_entity_id");
+    if (entityId) {
+      config.headers["X-Entity-ID"] = entityId;
+    }
+
     // MOBILE FIX: Send Bearer token as fallback for mobile browsers that
     // block third-party cookies (iOS Safari ITP, Chrome cookie deprecation).
     // The backend checks Bearer first, then falls back to cookie (deps.py:86).

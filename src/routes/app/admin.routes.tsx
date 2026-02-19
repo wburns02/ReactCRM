@@ -54,6 +54,13 @@ const DumpSitesPage = lazy(() =>
   })),
 );
 
+// Company Entities (Multi-LLC)
+const EntitiesPage = lazy(() =>
+  import("@/features/admin/EntitiesPage.tsx").then((m) => ({
+    default: m.EntitiesPage,
+  })),
+);
+
 /**
  * Admin routes - Users, Settings, Import, Integrations, Notifications
  */
@@ -143,6 +150,16 @@ export function AdminRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <DumpSitesPage />
+          </Suspense>
+        }
+      />
+
+      {/* Company Entities (Multi-LLC) */}
+      <Route
+        path="admin/entities"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <EntitiesPage />
           </Suspense>
         }
       />

@@ -22,3 +22,11 @@ export {
   type RoleKey,
   type RoleView,
 } from "./RoleProvider";
+
+// Entity Provider (Multi-LLC)
+export {
+  EntityProvider,
+  useEntity,
+  useOptionalEntity,
+  type EntityContextValue,
+} from "./EntityProvider";
