@@ -102,7 +102,7 @@ export function WorkOrderForm({
           scheduled_date: "",
           time_window_start: "",
           time_window_end: "",
-          estimated_duration_hours: 2,
+          estimated_duration_hours: 1,
           assigned_technician: "",
           assigned_vehicle: "",
           service_address_line1: "",
