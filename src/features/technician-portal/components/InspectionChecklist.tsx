@@ -1066,7 +1066,33 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
         sendReport: { method: "email", to: customerEmail, pdfBase64: base64 },
       });
       if (result?.report_sent === false) {
-        toastError("Email service unavailable — download PDF instead");
+        // Backend email failed — auto-download PDF and open mailto fallback
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `MAC-Septic-Inspection-${jobId.slice(0, 8)}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        const s = localState.summary!;
+        const condition = s.overallCondition === "good" ? "Good" : s.overallCondition === "fair" ? "Needs Attention" : "Needs Repair";
+        const subject = `Your Septic Inspection Report — ${condition}`;
+        const body = [
+          `Hi ${customerName || ""},`,
+          "",
+          "Thank you for choosing MAC Septic Services. Please find your septic inspection report attached to this email.",
+          "",
+          `Overall Condition: ${condition}`,
+          `Issues found: ${s.totalIssues || 0}`,
+          "",
+          "Please attach the downloaded PDF to this email before sending.",
+          "",
+          "Questions? Call us at (512) 392-1232",
+          "MAC Septic Services — San Marcos, TX",
+        ].join("\n");
+
+        window.open(`mailto:${customerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
+        toastSuccess("PDF downloaded — attach it to the email that just opened!");
       } else {
         toastSuccess(`Report emailed to ${customerEmail}!`);
       }
