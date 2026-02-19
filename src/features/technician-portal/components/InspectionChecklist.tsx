@@ -1450,7 +1450,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         <div className="text-center">
           <div className="text-4xl mb-2">🔍</div>
           <h3 className="text-xl font-bold text-text-primary">
-            Aerobic System Inspection
+            {isConventional ? "Conventional System Inspection" : "Aerobic System Inspection"}
           </h3>
           <p className="text-sm text-text-secondary mt-1">
             {totalSteps} steps &bull; ~{steps.reduce((s, x) => s + x.estimatedMinutes, 0)} min estimated
