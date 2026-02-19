@@ -21,7 +21,9 @@ import {
   useUploadJobPhoto,
   useCreateEstimateFromInspection,
   useInspectionAIAnalysis,
+  useFetchInspectionWeather,
   type AIInspectionAnalysis,
+  type InspectionWeather,
 } from "@/api/hooks/useTechPortal.ts";
 import { useWorkOrderPhotos, type PhotoResponse } from "@/api/hooks/useWorkOrderPhotos.ts";
 import { EstimateSignature } from "./EstimateSignature.tsx";
@@ -143,6 +145,90 @@ const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
   },
 };
 
+// ─── Weather Card Component ─────────────────────────────────────────────────
+
+function WeatherCard({ weather, onFetch, isFetching }: {
+  weather: InspectionWeather | null;
+  onFetch: () => void;
+  isFetching: boolean;
+}) {
+  if (!weather || !weather.current) {
+    return (
+      <button
+        onClick={onFetch}
+        disabled={isFetching}
+        className="w-full py-3 px-4 border-2 border-dashed border-blue-300 rounded-lg text-sm font-medium text-blue-600 bg-blue-50/50 hover:bg-blue-50 active:scale-[0.98] transition-all disabled:opacity-50 dark:bg-blue-900/10 dark:border-blue-700 dark:text-blue-400"
+      >
+        {isFetching ? (
+          <span className="flex items-center justify-center gap-2">
+            <span className="animate-spin">⏳</span> Fetching weather...
+          </span>
+        ) : "🌤️ Fetch Weather Data"}
+      </button>
+    );
+  }
+
+  const c = weather.current;
+  const maxPrecip = Math.max(...weather.daily_history.map(d => d.precip_in), 0.1);
+
+  return (
+    <div className="border border-border rounded-lg overflow-hidden bg-bg-body">
+      {/* Current conditions header */}
+      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">
+            {c.weather_code >= 95 ? "⛈️" : c.weather_code >= 61 ? "🌧️" : c.weather_code >= 51 ? "🌦️" : c.weather_code >= 45 ? "🌫️" : c.weather_code >= 1 ? "⛅" : "☀️"}
+          </span>
+          <div>
+            <p className="font-bold text-base leading-tight">{Math.round(c.temperature_f)}°F</p>
+            <p className="text-[10px] opacity-90">{c.condition}</p>
+          </div>
+        </div>
+        <div className="text-right text-[10px] opacity-80 space-y-0.5">
+          <p>Feels like {Math.round(c.feels_like_f)}°F</p>
+          <p>Humidity {c.humidity_pct}%</p>
+          <p>Wind {c.wind_speed_mph} mph</p>
+        </div>
+      </div>
+
+      {/* 7-day precipitation mini chart */}
+      {weather.daily_history.length > 0 && (
+        <div className="px-3 py-2">
+          <div className="flex items-center justify-between mb-1">
+            <p className="text-[10px] font-medium text-text-secondary">7-Day Precipitation</p>
+            <p className="text-[10px] font-bold text-blue-600">{weather.seven_day_total_precip_in} in total</p>
+          </div>
+          <div className="flex items-end gap-1 h-8">
+            {weather.daily_history.map((day, i) => {
+              const barH = Math.max((day.precip_in / maxPrecip) * 100, day.precip_in > 0 ? 10 : 2);
+              const dateLabel = new Date(day.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short" }).slice(0, 2);
+              return (
+                <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
+                  <div
+                    className={`w-full rounded-t ${day.precip_in > 0 ? "bg-blue-400" : "bg-gray-200 dark:bg-gray-700"}`}
+                    style={{ height: `${barH}%`, minHeight: "2px" }}
+                    title={`${day.date}: ${day.precip_in} in`}
+                  />
+                  <span className="text-[8px] text-text-tertiary">{dateLabel}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Notable events */}
+      {weather.notable_events.length > 0 && (
+        <div className="px-3 pb-2">
+          {weather.notable_events.map((event, i) => (
+            <p key={i} className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">⚠️ {event}</p>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Photo type labels for the PDF ──────────────────────────────────────────
 
 const PHOTO_TYPE_LABELS: Record<string, string> = {
@@ -193,6 +279,7 @@ async function generateReportPDF(
   includePumping?: boolean,
   photos?: PDFPhoto[],
   systemType?: string,
+  weatherData?: InspectionWeather | null,
 ): Promise<Blob> {
   const doc = new jsPDF();
   const steps = getInspectionSteps(systemType);
@@ -374,6 +461,101 @@ async function generateReportPDF(
     doc.text(`${issues} issue${issues > 1 ? "s" : ""} found${criticalCount > 0 ? ` (${criticalCount} critical)` : ""}`, margin + 56, y + 28);
   }
   y += 42;
+
+  // ═══ WEATHER CONDITIONS ═══
+  if (weatherData?.current) {
+    sectionHeader("Weather Conditions");
+    const wc = weatherData.current;
+    // 4 weather stat boxes in a row
+    const wBoxW = (contentW - 9) / 4;
+    const wStats: [string, string][] = [
+      ["TEMPERATURE", `${Math.round(wc.temperature_f)}°F`],
+      ["CONDITION", wc.condition],
+      ["HUMIDITY", `${wc.humidity_pct}%`],
+      ["WIND", `${wc.wind_speed_mph} mph`],
+    ];
+    for (let i = 0; i < wStats.length; i++) {
+      const wx = margin + i * (wBoxW + 3);
+      setF(BRAND.cardBg);
+      setD(BRAND.divider);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(wx, y, wBoxW, 18, 2, 2, "FD");
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6);
+      doc.text(wStats[i][0], wx + wBoxW / 2, y + 6, { align: "center" });
+      setC(BRAND.blue);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      const valText = doc.splitTextToSize(wStats[i][1], wBoxW - 4);
+      doc.text(valText, wx + wBoxW / 2, y + 13, { align: "center" });
+    }
+    y += 24;
+
+    // 7-day precipitation table
+    if (weatherData.daily_history.length > 0) {
+      ensureSpace(40);
+      setC(BRAND.text);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text(`7-Day Precipitation History (Total: ${weatherData.seven_day_total_precip_in} in)`, margin + 4, y + 2);
+      y += 8;
+      // Table header
+      setF(BRAND.blue);
+      doc.rect(margin, y - 3, contentW, 8, "F");
+      setC(BRAND.white);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7);
+      doc.text("DATE", margin + 4, y + 2);
+      doc.text("PRECIP", margin + 40, y + 2);
+      doc.text("CONDITION", margin + 62, y + 2);
+      doc.text("HIGH / LOW", margin + 120, y + 2);
+      y += 9;
+      for (let i = 0; i < weatherData.daily_history.length; i++) {
+        const day = weatherData.daily_history[i];
+        ensureSpace(10);
+        if (i % 2 === 0) {
+          setF(BRAND.cardBg);
+          doc.rect(margin, y - 3, contentW, 9, "F");
+        }
+        // Highlight days with significant precipitation
+        if (day.precip_in >= 0.5) {
+          setF({ r: 239, g: 246, b: 255 });
+          doc.rect(margin, y - 3, contentW, 9, "F");
+        }
+        setC(BRAND.text);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        const dayLabel = new Date(day.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+        doc.text(dayLabel, margin + 4, y + 2);
+        // Precipitation amount — bold if significant
+        if (day.precip_in >= 0.5) {
+          setC(BRAND.blue);
+          doc.setFont("helvetica", "bold");
+        }
+        doc.text(`${day.precip_in} in`, margin + 40, y + 2);
+        setC(BRAND.text);
+        doc.setFont("helvetica", "normal");
+        doc.text(day.condition, margin + 62, y + 2);
+        doc.text(`${Math.round(day.high_f)}° / ${Math.round(day.low_f)}°`, margin + 120, y + 2);
+        y += 9;
+      }
+      y += 2;
+    }
+
+    // Notable weather events
+    if (weatherData.notable_events.length > 0) {
+      ensureSpace(16);
+      for (const event of weatherData.notable_events) {
+        setC({ r: 180, g: 120, b: 0 });
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(8);
+        doc.text(`⚠ ${event}`, margin + 4, y + 2);
+        y += 6;
+      }
+      y += 2;
+    }
+  }
 
   // ═══ KEY READINGS (PSI / Sludge) — side-by-side stat cards ═══
   const psi = isConventional ? undefined : state.steps[8]?.psiReading;
@@ -671,6 +853,26 @@ async function generateReportPDF(
     doc.text(assessLines, margin + 2, y);
     y += assessLines.length * 4.5 + 6;
 
+    // Weather Impact — blue highlight card
+    if (aiAnalysis.weather_impact) {
+      ensureSpace(24);
+      setF({ r: 224, g: 242, b: 254 }); // sky-100
+      setD({ r: 56, g: 189, b: 248 });   // sky-400
+      doc.setLineWidth(0.5);
+      const impactLines = doc.splitTextToSize(aiAnalysis.weather_impact, contentW - 16);
+      const impactH = impactLines.length * 4 + 12;
+      doc.roundedRect(margin, y, contentW, impactH, 2, 2, "FD");
+      setC({ r: 3, g: 105, b: 161 }); // sky-700
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text("Weather Impact on System", margin + 5, y + 7);
+      setC(BRAND.text);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.text(impactLines, margin + 5, y + 14);
+      y += impactH + 4;
+    }
+
     // What to Expect — in a highlight card
     if (aiAnalysis.what_to_expect) {
       ensureSpace(30);
@@ -944,6 +1146,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
   const uploadPhotoMutation = useUploadJobPhoto();
   const createEstimateMutation = useCreateEstimateFromInspection();
   const aiAnalysisMutation = useInspectionAIAnalysis();
+  const weatherMutation = useFetchInspectionWeather();
 
   const isConventional = systemType === "conventional";
 
@@ -958,6 +1161,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
   const [sendingReport, setSendingReport] = useState<string | null>(null);
   const [estimateQuoteId, setEstimateQuoteId] = useState<string | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<AIInspectionAnalysis | null>(null);
+  const [weather, setWeather] = useState<InspectionWeather | null>(null);
   const [includePumping, setIncludePumping] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const sludgePhotoRef = useRef<HTMLInputElement>(null);
@@ -972,6 +1176,8 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       if (serverState.completedAt) setShowSummary(true);
       // Restore persisted AI analysis
       if (serverState.aiAnalysis) setAiAnalysis(serverState.aiAnalysis);
+      // Restore persisted weather data
+      if (serverState.weather) setWeather(serverState.weather);
     }
   }, [serverState]);
 
@@ -1007,6 +1213,13 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     }));
     setCurrentStep(2);
     if (voiceEnabled) speak("Inspection started. Step 2: Contact Homeowner.");
+    // Auto-fetch weather data in background (non-blocking)
+    weatherMutation.mutate(jobId, {
+      onSuccess: (data) => {
+        setWeather(data);
+        toastSuccess("Weather data loaded!");
+      },
+    });
   };
 
   const toggleEquipment = (itemId: string) => {
@@ -1293,7 +1506,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("pdf");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -1311,7 +1524,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("print");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather);
       const url = URL.createObjectURL(blob);
       const iframe = document.createElement("iframe");
       iframe.style.display = "none";
@@ -1339,7 +1552,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("email");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather);
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
         jobId,
@@ -1559,6 +1772,24 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
           </div>
         </div>
 
+        {/* Weather Summary */}
+        {weather?.current && (
+          <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            <span className="text-lg">
+              {weather.current.weather_code >= 95 ? "⛈️" : weather.current.weather_code >= 61 ? "🌧️" : weather.current.weather_code >= 51 ? "🌦️" : weather.current.weather_code >= 1 ? "⛅" : "☀️"}
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-primary">
+                {Math.round(weather.current.temperature_f)}°F — {weather.current.condition}
+              </p>
+              <p className="text-[10px] text-text-secondary truncate">
+                7-day precip: {weather.seven_day_total_precip_in} in
+                {weather.notable_events.length > 0 && ` | ${weather.notable_events[0]}`}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* AI-Powered Report — PRIMARY ACTION */}
         <div className="border-2 border-primary/30 bg-primary/5 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
@@ -1594,6 +1825,14 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                 <p className="font-semibold text-primary text-xs mb-1">Overall Assessment</p>
                 <p className="text-text-primary">{aiAnalysis.overall_assessment}</p>
               </div>
+
+              {/* Weather Impact */}
+              {aiAnalysis.weather_impact && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                  <p className="font-semibold text-blue-700 dark:text-blue-300 text-xs mb-1">🌧️ Weather Impact</p>
+                  <p className="text-text-primary text-xs">{aiAnalysis.weather_impact}</p>
+                </div>
+              )}
 
               {/* What to Expect */}
               {aiAnalysis.what_to_expect && (
@@ -1993,6 +2232,13 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
           })}
         </div>
       )}
+
+      {/* Weather Card — show on site condition step (step 5) or compact when loaded */}
+      {weather?.current ? (
+        <WeatherCard weather={weather} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => setWeather(d) })} isFetching={weatherMutation.isPending} />
+      ) : currentStep === 5 && !weather ? (
+        <WeatherCard weather={null} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => { setWeather(d); toastSuccess("Weather data loaded!"); } })} isFetching={weatherMutation.isPending} />
+      ) : null}
 
       {/* Current Step Card */}
       {currentStepDef && (

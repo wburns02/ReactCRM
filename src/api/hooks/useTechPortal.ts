@@ -495,6 +495,7 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
     voiceGuidanceEnabled: raw.voice_guidance_enabled ?? raw.voiceGuidanceEnabled ?? false,
     recommendPumping: raw.recommend_pumping ?? raw.recommendPumping ?? false,
     aiAnalysis: rawAi as AIInspectionAnalysis | null,
+    weather: (raw.weather ?? null) as InspectionWeather | null,
   };
 }
 
@@ -661,6 +662,7 @@ export function useCreateEstimateFromInspection() {
 
 export interface AIInspectionAnalysis {
   overall_assessment: string;
+  weather_impact?: string;
   priority_repairs: { issue: string; why_it_matters: string; urgency: string }[];
   homeowner_script: string;
   maintenance_recommendation: string;
@@ -672,6 +674,41 @@ export interface AIInspectionAnalysis {
   generated_at?: string;
 }
 
+// ── Inspection Weather ──────────────────────────────────────────────────
+
+export interface InspectionWeatherCurrent {
+  temperature_f: number;
+  feels_like_f: number;
+  humidity_pct: number;
+  precipitation_in: number;
+  wind_speed_mph: number;
+  condition: string;
+  weather_code: number;
+}
+
+export interface InspectionWeatherDay {
+  date: string;
+  precip_in: number;
+  rain_in: number;
+  precip_hours: number;
+  high_f: number;
+  low_f: number;
+  condition: string;
+  weather_code: number;
+}
+
+export interface InspectionWeather {
+  fetched_at: string;
+  gps_source: string;
+  latitude: number;
+  longitude: number;
+  current: InspectionWeatherCurrent | null;
+  daily_history: InspectionWeatherDay[];
+  seven_day_total_precip_in: number;
+  notable_events: string[];
+  error?: string;
+}
+
 export function useInspectionAIAnalysis() {
   return useMutation({
     mutationFn: async (jobId: string): Promise<AIInspectionAnalysis> => {
@@ -679,5 +716,19 @@ export function useInspectionAIAnalysis() {
       return data;
     },
     onError: () => toastError("AI analysis unavailable — try again later"),
+  });
+}
+
+export function useFetchInspectionWeather() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (jobId: string): Promise<InspectionWeather> => {
+      const { data } = await apiClient.get(`/employee/jobs/${jobId}/inspection/weather`);
+      return data.weather;
+    },
+    onSuccess: (_data, jobId) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId, "inspection"] });
+    },
+    onError: () => toastError("Could not fetch weather data"),
   });
 }

@@ -85,6 +85,8 @@ export interface InspectionState {
   recommendPumping?: boolean;
   /** Persisted AI analysis (survives page refresh) */
   aiAnalysis?: import("@/api/hooks/useTechPortal").AIInspectionAnalysis | null;
+  /** Weather data fetched from Open-Meteo at inspection start */
+  weather?: import("@/api/hooks/useTechPortal").InspectionWeather | null;
 }
 
 export interface InspectionSummary {
