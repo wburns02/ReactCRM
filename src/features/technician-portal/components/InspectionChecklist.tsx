@@ -167,226 +167,299 @@ async function generateReportPDF(
   const doc = new jsPDF();
   const steps = INSPECTION_STEPS;
   const pageW = 210;
-  const margin = 15;
+  const margin = 18;
   const contentW = pageW - margin * 2;
   let y = 0;
   const pageH = 297;
 
-  // Brand colors
+  // Brand colors — polished Mac Service Platform palette
   const BRAND = {
-    navy: { r: 15, g: 23, b: 42 },       // slate-900
-    blue: { r: 30, g: 64, b: 175 },       // brand primary
-    accent: { r: 59, g: 130, b: 246 },    // blue-500
-    success: { r: 22, g: 163, b: 74 },    // green-600
-    warning: { r: 234, g: 179, b: 8 },    // yellow-500
-    danger: { r: 220, g: 38, b: 38 },     // red-600
-    text: { r: 30, g: 41, b: 59 },        // slate-800
-    muted: { r: 100, g: 116, b: 139 },    // slate-500
-    light: { r: 241, g: 245, b: 249 },    // slate-100
+    navy: { r: 15, g: 23, b: 42 },          // slate-900
+    blue: { r: 30, g: 64, b: 175 },          // brand primary
+    blueLight: { r: 96, g: 165, b: 250 },    // blue-400
+    accent: { r: 59, g: 130, b: 246 },        // blue-500
+    success: { r: 22, g: 163, b: 74 },        // green-600
+    successLight: { r: 187, g: 247, b: 208 }, // green-200
+    warning: { r: 234, g: 179, b: 8 },        // yellow-500
+    warningLight: { r: 254, g: 240, b: 138 }, // yellow-200
+    danger: { r: 220, g: 38, b: 38 },         // red-600
+    dangerLight: { r: 254, g: 202, b: 202 },  // red-200
+    text: { r: 30, g: 41, b: 59 },            // slate-800
+    textLight: { r: 71, g: 85, b: 105 },      // slate-600
+    muted: { r: 100, g: 116, b: 139 },        // slate-500
+    light: { r: 241, g: 245, b: 249 },        // slate-100
     white: { r: 255, g: 255, b: 255 },
-    divider: { r: 226, g: 232, b: 240 },  // slate-200
-    cardBg: { r: 248, g: 250, b: 252 },   // slate-50
+    divider: { r: 226, g: 232, b: 240 },      // slate-200
+    cardBg: { r: 248, g: 250, b: 252 },       // slate-50
+    gold: { r: 180, g: 140, b: 20 },          // warm gold accent
   };
 
   function setC(c: { r: number; g: number; b: number }) { doc.setTextColor(c.r, c.g, c.b); }
   function setF(c: { r: number; g: number; b: number }) { doc.setFillColor(c.r, c.g, c.b); }
   function setD(c: { r: number; g: number; b: number }) { doc.setDrawColor(c.r, c.g, c.b); }
   function newPage() { doc.addPage(); y = 20; addPageDecoration(); }
-  function ensureSpace(need: number) { if (y + need > pageH - 25) newPage(); }
+  function ensureSpace(need: number) { if (y + need > pageH - 28) newPage(); }
 
-  // Side accent stripe on every page
+  // Elegant page decoration on every page
   function addPageDecoration() {
+    // Left accent stripe — gradient effect with two bars
+    setF(BRAND.navy);
+    doc.rect(0, 0, 3, pageH, "F");
     setF(BRAND.blue);
-    doc.rect(0, 0, 4, pageH, "F");
-    // Thin bottom line
-    setF(BRAND.divider);
-    doc.rect(0, pageH - 12, pageW, 12, "F");
-    setC(BRAND.muted);
+    doc.rect(3, 0, 1.5, pageH, "F");
+    // Bottom footer bar
+    setF(BRAND.navy);
+    doc.rect(0, pageH - 14, pageW, 14, "F");
+    setC({ r: 148, g: 163, b: 184 });
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
-    doc.text("MAC Septic Services  |  (512) 392-1232  |  macseptic.com", pageW / 2, pageH - 5, { align: "center" });
-    doc.text(`Page ${doc.getNumberOfPages()}`, pageW - margin, pageH - 5, { align: "right" });
+    doc.text("MAC Septic Services  |  (512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, pageH - 5.5, { align: "center" });
+    setC({ r: 100, g: 116, b: 139 });
+    doc.text(`Page ${doc.getNumberOfPages()}`, pageW - margin, pageH - 5.5, { align: "right" });
   }
 
-  // Section header with accent bar
+  // Section header with bold accent bar and subtle background
   function sectionHeader(title: string, color: { r: number; g: number; b: number } = BRAND.blue) {
-    ensureSpace(16);
-    y += 4;
+    ensureSpace(18);
+    y += 6;
+    // Subtle background stripe
+    setF(BRAND.light);
+    doc.rect(margin, y - 3, contentW, 14, "F");
+    // Accent bar
     setF(color);
-    doc.rect(margin, y - 1, 4, 12, "F");
+    doc.rect(margin, y - 3, 4, 14, "F");
     setC(color);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text(title, margin + 8, y + 8);
-    y += 16;
+    doc.setFontSize(12);
+    doc.text(title.toUpperCase(), margin + 10, y + 6);
+    // Thin underline
+    setD(color);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y + 12, margin + contentW, y + 12);
+    y += 18;
   }
 
-  // ═══ PAGE 1: COVER / HEADER ═══
+  // ═══ PAGE 1: COVER ═══
   addPageDecoration();
 
-  // Top banner — full-width navy bar
+  // Full-width header banner with diagonal accent
   setF(BRAND.navy);
-  doc.rect(0, 0, pageW, 50, "F");
-  // Blue accent overlay on left
+  doc.rect(0, 0, pageW, 58, "F");
+  // Diagonal blue accent
   setF(BRAND.blue);
-  doc.rect(0, 0, 70, 50, "F");
-  // Company name in accent area
+  doc.triangle(0, 0, 90, 0, 0, 58, "F");
+  // Company name — large and bold
   setC(BRAND.white);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text("MAC", 10, 20);
-  doc.text("SEPTIC", 10, 30);
-  doc.setFontSize(7);
+  doc.setFontSize(24);
+  doc.text("MAC SEPTIC", 12, 22);
+  doc.setFontSize(8);
   doc.setFont("helvetica", "normal");
-  doc.text("SERVICES", 10, 37);
-  // Report title
+  setC(BRAND.blueLight);
+  doc.text("PROFESSIONAL SEPTIC SERVICES", 12, 30);
+  // Report title on right
+  setC(BRAND.white);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.text("Inspection Report", 80, 22);
-  // Metadata line
+  doc.setFontSize(20);
+  doc.text("Inspection Report", pageW - margin, 22, { align: "right" });
+  // Date and ref on right
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  const dateStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-  doc.text(dateStr, 80, 32);
   doc.setFontSize(9);
-  setC({ r: 148, g: 163, b: 184 }); // slate-400
-  doc.text(`Ref: WO-${jobId.slice(0, 8).toUpperCase()}`, 80, 40);
-  y = 58;
+  const dateStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  setC({ r: 148, g: 163, b: 184 });
+  doc.text(dateStr, pageW - margin, 32, { align: "right" });
+  doc.setFontSize(8);
+  doc.text(`REF: WO-${jobId.slice(0, 8).toUpperCase()}`, pageW - margin, 40, { align: "right" });
+  // Contact info line at bottom of banner
+  setF(BRAND.blue);
+  doc.rect(0, 50, pageW, 8, "F");
+  setC(BRAND.white);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.5);
+  doc.text("(512) 392-1232   |   info@macseptic.com   |   macseptic.com   |   San Marcos, TX", pageW / 2, 55, { align: "center" });
+  y = 66;
 
-  // Customer info card
-  setF(BRAND.cardBg);
+  // Customer info card — clean white card with blue left border
+  setF(BRAND.white);
   setD(BRAND.divider);
   doc.setLineWidth(0.5);
-  doc.roundedRect(margin, y, contentW, 18, 3, 3, "FD");
+  doc.roundedRect(margin, y, contentW, 20, 3, 3, "FD");
+  // Blue left accent on card
+  setF(BRAND.blue);
+  doc.roundedRect(margin, y, 4, 20, 3, 0, "F");
+  doc.rect(margin + 2, y, 2, 20, "F");
+  setC(BRAND.muted);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.text("PREPARED FOR", margin + 10, y + 7);
+  setC(BRAND.text);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text(customerName, margin + 10, y + 15);
+  // Date badge on right
   setC(BRAND.muted);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
-  doc.text("PREPARED FOR", margin + 5, y + 6);
-  setC(BRAND.text);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text(customerName, margin + 5, y + 13);
-  // System type badge
-  doc.setFontSize(8);
-  doc.setFont("helvetica", "normal");
-  setC(BRAND.accent);
-  doc.text("Aerobic System", pageW - margin - 5, y + 10, { align: "right" });
-  y += 24;
+  doc.text(dateStr, pageW - margin - 5, y + 12, { align: "right" });
+  y += 28;
 
-  // ═══ CONDITION SUMMARY ═══
+  // ═══ CONDITION SUMMARY — Big visual card ═══
   const condition = state.summary?.overallCondition || "unknown";
   const issues = state.summary?.totalIssues || 0;
   const criticalCount = state.summary?.criticalIssues || 0;
   const condColor = condition === "good" ? BRAND.success : condition === "fair" ? BRAND.warning : BRAND.danger;
-  const condBg = condition === "good"
-    ? { r: 220, g: 252, b: 231 }
-    : condition === "fair"
-    ? { r: 254, g: 249, b: 195 }
-    : { r: 254, g: 226, b: 226 };
-  const condLabel = condition === "good" ? "GOOD" : condition === "fair" ? "FAIR" : condition === "poor" ? "NEEDS ATTENTION" : "CRITICAL";
+  const condBgColor = condition === "good" ? BRAND.successLight
+    : condition === "fair" ? BRAND.warningLight : BRAND.dangerLight;
+  const condLabel = condition === "good" ? "GOOD CONDITION" : condition === "fair" ? "FAIR CONDITION" : condition === "poor" ? "NEEDS ATTENTION" : "CRITICAL";
   const condText = condition === "good"
-    ? "Your septic system is working great! No issues were found."
+    ? "Your septic system is in great working condition. No significant issues were found during our inspection."
     : condition === "fair"
-    ? "Your system is functional but has some items that need attention."
-    : "Your system needs repairs. Please review the items below carefully.";
+    ? "Your system is operational but has some items that should be addressed to prevent future problems."
+    : "Your system requires attention. Please review the findings and recommended repairs below.";
 
-  setF(condBg);
+  // Large condition card
+  setF(condBgColor);
   setD(condColor);
   doc.setLineWidth(1.5);
-  doc.roundedRect(margin, y, contentW, 28, 3, 3, "FD");
-  // Big condition badge
+  doc.roundedRect(margin, y, contentW, 34, 4, 4, "FD");
+  // Large condition badge
   setF(condColor);
-  doc.roundedRect(margin + 4, y + 4, 36, 20, 2, 2, "F");
+  doc.roundedRect(margin + 6, y + 6, 44, 22, 3, 3, "F");
   setC(BRAND.white);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.text(condLabel, margin + 22, y + 16, { align: "center" });
+  doc.setFontSize(9);
+  doc.text(condLabel, margin + 28, y + 19, { align: "center" });
   // Description text
   setC(BRAND.text);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
-  const condLines = doc.splitTextToSize(condText, contentW - 50);
-  doc.text(condLines, margin + 44, y + 10);
+  const condLines = doc.splitTextToSize(condText, contentW - 60);
+  doc.text(condLines, margin + 56, y + 12);
   // Issue count
   if (issues > 0) {
-    setC(BRAND.muted);
-    doc.setFontSize(8);
-    doc.text(`${issues} issue${issues > 1 ? "s" : ""} found${criticalCount > 0 ? ` (${criticalCount} critical)` : ""}`, margin + 44, y + 22);
+    setC(condColor);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text(`${issues} issue${issues > 1 ? "s" : ""} found${criticalCount > 0 ? ` (${criticalCount} critical)` : ""}`, margin + 56, y + 28);
   }
-  y += 34;
+  y += 42;
 
-  // ═══ KEY READINGS (PSI / Sludge) ═══
+  // ═══ KEY READINGS (PSI / Sludge) — side-by-side stat cards ═══
   const psi = state.steps[8]?.psiReading;
   const sludge = state.steps[7]?.sludgeLevel;
   if (psi || sludge) {
-    ensureSpace(20);
-    const boxW = (contentW - 4) / 2;
+    ensureSpace(24);
+    const boxW = (contentW - 6) / 2;
     if (psi) {
-      setF(BRAND.light);
-      doc.roundedRect(margin, y, boxW, 16, 2, 2, "F");
+      setF(BRAND.cardBg);
+      setD(BRAND.divider);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(margin, y, boxW, 18, 2, 2, "FD");
       setC(BRAND.muted);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7);
-      doc.text("PSI READING", margin + boxW / 2, y + 5, { align: "center" });
+      doc.text("PSI READING", margin + boxW / 2, y + 6, { align: "center" });
       setC(BRAND.blue);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
-      doc.text(psi, margin + boxW / 2, y + 13, { align: "center" });
+      doc.text(psi, margin + boxW / 2, y + 14, { align: "center" });
     }
     if (sludge) {
-      const sx = psi ? margin + boxW + 4 : margin;
-      setF(BRAND.light);
-      doc.roundedRect(sx, y, boxW, 16, 2, 2, "F");
+      const sx = psi ? margin + boxW + 6 : margin;
+      setF(BRAND.cardBg);
+      setD(BRAND.divider);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(sx, y, boxW, 18, 2, 2, "FD");
       setC(BRAND.muted);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7);
-      doc.text("SLUDGE LEVEL", sx + boxW / 2, y + 5, { align: "center" });
+      doc.text("SLUDGE LEVEL", sx + boxW / 2, y + 6, { align: "center" });
       setC(BRAND.blue);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
-      doc.text(sludge, sx + boxW / 2, y + 13, { align: "center" });
+      doc.text(sludge, sx + boxW / 2, y + 14, { align: "center" });
     }
-    y += 20;
+    y += 22;
   }
 
   // ═══ INSPECTION RESULTS ═══
-  sectionHeader("Inspection Results");
+  sectionHeader("What We Checked");
+
+  // Summary stats row before details
+  const okCount = steps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
+  const attentionCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
+  const critCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
+  if (okCount + attentionCount + critCount > 0) {
+    const statW = (contentW - 8) / 3;
+    // Good stat
+    setF({ r: 220, g: 252, b: 231 });
+    doc.roundedRect(margin, y, statW, 14, 2, 2, "F");
+    setC(BRAND.success);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text(`${okCount}`, margin + statW / 2, y + 8, { align: "center" });
+    doc.setFontSize(6);
+    doc.text("PASSED", margin + statW / 2, y + 12, { align: "center" });
+    // Attention stat
+    setF({ r: 254, g: 249, b: 195 });
+    doc.roundedRect(margin + statW + 4, y, statW, 14, 2, 2, "F");
+    setC(BRAND.warning);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text(`${attentionCount}`, margin + statW + 4 + statW / 2, y + 8, { align: "center" });
+    doc.setFontSize(6);
+    doc.text("ATTENTION", margin + statW + 4 + statW / 2, y + 12, { align: "center" });
+    // Critical stat
+    setF({ r: 254, g: 226, b: 226 });
+    doc.roundedRect(margin + (statW + 4) * 2, y, statW, 14, 2, 2, "F");
+    setC(BRAND.danger);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text(`${critCount}`, margin + (statW + 4) * 2 + statW / 2, y + 8, { align: "center" });
+    doc.setFontSize(6);
+    doc.text("CRITICAL", margin + (statW + 4) * 2 + statW / 2, y + 12, { align: "center" });
+    y += 20;
+  }
 
   for (const step of steps) {
-    ensureSpace(18);
+    ensureSpace(16);
     const ss = state.steps[step.stepNumber];
     const finding = ss?.findings || "pending";
     const fc = findingColor(finding);
     const label = findingLabel(finding);
 
-    // Alternating row background
+    // Row background — alternating
     if (step.stepNumber % 2 === 0) {
       setF(BRAND.cardBg);
-      doc.rect(margin, y - 4, contentW, 12, "F");
+      doc.rect(margin, y - 3, contentW, 11, "F");
     }
-    // Left color dot
+    // Color indicator bar on left
     setF(fc);
-    doc.circle(margin + 4, y + 1, 2.5, "F");
+    doc.roundedRect(margin, y - 3, 3, 11, 1, 1, "F");
     // Step number + title
     setC(BRAND.text);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
-    doc.text(`${step.stepNumber}. ${step.title}`, margin + 10, y + 2);
-    // Badge on right
-    setC(fc);
+    doc.text(`${step.stepNumber}. ${step.title}`, margin + 7, y + 3);
+    // Status badge on right
+    const badgeText = label;
+    const badgeW = doc.getTextWidth(badgeText) + 6;
+    setF(fc);
+    doc.roundedRect(pageW - margin - badgeW - 1, y - 2, badgeW, 9, 2, 2, "F");
+    setC(BRAND.white);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(8);
-    doc.text(label, pageW - margin - 2, y + 2, { align: "right" });
-    y += 8;
+    doc.setFontSize(7);
+    doc.text(badgeText, pageW - margin - badgeW / 2 - 1, y + 3.5, { align: "center" });
+    y += 9;
 
-    // Finding details + notes (compact)
+    // Finding details + notes
     if (ss?.findingDetails) {
       ensureSpace(8);
-      setC(BRAND.muted);
+      setC(BRAND.textLight);
       doc.setFont("helvetica", "italic");
       doc.setFontSize(8);
       const lines = doc.splitTextToSize(ss.findingDetails, contentW - 14);
-      doc.text(lines, margin + 10, y);
+      doc.text(lines, margin + 7, y);
       y += lines.length * 3.5 + 1;
     }
     if (ss?.notes && ss.notes !== ss.findingDetails) {
@@ -394,68 +467,104 @@ async function generateReportPDF(
       setC(BRAND.muted);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7);
-      const nLines = doc.splitTextToSize(`Tech notes: ${ss.notes}`, contentW - 14);
-      doc.text(nLines, margin + 10, y);
+      const nLines = doc.splitTextToSize(`Note: ${ss.notes}`, contentW - 14);
+      doc.text(nLines, margin + 7, y);
       y += nLines.length * 3 + 1;
     }
     y += 2;
   }
 
-  // ═══ PHOTO EVIDENCE ═══
+  // ═══ PHOTO DOCUMENTATION ═══
   if (photos && photos.length > 0) {
     newPage();
-    sectionHeader("Photo Evidence");
+    sectionHeader("Photo Documentation");
     setC(BRAND.muted);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.text(`${photos.length} photo${photos.length > 1 ? "s" : ""} captured during inspection`, margin + 8, y - 6);
+    doc.setFontSize(9);
+    doc.text(`${photos.length} photo${photos.length > 1 ? "s" : ""} captured during this inspection`, margin + 10, y - 8);
     y += 2;
 
-    const photoW = (contentW - 6) / 2; // 2-column grid with 6mm gap
-    const photoH = 55;
-    let col = 0;
-
-    for (const photo of photos) {
-      ensureSpace(photoH + 14);
-      const x = margin + col * (photoW + 6);
-
-      try {
-        // Photo frame with shadow effect
-        setF(BRAND.divider);
-        doc.roundedRect(x + 1, y + 1, photoW, photoH, 2, 2, "F");
-        // White border
-        setF(BRAND.white);
-        setD(BRAND.divider);
-        doc.setLineWidth(0.5);
-        doc.roundedRect(x, y, photoW, photoH, 2, 2, "FD");
-        // Image (inset by 2mm)
-        doc.addImage(photo.data, "JPEG", x + 2, y + 2, photoW - 4, photoH - 12);
-        // Label bar at bottom of photo
-        setF(BRAND.navy);
-        doc.roundedRect(x, y + photoH - 10, photoW, 10, 0, 0, "F");
-        // Round only bottom corners by drawing over top
-        doc.rect(x, y + photoH - 10, photoW, 5, "F");
-        setC(BRAND.white);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(7);
-        doc.text(photo.label, x + photoW / 2, y + photoH - 4, { align: "center" });
-      } catch {
-        // If image fails to load, show placeholder
-        setF(BRAND.light);
-        doc.roundedRect(x, y, photoW, photoH, 2, 2, "F");
-        setC(BRAND.muted);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(8);
-        doc.text(`[${photo.label}]`, x + photoW / 2, y + photoH / 2, { align: "center" });
-      }
-
-      col++;
-      if (col >= 2) {
-        col = 0;
-        y += photoH + 6;
-      }
+    // First photo gets full width (hero shot)
+    const heroPhoto = photos[0];
+    const heroW = contentW;
+    const heroH = 80;
+    try {
+      ensureSpace(heroH + 16);
+      // Shadow effect
+      setF(BRAND.divider);
+      doc.roundedRect(margin + 1.5, y + 1.5, heroW, heroH, 3, 3, "F");
+      // White card
+      setF(BRAND.white);
+      setD(BRAND.divider);
+      doc.setLineWidth(0.5);
+      doc.roundedRect(margin, y, heroW, heroH, 3, 3, "FD");
+      // Image
+      doc.addImage(heroPhoto.data, "JPEG", margin + 2, y + 2, heroW - 4, heroH - 14);
+      // Label bar
+      setF(BRAND.navy);
+      doc.rect(margin, y + heroH - 12, heroW, 12, "F");
+      // Round bottom corners
+      setF(BRAND.navy);
+      doc.roundedRect(margin, y + heroH - 12, heroW, 12, 0, 0, "F");
+      setC(BRAND.white);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text(heroPhoto.label, margin + heroW / 2, y + heroH - 4, { align: "center" });
+    } catch {
+      setF(BRAND.light);
+      doc.roundedRect(margin, y, heroW, heroH, 3, 3, "F");
+      setC(BRAND.muted);
+      doc.setFontSize(9);
+      doc.text(`[${heroPhoto.label}]`, margin + heroW / 2, y + heroH / 2, { align: "center" });
     }
-    if (col !== 0) y += photoH + 6; // finish partial row
+    y += heroH + 8;
+
+    // Remaining photos in 2-column grid — bigger than before
+    const remainingPhotos = photos.slice(1);
+    if (remainingPhotos.length > 0) {
+      const photoW = (contentW - 8) / 2;
+      const photoH = 65;
+      let col = 0;
+
+      for (const photo of remainingPhotos) {
+        ensureSpace(photoH + 14);
+        const x = margin + col * (photoW + 8);
+
+        try {
+          // Shadow
+          setF(BRAND.divider);
+          doc.roundedRect(x + 1, y + 1, photoW, photoH, 2, 2, "F");
+          // White card
+          setF(BRAND.white);
+          setD(BRAND.divider);
+          doc.setLineWidth(0.4);
+          doc.roundedRect(x, y, photoW, photoH, 2, 2, "FD");
+          // Image
+          doc.addImage(photo.data, "JPEG", x + 2, y + 2, photoW - 4, photoH - 14);
+          // Label bar at bottom
+          setF(BRAND.navy);
+          doc.rect(x, y + photoH - 11, photoW, 11, "F");
+          setC(BRAND.white);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(7.5);
+          doc.text(photo.label, x + photoW / 2, y + photoH - 4, { align: "center" });
+        } catch {
+          setF(BRAND.light);
+          doc.roundedRect(x, y, photoW, photoH, 2, 2, "F");
+          setC(BRAND.muted);
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(8);
+          doc.text(`[${photo.label}]`, x + photoW / 2, y + photoH / 2, { align: "center" });
+        }
+
+        col++;
+        if (col >= 2) {
+          col = 0;
+          y += photoH + 8;
+        }
+      }
+      if (col !== 0) y += photoH + 8;
+    }
   }
 
   // ═══ AI EXPERT ANALYSIS ═══
@@ -672,39 +781,77 @@ async function generateReportPDF(
     y += 8;
   }
 
-  // ═══ SIGNATURE LINE ═══
-  ensureSpace(35);
-  y += 6;
+  // ═══ WHAT'S NEXT — Call to action ═══
+  ensureSpace(50);
+  sectionHeader("What Happens Next", BRAND.navy);
+  setF(BRAND.cardBg);
+  setD(BRAND.blue);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(margin, y, contentW, 32, 3, 3, "FD");
+  setC(BRAND.text);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  const nextSteps = condition === "good"
+    ? [
+        "1. No immediate action required — your system is healthy!",
+        "2. Schedule your next inspection in 6-12 months",
+        "3. Follow the seasonal maintenance tips above",
+      ]
+    : condition === "fair"
+    ? [
+        "1. Review the items needing attention and schedule repairs",
+        "2. We'll follow up within a week to discuss next steps",
+        "3. Regular maintenance will prevent these from becoming critical",
+      ]
+    : [
+        "1. Review the estimate attached to this report",
+        "2. Call us at (512) 392-1232 to schedule repairs",
+        "3. Addressing these issues promptly prevents costly damage",
+      ];
+  let nextY = y + 7;
+  for (const step of nextSteps) {
+    setC(BRAND.text);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(step, margin + 6, nextY);
+    nextY += 8;
+  }
+  y += 38;
+
+  // ═══ SIGNATURE LINES ═══
+  ensureSpace(40);
+  y += 4;
   setD(BRAND.divider);
   doc.setLineWidth(0.3);
-  // Signature
   setC(BRAND.muted);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.text("Customer Signature", margin, y);
-  doc.line(margin, y + 3, margin + 75, y + 3);
-  // Date
+  doc.line(margin, y + 4, margin + 75, y + 4);
   doc.text("Date", margin + 85, y);
-  doc.line(margin + 85, y + 3, pageW - margin, y + 3);
-  y += 12;
-  doc.text("Technician Signature", margin, y);
-  doc.line(margin, y + 3, margin + 75, y + 3);
-  doc.text("License #", margin + 85, y);
-  doc.line(margin + 85, y + 3, pageW - margin, y + 3);
-
-  // ═══ FINAL FOOTER with thank you ═══
+  doc.line(margin + 85, y + 4, pageW - margin, y + 4);
   y += 14;
-  ensureSpace(18);
+  doc.text("Technician Signature", margin, y);
+  doc.line(margin, y + 4, margin + 75, y + 4);
+  doc.text("License #", margin + 85, y);
+  doc.line(margin + 85, y + 4, pageW - margin, y + 4);
+
+  // ═══ THANK YOU FOOTER ═══
+  y += 16;
+  ensureSpace(24);
+  // Gradient-like footer — navy with blue accent line
   setF(BRAND.navy);
-  doc.roundedRect(margin, y, contentW, 16, 2, 2, "F");
+  doc.roundedRect(margin, y, contentW, 20, 3, 3, "F");
+  setF(BRAND.blue);
+  doc.rect(margin, y, contentW, 3, "F");
   setC(BRAND.white);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.text("Thank you for choosing MAC Septic Services!", pageW / 2, y + 6, { align: "center" });
+  doc.setFontSize(10);
+  doc.text("Thank you for trusting MAC Septic Services!", pageW / 2, y + 10, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
-  setC({ r: 148, g: 163, b: 184 });
-  doc.text("(512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, y + 12, { align: "center" });
+  setC(BRAND.blueLight);
+  doc.text("(512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, y + 16, { align: "center" });
 
   return doc.output("blob");
 }
@@ -1519,44 +1666,67 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
           </div>
         </div>
 
-        {/* ─── Send Report to Customer ─────────────────────────────── */}
-        <div className="border border-border rounded-lg p-4">
-          <h4 className="font-semibold text-text-primary mb-3">📤 Send Report to Customer</h4>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={handleDownloadPDF}
-              disabled={sendingReport === "pdf"}
-              className="py-3 rounded-lg border border-border text-sm font-medium text-text-primary hover:bg-bg-hover active:scale-[0.98] transition-all disabled:opacity-50"
-            >
-              {sendingReport === "pdf" ? "⏳ Generating..." : "📄 Download PDF"}
-            </button>
-            <button
-              onClick={handlePrintReport}
-              disabled={sendingReport === "print"}
-              className="py-3 rounded-lg border border-border text-sm font-medium text-text-primary hover:bg-bg-hover active:scale-[0.98] transition-all disabled:opacity-50"
-            >
-              {sendingReport === "print" ? "⏳ Printing..." : "🖨️ Print Report"}
-            </button>
-            <button
-              onClick={handleEmailReport}
-              disabled={sendingReport === "email" || !customerEmail}
-              className="py-3 rounded-lg border border-primary/30 bg-primary/5 text-sm font-medium text-primary hover:bg-primary/10 active:scale-[0.98] transition-all disabled:opacity-50"
-            >
-              {sendingReport === "email" ? "⏳ Sending..." : `📧 Email${customerEmail ? "" : " (no email)"}`}
-            </button>
+        {/* ─── SEND REPORT — Hero Section ─────────────────────────── */}
+        <div className="border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 dark:border-green-700 rounded-xl p-4">
+          <div className="text-center mb-3">
+            <span className="text-3xl">📤</span>
+            <h4 className="font-bold text-text-primary text-lg mt-1">Send Report to Customer</h4>
+            <p className="text-xs text-text-secondary mt-1">
+              {workOrderPhotos && workOrderPhotos.length > 0
+                ? `Report includes AI analysis + ${workOrderPhotos.length} photos`
+                : "Report includes AI analysis and inspection findings"}
+            </p>
+          </div>
+
+          {/* Primary action — Email (most common) */}
+          <button
+            onClick={handleEmailReport}
+            disabled={sendingReport === "email" || !customerEmail}
+            className="w-full py-4 rounded-xl bg-primary text-white font-bold text-base hover:bg-primary/90 active:scale-[0.98] transition-all disabled:opacity-50 mb-2"
+          >
+            {sendingReport === "email" ? (
+              <span className="flex items-center justify-center gap-2"><span className="animate-spin">⏳</span> Sending Email...</span>
+            ) : customerEmail ? (
+              <span className="flex items-center justify-center gap-2">📧 Email Report to Customer</span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">📧 No Email on File</span>
+            )}
+          </button>
+
+          {/* Secondary row — Text + Download */}
+          <div className="grid grid-cols-2 gap-2 mb-2">
             <button
               onClick={handleTextReport}
               disabled={!customerPhone}
-              className="py-3 rounded-lg border border-blue-300 bg-blue-50 text-sm font-medium text-blue-700 hover:bg-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 dark:bg-blue-900/20 dark:border-blue-700 dark:text-blue-300"
+              className="py-3 rounded-xl border-2 border-blue-300 bg-blue-50 text-sm font-bold text-blue-700 hover:bg-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 dark:bg-blue-900/20 dark:border-blue-700 dark:text-blue-300"
             >
-              {`💬 Text${customerPhone ? "" : " (no phone)"}`}
+              {`💬 Text Report${customerPhone ? "" : " (no phone)"}`}
+            </button>
+            <button
+              onClick={handleDownloadPDF}
+              disabled={sendingReport === "pdf"}
+              className="py-3 rounded-xl border-2 border-border text-sm font-bold text-text-primary hover:bg-bg-hover active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              {sendingReport === "pdf" ? "⏳ Generating..." : "📄 Download PDF"}
             </button>
           </div>
+
+          {/* Tertiary — Print */}
+          <button
+            onClick={handlePrintReport}
+            disabled={sendingReport === "print"}
+            className="w-full py-2 rounded-lg text-xs font-medium text-text-secondary hover:bg-bg-hover active:scale-[0.98] transition-all disabled:opacity-50"
+          >
+            {sendingReport === "print" ? "⏳ Printing..." : "🖨️ Print a Copy"}
+          </button>
+
           {s.reportSentVia && s.reportSentVia.length > 0 && (
-            <p className="text-xs text-success mt-2 text-center">
-              ✅ Report sent via {s.reportSentVia.join(", ")} at{" "}
-              {s.reportSentAt ? new Date(s.reportSentAt).toLocaleTimeString() : ""}
-            </p>
+            <div className="mt-3 p-2 bg-green-100 dark:bg-green-900/30 rounded-lg text-center">
+              <p className="text-xs text-green-700 dark:text-green-300 font-medium">
+                ✅ Report sent via {s.reportSentVia.join(", ")} at{" "}
+                {s.reportSentAt ? new Date(s.reportSentAt).toLocaleTimeString() : ""}
+              </p>
+            </div>
           )}
         </div>
 

@@ -23,7 +23,7 @@ export const SERVICE_PRICES: Record<
   string,
   { name: string; basePrice: number; unit: string }
 > = {
-  pumping: { name: "Septic Pumping", basePrice: 350, unit: "service" },
+  pumping: { name: "Septic Pumping (up to 2000 gal)", basePrice: 595, unit: "service" },
   inspection: { name: "System Inspection", basePrice: 175, unit: "service" },
   repair: { name: "Repair Service", basePrice: 150, unit: "hour" },
   installation: {

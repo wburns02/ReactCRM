@@ -43,27 +43,11 @@ export const CATEGORY_ICONS: Record<ServiceCategory, string> = {
 export const SEPTIC_SERVICES: Record<ServiceCategory, PresetService[]> = {
   pumping: [
     {
-      code: "PUMP-1000",
-      name: "Pump Out - Up to 1000 gal",
-      rate: 295,
-      category: "pumping",
-      description: "Standard residential tank pumping",
-      unit: "service",
-    },
-    {
-      code: "PUMP-1500",
-      name: "Pump Out - Up to 1500 gal",
-      rate: 395,
-      category: "pumping",
-      description: "Large residential tank pumping",
-      unit: "service",
-    },
-    {
-      code: "PUMP-2000",
+      code: "PUMP-STD",
       name: "Pump Out - Up to 2000 gal",
-      rate: 495,
+      rate: 595,
       category: "pumping",
-      description: "Commercial/large tank pumping",
+      description: "Standard septic tank pumping up to 2,000 gallons",
       unit: "service",
     },
     {
@@ -247,8 +231,7 @@ export const ALL_SERVICES: PresetService[] =
  * Service codes for most commonly used services (quick-add buttons)
  */
 export const COMMON_SERVICE_CODES = [
-  "PUMP-1000",
-  "PUMP-1500",
+  "PUMP-STD",
   "INSP-ROUTINE",
   "FEE-EMERGENCY",
 ];
@@ -276,7 +259,7 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     code: "PKG-MAINT",
     name: "Maintenance Package",
     description: "Pump + Inspection + Filter Clean",
-    serviceCodes: ["PUMP-1000", "INSP-ROUTINE", "MAINT-FILTER"],
+    serviceCodes: ["PUMP-STD", "INSP-ROUTINE", "MAINT-FILTER"],
     discountPercent: 10,
   },
   {
@@ -290,7 +273,7 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     code: "PKG-EMERGENCY",
     name: "Emergency Pump Out",
     description: "Emergency Fee + Pump Out",
-    serviceCodes: ["FEE-EMERGENCY", "PUMP-1000"],
+    serviceCodes: ["FEE-EMERGENCY", "PUMP-STD"],
     discountPercent: 0,
   },
 ];
