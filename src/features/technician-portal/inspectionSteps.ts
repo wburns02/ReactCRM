@@ -615,7 +615,7 @@ export function calculateEstimate(
 
   // Add pumping if included
   if (options?.includePumping) {
-    items.push({ name: "Septic Tank Pumping", cost: 295 });
+    items.push({ name: "Septic Tank Pumping (up to 2000 gal)", cost: 595 });
   }
 
   return { items, total: items.reduce((sum, i) => sum + i.cost, 0) };

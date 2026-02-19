@@ -23,6 +23,7 @@ import {
   useInspectionAIAnalysis,
   type AIInspectionAnalysis,
 } from "@/api/hooks/useTechPortal.ts";
+import { useWorkOrderPhotos, type PhotoResponse } from "@/api/hooks/useWorkOrderPhotos.ts";
 import { EstimateSignature } from "./EstimateSignature.tsx";
 import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 
@@ -121,7 +122,39 @@ const SIMPLE_DESCRIPTIONS: Record<number, string> = {
   16: "We discussed everything we found with you.",
 };
 
-// ─── PDF Report Generation (client-side) ────────────────────────────────────
+// ─── Photo type labels for the PDF ──────────────────────────────────────────
+
+const PHOTO_TYPE_LABELS: Record<string, string> = {
+  before: "Before Inspection",
+  after: "After Inspection (Clean Up)",
+  lid: "Tank Lids",
+  tank: "Tank Interior",
+  inlet: "Inlet",
+  outlet: "Outlet",
+  control_panel: "Control Panel",
+  breaker: "Breaker Panel",
+  disc_filter: "Disc Filter",
+  pump_intake: "Pump Intake",
+  driveway: "Driveway / Access",
+  atu_refill: "ATU Refill",
+  inspection_location: "Property / Location",
+  inspection_tank_location: "Tank Location",
+  inspection_float_test: "Float & Pump Test",
+  inspection_timer: "Timer Settings",
+  inspection_alarm: "Alarm Test",
+  inspection_corrosion: "Corrosion Check",
+  inspection_spray_drip: "Spray / Drip System",
+  psi_reading: "PSI Reading",
+  sludge_level: "Sludge Level",
+};
+
+// ─── PDF Report Generation (client-side, premium design) ─────────────────────
+
+interface PDFPhoto {
+  data: string; // base64 data URL
+  type: string;
+  label: string;
+}
 
 async function generateReportPDF(
   state: InspectionState,
@@ -129,6 +162,7 @@ async function generateReportPDF(
   jobId: string,
   aiAnalysis?: AIInspectionAnalysis | null,
   includePumping?: boolean,
+  photos?: PDFPhoto[],
 ): Promise<Blob> {
   const doc = new jsPDF();
   const steps = INSPECTION_STEPS;
@@ -136,400 +170,541 @@ async function generateReportPDF(
   const margin = 15;
   const contentW = pageW - margin * 2;
   let y = 0;
+  const pageH = 297;
 
-  function setC(c: { r: number; g: number; b: number }) {
-    doc.setTextColor(c.r, c.g, c.b);
-  }
-  function setF(c: { r: number; g: number; b: number }) {
-    doc.setFillColor(c.r, c.g, c.b);
-  }
-  function setD(c: { r: number; g: number; b: number }) {
-    doc.setDrawColor(c.r, c.g, c.b);
-  }
-  function newPageIfNeeded(need: number) {
-    if (y + need > 275) { doc.addPage(); y = 15; }
+  // Brand colors
+  const BRAND = {
+    navy: { r: 15, g: 23, b: 42 },       // slate-900
+    blue: { r: 30, g: 64, b: 175 },       // brand primary
+    accent: { r: 59, g: 130, b: 246 },    // blue-500
+    success: { r: 22, g: 163, b: 74 },    // green-600
+    warning: { r: 234, g: 179, b: 8 },    // yellow-500
+    danger: { r: 220, g: 38, b: 38 },     // red-600
+    text: { r: 30, g: 41, b: 59 },        // slate-800
+    muted: { r: 100, g: 116, b: 139 },    // slate-500
+    light: { r: 241, g: 245, b: 249 },    // slate-100
+    white: { r: 255, g: 255, b: 255 },
+    divider: { r: 226, g: 232, b: 240 },  // slate-200
+    cardBg: { r: 248, g: 250, b: 252 },   // slate-50
+  };
+
+  function setC(c: { r: number; g: number; b: number }) { doc.setTextColor(c.r, c.g, c.b); }
+  function setF(c: { r: number; g: number; b: number }) { doc.setFillColor(c.r, c.g, c.b); }
+  function setD(c: { r: number; g: number; b: number }) { doc.setDrawColor(c.r, c.g, c.b); }
+  function newPage() { doc.addPage(); y = 20; addPageDecoration(); }
+  function ensureSpace(need: number) { if (y + need > pageH - 25) newPage(); }
+
+  // Side accent stripe on every page
+  function addPageDecoration() {
+    setF(BRAND.blue);
+    doc.rect(0, 0, 4, pageH, "F");
+    // Thin bottom line
+    setF(BRAND.divider);
+    doc.rect(0, pageH - 12, pageW, 12, "F");
+    setC(BRAND.muted);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.text("MAC Septic Services  |  (512) 392-1232  |  macseptic.com", pageW / 2, pageH - 5, { align: "center" });
+    doc.text(`Page ${doc.getNumberOfPages()}`, pageW - margin, pageH - 5, { align: "right" });
   }
 
-  // ═══ HEADER BAR ═══
-  setF(PDF_COLORS.blue);
-  doc.rect(0, 0, pageW, 35, "F");
-  setC(PDF_COLORS.white);
+  // Section header with accent bar
+  function sectionHeader(title: string, color: { r: number; g: number; b: number } = BRAND.blue) {
+    ensureSpace(16);
+    y += 4;
+    setF(color);
+    doc.rect(margin, y - 1, 4, 12, "F");
+    setC(color);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text(title, margin + 8, y + 8);
+    y += 16;
+  }
+
+  // ═══ PAGE 1: COVER / HEADER ═══
+  addPageDecoration();
+
+  // Top banner — full-width navy bar
+  setF(BRAND.navy);
+  doc.rect(0, 0, pageW, 50, "F");
+  // Blue accent overlay on left
+  setF(BRAND.blue);
+  doc.rect(0, 0, 70, 50, "F");
+  // Company name in accent area
+  setC(BRAND.white);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("MAC", 10, 20);
+  doc.text("SEPTIC", 10, 30);
+  doc.setFontSize(7);
+  doc.setFont("helvetica", "normal");
+  doc.text("SERVICES", 10, 37);
+  // Report title
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
-  doc.text("MAC Septic Services", pageW / 2, 14, { align: "center" });
-  doc.setFontSize(13);
+  doc.text("Inspection Report", 80, 22);
+  // Metadata line
   doc.setFont("helvetica", "normal");
-  doc.text("Septic System Inspection Report", pageW / 2, 24, { align: "center" });
+  doc.setFontSize(10);
+  const dateStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  doc.text(dateStr, 80, 32);
   doc.setFontSize(9);
-  doc.text(`${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`, pageW / 2, 31, { align: "center" });
-  y = 42;
+  setC({ r: 148, g: 163, b: 184 }); // slate-400
+  doc.text(`Ref: WO-${jobId.slice(0, 8).toUpperCase()}`, 80, 40);
+  y = 58;
 
-  // ═══ CUSTOMER INFO ═══
-  setC(PDF_COLORS.black);
+  // Customer info card
+  setF(BRAND.cardBg);
+  setD(BRAND.divider);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(margin, y, contentW, 18, 3, 3, "FD");
+  setC(BRAND.muted);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.text("PREPARED FOR", margin + 5, y + 6);
+  setC(BRAND.text);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
-  doc.text(`Prepared for: ${customerName}`, margin, y);
+  doc.setFontSize(12);
+  doc.text(customerName, margin + 5, y + 13);
+  // System type badge
+  doc.setFontSize(8);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  setC(PDF_COLORS.gray);
-  doc.text(`Reference: WO-${jobId.slice(0, 8).toUpperCase()}`, pageW - margin, y, { align: "right" });
-  y += 10;
+  setC(BRAND.accent);
+  doc.text("Aerobic System", pageW - margin - 5, y + 10, { align: "right" });
+  y += 24;
 
-  // ═══ QUICK SUMMARY BOX ═══
+  // ═══ CONDITION SUMMARY ═══
   const condition = state.summary?.overallCondition || "unknown";
   const issues = state.summary?.totalIssues || 0;
-  const bannerColor = condition === "good" ? PDF_COLORS.green : condition === "fair" ? PDF_COLORS.yellow : PDF_COLORS.red;
-  const bannerBg = condition === "good" ? PDF_COLORS.lightGreen : condition === "fair" ? PDF_COLORS.lightYellow : PDF_COLORS.lightRed;
-  const bannerText = condition === "good"
-    ? "Your septic system is working great!"
+  const criticalCount = state.summary?.criticalIssues || 0;
+  const condColor = condition === "good" ? BRAND.success : condition === "fair" ? BRAND.warning : BRAND.danger;
+  const condBg = condition === "good"
+    ? { r: 220, g: 252, b: 231 }
     : condition === "fair"
-    ? "Your system needs some attention — see details below."
-    : "Your system needs repairs — please review the items below.";
+    ? { r: 254, g: 249, b: 195 }
+    : { r: 254, g: 226, b: 226 };
+  const condLabel = condition === "good" ? "GOOD" : condition === "fair" ? "FAIR" : condition === "poor" ? "NEEDS ATTENTION" : "CRITICAL";
+  const condText = condition === "good"
+    ? "Your septic system is working great! No issues were found."
+    : condition === "fair"
+    ? "Your system is functional but has some items that need attention."
+    : "Your system needs repairs. Please review the items below carefully.";
 
-  setF(bannerBg);
-  setD(bannerColor);
-  doc.setLineWidth(1);
-  doc.roundedRect(margin, y, contentW, 22, 3, 3, "FD");
-  setC(bannerColor);
+  setF(condBg);
+  setD(condColor);
+  doc.setLineWidth(1.5);
+  doc.roundedRect(margin, y, contentW, 28, 3, 3, "FD");
+  // Big condition badge
+  setF(condColor);
+  doc.roundedRect(margin + 4, y + 4, 36, 20, 2, 2, "F");
+  setC(BRAND.white);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text(bannerText, pageW / 2, y + 10, { align: "center" });
   doc.setFontSize(10);
+  doc.text(condLabel, margin + 22, y + 16, { align: "center" });
+  // Description text
+  setC(BRAND.text);
   doc.setFont("helvetica", "normal");
-  const issueText = issues === 0 ? "No issues found" : `${issues} item${issues > 1 ? "s" : ""} noted during inspection`;
-  doc.text(issueText, pageW / 2, y + 18, { align: "center" });
-  y += 30;
+  doc.setFontSize(10);
+  const condLines = doc.splitTextToSize(condText, contentW - 50);
+  doc.text(condLines, margin + 44, y + 10);
+  // Issue count
+  if (issues > 0) {
+    setC(BRAND.muted);
+    doc.setFontSize(8);
+    doc.text(`${issues} issue${issues > 1 ? "s" : ""} found${criticalCount > 0 ? ` (${criticalCount} critical)` : ""}`, margin + 44, y + 22);
+  }
+  y += 34;
+
+  // ═══ KEY READINGS (PSI / Sludge) ═══
+  const psi = state.steps[8]?.psiReading;
+  const sludge = state.steps[7]?.sludgeLevel;
+  if (psi || sludge) {
+    ensureSpace(20);
+    const boxW = (contentW - 4) / 2;
+    if (psi) {
+      setF(BRAND.light);
+      doc.roundedRect(margin, y, boxW, 16, 2, 2, "F");
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
+      doc.text("PSI READING", margin + boxW / 2, y + 5, { align: "center" });
+      setC(BRAND.blue);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      doc.text(psi, margin + boxW / 2, y + 13, { align: "center" });
+    }
+    if (sludge) {
+      const sx = psi ? margin + boxW + 4 : margin;
+      setF(BRAND.light);
+      doc.roundedRect(sx, y, boxW, 16, 2, 2, "F");
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
+      doc.text("SLUDGE LEVEL", sx + boxW / 2, y + 5, { align: "center" });
+      setC(BRAND.blue);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      doc.text(sludge, sx + boxW / 2, y + 13, { align: "center" });
+    }
+    y += 20;
+  }
 
   // ═══ INSPECTION RESULTS ═══
-  setC(PDF_COLORS.blue);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
-  doc.text("What We Checked", margin, y);
-  y += 3;
-  setD(PDF_COLORS.blue);
-  doc.setLineWidth(0.5);
-  doc.line(margin, y, margin + 50, y);
-  y += 7;
+  sectionHeader("Inspection Results");
 
   for (const step of steps) {
-    newPageIfNeeded(20);
+    ensureSpace(18);
     const ss = state.steps[step.stepNumber];
     const finding = ss?.findings || "pending";
     const fc = findingColor(finding);
-    const bg = findingBg(finding);
     const label = findingLabel(finding);
-    const desc = SIMPLE_DESCRIPTIONS[step.stepNumber] || step.description;
 
-    // Row background
-    setF(bg);
-    doc.rect(margin, y - 3, contentW, 14, "F");
-
-    // Color bar on left
+    // Alternating row background
+    if (step.stepNumber % 2 === 0) {
+      setF(BRAND.cardBg);
+      doc.rect(margin, y - 4, contentW, 12, "F");
+    }
+    // Left color dot
     setF(fc);
-    doc.rect(margin, y - 3, 3, 14, "F");
-
-    // Step title
-    setC(PDF_COLORS.black);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text(`${step.stepNumber}. ${step.title}`, margin + 6, y + 2);
-
-    // Finding badge on right
-    setC(fc);
+    doc.circle(margin + 4, y + 1, 2.5, "F");
+    // Step number + title
+    setC(BRAND.text);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
-    doc.text(label, pageW - margin - 2, y + 2, { align: "right" });
-
-    y += 11;
-
-    // Simple description
-    setC(PDF_COLORS.gray);
-    doc.setFont("helvetica", "normal");
+    doc.text(`${step.stepNumber}. ${step.title}`, margin + 10, y + 2);
+    // Badge on right
+    setC(fc);
+    doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
-    doc.text(desc, margin + 6, y);
-    y += 5;
+    doc.text(label, pageW - margin - 2, y + 2, { align: "right" });
+    y += 8;
 
-    // Notes / details / sludge / PSI
-    if (ss?.notes) {
-      newPageIfNeeded(8);
-      setC(PDF_COLORS.black);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8);
-      const noteLines = doc.splitTextToSize(`Notes: ${ss.notes}`, contentW - 10);
-      doc.text(noteLines, margin + 6, y);
-      y += noteLines.length * 3.5 + 2;
-    }
+    // Finding details + notes (compact)
     if (ss?.findingDetails) {
-      newPageIfNeeded(8);
-      setC(fc);
+      ensureSpace(8);
+      setC(BRAND.muted);
       doc.setFont("helvetica", "italic");
       doc.setFontSize(8);
-      const detailLines = doc.splitTextToSize(`Detail: ${ss.findingDetails}`, contentW - 10);
-      doc.text(detailLines, margin + 6, y);
-      y += detailLines.length * 3.5 + 2;
+      const lines = doc.splitTextToSize(ss.findingDetails, contentW - 14);
+      doc.text(lines, margin + 10, y);
+      y += lines.length * 3.5 + 1;
     }
-    if (ss?.sludgeLevel) {
-      setC(PDF_COLORS.blue);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.text(`Sludge Level: ${ss.sludgeLevel}`, margin + 6, y);
-      y += 4;
-    }
-    if (ss?.psiReading) {
-      setC(PDF_COLORS.blue);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.text(`PSI Reading: ${ss.psiReading}`, margin + 6, y);
-      y += 4;
+    if (ss?.notes && ss.notes !== ss.findingDetails) {
+      ensureSpace(6);
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
+      const nLines = doc.splitTextToSize(`Tech notes: ${ss.notes}`, contentW - 14);
+      doc.text(nLines, margin + 10, y);
+      y += nLines.length * 3 + 1;
     }
     y += 2;
   }
 
-  // ═══ WHAT NEEDS TO BE DONE ═══
-  const actionItems = steps.filter((s) => {
-    const ss = state.steps[s.stepNumber];
-    return ss && ss.findings !== "ok" && ss.findings !== "pending";
-  });
+  // ═══ PHOTO EVIDENCE ═══
+  if (photos && photos.length > 0) {
+    newPage();
+    sectionHeader("Photo Evidence");
+    setC(BRAND.muted);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.text(`${photos.length} photo${photos.length > 1 ? "s" : ""} captured during inspection`, margin + 8, y - 6);
+    y += 2;
 
-  if (actionItems.length > 0) {
-    newPageIfNeeded(25);
-    y += 5;
-    setC(PDF_COLORS.red);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text("What Needs To Be Done", margin, y);
-    y += 3;
-    setD(PDF_COLORS.red);
-    doc.setLineWidth(0.5);
-    doc.line(margin, y, margin + 55, y);
-    y += 7;
+    const photoW = (contentW - 6) / 2; // 2-column grid with 6mm gap
+    const photoH = 55;
+    let col = 0;
 
-    for (const step of actionItems) {
-      newPageIfNeeded(16);
-      const ss = state.steps[step.stepNumber]!;
-      const fc = findingColor(ss.findings);
-      const urgency = ss.findings === "critical" ? "Fix Right Away" : "Fix Soon";
+    for (const photo of photos) {
+      ensureSpace(photoH + 14);
+      const x = margin + col * (photoW + 6);
 
-      // Colored bullet
-      setF(fc);
-      doc.circle(margin + 3, y - 1, 2, "F");
-
-      // Item text
-      setC(PDF_COLORS.black);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.text(step.title, margin + 8, y);
-
-      // Urgency tag
-      setC(fc);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.text(`[${urgency}]`, pageW - margin, y, { align: "right" });
-      y += 5;
-
-      if (ss.findingDetails) {
-        setC(PDF_COLORS.gray);
+      try {
+        // Photo frame with shadow effect
+        setF(BRAND.divider);
+        doc.roundedRect(x + 1, y + 1, photoW, photoH, 2, 2, "F");
+        // White border
+        setF(BRAND.white);
+        setD(BRAND.divider);
+        doc.setLineWidth(0.5);
+        doc.roundedRect(x, y, photoW, photoH, 2, 2, "FD");
+        // Image (inset by 2mm)
+        doc.addImage(photo.data, "JPEG", x + 2, y + 2, photoW - 4, photoH - 12);
+        // Label bar at bottom of photo
+        setF(BRAND.navy);
+        doc.roundedRect(x, y + photoH - 10, photoW, 10, 0, 0, "F");
+        // Round only bottom corners by drawing over top
+        doc.rect(x, y + photoH - 10, photoW, 5, "F");
+        setC(BRAND.white);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7);
+        doc.text(photo.label, x + photoW / 2, y + photoH - 4, { align: "center" });
+      } catch {
+        // If image fails to load, show placeholder
+        setF(BRAND.light);
+        doc.roundedRect(x, y, photoW, photoH, 2, 2, "F");
+        setC(BRAND.muted);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(8);
-        const lines = doc.splitTextToSize(ss.findingDetails, contentW - 12);
-        doc.text(lines, margin + 8, y);
-        y += lines.length * 3.5 + 2;
+        doc.text(`[${photo.label}]`, x + photoW / 2, y + photoH / 2, { align: "center" });
       }
-      y += 3;
+
+      col++;
+      if (col >= 2) {
+        col = 0;
+        y += photoH + 6;
+      }
     }
+    if (col !== 0) y += photoH + 6; // finish partial row
   }
 
-  // ═══ RECOMMENDATIONS ═══
-  if (state.summary?.recommendations?.length) {
-    newPageIfNeeded(20);
-    y += 5;
-    setC(PDF_COLORS.blue);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text("What To Watch For", margin, y);
-    y += 3;
-    setD(PDF_COLORS.blue);
-    doc.setLineWidth(0.5);
-    doc.line(margin, y, margin + 48, y);
-    y += 7;
-
-    setC(PDF_COLORS.black);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    for (const rec of state.summary.recommendations) {
-      newPageIfNeeded(8);
-      const lines = doc.splitTextToSize(`  •  ${rec}`, contentW - 5);
-      doc.text(lines, margin, y);
-      y += lines.length * 4 + 2;
-    }
-  }
-
-  // ═══ AI EXPERT ANALYSIS (if available) ═══
+  // ═══ AI EXPERT ANALYSIS ═══
   if (aiAnalysis) {
-    newPageIfNeeded(50);
-    y += 5;
-    // Section header
-    setF(PDF_COLORS.blue);
-    doc.rect(margin, y - 2, contentW, 22, "F");
-    setC(PDF_COLORS.white);
+    newPage();
+    // Expert analysis banner
+    setF(BRAND.navy);
+    doc.rect(margin, y - 4, contentW, 24, "F");
+    // Blue accent stripe
+    setF(BRAND.blue);
+    doc.rect(margin, y - 4, 5, 24, "F");
+    setC(BRAND.white);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text("Expert Analysis", margin + 8, y + 7);
+    doc.setFontSize(14);
+    doc.text("Expert Analysis", margin + 10, y + 6);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.text("AI-assisted professional assessment", margin + 8, y + 14);
+    doc.setFontSize(8);
+    setC({ r: 148, g: 163, b: 184 });
+    doc.text("AI-powered professional assessment by MAC Septic", margin + 10, y + 14);
     y += 28;
 
     // Overall Assessment
-    setC(PDF_COLORS.black);
+    ensureSpace(30);
+    setC(BRAND.text);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     const assessLines = doc.splitTextToSize(aiAnalysis.overall_assessment || "", contentW - 4);
     doc.text(assessLines, margin + 2, y);
     y += assessLines.length * 4.5 + 6;
 
-    // What to Expect
+    // What to Expect — in a highlight card
     if (aiAnalysis.what_to_expect) {
-      newPageIfNeeded(25);
-      setC(PDF_COLORS.blue);
+      ensureSpace(30);
+      setF({ r: 239, g: 246, b: 255 }); // blue-50
+      setD(BRAND.accent);
+      doc.setLineWidth(0.5);
+      const expectLines = doc.splitTextToSize(aiAnalysis.what_to_expect, contentW - 16);
+      const boxH = expectLines.length * 4 + 12;
+      doc.roundedRect(margin, y, contentW, boxH, 2, 2, "FD");
+      setC(BRAND.blue);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.text("What to Expect", margin, y);
-      y += 6;
-      setC(PDF_COLORS.black);
+      doc.setFontSize(9);
+      doc.text("What to Expect Over the Next 6-12 Months", margin + 5, y + 7);
+      setC(BRAND.text);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
-      const expectLines = doc.splitTextToSize(aiAnalysis.what_to_expect, contentW - 4);
-      doc.text(expectLines, margin + 2, y);
-      y += expectLines.length * 4 + 6;
+      doc.text(expectLines, margin + 5, y + 14);
+      y += boxH + 4;
+    }
+
+    // Priority Repairs
+    if (aiAnalysis.priority_repairs?.length) {
+      ensureSpace(20);
+      sectionHeader("Priority Repairs", BRAND.danger);
+      for (const repair of aiAnalysis.priority_repairs) {
+        ensureSpace(18);
+        const urgColor = repair.urgency === "Fix today" ? BRAND.danger
+          : repair.urgency === "Schedule this week" ? BRAND.warning
+          : BRAND.accent;
+        // Urgency badge
+        setF(urgColor);
+        const badgeW = doc.getTextWidth(repair.urgency) + 6;
+        doc.roundedRect(margin, y - 3, badgeW, 7, 1.5, 1.5, "F");
+        setC(BRAND.white);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7);
+        doc.text(repair.urgency, margin + 3, y + 1);
+        // Issue title
+        setC(BRAND.text);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.text(repair.issue, margin + badgeW + 4, y + 1);
+        y += 6;
+        // Why it matters
+        setC(BRAND.muted);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        const whyLines = doc.splitTextToSize(repair.why_it_matters, contentW - 8);
+        doc.text(whyLines, margin + 4, y);
+        y += whyLines.length * 3.5 + 4;
+      }
     }
 
     // Maintenance Schedule
     if (aiAnalysis.maintenance_schedule?.length) {
-      newPageIfNeeded(30);
-      setC(PDF_COLORS.blue);
+      ensureSpace(20);
+      sectionHeader("Maintenance Schedule");
+      // Table header
+      setF(BRAND.blue);
+      doc.rect(margin, y - 3, contentW, 8, "F");
+      setC(BRAND.white);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.text("Recommended Maintenance Schedule", margin, y);
-      y += 7;
-      for (const item of aiAnalysis.maintenance_schedule) {
-        newPageIfNeeded(12);
-        // Row background
-        setF(PDF_COLORS.lightGray);
-        doc.rect(margin, y - 3, contentW, 10, "F");
-        setC(PDF_COLORS.black);
+      doc.setFontSize(8);
+      doc.text("TIMEFRAME", margin + 4, y + 2);
+      doc.text("ACTION NEEDED", margin + 42, y + 2);
+      y += 9;
+      for (let i = 0; i < aiAnalysis.maintenance_schedule.length; i++) {
+        const item = aiAnalysis.maintenance_schedule[i];
+        ensureSpace(12);
+        if (i % 2 === 0) {
+          setF(BRAND.cardBg);
+          doc.rect(margin, y - 3, contentW, 10, "F");
+        }
+        setC(BRAND.blue);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.text(item.timeframe + ":", margin + 3, y + 1);
+        doc.setFontSize(8);
+        doc.text(item.timeframe, margin + 4, y + 2);
+        setC(BRAND.text);
         doc.setFont("helvetica", "normal");
-        const taskText = doc.splitTextToSize(`${item.task} — ${item.why}`, contentW - 50);
-        doc.text(taskText, margin + 42, y + 1);
-        y += Math.max(10, taskText.length * 4 + 2);
+        const taskLines = doc.splitTextToSize(item.task, contentW - 46);
+        doc.text(taskLines, margin + 42, y + 2);
+        y += Math.max(10, taskLines.length * 3.5 + 4);
       }
       y += 4;
     }
 
-    // Seasonal Tips
+    // Seasonal Tips — 2x2 grid of cards
     if (aiAnalysis.seasonal_tips?.length) {
-      newPageIfNeeded(30);
-      setC(PDF_COLORS.blue);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.text("Seasonal Care Tips for Central Texas", margin, y);
-      y += 7;
+      ensureSpace(60);
+      sectionHeader("Seasonal Care Guide");
+      const tipW = (contentW - 4) / 2;
+      const seasonColors: Record<string, { r: number; g: number; b: number }> = {
+        "Spring": { r: 22, g: 163, b: 74 },
+        "Summer": { r: 234, g: 179, b: 8 },
+        "Fall": { r: 234, g: 88, b: 12 },
+        "Winter": { r: 59, g: 130, b: 246 },
+      };
+      let tipCol = 0;
+      let tipRowY = y;
+      let maxH = 0;
       for (const tip of aiAnalysis.seasonal_tips) {
-        newPageIfNeeded(10);
-        setC(PDF_COLORS.black);
+        const tx = margin + tipCol * (tipW + 4);
+        const color = seasonColors[tip.season.replace(":", "")] || BRAND.accent;
+        const tipLines = doc.splitTextToSize(tip.tip, tipW - 10);
+        const tipH = tipLines.length * 3.5 + 14;
+        ensureSpace(tipH);
+        // Card background
+        setF(BRAND.cardBg);
+        setD(BRAND.divider);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(tx, tipRowY, tipW, tipH, 2, 2, "FD");
+        // Color top stripe
+        setF(color);
+        doc.rect(tx, tipRowY, tipW, 3, "F");
+        // Season label
+        setC(color);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(9);
-        doc.text(`${tip.season}:`, margin + 3, y);
+        doc.text(tip.season.replace(":", ""), tx + 4, tipRowY + 10);
+        // Tip text
+        setC(BRAND.text);
         doc.setFont("helvetica", "normal");
-        const tipLines = doc.splitTextToSize(tip.tip, contentW - 30);
-        doc.text(tipLines, margin + 25, y);
-        y += tipLines.length * 4 + 3;
+        doc.setFontSize(7.5);
+        doc.text(tipLines, tx + 4, tipRowY + 16);
+        maxH = Math.max(maxH, tipH);
+        tipCol++;
+        if (tipCol >= 2) {
+          tipCol = 0;
+          tipRowY += maxH + 4;
+          maxH = 0;
+        }
       }
-      y += 4;
+      y = tipRowY + (tipCol > 0 ? maxH + 4 : 0);
     }
   }
 
   // ═══ ESTIMATED COSTS TABLE ═══
   const estimate = calculateEstimate(state, { includePumping });
   if (estimate.items.length > 0) {
-    newPageIfNeeded(30);
-    y += 5;
-    setC(PDF_COLORS.blue);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text("Estimated Repair Costs", margin, y);
-    y += 3;
-    setD(PDF_COLORS.blue);
-    doc.setLineWidth(0.5);
-    doc.line(margin, y, margin + 55, y);
-    y += 7;
+    ensureSpace(40);
+    sectionHeader("Estimated Repair Costs");
 
     // Table header
-    setF(PDF_COLORS.blue);
-    doc.rect(margin, y - 3, contentW, 8, "F");
-    setC(PDF_COLORS.white);
+    setF(BRAND.navy);
+    doc.rect(margin, y - 3, contentW, 9, "F");
+    setC(BRAND.white);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
-    doc.text("Item", margin + 4, y + 2);
-    doc.text("Cost", pageW - margin - 4, y + 2, { align: "right" });
-    y += 9;
+    doc.text("Service / Part", margin + 4, y + 3);
+    doc.text("Amount", pageW - margin - 4, y + 3, { align: "right" });
+    y += 10;
 
-    // Table rows (alternating)
     for (let i = 0; i < estimate.items.length; i++) {
-      newPageIfNeeded(8);
+      ensureSpace(9);
       const item = estimate.items[i];
       if (i % 2 === 0) {
-        setF(PDF_COLORS.lightGray);
-        doc.rect(margin, y - 3, contentW, 7, "F");
+        setF(BRAND.cardBg);
+        doc.rect(margin, y - 3, contentW, 8, "F");
       }
-      setC(PDF_COLORS.black);
+      setC(BRAND.text);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
-      doc.text(item.name, margin + 4, y + 1);
-      doc.text(`$${item.cost.toFixed(2)}`, pageW - margin - 4, y + 1, { align: "right" });
-      y += 7;
+      doc.text(item.name, margin + 4, y + 2);
+      doc.text(`$${item.cost.toFixed(2)}`, pageW - margin - 4, y + 2, { align: "right" });
+      y += 8;
     }
 
-    // Total row
+    // Total bar
     y += 2;
-    setF(PDF_COLORS.blue);
-    doc.rect(margin, y - 3, contentW, 10, "F");
-    setC(PDF_COLORS.white);
+    setF(BRAND.blue);
+    doc.roundedRect(margin, y - 3, contentW, 12, 2, 2, "F");
+    setC(BRAND.white);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
-    doc.text("Estimated Total", margin + 4, y + 3);
-    doc.text(`$${estimate.total.toFixed(2)}`, pageW - margin - 4, y + 3, { align: "right" });
-    y += 14;
+    doc.setFontSize(12);
+    doc.text("ESTIMATED TOTAL", margin + 6, y + 4);
+    doc.text(`$${estimate.total.toFixed(2)}`, pageW - margin - 6, y + 4, { align: "right" });
+    y += 16;
+
+    // Disclaimer
+    setC(BRAND.muted);
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(7);
+    doc.text("* Estimates are approximate. Final costs may vary based on actual conditions found during repair.", margin, y);
+    y += 8;
   }
 
   // ═══ SIGNATURE LINE ═══
-  newPageIfNeeded(30);
-  y += 10;
-  setC(PDF_COLORS.gray);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.text("Customer Signature:", margin, y);
-  setD(PDF_COLORS.gray);
+  ensureSpace(35);
+  y += 6;
+  setD(BRAND.divider);
   doc.setLineWidth(0.3);
-  doc.line(margin + 38, y, margin + 110, y);
-  doc.text("Date:", margin + 118, y);
-  doc.line(margin + 130, y, pageW - margin, y);
-
-  // ═══ FOOTER ═══
-  y += 15;
-  newPageIfNeeded(15);
-  setF(PDF_COLORS.lightGray);
-  doc.rect(margin, y - 3, contentW, 16, "F");
-  setC(PDF_COLORS.gray);
+  // Signature
+  setC(BRAND.muted);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
-  doc.text("Questions? Call MAC Septic Services at (512) 555-0100", pageW / 2, y + 2, { align: "center" });
-  doc.text("We're here to help keep your septic system running smoothly.", pageW / 2, y + 7, { align: "center" });
-  doc.setFontSize(7);
-  doc.text(`Report generated: ${new Date().toLocaleString()}`, pageW / 2, y + 12, { align: "center" });
+  doc.text("Customer Signature", margin, y);
+  doc.line(margin, y + 3, margin + 75, y + 3);
+  // Date
+  doc.text("Date", margin + 85, y);
+  doc.line(margin + 85, y + 3, pageW - margin, y + 3);
+  y += 12;
+  doc.text("Technician Signature", margin, y);
+  doc.line(margin, y + 3, margin + 75, y + 3);
+  doc.text("License #", margin + 85, y);
+  doc.line(margin + 85, y + 3, pageW - margin, y + 3);
+
+  // ═══ FINAL FOOTER with thank you ═══
+  y += 14;
+  ensureSpace(18);
+  setF(BRAND.navy);
+  doc.roundedRect(margin, y, contentW, 16, 2, 2, "F");
+  setC(BRAND.white);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.text("Thank you for choosing MAC Septic Services!", pageW / 2, y + 6, { align: "center" });
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  setC({ r: 148, g: 163, b: 184 });
+  doc.text("(512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, y + 12, { align: "center" });
 
   return doc.output("blob");
 }
@@ -538,6 +713,7 @@ async function generateReportPDF(
 
 export function InspectionChecklist({ jobId, customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
   const { data: serverState, isLoading } = useInspectionState(jobId);
+  const { data: workOrderPhotos } = useWorkOrderPhotos(jobId);
   const startMutation = useStartInspection();
   const updateStepMutation = useUpdateInspectionStep();
   const completeMutation = useCompleteInspection();
@@ -813,10 +989,23 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
 
   // ─── Report Handlers ──────────────────────────────────────────────────────
 
+  // Prepare photos array for PDF embedding
+  const getPDFPhotos = (): PDFPhoto[] => {
+    if (!workOrderPhotos || workOrderPhotos.length === 0) return [];
+    return workOrderPhotos
+      .filter((p) => p.data) // only photos with actual data
+      .map((p) => ({
+        data: p.data,
+        type: p.metadata?.photoType || "other",
+        label: PHOTO_TYPE_LABELS[p.metadata?.photoType || ""] || p.metadata?.photoType || "Photo",
+      }));
+  };
+
   const handleDownloadPDF = async () => {
     setSendingReport("pdf");
     try {
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false);
+      const pdfPhotos = getPDFPhotos();
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -833,7 +1022,8 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const handlePrintReport = async () => {
     setSendingReport("print");
     try {
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false);
+      const pdfPhotos = getPDFPhotos();
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
       const url = URL.createObjectURL(blob);
       const iframe = document.createElement("iframe");
       iframe.style.display = "none";
@@ -860,7 +1050,8 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     }
     setSendingReport("email");
     try {
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false);
+      const pdfPhotos = getPDFPhotos();
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
         jobId,
@@ -1246,9 +1437,9 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
                 />
                 <div className="flex-1">
                   <p className="font-medium text-text-primary text-sm">🚛 Septic Tank Pumping</p>
-                  <p className="text-xs text-text-secondary">Standard pump out — up to 1000 gal</p>
+                  <p className="text-xs text-text-secondary">Standard pump out — up to 2,000 gal</p>
                 </div>
-                <span className="font-bold text-primary text-sm">$295.00</span>
+                <span className="font-bold text-primary text-sm">$595.00</span>
               </label>
             )}
             <button
