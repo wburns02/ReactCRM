@@ -16,7 +16,6 @@ import {
   type JobType,
 } from "@/api/types/workOrder.ts";
 import { AIDispatchStats } from "@/features/ai-dispatch";
-import { RoleDashboard } from "@/components/Dashboard";
 import { useDashboardStats } from "@/api/hooks/useDashboardStats";
 import { useAuth } from "@/features/auth/useAuth.ts";
 import {
@@ -45,9 +44,6 @@ export function DashboardPage() {
 
   return (
     <div className="p-6">
-      {/* Role-Specific Dashboard (for demo users) */}
-      <RoleDashboard />
-
       {/* Welcome Banner */}
       <div className="mb-6 rounded-xl bg-gradient-to-r from-[#0c1929] via-[#132a4a] to-[#1a3a6a] p-6 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20z\' fill=\'%23fff\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")' }} />

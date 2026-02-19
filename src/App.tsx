@@ -7,7 +7,6 @@ import { ToastProvider } from "@/components/ui/Toast";
 import { SessionTimeoutProvider } from "@/components/SessionTimeoutProvider";
 import { WebSocketProvider } from "@/providers/WebSocketProvider";
 import { RoleProvider } from "@/providers/RoleProvider";
-import { RoleSwitcher } from "@/components/RoleSwitcher";
 
 import { PWAProvider } from "@/components/pwa";
 import { initWebVitals } from "@/lib/webVitals";
@@ -66,7 +65,6 @@ function App() {
                 <RoleProvider>
                   <PWAProvider>
                     <OfflineIndicator />
-                    <RoleSwitcher />
                     <AppRoutes />
                   </PWAProvider>
                 </RoleProvider>
