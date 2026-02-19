@@ -198,6 +198,125 @@ export interface BlogIdea {
   reason: string;
 }
 
+// GA4 Types
+export interface GA4TrafficData {
+  success: boolean;
+  data: {
+    sessions: number;
+    users: number;
+    new_users: number;
+    pageviews: number;
+    bounce_rate: number;
+    avg_session_duration: number;
+    conversions: number;
+    daily: Array<{
+      date: string;
+      sessions: number;
+      users: number;
+      pageviews: number;
+      bounce_rate: number;
+    }>;
+  };
+}
+
+export interface GA4SourcesData {
+  success: boolean;
+  data: {
+    sources: Array<{
+      source: string;
+      medium: string;
+      channel_group: string;
+      sessions: number;
+      users: number;
+      engaged_sessions: number;
+      bounce_rate: number;
+      conversions: number;
+    }>;
+  };
+}
+
+export interface GA4ComparisonData {
+  success: boolean;
+  data: {
+    current: {
+      sessions: number;
+      users: number;
+      pageviews: number;
+      bounce_rate: number;
+      conversions: number;
+      avg_session_duration: number;
+    };
+    previous: {
+      sessions: number;
+      users: number;
+      pageviews: number;
+      bounce_rate: number;
+      conversions: number;
+      avg_session_duration: number;
+    };
+    changes: {
+      sessions: number;
+      users: number;
+      pageviews: number;
+      bounce_rate: number;
+      conversions: number;
+      avg_session_duration: number;
+    };
+  };
+}
+
+export interface GA4PagesData {
+  success: boolean;
+  data: {
+    pages: Array<{
+      page_path: string;
+      pageviews: number;
+      users: number;
+      avg_time_on_page: number;
+      bounce_rate: number;
+      entrances: number;
+    }>;
+  };
+}
+
+export interface GA4DevicesData {
+  success: boolean;
+  data: {
+    devices: Array<{
+      device_category: string;
+      sessions: number;
+      users: number;
+      bounce_rate: number;
+      percentage: number;
+    }>;
+  };
+}
+
+export interface GA4GeoData {
+  success: boolean;
+  data: {
+    locations: Array<{
+      region: string;
+      city: string;
+      sessions: number;
+      users: number;
+      bounce_rate: number;
+      conversions: number;
+    }>;
+  };
+}
+
+export interface GA4RealtimeData {
+  success: boolean;
+  data: {
+    active_users: number;
+    pages: Array<{
+      page_path: string;
+      active_users: number;
+    }>;
+  };
+}
+
 // Query Keys
 export const marketingKeys = {
   all: ["marketing"] as const,
@@ -217,6 +336,19 @@ export const marketingKeys = {
   blogIdeas: () => [...marketingKeys.all, "seo", "blog-ideas"] as const,
   analytics: (days: number) =>
     [...marketingKeys.all, "analytics", days] as const,
+  ga4Traffic: (days: number) =>
+    [...marketingKeys.all, "ga4", "traffic", days] as const,
+  ga4Sources: (days: number) =>
+    [...marketingKeys.all, "ga4", "sources", days] as const,
+  ga4Comparison: (days: number) =>
+    [...marketingKeys.all, "ga4", "comparison", days] as const,
+  ga4Pages: (days: number) =>
+    [...marketingKeys.all, "ga4", "pages", days] as const,
+  ga4Devices: (days: number) =>
+    [...marketingKeys.all, "ga4", "devices", days] as const,
+  ga4Geo: (days: number) =>
+    [...marketingKeys.all, "ga4", "geo", days] as const,
+  ga4Realtime: () => [...marketingKeys.all, "ga4", "realtime"] as const,
 };
 
 // Hooks
@@ -512,5 +644,94 @@ export function useMarketingAnalytics(days: number = 30) {
       );
       return response.data;
     },
+  });
+}
+
+// ==========================================
+// GA4 Analytics Hooks
+// ==========================================
+
+export function useGA4Traffic(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.ga4Traffic(days),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4TrafficData>(
+        `/marketing-hub/ga4/traffic?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useGA4Sources(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.ga4Sources(days),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4SourcesData>(
+        `/marketing-hub/ga4/sources?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useGA4Comparison(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.ga4Comparison(days),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4ComparisonData>(
+        `/marketing-hub/ga4/comparison?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useGA4Pages(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.ga4Pages(days),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4PagesData>(
+        `/marketing-hub/ga4/pages?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useGA4Devices(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.ga4Devices(days),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4DevicesData>(
+        `/marketing-hub/ga4/devices?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useGA4Geo(days: number = 30) {
+  return useQuery({
+    queryKey: marketingKeys.ga4Geo(days),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4GeoData>(
+        `/marketing-hub/ga4/geo?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useGA4Realtime() {
+  return useQuery({
+    queryKey: marketingKeys.ga4Realtime(),
+    queryFn: async () => {
+      const response = await apiClient.get<GA4RealtimeData>(
+        "/marketing-hub/ga4/realtime",
+      );
+      return response.data;
+    },
+    refetchInterval: 60_000,
   });
 }

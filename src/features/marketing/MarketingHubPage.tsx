@@ -63,6 +63,13 @@ const QUICK_ACTIONS: QuickActionItem[] = [
     description: "Generate marketing content with AI",
   },
   {
+    id: "ga4",
+    label: "GA4 Analytics",
+    icon: "📊",
+    href: "/marketing/ga4",
+    description: "Website traffic, sources & conversions",
+  },
+  {
     id: "analytics",
     label: "Analytics & ROI",
     icon: "📉",

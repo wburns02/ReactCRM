@@ -59,6 +59,12 @@ const MarketingAnalyticsPage = lazy(() =>
   ),
 );
 
+const GA4DashboardPage = lazy(() =>
+  import("@/features/marketing/ga4/GA4DashboardPage.tsx").then((m) => ({
+    default: m.GA4DashboardPage,
+  })),
+);
+
 /**
  * Marketing routes - Marketing Hub, Ads, Reviews, AI Content, Email Marketing,
  * Lead Pipeline, SEO Dashboard, Marketing Analytics
@@ -145,6 +151,16 @@ export function MarketingRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <MarketingAnalyticsPage />
+          </Suspense>
+        }
+      />
+
+      {/* GA4 Website Analytics */}
+      <Route
+        path="marketing/ga4"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <GA4DashboardPage />
           </Suspense>
         }
       />
