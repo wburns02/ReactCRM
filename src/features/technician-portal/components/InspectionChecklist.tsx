@@ -1084,11 +1084,18 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     });
 
     // Advance — skip conditional steps that don't apply
+    // Build updated steps snapshot so conditional checks see the just-completed step's data
+    const updatedSteps = { ...localState.steps, [currentStep]: update };
+    const isNextApplicable = (stepDef: InspectionStep): boolean => {
+      if (!stepDef.conditionalOn) return true;
+      const condStep = updatedSteps[stepDef.conditionalOn.stepNumber];
+      return condStep?.customFields?.[stepDef.conditionalOn.fieldId] === stepDef.conditionalOn.value;
+    };
     if (currentStep < totalSteps) {
       let next = currentStep + 1;
       while (next <= totalSteps) {
         const nextDef = steps.find((s) => s.stepNumber === next);
-        if (nextDef && !isStepApplicable(nextDef)) {
+        if (nextDef && !isNextApplicable(nextDef)) {
           // Auto-skip inapplicable conditional step
           setLocalState((s) => ({
             ...s,
