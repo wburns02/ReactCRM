@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button.tsx";
 import { useScheduleStore } from "./store/scheduleStore.ts";
@@ -14,6 +15,10 @@ import { UnscheduledOrdersTable } from "./components/UnscheduledOrdersTable.tsx"
 import { WorkOrderContextMenu } from "./components/WorkOrderContextMenu.tsx";
 import { ContextMenuProvider } from "./context/ContextMenuContext.tsx";
 import { AIDispatchAssistant } from "@/features/ai-dispatch";
+import { WorkOrderForm } from "@/features/workorders/components/WorkOrderForm.tsx";
+import { useCreateWorkOrder } from "@/api/hooks/useWorkOrders.ts";
+import { type WorkOrderFormData } from "@/api/types/workOrder.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 /**
  * Schedule Page - Main scheduling interface
@@ -28,6 +33,20 @@ import { AIDispatchAssistant } from "@/features/ai-dispatch";
  */
 export function SchedulePage() {
   const { currentView } = useScheduleStore();
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const createWorkOrder = useCreateWorkOrder();
+
+  const handleCreateSubmit = async (data: WorkOrderFormData) => {
+    try {
+      await createWorkOrder.mutateAsync(data);
+      toastSuccess("Work order created successfully");
+      setShowCreateForm(false);
+    } catch (error) {
+      console.error("Failed to create work order:", error);
+      toastError("Failed to create work order. Please try again.");
+      throw error;
+    }
+  };
 
   // Render the active view
   const renderView = () => {
@@ -62,9 +81,7 @@ export function SchedulePage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <Link to="/work-orders/new">
-              <Button variant="primary">+ New Work Order</Button>
-            </Link>
+            <Button variant="primary" onClick={() => setShowCreateForm(true)}>+ New Work Order</Button>
             <Link to="/work-orders">
               <Button variant="secondary">View All</Button>
             </Link>
@@ -125,6 +142,14 @@ export function SchedulePage() {
 
       {/* Right-click context menu for work orders */}
       <WorkOrderContextMenu />
+
+      {/* Inline Create Work Order modal */}
+      <WorkOrderForm
+        open={showCreateForm}
+        onClose={() => setShowCreateForm(false)}
+        onSubmit={handleCreateSubmit}
+        isLoading={createWorkOrder.isPending}
+      />
       </ContextMenuProvider>
     </ScheduleDndContext>
   );
