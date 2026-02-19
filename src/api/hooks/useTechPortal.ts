@@ -462,6 +462,7 @@ function mapServerInspection(raw: Record<string, unknown> | null) {
       sludgeLevel: v.sludge_level ?? v.sludgeLevel ?? "",
       psiReading: v.psi_reading ?? v.psiReading ?? "",
       selectedParts: v.selected_parts ?? v.selectedParts ?? [],
+      customFields: v.custom_fields ?? v.customFields ?? {},
     };
   }
   // Map summary
@@ -545,6 +546,7 @@ export function useUpdateInspectionStep() {
         sludge_level?: string;
         psi_reading?: string;
         selected_parts?: string[];
+        custom_fields?: Record<string, string>;
       };
     }) => {
       const { data } = await apiClient.patch(

@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { jsPDF } from "jspdf";
 import {
-  EQUIPMENT_ITEMS,
-  INSPECTION_STEPS,
+  getInspectionSteps,
+  getEquipmentItems,
   getCompletionPercent,
   createDefaultInspectionState,
   createDefaultStepState,
@@ -29,6 +29,7 @@ import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 
 interface Props {
   jobId: string;
+  systemType?: string;
   customerPhone?: string;
   customerName?: string;
   customerEmail?: string;
@@ -103,23 +104,43 @@ function findingLabel(f: string) {
 }
 
 // Simple language mappings for step titles
-const SIMPLE_DESCRIPTIONS: Record<number, string> = {
-  1: "We checked that all our tools and safety equipment are ready.",
-  2: "We let the homeowner know we arrived.",
-  3: "We confirmed we are at the right address.",
-  4: "We knocked on the door and introduced ourselves.",
-  5: "We explained what the inspection covers.",
-  6: "We found where the septic tank and control panel are located.",
-  7: "We carefully opened the tank lids to look inside.",
-  8: "We tested the switches that turn the pump on and off.",
-  9: "We checked the control panel for any warning lights or damage.",
-  10: "We tested the timer that controls when the pump runs.",
-  11: "We checked that the alarm light bulb and buzzer work.",
-  12: "We looked for rust, damage, and made sure everything is sealed properly.",
-  13: "We turned the power back on to the system.",
-  14: "We checked the valve and the spray or drip system that spreads treated water.",
-  15: "We put all the lids back on securely and cleaned up.",
-  16: "We discussed everything we found with you.",
+const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
+  aerobic: {
+    1: "We checked that all our tools and safety equipment are ready.",
+    2: "We let the homeowner know we arrived.",
+    3: "We confirmed we are at the right address.",
+    4: "We knocked on the door and introduced ourselves.",
+    5: "We explained what the inspection covers.",
+    6: "We found where the septic tank and control panel are located.",
+    7: "We carefully opened the tank lids to look inside.",
+    8: "We tested the switches that turn the pump on and off.",
+    9: "We checked the control panel for any warning lights or damage.",
+    10: "We tested the timer that controls when the pump runs.",
+    11: "We checked that the alarm light bulb and buzzer work.",
+    12: "We looked for rust, damage, and made sure everything is sealed properly.",
+    13: "We turned the power back on to the system.",
+    14: "We checked the valve and the spray or drip system that spreads treated water.",
+    15: "We put all the lids back on securely and cleaned up.",
+    16: "We discussed everything we found with you.",
+  },
+  conventional: {
+    1: "We checked that all our tools and safety equipment are ready.",
+    2: "We arrived at the property and made contact.",
+    3: "We confirmed the correct property address.",
+    4: "We recorded who was present and checked client info.",
+    5: "We documented the weather and site conditions.",
+    6: "We located the septic tank and documented its position and depth.",
+    7: "We identified the system type, tank size, age, and drain field configuration.",
+    8: "We inspected the pump system (forced flow only).",
+    9: "We opened and inspected the tank interior and checked its condition.",
+    10: "We checked the tank for any visible structural damage.",
+    11: "We walked the drain field to check for signs of effluent leaching.",
+    12: "We checked the drain field for signs of super saturation.",
+    13: "We made an overall assessment of whether the system is functioning properly.",
+    14: "We documented additional notes and observations.",
+    15: "We secured all lids and cleaned up the work area.",
+    16: "We discussed everything we found with you.",
+  },
 };
 
 // ─── Photo type labels for the PDF ──────────────────────────────────────────
@@ -146,6 +167,14 @@ const PHOTO_TYPE_LABELS: Record<string, string> = {
   inspection_spray_drip: "Spray / Drip System",
   psi_reading: "PSI Reading",
   sludge_level: "Sludge Level",
+  // Conventional-specific
+  inspection_system_id: "System Identification",
+  inspection_pump: "Pump System",
+  inspection_tank_interior: "Tank Interior",
+  inspection_damage: "Damage Check",
+  inspection_drain_field: "Drain Field",
+  inspection_saturation: "Saturation Check",
+  inspection_additional: "Additional Notes",
 };
 
 // ─── PDF Report Generation (client-side, premium design) ─────────────────────
@@ -163,9 +192,11 @@ async function generateReportPDF(
   aiAnalysis?: AIInspectionAnalysis | null,
   includePumping?: boolean,
   photos?: PDFPhoto[],
+  systemType?: string,
 ): Promise<Blob> {
   const doc = new jsPDF();
-  const steps = INSPECTION_STEPS;
+  const steps = getInspectionSteps(systemType);
+  const isConventional = systemType === "conventional";
   const pageW = 210;
   const margin = 18;
   const contentW = pageW - margin * 2;
@@ -345,8 +376,8 @@ async function generateReportPDF(
   y += 42;
 
   // ═══ KEY READINGS (PSI / Sludge) — side-by-side stat cards ═══
-  const psi = state.steps[8]?.psiReading;
-  const sludge = state.steps[7]?.sludgeLevel;
+  const psi = isConventional ? undefined : state.steps[8]?.psiReading;
+  const sludge = isConventional ? state.steps[9]?.sludgeLevel : state.steps[7]?.sludgeLevel;
   if (psi || sludge) {
     ensureSpace(24);
     const boxW = (contentW - 6) / 2;
@@ -382,8 +413,53 @@ async function generateReportPDF(
     y += 22;
   }
 
+  // ═══ SYSTEM INFORMATION (Conventional only) ═══
+  if (isConventional) {
+    sectionHeader("System Information");
+    const sysFields: [string, string][] = [];
+    // Pull custom fields from relevant steps
+    const step5 = state.steps[5]?.customFields || {};
+    const step6 = state.steps[6]?.customFields || {};
+    const step7cf = state.steps[7]?.customFields || {};
+    const step8cf = state.steps[8]?.customFields || {};
+    const step4cf = state.steps[4]?.customFields || {};
+    if (step5.weather_conditions) sysFields.push(["Weather Conditions", step5.weather_conditions]);
+    if (step5.last_precipitation) sysFields.push(["Last Precipitation", step5.last_precipitation]);
+    if (step4cf.persons_present) sysFields.push(["Present at Inspection", step4cf.persons_present]);
+    if (step4cf.last_service) sysFields.push(["Last Service/Cleaning", step4cf.last_service]);
+    if (step6.tank_location) sysFields.push(["Tank Location", step6.tank_location]);
+    if (step6.tank_depth) sysFields.push(["Depth & Accessibility", step6.tank_depth]);
+    if (step7cf.system_type) sysFields.push(["System Type", step7cf.system_type]);
+    if (step7cf.tank_size) sysFields.push(["Tank Size", step7cf.tank_size]);
+    if (step7cf.system_age) sysFields.push(["System Age", step7cf.system_age]);
+    if (step7cf.drain_field_type) sysFields.push(["Drain Field", step7cf.drain_field_type]);
+    if (step8cf.pump_chamber_size) sysFields.push(["Pump Chamber", step8cf.pump_chamber_size]);
+    if (step8cf.pump_make_model) sysFields.push(["Pump Make/Model", step8cf.pump_make_model]);
+    if (step8cf.pump_amps) sysFields.push(["Pump Amp Draw", step8cf.pump_amps]);
+
+    for (let i = 0; i < sysFields.length; i++) {
+      ensureSpace(12);
+      const [label, value] = sysFields[i];
+      if (i % 2 === 0) {
+        setF(BRAND.cardBg);
+        doc.rect(margin, y - 2, contentW, 10, "F");
+      }
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text(label, margin + 4, y + 4);
+      setC(BRAND.text);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      const valLines = doc.splitTextToSize(value, contentW - 70);
+      doc.text(valLines, margin + 64, y + 4);
+      y += Math.max(10, valLines.length * 8);
+    }
+    y += 4;
+  }
+
   // ═══ INSPECTION RESULTS ═══
-  sectionHeader("What We Checked");
+  sectionHeader(isConventional ? "Condition Assessment" : "What We Checked");
 
   // Summary stats row before details
   const okCount = steps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
@@ -732,7 +808,7 @@ async function generateReportPDF(
   }
 
   // ═══ ESTIMATED COSTS TABLE ═══
-  const estimate = calculateEstimate(state, { includePumping });
+  const estimate = calculateEstimate(state, { includePumping, systemType });
   if (estimate.items.length > 0) {
     ensureSpace(40);
     sectionHeader("Estimated Repair Costs");
@@ -858,7 +934,7 @@ async function generateReportPDF(
 
 // ─── Main Component ─────────────────────────────────────────────────────────
 
-export function InspectionChecklist({ jobId, customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
+export function InspectionChecklist({ jobId, systemType = "aerobic", customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
   const { data: serverState, isLoading } = useInspectionState(jobId);
   const { data: workOrderPhotos, refetch: refetchPhotos } = useWorkOrderPhotos(jobId);
   const startMutation = useStartInspection();
@@ -869,8 +945,10 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const createEstimateMutation = useCreateEstimateFromInspection();
   const aiAnalysisMutation = useInspectionAIAnalysis();
 
+  const isConventional = systemType === "conventional";
+
   // Local state (mirrors server, syncs on changes)
-  const [localState, setLocalState] = useState<InspectionState>(createDefaultInspectionState());
+  const [localState, setLocalState] = useState<InspectionState>(createDefaultInspectionState(systemType));
   const [currentStep, setCurrentStep] = useState(1);
   const [showStepList, setShowStepList] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
@@ -897,15 +975,23 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     }
   }, [serverState]);
 
-  const steps = INSPECTION_STEPS;
+  const steps = getInspectionSteps(systemType);
+  const equipmentItems = getEquipmentItems(systemType);
   const totalSteps = steps.length;
-  const percent = getCompletionPercent(localState);
+  const percent = getCompletionPercent(localState, systemType);
   const currentStepDef = steps.find((s) => s.stepNumber === currentStep);
   const currentStepState: StepState =
     localState.steps[currentStep] || createDefaultStepState();
-  const allEquipmentChecked = EQUIPMENT_ITEMS.every(
+  const allEquipmentChecked = equipmentItems.every(
     (item) => localState.equipmentItems[item.id],
   );
+
+  // Check if a conditional step should be shown
+  const isStepApplicable = (step: InspectionStep): boolean => {
+    if (!step.conditionalOn) return true;
+    const condStep = localState.steps[step.conditionalOn.stepNumber];
+    return condStep?.customFields?.[step.conditionalOn.fieldId] === step.conditionalOn.value;
+  };
 
   // ─── Handlers ───────────────────────────────────────────────────────────
 
@@ -935,11 +1021,11 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
 
   const checkAllEquipment = () => {
     const all: Record<string, boolean> = {};
-    for (const item of EQUIPMENT_ITEMS) all[item.id] = true;
+    for (const item of equipmentItems) all[item.id] = true;
     setLocalState((s) => ({ ...s, equipmentItems: all }));
   };
 
-  const updateStepField = (field: keyof StepState, value: string | string[] | undefined) => {
+  const updateStepField = (field: keyof StepState, value: string | string[] | Record<string, string> | undefined) => {
     setLocalState((s) => ({
       ...s,
       steps: {
@@ -950,6 +1036,22 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
         },
       },
     }));
+  };
+
+  const updateCustomField = (fieldId: string, value: string) => {
+    setLocalState((s) => {
+      const stepState = s.steps[currentStep] || createDefaultStepState();
+      return {
+        ...s,
+        steps: {
+          ...s.steps,
+          [currentStep]: {
+            ...stepState,
+            customFields: { ...stepState.customFields, [fieldId]: value },
+          },
+        },
+      };
+    });
   };
 
   const handleCompleteStep = async () => {
@@ -977,16 +1079,37 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
         sludge_level: update.sludgeLevel,
         psi_reading: update.psiReading,
         selected_parts: update.selectedParts,
+        custom_fields: update.customFields,
       },
     });
 
-    // Advance
+    // Advance — skip conditional steps that don't apply
     if (currentStep < totalSteps) {
-      const next = currentStep + 1;
-      setCurrentStep(next);
-      const nextDef = steps.find((s) => s.stepNumber === next);
-      if (voiceEnabled && nextDef) {
-        speak(`Step ${next}: ${nextDef.title}. ${nextDef.description}`);
+      let next = currentStep + 1;
+      while (next <= totalSteps) {
+        const nextDef = steps.find((s) => s.stepNumber === next);
+        if (nextDef && !isStepApplicable(nextDef)) {
+          // Auto-skip inapplicable conditional step
+          setLocalState((s) => ({
+            ...s,
+            steps: {
+              ...s.steps,
+              [next]: { ...createDefaultStepState(), status: "skipped", completedAt: new Date().toISOString() },
+            },
+          }));
+          next++;
+        } else {
+          break;
+        }
+      }
+      if (next <= totalSteps) {
+        setCurrentStep(next);
+        const nextDef = steps.find((s) => s.stepNumber === next);
+        if (voiceEnabled && nextDef) {
+          speak(`Step ${next}: ${nextDef.title}. ${nextDef.description}`);
+        }
+      } else {
+        setShowSummary(true);
       }
     } else {
       setShowSummary(true);
@@ -1163,7 +1286,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     setSendingReport("pdf");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -1181,7 +1304,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     setSendingReport("print");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType);
       const url = URL.createObjectURL(blob);
       const iframe = document.createElement("iframe");
       iframe.style.display = "none";
@@ -1209,7 +1332,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     setSendingReport("email");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType);
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
         jobId,
@@ -1276,7 +1399,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
       ? "\n\nFindings:\n" + issues.map((r: string) => `- ${r}`).join("\n")
       : "";
 
-    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false });
+    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType });
     const estimateLine = estimate.total > 0
       ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
       : "";
@@ -1360,7 +1483,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
             </button>
           </div>
           <div className="p-3 grid grid-cols-2 gap-2">
-            {EQUIPMENT_ITEMS.map((item) => (
+            {equipmentItems.map((item) => (
               <label
                 key={item.id}
                 className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors ${
@@ -1382,7 +1505,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
           </div>
           <div className="px-3 pb-3">
             <div className="text-xs text-text-secondary text-center">
-              {EQUIPMENT_ITEMS.filter((i) => localState.equipmentItems[i.id]).length}/{EQUIPMENT_ITEMS.length} verified
+              {equipmentItems.filter((i) => localState.equipmentItems[i.id]).length}/{equipmentItems.length} verified
             </div>
           </div>
         </div>
@@ -1403,7 +1526,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
 
   if (showSummary && localState.summary) {
     const s = localState.summary;
-    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false });
+    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType });
     const conditionColors = {
       good: "text-success bg-success/10 border-success/30",
       fair: "text-yellow-600 bg-yellow-50 border-yellow-300",
@@ -2006,6 +2129,106 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
               </div>
             )}
 
+            {/* Custom Input Fields (Conventional data collection) */}
+            {currentStepDef.customInputs && currentStepDef.customInputs.length > 0 && (
+              <div className="space-y-3">
+                {currentStepDef.customInputs.map((input) => (
+                  <div key={input.id}>
+                    <label className="text-xs font-semibold text-text-primary mb-1 block">
+                      {input.label}
+                    </label>
+                    {input.type === "text" && (
+                      <input
+                        type="text"
+                        value={currentStepState.customFields?.[input.id] || ""}
+                        onChange={(e) => updateCustomField(input.id, e.target.value)}
+                        placeholder={input.placeholder}
+                        className="w-full p-3 rounded-lg border border-border bg-bg-body text-sm text-text-primary"
+                      />
+                    )}
+                    {input.type === "textarea" && (
+                      <textarea
+                        value={currentStepState.customFields?.[input.id] || ""}
+                        onChange={(e) => updateCustomField(input.id, e.target.value)}
+                        placeholder={input.placeholder}
+                        className="w-full p-3 rounded-lg border border-border bg-bg-body text-sm text-text-primary resize-none"
+                        rows={3}
+                      />
+                    )}
+                    {input.type === "select" && input.options && (
+                      <div className="flex flex-wrap gap-2">
+                        {input.options.map((opt) => (
+                          <button
+                            key={opt}
+                            onClick={() => updateCustomField(input.id, opt)}
+                            className={`px-3 py-2 rounded-lg border text-xs font-medium transition-colors ${
+                              currentStepState.customFields?.[input.id] === opt
+                                ? "bg-primary/10 border-primary/40 text-primary"
+                                : "bg-bg-body border-border text-text-muted"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Yes/No Assessment (Conventional condition checks) */}
+            {currentStepDef.hasYesNo && currentStepDef.yesNoQuestion && (
+              <div className="space-y-3">
+                <p className="text-sm font-semibold text-text-primary">
+                  {currentStepDef.yesNoQuestion}
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => {
+                      updateStepField("findings", "ok");
+                      updateStepField("findingDetails", "");
+                      updateStepField("selectedParts", []);
+                    }}
+                    className={`flex-1 py-3 rounded-lg border-2 text-sm font-bold transition-colors ${
+                      currentStepState.findings === "ok"
+                        ? "bg-green-100 border-green-500 text-green-800 dark:bg-green-900/30 dark:text-green-300"
+                        : "bg-bg-body border-border text-text-muted"
+                    }`}
+                  >
+                    ✅ Yes
+                  </button>
+                  <button
+                    onClick={() => {
+                      updateStepField("findings", "needs_attention");
+                      // Auto-select all parts when "No"
+                      if (currentStepDef?.parts?.length) {
+                        updateStepField("selectedParts", currentStepDef.parts.map((p) => p.name));
+                      }
+                    }}
+                    className={`flex-1 py-3 rounded-lg border-2 text-sm font-bold transition-colors ${
+                      currentStepState.findings !== "ok" && currentStepState.findings !== "ok"
+                        && (currentStepState.findings === "needs_attention" || currentStepState.findings === "critical")
+                        ? "bg-red-100 border-red-500 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+                        : "bg-bg-body border-border text-text-muted"
+                    }`}
+                  >
+                    ⚠️ No
+                  </button>
+                </div>
+                {/* Show explanation field when "No" */}
+                {currentStepState.findings !== "ok" && (
+                  <textarea
+                    value={currentStepState.findingDetails || ""}
+                    onChange={(e) => updateStepField("findingDetails", e.target.value)}
+                    placeholder="Please explain..."
+                    className="w-full p-3 rounded-lg border border-red-300 bg-red-50 dark:bg-red-900/10 text-sm text-text-primary resize-none"
+                    rows={3}
+                  />
+                )}
+              </div>
+            )}
+
             {/* Photo Capture */}
             {currentStepDef.requiresPhoto && (
               <div>
@@ -2092,41 +2315,43 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
               </div>
             )}
 
-            {/* Findings */}
-            <div>
-              <p className="text-xs font-semibold text-text-primary mb-2">Findings</p>
-              <div className="flex gap-2">
-                {([
-                  { value: "ok", label: "OK", emoji: "✅", color: "bg-success/10 border-success/30 text-success" },
-                  { value: "needs_attention", label: "Attention", emoji: "🟡", color: "bg-yellow-50 border-yellow-300 text-yellow-700" },
-                  { value: "critical", label: "Critical", emoji: "🔴", color: "bg-red-50 border-red-300 text-red-700" },
-                ] as const).map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => {
-                      updateStepField("findings", opt.value);
-                      // Auto-select all parts when changing to non-OK
-                      if (opt.value !== "ok" && currentStepDef?.parts?.length) {
-                        const allPartNames = currentStepDef.parts.map((p) => p.name);
-                        updateStepField("selectedParts", allPartNames);
-                      } else if (opt.value === "ok") {
-                        updateStepField("selectedParts", []);
-                      }
-                    }}
-                    className={`flex-1 py-2 rounded-lg border text-xs font-medium transition-colors ${
-                      currentStepState.findings === opt.value
-                        ? opt.color
-                        : "bg-bg-body border-border text-text-muted"
-                    }`}
-                  >
-                    {opt.emoji} {opt.label}
-                  </button>
-                ))}
+            {/* Findings (standard 3-way — hidden for yes/no steps which have their own UI above) */}
+            {!currentStepDef.hasYesNo && (
+              <div>
+                <p className="text-xs font-semibold text-text-primary mb-2">Findings</p>
+                <div className="flex gap-2">
+                  {([
+                    { value: "ok", label: "OK", emoji: "✅", color: "bg-success/10 border-success/30 text-success" },
+                    { value: "needs_attention", label: "Attention", emoji: "🟡", color: "bg-yellow-50 border-yellow-300 text-yellow-700" },
+                    { value: "critical", label: "Critical", emoji: "🔴", color: "bg-red-50 border-red-300 text-red-700" },
+                  ] as const).map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        updateStepField("findings", opt.value);
+                        // Auto-select all parts when changing to non-OK
+                        if (opt.value !== "ok" && currentStepDef?.parts?.length) {
+                          const allPartNames = currentStepDef.parts.map((p) => p.name);
+                          updateStepField("selectedParts", allPartNames);
+                        } else if (opt.value === "ok") {
+                          updateStepField("selectedParts", []);
+                        }
+                      }}
+                      className={`flex-1 py-2 rounded-lg border text-xs font-medium transition-colors ${
+                        currentStepState.findings === opt.value
+                          ? opt.color
+                          : "bg-bg-body border-border text-text-muted"
+                      }`}
+                    >
+                      {opt.emoji} {opt.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Finding Details (when not OK) */}
-            {currentStepState.findings !== "ok" && (
+            {/* Finding Details (when not OK — standard steps only, yes/no has its own) */}
+            {!currentStepDef.hasYesNo && currentStepState.findings !== "ok" && (
               <textarea
                 value={currentStepState.findingDetails || ""}
                 onChange={(e) => updateStepField("findingDetails", e.target.value)}

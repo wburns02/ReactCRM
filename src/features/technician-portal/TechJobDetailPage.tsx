@@ -879,7 +879,7 @@ export function TechJobDetailPage() {
           }
           onClick={() => setActiveTab("payment")}
         />
-        {job?.system_type === "aerobic" && (
+        {(job?.system_type === "aerobic" || job?.system_type === "conventional" || job?.job_type?.toLowerCase()?.includes("inspection")) && (
           <TabButton
             label="Inspect"
             emoji="🔍"
@@ -2199,13 +2199,14 @@ export function TechJobDetailPage() {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════════
-          TAB: INSPECTION (Aerobic Systems Only)
+          TAB: INSPECTION (Aerobic + Conventional Systems)
           ═══════════════════════════════════════════════════════════════ */}
-      {activeTab === "inspection" && job?.system_type === "aerobic" && (
+      {activeTab === "inspection" && (
         <Card>
           <CardContent className="p-4">
             <InspectionChecklist
               jobId={jobId!}
+              systemType={job?.system_type || "conventional"}
               customerPhone={customer?.phone || undefined}
               customerName={customer ? `${customer.first_name || ""} ${customer.last_name || ""}`.trim() : undefined}
               customerEmail={customer?.email || undefined}
