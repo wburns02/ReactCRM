@@ -11,7 +11,7 @@ const PROPINTEL_API_URL =
   "https://localhost-0.tailad2d5f.ts.net:8100";
 
 const PROPINTEL_API_KEY =
-  import.meta.env.VITE_PROPINTEL_API_KEY || "";
+  import.meta.env.VITE_PROPINTEL_API_KEY || "msp-propintel-2026-r730";
 
 export const propIntelClient: AxiosInstance = axios.create({
   baseURL: PROPINTEL_API_URL,
