@@ -10,6 +10,7 @@ import type {
   ScheduleJob,
 } from "@/api/types/techPortal.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
+import { workOrderPhotoKeys } from "@/api/hooks/useWorkOrderPhotos";
 
 // Re-export all employee hooks for convenience
 export {
@@ -289,6 +290,8 @@ export function useUploadJobPhoto() {
     onSuccess: (_, { jobId }) => {
       queryClient.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId, "photos"] });
       queryClient.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId] });
+      // Also invalidate the useWorkOrderPhotos query so PDF generation picks up new photos
+      queryClient.invalidateQueries({ queryKey: workOrderPhotoKeys.list(jobId) });
       toastSuccess("Photo uploaded!");
     },
     onError: () => {

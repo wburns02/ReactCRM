@@ -860,7 +860,7 @@ async function generateReportPDF(
 
 export function InspectionChecklist({ jobId, customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
   const { data: serverState, isLoading } = useInspectionState(jobId);
-  const { data: workOrderPhotos } = useWorkOrderPhotos(jobId);
+  const { data: workOrderPhotos, refetch: refetchPhotos } = useWorkOrderPhotos(jobId);
   const startMutation = useStartInspection();
   const updateStepMutation = useUpdateInspectionStep();
   const completeMutation = useCompleteInspection();
@@ -1137,9 +1137,9 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   // ─── Report Handlers ──────────────────────────────────────────────────────
 
   // Prepare photos array for PDF embedding
-  const getPDFPhotos = (): PDFPhoto[] => {
-    if (!workOrderPhotos || workOrderPhotos.length === 0) return [];
-    return workOrderPhotos
+  const buildPDFPhotos = (photos: typeof workOrderPhotos): PDFPhoto[] => {
+    if (!photos || photos.length === 0) return [];
+    return photos
       .filter((p) => p.data) // only photos with actual data
       .map((p) => ({
         data: p.data,
@@ -1148,10 +1148,21 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
       }));
   };
 
+  /** Refetch photos from server then build PDF photo array — guarantees freshness */
+  const getFreshPDFPhotos = async (): Promise<PDFPhoto[]> => {
+    try {
+      const { data: fresh } = await refetchPhotos();
+      return buildPDFPhotos(fresh);
+    } catch {
+      // Fallback to cached data
+      return buildPDFPhotos(workOrderPhotos);
+    }
+  };
+
   const handleDownloadPDF = async () => {
     setSendingReport("pdf");
     try {
-      const pdfPhotos = getPDFPhotos();
+      const pdfPhotos = await getFreshPDFPhotos();
       const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -1169,7 +1180,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
   const handlePrintReport = async () => {
     setSendingReport("print");
     try {
-      const pdfPhotos = getPDFPhotos();
+      const pdfPhotos = await getFreshPDFPhotos();
       const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
       const url = URL.createObjectURL(blob);
       const iframe = document.createElement("iframe");
@@ -1197,7 +1208,7 @@ export function InspectionChecklist({ jobId, customerPhone, customerName, custom
     }
     setSendingReport("email");
     try {
-      const pdfPhotos = getPDFPhotos();
+      const pdfPhotos = await getFreshPDFPhotos();
       const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos);
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
