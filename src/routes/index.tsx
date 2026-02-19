@@ -22,6 +22,7 @@ import { MarketingRoutes } from "./app/marketing.routes";
 import { EnterpriseRoutes } from "./app/enterprise.routes";
 import { AdminRoutes } from "./app/admin.routes";
 import { MiscRoutes } from "./app/misc.routes";
+import { PropertyIntelligenceRoutes } from "./app/property-intelligence.routes";
 
 
 /**
@@ -107,6 +108,9 @@ export function AppRoutes() {
 
         {/* Admin & Settings */}
         {AdminRoutes()}
+
+        {/* Property Intelligence */}
+        {PropertyIntelligenceRoutes()}
 
         {/* Misc (Tickets, Marketplace, AI, Help, 404) */}
         {MiscRoutes()}

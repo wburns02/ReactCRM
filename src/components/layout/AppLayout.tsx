@@ -69,6 +69,7 @@ import {
   Sun,
   Moon,
   LogOut,
+  Globe,
   type LucideIcon,
 } from "lucide-react";
 
@@ -203,6 +204,17 @@ export function AppLayout() {
         { path: "/analytics/bi", label: "BI Dashboard", icon: PieChart },
         { path: "/analytics/ftfr", label: "First-Time Fix Rate", icon: CheckCircle },
         { path: "/predictive-maintenance", label: "AI Predictions", icon: Zap },
+      ],
+    },
+    {
+      name: "property-intel",
+      label: "Property Intel",
+      icon: Globe,
+      badge: "5M+",
+      items: [
+        { path: "/property-intelligence", label: "Dashboard", icon: LayoutDashboard },
+        { path: "/property-intelligence/search", label: "Property Search", icon: Search },
+        { path: "/permits", label: "Septic Permits", icon: FileText },
       ],
     },
     {
