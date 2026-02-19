@@ -2,13 +2,13 @@ import axios, { type AxiosInstance } from "axios";
 
 /**
  * Property Intelligence API client
- * Connects to R730 on-premise server via Tailscale Funnel
+ * Connects to T430 on-premise server via Tailscale Funnel
  * Uses API key auth (not cookies) since it's a separate service
  */
 
 const PROPINTEL_API_URL =
   import.meta.env.VITE_PROPINTEL_API_URL ||
-  "https://localhost-0.tailad2d5f.ts.net:8100";
+  "https://poweredge-t430.tailad2d5f.ts.net:8100";
 
 const PROPINTEL_API_KEY =
   import.meta.env.VITE_PROPINTEL_API_KEY || "msp-propintel-2026-r730";

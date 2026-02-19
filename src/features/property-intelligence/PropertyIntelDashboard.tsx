@@ -88,23 +88,23 @@ export function PropertyIntelDashboard() {
       {/* Connection Status */}
       <div
         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm ${
-          health?.status === "ok"
+          health?.status === "healthy"
             ? "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300"
             : "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300"
         }`}
       >
         {healthLoading ? (
           <Loader2 className="w-4 h-4 animate-spin" />
-        ) : health?.status === "ok" ? (
+        ) : health?.status === "healthy" ? (
           <CheckCircle className="w-4 h-4" />
         ) : (
           <XCircle className="w-4 h-4" />
         )}
         <span>
-          R730 Data Server:{" "}
+          T430 Data Server:{" "}
           {healthLoading
             ? "Connecting..."
-            : health?.status === "ok"
+            : health?.status === "healthy"
               ? `Connected (v${health.version})`
               : "Unavailable"}
         </span>
@@ -280,7 +280,7 @@ export function PropertyIntelDashboard() {
           to="/property-intelligence/search"
           icon={Search}
           title="Search Properties"
-          description="Full-text search across 5M+ properties by address, city, county, or state"
+          description="Full-text search across 709M+ property records by address, city, county, or state"
         />
         <QuickLink
           to="/property-intelligence/map"
