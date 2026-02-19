@@ -27,8 +27,8 @@ test.describe('Authentication Flow', () => {
       });
 
       // Should have email and password fields
-      const emailField = page.getByLabel(/email/i).or(page.locator('input[type="email"]'));
-      const passwordField = page.getByLabel(/password/i).or(page.locator('input[type="password"]'));
+      const emailField = page.locator('input[type="email"]');
+      const passwordField = page.locator('input[type="password"]');
 
       await expect(emailField).toBeVisible();
       await expect(passwordField).toBeVisible();
@@ -68,8 +68,8 @@ test.describe('Authentication Flow', () => {
       await page.goto(`${BASE_URL}/login`);
 
       // Fill in test credentials
-      const emailField = page.getByLabel(/email/i).or(page.locator('input[type="email"]'));
-      const passwordField = page.getByLabel(/password/i).or(page.locator('input[type="password"]'));
+      const emailField = page.locator('input[type="email"]');
+      const passwordField = page.locator('input[type="password"]');
 
       await emailField.fill('invalid@test.com');
       await passwordField.fill('wrongpassword');
