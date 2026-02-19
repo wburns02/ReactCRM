@@ -202,19 +202,24 @@ export interface BlogIdea {
 export interface GA4TrafficData {
   success: boolean;
   data: {
-    sessions: number;
-    users: number;
-    new_users: number;
-    pageviews: number;
-    bounce_rate: number;
-    avg_session_duration: number;
-    conversions: number;
+    period_days: number;
+    totals: {
+      sessions: number;
+      users: number;
+      new_users: number;
+      pageviews: number;
+      engaged_sessions: number;
+      bounce_rate: number;
+      avg_session_duration: number;
+    };
     daily: Array<{
       date: string;
       sessions: number;
       users: number;
       pageviews: number;
       bounce_rate: number;
+      avg_duration: number;
+      new_users: number;
     }>;
   };
 }
@@ -222,59 +227,59 @@ export interface GA4TrafficData {
 export interface GA4SourcesData {
   success: boolean;
   data: {
+    period_days: number;
     sources: Array<{
-      source: string;
-      medium: string;
-      channel_group: string;
+      channel: string;
       sessions: number;
       users: number;
       engaged_sessions: number;
-      bounce_rate: number;
       conversions: number;
+      engagement_rate: number;
     }>;
   };
+}
+
+export interface GA4ChangeMetric {
+  current: number;
+  previous: number;
+  change_percent: number;
+  direction: "up" | "down" | "flat";
 }
 
 export interface GA4ComparisonData {
   success: boolean;
   data: {
-    current: {
+    period_days: number;
+    current_period: {
       sessions: number;
       users: number;
       pageviews: number;
       bounce_rate: number;
       conversions: number;
-      avg_session_duration: number;
+      avg_duration: number;
     };
-    previous: {
+    previous_period: {
       sessions: number;
       users: number;
       pageviews: number;
       bounce_rate: number;
       conversions: number;
-      avg_session_duration: number;
+      avg_duration: number;
     };
-    changes: {
-      sessions: number;
-      users: number;
-      pageviews: number;
-      bounce_rate: number;
-      conversions: number;
-      avg_session_duration: number;
-    };
+    changes: Record<string, GA4ChangeMetric>;
   };
 }
 
 export interface GA4PagesData {
   success: boolean;
   data: {
+    period_days: number;
     pages: Array<{
-      page_path: string;
+      path: string;
       pageviews: number;
       users: number;
-      avg_time_on_page: number;
+      avg_duration: number;
       bounce_rate: number;
-      entrances: number;
     }>;
   };
 }
@@ -282,11 +287,11 @@ export interface GA4PagesData {
 export interface GA4DevicesData {
   success: boolean;
   data: {
+    period_days: number;
     devices: Array<{
-      device_category: string;
+      device: string;
       sessions: number;
       users: number;
-      bounce_rate: number;
       percentage: number;
     }>;
   };
@@ -295,13 +300,12 @@ export interface GA4DevicesData {
 export interface GA4GeoData {
   success: boolean;
   data: {
+    period_days: number;
     locations: Array<{
       region: string;
       city: string;
       sessions: number;
       users: number;
-      bounce_rate: number;
-      conversions: number;
     }>;
   };
 }
@@ -310,10 +314,8 @@ export interface GA4RealtimeData {
   success: boolean;
   data: {
     active_users: number;
-    pages: Array<{
-      page_path: string;
-      active_users: number;
-    }>;
+    by_device: Record<string, number>;
+    timestamp: string;
   };
 }
 
