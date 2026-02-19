@@ -94,6 +94,8 @@ export function useCreateWorkOrder() {
     },
     onSuccess: (workOrder) => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+      queryClient.invalidateQueries({ queryKey: scheduleKeys.stats() });
       toastSuccess(
         "Work Order Created",
         `Work order ${workOrder.work_order_number || workOrder.id.slice(0, 8)} created successfully`
@@ -128,6 +130,8 @@ export function useUpdateWorkOrder() {
         queryKey: workOrderKeys.detail(variables.id),
       });
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+      queryClient.invalidateQueries({ queryKey: scheduleKeys.stats() });
       toastSuccess(
         "Work Order Updated",
         `Work order ${workOrder.work_order_number || workOrder.id.slice(0, 8)} updated successfully`
