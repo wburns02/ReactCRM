@@ -127,6 +127,7 @@ export const EQUIPMENT_ITEMS: EquipmentItem[] = [
   { id: "water_hose", label: "Water Hose", emoji: "🚿", category: "cleaning" },
   { id: "spray_nozzle", label: "Spray Nozzle", emoji: "💨", category: "cleaning" },
   { id: "check_valve", label: "Check Valve", emoji: "🔄", category: "supplies" },
+  { id: "air_filter", label: "Air Filter ($10)", emoji: "🌀", category: "supplies" },
 ];
 
 // ─── 16-Step Inspection Flow ────────────────────────────────────────────────
@@ -227,16 +228,25 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     stepNumber: 6,
     title: "Locate Tank & Control Panel",
     emoji: "🗺️",
-    description: "Find and identify the septic tank and control panel locations.",
+    description: "Find and identify the septic tank, control panel, and system manufacturer.",
     detailedInstructions: [
       "Use property records or map data if available",
       "Look for risers, cleanout pipes, or yard markers",
       "Locate the control panel (typically on exterior wall or utility area)",
+      "Identify the system manufacturer from labels on tank or control panel",
       "Note distances and access paths for future reference",
     ],
     requiresPhoto: true,
     photoType: "inspection_tank_location",
     photoGuidance: "Photo showing tank location and control panel",
+    customInputs: [
+      {
+        id: "aerobic_manufacturer",
+        label: "System manufacturer",
+        type: "select",
+        options: ["Norweco", "Fuji Clean", "Jet Inc.", "Clearstream", "Other / Unknown"],
+      },
+    ],
     estimatedMinutes: 2,
   },
   {
@@ -352,24 +362,27 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     stepNumber: 12,
     title: "Check Corrosion, Seal & Ventilate",
     emoji: "🔍",
-    description: "Inspect for corrosion, apply sealant if needed, ventilate the panel.",
+    description: "Inspect for corrosion, apply sealant if needed, check air filter, ventilate the panel.",
     detailedInstructions: [
       "Inspect all metal components for rust or corrosion",
       "Check wire nuts and connections for degradation",
       "Apply silicon sealant where needed",
+      "🌀 CHECK AIR FILTER — replace if dirty/clogged ($10, annual replacement)",
       "Leave control panel door OPEN for 4-5 minutes to ventilate",
       "Note any parts that need replacement",
       "Check conduit entry points for water intrusion",
+      "For NORWECO: Inspect bio-kinetic basket — clean if needed (annual, warm weather best)",
     ],
     requiresPhoto: true,
     photoType: "inspection_corrosion",
-    photoGuidance: "Photo of any corrosion found or clean connections",
+    photoGuidance: "Photo of any corrosion found or clean connections. Include air filter condition.",
     safetyWarning: "Leave panel door open 4-5 minutes for ventilation before closing.",
     estimatedMinutes: 2,
     parts: [
       { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ", estimatedCost: 8 },
       { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
       { name: "Conduit sealant", partNumber: "CND-SEAL-GRY", estimatedCost: 12 },
+      { name: "Air filter (annual replacement)", partNumber: "AF-STD-AEROBIC", estimatedCost: 10 },
     ],
   },
   {
@@ -1080,7 +1093,7 @@ export function generateRecommendations(state: InspectionState, systemType?: str
  */
 export function calculateEstimate(
   state: InspectionState,
-  options?: { includePumping?: boolean; systemType?: string },
+  options?: { includePumping?: boolean; systemType?: string; manufacturer?: string },
 ): { items: { name: string; cost: number }[]; total: number } {
   const items: { name: string; cost: number }[] = [];
   const steps = getInspectionSteps(options?.systemType);
@@ -1110,9 +1123,15 @@ export function calculateEstimate(
     items.push({ name: "Labor (estimated)", cost: issueSteps.length * 75 });
   }
 
-  // Add pumping if included
+  // Add pumping if included — adjust price for manufacturer
   if (options?.includePumping) {
-    items.push({ name: "Septic Tank Pumping (up to 2000 gal)", cost: 595 });
+    const mfrId = options?.manufacturer?.toLowerCase().replace(/\s.*/, "") || "";
+    const mfrPriceMap: Record<string, { label: string; cost: number }> = {
+      norweco: { label: "Norweco Aerobic Tank Pumping (extended service)", cost: 795 },
+      fuji: { label: "Fuji Aerobic Tank Pumping (fiberglass — refill required)", cost: 745 },
+    };
+    const pumpInfo = mfrPriceMap[mfrId] || { label: "Septic Tank Pumping (up to 2000 gal)", cost: 595 };
+    items.push({ name: pumpInfo.label, cost: pumpInfo.cost });
   }
 
   return { items, total: items.reduce((sum, i) => sum + i.cost, 0) };

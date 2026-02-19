@@ -12,6 +12,7 @@ import {
   type FindingLevel,
   type InspectionStep,
 } from "../inspectionSteps.ts";
+import { getManufacturer, getManufacturerOptions, type ManufacturerInfo } from "../manufacturerRules.ts";
 import {
   useInspectionState,
   useStartInspection,
@@ -229,6 +230,50 @@ function WeatherCard({ weather, onFetch, isFetching }: {
   );
 }
 
+// ─── Manufacturer Banner Component ──────────────────────────────────────────
+
+function ManufacturerBanner({ manufacturer, compact }: { manufacturer: ManufacturerInfo; compact?: boolean }) {
+  if (manufacturer.id === "other") return null;
+  const rules = manufacturer.pumpingRules;
+  return (
+    <div className={`border rounded-lg overflow-hidden ${manufacturer.id === "fuji" ? "border-red-300 dark:border-red-700" : "border-blue-300 dark:border-blue-700"}`}>
+      <div className={`px-3 py-2 text-sm font-medium flex items-center gap-2 ${manufacturer.color}`}>
+        <span>{manufacturer.emoji}</span>
+        <span>{manufacturer.name} System</span>
+        {rules.refillRequired && <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200 font-bold">REFILL REQ&apos;D</span>}
+      </div>
+      {!compact && (
+        <div className="px-3 py-2 space-y-1 bg-bg-body">
+          {manufacturer.warnings.map((w, i) => (
+            <p key={i} className="text-[11px] text-amber-600 dark:text-amber-400 font-medium">{w}</p>
+          ))}
+          {manufacturer.maintenanceItems.map((item) => (
+            <p key={item.id} className="text-[11px] text-text-secondary">
+              {item.emoji} <strong>{item.label}</strong>: {item.frequency}{item.estimatedCost > 0 ? ` ($${item.estimatedCost})` : ""}
+            </p>
+          ))}
+          {rules.priceAdjustment > 0 && (
+            <p className="text-[11px] text-text-secondary">💰 Pumping: ${595 + rules.priceAdjustment} ({rules.priceReason})</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Map manufacturer dropdown value to manufacturer ID */
+function resolveManufacturerId(value?: string): string | null {
+  if (!value) return null;
+  const map: Record<string, string> = {
+    "Norweco": "norweco",
+    "Fuji Clean": "fuji",
+    "Jet Inc.": "jet",
+    "Clearstream": "clearstream",
+    "Other / Unknown": "other",
+  };
+  return map[value] || null;
+}
+
 // ─── Photo type labels for the PDF ──────────────────────────────────────────
 
 const PHOTO_TYPE_LABELS: Record<string, string> = {
@@ -280,6 +325,7 @@ async function generateReportPDF(
   photos?: PDFPhoto[],
   systemType?: string,
   weatherData?: InspectionWeather | null,
+  manufacturerId?: string | null,
 ): Promise<Blob> {
   const doc = new jsPDF();
   const steps = getInspectionSteps(systemType);
@@ -636,6 +682,38 @@ async function generateReportPDF(
       const valLines = doc.splitTextToSize(value, contentW - 70);
       doc.text(valLines, margin + 64, y + 4);
       y += Math.max(10, valLines.length * 8);
+    }
+    y += 4;
+  }
+
+  // ═══ AEROBIC SYSTEM MANUFACTURER (if applicable) ═══
+  if (!isConventional && manufacturerId && manufacturerId !== "other") {
+    const mfr = getManufacturer(manufacturerId);
+    ensureSpace(30);
+    sectionHeader("Aerobic System — " + mfr.name);
+    setC(BRAND.text);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    // Manufacturer maintenance notes
+    for (const item of mfr.maintenanceItems) {
+      ensureSpace(10);
+      doc.text(`${item.emoji} ${item.label}: ${item.frequency}${item.estimatedCost > 0 ? ` ($${item.estimatedCost})` : ""}`, margin + 4, y + 4);
+      y += 8;
+    }
+    // Pumping notes
+    if (mfr.pumpingRules.refillRequired) {
+      ensureSpace(10);
+      setC(BRAND.danger);
+      doc.setFont("helvetica", "bold");
+      doc.text(`⚠ ${mfr.pumpingRules.refillReason || "Tank refill required after pumping"}`, margin + 4, y + 4);
+      y += 8;
+      setC(BRAND.text);
+      doc.setFont("helvetica", "normal");
+    }
+    if (mfr.pumpingRules.postPumpingAction) {
+      ensureSpace(10);
+      doc.text(`📅 Post-pumping: ${mfr.pumpingRules.postPumpingAction}`, margin + 4, y + 4);
+      y += 8;
     }
     y += 4;
   }
@@ -1010,7 +1088,7 @@ async function generateReportPDF(
   }
 
   // ═══ ESTIMATED COSTS TABLE ═══
-  const estimate = calculateEstimate(state, { includePumping, systemType });
+  const estimate = calculateEstimate(state, { includePumping, systemType, manufacturer: manufacturerId || undefined });
   if (estimate.items.length > 0) {
     ensureSpace(40);
     sectionHeader("Estimated Repair Costs");
@@ -1163,6 +1241,13 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
   const [aiAnalysis, setAiAnalysis] = useState<AIInspectionAnalysis | null>(null);
   const [weather, setWeather] = useState<InspectionWeather | null>(null);
   const [includePumping, setIncludePumping] = useState(true);
+
+  // Manufacturer detection for aerobic systems (from step 6 custom field)
+  const manufacturerId = !isConventional
+    ? resolveManufacturerId(localState.steps[6]?.customFields?.aerobic_manufacturer)
+    : null;
+  const manufacturer = !isConventional ? getManufacturer(manufacturerId) : null;
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const sludgePhotoRef = useRef<HTMLInputElement>(null);
   const psiPhotoRef = useRef<HTMLInputElement>(null);
@@ -1506,7 +1591,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("pdf");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather, manufacturerId);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -1524,7 +1609,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("print");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather, manufacturerId);
       const url = URL.createObjectURL(blob);
       const iframe = document.createElement("iframe");
       iframe.style.display = "none";
@@ -1552,7 +1637,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("email");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather);
+      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather, manufacturerId);
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
         jobId,
@@ -1619,7 +1704,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       ? "\n\nFindings:\n" + issues.map((r: string) => `- ${r}`).join("\n")
       : "";
 
-    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType });
+    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType, manufacturer: manufacturerId || undefined });
     const estimateLine = estimate.total > 0
       ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
       : "";
@@ -1746,7 +1831,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
 
   if (showSummary && localState.summary) {
     const s = localState.summary;
-    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType });
+    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType, manufacturer: manufacturerId || undefined });
     const conditionColors = {
       good: "text-success bg-success/10 border-success/30",
       fair: "text-yellow-600 bg-yellow-50 border-yellow-300",
@@ -1788,6 +1873,11 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
               </p>
             </div>
           </div>
+        )}
+
+        {/* Manufacturer Info (aerobic only) */}
+        {manufacturer && manufacturer.id !== "other" && (
+          <ManufacturerBanner manufacturer={manufacturer} compact />
         )}
 
         {/* AI-Powered Report — PRIMARY ACTION */}
@@ -1960,6 +2050,25 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* Manufacturer Maintenance Notes (aerobic only) */}
+        {manufacturer && manufacturer.id !== "other" && (
+          <div className="border border-border rounded-lg p-4">
+            <h4 className="font-semibold text-text-primary mb-2">{manufacturer.emoji} {manufacturer.name} Service Notes</h4>
+            <div className="space-y-1.5">
+              {manufacturer.autoNotes.map((note, i) => (
+                <p key={i} className="text-sm text-text-secondary">{note}</p>
+              ))}
+              {manufacturer.pumpingRules.postPumpingAction && localState.recommendPumping && (
+                <div className="mt-2 p-2 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-700">
+                  <p className="text-xs font-bold text-amber-700 dark:text-amber-400">⏰ Post-Pumping Reminder Needed</p>
+                  <p className="text-xs text-amber-600 dark:text-amber-300">{manufacturer.pumpingRules.postPumpingAction}</p>
+                  <p className="text-[10px] text-amber-500 mt-1">CRM will auto-send a reminder to the customer in {manufacturer.pumpingRules.postPumpingActionDays} days.</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -2239,6 +2348,11 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       ) : currentStep === 5 && !weather ? (
         <WeatherCard weather={null} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => { setWeather(d); toastSuccess("Weather data loaded!"); } })} isFetching={weatherMutation.isPending} />
       ) : null}
+
+      {/* Manufacturer Banner (aerobic only — shows after step 6 manufacturer selection) */}
+      {manufacturer && manufacturer.id !== "other" && currentStep > 6 && (
+        <ManufacturerBanner manufacturer={manufacturer} />
+      )}
 
       {/* Current Step Card */}
       {currentStepDef && (
