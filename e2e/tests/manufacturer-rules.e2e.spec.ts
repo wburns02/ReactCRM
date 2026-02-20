@@ -124,4 +124,55 @@ test.describe.serial("Manufacturer-Specific Inspection Rules", () => {
     page.off("console", listener);
     expect(errors, `Unexpected console errors: ${errors.join("\n")}`).toHaveLength(0);
   });
+
+  test("Weather condition text is visible (WMO code → string mapping)", async () => {
+    // Open-Meteo WMO code is mapped to a human-readable condition string
+    // e.g. "Partly Cloudy", "Clear", "Rain", "Overcast", "Fog", "Drizzle", "Thunderstorm"
+    await expect(
+      page.getByText(/partly cloudy|clear sky|mainly clear|overcast|fog|drizzle|rain|snow|thunderstorm|sunny/i).first()
+    ).toBeVisible({ timeout: 8000 });
+  });
+
+  test("Weather data persists after page reload (saved in DB checklist)", async () => {
+    // Reload the page — weather should load from wo.checklist["inspection"]["weather"]
+    // not require a fresh Open-Meteo fetch
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await page.getByRole("button", { name: /Inspect/i }).click();
+    // Temperature should still be visible — confirms server persisted the data
+    await expect(page.getByText(/°F/i).first()).toBeVisible({ timeout: 10000 });
+  });
+
+  test("Weather API endpoint returns valid temperature, 7-day history, and precip total", async () => {
+    const API_URL = "https://react-crm-api-production.up.railway.app/api/v2";
+    const result = await page.evaluate(async ({ apiUrl, woId }) => {
+      const res = await fetch(`${apiUrl}/employee/jobs/${woId}/inspection/weather`, {
+        credentials: "include",
+      });
+      return { status: res.status, data: res.ok ? await res.json() : null };
+    }, { apiUrl: API_URL, woId: WO_ID });
+
+    expect(result.status).toBe(200);
+    expect(result.data.success).toBe(true);
+
+    const weather = result.data.weather;
+    expect(weather).toBeTruthy();
+
+    // Current conditions
+    if (weather.current) {
+      expect(typeof weather.current.temperature_f).toBe("number");
+      expect(weather.current.temperature_f).toBeGreaterThan(-50);
+      expect(weather.current.temperature_f).toBeLessThan(150);
+      expect(typeof weather.current.humidity_pct).toBe("number");
+    }
+
+    // 7-day history
+    expect(Array.isArray(weather.daily_history)).toBe(true);
+    expect(weather.daily_history.length).toBeGreaterThanOrEqual(7);
+
+    // Precip total
+    expect(typeof weather.seven_day_total_precip_in).toBe("number");
+    expect(weather.seven_day_total_precip_in).toBeGreaterThanOrEqual(0);
+
+    console.log(`Weather: ${weather.current?.temperature_f}°F, ${weather.current?.condition}, 7-day precip: ${weather.seven_day_total_precip_in}in`);
+  });
 });

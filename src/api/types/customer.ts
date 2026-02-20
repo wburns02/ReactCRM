@@ -106,6 +106,8 @@ export const customerFormSchema = z.object({
   next_follow_up_date: z.string().optional(),
   lead_notes: z.string().optional(),
   is_active: z.boolean().default(true),
+  system_type: z.string().optional(),
+  manufacturer: z.string().optional(),
 });
 
 export type CustomerFormData = z.infer<typeof customerFormSchema>;

@@ -33,6 +33,8 @@ interface QuickAddForm {
   city: string;
   state: string;
   postal_code: string;
+  system_type: string;
+  manufacturer: string;
 }
 
 const EMPTY_FORM: QuickAddForm = {
@@ -44,6 +46,8 @@ const EMPTY_FORM: QuickAddForm = {
   city: "",
   state: "",
   postal_code: "",
+  system_type: "",
+  manufacturer: "",
 };
 
 // ── Debounce hook ────────────────────────────────────────────────────────
@@ -128,6 +132,8 @@ export function CustomerCombobox({
         city: quickAddForm.city.trim() || undefined,
         state: quickAddForm.state.trim() || undefined,
         postal_code: quickAddForm.postal_code.trim() || undefined,
+        system_type: quickAddForm.system_type || undefined,
+        manufacturer: quickAddForm.system_type === "aerobic" ? (quickAddForm.manufacturer || undefined) : undefined,
       });
       toastSuccess(
         `Created ${quickAddForm.first_name} ${quickAddForm.last_name}`,
@@ -479,6 +485,42 @@ export function CustomerCombobox({
                   placeholder="78666"
                 />
               </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <Label htmlFor="qa-system-type">System Type <span className="text-text-muted font-normal">(optional)</span></Label>
+                <select
+                  id="qa-system-type"
+                  className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                  value={quickAddForm.system_type}
+                  onChange={(e) => {
+                    updateField("system_type", e.target.value);
+                    if (e.target.value !== "aerobic") updateField("manufacturer", "");
+                  }}
+                >
+                  <option value="">— Select —</option>
+                  <option value="conventional">Conventional</option>
+                  <option value="aerobic">Aerobic</option>
+                </select>
+              </div>
+              {quickAddForm.system_type === "aerobic" && (
+                <div className="space-y-1">
+                  <Label htmlFor="qa-manufacturer">Manufacturer <span className="text-text-muted font-normal">(optional)</span></Label>
+                  <select
+                    id="qa-manufacturer"
+                    className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={quickAddForm.manufacturer}
+                    onChange={(e) => updateField("manufacturer", e.target.value)}
+                  >
+                    <option value="">— Select —</option>
+                    <option value="norweco">Norweco</option>
+                    <option value="fuji">Fuji Clean</option>
+                    <option value="jet">Jet</option>
+                    <option value="clearstream">Clearstream</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              )}
             </div>
           </DialogBody>
           <DialogFooter>

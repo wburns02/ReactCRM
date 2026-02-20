@@ -243,6 +243,23 @@ export function CustomerDetailPage() {
                   </dd>
                 </div>
               )}
+              {customer.address_line1 && (
+                <div>
+                  <dt className="text-sm text-text-secondary">Property Data</dt>
+                  <dd>
+                    <Link
+                      to={`/property-intelligence/search?q=${encodeURIComponent(
+                        [customer.address_line1, customer.city, customer.state]
+                          .filter(Boolean)
+                          .join(", ")
+                      )}`}
+                      className="text-sm text-primary hover:underline"
+                    >
+                      View Property Data →
+                    </Link>
+                  </dd>
+                </div>
+              )}
             </dl>
           </CardContent>
         </Card>
