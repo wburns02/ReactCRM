@@ -337,7 +337,7 @@ export function CommandCenter() {
 
   const isLoading = woLoading || techLoading;
   const workOrders = workOrdersData?.items ?? [];
-  const unscheduledJobs = unscheduledData ?? [];
+  const unscheduledJobs = unscheduledData?.items ?? [];
   const technicians = techniciansData ?? [];
 
   // Calculate today's metrics
