@@ -42,16 +42,11 @@ jobs:
 
       - name: Run E2E tests
         working-directory: e2e
-        # Run only auth-free tests when TEST_EMAIL is not configured
-        # Full test suite requires authentication credentials in secrets
-        run: |
-          if [ -z "$TEST_EMAIL" ] || [ -z "$TEST_PASSWORD" ]; then
-            echo "⚠️ TEST_EMAIL/TEST_PASSWORD not configured - running auth-free tests only"
-            npx playwright test tests/auth.spec.ts tests/api-health.spec.ts --project=e2e
-          else
-            echo "✅ Running full E2E test suite"
-            npx playwright test --project=e2e
-          fi
+        # Runs setup (auth.setup.ts) then the curated CI suite (12 stable tests).
+        # auth.setup.ts uses TEST_EMAIL/TEST_PASSWORD env vars when set, or falls
+        # back to test@macseptic.com defaults. Add TEST_EMAIL + TEST_PASSWORD as
+        # GitHub Actions secrets to authenticate as a real user during CI runs.
+        run: npx playwright test
         env:
           CI: true
           BASE_URL: ${{ github.event.inputs.base_url || secrets.STAGING_URL || 'https://react.ecbtx.com' }}

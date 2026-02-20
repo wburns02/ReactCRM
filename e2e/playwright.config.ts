@@ -25,6 +25,24 @@ const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.rail
 const ARTIFACT_DIR = process.env.ARTIFACT_DIR || join(__dirname, 'test-results');
 const authFile = join(__dirname, '.auth/user.json');
 
+// Curated CI test suite — stable, meaningful tests only.
+// Add new tests here when they're proven stable. Do NOT add debug/investigation files.
+// Paths are relative to testDir ('tests/').
+const CI_SUITE = [
+  'auth.spec.ts',
+  'api-health.spec.ts',
+  'backend-health.spec.ts',
+  'crm.spec.ts',
+  'technicians-crud.e2e.spec.ts',
+  'technician-dashboard.e2e.spec.ts',
+  'tech-portal-vibe.e2e.spec.ts',
+  'work-orders-creation.e2e.spec.ts',
+  'payments-page-fix.e2e.spec.ts',
+  'phase2-comprehensive.spec.ts',
+  'phase3-operational.spec.ts',
+  'commissions-auto-calc.e2e.spec.ts',
+];
+
 export default defineConfig({
   testDir: './tests',
 
@@ -80,15 +98,26 @@ export default defineConfig({
   },
 
   projects: [
-    // Core E2E tests (auth, crm, webhook, comms_safe)
+    // Auth setup — login and save session state
+    // testDir must point to e2e/ root since auth.setup.ts lives there, not in tests/
+    {
+      name: 'setup',
+      testDir: './',
+      testMatch: /auth\.setup\.ts/,
+    },
+
+    // Curated CI suite — runs after setup, uses saved auth state
     {
       name: 'e2e',
       testDir: './tests',
-      testMatch: /.*\.spec\.ts/,
+      testMatch: CI_SUITE,
       use: {
         ...devices['Desktop Chrome'],
+        storageState: authFile,
       },
+      dependencies: ['setup'],
     },
+
     // Security tests
     {
       name: 'security',

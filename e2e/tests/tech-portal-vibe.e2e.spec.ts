@@ -185,17 +185,20 @@ test.describe.serial("Tech Portal — Full Vibe Loop Verification", () => {
     await page.screenshot({ path: "e2e/screenshots/tech-pay.png" });
   });
 
-  test("8. Messages page renders inbox", async () => {
+  test("8. Communications page renders tabs", async () => {
     await page.goto(`${APP}/portal/messages`);
     await page.waitForTimeout(3000);
 
     const content = await page.textContent("main");
     expect(content).toBeTruthy();
 
-    const hasInbox = (content || "").toLowerCase().includes("inbox") ||
-                     (content || "").toLowerCase().includes("message") ||
-                     (content || "").toLowerCase().includes("compose");
-    expect(hasInbox).toBeTruthy();
+    // Page shows "Communications" h1 with Phone/SMS/Email tabs
+    const hasCommsContent = (content || "").toLowerCase().includes("communication") ||
+                            (content || "").toLowerCase().includes("sms") ||
+                            (content || "").toLowerCase().includes("phone") ||
+                            (content || "").toLowerCase().includes("message") ||
+                            (content || "").toLowerCase().includes("compose");
+    expect(hasCommsContent).toBeTruthy();
 
     await page.screenshot({ path: "e2e/screenshots/tech-messages.png" });
   });
@@ -220,14 +223,15 @@ test.describe.serial("Tech Portal — Full Vibe Loop Verification", () => {
     await page.goto(`${APP}/my-dashboard`);
     await page.waitForTimeout(2000);
 
-    const jobsLink = page.locator('a[href="/portal/jobs"]');
+    // Use .first() — sidebar + mobile bottom nav both render these links
+    const jobsLink = page.locator('a[href="/portal/jobs"]').first();
     if (await jobsLink.count() > 0) {
       await jobsLink.click();
       await page.waitForTimeout(2000);
       expect(page.url()).toContain("/portal/jobs");
     }
 
-    const scheduleLink = page.locator('a[href="/portal/schedule"]');
+    const scheduleLink = page.locator('a[href="/portal/schedule"]').first();
     if (await scheduleLink.count() > 0) {
       await scheduleLink.click();
       await page.waitForTimeout(2000);

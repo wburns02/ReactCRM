@@ -6,8 +6,8 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Path to save authenticated state
-const authFile = join(__dirname, '../.auth/user.json');
+// Path to save authenticated state — must match storageState path in playwright.config.ts
+const authFile = join(__dirname, '.auth/user.json');
 
 /**
  * Authentication setup - runs before all tests
@@ -31,6 +31,11 @@ setup('authenticate', async ({ page, baseURL }) => {
   // Wait for successful login - redirects through / → /dashboard, /my-dashboard, or /onboarding
   await page.waitForFunction(() => !location.href.includes("/login"), { timeout: 15000 });
 
+  // Wait for the SPA to stabilize after login redirect.
+  // Do NOT do a second page.goto() here — the PWA service worker intercepts it
+  // and Playwright sees net::ERR_ABORTED, causing setup to fail.
+  await page.waitForTimeout(2000);
+
   // Set onboarding as completed to bypass wizard for tests
   // This simulates an existing user who has already completed onboarding
   // Also set session state so the auth check passes
@@ -52,14 +57,6 @@ setup('authenticate', async ({ page, baseURL }) => {
     localStorage.removeItem('jwt');
     localStorage.removeItem('access_token');
   });
-
-  // If we're on onboarding, navigate to dashboard
-  if (page.url().includes('/onboarding')) {
-    await page.goto((baseURL || 'https://react.ecbtx.com') + '/dashboard');
-  } else if (!page.url().includes('/dashboard')) {
-    // Ensure we end up at dashboard for the shared auth state
-    await page.goto((baseURL || 'https://react.ecbtx.com') + '/dashboard');
-  }
 
   // Wait for page to load (don't use networkidle - WebSocket keeps it pending)
   await page.waitForLoadState('domcontentloaded', { timeout: 10000 });
