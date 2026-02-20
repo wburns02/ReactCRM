@@ -11,6 +11,7 @@ import type {
 } from "@/api/types/techPortal.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { workOrderPhotoKeys } from "@/api/hooks/useWorkOrderPhotos";
+import { cacheRead, getCachedRead, buildCacheKey } from "@/lib/readCache";
 
 // Re-export all employee hooks for convenience
 export {
@@ -43,7 +44,16 @@ export function useTechJobs(filters: JobFilters = {}) {
   return useQuery({
     queryKey: ["tech-portal", "jobs", filters],
     queryFn: async (): Promise<TechWorkOrderList> => {
-      return withFallback(async () => {
+      const cacheKey = buildCacheKey("/employee/jobs", filters as Record<string, string | number>);
+      const fallback: TechWorkOrderList = { items: [], total: 0, page: 1, page_size: 20 };
+
+      // When offline, serve from cache immediately
+      if (!navigator.onLine) {
+        const cached = await getCachedRead<TechWorkOrderList>(cacheKey);
+        return cached ?? fallback;
+      }
+
+      try {
         const params: Record<string, string | number> = {};
         if (filters.status) params.status = filters.status;
         if (filters.job_type) params.job_type = filters.job_type;
@@ -52,21 +62,26 @@ export function useTechJobs(filters: JobFilters = {}) {
         if (filters.page_size) params.page_size = filters.page_size;
         if (filters.scheduled_date_from) params.scheduled_date_from = filters.scheduled_date_from;
         if (filters.scheduled_date_to) params.scheduled_date_to = filters.scheduled_date_to;
-        // Use employee-portal/jobs which auto-filters by current technician
         const { data } = await apiClient.get("/employee/jobs", { params });
-        // Normalize response shape
-        if (Array.isArray(data)) {
-          return { items: data, total: data.length, page: 1, page_size: 50 };
-        }
-        return {
-          items: data.items || data.jobs || [],
-          total: data.total || 0,
-          page: data.page || 1,
-          page_size: data.page_size || 20,
-        };
-      }, { items: [], total: 0, page: 1, page_size: 20 });
+        const result: TechWorkOrderList = Array.isArray(data)
+          ? { items: data, total: data.length, page: 1, page_size: 50 }
+          : {
+              items: data.items || data.jobs || [],
+              total: data.total || 0,
+              page: data.page || 1,
+              page_size: data.page_size || 20,
+            };
+        // Cache for offline use
+        await cacheRead(cacheKey, result);
+        return result;
+      } catch {
+        // API failed — try cache
+        const cached = await getCachedRead<TechWorkOrderList>(cacheKey);
+        return cached ?? fallback;
+      }
     },
     staleTime: 30_000,
+    networkMode: "offlineFirst",
   });
 }
 
@@ -74,12 +89,24 @@ export function useTechJobDetail(jobId: string) {
   return useQuery({
     queryKey: ["tech-portal", "jobs", jobId],
     queryFn: async (): Promise<TechWorkOrder | null> => {
-      return withFallback(async () => {
+      const cacheKey = buildCacheKey(`/work-orders/${jobId}`);
+
+      if (!navigator.onLine) {
+        const cached = await getCachedRead<TechWorkOrder>(cacheKey);
+        return cached ?? null;
+      }
+
+      try {
         const { data } = await apiClient.get(`/work-orders/${jobId}`);
+        await cacheRead(cacheKey, data);
         return data;
-      }, null);
+      } catch {
+        const cached = await getCachedRead<TechWorkOrder>(cacheKey);
+        return cached ?? null;
+      }
     },
     enabled: !!jobId,
+    networkMode: "offlineFirst",
   });
 }
 
@@ -89,18 +116,33 @@ export function useTechSchedule(startDate: string, endDate: string) {
   return useQuery({
     queryKey: ["tech-portal", "schedule", startDate, endDate],
     queryFn: async (): Promise<ScheduleJob[]> => {
-      return withFallback(async () => {
+      const cacheKey = buildCacheKey("/employee/jobs", {
+        scheduled_date_from: startDate,
+        scheduled_date_to: endDate,
+      });
+
+      if (!navigator.onLine) {
+        const cached = await getCachedRead<ScheduleJob[]>(cacheKey);
+        return cached ?? [];
+      }
+
+      try {
         const { data } = await apiClient.get("/employee/jobs", {
           params: {
             scheduled_date_from: startDate,
             scheduled_date_to: endDate,
           },
         });
-        const items = Array.isArray(data) ? data : (data.items || data.jobs || []);
-        return items;
-      }, []);
+        const result: ScheduleJob[] = Array.isArray(data) ? data : (data.items || data.jobs || []);
+        await cacheRead(cacheKey, result);
+        return result;
+      } catch {
+        const cached = await getCachedRead<ScheduleJob[]>(cacheKey);
+        return cached ?? [];
+      }
     },
     staleTime: 60_000,
+    networkMode: "offlineFirst",
   });
 }
 
