@@ -176,6 +176,137 @@ export function useGenerateCoachingFeedback() {
   });
 }
 
-// Note: Demo/fake data generators have been removed.
-// The AI coaching API endpoints are not yet implemented.
-// When they are, real data will be returned from the API.
+// ---------------------------------------------------------------------------
+// New /coaching/* endpoints — real DB-driven data
+// ---------------------------------------------------------------------------
+
+/**
+ * Shape of a technician entry from /coaching/technician-performance
+ */
+export interface CoachingTechnicianStat {
+  id: string | null;
+  name: string;
+  total_jobs: number;
+  completed_jobs: number;
+  completion_rate: number;
+  avg_jobs_per_week: number;
+  top_job_type: string;
+  needs_coaching: boolean;
+}
+
+/**
+ * Response from /coaching/technician-performance
+ */
+export interface TechnicianPerformanceResponse {
+  technicians: CoachingTechnicianStat[];
+  team_avg_completion_rate: number;
+  period_days: number;
+}
+
+/**
+ * Response from /coaching/call-insights
+ */
+export interface CallInsightsResponse {
+  total_calls: number;
+  avg_duration_minutes: number;
+  by_outcome: Record<string, number>;
+  conversion_rate: number;
+  top_agents: { name: string; calls: number; conversion_rate: number }[];
+  coaching_flags: { agent: string; issue: string; rate: number }[];
+  message?: string;
+}
+
+/**
+ * A single coaching recommendation
+ */
+export interface CoachingRecommendation {
+  type: "technician" | "call_agent";
+  target: string;
+  severity: "critical" | "warning" | "info";
+  title: string;
+  detail: string;
+  action: string;
+}
+
+/**
+ * Response from /coaching/recommendations
+ */
+export interface RecommendationsResponse {
+  recommendations: CoachingRecommendation[];
+}
+
+/**
+ * Response from /coaching/team-benchmarks
+ */
+export interface TeamBenchmarksResponse {
+  period_days: number;
+  total_work_orders: number;
+  completed: number;
+  team_completion_rate: number;
+  top_performer: { name: string; completion_rate: number };
+  most_active: { name: string; total_jobs: number };
+}
+
+/**
+ * GET /coaching/technician-performance
+ * Per-technician WO stats over the last 90 days.
+ */
+export function useCoachingTechnicianPerformance() {
+  return useQuery({
+    queryKey: ["coaching", "technician-performance"],
+    queryFn: async (): Promise<TechnicianPerformanceResponse> => {
+      const response = await apiClient.get("/coaching/technician-performance");
+      return response.data;
+    },
+    staleTime: 10 * 60 * 1000,
+    retry: 1,
+  });
+}
+
+/**
+ * GET /coaching/call-insights
+ * Call log aggregation — returns graceful empty state if no data.
+ */
+export function useCoachingCallInsights() {
+  return useQuery({
+    queryKey: ["coaching", "call-insights"],
+    queryFn: async (): Promise<CallInsightsResponse> => {
+      const response = await apiClient.get("/coaching/call-insights");
+      return response.data;
+    },
+    staleTime: 10 * 60 * 1000,
+    retry: 1,
+  });
+}
+
+/**
+ * GET /coaching/recommendations
+ * Rule-based coaching flags derived from real DB data.
+ */
+export function useCoachingRecommendations() {
+  return useQuery({
+    queryKey: ["coaching", "recommendations"],
+    queryFn: async (): Promise<RecommendationsResponse> => {
+      const response = await apiClient.get("/coaching/recommendations");
+      return response.data;
+    },
+    staleTime: 10 * 60 * 1000,
+    retry: 1,
+  });
+}
+
+/**
+ * GET /coaching/team-benchmarks
+ * Team-wide summary stats for the last 90 days.
+ */
+export function useCoachingTeamBenchmarks() {
+  return useQuery({
+    queryKey: ["coaching", "team-benchmarks"],
+    queryFn: async (): Promise<TeamBenchmarksResponse> => {
+      const response = await apiClient.get("/coaching/team-benchmarks");
+      return response.data;
+    },
+    staleTime: 10 * 60 * 1000,
+    retry: 1,
+  });
+}
