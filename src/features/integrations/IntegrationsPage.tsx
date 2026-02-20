@@ -20,6 +20,7 @@ import { useCloverConfig } from "@/api/hooks/useClover.ts";
 import { useQBOStatus } from "@/api/hooks/useQuickBooks.ts";
 import { useIntegrationSettings } from "@/api/hooks/useMarketingHub.ts";
 import { useAnthropicStatus } from "@/api/hooks/useAnthropic.ts";
+import { useIntegrationStatus } from "@/api/hooks/useIntegrationStatus.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -38,6 +39,7 @@ export function IntegrationsPage() {
   const { data: qboStatus } = useQBOStatus();
   const { data: integrationSettings } = useIntegrationSettings();
   const { data: claudeStatus } = useAnthropicStatus();
+  const { data: integrationStatus } = useIntegrationStatus();
 
   // Handle OAuth callback success messages
   useEffect(() => {
@@ -69,6 +71,7 @@ export function IntegrationsPage() {
       icon: "☘️",
       connected: cloverConfig?.is_configured || false,
       lastSync: cloverConfig?.is_configured ? new Date().toISOString() : undefined,
+      configDetail: integrationStatus?.clover?.configured === false ? integrationStatus.clover.detail ?? undefined : undefined,
     },
     {
       id: "ringcentral",
@@ -87,6 +90,7 @@ export function IntegrationsPage() {
       connected: (vehicles?.length || 0) > 0,
       lastSync:
         vehicles && vehicles.length > 0 ? new Date().toISOString() : undefined,
+      configDetail: integrationStatus?.samsara?.configured === false ? integrationStatus.samsara.detail ?? undefined : undefined,
     },
     {
       id: "quickbooks",
@@ -95,6 +99,7 @@ export function IntegrationsPage() {
       icon: "💰",
       connected: qboStatus?.connected || false,
       lastSync: qboStatus?.last_sync || undefined,
+      configDetail: integrationStatus?.quickbooks?.configured === false ? integrationStatus.quickbooks.detail ?? undefined : undefined,
     },
     {
       id: "hubspot",
@@ -127,6 +132,7 @@ export function IntegrationsPage() {
       icon: "📈",
       connected: integrationSettings?.integrations?.google_ads?.configured || false,
       lastSync: integrationSettings?.integrations?.google_ads?.configured ? new Date().toISOString() : undefined,
+      configDetail: integrationStatus?.google_ads?.configured === false ? integrationStatus.google_ads.detail ?? undefined : undefined,
     },
     {
       id: "google_analytics",
@@ -185,6 +191,7 @@ export function IntegrationsPage() {
               icon={integration.icon}
               connected={integration.connected}
               lastSync={integration.lastSync}
+              configDetail={(integration as { configDetail?: string }).configDetail}
               onConfigure={
                 ["claude", "ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks", "google_ads", "google_analytics", "google_search_console", "google_business_profile", "google_calendar"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)

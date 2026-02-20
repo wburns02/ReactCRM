@@ -18,6 +18,8 @@ interface IntegrationCardProps {
   onDisconnect?: () => void;
   onTest?: () => void;
   isLoading?: boolean;
+  /** Backend env vars not set — shows an amber "Not configured" warning */
+  configDetail?: string;
 }
 
 /**
@@ -35,6 +37,7 @@ export const IntegrationCard = memo(function IntegrationCard({
   onDisconnect,
   onTest,
   isLoading,
+  configDetail,
 }: IntegrationCardProps) {
   return (
     <Card>
@@ -47,13 +50,22 @@ export const IntegrationCard = memo(function IntegrationCard({
               <p className="text-sm text-text-secondary mt-1">{description}</p>
             </div>
           </div>
-          <Badge variant={connected ? "success" : "default"}>
-            {connected ? "Connected" : "Not Connected"}
-          </Badge>
+          {configDetail ? (
+            <Badge variant="warning">Not configured</Badge>
+          ) : (
+            <Badge variant={connected ? "success" : "default"}>
+              {connected ? "Connected" : "Not Connected"}
+            </Badge>
+          )}
         </div>
       </CardHeader>
       <CardContent>
-        {lastSync && (
+        {configDetail && (
+          <p className="text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded px-2 py-1 mb-3">
+            ⚠️ {configDetail}
+          </p>
+        )}
+        {lastSync && !configDetail && (
           <p className="text-sm text-text-muted mb-4">
             Last synced: {new Date(lastSync).toLocaleString()}
           </p>
