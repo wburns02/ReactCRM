@@ -8,6 +8,7 @@ import { PageLoader } from "./utils";
 // Import route modules
 import { PublicRoutes } from "./public";
 import { PortalRoutes } from "./portal";
+import { CustomerPortalRoutes } from "./customer-portal";
 import { FieldRoutes } from "./field";
 import { DashboardRoutes } from "./app/dashboard.routes";
 import { CustomerRoutes } from "./app/customers.routes";
@@ -55,8 +56,11 @@ export function AppRoutes() {
       {/* Public routes (no auth required) */}
       {PublicRoutes()}
 
-      {/* Customer Portal routes */}
+      {/* Customer Portal routes (legacy /portal/*) */}
       {PortalRoutes()}
+
+      {/* Customer Self-Service Portal routes (/customer-portal/*) */}
+      {CustomerPortalRoutes()}
 
       {/* Field Service routes (mobile technician) */}
       {FieldRoutes()}
