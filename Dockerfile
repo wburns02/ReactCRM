@@ -15,7 +15,7 @@ RUN npm ci --ignore-scripts
 # Copy source code
 COPY . .
 
-# Build production bundle
+# Cache bust: 2026-02-19-t430
 RUN npm run build
 
 # Verify build output
