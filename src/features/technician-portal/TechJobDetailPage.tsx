@@ -34,6 +34,9 @@ import { getRequiredPhotos, SYSTEM_TYPE_INFO } from "./photoCategories.ts";
 import type { PhotoCategory } from "./photoCategories.ts";
 import { InspectionChecklist } from "./components/InspectionChecklist.tsx";
 import { NextJobCard } from "./components/NextJobCard.tsx";
+import { JobInfoTab } from "./components/JobInfoTab.tsx";
+import { JobPhotosTab } from "./components/JobPhotosTab.tsx";
+import { JobPaymentTab } from "./components/JobPaymentTab.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -69,32 +72,6 @@ const STATUS_BADGE_VARIANT: Record<
 };
 
 // Photo requirements are now dynamic based on system_type — see photoCategories.ts
-
-const PAYMENT_METHODS = [
-  { value: "cash", label: "Cash", emoji: "💵" },
-  { value: "check", label: "Check", emoji: "📝" },
-  { value: "card", label: "Card", emoji: "💳" },
-  { value: "clover", label: "Clover POS", emoji: "☘️" },
-  { value: "ach", label: "ACH / Bank", emoji: "🏦" },
-  { value: "other", label: "Other", emoji: "📋" },
-] as const;
-
-const STATUS_OPTIONS = [
-  { value: "scheduled", label: "Scheduled", emoji: "📅" },
-  { value: "en_route", label: "En Route", emoji: "🚛" },
-  { value: "in_progress", label: "In Progress", emoji: "🔧" },
-  { value: "completed", label: "Completed", emoji: "✅" },
-  { value: "on_hold", label: "On Hold", emoji: "⏸️" },
-  { value: "requires_followup", label: "Needs Follow-Up", emoji: "🔄" },
-] as const;
-
-const PRIORITY_OPTIONS = [
-  { value: "low", label: "Low", emoji: "🟢" },
-  { value: "normal", label: "Normal", emoji: "🔵" },
-  { value: "high", label: "High", emoji: "🟡" },
-  { value: "urgent", label: "Urgent", emoji: "🟠" },
-  { value: "emergency", label: "Emergency", emoji: "🔴" },
-] as const;
 
 type TabKey = "info" | "customer" | "photos" | "history" | "payment" | "complete" | "inspection";
 
@@ -919,374 +896,58 @@ export function TechJobDetailPage() {
           TAB: JOB INFO (EDITABLE)
           ═══════════════════════════════════════════════════════════════ */}
       {activeTab === "info" && (
-        <>
-          {/* Edit Toggle */}
-          <div className="flex justify-end">
-            {!isEditing ? (
-              <button
-                onClick={handleEnterEdit}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-light text-primary text-sm font-medium hover:bg-primary/10 transition-colors"
-              >
-                <span>✏️</span> Edit Job Details
-              </button>
-            ) : (
-              <div className="flex gap-2">
-                <button
-                  onClick={handleCancelEdit}
-                  className="px-4 py-2 rounded-xl bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSaveEdit}
-                  disabled={isSavingEdit}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-bold hover:bg-green-700 disabled:opacity-50 transition-colors"
-                >
-                  {isSavingEdit ? "Saving..." : "Save Changes"}
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Customer Quick Contact */}
-          <Card>
-            <CardContent className="pt-5 pb-5">
-              <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                <span className="text-xl">👤</span> Customer
-              </h2>
-              <p className="text-lg font-semibold text-text-primary mb-2">
-                {job.customer_name || "Unknown Customer"}
-              </p>
-              {fullAddress && (
-                <a
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-primary hover:text-primary/80 mb-3"
-                >
-                  <span className="text-xl">📍</span>
-                  <span className="text-base underline">{fullAddress}</span>
-                </a>
-              )}
-              {job.customer_phone && (
-                <>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    <a
-                      href={`tel:${job.customer_phone}`}
-                      className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-green-100 transition-colors"
-                    >
-                      <span className="text-xl">📞</span> Call
-                    </a>
-                    <a
-                      href={`sms:${job.customer_phone}`}
-                      className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-3 rounded-xl text-base font-medium hover:bg-teal-100 transition-colors"
-                    >
-                      <span className="text-xl">💬</span> Text
-                    </a>
-                    <button
-                      onClick={() => {
-                        initiateCall.mutate(
-                          { phoneNumber: job.customer_phone! },
-                          {
-                            onSuccess: () => toastSuccess("Calling customer via RingCentral..."),
-                            onError: () => toastError("RingCentral call failed. Use the direct dial button instead."),
-                          },
-                        );
-                      }}
-                      disabled={initiateCall.isPending}
-                      className="inline-flex items-center gap-2 bg-mac-navy/10 text-mac-navy px-4 py-3 rounded-xl text-base font-medium hover:bg-mac-navy/15 transition-colors disabled:opacity-50"
-                    >
-                      <span className="text-xl">🔗</span>
-                      {initiateCall.isPending ? "Connecting..." : "RC Call"}
-                    </button>
-                  </div>
-
-                  {/* Quick Text Compose */}
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <button
-                      onClick={() => setShowQuickText((v) => !v)}
-                      className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                        showQuickText
-                          ? "bg-mac-navy/20 text-mac-navy"
-                          : "bg-mac-navy/10 text-mac-navy hover:bg-mac-navy/15"
-                      }`}
-                    >
-                      <span className="text-xl">📲</span> RC Text
-                    </button>
-                  </div>
-
-                  {showQuickText && (
-                    <div className="mt-3 p-4 bg-mac-navy/5 rounded-xl border border-mac-navy/20">
-                      <p className="text-sm font-medium text-mac-navy mb-2">
-                        Send SMS to {job.customer_phone} via RingCentral
-                      </p>
-                      <textarea
-                        value={quickTextMsg}
-                        onChange={(e) => setQuickTextMsg(e.target.value)}
-                        placeholder="Type your message..."
-                        rows={3}
-                        className="w-full px-3 py-2 rounded-lg border border-mac-navy/30 bg-white text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
-                      />
-                      <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-mac-navy/70">
-                          {quickTextMsg.length}/160 chars
-                        </span>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => { setShowQuickText(false); setQuickTextMsg(""); }}
-                            className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            onClick={() => {
-                              if (!quickTextMsg.trim()) { toastError("Type a message first"); return; }
-                              sendSMS.mutate(
-                                { to: job.customer_phone!, body: quickTextMsg.trim(), customer_id: job.customer_id || undefined },
-                                {
-                                  onSuccess: () => { toastSuccess("Text sent to customer!"); setQuickTextMsg(""); setShowQuickText(false); },
-                                  onError: () => { toastError("Failed to send text. Try the direct Text button instead."); },
-                                },
-                              );
-                            }}
-                            disabled={sendSMS.isPending || !quickTextMsg.trim()}
-                            className="px-5 py-2 bg-mac-navy text-white text-sm font-bold rounded-lg hover:bg-mac-navy/90 disabled:opacity-50 transition-colors"
-                          >
-                            {sendSMS.isPending ? "Sending..." : "Send"}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-
-              {/* Directions button */}
-              {job.service_address_line1 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  <a
-                    href={directionsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-3 rounded-xl text-base font-medium hover:bg-primary/15 transition-colors"
-                  >
-                    <span className="text-xl">🗺️</span> Get Directions
-                  </a>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Status & Priority (Editable) */}
-          {isEditing ? (
-            <Card>
-              <CardContent className="pt-5 pb-5 space-y-4">
-                <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                  <span className="text-xl">🔄</span> Status & Priority
-                </h2>
-
-                {/* Status Selector */}
-                <div>
-                  <label className="text-sm font-medium text-text-secondary mb-2 block">Status</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {STATUS_OPTIONS.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setEditStatus(opt.value)}
-                        className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
-                          editStatus === opt.value
-                            ? "border-primary bg-primary/10 text-primary"
-                            : "border-border bg-bg-surface text-text-secondary hover:border-primary/40"
-                        }`}
-                      >
-                        <span className="text-lg">{opt.emoji}</span>
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Priority Selector */}
-                <div>
-                  <label className="text-sm font-medium text-text-secondary mb-2 block">Priority</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {PRIORITY_OPTIONS.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => setEditPriority(opt.value)}
-                        className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-sm font-medium ${
-                          editPriority === opt.value
-                            ? "border-primary bg-primary/10 text-primary"
-                            : "border-border bg-bg-surface text-text-secondary hover:border-primary/40"
-                        }`}
-                      >
-                        <span>{opt.emoji}</span>
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Estimated Duration */}
-                <div>
-                  <label className="text-sm font-medium text-text-secondary mb-2 block">
-                    Estimated Duration (hours)
-                  </label>
-                  <input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.5"
-                    min="0"
-                    placeholder="e.g. 2.5"
-                    value={editDuration}
-                    onChange={(e) => setEditDuration(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            /* Job Details (Read-Only) */
-            <Card>
-              <CardContent className="pt-5 pb-5">
-                <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                  <span className="text-xl">📋</span> Job Details
-                </h2>
-                <div className="divide-y divide-border">
-                  <InfoRow emoji="📅" label="Scheduled Date" value={formatDate(job.scheduled_date)} />
-                  {timeWindow && <InfoRow emoji="🕐" label="Time Window" value={timeWindow} />}
-                  <InfoRow
-                    emoji="⏱️"
-                    label="Estimated Duration"
-                    value={job.estimated_duration_hours ? `${job.estimated_duration_hours} hours` : null}
-                  />
-                  <InfoRow emoji={jobTypeEmoji} label="Job Type" value={jobTypeLabel} />
-                  <InfoRow emoji={priorityEmoji} label="Priority" value={priorityLabel} />
-                  {amount > 0 && (
-                    <InfoRow emoji="💰" label="Estimated Value" value={formatCurrency(amount)} valueClassName="text-green-600" />
-                  )}
-                  {job.assigned_technician && (
-                    <InfoRow emoji="🔧" label="Assigned Technician" value={job.assigned_technician} />
-                  )}
-                  {job.actual_start_time && (
-                    <InfoRow
-                      emoji="▶️"
-                      label="Started At"
-                      value={new Date(job.actual_start_time).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true })}
-                    />
-                  )}
-                  {job.actual_end_time && (
-                    <InfoRow
-                      emoji="⏹️"
-                      label="Completed At"
-                      value={new Date(job.actual_end_time).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true })}
-                    />
-                  )}
-                  {job.total_labor_minutes != null && job.total_labor_minutes > 0 && (
-                    <InfoRow
-                      emoji="⏳"
-                      label="Total Labor"
-                      value={job.total_labor_minutes >= 60
-                        ? `${Math.floor(job.total_labor_minutes / 60)}h ${job.total_labor_minutes % 60}m`
-                        : `${job.total_labor_minutes}m`}
-                    />
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Notes (Always visible, editable in edit mode) */}
-          <Card>
-            <CardContent className="pt-5 pb-5">
-              <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                <span className="text-xl">📝</span> Notes
-              </h2>
-              {isEditing ? (
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium text-text-secondary mb-2 block">
-                      Job Notes
-                    </label>
-                    <textarea
-                      value={editNotes}
-                      onChange={(e) => setEditNotes(e.target.value)}
-                      placeholder="Add notes about this job..."
-                      rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-text-secondary mb-2 block">
-                      Internal Notes (not visible to customer)
-                    </label>
-                    <textarea
-                      value={editInternalNotes}
-                      onChange={(e) => setEditInternalNotes(e.target.value)}
-                      placeholder="Internal team notes..."
-                      rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
-                    />
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {job.notes ? (
-                    <div className="mb-3">
-                      <p className="text-xs text-text-muted uppercase tracking-wide mb-1">Job Notes</p>
-                      <p className="text-base text-text-primary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">{job.notes}</p>
-                    </div>
-                  ) : (
-                    <p className="text-sm text-text-muted italic mb-3">No job notes yet. Tap "Edit Job Details" to add notes.</p>
-                  )}
-                  {job.internal_notes && (
-                    <div>
-                      <p className="text-xs text-text-muted uppercase tracking-wide mb-1">Internal Notes</p>
-                      <p className="text-base text-text-secondary bg-bg-muted rounded-lg p-3 whitespace-pre-wrap">{job.internal_notes}</p>
-                    </div>
-                  )}
-                </>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Save Button (sticky at bottom when editing) */}
-          {isEditing && (
-            <div className="flex gap-3">
-              <Button variant="outline" onClick={handleCancelEdit} className="flex-1 h-14 rounded-xl text-base">
-                Cancel
-              </Button>
-              <Button
-                onClick={handleSaveEdit}
-                disabled={isSavingEdit}
-                className="flex-1 h-14 rounded-xl bg-green-600 hover:bg-green-700 text-white text-base font-bold shadow-lg disabled:opacity-50"
-              >
-                {isSavingEdit ? "Saving..." : "Save Changes"}
-              </Button>
-            </div>
-          )}
-
-          {/* Checklist if present */}
-          {!isEditing && job.checklist && Array.isArray(job.checklist) && job.checklist.length > 0 && (
-            <Card>
-              <CardContent className="pt-5 pb-5">
-                <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                  <span className="text-xl">✔️</span> Checklist
-                </h2>
-                <div className="space-y-2">
-                  {(job.checklist as Array<{ item?: string; label?: string; completed?: boolean }>).map(
-                    (item, idx) => (
-                      <div key={idx} className="flex items-center gap-3 py-2 px-3 bg-bg-muted rounded-lg">
-                        <span className="text-lg">{item.completed ? "✅" : "⬜"}</span>
-                        <span className="text-base">{item.label || item.item || `Item ${idx + 1}`}</span>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </>
+        <JobInfoTab
+          job={job}
+          fullAddress={fullAddress}
+          mapsUrl={mapsUrl}
+          directionsUrl={directionsUrl}
+          timeWindow={timeWindow}
+          jobTypeEmoji={jobTypeEmoji}
+          jobTypeLabel={jobTypeLabel}
+          priorityEmoji={priorityEmoji}
+          priorityLabel={priorityLabel}
+          amount={amount}
+          isEditing={isEditing}
+          editStatus={editStatus}
+          editPriority={editPriority}
+          editNotes={editNotes}
+          editInternalNotes={editInternalNotes}
+          editDuration={editDuration}
+          isSavingEdit={isSavingEdit}
+          setEditStatus={setEditStatus}
+          setEditPriority={setEditPriority}
+          setEditNotes={setEditNotes}
+          setEditInternalNotes={setEditInternalNotes}
+          setEditDuration={setEditDuration}
+          onEnterEdit={handleEnterEdit}
+          onCancelEdit={handleCancelEdit}
+          onSaveEdit={handleSaveEdit}
+          showQuickText={showQuickText}
+          quickTextMsg={quickTextMsg}
+          sendSMSPending={sendSMS.isPending}
+          setShowQuickText={setShowQuickText}
+          setQuickTextMsg={setQuickTextMsg}
+          onSendSMS={(msg) => {
+            if (!msg.trim()) { toastError("Type a message first"); return; }
+            sendSMS.mutate(
+              { to: job.customer_phone!, body: msg.trim(), customer_id: job.customer_id || undefined },
+              {
+                onSuccess: () => { toastSuccess("Text sent to customer!"); setQuickTextMsg(""); setShowQuickText(false); },
+                onError: () => { toastError("Failed to send text. Try the direct Text button instead."); },
+              },
+            );
+          }}
+          initiateCallPending={initiateCall.isPending}
+          onInitiateCall={(phoneNumber) => {
+            initiateCall.mutate(
+              { phoneNumber },
+              {
+                onSuccess: () => toastSuccess("Calling customer via RingCentral..."),
+                onError: () => toastError("RingCentral call failed. Use the direct dial button instead."),
+              },
+            );
+          }}
+        />
       )}
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -1561,302 +1222,24 @@ export function TechJobDetailPage() {
           TAB: PHOTOS (Required)
           ═══════════════════════════════════════════════════════════════ */}
       {activeTab === "photos" && (
-        <>
-          {/* Required Photos — dynamic based on system type */}
-          <Card>
-            <CardContent className="pt-5 pb-5">
-              <div className="flex items-center justify-between mb-1">
-                <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                  <span className="text-xl">📸</span> Required Photos
-                </h2>
-                {job?.system_type && SYSTEM_TYPE_INFO[job.system_type] && (
-                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${SYSTEM_TYPE_INFO[job.system_type].color}`}>
-                    {SYSTEM_TYPE_INFO[job.system_type].emoji} {SYSTEM_TYPE_INFO[job.system_type].label}
-                  </span>
-                )}
-              </div>
-              <p className="text-sm text-text-muted mb-3">
-                {requiredPhotos.length} photos required{job?.system_type === "aerobic" ? " (includes aerobic-specific)" : ""} before completing the job.
-              </p>
-
-              {/* Progress bar */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="font-medium text-text-secondary">
-                    {photosUploaded} of {requiredPhotos.length} photos
-                  </span>
-                  <span className={`font-bold ${photosComplete ? "text-green-600" : "text-orange-600"}`}>
-                    {photoProgressPct}%
-                  </span>
-                </div>
-                <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      photosComplete ? "bg-green-500" : photoProgressPct > 50 ? "bg-yellow-500" : "bg-red-500"
-                    }`}
-                    style={{ width: `${photoProgressPct}%` }}
-                  />
-                </div>
-              </div>
-
-              {/* Standard photos section */}
-              <div className="mb-3">
-                <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
-                  Standard Photos
-                </p>
-                <div className="grid grid-cols-2 gap-3">
-                  {requiredPhotos.filter((r) => !r.aerobicOnly).map((req) => {
-                    const uploaded = photos.find((p) => p.photo_type === req.type);
-                    const isUploading = uploadPhotoMutation.isPending && uploadingPhotoType === req.type;
-                    return (
-                      <button
-                        key={req.type}
-                        onClick={() => handlePhotoCapture(req.type)}
-                        disabled={isUploading}
-                        className={`relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-3 transition-all min-h-[130px] ${
-                          uploaded
-                            ? "border-green-400 bg-green-50"
-                            : "border-red-300 bg-red-50 hover:border-red-400 active:bg-red-100"
-                        }`}
-                      >
-                        {uploaded ? (
-                          <>
-                            <img
-                              src={uploaded.data_url || uploaded.thumbnail_url || ""}
-                              alt={req.label}
-                              className="w-full h-20 object-cover rounded-lg mb-2"
-                            />
-                            <span className="text-green-700 text-sm font-medium flex items-center gap-1">
-                              ✅ {req.label}
-                            </span>
-                            <span className="text-xs text-green-600 mt-0.5">Tap to retake</span>
-                          </>
-                        ) : (
-                          <>
-                            {isUploading ? (
-                              <span className="text-3xl animate-pulse">⏳</span>
-                            ) : (
-                              <span className="text-3xl">{req.emoji}</span>
-                            )}
-                            <span className="text-red-700 text-sm font-bold mt-2">{req.label}</span>
-                            <span className="text-xs text-red-500 mt-0.5 text-center leading-tight">{req.guidance}</span>
-                          </>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Aerobic-only photos section — only shown for aerobic systems */}
-              {requiredPhotos.some((r) => r.aerobicOnly) && (
-                <div className="mt-4">
-                  <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide mb-2 flex items-center gap-1">
-                    💨 Aerobic System Photos
-                  </p>
-                  <div className="grid grid-cols-2 gap-3">
-                    {requiredPhotos.filter((r) => r.aerobicOnly).map((req) => {
-                      const uploaded = photos.find((p) => p.photo_type === req.type);
-                      const isUploading = uploadPhotoMutation.isPending && uploadingPhotoType === req.type;
-                      return (
-                        <button
-                          key={req.type}
-                          onClick={() => handlePhotoCapture(req.type)}
-                          disabled={isUploading}
-                          className={`relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-3 transition-all min-h-[130px] ${
-                            uploaded
-                              ? "border-green-400 bg-green-50"
-                              : "border-purple-300 bg-purple-50 hover:border-purple-400 active:bg-purple-100"
-                          }`}
-                        >
-                          {uploaded ? (
-                            <>
-                              <img
-                                src={uploaded.data_url || uploaded.thumbnail_url || ""}
-                                alt={req.label}
-                                className="w-full h-20 object-cover rounded-lg mb-2"
-                              />
-                              <span className="text-green-700 text-sm font-medium flex items-center gap-1">
-                                ✅ {req.label}
-                              </span>
-                              <span className="text-xs text-green-600 mt-0.5">Tap to retake</span>
-                            </>
-                          ) : (
-                            <>
-                              {isUploading ? (
-                                <span className="text-3xl animate-pulse">⏳</span>
-                              ) : (
-                                <span className="text-3xl">{req.emoji}</span>
-                              )}
-                              <span className="text-purple-700 text-sm font-bold mt-2">{req.label}</span>
-                              <span className="text-xs text-purple-500 mt-0.5 text-center leading-tight">{req.guidance}</span>
-                            </>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Status summary */}
-              <div
-                className={`mt-4 p-3 rounded-lg text-center text-sm font-medium ${
-                  photosComplete
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
-                }`}
-              >
-                {photosComplete
-                  ? "All required photos uploaded ✓"
-                  : `${missingPhotos.length} of ${requiredPhotos.length} required photos still needed`}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Additional Photos */}
-          <Card>
-            <CardContent className="pt-5 pb-5">
-              <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                <span className="text-xl">📷</span> Additional Photos
-              </h2>
-              <Button
-                variant="outline"
-                onClick={() => handlePhotoCapture("other")}
-                disabled={uploadPhotoMutation.isPending}
-                className="w-full h-12 rounded-xl"
-              >
-                <span className="flex items-center gap-2">
-                  <span className="text-lg">➕</span> Add Extra Photo
-                </span>
-              </Button>
-
-              {/* Show all uploaded photos in gallery grid */}
-              {galleryPhotos.length > 0 && (
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {galleryPhotos.map((photo, idx) => (
-                    <button
-                      key={photo.id}
-                      onClick={() => { setLightboxPhoto(photo); setLightboxIndex(idx); }}
-                      className="relative group cursor-pointer"
-                    >
-                      <img
-                        src={photo.thumbnail_url || photo.data_url || ""}
-                        alt={photo.photo_type}
-                        className="w-full h-24 object-cover rounded-lg group-hover:opacity-80 transition-opacity"
-                      />
-                      <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded">
-                        {photo.photo_type}
-                      </span>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="bg-black/40 text-white rounded-full p-1 text-xs">🔍</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-              {/* Fallback if gallery hasn't loaded yet but old photos exist */}
-              {galleryPhotos.length === 0 && photos.length > 0 && (
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {photos.map((photo) => (
-                    <div key={photo.id} className="relative">
-                      <img
-                        src={photo.data_url || photo.thumbnail_url || ""}
-                        alt={photo.photo_type}
-                        className="w-full h-24 object-cover rounded-lg"
-                      />
-                      <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded">
-                        {photo.photo_type}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </>
-      )}
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          PHOTO LIGHTBOX
-          ═══════════════════════════════════════════════════════════════ */}
-      {lightboxPhoto && (
-        <div
-          className="fixed inset-0 z-50 bg-black/90 flex flex-col"
-          onClick={() => setLightboxPhoto(null)}
-        >
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 text-white" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-2">
-              <span className="text-lg capitalize font-medium">{lightboxPhoto.photo_type} Photo</span>
-              {lightboxPhoto.timestamp && (
-                <span className="text-sm text-white/70">
-                  {new Date(lightboxPhoto.timestamp).toLocaleString("en-US", {
-                    month: "short", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true,
-                  })}
-                </span>
-              )}
-            </div>
-            <button
-              onClick={() => setLightboxPhoto(null)}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-xl"
-            >
-              ✕
-            </button>
-          </div>
-
-          {/* Image */}
-          <div className="flex-1 flex items-center justify-center p-4 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={lightboxPhoto.data_url || lightboxPhoto.thumbnail_url}
-              alt={lightboxPhoto.photo_type}
-              className="max-w-full max-h-full object-contain rounded-lg"
-            />
-          </div>
-
-          {/* Navigation */}
-          {galleryPhotos.length > 1 && (
-            <div className="flex items-center justify-center gap-6 p-4" onClick={(e) => e.stopPropagation()}>
-              <button
-                onClick={() => {
-                  const prev = (lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
-                  setLightboxIndex(prev);
-                  setLightboxPhoto(galleryPhotos[prev]);
-                }}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white text-xl"
-              >
-                ◀
-              </button>
-              <span className="text-white/70 text-sm">
-                {lightboxIndex + 1} / {galleryPhotos.length}
-              </span>
-              <button
-                onClick={() => {
-                  const next = (lightboxIndex + 1) % galleryPhotos.length;
-                  setLightboxIndex(next);
-                  setLightboxPhoto(galleryPhotos[next]);
-                }}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white text-xl"
-              >
-                ▶
-              </button>
-            </div>
-          )}
-
-          {/* GPS info if available */}
-          {(lightboxPhoto.gps_lat && lightboxPhoto.gps_lng) && (
-            <div className="flex justify-center pb-4" onClick={(e) => e.stopPropagation()}>
-              <a
-                href={`https://maps.google.com/?q=${lightboxPhoto.gps_lat},${lightboxPhoto.gps_lng}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 text-xs hover:text-white/80 underline"
-              >
-                📍 View location ({lightboxPhoto.gps_lat.toFixed(4)}, {lightboxPhoto.gps_lng.toFixed(4)})
-              </a>
-            </div>
-          )}
-        </div>
+        <JobPhotosTab
+          systemType={job.system_type}
+          photos={photos}
+          galleryPhotos={galleryPhotos}
+          requiredPhotos={requiredPhotos}
+          uploadedPhotoTypes={uploadedPhotoTypes}
+          missingPhotos={missingPhotos}
+          photosComplete={photosComplete}
+          photosUploaded={photosUploaded}
+          photoProgressPct={photoProgressPct}
+          uploadIsPending={uploadPhotoMutation.isPending}
+          uploadingPhotoType={uploadingPhotoType}
+          lightboxPhoto={lightboxPhoto}
+          lightboxIndex={lightboxIndex}
+          onPhotoCapture={handlePhotoCapture}
+          onSetLightboxPhoto={setLightboxPhoto}
+          onSetLightboxIndex={setLightboxIndex}
+        />
       )}
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -2013,189 +1396,22 @@ export function TechJobDetailPage() {
           TAB: PAYMENT
           ═══════════════════════════════════════════════════════════════ */}
       {activeTab === "payment" && (
-        <>
-          {/* Payment History */}
-          {payments.length > 0 && (
-            <Card>
-              <CardContent className="pt-5 pb-5">
-                <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
-                  <span className="text-xl">✅</span> Payments Recorded
-                </h2>
-                <div className="space-y-2">
-                  {payments.map((p) => (
-                    <div
-                      key={p.id}
-                      className="flex items-center justify-between bg-green-50 rounded-lg p-3"
-                    >
-                      <div>
-                        <p className="font-medium text-green-800">
-                          {formatCurrency(p.amount)} via{" "}
-                          {
-                            PAYMENT_METHODS.find(
-                              (m) => m.value === p.payment_method,
-                            )?.label || p.payment_method
-                          }
-                        </p>
-                        {p.payment_date && (
-                          <p className="text-xs text-green-600">
-                            {new Date(p.payment_date).toLocaleString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                              hour: "numeric",
-                              minute: "2-digit",
-                              hour12: true,
-                            })}
-                          </p>
-                        )}
-                        {p.description && (
-                          <p className="text-xs text-green-600 mt-1">
-                            {p.description}
-                          </p>
-                        )}
-                      </div>
-                      <span className="text-green-500 text-2xl">✅</span>
-                    </div>
-                  ))}
-                  <div className="text-right font-bold text-green-700 pt-2">
-                    Total: {formatCurrency(totalPaid)}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Record New Payment */}
-          <Card>
-            <CardContent className="pt-5 pb-5">
-              <h2 className="text-lg font-bold text-text-primary mb-1 flex items-center gap-2">
-                <span className="text-xl">💰</span> Record Payment
-              </h2>
-              <p className="text-sm text-text-muted mb-4">
-                {paymentRecorded
-                  ? "Add another payment or adjust the amount."
-                  : "REQUIRED — Record how payment was received."}
-              </p>
-
-              {/* Payment Method Selection */}
-              <div className="mb-4">
-                <label className="text-sm font-medium text-text-secondary mb-2 block">
-                  How was payment received? *
-                </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {PAYMENT_METHODS.map((method) => (
-                    <button
-                      key={method.value}
-                      onClick={() => setPaymentMethod(method.value)}
-                      className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all ${
-                        paymentMethod === method.value
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border bg-bg-surface text-text-secondary hover:border-primary/40"
-                      }`}
-                    >
-                      <span className="text-2xl">{method.emoji}</span>
-                      <span className="text-xs font-medium">
-                        {method.label}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Amount */}
-              <div className="mb-4">
-                <label className="text-sm font-medium text-text-secondary mb-2 block">
-                  Amount Received *
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-text-muted">
-                    $
-                  </span>
-                  <input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.01"
-                    placeholder={amount > 0 ? String(amount) : "0.00"}
-                    value={paymentAmount}
-                    onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full h-14 pl-10 pr-4 text-xl font-bold rounded-xl border border-border bg-bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-                  />
-                </div>
-                {amount > 0 && (
-                  <button
-                    onClick={() => setPaymentAmount(String(amount))}
-                    className="text-sm text-primary mt-1 hover:underline"
-                  >
-                    Use estimated amount: {formatCurrency(amount)}
-                  </button>
-                )}
-              </div>
-
-              {/* Check Number (conditional) */}
-              {paymentMethod === "check" && (
-                <div className="mb-4">
-                  <label className="text-sm font-medium text-text-secondary mb-2 block">
-                    Check Number
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter check number"
-                    value={checkNumber}
-                    onChange={(e) => setCheckNumber(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl border border-border bg-bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-                  />
-                </div>
-              )}
-
-              {/* Notes */}
-              <div className="mb-4">
-                <label className="text-sm font-medium text-text-secondary mb-2 block">
-                  Notes (optional)
-                </label>
-                <textarea
-                  placeholder="Any payment notes..."
-                  value={paymentNotes}
-                  onChange={(e) => setPaymentNotes(e.target.value)}
-                  rows={2}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none"
-                />
-              </div>
-
-              {/* Submit */}
-              <Button
-                onClick={handleRecordPayment}
-                disabled={
-                  recordPaymentMutation.isPending ||
-                  !paymentMethod ||
-                  !paymentAmount
-                }
-                className="w-full h-14 text-lg font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white shadow-lg disabled:opacity-50"
-              >
-                {recordPaymentMutation.isPending ? (
-                  <span className="flex items-center gap-2">
-                    <span className="animate-spin">⏳</span> Recording...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <span className="text-xl">💰</span> Record Payment
-                  </span>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Payment status */}
-          <div
-            className={`p-3 rounded-lg text-center text-sm font-medium ${
-              paymentRecorded
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-          >
-            {paymentRecorded
-              ? `Payment recorded: ${formatCurrency(totalPaid)} ✓`
-              : "No payment recorded yet — REQUIRED before completion"}
-          </div>
-        </>
+        <JobPaymentTab
+          payments={payments}
+          paymentMethod={paymentMethod}
+          paymentAmount={paymentAmount}
+          checkNumber={checkNumber}
+          paymentNotes={paymentNotes}
+          paymentRecorded={paymentRecorded}
+          totalPaid={totalPaid}
+          estimatedAmount={amount}
+          isSubmitting={recordPaymentMutation.isPending}
+          setPaymentMethod={setPaymentMethod}
+          setPaymentAmount={setPaymentAmount}
+          setCheckNumber={setCheckNumber}
+          setPaymentNotes={setPaymentNotes}
+          onSubmit={handleRecordPayment}
+        />
       )}
 
       {/* ═══════════════════════════════════════════════════════════════════
