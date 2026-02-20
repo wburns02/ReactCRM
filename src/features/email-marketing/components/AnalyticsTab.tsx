@@ -211,10 +211,10 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium text-success">
-                        {(campaign.open_rate * 100).toFixed(1)}% open
+                        {(campaign.open_rate || 0).toFixed(1)}% open
                       </p>
                       <p className="text-xs text-text-muted">
-                        {(campaign.click_rate * 100).toFixed(1)}% click
+                        {(campaign.click_rate || 0).toFixed(1)}% click
                       </p>
                     </div>
                   </div>
@@ -251,10 +251,10 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium text-success">
-                        {(segment.open_rate * 100).toFixed(1)}% open
+                        {(segment.open_rate || 0).toFixed(1)}% open
                       </p>
                       <p className="text-xs text-text-muted">
-                        {(segment.click_rate * 100).toFixed(1)}% click
+                        {(segment.click_rate || 0).toFixed(1)}% click
                       </p>
                     </div>
                   </div>

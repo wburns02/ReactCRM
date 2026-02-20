@@ -34,14 +34,31 @@ export function EmailMarketingPage() {
   const canAccessManual = tier !== "none";
   const canAccessAI = tier === "ai_suggested" || tier === "autonomous";
 
-  // Quick stats from analytics
-  const analytics = status?.analytics;
+  // Quick stats from analytics — status endpoint returns analytics as a flat object
+  // (total_sent, total_opened, open_rate, etc.) NOT nested under a 'totals' key.
+  const analytics = status?.analytics as
+    | {
+        total_sent?: number;
+        total_opened?: number;
+        total_clicked?: number;
+        open_rate?: number;
+        click_rate?: number;
+        totals?: {
+          total_sent: number;
+          total_opened: number;
+          total_clicked: number;
+          open_rate: number;
+          click_rate: number;
+        };
+      }
+    | undefined;
+  // Support both flat (from /status) and nested (from /analytics) shapes.
   const totals = analytics?.totals || {
-    total_sent: 0,
-    total_opened: 0,
-    total_clicked: 0,
-    open_rate: 0,
-    click_rate: 0,
+    total_sent: analytics?.total_sent ?? 0,
+    total_opened: analytics?.total_opened ?? 0,
+    total_clicked: analytics?.total_clicked ?? 0,
+    open_rate: analytics?.open_rate ?? 0,
+    click_rate: analytics?.click_rate ?? 0,
   };
 
   const tabs: {
@@ -149,13 +166,13 @@ export function EmailMarketingPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-success">
-                  {((totals.open_rate || 0) * 100).toFixed(1)}%
+                  {(totals.open_rate || 0).toFixed(1)}%
                 </p>
                 <p className="text-xs text-text-muted">Open Rate</p>
               </div>
               <div>
                 <p className="text-2xl font-bold text-primary">
-                  {((totals.click_rate || 0) * 100).toFixed(1)}%
+                  {(totals.click_rate || 0).toFixed(1)}%
                 </p>
                 <p className="text-xs text-text-muted">Click Rate</p>
               </div>
