@@ -7,8 +7,8 @@
  * 3. The Technicians page (which embeds TechnicianCoachPanel) loads without errors
  * 4. No unexpected console errors on coaching-related pages
  *
- * Auth pattern: beforeAll fresh context with admin credentials,
- * shared authPage across tests (avoid rate limiting).
+ * Auth pattern: uses shared beforeAll admin session (same as phase2-comprehensive).
+ * Tests share a single authenticated page to avoid rate limiting.
  */
 
 import { test, expect, type Page } from "@playwright/test";
@@ -33,27 +33,70 @@ function isIgnoredError(text: string): boolean {
   return IGNORED_CONSOLE_PATTERNS.some((p) => text.includes(p));
 }
 
-test.describe.serial("AI Coaching — Real Data Endpoints", () => {
+test.describe("AI Coaching — Real Data Endpoints", () => {
   let authPage: Page;
 
   test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext();
     authPage = await context.newPage();
-    await authPage.goto(`${BASE_URL}/login`, { waitUntil: "domcontentloaded" });
-    await authPage.fill(
-      'input[name="email"], input[type="email"]',
-      ADMIN_EMAIL,
+
+    // Navigate to login page and authenticate
+    await authPage.goto(`${BASE_URL}/login`, {
+      waitUntil: "domcontentloaded",
+      timeout: 30000,
+    });
+
+    // Wait for email input to appear
+    await authPage.waitForSelector('input[type="email"]', {
+      state: "visible",
+      timeout: 20000,
+    });
+
+    // Fill credentials using evaluate to avoid element stability issues
+    await authPage.evaluate(
+      ({ email, password }) => {
+        const emailInput = document.querySelector(
+          'input[type="email"]',
+        ) as HTMLInputElement | null;
+        const pwInput = document.querySelector(
+          'input[type="password"]',
+        ) as HTMLInputElement | null;
+        if (emailInput) {
+          emailInput.value = email;
+          emailInput.dispatchEvent(new Event("input", { bubbles: true }));
+          emailInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        if (pwInput) {
+          pwInput.value = password;
+          pwInput.dispatchEvent(new Event("input", { bubbles: true }));
+          pwInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      },
+      { email: ADMIN_EMAIL, password: ADMIN_PASSWORD },
     );
-    await authPage.fill(
-      'input[name="password"], input[type="password"]',
-      ADMIN_PASSWORD,
-    );
-    await authPage.click('button[type="submit"]');
+
+    // Small pause for React state to update
+    await authPage.waitForTimeout(500);
+
+    // Submit the form
+    await authPage.evaluate(() => {
+      const form = document.querySelector("form");
+      if (form) form.dispatchEvent(new Event("submit", { bubbles: true }));
+      const btn = document.querySelector(
+        'button[type="submit"]',
+      ) as HTMLButtonElement | null;
+      if (btn) btn.click();
+    });
+
+    // Wait for redirect away from login
     await authPage.waitForFunction(
       () => !location.href.includes("/login"),
-      { timeout: 15000 },
+      { timeout: 20000 },
     );
-    console.log("Auth complete");
+
+    // Let the app settle
+    await authPage.waitForTimeout(2000);
+    console.log("Auth complete, at:", authPage.url());
   });
 
   test.afterAll(async () => {
@@ -61,7 +104,7 @@ test.describe.serial("AI Coaching — Real Data Endpoints", () => {
   });
 
   // ---------------------------------------------------------------------------
-  // API endpoint tests
+  // API endpoint tests — all use the shared authPage's session cookies
   // ---------------------------------------------------------------------------
 
   test("GET /coaching/technician-performance returns 200 with technicians array", async () => {
@@ -247,7 +290,7 @@ test.describe.serial("AI Coaching — Real Data Endpoints", () => {
     expect(bodyText).not.toContain("Something went wrong");
     expect(bodyText).not.toContain("404");
 
-    // Should show Call Intelligence Dashboard or a valid page element
+    // Should show a valid page element
     await expect(page.locator("h1, h2").first()).toBeVisible({ timeout: 5000 });
 
     expect(consoleErrors).toHaveLength(0);
@@ -310,7 +353,6 @@ test.describe.serial("AI Coaching — Real Data Endpoints", () => {
     );
 
     expect(result.status).toBe(200);
-    // The production DB has technicians and work orders, so we expect data
     console.log(
       "Technician count in coaching:",
       result.data?.technicians?.length,
@@ -319,7 +361,6 @@ test.describe.serial("AI Coaching — Real Data Endpoints", () => {
     );
 
     // We have work orders in the system, so technicians array should be non-empty
-    // (graceful empty state is acceptable for brand-new installs)
     expect(Array.isArray(result.data.technicians)).toBe(true);
     // team_avg_completion_rate must be a number between 0 and 1
     expect(typeof result.data.team_avg_completion_rate).toBe("number");
