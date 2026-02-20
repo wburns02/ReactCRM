@@ -53,6 +53,9 @@ export const customerSchema = z.object({
   assigned_sales_rep: z.string().nullable(),
   next_follow_up_date: z.string().nullable(),
   lead_notes: z.string().nullable(),
+  // System information (for aerobic manufacturer-specific contract pricing)
+  system_type: z.string().nullable(),
+  manufacturer: z.string().nullable(),
   // External IDs
   quickbooks_customer_id: z.string().nullable(),
   hubspot_contact_id: z.string().nullable(),

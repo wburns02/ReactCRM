@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { formatCurrency } from "@/lib/utils.ts";
+import { getManufacturer } from "@/features/technician-portal/manufacturerRules.ts";
 
 // ========================
 // Contract Types with Pricing
@@ -544,6 +545,54 @@ export function NewContractForm({ onSuccess }: NewContractFormProps) {
       {step === "details" && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-text-primary">Contract Details & Add-Ons</h3>
+
+          {/* Manufacturer-specific pricing suggestion */}
+          {(() => {
+            const mfr = getManufacturer(selectedCustomerData?.manufacturer);
+            if (selectedCustomerData?.system_type !== "aerobic" || !mfr.contractRules.premiumContract) return null;
+            return (
+              <div className="p-4 rounded-xl border-2 border-purple-300 dark:border-purple-600 bg-purple-50 dark:bg-purple-900/20 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">💼</span>
+                  <h4 className="font-semibold text-purple-800 dark:text-purple-300">
+                    {mfr.name} Aerobic System — Premium Pricing Recommended
+                  </h4>
+                </div>
+                {mfr.contractRules.premiumReason && (
+                  <p className="text-sm text-purple-700 dark:text-purple-400">{mfr.contractRules.premiumReason}</p>
+                )}
+                {mfr.contractRules.additionalLineItems && mfr.contractRules.additionalLineItems.length > 0 && (
+                  <div className="space-y-1">
+                    <p className="text-xs font-semibold text-purple-700 dark:text-purple-400 uppercase tracking-wide">Suggested Add-Ons:</p>
+                    {mfr.contractRules.additionalLineItems.map((item) => {
+                      const alreadyAdded = selectedAddOns.some((a) => a.name === item.name);
+                      return (
+                        <div key={item.name} className="flex items-center justify-between bg-white dark:bg-purple-900/40 rounded-lg px-3 py-2">
+                          <div>
+                            <span className="text-sm font-medium text-text-primary">{item.name}</span>
+                            <span className="text-xs text-text-muted ml-2">({item.frequency})</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-purple-700 dark:text-purple-300">{formatCurrency(item.cost)}/yr</span>
+                            <button
+                              onClick={() => toggleAddOn({ name: item.name, price: item.cost })}
+                              className={`text-xs px-2 py-1 rounded font-medium transition-colors ${
+                                alreadyAdded
+                                  ? "bg-purple-600 text-white hover:bg-purple-700"
+                                  : "bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-700"
+                              }`}
+                            >
+                              {alreadyAdded ? "✓ Added" : "+ Add"}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Commercial system fields */}
           {selectedType?.category === "commercial" && (
