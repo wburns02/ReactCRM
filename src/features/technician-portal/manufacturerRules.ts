@@ -174,16 +174,22 @@ export const MANUFACTURERS: Record<AerobicManufacturer, ManufacturerInfo> = {
       refillVolumeMin: 500,
       refillVolumeMax: 1000,
       refillMethods: ["Water hose on-site (required immediately)"],
+      postPumpingAction: "Call customer the next day to confirm Fuji Clean tank was refilled",
+      postPumpingActionDays: 1,
+      postPumpingReminderMessage: "Hi {customerName}! This is MAC Septic. We wanted to confirm that your Fuji Clean tank was refilled after yesterday's pumping. Please call us at (512) 392-1232 if there are any concerns — fiberglass tanks must stay filled at all times.",
       pumpingNotes: [
         "⚠️ CRITICAL: Fuji tanks are FIBERGLASS — they MUST be refilled immediately",
         "Failure to refill will cause tank collapse — catastrophic and expensive",
         "Have water hose ready BEFORE pumping begins",
         "Refill 500-1000 gallons immediately after pumping completes",
+        "CRM reminder created: call customer next day to confirm refill was done",
       ],
     },
     contractRules: {
-      premiumContract: false,
+      premiumContract: true,
+      premiumReason: "Fuji Clean aerobic treatment units require annual ATU service and inspection to maintain proper operation and prevent fiberglass tank damage.",
       additionalLineItems: [
+        { name: "Annual ATU Service & Inspection", cost: 125, frequency: "Annual" },
         { name: "Air Filter Replacement", cost: 10, frequency: "Annual" },
       ],
     },
