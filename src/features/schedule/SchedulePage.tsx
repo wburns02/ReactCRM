@@ -19,6 +19,7 @@ import { WorkOrderForm } from "@/features/workorders/components/WorkOrderForm.ts
 import { useCreateWorkOrder } from "@/api/hooks/useWorkOrders.ts";
 import { type WorkOrderFormData } from "@/api/types/workOrder.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { RouteOptimizationPanel } from "./components/RouteOptimizationPanel.tsx";
 
 /**
  * Schedule Page - Main scheduling interface
@@ -90,6 +91,9 @@ export function SchedulePage() {
 
         {/* Unscheduled Work Orders Table - Top Section */}
         <UnscheduledOrdersTable />
+
+        {/* Route Optimization Panel */}
+        <RouteOptimizationPanel />
 
         {/* Statistics Dashboard */}
         <ScheduleStats />

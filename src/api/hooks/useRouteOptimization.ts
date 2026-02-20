@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { z } from "zod";
 
 /**
  * Route Optimization Types
@@ -141,6 +142,47 @@ export function useDrivingDirections() {
         params,
       );
       return data;
+    },
+  });
+}
+
+// ============================================================
+// New haversine-based route optimization (POST /work-orders/optimize-route)
+// ============================================================
+
+const RouteOptimizeResponseSchema = z.object({
+  ordered_job_ids: z.array(z.string()),
+  total_distance_miles: z.number(),
+  estimated_drive_minutes: z.number(),
+  waypoints: z.array(
+    z.object({
+      job_id: z.string(),
+      address: z.string().optional(),
+      lat: z.number().optional(),
+      lng: z.number().optional(),
+    }),
+  ),
+});
+
+export type RouteOptimizeResponse = z.infer<typeof RouteOptimizeResponseSchema>;
+
+/**
+ * Optimize the order of jobs using haversine nearest-neighbor algorithm.
+ * Calls POST /work-orders/optimize-route.
+ */
+export function useOptimizeRoute() {
+  return useMutation({
+    mutationFn: async (params: {
+      job_ids: string[];
+      start_lat?: number;
+      start_lng?: number;
+      start_address?: string;
+    }): Promise<RouteOptimizeResponse> => {
+      const { data } = await apiClient.post(
+        "/work-orders/optimize-route",
+        params,
+      );
+      return RouteOptimizeResponseSchema.parse(data);
     },
   });
 }
