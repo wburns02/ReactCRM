@@ -144,6 +144,9 @@ test.describe.serial("Manufacturer-Specific Inspection Rules", () => {
 
   test("Weather API endpoint returns valid temperature, 7-day history, and precip total", async () => {
     const API_URL = "https://react-crm-api-production.up.railway.app/api/v2";
+    // Navigate fresh to avoid "execution context destroyed" when prior test did page.reload()
+    await page.goto(`${BASE_URL}/portal/jobs/${WO_ID}`, { waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(1000);
     const result = await page.evaluate(async ({ apiUrl, woId }) => {
       const res = await fetch(`${apiUrl}/employee/jobs/${woId}/inspection/weather`, {
         credentials: "include",

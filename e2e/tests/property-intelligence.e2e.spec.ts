@@ -51,17 +51,15 @@ test.describe.serial("Property Intelligence", () => {
 
   test("1. /property-intelligence dashboard loads", async () => {
     await page.goto(`${APP_URL}/property-intelligence`, { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1500);
 
     // Should not show a crash/error screen
     await expect(page.locator("body")).not.toContainText("Something went wrong");
     await expect(page.locator("body")).not.toContainText("Cannot read properties");
 
-    // Should show some property intelligence content
-    const hasContent = await page.locator("body").evaluate((el) =>
-      el.innerText.length > 50
-    );
-    expect(hasContent).toBe(true);
+    // "Property Intelligence" heading is present in both configured and Not Configured states
+    await expect(
+      page.getByRole("heading", { name: /Property Intelligence/i }).first()
+    ).toBeVisible({ timeout: 10000 });
   });
 
   test("2. /property-intelligence/search page loads", async () => {
