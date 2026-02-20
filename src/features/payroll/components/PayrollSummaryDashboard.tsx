@@ -7,6 +7,7 @@ import {
   usePayrollOverview,
 } from "@/api/hooks/usePayroll";
 import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { formatDate, formatCurrency } from "@/lib/utils";
@@ -181,17 +182,6 @@ function LoadingSkeleton() {
 /**
  * Empty state when no period or no data
  */
-function EmptyState({ message }: { message: string }) {
-  return (
-    <Card className="p-12 text-center">
-      <div className="text-6xl mb-4">📊</div>
-      <h3 className="font-semibold text-xl text-text-primary mb-2">
-        No Data Available
-      </h3>
-      <p className="text-text-secondary max-w-md mx-auto">{message}</p>
-    </Card>
-  );
-}
 
 /**
  * World-Class Payroll Summary Dashboard
@@ -263,7 +253,7 @@ export function PayrollSummaryDashboard({
 
   if (periodError) {
     return (
-      <EmptyState message="Could not load payroll period. Please try again or create a new period." />
+      <EmptyState icon="📊" title="No Data Available" description="Could not load payroll period. Please try again or create a new period." />
     );
   }
 

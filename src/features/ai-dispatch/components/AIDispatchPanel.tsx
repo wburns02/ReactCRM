@@ -1,5 +1,6 @@
 import { useState, useCallback, memo, useMemo, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Tabs, TabList, TabTrigger, TabContent } from "@/components/ui/Tabs";
@@ -395,7 +396,12 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
             {loadingSuggestions ? (
               <DispatchSuggestionCardSkeletonList count={3} />
             ) : filteredSuggestions.length === 0 ? (
-              <EmptyState filter={filter} />
+              <EmptyState
+                icon="✨"
+                title={AI_DISPATCH_EMPTY_MESSAGES[filter].title}
+                description={AI_DISPATCH_EMPTY_MESSAGES[filter].description}
+                className="py-8"
+              />
             ) : (
               filteredSuggestions.map((suggestion) => (
                 <DispatchSuggestionCard
@@ -619,45 +625,26 @@ function TechnicianQuickView({
   );
 }
 
-/**
- * Empty state when no suggestions
- */
-function EmptyState({ filter }: { filter: SuggestionFilter }) {
-  const messages: Record<
-    SuggestionFilter,
-    { title: string; description: string }
-  > = {
-    all: {
-      title: "No pending suggestions",
-      description:
-        "Ask AI to analyze your schedule or wait for automatic insights",
-    },
-    high_confidence: {
-      title: "No high-confidence suggestions",
-      description:
-        "Try lowering the filter or ask AI for specific recommendations",
-    },
-    scheduling: {
-      title: "No scheduling suggestions",
-      description:
-        'Ask AI about scheduling: "Who should handle the next emergency call?"',
-    },
-    routing: {
-      title: "No routing suggestions",
-      description:
-        'Ask AI to optimize routes: "Optimize tomorrow\'s routes for efficiency"',
-    },
-  };
-
-  const msg = messages[filter];
-
-  return (
-    <div className="text-center py-8">
-      <div className="text-4xl mb-3">*</div>
-      <p className="text-sm text-text-primary font-medium">{msg.title}</p>
-      <p className="text-xs text-text-muted mt-1">{msg.description}</p>
-    </div>
-  );
-}
+const AI_DISPATCH_EMPTY_MESSAGES: Record<
+  SuggestionFilter,
+  { title: string; description: string }
+> = {
+  all: {
+    title: "No pending suggestions",
+    description: "Ask AI to analyze your schedule or wait for automatic insights",
+  },
+  high_confidence: {
+    title: "No high-confidence suggestions",
+    description: "Try lowering the filter or ask AI for specific recommendations",
+  },
+  scheduling: {
+    title: "No scheduling suggestions",
+    description: 'Ask AI about scheduling: "Who should handle the next emergency call?"',
+  },
+  routing: {
+    title: "No routing suggestions",
+    description: 'Ask AI to optimize routes: "Optimize tomorrow\'s routes for efficiency"',
+  },
+};
 
 export default AIDispatchPanel;

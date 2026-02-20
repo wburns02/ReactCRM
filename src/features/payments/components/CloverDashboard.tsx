@@ -5,6 +5,7 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/Card.tsx";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import {
   useCloverConfig,
@@ -226,7 +227,7 @@ function PaymentsTab({ payments, isLoading }: { payments: CloverPayment[]; isLoa
   }
 
   if (payments.length === 0) {
-    return <EmptyState label="No payments found in Clover" />;
+    return <EmptyState icon="💳" title="No payments found in Clover" description="Sync payments from your Clover POS to see them here" />;
   }
 
   return (
@@ -282,7 +283,7 @@ function OrdersTab({ orders, isLoading }: { orders: CloverOrder[]; isLoading: bo
   }
 
   if (orders.length === 0) {
-    return <EmptyState label="No orders found in Clover" />;
+    return <EmptyState icon="🧾" title="No orders found in Clover" description="Orders from your Clover POS will appear here after syncing" />;
   }
 
   return (
@@ -342,7 +343,7 @@ function OrdersTab({ orders, isLoading }: { orders: CloverOrder[]; isLoading: bo
 
 function CatalogTab({ items }: { items: CloverItem[] }) {
   if (items.length === 0) {
-    return <EmptyState label="No service catalog items in Clover" />;
+    return <EmptyState icon="📋" title="No catalog items in Clover" description="Service catalog items from your Clover account will appear here" />;
   }
 
   return (
@@ -521,12 +522,3 @@ function LoadingState({ label }: { label: string }) {
   );
 }
 
-function EmptyState({ label }: { label: string }) {
-  return (
-    <Card>
-      <CardContent className="py-12 text-center">
-        <p className="text-text-secondary">{label}</p>
-      </CardContent>
-    </Card>
-  );
-}

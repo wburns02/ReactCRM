@@ -4,10 +4,11 @@
  */
 
 import { memo } from "react";
-import { Lightbulb, TrendingUp, BookOpen } from "lucide-react";
+import { TrendingUp, BookOpen } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { cn } from "@/lib/utils.ts";
 import type {
   CoachingInsights,
@@ -263,21 +264,6 @@ function CoachingInsightsSkeleton() {
 /**
  * Empty State Component
  */
-function EmptyState() {
-  return (
-    <Card>
-      <CardContent className="py-12">
-        <div className="text-center text-text-muted">
-          <Lightbulb className="h-12 w-12 mx-auto mb-4 opacity-50" />
-          <p className="text-sm">No coaching insights available</p>
-          <p className="text-xs mt-1">
-            Insights will appear once calls are analyzed
-          </p>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
 
 /**
  * Main Coaching Insights Panel Component
@@ -294,7 +280,18 @@ export const CoachingInsightsPanel = memo(function CoachingInsightsPanel({
 
   // Empty state
   if (!insights) {
-    return <EmptyState />;
+    return (
+      <Card>
+        <CardContent className="py-12">
+          <EmptyState
+            icon="💡"
+            title="No coaching insights available"
+            description="Insights will appear once calls are analyzed"
+            className="py-4"
+          />
+        </CardContent>
+      </Card>
+    );
   }
 
   const {

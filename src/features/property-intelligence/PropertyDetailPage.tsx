@@ -7,6 +7,7 @@ import {
   usePropertyPdfs,
 } from "@/api/hooks/usePropertyIntelligence";
 import { isPropIntelConfigured } from "@/api/propIntelClient";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { useState } from "react";
 import {
   ArrowLeft,
@@ -298,7 +299,7 @@ function OverviewTab({ property }: { property: any }) {
 
 function PermitsTab({ permits }: { permits: any[] }) {
   if (permits.length === 0) {
-    return <EmptyState message="No permits found for this property." />;
+    return <EmptyState icon="📋" title="No permits found" description="No permits found for this property." />;
   }
 
   return (
@@ -361,7 +362,7 @@ function PermitsTab({ permits }: { permits: any[] }) {
 function EnvironmentalTab({ records }: { records: any[] }) {
   if (records.length === 0) {
     return (
-      <EmptyState message="No environmental records found for this property." />
+      <EmptyState icon="🌿" title="No environmental records" description="No environmental records found for this property." />
     );
   }
 
@@ -409,7 +410,7 @@ function EnvironmentalTab({ records }: { records: any[] }) {
 
 function FloodTab({ zones }: { zones: any[] }) {
   if (zones.length === 0) {
-    return <EmptyState message="No flood zone data found for this property." />;
+    return <EmptyState icon="💧" title="No flood zone data" description="No flood zone data found for this property." />;
   }
 
   return (
@@ -447,7 +448,7 @@ function FloodTab({ zones }: { zones: any[] }) {
 function DocumentsTab({ pdfs }: { pdfs: any[] }) {
   if (pdfs.length === 0) {
     return (
-      <EmptyState message="No extracted documents found for this property." />
+      <EmptyState icon="📄" title="No documents found" description="No extracted documents found for this property." />
     );
   }
 
@@ -547,11 +548,3 @@ function InfoRow({
   );
 }
 
-function EmptyState({ message }: { message: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-12 text-text-secondary">
-      <FileText className="w-10 h-10 mb-3 opacity-30" />
-      <p>{message}</p>
-    </div>
-  );
-}
