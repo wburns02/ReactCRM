@@ -167,6 +167,8 @@ export const workOrderSchema = z.object({
   recurrence_frequency: z.string().nullable().optional(),
   next_recurrence_date: z.string().nullable().optional(),
   total_amount: numericField,
+  // Notification field (present on PATCH response when status → completed)
+  notification_sent: z.boolean().optional(),
 });
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;

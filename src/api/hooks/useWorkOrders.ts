@@ -136,6 +136,9 @@ export function useUpdateWorkOrder() {
         "Work Order Updated",
         `Work order ${workOrder.work_order_number || workOrder.id.slice(0, 8)} updated successfully`
       );
+      if (workOrder.notification_sent) {
+        toastSuccess("SMS Sent", "Customer notified by SMS that service is complete");
+      }
     },
     onError: (error: any) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to update work order";
