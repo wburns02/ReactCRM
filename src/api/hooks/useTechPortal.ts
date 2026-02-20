@@ -71,8 +71,8 @@ export function useTechJobs(filters: JobFilters = {}) {
               page: data.page || 1,
               page_size: data.page_size || 20,
             };
-        // Cache for offline use
-        await cacheRead(cacheKey, result);
+        // Cache for offline use — fire-and-forget, never block the queryFn
+        cacheRead(cacheKey, result).catch(() => {});
         return result;
       } catch {
         // API failed — try cache
@@ -98,7 +98,7 @@ export function useTechJobDetail(jobId: string) {
 
       try {
         const { data } = await apiClient.get(`/work-orders/${jobId}`);
-        await cacheRead(cacheKey, data);
+        cacheRead(cacheKey, data).catch(() => {});
         return data;
       } catch {
         const cached = await getCachedRead<TechWorkOrder>(cacheKey);
@@ -134,7 +134,7 @@ export function useTechSchedule(startDate: string, endDate: string) {
           },
         });
         const result: ScheduleJob[] = Array.isArray(data) ? data : (data.items || data.jobs || []);
-        await cacheRead(cacheKey, result);
+        cacheRead(cacheKey, result).catch(() => {});
         return result;
       } catch {
         const cached = await getCachedRead<ScheduleJob[]>(cacheKey);
