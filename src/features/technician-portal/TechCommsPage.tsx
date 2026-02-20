@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -31,6 +32,11 @@ const MSG_TABS = [
 type MsgTabKey = (typeof MSG_TABS)[number]["key"];
 
 const TYPE_ICONS: Record<string, string> = { sms: "📱", email: "📧" };
+
+const MSG_EMPTY_STATES: Record<MsgTabKey, { icon: string; title: string; description: string }> = {
+  inbox: { icon: "📭", title: "No messages yet", description: "Messages you receive will show up here" },
+  sent: { icon: "📤", title: "No sent messages", description: "Messages you send will show up here" },
+};
 
 const STATUS_VARIANTS: Record<
   string,
@@ -486,34 +492,6 @@ function MessageCard({
   );
 }
 
-// ── Empty State ───────────────────────────────────────────────────────────
-
-function MsgEmptyState({ tab }: { tab: MsgTabKey }) {
-  const content = {
-    inbox: {
-      emoji: "📭",
-      text: "No messages yet",
-      sub: "Messages you receive will show up here",
-    },
-    sent: {
-      emoji: "📤",
-      text: "No sent messages",
-      sub: "Messages you send will show up here",
-    },
-  };
-  const c = content[tab];
-
-  return (
-    <Card>
-      <CardContent className="py-16 text-center">
-        <p className="text-5xl mb-4">{c.emoji}</p>
-        <p className="text-lg font-medium text-text-secondary">{c.text}</p>
-        <p className="text-sm text-text-muted mt-2">{c.sub}</p>
-      </CardContent>
-    </Card>
-  );
-}
-
 // ── SMS/Email Tab Content ─────────────────────────────────────────────────
 
 function MessagingTab({ type, onCompose }: { type: "sms" | "email"; onCompose: () => void }) {
@@ -613,7 +591,9 @@ function MessagingTab({ type, onCompose }: { type: "sms" | "email"; onCompose: (
 
       {/* Messages */}
       {sorted.length === 0 ? (
-        <MsgEmptyState tab={msgTab} />
+        <Card>
+          <EmptyState {...MSG_EMPTY_STATES[msgTab]} />
+        </Card>
       ) : (
         <div className="space-y-3">
           {sorted.map((msg) => (

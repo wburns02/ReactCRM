@@ -17,6 +17,7 @@ import type {
   Prediction,
 } from "@/api/types/analytics";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { getErrorMessage } from "@/api/client";
 import { toastError } from "@/components/ui/Toast";
 
@@ -190,13 +191,7 @@ function AnomaliesTab({ anomalies }: { anomalies: AnomalyAlert[] }) {
   if (anomalies.length === 0) {
     return (
       <Card>
-        <CardContent className="py-12 text-center">
-          <span className="text-4xl">✅</span>
-          <p className="text-lg font-medium mt-4">No anomalies detected</p>
-          <p className="text-text-secondary mt-1">
-            All metrics are within expected ranges
-          </p>
-        </CardContent>
+        <EmptyState icon="✅" title="No anomalies detected" description="All metrics are within expected ranges" />
       </Card>
     );
   }
@@ -356,13 +351,7 @@ function InsightsTab({ insights }: { insights: PrescriptiveInsight[] }) {
   if (insights.length === 0) {
     return (
       <Card>
-        <CardContent className="py-12 text-center">
-          <span className="text-4xl">🔍</span>
-          <p className="text-lg font-medium mt-4">No insights available</p>
-          <p className="text-text-secondary mt-1">
-            Check back later for AI-generated recommendations
-          </p>
-        </CardContent>
+        <EmptyState icon="🔍" title="No insights available" description="Check back later for AI-generated recommendations" />
       </Card>
     );
   }
@@ -430,13 +419,7 @@ function PredictionsTab({ predictions }: { predictions: Prediction[] }) {
   if (predictions.length === 0) {
     return (
       <Card>
-        <CardContent className="py-12 text-center">
-          <span className="text-4xl">🔮</span>
-          <p className="text-lg font-medium mt-4">No predictions available</p>
-          <p className="text-text-secondary mt-1">
-            Predictions will appear once enough data is collected
-          </p>
-        </CardContent>
+        <EmptyState icon="🔮" title="No predictions available" description="Predictions will appear once enough data is collected" />
       </Card>
     );
   }

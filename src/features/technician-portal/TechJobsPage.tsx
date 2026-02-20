@@ -9,8 +9,16 @@ import { Input } from "@/components/ui/Input.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { formatCurrency, formatDate } from "@/lib/utils.ts";
 import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 
 // ── Constants ──────────────────────────────────────────────────────────────
+
+const JOBS_EMPTY_STATES: Record<string, { icon: string; title: string }> = {
+  all: { icon: "📭", title: "No jobs found" },
+  scheduled: { icon: "📅", title: "No scheduled jobs" },
+  in_progress: { icon: "🔧", title: "No jobs in progress" },
+  completed: { icon: "🎉", title: "No completed jobs yet" },
+};
 
 const STATUS_TABS = [
   { key: "all", label: "All", emoji: "📋" },
@@ -240,28 +248,6 @@ function JobCard({
 
 // ── Empty State ────────────────────────────────────────────────────────────
 
-function EmptyState({ statusFilter }: { statusFilter: string }) {
-  const messages: Record<string, { emoji: string; text: string }> = {
-    all: { emoji: "📭", text: "No jobs found" },
-    scheduled: { emoji: "📅", text: "No scheduled jobs" },
-    in_progress: { emoji: "🔧", text: "No jobs in progress" },
-    completed: { emoji: "🎉", text: "No completed jobs yet" },
-  };
-  const msg = messages[statusFilter] || messages.all;
-
-  return (
-    <Card>
-      <CardContent className="py-16 text-center">
-        <p className="text-5xl mb-4">{msg.emoji}</p>
-        <p className="text-lg font-medium text-text-secondary">{msg.text}</p>
-        <p className="text-sm text-text-muted mt-2">
-          Pull down to refresh or adjust your filters
-        </p>
-      </CardContent>
-    </Card>
-  );
-}
-
 // ── Main Page ──────────────────────────────────────────────────────────────
 
 export function TechJobsPage() {
@@ -403,7 +389,12 @@ export function TechJobsPage() {
 
       {/* Job Cards */}
       {sortedItems.length === 0 ? (
-        <EmptyState statusFilter={statusFilter} />
+        <Card>
+          <EmptyState
+            {...(JOBS_EMPTY_STATES[statusFilter] ?? JOBS_EMPTY_STATES.all)}
+            description="Pull down to refresh or adjust your filters"
+          />
+        </Card>
       ) : (
         <div className="space-y-3">
           {sortedItems.map((job) => (
