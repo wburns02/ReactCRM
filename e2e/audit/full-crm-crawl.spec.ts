@@ -337,11 +337,12 @@ test.describe.serial("Full CRM Site Crawl", () => {
           type: "crash",
           description: `${path} → ${result.consoleErrors.slice(0, 2).join("; ")}`,
         });
-        // Hard-fail only on React Error Boundary (real app crash, not just API 5xx)
+        // Soft assertion — records the failure but does NOT throw.
+        // This allows the serial suite to continue crawling all remaining pages.
         const isReactCrash = result.consoleErrors.some((e) =>
           e.includes("React Error Boundary")
         );
-        expect(
+        expect.soft(
           isReactCrash,
           `React Error Boundary on ${path}: ${result.consoleErrors.join("; ")}`
         ).toBe(false);
