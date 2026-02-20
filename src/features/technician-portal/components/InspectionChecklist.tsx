@@ -12,7 +12,7 @@ import {
   type FindingLevel,
   type InspectionStep,
 } from "../inspectionSteps.ts";
-import { getManufacturer, getManufacturerOptions, type ManufacturerInfo } from "../manufacturerRules.ts";
+import { getManufacturer, getManufacturerOptions, getAdjustedPumpingPrice, type ManufacturerInfo } from "../manufacturerRules.ts";
 import {
   useInspectionState,
   useStartInspection,
@@ -248,9 +248,15 @@ function ManufacturerBanner({ manufacturer, compact }: { manufacturer: Manufactu
             <p key={i} className="text-[11px] text-amber-600 dark:text-amber-400 font-medium">{w}</p>
           ))}
           {manufacturer.maintenanceItems.map((item) => (
-            <p key={item.id} className="text-[11px] text-text-secondary">
-              {item.emoji} <strong>{item.label}</strong>: {item.frequency}{item.estimatedCost > 0 ? ` ($${item.estimatedCost})` : ""}
-            </p>
+            <div key={item.id}>
+              <p className="text-[11px] text-text-secondary">
+                {item.emoji} <strong>{item.label}</strong>: {item.frequency}{item.estimatedCost > 0 ? ` ($${item.estimatedCost})` : ""}
+                {item.preferredSeason && <span className="text-[10px] text-green-600 dark:text-green-400 ml-1">— {item.preferredSeason}</span>}
+              </p>
+              {item.upchargeNote && (
+                <p className="text-[10px] text-amber-600 dark:text-amber-400 ml-4 mt-0.5">↳ {item.upchargeNote}</p>
+              )}
+            </div>
           ))}
           {rules.priceAdjustment > 0 && (
             <p className="text-[11px] text-text-secondary">💰 Pumping: ${595 + rules.priceAdjustment} ({rules.priceReason})</p>
@@ -2068,6 +2074,21 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                   <p className="text-[10px] text-amber-500 mt-1">CRM will auto-send a reminder to the customer in {manufacturer.pumpingRules.postPumpingActionDays} days.</p>
                 </div>
               )}
+              {manufacturer.contractRules.premiumContract && (
+                <div className="mt-2 p-2 bg-purple-50 dark:bg-purple-900/20 rounded border border-purple-200 dark:border-purple-700">
+                  <p className="text-xs font-bold text-purple-700 dark:text-purple-400">💼 Contract Pricing Note</p>
+                  <p className="text-xs text-purple-600 dark:text-purple-300">{manufacturer.contractRules.premiumReason}</p>
+                  {manufacturer.contractRules.additionalLineItems && (
+                    <div className="mt-1 space-y-0.5">
+                      {manufacturer.contractRules.additionalLineItems.map((item, i) => (
+                        <p key={i} className="text-[10px] text-purple-500 dark:text-purple-400">
+                          + {item.name}: ${item.cost} ({item.frequency})
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -2098,10 +2119,14 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                   className="w-5 h-5 rounded accent-primary"
                 />
                 <div className="flex-1">
-                  <p className="font-medium text-text-primary text-sm">🚛 Septic Tank Pumping</p>
-                  <p className="text-xs text-text-secondary">Standard pump out — up to 2,000 gal</p>
+                  <p className="font-medium text-text-primary text-sm">
+                    🚛 {manufacturer && manufacturer.pumpingRules.priceAdjustment > 0 ? `${manufacturer.name} Aerobic Tank Pumping` : "Septic Tank Pumping"}
+                  </p>
+                  <p className="text-xs text-text-secondary">
+                    {manufacturer?.pumpingRules.refillRequired ? "Extended service — refill required after pumping" : "Standard pump out — up to 2,000 gal"}
+                  </p>
                 </div>
-                <span className="font-bold text-primary text-sm">$595.00</span>
+                <span className="font-bold text-primary text-sm">${getAdjustedPumpingPrice(manufacturerId).toFixed(2)}</span>
               </label>
             )}
             <button
