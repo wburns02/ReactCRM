@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import {
   useInspections,
   type Inspection,
@@ -76,14 +77,8 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
 
   if (inspections.length === 0) {
     return (
-      <div className="text-center py-12 border border-border rounded-lg">
-        <span className="text-4xl mb-4 block">🔍</span>
-        <h3 className="text-lg font-medium text-text-primary mb-2">
-          No inspections found
-        </h3>
-        <p className="text-text-muted">
-          Schedule inspections to track compliance
-        </p>
+      <div className="border border-border rounded-lg">
+        <EmptyState icon="🔍" title="No inspections found" description="Schedule inspections to track compliance" />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import {
   useCertifications,
   type Certification,
@@ -66,14 +67,8 @@ export function CertificationList({
 
   if (certifications.length === 0) {
     return (
-      <div className="text-center py-12 border border-border rounded-lg">
-        <span className="text-4xl mb-4 block">🎓</span>
-        <h3 className="text-lg font-medium text-text-primary mb-2">
-          No certifications found
-        </h3>
-        <p className="text-text-muted">
-          Add technician certifications to track training
-        </p>
+      <div className="border border-border rounded-lg">
+        <EmptyState icon="🎓" title="No certifications found" description="Add technician certifications to track training" />
       </div>
     );
   }

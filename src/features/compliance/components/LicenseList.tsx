@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import {
   useLicenses,
   type License,
@@ -66,14 +67,8 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
 
   if (licenses.length === 0) {
     return (
-      <div className="text-center py-12 border border-border rounded-lg">
-        <span className="text-4xl mb-4 block">📜</span>
-        <h3 className="text-lg font-medium text-text-primary mb-2">
-          No licenses found
-        </h3>
-        <p className="text-text-muted">
-          Add licenses to track expiration dates
-        </p>
+      <div className="border border-border rounded-lg">
+        <EmptyState icon="📜" title="No licenses found" description="Add licenses to track expiration dates" />
       </div>
     );
   }
