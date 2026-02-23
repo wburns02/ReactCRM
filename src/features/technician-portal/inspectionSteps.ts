@@ -48,6 +48,8 @@ export interface InspectionStep {
   yesNoQuestion?: string;
   /** Step is only shown when a condition is met (e.g., forced flow) */
   conditionalOn?: { stepNumber: number; fieldId: string; value: string };
+  /** Conventional only — renders the bulk photo upload UI instead of a single photo button */
+  isBulkPhotoStep?: boolean;
 }
 
 export type StepStatus = "pending" | "in_progress" | "completed" | "skipped";
@@ -549,9 +551,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Take a photo of the property/access point",
       "Note any obstacles, fences, or access issues",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_location",
-    photoGuidance: "Photo of property showing the general area where the septic system is located",
+    requiresPhoto: false,
     estimatedMinutes: 1,
   },
   {
@@ -635,9 +635,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Note if risers are present, lid type, and accessibility for pumping",
       "Mark tank location with paint if needed for future reference",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_tank_location",
-    photoGuidance: "Photo showing tank location relative to the house. Include any markers, risers, or hatches.",
+    requiresPhoto: false,
     customInputs: [
       {
         id: "tank_location",
@@ -666,9 +664,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Identify drain field type: gravity flow or forced flow (pump)",
       "If forced flow, proceed to Step 8 for pump details",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_system_id",
-    photoGuidance: "Photo of the opened tank showing type, size indicators, and construction",
+    requiresPhoto: false,
     customInputs: [
       {
         id: "system_type",
@@ -712,9 +708,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Record amp draw if multimeter available",
       "Skip this step if system is gravity flow only",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_pump",
-    photoGuidance: "Photo of pump chamber showing pump, floats, and any labels/nameplates",
+    requiresPhoto: false,
     conditionalOn: { stepNumber: 7, fieldId: "drain_field_type", value: "Forced flow" },
     customInputs: [
       {
@@ -751,9 +745,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Note condition of baffles (intact, damaged, missing)",
       "Check for excessive grease or foreign objects",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_tank_interior",
-    photoGuidance: "Photo of the tank interior showing water level, baffles, and general condition",
+    requiresPhoto: false,
     safetyWarning: "Stand upwind. Never lean into the tank opening. Toxic gases present.",
     hasYesNo: true,
     yesNoQuestion: "Does the tank appear to be in good working condition?",
@@ -779,9 +771,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Inspect riser condition if present",
       "Note any damage found with detailed description",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_damage",
-    photoGuidance: "Photo of any damage found, or overall tank condition if no damage",
+    requiresPhoto: false,
     hasYesNo: true,
     yesNoQuestion: "Does the tank have any visible signs of damage?",
     estimatedMinutes: 2,
@@ -804,9 +794,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Check downhill areas for runoff or seepage",
       "Compare drain field vegetation to surrounding yard",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_drain_field",
-    photoGuidance: "Photo of the drain field area showing condition of grass, any wet spots or leaching signs",
+    requiresPhoto: false,
     hasYesNo: true,
     yesNoQuestion: "Does the drain field show signs of leaching up?",
     estimatedMinutes: 3,
@@ -824,9 +812,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Verify proper slope and drainage away from field",
       "Note any areas where the field appears overwhelmed",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_saturation",
-    photoGuidance: "Photo of drain field showing any saturation, standing water, or soil conditions",
+    requiresPhoto: false,
     hasYesNo: true,
     yesNoQuestion: "Does the drain field show signs of super saturation?",
     estimatedMinutes: 2,
@@ -861,9 +847,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Note anything unusual: easements, nearby trees, pool, structures over system",
       "Record if tank was pumped at time of inspection",
     ],
-    requiresPhoto: true,
-    photoType: "inspection_additional",
-    photoGuidance: "Photo of anything noteworthy not captured in previous steps",
+    requiresPhoto: false,
     customInputs: [
       {
         id: "additional_info",
@@ -886,9 +870,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Leave the site cleaner than you found it",
       "Walk the entire work area to verify nothing left behind",
     ],
-    requiresPhoto: true,
-    photoType: "after",
-    photoGuidance: "Photo showing all lids secured and clean work area",
+    requiresPhoto: false,
     safetyWarning: "Verify ALL lids are secured. An open septic lid is a fatal hazard.",
     estimatedMinutes: 2,
   },
@@ -923,6 +905,106 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "This system will last forever",
     ],
     estimatedMinutes: 2,
+  },
+  {
+    stepNumber: 17,
+    title: "Upload All Photos",
+    emoji: "📷",
+    description: "Take all required photos for this inspection. Upload everything at once before finishing.",
+    detailedInstructions: [
+      "Work through the photo list below",
+      "Tap each camera button to take or select the photo",
+      "All required photos must be captured before completing",
+    ],
+    requiresPhoto: false,
+    isBulkPhotoStep: true,
+    estimatedMinutes: 3,
+  },
+];
+
+// ─── Conventional Bulk Photo Requirements ────────────────────────────────────
+
+export interface BulkPhotoRequirement {
+  photoType: string;
+  label: string;
+  emoji: string;
+  guidance: string;
+  required: boolean;
+  /** Shown as a label when the photo is optional */
+  conditionalLabel?: string;
+}
+
+export const CONVENTIONAL_BULK_PHOTOS: BulkPhotoRequirement[] = [
+  {
+    photoType: "inspection_location",
+    label: "Property / Access",
+    emoji: "🏠",
+    guidance: "Photo of property showing septic area access",
+    required: true,
+  },
+  {
+    photoType: "inspection_tank_location",
+    label: "Tank Location",
+    emoji: "🗺️",
+    guidance: "Photo showing tank location relative to house",
+    required: true,
+  },
+  {
+    photoType: "inspection_system_id",
+    label: "System Identification",
+    emoji: "📐",
+    guidance: "Photo of opened tank showing type and construction",
+    required: true,
+  },
+  {
+    photoType: "inspection_tank_interior",
+    label: "Tank Interior",
+    emoji: "🔍",
+    guidance: "Photo of tank interior — water level, baffles, condition",
+    required: true,
+  },
+  {
+    photoType: "inspection_damage",
+    label: "Damage Check",
+    emoji: "⚠️",
+    guidance: "Photo of any damage found, or overall tank if no damage",
+    required: true,
+  },
+  {
+    photoType: "inspection_drain_field",
+    label: "Drain Field",
+    emoji: "🌿",
+    guidance: "Photo of drain field area — grass condition, wet spots",
+    required: true,
+  },
+  {
+    photoType: "inspection_saturation",
+    label: "Saturation Check",
+    emoji: "💧",
+    guidance: "Photo of drain field showing soil saturation conditions",
+    required: true,
+  },
+  {
+    photoType: "inspection_additional",
+    label: "Additional / Notes",
+    emoji: "📝",
+    guidance: "Photo of anything noteworthy not captured above",
+    required: true,
+  },
+  {
+    photoType: "after",
+    label: "Clean Up (After)",
+    emoji: "🔒",
+    guidance: "Photo of all lids secured and clean work area",
+    required: true,
+  },
+  {
+    photoType: "inspection_pump",
+    label: "Pump System",
+    emoji: "⚙️",
+    guidance: "Photo of pump chamber — floats, labels (forced flow only)",
+    required: false,
+    conditionalLabel: "Optional — forced flow only",
   },
 ];
 

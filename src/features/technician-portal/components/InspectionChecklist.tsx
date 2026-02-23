@@ -7,6 +7,8 @@ import {
   createDefaultInspectionState,
   createDefaultStepState,
   calculateEstimate,
+  CONVENTIONAL_BULK_PHOTOS,
+  type BulkPhotoRequirement,
   type InspectionState,
   type StepState,
   type FindingLevel,
@@ -1216,6 +1218,161 @@ async function generateReportPDF(
   doc.text("(512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, y + 16, { align: "center" });
 
   return doc.output("blob");
+}
+
+// ─── Bulk Photo Upload Step (Conventional only) ─────────────────────────────
+
+interface BulkPhotoUploadStepProps {
+  jobId: string;
+  alreadyCaptured: string[];
+  onPhotoUploaded: (photoType: string) => void;
+  isUploading: boolean;
+  onUpload: (params: { jobId: string; photo: string; photoType: string }) => Promise<void>;
+}
+
+function BulkPhotoUploadStep({
+  jobId,
+  alreadyCaptured,
+  onPhotoUploaded,
+  isUploading,
+  onUpload,
+}: BulkPhotoUploadStepProps) {
+  const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
+  const [uploadingType, setUploadingType] = useState<string | null>(null);
+
+  const requiredCount = CONVENTIONAL_BULK_PHOTOS.filter((p) => p.required).length;
+  const capturedRequired = CONVENTIONAL_BULK_PHOTOS.filter(
+    (p) => p.required && alreadyCaptured.includes(p.photoType),
+  ).length;
+
+  const handleCapture = (photoType: string) => {
+    fileInputRefs.current[photoType]?.click();
+  };
+
+  const handleFileSelected = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    photoType: string,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingType(photoType);
+    try {
+      await new Promise<void>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          try {
+            const base64 = reader.result as string;
+            await onUpload({ jobId, photo: base64, photoType });
+            onPhotoUploaded(photoType);
+            resolve();
+          } catch (err) {
+            reject(err);
+          }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    } catch {
+      // upload error handled by mutation
+    } finally {
+      setUploadingType(null);
+      e.target.value = "";
+    }
+  };
+
+  return (
+    <div className="space-y-3">
+      {/* Progress counter */}
+      <div className="flex items-center justify-between px-1">
+        <p className="text-sm font-semibold text-text-primary">
+          📷 Required Photos
+        </p>
+        <span
+          className={`text-sm font-bold px-2 py-0.5 rounded-full ${
+            capturedRequired === requiredCount
+              ? "bg-success/10 text-success"
+              : "bg-primary/10 text-primary"
+          }`}
+        >
+          {capturedRequired} / {requiredCount}
+        </span>
+      </div>
+
+      {/* Photo list */}
+      <div className="space-y-2">
+        {CONVENTIONAL_BULK_PHOTOS.map((req: BulkPhotoRequirement) => {
+          const captured = alreadyCaptured.includes(req.photoType);
+          const isThisUploading = uploadingType === req.photoType || (isUploading && uploadingType === req.photoType);
+
+          return (
+            <div
+              key={req.photoType}
+              className={`flex items-center gap-3 p-3 rounded-lg border ${
+                captured
+                  ? "border-success/30 bg-success/5"
+                  : "border-border bg-bg-body"
+              }`}
+            >
+              {/* Hidden file input */}
+              <input
+                ref={(el) => { fileInputRefs.current[req.photoType] = el; }}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                onChange={(e) => handleFileSelected(e, req.photoType)}
+              />
+
+              {/* Status icon */}
+              <span className="text-xl flex-shrink-0">
+                {captured ? "✅" : req.emoji}
+              </span>
+
+              {/* Label + guidance */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <p className={`text-sm font-semibold ${captured ? "text-success" : "text-text-primary"}`}>
+                    {req.label}
+                  </p>
+                  {!req.required && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-muted text-text-muted font-medium">
+                      {req.conditionalLabel ?? "Optional"}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-text-muted truncate">{req.guidance}</p>
+              </div>
+
+              {/* Capture button */}
+              <button
+                onClick={() => handleCapture(req.photoType)}
+                disabled={isThisUploading || (isUploading && uploadingType !== null)}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-[0.97] disabled:opacity-50 ${
+                  captured
+                    ? "bg-success/10 text-success border border-success/30 hover:bg-success/20"
+                    : "bg-primary text-white hover:bg-primary/90"
+                }`}
+              >
+                {isThisUploading ? (
+                  <span className="animate-spin inline-block">⏳</span>
+                ) : captured ? (
+                  "Retake"
+                ) : (
+                  "📸 Take"
+                )}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      {capturedRequired === requiredCount && (
+        <p className="text-center text-sm font-semibold text-success py-1">
+          ✅ All required photos captured — tap Complete below
+        </p>
+      )}
+    </div>
+  );
 }
 
 // ─── Main Component ─────────────────────────────────────────────────────────
@@ -2621,8 +2778,29 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
               </div>
             )}
 
-            {/* Photo Capture */}
-            {currentStepDef.requiresPhoto && (
+            {/* Photo Capture — bulk for conventional step 17, per-step for aerobic */}
+            {currentStepDef.isBulkPhotoStep ? (
+              <BulkPhotoUploadStep
+                jobId={jobId}
+                alreadyCaptured={currentStepState.photos || []}
+                onPhotoUploaded={(photoType) => {
+                  const existing = currentStepState.photos || [];
+                  if (!existing.includes(photoType)) {
+                    updateStepField("photos", [...existing, photoType]);
+                  }
+                  onPhotoUploaded?.();
+                }}
+                isUploading={uploadingPhoto}
+                onUpload={async ({ jobId: jid, photo, photoType }) => {
+                  setUploadingPhoto(true);
+                  try {
+                    await uploadPhotoMutation.mutateAsync({ jobId: jid, photo, photoType });
+                  } finally {
+                    setUploadingPhoto(false);
+                  }
+                }}
+              />
+            ) : currentStepDef.requiresPhoto ? (
               <div>
                 <button
                   onClick={handlePhotoCapture}
@@ -2647,7 +2825,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                   </p>
                 )}
               </div>
-            )}
+            ) : null}
 
             {/* Sludge Level Input + Evidence Photo */}
             {currentStepDef.hasSludgeLevel && (
@@ -2797,7 +2975,14 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         {currentStep < totalSteps ? (
           <button
             onClick={handleCompleteStep}
-            disabled={updateStepMutation.isPending || (currentStepDef?.requiresPhoto && (currentStepState.photos?.length || 0) === 0)}
+            disabled={
+              updateStepMutation.isPending ||
+              (currentStepDef?.requiresPhoto && (currentStepState.photos?.length || 0) === 0) ||
+              (currentStepDef?.isBulkPhotoStep &&
+                CONVENTIONAL_BULK_PHOTOS
+                  .filter((p) => p.required)
+                  .some((p) => !(currentStepState.photos || []).includes(p.photoType)))
+            }
             className="flex-1 py-3 rounded-lg bg-primary text-white font-bold text-sm disabled:opacity-50 active:scale-[0.98] transition-transform"
           >
             {updateStepMutation.isPending ? "Saving..." : "Complete & Next →"}
