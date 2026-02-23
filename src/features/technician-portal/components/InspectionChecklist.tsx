@@ -25,6 +25,7 @@ import {
   useCreateEstimateFromInspection,
   useInspectionAIAnalysis,
   useFetchInspectionWeather,
+  useJobPhotos,
   type AIInspectionAnalysis,
   type InspectionWeather,
 } from "@/api/hooks/useTechPortal.ts";
@@ -1222,12 +1223,20 @@ async function generateReportPDF(
 
 // ─── Bulk Photo Upload Step (Conventional only) ─────────────────────────────
 
+interface ExistingJobPhoto {
+  id: string;
+  photo_type: string;
+  data_url: string;
+  thumbnail_url: string | null;
+}
+
 interface BulkPhotoUploadStepProps {
   jobId: string;
   alreadyCaptured: string[];
   onPhotoUploaded: (photoType: string) => void;
   isUploading: boolean;
   onUpload: (params: { jobId: string; photo: string; photoType: string }) => Promise<void>;
+  existingPhotos: ExistingJobPhoto[];
 }
 
 function BulkPhotoUploadStep({
@@ -1236,9 +1245,11 @@ function BulkPhotoUploadStep({
   onPhotoUploaded,
   isUploading,
   onUpload,
+  existingPhotos,
 }: BulkPhotoUploadStepProps) {
   const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const [uploadingType, setUploadingType] = useState<string | null>(null);
+  const [pickerOpenFor, setPickerOpenFor] = useState<string | null>(null);
 
   const requiredCount = CONVENTIONAL_BULK_PHOTOS.filter((p) => p.required).length;
   const capturedRequired = CONVENTIONAL_BULK_PHOTOS.filter(
@@ -1280,6 +1291,14 @@ function BulkPhotoUploadStep({
     }
   };
 
+  const handleUseExisting = (photoType: string, photo: ExistingJobPhoto) => {
+    // Photo already uploaded — just mark slot as captured
+    onPhotoUploaded(photoType);
+    setPickerOpenFor(null);
+    // Suppress unused warning
+    void photo;
+  };
+
   return (
     <div className="space-y-3">
       {/* Progress counter */}
@@ -1298,69 +1317,118 @@ function BulkPhotoUploadStep({
         </span>
       </div>
 
+      {existingPhotos.length > 0 && (
+        <p className="text-xs text-text-muted px-1">
+          💡 Tip: Tap "Use Existing" to reuse a photo already uploaded to this job.
+        </p>
+      )}
+
       {/* Photo list */}
       <div className="space-y-2">
         {CONVENTIONAL_BULK_PHOTOS.map((req: BulkPhotoRequirement) => {
           const captured = alreadyCaptured.includes(req.photoType);
           const isThisUploading = uploadingType === req.photoType || (isUploading && uploadingType === req.photoType);
+          const pickerOpen = pickerOpenFor === req.photoType;
 
           return (
-            <div
-              key={req.photoType}
-              className={`flex items-center gap-3 p-3 rounded-lg border ${
-                captured
-                  ? "border-success/30 bg-success/5"
-                  : "border-border bg-bg-body"
-              }`}
-            >
-              {/* Hidden file input */}
-              <input
-                ref={(el) => { fileInputRefs.current[req.photoType] = el; }}
-                type="file"
-                accept="image/*"
-                capture="environment"
-                className="hidden"
-                onChange={(e) => handleFileSelected(e, req.photoType)}
-              />
-
-              {/* Status icon */}
-              <span className="text-xl flex-shrink-0">
-                {captured ? "✅" : req.emoji}
-              </span>
-
-              {/* Label + guidance */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <p className={`text-sm font-semibold ${captured ? "text-success" : "text-text-primary"}`}>
-                    {req.label}
-                  </p>
-                  {!req.required && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-muted text-text-muted font-medium">
-                      {req.conditionalLabel ?? "Optional"}
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-text-muted truncate">{req.guidance}</p>
-              </div>
-
-              {/* Capture button */}
-              <button
-                onClick={() => handleCapture(req.photoType)}
-                disabled={isThisUploading || (isUploading && uploadingType !== null)}
-                className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-[0.97] disabled:opacity-50 ${
+            <div key={req.photoType} className="space-y-1">
+              <div
+                className={`flex items-center gap-3 p-3 rounded-lg border ${
                   captured
-                    ? "bg-success/10 text-success border border-success/30 hover:bg-success/20"
-                    : "bg-primary text-white hover:bg-primary/90"
+                    ? "border-success/30 bg-success/5"
+                    : "border-border bg-bg-body"
                 }`}
               >
-                {isThisUploading ? (
-                  <span className="animate-spin inline-block">⏳</span>
-                ) : captured ? (
-                  "Retake"
-                ) : (
-                  "📸 Take"
-                )}
-              </button>
+                {/* Hidden file input — no capture attribute so OS shows camera/gallery chooser */}
+                <input
+                  ref={(el) => { fileInputRefs.current[req.photoType] = el; }}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleFileSelected(e, req.photoType)}
+                />
+
+                {/* Status icon */}
+                <span className="text-xl flex-shrink-0">
+                  {captured ? "✅" : req.emoji}
+                </span>
+
+                {/* Label + guidance */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <p className={`text-sm font-semibold ${captured ? "text-success" : "text-text-primary"}`}>
+                      {req.label}
+                    </p>
+                    {!req.required && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-muted text-text-muted font-medium">
+                        {req.conditionalLabel ?? "Optional"}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-text-muted truncate">{req.guidance}</p>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex-shrink-0 flex flex-col gap-1 items-end">
+                  {/* Camera / gallery button */}
+                  <button
+                    onClick={() => handleCapture(req.photoType)}
+                    disabled={isThisUploading || (isUploading && uploadingType !== null)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-[0.97] disabled:opacity-50 ${
+                      captured
+                        ? "bg-success/10 text-success border border-success/30 hover:bg-success/20"
+                        : "bg-primary text-white hover:bg-primary/90"
+                    }`}
+                  >
+                    {isThisUploading ? (
+                      <span className="animate-spin inline-block">⏳</span>
+                    ) : captured ? (
+                      "Retake"
+                    ) : (
+                      "📸 Take"
+                    )}
+                  </button>
+
+                  {/* Use existing button — only shown when previous uploads exist and slot not captured */}
+                  {!captured && existingPhotos.length > 0 && (
+                    <button
+                      onClick={() => setPickerOpenFor(pickerOpen ? null : req.photoType)}
+                      className="px-2 py-1 rounded-lg text-[10px] font-semibold bg-muted text-text-muted border border-border hover:bg-border transition-colors"
+                    >
+                      {pickerOpen ? "✕ Close" : "Use Existing"}
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Inline photo picker */}
+              {pickerOpen && (
+                <div className="ml-2 p-2 rounded-lg border border-border bg-bg-elevated space-y-1.5">
+                  <p className="text-[10px] font-semibold text-text-muted uppercase tracking-wide px-1">
+                    Select a photo already uploaded to this job:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {existingPhotos.map((photo) => (
+                      <button
+                        key={photo.id}
+                        onClick={() => handleUseExisting(req.photoType, photo)}
+                        className="relative rounded-md overflow-hidden border-2 border-transparent hover:border-primary focus:border-primary transition-colors w-16 h-16 flex-shrink-0"
+                        title={photo.photo_type}
+                      >
+                        <img
+                          src={photo.thumbnail_url ?? photo.data_url}
+                          alt={photo.photo_type}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <span className="absolute inset-x-0 bottom-0 bg-black/50 text-white text-[8px] text-center py-0.5 leading-tight">
+                          {photo.photo_type.replace(/^inspection_/, "").replace(/_/g, " ")}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
@@ -1380,6 +1448,7 @@ function BulkPhotoUploadStep({
 export function InspectionChecklist({ jobId, systemType = "aerobic", customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
   const { data: serverState, isLoading } = useInspectionState(jobId);
   const { data: workOrderPhotos, refetch: refetchPhotos } = useWorkOrderPhotos(jobId);
+  const { data: existingJobPhotos = [] } = useJobPhotos(jobId);
   const startMutation = useStartInspection();
   const updateStepMutation = useUpdateInspectionStep();
   const completeMutation = useCompleteInspection();
@@ -1586,7 +1655,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
 
   const handleNotifyHomeowner = () => {
     if (!customerPhone) return;
-    const msg = `Hi${customerName ? ` ${customerName}` : ""}, this is your technician from MAC Septic Services. I've arrived and will be checking your septic system — should take about 25 minutes.`;
+    const msg = `Hi${customerName ? ` ${customerName}` : ""}, this is your technician from MAC Septic Services. I've arrived and will begin the inspection process which will take about 25 minutes.`;
     window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
     setLocalState((s) => ({
       ...s,
@@ -2799,6 +2868,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                     setUploadingPhoto(false);
                   }
                 }}
+                existingPhotos={existingJobPhotos}
               />
             ) : currentStepDef.requiresPhoto ? (
               <div>
