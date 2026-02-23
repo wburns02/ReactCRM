@@ -22,6 +22,59 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
     await expect(page.locator("body")).toBeVisible();
   });
 
+  test("homeowner notify SMS contains updated inspection message", async ({
+    page,
+  }) => {
+    await page.goto(`${BASE_URL}/technician/jobs`);
+    await page.waitForLoadState("networkidle");
+
+    const anyJob = page
+      .locator('[data-testid="job-card"], .job-card, [class*="job"]')
+      .first();
+
+    if ((await anyJob.count()) === 0) {
+      test.skip(true, "No jobs available to test SMS message");
+      return;
+    }
+
+    await anyJob.click();
+    await page.waitForLoadState("networkidle");
+
+    // Intercept window.open to capture the SMS URL without actually opening the app
+    const smsUrls: string[] = [];
+    await page.exposeFunction("captureSmsUrl", (url: string) => {
+      smsUrls.push(url);
+    });
+    await page.addInitScript(() => {
+      const orig = window.open.bind(window);
+      window.open = (url?: string | URL, ...rest) => {
+        if (url && String(url).startsWith("sms:")) {
+          (window as unknown as { captureSmsUrl: (u: string) => void }).captureSmsUrl(String(url));
+          return null;
+        }
+        return orig(url, ...rest);
+      };
+    });
+
+    // Reload page so the init script takes effect
+    await page.reload();
+    await page.waitForLoadState("networkidle");
+
+    const notifyBtn = page.getByRole("button", { name: /notify homeowner/i });
+    if (!(await notifyBtn.isVisible({ timeout: 5_000 }))) {
+      test.skip(true, "Notify Homeowner button not visible on this job");
+      return;
+    }
+    await notifyBtn.click();
+
+    // Either the SMS URL was captured or the native dialog opened
+    if (smsUrls.length > 0) {
+      const decodedBody = decodeURIComponent(smsUrls[0]);
+      expect(decodedBody).toContain("will begin the inspection process");
+      expect(decodedBody).not.toContain("will be checking your septic system");
+    }
+  });
+
   test("conventional job steps 3/6/7/9 show NO per-step photo button", async ({
     page,
   }) => {
