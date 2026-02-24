@@ -228,7 +228,64 @@ npx playwright test [relevant-test-file]
 |---------|-----|
 | Frontend | https://react.ecbtx.com |
 | API | https://react-crm-api-production.up.railway.app/api/v2 |
+| Uptime Kuma | https://uptime-kuma-production-3500.up.railway.app |
 | Legacy | https://crm.ecbtx.com |
+
+---
+
+## Railway Infrastructure (Updated 2026-02-12)
+
+### Project: Mac-CRM-React
+- **Project ID:** `2f53f388-7aa5-41eb-842e-e565b1a8fdcb`
+- **Workspace:** wburns02's Projects (`a82459bc-1ed6-433c-97f3-0e3310706ccd`)
+- **Region:** US East (Virginia) — `us-east4-eqdc4a`
+
+### Environments
+| Environment | ID | Purpose |
+|-------------|-----|---------|
+| **production** | `111ffeb6-6b6b-4d0b-9f1a-af621704c363` | Live production |
+| **staging** | `ca636a04-fc1e-481f-b42b-23106c9d6347` | Testing before production (duplicated from prod) |
+
+**PR Deploys: ENABLED** — Every PR gets its own preview environment with unique URL.
+
+### Services (Production)
+| Service | ID | Type | Status |
+|---------|-----|------|--------|
+| **Mac-Septic-CRM** (frontend) | `fd8ee9bd-3449-4c5a-9110-6de8af3a3a72` | GitHub: wburns02/ReactCRM | react.ecbtx.com |
+| **react-crm-api** (backend) | `bdab375c-d825-43bb-869a-b23224bd6a9f` | GitHub: wburns02/react-crm-api | react-crm-api-production.up.railway.app |
+| **Postgres** | `f4704085-831e-4c44-bbff-51a210268e14` | PostgreSQL 17 (SSL) | Internal only |
+| **Redis** | *(new 2026-02-12)* | Redis 8.2.1 | Internal only (`redis.railway.internal:6379`) |
+| **Uptime Kuma** | *(new 2026-02-12)* | louislam/uptime-kuma:latest | uptime-kuma-production-3500.up.railway.app |
+| **function-bun** | `8971ba59-fdd3-4abb-8e56-f3c98afb22df` | Hono test server | SLEEPING (can be deleted) |
+
+### Railway CLI Linking
+Both repos are linked to Railway CLI (v4.29.0):
+- `/home/will/ReactCRM/` → Mac-Septic-CRM service
+- `/home/will/react-crm-api/` → react-crm-api service
+
+### Key Environment Variables on Backend
+| Variable | Value/Reference | Purpose |
+|----------|----------------|---------|
+| `DATABASE_URL` | `postgresql://...@postgres.railway.internal:5432/railway` | PostgreSQL connection |
+| `REDIS_URL` | `${{Redis.REDIS_URL}}` → `redis://...@redis.railway.internal:6379` | Redis caching |
+| `ENVIRONMENT` | `production` | Runtime environment flag |
+
+### Railway Skill Quick Reference
+Use these Claude Code skills for infrastructure management:
+| Skill | Example Use |
+|-------|-------------|
+| `railway-status` | "Is production up?" |
+| `railway-deployment` | "Show me the last 50 backend logs" / "Why did deploy fail?" |
+| `railway-environment` | "Add env var FOO=bar to backend" / "Show all variables" |
+| `railway-metrics` | "What's the CPU/memory usage?" |
+| `railway-projects` | "Enable/disable PR deploys" |
+| `railway-database` | "Add a new database service" |
+| `railway-templates` | "Deploy n8n / Minio / etc." |
+
+### Resource Usage (as of 2026-02-12)
+- **Backend memory:** ~426 MB (limit: 32 GB) — very healthy
+- **CPU:** Minimal usage, well under 32-core limit
+- **Samsara poller:** Runs every 5 seconds (visible in logs as httpx INFO)
 
 ---
 
@@ -236,10 +293,11 @@ npx playwright test [relevant-test-file]
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | React 19, TypeScript, Vite, TanStack Query |
-| Backend | FastAPI, SQLAlchemy, PostgreSQL |
+| Frontend | React 19, TypeScript 5.9, Vite 7, TanStack Query, Tailwind 4 |
+| Backend | FastAPI, SQLAlchemy 2.0 async, PostgreSQL 16, Redis 8.2.1 |
 | Testing | Playwright, Vitest |
-| Deployment | Railway |
+| Deployment | Railway (git push auto-deploy) |
+| Monitoring | Uptime Kuma (self-hosted) |
 
 ---
 
@@ -252,10 +310,11 @@ VITE_API_URL=https://react-crm-api-production.up.railway.app/api/v2
 # Sentry Error Tracking (Optional)
 VITE_SENTRY_DSN=https://your-key@o123456.ingest.sentry.io/123456
 
-# Backend
-DATABASE_URL=postgresql://...
+# Backend (set on Railway, NOT in local .env)
+DATABASE_URL=postgresql://...@postgres.railway.internal:5432/railway
+REDIS_URL=redis://...@redis.railway.internal:6379
 SECRET_KEY=...
-JWT_SECRET=...
+ENVIRONMENT=production
 ```
 
 ### Sentry DSN Configuration
