@@ -168,11 +168,20 @@ export function WorkOrderDetailPage() {
   const [isCapturingPhoto, setIsCapturingPhoto] = useState(false);
   const [capturePhotoType, setCapturePhotoType] = useState<PhotoType>("before");
 
+  // Known activity types for safe mapping from audit log
+  const KNOWN_ACTIVITY_TYPES = new Set<ActivityLogEntry["type"]>([
+    "created", "status_change", "assigned", "rescheduled", "note_added",
+    "photo_added", "signature_captured", "payment_received", "invoice_sent",
+    "customer_notified", "technician_enroute", "arrived", "completed",
+  ]);
+
   // Convert real audit log to ActivityLogEntry format for WorkOrderTimeline
   const activityLog: ActivityLogEntry[] = auditLog.length > 0
     ? auditLog.map((entry) => ({
         id: entry.id,
-        type: entry.action as ActivityLogEntry["type"],
+        type: KNOWN_ACTIVITY_TYPES.has(entry.action as ActivityLogEntry["type"])
+          ? (entry.action as ActivityLogEntry["type"])
+          : "note_added",
         description: entry.description || entry.action,
         userName: entry.user_name || entry.user_email || "System",
         timestamp: entry.created_at,

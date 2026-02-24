@@ -147,9 +147,9 @@ export const workOrderSchema = z.object({
   created_at: z.string().nullable(),
   updated_at: z.string().nullable(),
   // Audit trail
-  created_by: z.string().nullable().optional(),
-  updated_by: z.string().nullable().optional(),
-  source: z.string().nullable().optional(),
+  created_by: z.string().nullable(),
+  updated_by: z.string().nullable(),
+  source: z.string().nullable(),
   // Time tracking
   actual_start_time: z.string().nullable().optional(),
   actual_end_time: z.string().nullable().optional(),

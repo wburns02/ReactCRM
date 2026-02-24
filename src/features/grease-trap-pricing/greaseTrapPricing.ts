@@ -93,9 +93,11 @@ export function calculateGreaseTrapQuote(
   tankGallons: number,
   frequency: ServiceFrequency,
 ): GreaseTrapQuote {
+  // Round up to nearest whole gallon to avoid float boundary issues between tiers
+  const rounded = Math.ceil(tankGallons);
   // Find the matching tier
   const tier = GREASE_TRAP_TIERS.find((t) =>
-    tankGallons <= (t.maxGallons ?? Infinity) && tankGallons >= t.minGallons
+    rounded <= (t.maxGallons ?? Infinity) && rounded >= t.minGallons
   ) ?? GREASE_TRAP_TIERS[GREASE_TRAP_TIERS.length - 1];
 
   const pumpOuts = FREQUENCY_MULTIPLIERS[frequency];
@@ -122,7 +124,8 @@ export function calculateGreaseTrapQuote(
 }
 
 export function getTierForGallons(gallons: number): GreaseTrapTier {
+  const rounded = Math.ceil(gallons);
   return GREASE_TRAP_TIERS.find((t) =>
-    gallons <= (t.maxGallons ?? Infinity) && gallons >= t.minGallons
+    rounded <= (t.maxGallons ?? Infinity) && rounded >= t.minGallons
   ) ?? GREASE_TRAP_TIERS[GREASE_TRAP_TIERS.length - 1];
 }
