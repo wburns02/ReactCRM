@@ -4,6 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 import { useCloverConfig, useCloverCharge } from "@/api/hooks/useClover";
 
+interface CloverInstance {
+  elements(): { create(type: string): CloverCardElement };
+  createToken(): Promise<{ token?: string; errors?: Record<string, string> }>;
+}
+
+interface CloverCardElement {
+  mount(selector: string): void;
+}
+
 interface CloverCheckoutProps {
   invoiceId: string;
   amount: number; // in dollars
@@ -32,8 +41,8 @@ export function CloverCheckout({
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sdkReady, setSdkReady] = useState(false);
-  const cloverInstanceRef = useRef<any>(null);
-  const cardElementRef = useRef<any>(null);
+  const cloverInstanceRef = useRef<CloverInstance | null>(null);
+  const cardElementRef = useRef<CloverCardElement | null>(null);
 
   const { data: config, isLoading: configLoading, error: configError } = useCloverConfig();
   const chargeMutation = useCloverCharge();
@@ -55,7 +64,8 @@ export function CloverCheckout({
 
     script.onload = () => {
       try {
-        const clover = new (window as any).Clover(config.merchant_id);
+        const CloverSDK = (window as unknown as Record<string, new (id: string) => CloverInstance>).Clover;
+        const clover = new CloverSDK(config.merchant_id);
         cloverInstanceRef.current = clover;
 
         const elements = clover.elements();
@@ -132,8 +142,8 @@ export function CloverCheckout({
       } else {
         throw new Error(chargeResult.error_message || "Payment failed");
       }
-    } catch (err: any) {
-      const msg = err.message || "An unexpected error occurred. Please try again.";
+    } catch (err: unknown) {
+      const msg = (err instanceof Error ? err.message : null) || "An unexpected error occurred. Please try again.";
       setError(msg);
       toastError("Payment Failed", msg);
     } finally {

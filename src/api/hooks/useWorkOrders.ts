@@ -103,7 +103,7 @@ export function useCreateWorkOrder() {
         `Work order ${workOrder.work_order_number || workOrder.id.slice(0, 8)} created successfully`
       );
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to create work order";
       toastError("Creation Failed", message);
     },
@@ -145,7 +145,7 @@ export function useUpdateWorkOrder() {
         toastSuccess("SMS Sent", "Customer notified by SMS that service is complete");
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to update work order";
       toastError("Update Failed", message);
     },
@@ -166,7 +166,7 @@ export function useDeleteWorkOrder() {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
       toastSuccess("Work Order Deleted", "Work order deleted successfully");
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to delete work order";
       toastError("Deletion Failed", message);
     },
@@ -320,7 +320,7 @@ export function useAssignWorkOrder() {
         `${workOrder.work_order_number || 'Work order'} scheduled successfully`
       );
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to schedule work order";
       console.error("Schedule assignment failed:", error);
       toastError("Schedule Failed", message);
@@ -423,7 +423,7 @@ export function useUnscheduleWorkOrder() {
         `${workOrder.work_order_number || 'Work order'} removed from schedule`
       );
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to unschedule work order";
       console.error("Unschedule failed:", error);
       toastError("Unschedule Failed", message);

@@ -40,10 +40,11 @@ export function QuickBooksSettings() {
         toastInfo("Redirecting to QuickBooks...", "Complete the authorization in the Intuit window.");
         window.location.href = result.auth_url;
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const e = err as Error & { response?: { data?: { detail?: string } } };
       toastError(
         "OAuth Error",
-        err?.response?.data?.detail || "Could not start QuickBooks OAuth flow",
+        e?.response?.data?.detail || "Could not start QuickBooks OAuth flow",
       );
     }
   };
@@ -67,22 +68,25 @@ export function QuickBooksSettings() {
     try {
       const custResult = await syncCustomers.mutateAsync();
       results.push(`Customers: ${custResult.synced} synced, ${custResult.errors} errors`);
-    } catch (err: any) {
-      results.push(`Customers: ${err?.response?.data?.detail || "failed"}`);
+    } catch (err: unknown) {
+      const e = err as Error & { response?: { data?: { detail?: string } } };
+      results.push(`Customers: ${e?.response?.data?.detail || "failed"}`);
     }
 
     try {
       const invResult = await syncInvoices.mutateAsync();
       results.push(`Invoices: ${invResult.synced} synced, ${invResult.errors} errors`);
-    } catch (err: any) {
-      results.push(`Invoices: ${err?.response?.data?.detail || "failed"}`);
+    } catch (err: unknown) {
+      const e = err as Error & { response?: { data?: { detail?: string } } };
+      results.push(`Invoices: ${e?.response?.data?.detail || "failed"}`);
     }
 
     try {
       const payResult = await syncPayments.mutateAsync();
       results.push(`Payments: ${payResult.synced} synced, ${payResult.errors} errors`);
-    } catch (err: any) {
-      results.push(`Payments: ${err?.response?.data?.detail || "failed"}`);
+    } catch (err: unknown) {
+      const e = err as Error & { response?: { data?: { detail?: string } } };
+      results.push(`Payments: ${e?.response?.data?.detail || "failed"}`);
     }
 
     setSyncResults(results);

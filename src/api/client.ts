@@ -126,7 +126,7 @@ apiClient.interceptors.response.use(
     );
     return response;
   },
-  (error: AxiosError) => {
+  async (error: AxiosError) => {
     // Track failed responses
     const status = error.response?.status;
     const url = error.config?.url;
@@ -161,13 +161,24 @@ apiClient.interceptors.response.use(
     // Handle authentication errors
     if (status === 401) {
       // Skip auth handling for optional endpoints that should fail silently
-      // These endpoints are non-critical features that work without auth
-      const optionalEndpoints = ["/roles"];
+      const optionalEndpoints = ["/roles", "/auth/refresh"];
       const isOptionalEndpoint = optionalEndpoints.some((endpoint) =>
         url?.includes(endpoint),
       );
 
       if (!isOptionalEndpoint) {
+        // Try to refresh the token before giving up
+        if (!(error.config as Record<string, unknown>)?._retried) {
+          try {
+            (error.config as Record<string, unknown>)._retried = true;
+            await apiClient.post("/auth/refresh");
+            // Retry the original request
+            return apiClient.request(error.config!);
+          } catch {
+            // Refresh failed — fall through to logout
+          }
+        }
+
         // SECURITY: Clear all auth state
         markSessionInvalid();
         clearSessionState();
@@ -179,7 +190,6 @@ apiClient.interceptors.response.use(
         // Don't redirect to login if already on login page (prevents infinite loop)
         const currentPath = window.location.pathname;
         if (!currentPath.includes("/login")) {
-          // Redirect to login with return URL
           const returnUrl = encodeURIComponent(
             currentPath + window.location.search,
           );

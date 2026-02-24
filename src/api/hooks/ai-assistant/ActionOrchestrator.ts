@@ -192,7 +192,7 @@ export class ActionOrchestrator {
     const errors: string[] = [];
 
     if (action.operation === "assign_technician") {
-      const { workOrderId, technicianId } = action.payload as any;
+      const { workOrderId, technicianId } = action.payload as Record<string, unknown>;
 
       if (!workOrderId) {
         errors.push("Work order ID required for technician assignment");
@@ -222,7 +222,7 @@ export class ActionOrchestrator {
     const errors: string[] = [];
 
     if (action.operation === "schedule_job") {
-      const { date, time, duration } = action.payload as any;
+      const { date, time, duration } = action.payload as Record<string, unknown>;
 
       if (!date || !time) {
         errors.push("Date and time required for scheduling");
@@ -251,7 +251,7 @@ export class ActionOrchestrator {
     const errors: string[] = [];
 
     if (action.operation === "create_ticket") {
-      const { customerId, description } = action.payload as any;
+      const { customerId, description } = action.payload as Record<string, unknown>;
 
       if (!customerId) {
         errors.push("Customer ID required for ticket creation");
@@ -363,7 +363,7 @@ export class ActionOrchestrator {
           action.operation === "process_payment" &&
           context.user.role !== "administrator"
         ) {
-          const amount = (action.payload as any).amount;
+          const amount = (action.payload as Record<string, unknown>).amount;
           if (amount > 1000) {
             return {
               allowed: false,
@@ -397,7 +397,7 @@ export class ActionOrchestrator {
   ): Promise<{ allowed: boolean; reason?: string }> {
     // Check business-specific rules
     if (action.domain === "scheduling" && action.operation === "schedule_job") {
-      const { date } = action.payload as any;
+      const { date } = action.payload as Record<string, unknown>;
       const scheduleDate = new Date(date);
       const today = new Date();
 
@@ -449,7 +449,7 @@ export class ActionOrchestrator {
   ): Promise<unknown> {
     switch (action.operation) {
       case "assign_technician":
-        const { workOrderId, technicianId } = action.payload as any;
+        const { workOrderId, technicianId } = action.payload as Record<string, unknown>;
         return apiClient.patch(`/work-orders/${workOrderId}`, {
           assigned_technician_id: technicianId,
           status: "assigned",
@@ -472,7 +472,7 @@ export class ActionOrchestrator {
         return apiClient.post("/schedule/jobs", action.payload);
 
       case "reschedule_job":
-        const { jobId, newDateTime } = action.payload as any;
+        const { jobId, newDateTime } = action.payload as Record<string, unknown>;
         return apiClient.patch(`/schedule/jobs/${jobId}`, {
           scheduled_date: newDateTime,
         });
@@ -493,7 +493,7 @@ export class ActionOrchestrator {
         return apiClient.post("/tickets", action.payload);
 
       case "update_status":
-        const { ticketId, status } = action.payload as any;
+        const { ticketId, status } = action.payload as Record<string, unknown>;
         return apiClient.patch(`/tickets/${ticketId}`, { status });
 
       default:
@@ -526,7 +526,7 @@ export class ActionOrchestrator {
     switch (action.domain) {
       case "dispatch":
         if (action.operation === "assign_technician") {
-          const { workOrderId } = action.payload as any;
+          const { workOrderId } = action.payload as Record<string, unknown>;
           // Store current assignment state
           const currentState = await apiClient.get(
             `/work-orders/${workOrderId}`,
@@ -541,7 +541,7 @@ export class ActionOrchestrator {
 
       case "tickets":
         if (action.operation === "update_status") {
-          const { ticketId } = action.payload as any;
+          const { ticketId } = action.payload as Record<string, unknown>;
           const currentState = await apiClient.get(`/tickets/${ticketId}`);
           return {
             ticketId,
@@ -558,7 +558,7 @@ export class ActionOrchestrator {
     _actionId: string,
     rollbackData: unknown,
   ): Promise<unknown> {
-    const data = rollbackData as any;
+    const data = rollbackData as Record<string, unknown>;
 
     // Implement rollback logic based on rollback data structure
     if (data.workOrderId) {
@@ -646,7 +646,7 @@ export class ActionOrchestrator {
 
     // Extract entities from action payload
     if (action.payload) {
-      const payload = action.payload as any;
+      const payload = action.payload as Record<string, unknown>;
 
       if (payload.workOrderId) {
         entities.push({ type: "work_order", id: payload.workOrderId });

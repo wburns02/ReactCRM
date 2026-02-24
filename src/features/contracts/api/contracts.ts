@@ -497,7 +497,7 @@ export function useCreateContract() {
       queryClient.invalidateQueries({ queryKey: ["contracts"] });
       toastSuccess("Contract Created", `${contract.contract_number} created successfully`);
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to create contract";
       toastError("Creation Failed", message);
     },
@@ -513,7 +513,7 @@ export function useUpdateContract() {
       queryClient.invalidateQueries({ queryKey: ["contracts"] });
       toastSuccess("Contract Updated", "Contract updated successfully");
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to update contract";
       toastError("Update Failed", message);
     },
@@ -528,7 +528,7 @@ export function useDeleteContract() {
       queryClient.invalidateQueries({ queryKey: ["contracts"] });
       toastSuccess("Contract Deleted", "Contract deleted successfully");
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to delete contract";
       toastError("Deletion Failed", message);
     },
@@ -543,7 +543,7 @@ export function useActivateContract() {
       queryClient.invalidateQueries({ queryKey: ["contracts"] });
       toastSuccess("Contract Activated", "Contract is now active");
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to activate contract";
       toastError("Activation Failed", message);
     },
@@ -561,7 +561,7 @@ export function useRenewContract() {
       queryClient.invalidateQueries({ queryKey: ["contracts-renewals"] });
       toastSuccess("Contract Renewed", `New contract ${contract.contract_number} created`);
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to renew contract";
       toastError("Renewal Failed", message);
     },
@@ -578,7 +578,7 @@ export function useBulkContractAction() {
       queryClient.invalidateQueries({ queryKey: ["contracts-dashboard"] });
       toastSuccess("Bulk Action Complete", `${result.success_count} of ${result.total} succeeded`);
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Bulk action failed";
       toastError("Bulk Action Failed", message);
     },
@@ -611,7 +611,7 @@ export function useGenerateFromTemplate() {
       queryClient.invalidateQueries({ queryKey: ["contracts"] });
       toastSuccess("Contract Generated", `${contract.contract_number} created from template`);
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to generate contract";
       toastError("Generation Failed", message);
     },
@@ -667,7 +667,7 @@ export function useSeedTemplates() {
         : `${result.total_created} templates created, ${result.total_skipped} skipped`;
       toastSuccess("Templates Seeded", msg);
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to seed templates";
       toastError("Seed Failed", message);
     },
@@ -721,7 +721,7 @@ export function useCreateNeighborhoodBundle() {
       queryClient.invalidateQueries({ queryKey: ["neighborhood-bundles"] });
       toastSuccess("Bundle Created", `${bundle.name} created with ${bundle.discount_percent}% discount`);
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       const message = error?.response?.data?.detail || error?.message || "Failed to create bundle";
       toastError("Bundle Creation Failed", message);
     },

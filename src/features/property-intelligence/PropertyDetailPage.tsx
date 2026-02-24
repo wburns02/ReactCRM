@@ -6,6 +6,13 @@ import {
   usePropertyFlood,
   usePropertyPdfs,
 } from "@/api/hooks/usePropertyIntelligence";
+import type {
+  Property,
+  Permit,
+  EnvironmentalRecord,
+  FloodZone,
+  PDFExtraction,
+} from "@/api/types/propertyIntelligence";
 import { isPropIntelConfigured } from "@/api/propIntelClient";
 import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { useState } from "react";
@@ -73,7 +80,7 @@ export function PropertyDetailPage() {
     );
   }
 
-  const tabs: { key: Tab; label: string; icon: any }[] = [
+  const tabs: { key: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { key: "overview", label: "Overview", icon: Home },
     { key: "permits", label: "Permits", icon: FileText },
     { key: "environmental", label: "Environmental", icon: AlertTriangle },
@@ -185,7 +192,7 @@ export function PropertyDetailPage() {
   );
 }
 
-function OverviewTab({ property }: { property: any }) {
+function OverviewTab({ property }: { property: Property }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Location */}
@@ -297,7 +304,7 @@ function OverviewTab({ property }: { property: any }) {
   );
 }
 
-function PermitsTab({ permits }: { permits: any[] }) {
+function PermitsTab({ permits }: { permits: Permit[] }) {
   if (permits.length === 0) {
     return <EmptyState icon="📋" title="No permits found" description="No permits found for this property." />;
   }
@@ -359,7 +366,7 @@ function PermitsTab({ permits }: { permits: any[] }) {
   );
 }
 
-function EnvironmentalTab({ records }: { records: any[] }) {
+function EnvironmentalTab({ records }: { records: EnvironmentalRecord[] }) {
   if (records.length === 0) {
     return (
       <EmptyState icon="🌿" title="No environmental records" description="No environmental records found for this property." />
@@ -408,7 +415,7 @@ function EnvironmentalTab({ records }: { records: any[] }) {
   );
 }
 
-function FloodTab({ zones }: { zones: any[] }) {
+function FloodTab({ zones }: { zones: FloodZone[] }) {
   if (zones.length === 0) {
     return <EmptyState icon="💧" title="No flood zone data" description="No flood zone data found for this property." />;
   }
@@ -445,7 +452,7 @@ function FloodTab({ zones }: { zones: any[] }) {
   );
 }
 
-function DocumentsTab({ pdfs }: { pdfs: any[] }) {
+function DocumentsTab({ pdfs }: { pdfs: PDFExtraction[] }) {
   if (pdfs.length === 0) {
     return (
       <EmptyState icon="📄" title="No documents found" description="No extracted documents found for this property." />
@@ -517,7 +524,7 @@ function Section({
   children,
 }: {
   title: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   children: React.ReactNode;
 }) {
   return (

@@ -36,8 +36,7 @@ export default tseslint.config(
       'react-hooks/invariant': 'warn',
       'react-hooks/set-state-in-render': 'warn',
       'react-hooks/immutability': 'warn',
-      // Allow any for now - can tighten later
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'error',
       // Allow lexical declarations in case blocks
       'no-case-declarations': 'warn',
     },

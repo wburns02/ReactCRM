@@ -45,8 +45,9 @@ export function validateResponse<T>(
 
     // Store for debugging
     if (typeof window !== 'undefined') {
-      (window as any).__schemaErrors = (window as any).__schemaErrors || [];
-      (window as any).__schemaErrors.push({
+      const w = window as unknown as Record<string, unknown[]>;
+      w.__schemaErrors = w.__schemaErrors || [];
+      w.__schemaErrors.push({
         endpoint,
         formatted: error.format(),
         issues: error.issues

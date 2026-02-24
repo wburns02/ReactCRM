@@ -508,7 +508,7 @@ export function TechJobDetailPage() {
         return;
       }
 
-      await updateWorkOrderMutation.mutateAsync({ id: jobId, data: updates as any });
+      await updateWorkOrderMutation.mutateAsync({ id: jobId, data: updates as Partial<import("@/api/types/workOrder").WorkOrderFormData> });
       setIsEditing(false);
       refetch();
     } catch {
@@ -526,7 +526,7 @@ export function TechJobDetailPage() {
       const updates: Record<string, unknown> = { status: "completed" };
       if (editNotes !== (job?.notes || "")) updates.notes = editNotes;
       if (editInternalNotes !== (job?.internal_notes || "")) updates.internal_notes = editInternalNotes;
-      await updateWorkOrderMutation.mutateAsync({ id: jobId, data: updates as any });
+      await updateWorkOrderMutation.mutateAsync({ id: jobId, data: updates as Partial<import("@/api/types/workOrder").WorkOrderFormData> });
       setIsEditing(false);
       refetch();
     } catch {
@@ -572,7 +572,7 @@ export function TechJobDetailPage() {
         return;
       }
 
-      await updateCustomerMutation.mutateAsync({ id: customerId, data: updates as any });
+      await updateCustomerMutation.mutateAsync({ id: customerId, data: updates as Partial<import("@/api/types/customer").CustomerFormData> });
       toastSuccess("Customer Updated", "Customer info saved successfully");
       setIsEditingCustomer(false);
       refetchCustomer();

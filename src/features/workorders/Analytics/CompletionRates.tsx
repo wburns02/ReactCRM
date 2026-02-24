@@ -83,7 +83,14 @@ function CustomPieLabel({
   innerRadius,
   outerRadius,
   percent,
-}: any) {
+}: {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+}) {
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -108,7 +115,7 @@ function CustomPieLabel({
 /**
  * Custom tooltip for pie chart
  */
-function PieTooltip({ active, payload }: any) {
+function PieTooltip({ active, payload }: { active?: boolean; payload?: { name: string; value: number; percent: number }[] }) {
   if (!active || !payload || !payload.length) return null;
 
   const data = payload[0];
@@ -134,13 +141,13 @@ function PieTooltip({ active, payload }: any) {
 /**
  * Custom tooltip for trend chart
  */
-function TrendTooltip({ active, payload, label }: any) {
+function TrendTooltip({ active, payload, label }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string }) {
   if (!active || !payload || !payload.length) return null;
 
   return (
     <div className="bg-bg-card border border-border rounded-lg p-3 shadow-lg">
       <p className="text-sm font-medium text-text-primary mb-2">{label}</p>
-      {payload.map((entry: any, index: number) => (
+      {payload.map((entry, index: number) => (
         <p key={index} className="text-sm text-text-secondary">
           <span
             className="inline-block w-3 h-3 rounded-full mr-2"
