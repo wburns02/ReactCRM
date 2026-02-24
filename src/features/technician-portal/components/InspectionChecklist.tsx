@@ -2525,12 +2525,11 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
 
   return (
     <div className="space-y-4">
-      {/* Hidden file input for photos */}
+      {/* Hidden file input for photos — no capture attr so OS shows camera + gallery chooser */}
       <input
         ref={fileInputRef}
         type="file"
         accept="image/*"
-        capture="environment"
         className="hidden"
         onChange={handleFileSelected}
       />
@@ -2911,7 +2910,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                   ref={sludgePhotoRef}
                   type="file"
                   accept="image/*"
-                  capture="environment"
                   className="hidden"
                   onChange={(e) => handleEvidenceFileSelected(e, "sludge_level_evidence")}
                 />
@@ -2940,7 +2938,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                   ref={psiPhotoRef}
                   type="file"
                   accept="image/*"
-                  capture="environment"
                   className="hidden"
                   onChange={(e) => handleEvidenceFileSelected(e, "psi_reading_evidence")}
                 />
