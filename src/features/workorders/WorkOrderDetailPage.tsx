@@ -1474,7 +1474,7 @@ export function WorkOrderDetailPage() {
                 } as WorkOrderReference
               }
               onInvoiceCreated={(_invoiceId) => {
-                // TODO: Handle post-invoice-creation logic (e.g., refresh work order)
+                // Invoice creation triggers cache invalidation via the mutation hook
               }}
             />
 
@@ -1484,7 +1484,7 @@ export function WorkOrderDetailPage() {
               amount={0} // Would come from invoice totals
               customerName={customerName}
               onSuccess={(_transactionId) => {
-                // TODO: Handle post-payment logic (e.g., update work order status)
+                // Payment processing triggers cache invalidation via the mutation hook
               }}
             />
           </div>

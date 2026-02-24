@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 import { validateResponse } from "../validateResponse.ts";
 import {
   cloverConfigSchema,
@@ -232,5 +233,6 @@ export function useCloverCharge() {
       queryClient.invalidateQueries({ queryKey: ["payments"] });
       queryClient.invalidateQueries({ queryKey: cloverKeys.reconciliation() });
     },
+    onError: () => toastError("Payment failed. Please try again."),
   });
 }

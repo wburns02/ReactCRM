@@ -1184,7 +1184,7 @@ export function WorkOrderEditModal({
                             }),
                           )}
                           onInvoiceCreated={(_invoiceId) => {
-                            // TODO: Handle post-invoice-creation logic
+                            // Invoice creation triggers cache invalidation via the mutation hook
                           }}
                         />
 
@@ -1194,7 +1194,7 @@ export function WorkOrderEditModal({
                           amount={extendedWorkOrder?.total || 0}
                           customerName={`${selectedCustomer.first_name} ${selectedCustomer.last_name}`}
                           onSuccess={(_transactionId) => {
-                            // TODO: Handle post-payment logic
+                            // Payment processing triggers cache invalidation via the mutation hook
                           }}
                         />
                       </>

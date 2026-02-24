@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient, withFallback } from "@/api/client.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 import type {
   EmployeeJob,
   TimeClockEntry,
@@ -135,6 +136,7 @@ export function useUpdateJob() {
       queryClient.invalidateQueries({ queryKey: ["employee", "jobs", jobId] });
       queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
+    onError: () => toastError("Failed to update job"),
   });
 }
 
@@ -173,6 +175,7 @@ export function useClockIn() {
       queryClient.invalidateQueries({ queryKey: ["employee", "timeclock"] });
       queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
+    onError: () => toastError("Failed to clock in"),
   });
 }
 
@@ -194,6 +197,7 @@ export function useClockOut() {
       queryClient.invalidateQueries({ queryKey: ["employee", "timeclock"] });
       queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
+    onError: () => toastError("Failed to clock out"),
   });
 }
 
@@ -244,6 +248,7 @@ export function useStartJob() {
       queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
       queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
+    onError: () => toastError("Failed to start job"),
   });
 }
 
@@ -263,6 +268,7 @@ export function useRevertJobStatus() {
       queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
       queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
+    onError: () => toastError("Failed to revert job status"),
   });
 }
 
@@ -304,5 +310,6 @@ export function useCompleteJob() {
       queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
       queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
+    onError: () => toastError("Failed to complete job"),
   });
 }
