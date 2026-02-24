@@ -505,98 +505,36 @@ async function generateReportPDF(
   }
   y += 42;
 
-  // ═══ WEATHER CONDITIONS ═══
-  if (weatherData?.current) {
-    sectionHeader("Weather Conditions");
-    const wc = weatherData.current;
-    // 4 weather stat boxes in a row
-    const wBoxW = (contentW - 9) / 4;
-    const wStats: [string, string][] = [
-      ["TEMPERATURE", `${Math.round(wc.temperature_f)}°F`],
-      ["CONDITION", wc.condition],
-      ["HUMIDITY", `${wc.humidity_pct}%`],
-      ["WIND", `${wc.wind_speed_mph} mph`],
-    ];
-    for (let i = 0; i < wStats.length; i++) {
-      const wx = margin + i * (wBoxW + 3);
-      setF(BRAND.cardBg);
-      setD(BRAND.divider);
-      doc.setLineWidth(0.3);
-      doc.roundedRect(wx, y, wBoxW, 18, 2, 2, "FD");
-      setC(BRAND.muted);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(6);
-      doc.text(wStats[i][0], wx + wBoxW / 2, y + 6, { align: "center" });
-      setC(BRAND.blue);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
-      const valText = doc.splitTextToSize(wStats[i][1], wBoxW - 4);
-      doc.text(valText, wx + wBoxW / 2, y + 13, { align: "center" });
-    }
-    y += 24;
-
-    // 7-day precipitation table
-    if (weatherData.daily_history.length > 0) {
-      ensureSpace(40);
-      setC(BRAND.text);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.text(`7-Day Precipitation History (Total: ${weatherData.seven_day_total_precip_in} in)`, margin + 4, y + 2);
-      y += 8;
-      // Table header
-      setF(BRAND.blue);
-      doc.rect(margin, y - 3, contentW, 8, "F");
+  // ═══ PRIORITY REPAIRS — shown right after condition summary ═══
+  if (aiAnalysis?.priority_repairs?.length) {
+    ensureSpace(20);
+    sectionHeader("Priority Repairs", BRAND.danger);
+    for (const repair of aiAnalysis.priority_repairs) {
+      ensureSpace(18);
+      const urgColor = repair.urgency === "Fix today" ? BRAND.danger
+        : repair.urgency === "Schedule this week" ? BRAND.warning
+        : BRAND.accent;
+      // Urgency badge
+      setF(urgColor);
+      const badgeW = doc.getTextWidth(repair.urgency) + 6;
+      doc.roundedRect(margin, y - 3, badgeW, 7, 1.5, 1.5, "F");
       setC(BRAND.white);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(7);
-      doc.text("DATE", margin + 4, y + 2);
-      doc.text("PRECIP", margin + 40, y + 2);
-      doc.text("CONDITION", margin + 62, y + 2);
-      doc.text("HIGH / LOW", margin + 120, y + 2);
-      y += 9;
-      for (let i = 0; i < weatherData.daily_history.length; i++) {
-        const day = weatherData.daily_history[i];
-        ensureSpace(10);
-        if (i % 2 === 0) {
-          setF(BRAND.cardBg);
-          doc.rect(margin, y - 3, contentW, 9, "F");
-        }
-        // Highlight days with significant precipitation
-        if (day.precip_in >= 0.5) {
-          setF({ r: 239, g: 246, b: 255 });
-          doc.rect(margin, y - 3, contentW, 9, "F");
-        }
-        setC(BRAND.text);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(8);
-        const dayLabel = new Date(day.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-        doc.text(dayLabel, margin + 4, y + 2);
-        // Precipitation amount — bold if significant
-        if (day.precip_in >= 0.5) {
-          setC(BRAND.blue);
-          doc.setFont("helvetica", "bold");
-        }
-        doc.text(`${day.precip_in} in`, margin + 40, y + 2);
-        setC(BRAND.text);
-        doc.setFont("helvetica", "normal");
-        doc.text(day.condition, margin + 62, y + 2);
-        doc.text(`${Math.round(day.high_f)}° / ${Math.round(day.low_f)}°`, margin + 120, y + 2);
-        y += 9;
-      }
-      y += 2;
-    }
-
-    // Notable weather events
-    if (weatherData.notable_events.length > 0) {
-      ensureSpace(16);
-      for (const event of weatherData.notable_events) {
-        setC({ r: 180, g: 120, b: 0 });
-        doc.setFont("helvetica", "italic");
-        doc.setFontSize(8);
-        doc.text(`⚠ ${event}`, margin + 4, y + 2);
-        y += 6;
-      }
-      y += 2;
+      doc.text(repair.urgency, margin + 3, y + 1);
+      // Issue title
+      setC(BRAND.text);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text(repair.issue, margin + badgeW + 4, y + 1);
+      y += 6;
+      // Why it matters
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      const whyLines = doc.splitTextToSize(repair.why_it_matters, contentW - 8);
+      doc.text(whyLines, margin + 4, y);
+      y += whyLines.length * 3.5 + 4;
     }
   }
 
@@ -968,39 +906,6 @@ async function generateReportPDF(
       y += boxH + 4;
     }
 
-    // Priority Repairs
-    if (aiAnalysis.priority_repairs?.length) {
-      ensureSpace(20);
-      sectionHeader("Priority Repairs", BRAND.danger);
-      for (const repair of aiAnalysis.priority_repairs) {
-        ensureSpace(18);
-        const urgColor = repair.urgency === "Fix today" ? BRAND.danger
-          : repair.urgency === "Schedule this week" ? BRAND.warning
-          : BRAND.accent;
-        // Urgency badge
-        setF(urgColor);
-        const badgeW = doc.getTextWidth(repair.urgency) + 6;
-        doc.roundedRect(margin, y - 3, badgeW, 7, 1.5, 1.5, "F");
-        setC(BRAND.white);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(7);
-        doc.text(repair.urgency, margin + 3, y + 1);
-        // Issue title
-        setC(BRAND.text);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.text(repair.issue, margin + badgeW + 4, y + 1);
-        y += 6;
-        // Why it matters
-        setC(BRAND.muted);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(8);
-        const whyLines = doc.splitTextToSize(repair.why_it_matters, contentW - 8);
-        doc.text(whyLines, margin + 4, y);
-        y += whyLines.length * 3.5 + 4;
-      }
-    }
-
     // Maintenance Schedule
     if (aiAnalysis.maintenance_schedule?.length) {
       ensureSpace(20);
@@ -1132,6 +1037,99 @@ async function generateReportPDF(
     doc.setFontSize(7);
     doc.text("* Estimates are approximate. Final costs may vary based on actual conditions found during repair.", margin, y);
     y += 8;
+  }
+
+  // ═══ WEATHER CONDITIONS — shown after costs ═══
+  if (weatherData?.current) {
+    sectionHeader("Weather Conditions");
+    const wc = weatherData.current;
+    // 4 weather stat boxes in a row
+    const wBoxW = (contentW - 9) / 4;
+    const wStats: [string, string][] = [
+      ["TEMPERATURE", `${Math.round(wc.temperature_f)}°F`],
+      ["CONDITION", wc.condition],
+      ["HUMIDITY", `${wc.humidity_pct}%`],
+      ["WIND", `${wc.wind_speed_mph} mph`],
+    ];
+    for (let i = 0; i < wStats.length; i++) {
+      const wx = margin + i * (wBoxW + 3);
+      setF(BRAND.cardBg);
+      setD(BRAND.divider);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(wx, y, wBoxW, 18, 2, 2, "FD");
+      setC(BRAND.muted);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6);
+      doc.text(wStats[i][0], wx + wBoxW / 2, y + 6, { align: "center" });
+      setC(BRAND.blue);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      const valText = doc.splitTextToSize(wStats[i][1], wBoxW - 4);
+      doc.text(valText, wx + wBoxW / 2, y + 13, { align: "center" });
+    }
+    y += 24;
+
+    // 7-day precipitation table
+    if (weatherData.daily_history.length > 0) {
+      ensureSpace(40);
+      setC(BRAND.text);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.text(`7-Day Precipitation History (Total: ${weatherData.seven_day_total_precip_in} in)`, margin + 4, y + 2);
+      y += 8;
+      // Table header
+      setF(BRAND.blue);
+      doc.rect(margin, y - 3, contentW, 8, "F");
+      setC(BRAND.white);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7);
+      doc.text("DATE", margin + 4, y + 2);
+      doc.text("PRECIP", margin + 40, y + 2);
+      doc.text("CONDITION", margin + 62, y + 2);
+      doc.text("HIGH / LOW", margin + 120, y + 2);
+      y += 9;
+      for (let i = 0; i < weatherData.daily_history.length; i++) {
+        const day = weatherData.daily_history[i];
+        ensureSpace(10);
+        if (i % 2 === 0) {
+          setF(BRAND.cardBg);
+          doc.rect(margin, y - 3, contentW, 9, "F");
+        }
+        if (day.precip_in >= 0.5) {
+          setF({ r: 239, g: 246, b: 255 });
+          doc.rect(margin, y - 3, contentW, 9, "F");
+        }
+        setC(BRAND.text);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        const dayLabel = new Date(day.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+        doc.text(dayLabel, margin + 4, y + 2);
+        if (day.precip_in >= 0.5) {
+          setC(BRAND.blue);
+          doc.setFont("helvetica", "bold");
+        }
+        doc.text(`${day.precip_in} in`, margin + 40, y + 2);
+        setC(BRAND.text);
+        doc.setFont("helvetica", "normal");
+        doc.text(day.condition, margin + 62, y + 2);
+        doc.text(`${Math.round(day.high_f)}° / ${Math.round(day.low_f)}°`, margin + 120, y + 2);
+        y += 9;
+      }
+      y += 2;
+    }
+
+    // Notable weather events
+    if (weatherData.notable_events.length > 0) {
+      ensureSpace(16);
+      for (const event of weatherData.notable_events) {
+        setC({ r: 180, g: 120, b: 0 });
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(8);
+        doc.text(`⚠ ${event}`, margin + 4, y + 2);
+        y += 6;
+      }
+      y += 2;
+    }
   }
 
   // ═══ WHAT'S NEXT — Call to action ═══
@@ -1857,7 +1855,12 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
     setSendingReport("email");
     try {
       const pdfPhotos = await getFreshPDFPhotos();
-      const blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather, manufacturerId);
+      // Generate full PDF with photos
+      let blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, pdfPhotos, systemType, weather, manufacturerId);
+      // If PDF is too large for email (> 7.5 MB), regenerate without photos
+      if (blob.size > 7_500_000) {
+        blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, [], systemType, weather, manufacturerId);
+      }
       const base64 = await blobToBase64(blob);
       const result = await saveMutation.mutateAsync({
         jobId,
@@ -2066,6 +2069,27 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
           <p className="text-xs text-text-secondary">For {customerName || "Customer"}</p>
         </div>
 
+        {/* Priority Repairs — shown at top when AI analysis has repairs */}
+        {aiAnalysis?.priority_repairs?.length > 0 && (
+          <div className="border-2 border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xl">🚨</span>
+              <h4 className="font-bold text-red-700 dark:text-red-300 text-base">Priority Repairs Needed</h4>
+            </div>
+            {aiAnalysis.priority_repairs.map((repair, i) => (
+              <div key={i} className="mb-3 last:mb-0 border-l-4 border-red-400 pl-3">
+                <p className="font-semibold text-text-primary text-sm">{repair.issue}</p>
+                <p className="text-text-secondary text-xs mt-0.5">{repair.why_it_matters}</p>
+                <span className={`inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold ${
+                  repair.urgency === "Fix today" ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" :
+                  repair.urgency === "Schedule this week" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300" :
+                  "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
+                }`}>{repair.urgency}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Overall Condition */}
         <div className={`p-4 rounded-lg border ${conditionColors[s.overallCondition]}`}>
           <div className="text-center">
@@ -2076,24 +2100,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
             </p>
           </div>
         </div>
-
-        {/* Weather Summary */}
-        {weather?.current && (
-          <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-            <span className="text-lg">
-              {weather.current.weather_code >= 95 ? "⛈️" : weather.current.weather_code >= 61 ? "🌧️" : weather.current.weather_code >= 51 ? "🌦️" : weather.current.weather_code >= 1 ? "⛅" : "☀️"}
-            </span>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-text-primary">
-                {Math.round(weather.current.temperature_f)}°F — {weather.current.condition}
-              </p>
-              <p className="text-[10px] text-text-secondary truncate">
-                7-day precip: {weather.seven_day_total_precip_in} in
-                {weather.notable_events.length > 0 && ` | ${weather.notable_events[0]}`}
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* Manufacturer Info (aerobic only) */}
         {manufacturer && manufacturer.id !== "other" && (
@@ -2149,24 +2155,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                 <div>
                   <p className="font-semibold text-primary text-xs mb-1">🔮 What to Expect</p>
                   <p className="text-text-primary text-xs">{aiAnalysis.what_to_expect}</p>
-                </div>
-              )}
-
-              {/* Priority Repairs */}
-              {aiAnalysis.priority_repairs?.length > 0 && (
-                <div>
-                  <p className="font-semibold text-primary text-xs mb-1">Priority Repairs</p>
-                  {aiAnalysis.priority_repairs.map((repair, i) => (
-                    <div key={i} className="ml-2 mb-2 border-l-2 border-primary/30 pl-2">
-                      <p className="font-medium text-text-primary text-xs">{repair.issue}</p>
-                      <p className="text-text-secondary text-xs">{repair.why_it_matters}</p>
-                      <span className={`inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold ${
-                        repair.urgency === "Fix today" ? "bg-red-100 text-red-700" :
-                        repair.urgency === "Schedule this week" ? "bg-yellow-100 text-yellow-700" :
-                        "bg-blue-100 text-blue-700"
-                      }`}>{repair.urgency}</span>
-                    </div>
-                  ))}
                 </div>
               )}
 
@@ -2374,6 +2362,29 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         )}
 
         {/* AI Analysis — moved to top, see above condition card */}
+
+        {/* Weather Summary — shown at bottom */}
+        {weather?.current && (
+          <div className="flex items-center gap-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            <span className="text-lg">
+              {weather.current.weather_code >= 95 ? "⛈️" :
+               weather.current.weather_code >= 80 ? "🌧️" :
+               weather.current.weather_code >= 51 ? "🌦️" :
+               weather.current.weather_code >= 45 ? "🌫️" :
+               weather.current.weather_code >= 3 ? "☁️" :
+               weather.current.weather_code >= 1 ? "🌤️" : "☀️"}
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-primary">
+                {Math.round(weather.current.temperature_f)}°F — {weather.current.condition}
+              </p>
+              <p className="text-[10px] text-text-secondary truncate">
+                7-day precip: {weather.seven_day_total_precip_in} in
+                {weather.notable_events.length > 0 && ` | ${weather.notable_events[0]}`}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Step Review */}
         <div className="border border-border rounded-lg p-4">

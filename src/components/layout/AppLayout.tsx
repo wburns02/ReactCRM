@@ -167,6 +167,7 @@ export function AppLayout() {
         { path: "/billing/payment-plans", label: "Payment Plans", icon: TrendingUp },
         { path: "/payroll", label: "Payroll", icon: Banknote },
         { path: "/job-costing", label: "Job Costing", icon: Calculator },
+        { path: "/grease-trap-pricing", label: "Grease Trap Pricing", icon: Flame },
       ],
     },
     {
@@ -238,6 +239,7 @@ export function AppLayout() {
         { path: "/admin", label: "Settings", icon: Settings },
         { path: "/admin/import", label: "Data Import", icon: Download },
         { path: "/admin/dump-sites", label: "Dump Sites", icon: Truck },
+        { path: "/admin/activity", label: "Activity Log", icon: Activity },
       ],
     },
   ];

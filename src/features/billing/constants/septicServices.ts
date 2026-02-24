@@ -19,7 +19,8 @@ export type ServiceCategory =
   | "inspection"
   | "maintenance"
   | "repair"
-  | "fees";
+  | "fees"
+  | "grease_trap";
 
 export const CATEGORY_LABELS: Record<ServiceCategory, string> = {
   pumping: "Pumping",
@@ -27,6 +28,7 @@ export const CATEGORY_LABELS: Record<ServiceCategory, string> = {
   maintenance: "Maintenance",
   repair: "Repair",
   fees: "Fees & Surcharges",
+  grease_trap: "Grease Trap",
 };
 
 export const CATEGORY_ICONS: Record<ServiceCategory, string> = {
@@ -35,6 +37,7 @@ export const CATEGORY_ICONS: Record<ServiceCategory, string> = {
   maintenance: "🔧",
   repair: "⚠️",
   fees: "💰",
+  grease_trap: "🍳",
 };
 
 /**
@@ -217,6 +220,48 @@ export const SEPTIC_SERVICES: Record<ServiceCategory, PresetService[]> = {
       category: "fees",
       description: "Extended travel distance",
       unit: "per mile",
+    },
+  ],
+  grease_trap: [
+    {
+      code: "GT-2000",
+      name: "Grease Trap — 2,000 GAL",
+      rate: 1400,
+      category: "grease_trap",
+      description: "Pump + disposal for 2,000 gallon grease trap",
+      unit: "service",
+    },
+    {
+      code: "GT-1500",
+      name: "Grease Trap — 1,500 GAL",
+      rate: 1050,
+      category: "grease_trap",
+      description: "Pump + disposal for 1,500 gallon grease trap",
+      unit: "service",
+    },
+    {
+      code: "GT-1000",
+      name: "Grease Trap — 1,000 GAL",
+      rate: 700,
+      category: "grease_trap",
+      description: "Pump + disposal for 1,000 gallon grease trap",
+      unit: "service",
+    },
+    {
+      code: "GT-500",
+      name: "Grease Trap — 500 GAL",
+      rate: 350,
+      category: "grease_trap",
+      description: "Pump + disposal for 500 gallon grease trap",
+      unit: "service",
+    },
+    {
+      code: "GT-50",
+      name: "Grease Trap — Small (≤50 GAL)",
+      rate: 200,
+      category: "grease_trap",
+      description: "Pump + disposal for small grease trap up to 50 gallons",
+      unit: "service",
     },
   ],
 };
