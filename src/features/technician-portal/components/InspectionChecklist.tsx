@@ -379,7 +379,7 @@ async function generateReportPDF(
     setC({ r: 148, g: 163, b: 184 });
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
-    doc.text("MAC Septic Services  |  (512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, pageH - 5.5, { align: "center" });
+    doc.text("MAC Septic Services  |  (512) 737-8711  |  macseptic.com  |  San Marcos, TX", pageW / 2, pageH - 5.5, { align: "center" });
     setC({ r: 100, g: 116, b: 139 });
     doc.text(`Page ${doc.getNumberOfPages()}`, pageW - margin, pageH - 5.5, { align: "right" });
   }
@@ -442,7 +442,7 @@ async function generateReportPDF(
   setC(BRAND.white);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
-  doc.text("(512) 392-1232   |   info@macseptic.com   |   macseptic.com   |   San Marcos, TX", pageW / 2, 55, { align: "center" });
+  doc.text("(512) 737-8711   |   info@macseptic.com   |   macseptic.com   |   San Marcos, TX", pageW / 2, 55, { align: "center" });
   y = 66;
 
   // Customer info card — clean white card with blue left border
@@ -1161,7 +1161,7 @@ async function generateReportPDF(
       ]
     : [
         "1. Review the estimate attached to this report",
-        "2. Call us at (512) 392-1232 to schedule repairs",
+        "2. Call us at (512) 737-8711 to schedule repairs",
         "3. Addressing these issues promptly prevents costly damage",
       ];
   let nextY = y + 7;
@@ -1207,7 +1207,7 @@ async function generateReportPDF(
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   setC(BRAND.blueLight);
-  doc.text("(512) 392-1232  |  macseptic.com  |  San Marcos, TX", pageW / 2, y + 16, { align: "center" });
+  doc.text("(512) 737-8711  |  macseptic.com  |  San Marcos, TX", pageW / 2, y + 16, { align: "center" });
 
   return doc.output("blob");
 }
@@ -1916,7 +1916,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
           "",
           "Please attach the downloaded PDF to this email before sending.",
           "",
-          "Questions? Call us at (512) 392-1232",
+          "Questions? Call us at (512) 737-8711",
           "MAC Septic Services — San Marcos, TX",
         ].join("\n");
 
@@ -1957,7 +1957,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
       : "";
 
-    const msg = `MAC Septic Services — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}${estimateLine}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 392-1232.`;
+    const msg = `MAC Septic Services — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}${estimateLine}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 737-8711.`;
 
     window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
 

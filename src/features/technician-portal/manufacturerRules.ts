@@ -120,7 +120,7 @@ export const MANUFACTURERS: Record<AerobicManufacturer, ManufacturerInfo> = {
       refillMethods: ["Water hose on-site", "Natural fill (customer usage over time)"],
       postPumpingAction: "Customer must turn the control panel back ON after 2.5 weeks",
       postPumpingActionDays: 18, // ~2.5 weeks
-      postPumpingReminderMessage: "Hi {customerName}! This is MAC Septic. It has been 2.5 weeks since your Norweco system was pumped. Please turn your control panel back ON now. If you need help, call us at (512) 392-1232.",
+      postPumpingReminderMessage: "Hi {customerName}! This is MAC Septic. It has been 2.5 weeks since your Norweco system was pumped. Please turn your control panel back ON now. If you need help, call us at (512) 737-8711.",
       pumpingNotes: [
         "Trash tank must be dug up — add extra time",
         "Refill with 500-800 gallons via water hose OR natural fill",
@@ -176,7 +176,7 @@ export const MANUFACTURERS: Record<AerobicManufacturer, ManufacturerInfo> = {
       refillMethods: ["Water hose on-site (required immediately)"],
       postPumpingAction: "Call customer the next day to confirm Fuji Clean tank was refilled",
       postPumpingActionDays: 1,
-      postPumpingReminderMessage: "Hi {customerName}! This is MAC Septic. We wanted to confirm that your Fuji Clean tank was refilled after yesterday's pumping. Please call us at (512) 392-1232 if there are any concerns — fiberglass tanks must stay filled at all times.",
+      postPumpingReminderMessage: "Hi {customerName}! This is MAC Septic. We wanted to confirm that your Fuji Clean tank was refilled after yesterday's pumping. Please call us at (512) 737-8711 if there are any concerns — fiberglass tanks must stay filled at all times.",
       pumpingNotes: [
         "⚠️ CRITICAL: Fuji tanks are FIBERGLASS — they MUST be refilled immediately",
         "Failure to refill will cause tank collapse — catastrophic and expensive",
