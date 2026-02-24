@@ -35,6 +35,8 @@ export function useCustomers(filters: CustomerFilters = {}) {
       if (filters.search) params.set("search", filters.search);
       if (filters.prospect_stage)
         params.set("prospect_stage", filters.prospect_stage);
+      if (filters.is_archived !== undefined)
+        params.set("is_archived", String(filters.is_archived));
 
       const url = "/customers/?" + params.toString();
       const { data } = await apiClient.get(url);

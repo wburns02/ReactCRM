@@ -17,6 +17,8 @@ interface CustomerRowProps {
   customer: Customer;
   onEdit?: (customer: Customer) => void;
   onDelete?: (customer: Customer) => void;
+  onArchive?: (customer: Customer) => void;
+  viewMode?: "active" | "archived";
 }
 
 /**
@@ -26,6 +28,8 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
   customer,
   onEdit,
   onDelete,
+  onArchive,
+  viewMode,
 }: CustomerRowProps) {
   const navigate = useNavigate();
   const { openEmailCompose } = useEmailCompose();
@@ -133,6 +137,16 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
             Edit
           </Button>
         )}
+        {onArchive && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onArchive(customer)}
+            className={viewMode === "archived" ? "text-green-600 hover:text-green-700" : "text-amber-600 hover:text-amber-700"}
+          >
+            {viewMode === "archived" ? "Restore" : "Archive"}
+          </Button>
+        )}
         {onDelete && (
           <Button
             variant="ghost"
@@ -155,6 +169,8 @@ const TableCustomerRow = memo(function TableCustomerRow({
   customer,
   onEdit,
   onDelete,
+  onArchive,
+  viewMode,
 }: CustomerRowProps) {
   const navigate = useNavigate();
   const { openEmailCompose } = useEmailCompose();
@@ -260,6 +276,19 @@ const TableCustomerRow = memo(function TableCustomerRow({
               Edit
             </Button>
           )}
+          {onArchive && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onArchive(customer)}
+              aria-label={
+                (viewMode === "archived" ? "Restore " : "Archive ") + customer.first_name + " " + customer.last_name
+              }
+              className={viewMode === "archived" ? "text-green-600 hover:text-green-700" : "text-amber-600 hover:text-amber-700"}
+            >
+              {viewMode === "archived" ? "Restore" : "Archive"}
+            </Button>
+          )}
           {onDelete && (
             <Button
               variant="ghost"
@@ -288,6 +317,8 @@ interface CustomersListProps {
   onPageChange: (page: number) => void;
   onEdit?: (customer: Customer) => void;
   onDelete?: (customer: Customer) => void;
+  onArchive?: (customer: Customer) => void;
+  viewMode?: "active" | "archived";
 }
 
 /**
@@ -302,6 +333,8 @@ export function CustomersList({
   onPageChange,
   onEdit,
   onDelete,
+  onArchive,
+  viewMode = "active",
 }: CustomersListProps) {
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
@@ -316,6 +349,10 @@ export function CustomersList({
   const handleDelete = useCallback(
     (customer: Customer) => onDelete?.(customer),
     [onDelete],
+  );
+  const handleArchive = useCallback(
+    (customer: Customer) => onArchive?.(customer),
+    [onArchive],
   );
 
   if (isLoading) {
@@ -347,6 +384,8 @@ export function CustomersList({
               customer={customer}
               onEdit={onEdit ? handleEdit : undefined}
               onDelete={onDelete ? handleDelete : undefined}
+              onArchive={onArchive ? handleArchive : undefined}
+              viewMode={viewMode}
             />
           ))}
         </div>
@@ -437,6 +476,8 @@ export function CustomersList({
                 customer={customer}
                 onEdit={onEdit ? handleEdit : undefined}
                 onDelete={onDelete ? handleDelete : undefined}
+                onArchive={onArchive ? handleArchive : undefined}
+                viewMode={viewMode}
               />
             ))}
           </tbody>

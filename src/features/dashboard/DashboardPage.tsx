@@ -86,6 +86,11 @@ export function DashboardPage() {
                 </p>
                 <p className="text-xs text-text-muted mt-1">
                   {stats?.active_prospects ?? 0} active
+                  {(stats?.archived_contacts ?? 0) > 0 && (
+                    <span className="ml-1 text-text-muted/60">
+                      · {stats.archived_contacts.toLocaleString()} archived
+                    </span>
+                  )}
                 </p>
               </div>
               <div className="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center">

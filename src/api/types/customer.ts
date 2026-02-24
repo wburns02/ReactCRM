@@ -45,6 +45,7 @@ export const customerSchema = z.object({
   longitude: z.union([z.number(), z.string().transform(Number)]).nullable(),
   default_payment_terms: z.string().nullable(),
   is_active: z.boolean(),
+  is_archived: z.boolean().optional().default(false),
   // Prospect/Lead fields (Customer can also be a prospect)
   customer_type: z.string().nullable(), // Using string for flexibility
   prospect_stage: prospectStageSchema.or(z.string()).nullable(),
@@ -83,6 +84,7 @@ export interface CustomerFilters {
   search?: string;
   prospect_stage?: string;
   is_active?: boolean;
+  is_archived?: boolean;
 }
 
 /**
