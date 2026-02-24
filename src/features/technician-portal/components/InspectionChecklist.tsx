@@ -1887,7 +1887,12 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         sendReport: { method: "email", to: customerEmail, pdfBase64: base64 },
       });
       if (result?.report_sent === false) {
-        // Backend email failed — auto-download PDF and open mailto fallback
+        // Backend email failed — log reason and auto-download PDF and open mailto fallback
+        const emailErr = (result as Record<string, unknown>)?.email_error;
+        if (emailErr) {
+          console.error("[InspectionChecklist] Email send failed:", emailErr);
+          toastError(`Email failed: ${emailErr}`);
+        }
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
