@@ -332,8 +332,8 @@ export function WorkOrderTimeline({
       {/* Activity items */}
       <div className="space-y-4">
         {visibleActivities.map((activity, index) => {
-          const IconComponent = ActivityIcons[activity.type];
-          const colorClass = ActivityColors[activity.type];
+          const IconComponent = ActivityIcons[activity.type] ?? ActivityIcons.created;
+          const colorClass = ActivityColors[activity.type] ?? ActivityColors.created;
           const isActivityExpanded = expandedActivityId === activity.id;
           const hasMetadata =
             activity.metadata && Object.keys(activity.metadata).length > 0;
