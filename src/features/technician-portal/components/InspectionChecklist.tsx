@@ -109,43 +109,31 @@ function findingLabel(f: string) {
   return "Not Checked";
 }
 
-// Simple language mappings for step titles
+// Simple language mappings for step titles (10-step consolidated flows)
 const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
   aerobic: {
     1: "We checked that all our tools and safety equipment are ready.",
-    2: "We let the homeowner know we arrived.",
-    3: "We confirmed we are at the right address.",
-    4: "We knocked on the door and introduced ourselves.",
-    5: "We explained what the inspection covers.",
-    6: "We found where the septic tank and control panel are located.",
-    7: "We carefully opened the tank lids to look inside.",
-    8: "We tested the switches that turn the pump on and off.",
-    9: "We checked the control panel for any warning lights or damage.",
-    10: "We tested the timer that controls when the pump runs.",
-    11: "We checked that the alarm light bulb and buzzer work.",
-    12: "We looked for rust, damage, and made sure everything is sealed properly.",
-    13: "We turned the power back on to the system.",
-    14: "We checked the valve and the spray or drip system that spreads treated water.",
-    15: "We put all the lids back on securely and cleaned up.",
-    16: "We discussed everything we found with you.",
+    2: "We arrived, greeted the homeowner, confirmed the address, and explained the inspection.",
+    3: "We found where the septic tank and control panel are located.",
+    4: "We carefully opened the tank lids and measured the sludge level.",
+    5: "We tested the float switches, pump operation, and alarm.",
+    6: "We inspected the control panel, tested the timer settings, and checked the alarm bulb and buzzer.",
+    7: "We checked for corrosion, inspected the air filter, and turned the breakers back on.",
+    8: "We checked the valve and the spray or drip system that spreads treated water.",
+    9: "We put all the lids back on securely and cleaned up.",
+    10: "We discussed everything we found with you.",
   },
   conventional: {
     1: "We checked that all our tools and safety equipment are ready.",
-    2: "We arrived at the property and made contact.",
-    3: "We confirmed the correct property address.",
-    4: "We recorded who was present and checked client info.",
-    5: "We documented the weather and site conditions.",
-    6: "We located the septic tank and documented its position and depth.",
-    7: "We identified the system type, tank size, age, and drain field configuration.",
-    8: "We inspected the pump system (forced flow only).",
-    9: "We opened and inspected the tank interior and checked its condition.",
-    10: "We checked the tank for any visible structural damage.",
-    11: "We walked the drain field to check for signs of effluent leaching.",
-    12: "We checked the drain field for signs of super saturation.",
-    13: "We made an overall assessment of whether the system is functioning properly.",
-    14: "We documented additional notes and observations.",
-    15: "We secured all lids and cleaned up the work area.",
-    16: "We discussed everything we found with you.",
+    2: "We arrived, confirmed the address, met the client, and recorded who was present.",
+    3: "We documented site conditions and located the septic tank.",
+    4: "We identified the system type, tank size, age, and drain field configuration.",
+    5: "We inspected the pump system (forced flow only).",
+    6: "We opened the tank, inspected its condition, and checked for any damage.",
+    7: "We walked the drain field and checked for leaching and saturation.",
+    8: "We assessed overall system health and documented additional notes.",
+    9: "We secured all lids and cleaned up the work area.",
+    10: "We discussed findings with you and uploaded all inspection photos.",
   },
 };
 
@@ -1529,7 +1517,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       equipmentVerified: true,
     }));
     setCurrentStep(2);
-    if (voiceEnabled) speak("Inspection started. Step 2: Contact Homeowner.");
+    if (voiceEnabled) speak("Inspection started. Step 2: Arrive and Greet Homeowner.");
     // Auto-fetch weather data in background (non-blocking)
     weatherMutation.mutate(jobId, {
       onSuccess: (data) => {
@@ -2593,15 +2581,15 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         </div>
       )}
 
-      {/* Weather Card — show on site condition step (step 5) or compact when loaded */}
+      {/* Weather Card — show on site conditions step (conventional step 3) or compact when loaded */}
       {weather?.current ? (
         <WeatherCard weather={weather} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => setWeather(d) })} isFetching={weatherMutation.isPending} />
-      ) : currentStep === 5 && !weather ? (
+      ) : currentStep === 3 && !weather ? (
         <WeatherCard weather={null} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => { setWeather(d); toastSuccess("Weather data loaded!"); } })} isFetching={weatherMutation.isPending} />
       ) : null}
 
-      {/* Manufacturer Banner (aerobic only — shows after step 6 manufacturer selection) */}
-      {manufacturer && manufacturer.id !== "other" && currentStep > 6 && (
+      {/* Manufacturer Banner (aerobic only — shows after step 3 manufacturer selection) */}
+      {manufacturer && manufacturer.id !== "other" && currentStep > 3 && (
         <ManufacturerBanner manufacturer={manufacturer} />
       )}
 
@@ -2847,7 +2835,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
               </div>
             )}
 
-            {/* Photo Capture — bulk for conventional step 17, per-step for aerobic */}
+            {/* Photo Capture — bulk for conventional step 10, per-step for aerobic */}
             {currentStepDef.isBulkPhotoStep ? (
               <BulkPhotoUploadStep
                 jobId={jobId}

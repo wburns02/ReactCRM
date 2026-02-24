@@ -1,6 +1,7 @@
 /**
  * Inspection Checklist Step Configuration
- * Based on MAC Septic field meeting notes — 16-step guided inspection flow
+ * Based on MAC Septic field meeting notes — 10-step guided inspection flow
+ * (Consolidated from original 16 steps — all content preserved, fewer top-level steps)
  */
 
 export interface EquipmentItem {
@@ -132,7 +133,7 @@ export const EQUIPMENT_ITEMS: EquipmentItem[] = [
   { id: "air_filter", label: "Air Filter ($10)", emoji: "🌀", category: "supplies" },
 ];
 
-// ─── 16-Step Inspection Flow ────────────────────────────────────────────────
+// ─── 10-Step Inspection Flow (consolidated from 16) ─────────────────────────
 
 export const INSPECTION_STEPS: InspectionStep[] = [
   {
@@ -151,83 +152,51 @@ export const INSPECTION_STEPS: InspectionStep[] = [
   },
   {
     stepNumber: 2,
-    title: "Contact Homeowner",
+    title: "Arrive & Greet Homeowner",
     emoji: "📱",
-    description: "Notify homeowner of your arrival. Auto-sends when GPS confirms location.",
+    description: "Notify homeowner, confirm location, introduce yourself, and explain the inspection.",
     detailedInstructions: [
+      // Contact homeowner
       "Arrival notification auto-sends via text when GPS confirms you're on-site",
       "If auto-text fails, manually call or text the homeowner",
       "Confirm someone is home or note if no one answers",
       "Be professional — introduce yourself and MAC Septic",
-    ],
-    requiresPhoto: false,
-    customerFacing: true,
-    talkingPoints: [
-      "Hi, this is [Your Name] from MAC Septic. I'm here for your scheduled inspection.",
-      "I'll be working around the septic system area. The inspection typically takes about 25 minutes.",
-      "I'll knock when I'm finished to go over my findings with you.",
-    ],
-    estimatedMinutes: 1,
-  },
-  {
-    stepNumber: 3,
-    title: "Confirm Location",
-    emoji: "📍",
-    description: "Verify you're at the correct service address and locate the work area.",
-    detailedInstructions: [
+      // Confirm location
       "Match GPS address with work order address",
       "Identify property and confirm access to septic area",
       "Note any obstacles or access issues",
       "Check for visible markers or risers",
-    ],
-    requiresPhoto: true,
-    photoType: "inspection_location",
-    photoGuidance: "Photo of property showing septic area access",
-    estimatedMinutes: 1,
-  },
-  {
-    stepNumber: 4,
-    title: "Knock on Door",
-    emoji: "🚪",
-    description: "Greet the homeowner and introduce yourself professionally.",
-    detailedInstructions: [
+      // Knock on door
       "Knock firmly and wait — ring doorbell if available",
       "If no answer after 2 attempts, call the customer directly",
       "Introduce yourself: name, company, purpose",
       "If no contact, leave a door tag and proceed with exterior inspection",
-    ],
-    requiresPhoto: false,
-    customerFacing: true,
-    talkingPoints: [
-      "Good morning/afternoon! I'm [Name] from MAC Septic, here for your inspection.",
-      "I'll be checking your septic system — should take about 25 minutes.",
-      "Is there anything specific you've noticed or any concerns?",
-    ],
-    estimatedMinutes: 1,
-  },
-  {
-    stepNumber: 5,
-    title: "Explain Purpose of Visit",
-    emoji: "📋",
-    description: "Clearly explain what the inspection covers and what to expect.",
-    detailedInstructions: [
+      // Explain purpose
       "Explain the inspection scope: system health, components, efficiency",
       "Set expectations on timeline (~25 minutes)",
       "Ask about any recent issues: odors, slow drains, wet spots in yard",
       "Note any concerns the homeowner mentions for follow-up",
     ],
-    requiresPhoto: false,
+    requiresPhoto: true,
+    photoType: "inspection_location",
+    photoGuidance: "Photo of property showing septic area access",
     customerFacing: true,
     talkingPoints: [
+      "Hi, this is [Your Name] from MAC Septic. I'm here for your scheduled inspection.",
+      "I'll be working around the septic system area. The inspection typically takes about 25 minutes.",
+      "I'll knock when I'm finished to go over my findings with you.",
+      "Good morning/afternoon! I'm [Name] from MAC Septic, here for your inspection.",
+      "I'll be checking your septic system — should take about 25 minutes.",
+      "Is there anything specific you've noticed or any concerns?",
       "I'll be inspecting all major components of your system today.",
       "I'll check the tank, control panel, floats, timer, and spray or drip system.",
       "When I'm done, I'll walk you through everything I found.",
       "Have you noticed any issues? Slow drains, odors, or wet spots?",
     ],
-    estimatedMinutes: 1,
+    estimatedMinutes: 4,
   },
   {
-    stepNumber: 6,
+    stepNumber: 3,
     title: "Locate Tank & Control Panel",
     emoji: "🗺️",
     description: "Find and identify the septic tank, control panel, and system manufacturer.",
@@ -252,8 +221,8 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 2,
   },
   {
-    stepNumber: 7,
-    title: "Open All Lids",
+    stepNumber: 4,
+    title: "Open Lids & Measure Sludge",
     emoji: "🔓",
     description: "Carefully open all septic tank and distribution box lids.",
     detailedInstructions: [
@@ -276,8 +245,8 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 8,
-    title: "Test Override Float, Pump & Alarm Float",
+    stepNumber: 5,
+    title: "Test Floats, Pump & Alarm",
     emoji: "🔴",
     description: "Test all float switches and verify pump operation.",
     detailedInstructions: [
@@ -299,11 +268,12 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 9,
-    title: "Test Control Panel",
+    stepNumber: 6,
+    title: "Inspect Control Panel & Timer",
     emoji: "🎛️",
-    description: "Inspect and test the aerobic system control panel.",
+    description: "Inspect control panel, test timer settings, and verify alarm bulb and buzzer.",
     detailedInstructions: [
+      // Control panel inspection
       "Open control panel door carefully",
       "Check for warning lights",
       "Check for corrosion or defects inside control panel",
@@ -311,40 +281,14 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Test alarm silence/reset button",
       "Check wiring connections — no loose wires",
       "Note panel model and age if visible",
-    ],
-    requiresPhoto: true,
-    photoType: "control_panel",
-    photoGuidance: "Photo of control panel with all lights/indicators visible",
-    estimatedMinutes: 2,
-    parts: [
-      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
-      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
-    ],
-  },
-  {
-    stepNumber: 10,
-    title: "Test & Adjust Timer",
-    emoji: "⏱️",
-    description: "Verify timer settings: 24-hour cycle, 15 minutes every 4 hours.",
-    detailedInstructions: [
+      // Timer check
       "Locate timer mechanism in control panel",
       "Verify setting: 15 minutes ON every 4 hours (6 cycles per day)",
       "Check that timer is advancing correctly",
       "Adjust pins/dials if settings are incorrect",
       "Note current time position for verification",
       "Standard: 24hr cycle — 15 min every 4 hrs",
-    ],
-    requiresPhoto: true,
-    photoType: "inspection_timer",
-    photoGuidance: "Photo of timer showing current settings and pin positions",
-    estimatedMinutes: 2,
-  },
-  {
-    stepNumber: 11,
-    title: "Bulb & Buzzer Check",
-    emoji: "💡",
-    description: "Verify alarm bulb and buzzer are functioning properly.",
-    detailedInstructions: [
+      // Bulb & buzzer
       "Test alarm light — should illuminate when triggered",
       "Test buzzer — should sound when alarm activated",
       "Replace bulb if burned out (note replacement needed)",
@@ -352,20 +296,23 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Verify alarm wiring integrity",
     ],
     requiresPhoto: true,
-    photoType: "inspection_alarm",
-    photoGuidance: "Photo of alarm light/buzzer during test",
-    estimatedMinutes: 1,
+    photoType: "control_panel",
+    photoGuidance: "Photo of control panel with all lights/indicators visible, timer settings, and alarm test",
+    estimatedMinutes: 5,
     parts: [
+      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
+      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
       { name: "Alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
       { name: "Buzzer unit", partNumber: "BZR-12V-WP", estimatedCost: 25 },
     ],
   },
   {
-    stepNumber: 12,
-    title: "Check Corrosion, Seal & Ventilate",
+    stepNumber: 7,
+    title: "Check Corrosion & Air Filter",
     emoji: "🔍",
-    description: "Inspect for corrosion, apply sealant if needed, check air filter, ventilate the panel.",
+    description: "Inspect for corrosion, apply sealant, check air filter, ventilate panel, and turn breakers back on.",
     detailedInstructions: [
+      // Corrosion, seal & ventilate
       "Inspect all metal components for rust or corrosion",
       "Check wire nuts and connections for degradation",
       "Apply silicon sealant where needed",
@@ -374,12 +321,18 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Note any parts that need replacement",
       "Check conduit entry points for water intrusion",
       "For NORWECO: Inspect bio-kinetic basket — clean if needed (annual, warm weather best)",
+      // Turn breakers back on
+      "Verify ALL breakers are in the ON position",
+      "Check that pump is running after breaker reset",
+      "Confirm control panel powers back up normally",
+      "Double-check: never leave breakers off!",
+      "If a breaker trips immediately, note as critical issue",
     ],
     requiresPhoto: true,
     photoType: "inspection_corrosion",
-    photoGuidance: "Photo of any corrosion found or clean connections. Include air filter condition.",
-    safetyWarning: "Leave panel door open 4-5 minutes for ventilation before closing.",
-    estimatedMinutes: 2,
+    photoGuidance: "Photo of any corrosion found or clean connections. Include air filter condition and breaker panel showing ALL breakers ON.",
+    safetyWarning: "Leave panel door open 4-5 minutes for ventilation before closing. ALWAYS turn breakers back on — leaving them off will cause system failure and sewage backup.",
+    estimatedMinutes: 3,
     parts: [
       { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ", estimatedCost: 8 },
       { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
@@ -388,25 +341,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 13,
-    title: "Turn Breakers Back On",
-    emoji: "⚡",
-    description: "ALWAYS turn breakers back on. Critical safety step.",
-    detailedInstructions: [
-      "Verify ALL breakers are in the ON position",
-      "Check that pump is running after breaker reset",
-      "Confirm control panel powers back up normally",
-      "Double-check: never leave breakers off!",
-      "If a breaker trips immediately, note as critical issue",
-    ],
-    requiresPhoto: true,
-    photoType: "breaker",
-    photoGuidance: "Photo of breaker panel showing ALL breakers in ON position",
-    safetyWarning: "ALWAYS turn breakers back on. Leaving them off will cause system failure and sewage backup.",
-    estimatedMinutes: 1,
-  },
-  {
-    stepNumber: 14,
+    stepNumber: 8,
     title: "Check Valve & Spray/Drip System",
     emoji: "🚿",
     description: "Inspect check valve in distribution box and clean drip filter. Check spray heads OR drip emitters (system-dependent).",
@@ -430,7 +365,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 15,
+    stepNumber: 9,
     title: "Secure All Lids & Clean Up",
     emoji: "🔒",
     description: "Replace and secure ALL lids. Pick up ALL trash and debris.",
@@ -449,7 +384,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 1,
   },
   {
-    stepNumber: 16,
+    stepNumber: 10,
     title: "Discuss Findings with Homeowner",
     emoji: "🤝",
     description: "Knock on door, walk through findings, and prime for future services.",
@@ -503,7 +438,7 @@ export const CONVENTIONAL_EQUIPMENT_ITEMS: EquipmentItem[] = [
   { id: "water_hose", label: "Water Hose", emoji: "🚿", category: "cleaning" },
 ];
 
-// ─── 16-Step Conventional Inspection Flow ───────────────────────────────────
+// ─── 10-Step Conventional Inspection Flow (consolidated from 17) ─────────────
 
 export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
   {
@@ -522,14 +457,24 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
   },
   {
     stepNumber: 2,
-    title: "Arrive & Contact Client",
+    title: "Arrive & Document Attendees",
     emoji: "📱",
-    description: "Arrive on-site and notify the client of your presence.",
+    description: "Arrive on-site, confirm location, notify the client, and record who is present.",
     detailedInstructions: [
+      // Arrive & contact
       "Auto-send arrival text when GPS confirms location",
       "If no auto-text, manually call or text the client",
       "Introduce yourself and MAC Septic professionally",
       "Confirm access to septic system area",
+      // Confirm location
+      "Match GPS address with work order address",
+      "Identify property and confirm access to septic area",
+      "Take a photo of the property/access point",
+      "Note any obstacles, fences, or access issues",
+      // Record attendees
+      "Note all persons present (homeowner, realtor, buyer, inspector, etc.)",
+      "Verify client name, phone, and email",
+      "Ask when the system was last cleaned or serviced",
     ],
     requiresPhoto: false,
     customerFacing: true,
@@ -538,34 +483,6 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "I'll be inspecting the tank and drain field. The inspection typically takes about 30 minutes.",
       "I'll come find you when I'm done to discuss my findings.",
     ],
-    estimatedMinutes: 2,
-  },
-  {
-    stepNumber: 3,
-    title: "Confirm Location & Access",
-    emoji: "📍",
-    description: "Verify you're at the correct address and note access to the septic area.",
-    detailedInstructions: [
-      "Match GPS address with work order address",
-      "Identify property and confirm access to septic area",
-      "Take a photo of the property/access point",
-      "Note any obstacles, fences, or access issues",
-    ],
-    requiresPhoto: false,
-    estimatedMinutes: 1,
-  },
-  {
-    stepNumber: 4,
-    title: "Record Attendees & Client Info",
-    emoji: "👥",
-    description: "Document who is present during the inspection and verify client contact info.",
-    detailedInstructions: [
-      "Note all persons present (homeowner, realtor, buyer, inspector, etc.)",
-      "Verify client name, phone, and email",
-      "Ask when the system was last cleaned or serviced",
-    ],
-    requiresPhoto: false,
-    customerFacing: true,
     customInputs: [
       {
         id: "persons_present",
@@ -587,17 +504,24 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
         ],
       },
     ],
-    estimatedMinutes: 2,
+    estimatedMinutes: 5,
   },
   {
-    stepNumber: 5,
-    title: "Document Site Conditions",
+    stepNumber: 3,
+    title: "Site Conditions & Locate Tank",
     emoji: "🌤️",
-    description: "Record weather conditions and recent precipitation at the time of inspection.",
+    description: "Record weather and site conditions, then find and document the septic tank.",
     detailedInstructions: [
+      // Site conditions
       "Note current weather (sunny, overcast, raining, temp)",
       "Record when the last precipitation occurred",
       "This helps interpret drain field conditions",
+      // Locate & document tank
+      "Use property records, probe rod, or visible markers to find the tank",
+      "Describe location relative to the house (e.g., 'back yard, 15 ft from foundation')",
+      "Probe to determine depth and identify access hatches",
+      "Note if risers are present, lid type, and accessibility for pumping",
+      "Mark tank location with paint if needed for future reference",
     ],
     requiresPhoto: false,
     customInputs: [
@@ -620,23 +544,6 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
           "Unknown",
         ],
       },
-    ],
-    estimatedMinutes: 1,
-  },
-  {
-    stepNumber: 6,
-    title: "Locate & Document Tank",
-    emoji: "🗺️",
-    description: "Find the septic tank and describe its location, depth, and accessibility.",
-    detailedInstructions: [
-      "Use property records, probe rod, or visible markers to find the tank",
-      "Describe location relative to the house (e.g., 'back yard, 15 ft from foundation')",
-      "Probe to determine depth and identify access hatches",
-      "Note if risers are present, lid type, and accessibility for pumping",
-      "Mark tank location with paint if needed for future reference",
-    ],
-    requiresPhoto: false,
-    customInputs: [
       {
         id: "tank_location",
         label: "Tank location relative to house",
@@ -650,10 +557,10 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
         placeholder: "e.g., 12 inches deep, round hatches on inlet and outlet, risers installed",
       },
     ],
-    estimatedMinutes: 3,
+    estimatedMinutes: 4,
   },
   {
-    stepNumber: 7,
+    stepNumber: 4,
     title: "Identify System Type & Size",
     emoji: "📐",
     description: "Document the septic system type, tank size, age, and drain field configuration.",
@@ -662,7 +569,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Determine tank capacity (typically 750-1500 gallons)",
       "Estimate system age from permits, homeowner info, or condition",
       "Identify drain field type: gravity flow or forced flow (pump)",
-      "If forced flow, proceed to Step 8 for pump details",
+      "If forced flow, proceed to next step for pump details",
     ],
     requiresPhoto: false,
     customInputs: [
@@ -694,7 +601,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 3,
   },
   {
-    stepNumber: 8,
+    stepNumber: 5,
     title: "Pump System Check",
     emoji: "⚙️",
     description: "If forced flow: Document pump chamber, pump details, and test operation.",
@@ -709,7 +616,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Skip this step if system is gravity flow only",
     ],
     requiresPhoto: false,
-    conditionalOn: { stepNumber: 7, fieldId: "drain_field_type", value: "Forced flow" },
+    conditionalOn: { stepNumber: 4, fieldId: "drain_field_type", value: "Forced flow" },
     customInputs: [
       {
         id: "pump_chamber_size",
@@ -733,37 +640,19 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 3,
   },
   {
-    stepNumber: 9,
-    title: "Inspect Tank Condition",
+    stepNumber: 6,
+    title: "Inspect Tank Condition & Damage",
     emoji: "🔍",
-    description: "Open and inspect the tank. Does it appear to be in good working condition?",
+    description: "Open and inspect the tank for working condition and any structural damage.",
     detailedInstructions: [
+      // Tank condition
       "Open all access hatches/lids",
       "Inspect inlet and outlet baffles",
       "Check water level — should be at outlet pipe level",
       "Look for signs of backup or poor drainage",
       "Note condition of baffles (intact, damaged, missing)",
       "Check for excessive grease or foreign objects",
-    ],
-    requiresPhoto: false,
-    safetyWarning: "Stand upwind. Never lean into the tank opening. Toxic gases present.",
-    hasYesNo: true,
-    yesNoQuestion: "Does the tank appear to be in good working condition?",
-    hasSludgeLevel: true,
-    estimatedMinutes: 3,
-    parts: [
-      { name: "Replacement lid", partNumber: "LID-24-GRN", estimatedCost: 125 },
-      { name: "Inlet baffle", partNumber: "BFL-INL-4IN", estimatedCost: 45 },
-      { name: "Outlet baffle", partNumber: "BFL-OUT-4IN", estimatedCost: 45 },
-      { name: "Riser extension", partNumber: "RSR-24-GRN", estimatedCost: 65 },
-    ],
-  },
-  {
-    stepNumber: 10,
-    title: "Check for Visible Damage",
-    emoji: "⚠️",
-    description: "Check the tank for any visible signs of structural damage.",
-    detailedInstructions: [
+      // Visible damage
       "Inspect tank walls for cracks, holes, or deterioration",
       "Check lid condition — broken, chipped, or crumbling",
       "Look for broken or missing baffles",
@@ -772,39 +661,35 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Note any damage found with detailed description",
     ],
     requiresPhoto: false,
+    safetyWarning: "Stand upwind. Never lean into the tank opening. Toxic gases present.",
     hasYesNo: true,
-    yesNoQuestion: "Does the tank have any visible signs of damage?",
-    estimatedMinutes: 2,
+    yesNoQuestion: "Does the tank appear to be in good working condition with no visible damage?",
+    hasSludgeLevel: true,
+    estimatedMinutes: 5,
     parts: [
+      { name: "Replacement lid", partNumber: "LID-24-GRN", estimatedCost: 125 },
+      { name: "Inlet baffle", partNumber: "BFL-INL-4IN", estimatedCost: 45 },
+      { name: "Outlet baffle", partNumber: "BFL-OUT-4IN", estimatedCost: 45 },
+      { name: "Riser extension", partNumber: "RSR-24-GRN", estimatedCost: 65 },
       { name: "Tank lid replacement", partNumber: "LID-CONC-24", estimatedCost: 150 },
       { name: "Riser repair kit", partNumber: "RSR-RPR-KIT", estimatedCost: 85 },
       { name: "Root treatment", partNumber: "ROOT-TREAT", estimatedCost: 35 },
     ],
   },
   {
-    stepNumber: 11,
-    title: "Inspect Drain Field — Leaching",
+    stepNumber: 7,
+    title: "Inspect Drain Field",
     emoji: "🌿",
-    description: "Walk the drain field area and check for signs of effluent leaching to the surface.",
+    description: "Walk the drain field area and check for signs of leaching and saturation.",
     detailedInstructions: [
+      // Leaching check
       "Walk the entire drain field area",
       "Look for wet spots, standing water, or sewage on the surface",
       "Check for unusually green or lush grass over field lines",
       "Note any odors coming from the drain field area",
       "Check downhill areas for runoff or seepage",
       "Compare drain field vegetation to surrounding yard",
-    ],
-    requiresPhoto: false,
-    hasYesNo: true,
-    yesNoQuestion: "Does the drain field show signs of leaching up?",
-    estimatedMinutes: 3,
-  },
-  {
-    stepNumber: 12,
-    title: "Inspect Drain Field — Saturation",
-    emoji: "💧",
-    description: "Check the drain field for signs of super saturation or failure.",
-    detailedInstructions: [
+      // Saturation check
       "Check soil moisture level in drain field area",
       "Look for spongy or waterlogged ground",
       "Note if the area holds water after recent rain vs draining normally",
@@ -814,33 +699,23 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     ],
     requiresPhoto: false,
     hasYesNo: true,
-    yesNoQuestion: "Does the drain field show signs of super saturation?",
-    estimatedMinutes: 2,
+    yesNoQuestion: "Does the drain field show signs of leaching or super saturation?",
+    estimatedMinutes: 5,
   },
   {
-    stepNumber: 13,
-    title: "Overall System Assessment",
+    stepNumber: 8,
+    title: "Final Assessment & Notes",
     emoji: "✅",
-    description: "Make a final assessment: Does the entire septic system appear to function properly?",
+    description: "Make a final assessment of the entire system and document additional observations.",
     detailedInstructions: [
+      // Overall assessment
       "Consider all previous findings together",
       "Assess tank drainage to field — is water flowing properly?",
       "Run water test if possible (flush toilet, run faucet) to verify flow",
       "Confirm no backups, slow drains, or unusual sounds",
       "Determine overall system health",
       "If system is NOT functioning properly, explain in detail what's wrong and what needs to be done",
-    ],
-    requiresPhoto: false,
-    hasYesNo: true,
-    yesNoQuestion: "Does the septic system at this site appear to be functioning properly overall?",
-    estimatedMinutes: 2,
-  },
-  {
-    stepNumber: 14,
-    title: "Additional Notes & Observations",
-    emoji: "📝",
-    description: "Document any other relevant information not covered in previous steps.",
-    detailedInstructions: [
+      // Additional notes
       "Record any additional observations about the property or system",
       "Note recommendations for risers, baffles, or other improvements",
       "Document field line locations if visible or known",
@@ -848,6 +723,8 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Record if tank was pumped at time of inspection",
     ],
     requiresPhoto: false,
+    hasYesNo: true,
+    yesNoQuestion: "Does the septic system at this site appear to be functioning properly overall?",
     customInputs: [
       {
         id: "additional_info",
@@ -856,10 +733,10 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
         placeholder: "Any other observations, recommendations, or notes not covered above...",
       },
     ],
-    estimatedMinutes: 2,
+    estimatedMinutes: 4,
   },
   {
-    stepNumber: 15,
+    stepNumber: 9,
     title: "Secure Site & Clean Up",
     emoji: "🔒",
     description: "Replace and secure ALL lids. Leave the site clean.",
@@ -875,11 +752,12 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 2,
   },
   {
-    stepNumber: 16,
-    title: "Discuss Findings with Client",
+    stepNumber: 10,
+    title: "Discuss Findings & Upload Photos",
     emoji: "🤝",
-    description: "Review all findings with the client and provide recommendations.",
+    description: "Review all findings with the client, provide recommendations, and upload all inspection photos.",
     detailedInstructions: [
+      // Discuss findings
       "Knock on door or call the client",
       "Walk through findings clearly and honestly",
       "Show relevant photos on your phone",
@@ -888,9 +766,14 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Discuss system age and expected maintenance needs",
       "Offer to send a detailed report via email or text",
       "Thank them for choosing MAC Septic",
+      // Upload photos
+      "Work through the photo list below",
+      "Tap each camera button to take or select the photo",
+      "All required photos must be captured before completing",
     ],
     requiresPhoto: false,
     customerFacing: true,
+    isBulkPhotoStep: true,
     talkingPoints: [
       "I completed the inspection and wanted to go over what I found.",
       "Your system is [functional/showing some wear]. Here's what I noticed...",
@@ -904,21 +787,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "You don't need to worry about anything",
       "This system will last forever",
     ],
-    estimatedMinutes: 2,
-  },
-  {
-    stepNumber: 17,
-    title: "Upload All Photos",
-    emoji: "📷",
-    description: "Take all required photos for this inspection. Upload everything at once before finishing.",
-    detailedInstructions: [
-      "Work through the photo list below",
-      "Tap each camera button to take or select the photo",
-      "All required photos must be captured before completing",
-    ],
-    requiresPhoto: false,
-    isBulkPhotoStep: true,
-    estimatedMinutes: 3,
+    estimatedMinutes: 5,
   },
 ];
 

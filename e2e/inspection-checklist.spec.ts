@@ -75,7 +75,7 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
     }
   });
 
-  test("conventional job steps 3/6/7/9 show NO per-step photo button", async ({
+  test("conventional job steps show NO per-step photo button", async ({
     page,
   }) => {
     // Navigate to tech portal jobs list
@@ -103,8 +103,8 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
       await startBtn.click();
     }
 
-    // Walk through steps that previously had per-step photos
-    const stepsToCheck = [3, 6, 7, 9, 10, 11, 12, 14, 15];
+    // Walk through non-photo steps (all conventional steps except bulk photo step 10)
+    const stepsToCheck = [2, 3, 4, 5, 6, 7, 8, 9];
 
     for (const stepNum of stepsToCheck) {
       // Navigate to the step
@@ -125,7 +125,7 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
     }
   });
 
-  test("step 17 renders bulk photo upload list with all 9 required photos", async ({
+  test("step 10 renders bulk photo upload list with all 9 required photos", async ({
     page,
   }) => {
     await page.goto(`${BASE_URL}/technician/jobs`);
@@ -149,17 +149,17 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
       await startBtn.click();
     }
 
-    // Navigate to step 17 using the step navigation
-    const step17Btn = page
+    // Navigate to step 10 using the step navigation
+    const step10Btn = page
       .locator("button")
-      .filter({ hasText: /17/ })
+      .filter({ hasText: /10/ })
       .first();
 
-    if (await step17Btn.isVisible()) {
-      await step17Btn.click();
+    if (await step10Btn.isVisible()) {
+      await step10Btn.click();
     } else {
-      // Try clicking forward through steps until we reach 17
-      for (let i = 0; i < 16; i++) {
+      // Try clicking forward through steps until we reach 10
+      for (let i = 0; i < 9; i++) {
         const nextBtn = page.getByRole("button", {
           name: /complete.*next|next/i,
         });
@@ -199,7 +199,7 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
     ).toBeVisible();
   });
 
-  test("step 17 Complete button is disabled until all required photos uploaded", async ({
+  test("step 10 Complete button is disabled until all required photos uploaded", async ({
     page,
   }) => {
     await page.goto(`${BASE_URL}/technician/jobs`);
@@ -223,10 +223,10 @@ test.describe("Conventional Inspection Checklist — Bulk Photo Upload", () => {
       await startBtn.click();
     }
 
-    // Navigate to step 17
-    const step17Btn = page.locator("button").filter({ hasText: /17/ }).first();
-    if (await step17Btn.isVisible()) {
-      await step17Btn.click();
+    // Navigate to step 10
+    const step10Btn = page.locator("button").filter({ hasText: /10/ }).first();
+    if (await step10Btn.isVisible()) {
+      await step10Btn.click();
     }
 
     await page.waitForTimeout(500);
@@ -272,7 +272,7 @@ test.describe("Aerobic Inspection — per-step photos unchanged", () => {
       await startBtn.click();
     }
 
-    // Step 3 of aerobic should have a "Take Photo" button
+    // Step 3 of aerobic (Locate Tank & Control Panel) should have a "Take Photo" button
     const step3Btn = page.locator("button").filter({ hasText: /^3/ }).first();
     if (await step3Btn.isVisible()) {
       await step3Btn.click();
@@ -312,9 +312,9 @@ test.describe("Mobile viewport — bulk photo step", () => {
       await startBtn.click();
     }
 
-    const step17Btn = page.locator("button").filter({ hasText: /17/ }).first();
-    if (await step17Btn.isVisible()) {
-      await step17Btn.click();
+    const step10Btn = page.locator("button").filter({ hasText: /10/ }).first();
+    if (await step10Btn.isVisible()) {
+      await step10Btn.click();
     }
 
     await page.waitForTimeout(500);
