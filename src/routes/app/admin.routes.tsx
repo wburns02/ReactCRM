@@ -61,6 +61,13 @@ const EntitiesPage = lazy(() =>
   })),
 );
 
+// Activity Analytics
+const ActivityAnalyticsPage = lazy(() =>
+  import("@/features/admin/ActivityAnalyticsPage.tsx").then((m) => ({
+    default: m.ActivityAnalyticsPage,
+  })),
+);
+
 /**
  * Admin routes - Users, Settings, Import, Integrations, Notifications
  */
@@ -160,6 +167,16 @@ export function AdminRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <EntitiesPage />
+          </Suspense>
+        }
+      />
+
+      {/* Activity Analytics */}
+      <Route
+        path="admin/activity"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ActivityAnalyticsPage />
           </Suspense>
         }
       />

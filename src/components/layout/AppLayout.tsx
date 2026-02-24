@@ -239,6 +239,7 @@ export function AppLayout() {
         { path: "/admin", label: "Settings", icon: Settings },
         { path: "/admin/import", label: "Data Import", icon: Download },
         { path: "/admin/dump-sites", label: "Dump Sites", icon: Truck },
+        { path: "/admin/activity", label: "Activity Log", icon: Activity },
       ],
     },
   ];
