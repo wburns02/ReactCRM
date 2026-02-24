@@ -8,8 +8,11 @@ import { apiClient } from "@/api/client.ts";
 export type ImportType =
   | "customers"
   | "work_orders"
+  | "technicians"
   | "equipment"
-  | "inventory";
+  | "inventory"
+  | "assets"
+  | "call_logs";
 
 export interface ImportTemplate {
   type: string;
@@ -180,6 +183,16 @@ export function useUploadImport() {
         case "inventory":
           queryClient.invalidateQueries({ queryKey: ["inventory"] });
           break;
+        case "assets":
+          queryClient.invalidateQueries({ queryKey: ["assets"] });
+          queryClient.invalidateQueries({ queryKey: ["equipment"] });
+          break;
+        case "call_logs":
+          queryClient.invalidateQueries({ queryKey: ["call-logs"] });
+          break;
+        case "technicians":
+          queryClient.invalidateQueries({ queryKey: ["technicians"] });
+          break;
       }
     },
   });
@@ -203,15 +216,33 @@ export const IMPORT_TYPES = [
     description: "Import work orders with service details",
   },
   {
+    value: "technicians" as ImportType,
+    label: "Technicians",
+    icon: "👷",
+    description: "Import technician/employee records",
+  },
+  {
     value: "equipment" as ImportType,
     label: "Equipment",
     icon: "🛠️",
-    description: "Import equipment and asset records",
+    description: "Import customer equipment (septic systems, tanks)",
   },
   {
     value: "inventory" as ImportType,
     label: "Inventory",
     icon: "📦",
     description: "Import inventory items and stock levels",
+  },
+  {
+    value: "assets" as ImportType,
+    label: "Assets",
+    icon: "🚛",
+    description: "Import company assets (vehicles, trucks, tools)",
+  },
+  {
+    value: "call_logs" as ImportType,
+    label: "Call Logs",
+    icon: "📞",
+    description: "Import phone call log records",
   },
 ];
