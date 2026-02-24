@@ -12,6 +12,7 @@ import { AdminMobileDrawer } from "@/components/navigation/AdminMobileDrawer";
 import { AdminMobileBottomNav } from "@/components/navigation/AdminMobileBottomNav";
 import { useTheme } from "@/hooks/useTheme";
 import { useRealtimeNotifications } from "@/hooks/useRealtimeNotifications";
+import { usePageTracker } from "@/hooks/usePageTracker";
 import { EntitySwitcher } from "@/components/layout/EntitySwitcher";
 import {
   LayoutDashboard,
@@ -95,6 +96,7 @@ export function AppLayout() {
   const location = useLocation();
   const { isDark, toggle: toggleTheme } = useTheme();
   useRealtimeNotifications();
+  usePageTracker();
   const [adminDrawerOpen, setAdminDrawerOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     const saved = localStorage.getItem("sidebarExpandedGroups");
