@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client.ts";
+import { validateResponse } from "@/api/validateResponse.ts";
 import {
   type Booking,
   type BookingListResponse,
@@ -38,12 +39,7 @@ export function useBookings(filters: BookingFilters = {}) {
       if (payment_status) params.set("payment_status", payment_status);
 
       const { data } = await apiClient.get(`/bookings/?${params.toString()}`);
-      const parsed = bookingListSchema.safeParse(data);
-      if (!parsed.success) {
-        console.warn("Booking list validation:", parsed.error);
-        return data;
-      }
-      return parsed.data;
+      return validateResponse(bookingListSchema, data, "/bookings");
     },
     staleTime: 30_000,
   });
@@ -54,12 +50,7 @@ export function useBooking(id: string | undefined) {
     queryKey: bookingKeys.detail(id!),
     queryFn: async () => {
       const { data } = await apiClient.get(`/bookings/${id}`);
-      const parsed = bookingSchema.safeParse(data);
-      if (!parsed.success) {
-        console.warn("Booking detail validation:", parsed.error);
-        return data;
-      }
-      return parsed.data;
+      return validateResponse(bookingSchema, data, `/bookings/${id}`);
     },
     enabled: !!id,
     staleTime: 30_000,
@@ -79,12 +70,7 @@ export function useCaptureBookingPayment() {
         actual_gallons,
         notes,
       });
-      const parsed = captureResponseSchema.safeParse(data);
-      if (!parsed.success) {
-        console.warn("Capture response validation:", parsed.error);
-        return data;
-      }
-      return parsed.data;
+      return validateResponse(captureResponseSchema, data, `/bookings/${bookingId}/capture`);
     },
     onSuccess: (_, { bookingId }) => {
       toastSuccess("Payment captured successfully");

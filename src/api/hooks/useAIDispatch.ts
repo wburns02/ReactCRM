@@ -188,7 +188,7 @@ export function useExecuteAIAction() {
     onSuccess: () => {
       // Refresh all related data
       queryClient.invalidateQueries({ queryKey: aiDispatchKeys.suggestions() });
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
       queryClient.invalidateQueries({ queryKey: ["schedule"] });
     },
   });
@@ -300,7 +300,7 @@ export function useAIAutoAssign() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
       queryClient.invalidateQueries({ queryKey: ["schedule"] });
     },
   });

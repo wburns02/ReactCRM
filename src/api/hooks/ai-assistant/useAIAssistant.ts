@@ -197,7 +197,7 @@ export function useAIAssistant(conversationId?: string): UseAIAssistantReturn {
       // Invalidate related data that might have been affected by the action
       queryClient.invalidateQueries({ queryKey: ["ai-context"] });
       queryClient.invalidateQueries({ queryKey: ["customers"] });
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
       queryClient.invalidateQueries({ queryKey: ["tickets"] });
     },
     onError: (error) => {

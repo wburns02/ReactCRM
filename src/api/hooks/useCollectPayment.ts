@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 
 export interface CollectPaymentParams {
   work_order_id?: string;
@@ -41,10 +42,11 @@ export function useCollectPayment() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["payments"] });
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
       queryClient.invalidateQueries({ queryKey: ["technician-dashboard"] });
       queryClient.invalidateQueries({ queryKey: ["clover"] });
     },
+    onError: () => toastError("Payment failed. Please try again."),
   });
 }
 
@@ -79,7 +81,8 @@ export function useRecordFieldPayment() {
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
       queryClient.invalidateQueries({ queryKey: ["technician-dashboard"] });
       queryClient.invalidateQueries({ queryKey: ["tech-job-payments", variables.workOrderId] });
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
     },
+    onError: () => toastError("Failed to record field payment"),
   });
 }

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
 import { validateResponse } from "../validateResponse.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 import {
   quoteListResponseSchema,
   quoteSchema,
@@ -112,6 +113,7 @@ export function useCreateQuote() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
+    onError: () => toastError("Failed to create quote"),
   });
 }
 
@@ -154,6 +156,7 @@ export function useUpdateQuote() {
       });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
+    onError: () => toastError("Failed to update quote"),
   });
 }
 
@@ -170,6 +173,7 @@ export function useDeleteQuote() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
+    onError: () => toastError("Failed to delete quote"),
   });
 }
 
@@ -190,6 +194,7 @@ export function useConvertQuoteToInvoice() {
       // Also invalidate invoices since a new one was created
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
     },
+    onError: () => toastError("Failed to convert quote to invoice"),
   });
 }
 
@@ -208,6 +213,7 @@ export function useSendQuote() {
       queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
+    onError: () => toastError("Failed to send quote"),
   });
 }
 
@@ -232,6 +238,7 @@ export function useAcceptQuote() {
       queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
+    onError: () => toastError("Failed to accept quote"),
   });
 }
 
@@ -250,6 +257,7 @@ export function useDeclineQuote() {
       queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
+    onError: () => toastError("Failed to decline quote"),
   });
 }
 

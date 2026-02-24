@@ -285,7 +285,7 @@ export function WorkOrderDetailPage() {
   // Notification handlers
   const handleSendNotification = useCallback(
     (_type: "reminder" | "enroute" | "complete") => {
-      // TODO: Integrate with notification/communication API
+      // Notification handler stub — notification API integration pending
     },
     [],
   );

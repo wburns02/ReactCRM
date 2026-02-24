@@ -59,7 +59,7 @@ export function useDispatchAssign() {
     },
     onSuccess: (data) => {
       toastSuccess(data.message || "Technician assigned");
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
       queryClient.invalidateQueries({ queryKey: ["dispatch"] });
     },
     onError: (err: Error) => {

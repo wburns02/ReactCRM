@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
 import { validateResponse } from "../validateResponse.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 import {
   paymentListResponseSchema,
   paymentSchema,
@@ -95,6 +96,7 @@ export function useRecordPayment() {
       queryClient.invalidateQueries({ queryKey: paymentKeys.lists() });
       queryClient.invalidateQueries({ queryKey: paymentKeys.stats() });
     },
+    onError: () => toastError("Failed to record payment"),
   });
 }
 
@@ -122,6 +124,7 @@ export function useUpdatePayment() {
       queryClient.invalidateQueries({ queryKey: paymentKeys.lists() });
       queryClient.invalidateQueries({ queryKey: paymentKeys.stats() });
     },
+    onError: () => toastError("Failed to update payment"),
   });
 }
 
@@ -139,6 +142,7 @@ export function useDeletePayment() {
       queryClient.invalidateQueries({ queryKey: paymentKeys.lists() });
       queryClient.invalidateQueries({ queryKey: paymentKeys.stats() });
     },
+    onError: () => toastError("Failed to delete payment"),
   });
 }
 

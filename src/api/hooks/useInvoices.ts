@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
 import { validateResponse } from "../validateResponse.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 import {
   invoiceListResponseSchema,
   invoiceSchema,
@@ -110,6 +111,7 @@ export function useCreateInvoice() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });
     },
+    onError: () => toastError("Failed to create invoice"),
   });
 }
 
@@ -152,6 +154,7 @@ export function useUpdateInvoice() {
       });
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });
     },
+    onError: () => toastError("Failed to update invoice"),
   });
 }
 
@@ -168,6 +171,7 @@ export function useDeleteInvoice() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });
     },
+    onError: () => toastError("Failed to delete invoice"),
   });
 }
 
@@ -186,6 +190,7 @@ export function useSendInvoice() {
       queryClient.invalidateQueries({ queryKey: invoiceKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });
     },
+    onError: () => toastError("Failed to send invoice"),
   });
 }
 
@@ -204,5 +209,6 @@ export function useMarkInvoicePaid() {
       queryClient.invalidateQueries({ queryKey: invoiceKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });
     },
+    onError: () => toastError("Failed to mark invoice as paid"),
   });
 }

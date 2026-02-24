@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { toastError } from "@/components/ui/Toast.tsx";
 import { validateResponse } from "../validateResponse.ts";
 import {
   customerListResponseSchema,
@@ -82,6 +83,7 @@ export function useCreateCustomer() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: customerKeys.lists() });
     },
+    onError: () => toastError("Failed to create customer"),
   });
 }
 
@@ -108,6 +110,7 @@ export function useUpdateCustomer() {
       });
       queryClient.invalidateQueries({ queryKey: customerKeys.lists() });
     },
+    onError: () => toastError("Failed to update customer"),
   });
 }
 
@@ -124,5 +127,6 @@ export function useDeleteCustomer() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: customerKeys.lists() });
     },
+    onError: () => toastError("Failed to delete customer"),
   });
 }

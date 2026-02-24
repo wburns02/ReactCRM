@@ -175,7 +175,7 @@ export function useUploadImport() {
           queryClient.invalidateQueries({ queryKey: ["customers"] });
           break;
         case "work_orders":
-          queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+          queryClient.invalidateQueries({ queryKey: ["workOrders"] });
           break;
         case "equipment":
           queryClient.invalidateQueries({ queryKey: ["equipment"] });

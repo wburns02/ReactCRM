@@ -160,7 +160,7 @@ export function useProcessPayment() {
         queryClient.invalidateQueries({
           queryKey: workOrderPaymentKeys.invoice(params.workOrderId),
         });
-        queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+        queryClient.invalidateQueries({ queryKey: ["workOrders"] });
         queryClient.invalidateQueries({ queryKey: ["payments"] });
       }
     },
@@ -235,7 +235,7 @@ export function useCreateInvoice() {
         queryKey: workOrderPaymentKeys.invoice(params.workOrderId),
       });
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
     },
   });
 }
@@ -551,7 +551,7 @@ export function useAutoGenerateInvoice() {
         queryKey: workOrderPaymentKeys.invoice(workOrderId),
       });
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["workOrders"] });
     },
   });
 }

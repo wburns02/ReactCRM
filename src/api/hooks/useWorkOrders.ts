@@ -355,6 +355,7 @@ export function useUpdateWorkOrderStatus() {
       });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
     },
+    onError: () => toastError("Failed to update work order status"),
   });
 }
 
@@ -457,6 +458,7 @@ export function useUpdateWorkOrderDuration() {
         queryKey: workOrderKeys.detail(variables.id),
       });
     },
+    onError: () => toastError("Failed to update duration"),
   });
 }
 
