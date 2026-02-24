@@ -13,6 +13,7 @@ import { GoogleSearchConsoleSettings } from "./components/GoogleSearchConsoleSet
 import { GoogleBusinessProfileSettings } from "./components/GoogleBusinessProfileSettings.tsx";
 import { GoogleCalendarSettings } from "./components/GoogleCalendarSettings.tsx";
 import { ClaudeSettings } from "./components/ClaudeSettings.tsx";
+import { Microsoft365Settings } from "./components/Microsoft365Settings.tsx";
 import { useRCStatus } from "@/features/phone/api.ts";
 import { useFleetLocations } from "@/features/fleet/api.ts";
 import { useSocialIntegrationsStatus } from "@/api/hooks/useSocialIntegrations.ts";
@@ -21,6 +22,7 @@ import { useQBOStatus } from "@/api/hooks/useQuickBooks.ts";
 import { useIntegrationSettings } from "@/api/hooks/useMarketingHub.ts";
 import { useAnthropicStatus } from "@/api/hooks/useAnthropic.ts";
 import { useIntegrationStatus } from "@/api/hooks/useIntegrationStatus.ts";
+import { useMicrosoft365Status } from "@/api/hooks/useMicrosoft365.ts";
 import { toastInfo, toastSuccess } from "@/components/ui/Toast";
 
 /**
@@ -40,6 +42,7 @@ export function IntegrationsPage() {
   const { data: integrationSettings } = useIntegrationSettings();
   const { data: claudeStatus } = useAnthropicStatus();
   const { data: integrationStatus } = useIntegrationStatus();
+  const { data: ms365Status } = useMicrosoft365Status();
 
   // Handle OAuth callback success messages
   useEffect(() => {
@@ -50,6 +53,9 @@ export function IntegrationsPage() {
     // Auto-select Clover settings on callback or explicit selection
     if (searchParams.get("clover") === "callback" || searchParams.get("selected") === "clover") {
       setSelectedIntegration("clover");
+    }
+    if (searchParams.get("selected") === "microsoft365") {
+      setSelectedIntegration("microsoft365");
     }
   }, [searchParams]);
 
@@ -62,6 +68,15 @@ export function IntegrationsPage() {
       icon: "🧠",
       connected: claudeStatus?.connected || false,
       lastSync: claudeStatus?.last_used_at || undefined,
+    },
+    {
+      id: "microsoft365",
+      name: "Microsoft 365",
+      description:
+        "SSO login, Outlook calendar sync, Teams notifications, SharePoint storage",
+      icon: "M",
+      connected: ms365Status?.user_linked || false,
+      lastSync: ms365Status?.user_linked ? new Date().toISOString() : undefined,
     },
     {
       id: "clover",
@@ -193,7 +208,7 @@ export function IntegrationsPage() {
               lastSync={integration.lastSync}
               configDetail={(integration as { configDetail?: string }).configDetail}
               onConfigure={
-                ["claude", "ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks", "google_ads", "google_analytics", "google_search_console", "google_business_profile", "google_calendar"].includes(integration.id)
+                ["claude", "microsoft365", "ringcentral", "samsara", "yelp", "facebook", "clover", "quickbooks", "google_ads", "google_analytics", "google_search_console", "google_business_profile", "google_calendar"].includes(integration.id)
                   ? () => setSelectedIntegration(integration.id)
                   : undefined
               }
@@ -227,6 +242,7 @@ export function IntegrationsPage() {
           </button>
 
           {selectedIntegration === "claude" && <ClaudeSettings />}
+          {selectedIntegration === "microsoft365" && <Microsoft365Settings />}
           {selectedIntegration === "ringcentral" && <RingCentralSettings />}
           {selectedIntegration === "samsara" && <SamsaraSettings />}
           {selectedIntegration === "yelp" && <YelpSettings />}

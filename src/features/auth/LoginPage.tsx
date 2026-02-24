@@ -11,6 +11,7 @@ import {
   cleanupLegacyAuth,
   storeSessionToken,
 } from "@/lib/security";
+import { useMicrosoft365AuthUrl, useMicrosoft365Callback } from "@/api/hooks/useMicrosoft365";
 
 /**
  * Login form validation schema
@@ -62,6 +63,9 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [featureIdx, setFeatureIdx] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [msLoading, setMsLoading] = useState(false);
+  const msAuthUrl = useMicrosoft365AuthUrl();
+  const msCallback = useMicrosoft365Callback();
 
   // Animate mount
   useEffect(() => {
@@ -111,6 +115,43 @@ export function LoginPage() {
       checkAuth();
     }
   }, [navigate, returnUrl]);
+
+  // Handle Microsoft SSO callback
+  useEffect(() => {
+    const code = searchParams.get("code");
+    const msState = searchParams.get("state");
+    if (code && msState === "sso") {
+      setMsLoading(true);
+      msCallback.mutate(code, {
+        onSuccess: (data) => {
+          if (data?.access_token) storeSessionToken(data.access_token);
+          cleanupLegacyAuth();
+          if (data?.user) markSessionValidated(data.user.id);
+          else markSessionValidated();
+          queryClient.clear();
+          // Clean URL and navigate
+          window.history.replaceState({}, "", "/login");
+          navigate(returnUrl, { replace: true });
+        },
+        onError: () => {
+          setError("Microsoft sign-in failed. Your account may not be linked.");
+          setMsLoading(false);
+          window.history.replaceState({}, "", "/login");
+        },
+      });
+    }
+  }, [searchParams]);
+
+  const handleMicrosoftLogin = async () => {
+    try {
+      setMsLoading(true);
+      const result = await msAuthUrl.mutateAsync();
+      window.location.href = result.authorization_url;
+    } catch {
+      setError("Could not connect to Microsoft. Try again.");
+      setMsLoading(false);
+    }
+  };
 
   const onSubmit = useCallback(
     async (data: LoginFormData) => {
@@ -456,16 +497,40 @@ export function LoginPage() {
             <div className="flex-1 h-px bg-border" />
           </div>
 
-          {/* Guest access link */}
-          <a
-            href="/home"
-            className="flex items-center justify-center gap-2 w-full h-11 rounded-xl border border-border text-sm font-medium text-text-secondary hover:bg-bg-hover hover:border-text-muted transition-all duration-200"
+          {/* Microsoft SSO Button */}
+          <button
+            type="button"
+            onClick={handleMicrosoftLogin}
+            disabled={msLoading || isLoading}
+            className="flex items-center justify-center gap-3 w-full h-12 rounded-xl border border-border text-sm font-semibold text-text-primary bg-bg-body hover:bg-bg-hover hover:border-text-muted transition-all duration-200 disabled:opacity-50"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Visit Public Site
-          </a>
+            {msLoading ? (
+              <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" viewBox="0 0 23 23" fill="none">
+                <rect width="11" height="11" fill="#f25022" />
+                <rect x="12" width="11" height="11" fill="#7fba00" />
+                <rect y="12" width="11" height="11" fill="#00a4ef" />
+                <rect x="12" y="12" width="11" height="11" fill="#ffb900" />
+              </svg>
+            )}
+            {msLoading ? "Signing in with Microsoft..." : "Sign in with Microsoft"}
+          </button>
+
+          <div className="mt-3">
+            <a
+              href="/home"
+              className="flex items-center justify-center gap-2 w-full h-11 rounded-xl border border-border text-sm font-medium text-text-secondary hover:bg-bg-hover hover:border-text-muted transition-all duration-200"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Visit Public Site
+            </a>
+          </div>
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-border/50">
