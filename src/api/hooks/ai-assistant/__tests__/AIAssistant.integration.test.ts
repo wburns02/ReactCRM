@@ -6,7 +6,7 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { QueryClient } from "@tanstack/react-query";
-import { ActivityAIAdapter } from "../adapters/ActivityAIAdapter";
+import { ActivityAIAdapter, type ActivityQuery } from "../adapters/ActivityAIAdapter";
 import { QueryProcessor } from "../QueryProcessor";
 import { ContextManager } from "../ContextManager";
 import { ActionOrchestrator } from "../ActionOrchestrator";
@@ -360,7 +360,7 @@ describe("AI Assistant Integration", () => {
       const adapter = new ActivityAIAdapter();
 
       const invalidQuery = {
-        type: "invalid_type" as any,
+        type: "invalid_type" as unknown as ActivityQuery["type"],
       };
 
       await expect(adapter.query(invalidQuery, mockContext)).rejects.toThrow(

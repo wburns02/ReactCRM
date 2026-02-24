@@ -142,10 +142,11 @@ export function CollectPaymentModal({
         amount: parsedAmount,
         method: paymentMethod,
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const apiErr = err as Error & { response?: { data?: { detail?: string } } };
       toastError(
         "Payment failed",
-        err?.response?.data?.detail || err?.message || "Could not record payment",
+        apiErr?.response?.data?.detail || apiErr?.message || "Could not record payment",
       );
     }
   }, [

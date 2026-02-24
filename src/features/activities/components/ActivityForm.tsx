@@ -48,7 +48,7 @@ export function ActivityForm({
     formState: { errors, isDirty },
     reset,
   } = useForm<ActivityFormData>({
-    resolver: zodResolver(activityFormSchema) as any,
+    resolver: zodResolver(activityFormSchema) as unknown as Parameters<typeof useForm<ActivityFormData>>[0]["resolver"],
     defaultValues: activity
       ? {
           customer_id: activity.customer_id,

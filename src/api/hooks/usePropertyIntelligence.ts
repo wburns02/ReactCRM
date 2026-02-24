@@ -144,8 +144,8 @@ export function usePropertyByAddressHash(hash: string | undefined) {
           data,
           `propintel:/properties/by-address-hash/${hash}`
         );
-      } catch (err: any) {
-        if (err?.response?.status === 404) return null;
+      } catch (err: unknown) {
+        if (err instanceof Error && "response" in err && (err as Error & { response?: { status?: number } }).response?.status === 404) return null;
         throw err;
       }
     },

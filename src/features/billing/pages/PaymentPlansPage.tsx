@@ -80,9 +80,8 @@ function CreatePaymentPlanModal({
     page_size: 100,
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const invoices: InvoiceOption[] = (invoicesData?.items || [])
-    .map((inv: any) => ({
+    .map((inv: Record<string, unknown> & { customer?: Record<string, unknown> }) => ({
       id: String(inv.id),
       invoice_number: inv.invoice_number || `INV-${inv.id}`,
       customer_name:

@@ -21,7 +21,7 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/Card.tsx";
-import { Badge } from "@/components/ui/Badge.tsx";
+import { Badge, type BadgeProps } from "@/components/ui/Badge.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import {
   formatChartDate,
@@ -187,7 +187,7 @@ function NPSDisplay({ score }: { score: number }) {
         {score >= 0 ? "+" : ""}
         {score}
       </p>
-      <Badge variant={category.color as any} className="mt-2">
+      <Badge variant={category.color as BadgeProps["variant"]} className="mt-2">
         {category.label}
       </Badge>
     </div>

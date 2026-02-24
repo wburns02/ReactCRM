@@ -67,7 +67,7 @@ export class QueryProcessor {
         for (const match of matches) {
           if (match[0] && match.index !== undefined) {
             entities.push({
-              type: entityType as any,
+              type: entityType as ExtractedEntity["type"],
               value: match[0].trim(),
               confidence: this.calculateEntityConfidence(
                 entityType,
@@ -145,7 +145,7 @@ export class QueryProcessor {
       !intent.entities.find((e) => e.type === context.app.currentEntity!.type)
     ) {
       intent.entities.push({
-        type: context.app.currentEntity.type as any,
+        type: context.app.currentEntity.type as ExtractedEntity["type"],
         value: context.app.currentEntity.id,
         confidence: 0.9,
         metadata: { source: "current_page_context" },

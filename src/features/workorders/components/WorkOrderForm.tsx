@@ -153,7 +153,7 @@ export function WorkOrderForm({
           {isEdit ? "Edit Work Order" : "Create Work Order"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
           <DialogBody className="space-y-6 max-h-[60vh] overflow-y-auto">
             {/* Customer & Job Type */}
             <div>

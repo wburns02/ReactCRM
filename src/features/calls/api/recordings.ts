@@ -28,9 +28,9 @@ export function useCallRecording(callId: string | null) {
     },
     enabled: !!callId,
     staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: (failureCount, error: any) => {
+    retry: (failureCount, error: unknown) => {
       // Don't retry if recording doesn't exist
-      if (error?.response?.status === 404) return false;
+      if (error instanceof Error && "response" in error && (error as Error & { response?: { status?: number } }).response?.status === 404) return false;
       return failureCount < 2;
     },
   });

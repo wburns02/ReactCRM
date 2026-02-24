@@ -133,7 +133,7 @@ export function InvoiceForm({
           {isEdit ? "Edit Invoice" : "Create Invoice"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
+        <form onSubmit={handleSubmit(handleFormSubmit as (data: InvoiceFormData) => void)}>
           <DialogBody className="space-y-6 max-h-[70vh] overflow-y-auto">
             {/* Customer & Work Order */}
             <div>

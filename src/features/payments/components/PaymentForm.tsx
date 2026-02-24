@@ -117,7 +117,7 @@ export function PaymentForm({
           {isEdit ? "Edit Payment" : "Record Payment"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
+        <form onSubmit={handleSubmit(handleFormSubmit as (data: PaymentFormData) => void)}>
           <DialogBody className="space-y-6">
             {/* Customer & Invoice */}
             <div>

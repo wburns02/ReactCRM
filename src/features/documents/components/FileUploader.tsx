@@ -71,8 +71,9 @@ export function FileUploader({
       if (onUploadComplete) {
         onUploadComplete();
       }
-    } catch (err: any) {
-      setError(err.response?.data?.error || "Failed to upload file");
+    } catch (err: unknown) {
+      const apiErr = err as Error & { response?: { data?: { error?: string } } };
+      setError(apiErr?.response?.data?.error || "Failed to upload file");
       setUploadProgress(0);
     }
   };

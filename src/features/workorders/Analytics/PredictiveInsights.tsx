@@ -23,7 +23,7 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/Card.tsx";
-import { Badge } from "@/components/ui/Badge.tsx";
+import { Badge, type BadgeProps } from "@/components/ui/Badge.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import {
   formatCurrency,
@@ -245,7 +245,7 @@ const BusyPeriodAlerts = memo(function BusyPeriodAlerts({
                   {formatChartDate(alert.startDate)} -{" "}
                   {formatChartDate(alert.endDate)}
                 </span>
-                <Badge variant={getSeverityColor(alert.severity) as any}>
+                <Badge variant={getSeverityColor(alert.severity) as BadgeProps["variant"]}>
                   {alert.severity.toUpperCase()}
                 </Badge>
               </div>
@@ -327,7 +327,7 @@ const EquipmentAlerts = memo(function EquipmentAlerts({
               </p>
               <p className="text-xs text-text-muted">ID: {alert.equipmentId}</p>
             </div>
-            <Badge variant={getPriorityColor(alert.priority) as any}>
+            <Badge variant={getPriorityColor(alert.priority) as BadgeProps["variant"]}>
               {alert.priority.toUpperCase()}
             </Badge>
           </div>

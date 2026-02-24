@@ -49,14 +49,14 @@ export function RevenueChart({
   };
 
   // Custom tooltip
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ dataKey: string; name: string; value: number; payload: Record<string, unknown> }> }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-bg-card border border-border rounded-lg p-3 shadow-lg">
           <p className="text-sm font-medium text-text-primary mb-2">
-            {formatDate(payload[0].payload.date)}
+            {formatDate(payload[0].payload.date as string)}
           </p>
-          {payload.map((entry: any) => (
+          {payload.map((entry) => (
             <p key={entry.dataKey} className="text-sm text-text-secondary">
               {entry.name}:{" "}
               <span className="font-semibold text-text-primary">

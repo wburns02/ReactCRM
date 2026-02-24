@@ -49,7 +49,7 @@ export function RenewalsTab() {
       case "60": return renewals.expiring_60;
       case "90": return renewals.expiring_90;
       case "overdue": return renewals.overdue;
-      case "auto-renew": return renewals.auto_renew_queue as any;
+      case "auto-renew": return renewals.auto_renew_queue as (RenewalContract | OverdueContract)[];
       default: return [];
     }
   };

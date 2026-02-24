@@ -48,10 +48,11 @@ export function CloverSettings() {
             // Clean up URL
             window.history.replaceState({}, "", "/integrations?selected=clover");
           },
-          onError: (err: any) => {
+          onError: (err: unknown) => {
+            const apiErr = err as Error & { response?: { data?: { detail?: string } } };
             toastError(
               "Connection Failed",
-              err?.response?.data?.detail || "Could not connect to Clover",
+              apiErr?.response?.data?.detail || "Could not connect to Clover",
             );
             window.history.replaceState({}, "", "/integrations?selected=clover");
           },
@@ -67,10 +68,11 @@ export function CloverSettings() {
         toastInfo("Redirecting to Clover...", "Complete the authorization in the Clover window.");
         window.location.href = result.authorization_url;
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const apiErr = err as Error & { response?: { data?: { detail?: string } } };
       toastError(
         "OAuth Error",
-        err?.response?.data?.detail || "Could not start OAuth flow",
+        apiErr?.response?.data?.detail || "Could not start OAuth flow",
       );
     }
   };

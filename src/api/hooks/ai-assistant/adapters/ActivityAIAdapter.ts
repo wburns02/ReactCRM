@@ -10,6 +10,7 @@ import type { Activity } from "../../../types/activity";
 import { BaseAIAdapterImpl } from "./BaseAIAdapter";
 import type {
   UnifiedAIResponse,
+  ResponseMetadata,
   AdapterSchema,
   AdapterExample,
   ActionableInsight,
@@ -309,7 +310,7 @@ export class ActivityAIAdapter extends BaseAIAdapterImpl<
   protected transformToUnified(
     originalResult: ActivityResult,
     context: AIContext,
-    metadata?: any,
+    metadata?: ResponseMetadata,
   ): UnifiedAIResponse<ActivityResult> {
     return {
       domain: this.domain,

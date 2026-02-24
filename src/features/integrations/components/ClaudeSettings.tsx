@@ -52,10 +52,11 @@ export function ClaudeSettings() {
       toastSuccess("Claude AI Connected", "API key validated and stored securely");
       setApiKeyInput("");
       setShowKeyInput(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const apiErr = err as Error & { response?: { data?: { detail?: string } } };
       toastError(
         "Connection Failed",
-        err?.response?.data?.detail || "Invalid API key or connection error",
+        apiErr?.response?.data?.detail || "Invalid API key or connection error",
       );
     }
   };

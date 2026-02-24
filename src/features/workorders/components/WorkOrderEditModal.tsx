@@ -496,7 +496,7 @@ export function WorkOrderEditModal({
           </div>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
           <DialogBody className="p-0">
             <Tabs
               value={activeTab}

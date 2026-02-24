@@ -55,13 +55,13 @@ type GroupBy = "daily" | "weekly" | "monthly";
 /**
  * Custom tooltip component
  */
-function CustomTooltip({ active, payload, label, showComparison }: any) {
+function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; name: string; value: number; color: string }>; label?: string; showComparison?: boolean }) {
   if (!active || !payload || !payload.length) return null;
 
   return (
     <div className="bg-bg-card border border-border rounded-lg p-3 shadow-lg">
       <p className="text-sm font-medium text-text-primary mb-2">{label}</p>
-      {payload.map((entry: any, index: number) => (
+      {payload.map((entry, index: number) => (
         <p key={index} className="text-sm text-text-secondary">
           <span
             className="inline-block w-3 h-3 rounded-full mr-2"

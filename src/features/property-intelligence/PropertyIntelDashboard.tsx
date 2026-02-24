@@ -16,6 +16,7 @@ import {
   CheckCircle,
   XCircle,
   Loader2,
+  type LucideIcon,
 } from "lucide-react";
 
 function formatNumber(n: number): string {
@@ -306,7 +307,7 @@ function KPICard({
   loading,
   color,
 }: {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   value: string;
   loading: boolean;
@@ -353,7 +354,7 @@ function QuickLink({
   description,
 }: {
   to: string;
-  icon: any;
+  icon: LucideIcon;
   title: string;
   description: string;
 }) {
