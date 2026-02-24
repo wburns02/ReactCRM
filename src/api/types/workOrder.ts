@@ -146,6 +146,10 @@ export const workOrderSchema = z.object({
   // Timestamps
   created_at: z.string().nullable(),
   updated_at: z.string().nullable(),
+  // Audit trail
+  created_by: z.string().nullable().optional(),
+  updated_by: z.string().nullable().optional(),
+  source: z.string().nullable().optional(),
   // Time tracking
   actual_start_time: z.string().nullable().optional(),
   actual_end_time: z.string().nullable().optional(),
@@ -400,6 +404,23 @@ export interface ActivityLogEntry {
   userName?: string;
   timestamp: string;
   metadata?: Record<string, unknown>;
+}
+
+/**
+ * Work Order Audit Log entry (from backend audit trail)
+ */
+export interface WorkOrderAuditEntry {
+  id: string;
+  work_order_id: string;
+  action: string;
+  description: string | null;
+  user_email: string | null;
+  user_name: string | null;
+  source: string | null;
+  ip_address: string | null;
+  user_agent: string | null;
+  changes: Record<string, { old: string | null; new: string | null }> | null;
+  created_at: string;
 }
 
 /**

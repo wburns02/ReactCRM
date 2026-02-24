@@ -25,6 +25,7 @@ import {
   useWorkOrder,
   useUpdateWorkOrder,
   useDeleteWorkOrder,
+  useWorkOrderAuditLog,
 } from "@/api/hooks/useWorkOrders.ts";
 import { useWorkOrderPhotoOperations } from "@/api/hooks/useWorkOrderPhotos.ts";
 import { WorkOrderForm } from "./components/WorkOrderForm.tsx";
@@ -129,6 +130,7 @@ export function WorkOrderDetailPage() {
   const { openEmailCompose } = useEmailCompose();
 
   const { data: workOrder, isLoading, error } = useWorkOrder(id);
+  const { data: auditLog = [] } = useWorkOrderAuditLog(id);
   const updateMutation = useUpdateWorkOrder();
   const deleteMutation = useDeleteWorkOrder();
   const autoGenerateInvoice = useAutoGenerateInvoice();
@@ -166,16 +168,27 @@ export function WorkOrderDetailPage() {
   const [isCapturingPhoto, setIsCapturingPhoto] = useState(false);
   const [capturePhotoType, setCapturePhotoType] = useState<PhotoType>("before");
 
-  // Activity log (mock data for now - would come from API)
-  const [activityLog] = useState<ActivityLogEntry[]>([
-    {
-      id: "1",
-      type: "created",
-      description: "Work order created",
-      userName: "System",
-      timestamp: workOrder?.created_at || new Date().toISOString(),
-    },
-  ]);
+  // Convert real audit log to ActivityLogEntry format for WorkOrderTimeline
+  const activityLog: ActivityLogEntry[] = auditLog.length > 0
+    ? auditLog.map((entry) => ({
+        id: entry.id,
+        type: entry.action as ActivityLogEntry["type"],
+        description: entry.description || entry.action,
+        userName: entry.user_name || entry.user_email || "System",
+        timestamp: entry.created_at,
+        metadata: {
+          source: entry.source,
+          ip_address: entry.ip_address,
+          changes: entry.changes,
+        },
+      }))
+    : [{
+        id: "fallback",
+        type: "created" as ActivityLogEntry["type"],
+        description: "Work order created",
+        userName: workOrder?.created_by || "System",
+        timestamp: workOrder?.created_at || new Date().toISOString(),
+      }];
 
   const handleUpdate = useCallback(
     async (data: WorkOrderFormData) => {
@@ -991,6 +1004,36 @@ export function WorkOrderDetailPage() {
                           : "-"}
                       </dd>
                     </div>
+                    {workOrder.created_by && (
+                      <div>
+                        <dt className="text-sm text-text-muted">Created By</dt>
+                        <dd className="text-text-primary text-sm">
+                          {workOrder.created_by}
+                        </dd>
+                      </div>
+                    )}
+                    {workOrder.source && (
+                      <div>
+                        <dt className="text-sm text-text-muted">Source</dt>
+                        <dd>
+                          <Badge variant={
+                            workOrder.source === "crm" ? "info" :
+                            workOrder.source === "booking" ? "success" :
+                            workOrder.source === "customer_portal" ? "warning" :
+                            workOrder.source === "employee_portal" ? "info" :
+                            "default"
+                          }>
+                            {workOrder.source === "crm" ? "CRM" :
+                             workOrder.source === "booking" ? "Online Booking" :
+                             workOrder.source === "customer_portal" ? "Customer Portal" :
+                             workOrder.source === "employee_portal" ? "Employee Portal" :
+                             workOrder.source === "api" ? "API" :
+                             workOrder.source === "import" ? "CSV Import" :
+                             workOrder.source}
+                          </Badge>
+                        </dd>
+                      </div>
+                    )}
                     <div>
                       <dt className="text-sm text-text-muted">Last Updated</dt>
                       <dd className="text-text-primary">
@@ -999,6 +1042,14 @@ export function WorkOrderDetailPage() {
                           : "-"}
                       </dd>
                     </div>
+                    {workOrder.updated_by && (
+                      <div>
+                        <dt className="text-sm text-text-muted">Updated By</dt>
+                        <dd className="text-text-primary text-sm">
+                          {workOrder.updated_by}
+                        </dd>
+                      </div>
+                    )}
                   </dl>
                 </CardContent>
               </Card>
@@ -1432,19 +1483,96 @@ export function WorkOrderDetailPage() {
 
         {/* History Tab Content */}
         <TabContent value="history">
-          <Card>
-            <CardHeader>
-              <CardTitle>Activity Timeline</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <WorkOrderTimeline
-                activities={activityLog}
-                showUserNames
-                collapsible
-                initialVisibleCount={10}
-              />
-            </CardContent>
-          </Card>
+          <div className="space-y-6">
+            {/* Audit Trail */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Audit Trail</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {auditLog.length === 0 ? (
+                  <p className="text-text-muted text-sm">No audit history recorded yet.</p>
+                ) : (
+                  <div className="space-y-4">
+                    {auditLog.map((entry) => (
+                      <div key={entry.id} className="border-l-2 border-border-primary pl-4 pb-4 last:pb-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <Badge variant={
+                                entry.action === "created" ? "success" :
+                                entry.action === "status_changed" ? "warning" :
+                                entry.action === "assigned" ? "info" :
+                                entry.action === "completed" ? "success" :
+                                entry.action === "deleted" ? "danger" :
+                                "default"
+                              }>
+                                {entry.action.replace(/_/g, " ")}
+                              </Badge>
+                              {entry.source && (
+                                <span className="text-xs text-text-muted bg-surface-secondary px-1.5 py-0.5 rounded">
+                                  via {entry.source === "crm" ? "CRM" :
+                                       entry.source === "employee_portal" ? "Employee Portal" :
+                                       entry.source === "customer_portal" ? "Customer Portal" :
+                                       entry.source === "booking" ? "Online Booking" :
+                                       entry.source}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-text-primary mt-1">
+                              {entry.description || entry.action}
+                            </p>
+                            <p className="text-xs text-text-muted mt-0.5">
+                              {entry.user_name || entry.user_email || "System"}
+                              {entry.ip_address && (
+                                <span className="ml-2 font-mono">{entry.ip_address}</span>
+                              )}
+                            </p>
+                          </div>
+                          <span className="text-xs text-text-muted whitespace-nowrap">
+                            {formatDate(entry.created_at)}
+                          </span>
+                        </div>
+                        {entry.changes && Object.keys(entry.changes).length > 0 && (
+                          <div className="mt-2 bg-surface-secondary rounded p-2 text-xs">
+                            {Object.entries(entry.changes).map(([field, change]) => (
+                              <div key={field} className="flex gap-2 py-0.5">
+                                <span className="text-text-muted font-medium min-w-[100px]">
+                                  {field.replace(/_/g, " ")}:
+                                </span>
+                                <span className="text-red-500 line-through">
+                                  {(change as { old: string | null }).old || "—"}
+                                </span>
+                                <span className="text-text-muted">→</span>
+                                <span className="text-green-600 font-medium">
+                                  {(change as { new: string | null }).new || "—"}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Legacy Timeline (for backwards compat) */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Activity Timeline</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <WorkOrderTimeline
+                  activities={activityLog}
+                  showUserNames
+                  collapsible
+                  initialVisibleCount={10}
+                />
+              </CardContent>
+            </Card>
+          </div>
         </TabContent>
       </Tabs>
 

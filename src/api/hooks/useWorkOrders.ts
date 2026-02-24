@@ -8,6 +8,7 @@ import {
   type WorkOrderListResponse,
   type WorkOrderFilters,
   type WorkOrderFormData,
+  type WorkOrderAuditEntry,
 } from "../types/workOrder.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
@@ -21,6 +22,7 @@ export const workOrderKeys = {
     [...workOrderKeys.lists(), filters] as const,
   details: () => [...workOrderKeys.all, "detail"] as const,
   detail: (id: string) => [...workOrderKeys.details(), id] as const,
+  auditLog: (id: string) => [...workOrderKeys.detail(id), "audit-log"] as const,
 };
 
 /**
@@ -580,5 +582,19 @@ export function useBulkDeleteWorkOrders() {
       );
     },
     onError: () => toastError("Failed to delete work orders"),
+  });
+}
+
+/**
+ * Fetch audit log for a work order
+ */
+export function useWorkOrderAuditLog(id: string | undefined) {
+  return useQuery({
+    queryKey: workOrderKeys.auditLog(id || ""),
+    queryFn: async (): Promise<WorkOrderAuditEntry[]> => {
+      const { data } = await apiClient.get(`/work-orders/${id}/audit-log`);
+      return data;
+    },
+    enabled: !!id,
   });
 }
