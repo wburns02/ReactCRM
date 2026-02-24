@@ -57,6 +57,12 @@ const PaymentsPage = lazy(() =>
   })),
 );
 
+const GreaseTrapPricingPage = lazy(() =>
+  import("@/features/grease-trap-pricing/GreaseTrapPricingPage.tsx").then((m) => ({
+    default: m.GreaseTrapPricingPage,
+  })),
+);
+
 /**
  * Billing routes - Invoices, Estimates, Payments, Payment Plans
  */
@@ -141,6 +147,15 @@ export function BillingRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <PaymentPlanDetailPage />
+          </Suspense>
+        }
+      />
+      {/* Grease Trap Pricing */}
+      <Route
+        path="grease-trap-pricing"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <GreaseTrapPricingPage />
           </Suspense>
         }
       />
