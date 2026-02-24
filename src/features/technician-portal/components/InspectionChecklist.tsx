@@ -1874,6 +1874,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         blob = await generateReportPDF(localState, customerName || "Customer", jobId, aiAnalysis, localState.recommendPumping ? includePumping : false, [], systemType, weather, manufacturerId);
       }
       const base64 = await blobToBase64(blob);
+      console.log(`[InspectionChecklist] PDF blob size: ${blob.size} bytes, base64 length: ${base64.length}, starts with: ${base64.substring(0, 50)}`);
       const result = await saveMutation.mutateAsync({
         jobId,
         state: {
@@ -1886,6 +1887,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         },
         sendReport: { method: "email", to: customerEmail, pdfBase64: base64 },
       });
+      console.log("[InspectionChecklist] Email result:", JSON.stringify(result));
       if (result?.report_sent === false) {
         // Backend email failed — log reason and auto-download PDF and open mailto fallback
         const emailErr = (result as Record<string, unknown>)?.email_error;
@@ -1920,9 +1922,14 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         window.open(`mailto:${customerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
         toastSuccess("PDF downloaded — attach it to the email that just opened!");
       } else {
-        toastSuccess(`Report emailed to ${customerEmail}!`);
+        const pdfNote = result?.pdf_attached ? " with PDF attached" : " (PDF not attached)";
+        toastSuccess(`Report emailed to ${customerEmail}${pdfNote}!`);
+        if (!result?.pdf_attached) {
+          console.warn("[InspectionChecklist] Email sent but PDF was NOT attached. Result:", result);
+        }
       }
-    } catch {
+    } catch (err) {
+      console.error("[InspectionChecklist] Email send error:", err);
       toastError("Failed to send email");
     }
     setSendingReport(null);
