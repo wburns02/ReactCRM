@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { jsPDF } from "jspdf";
+// jsPDF is dynamically imported in generateReportPDF to keep it out of the main bundle
 import {
   getInspectionSteps,
   getEquipmentItems,
@@ -328,6 +328,7 @@ async function generateReportPDF(
   weatherData?: InspectionWeather | null,
   manufacturerId?: string | null,
 ): Promise<Blob> {
+  const { jsPDF } = await import("jspdf");
   const doc = new jsPDF();
   const steps = getInspectionSteps(systemType);
   const isConventional = systemType === "conventional";

@@ -18,14 +18,13 @@ import {
 } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { EstimateStatusBar } from "../components/EstimateStatusBar";
-import { jsPDF } from "jspdf";
+import { usePdfExport } from "@/hooks/usePdfExport";
 
 /**
  * Generate and download a PDF for the given estimate data.
  * Uses jsPDF for client-side generation - no backend dependency.
  */
-function generateEstimatePDF(estimate: Record<string, unknown>) {
-  const doc = new jsPDF();
+function generateEstimatePDF(doc: InstanceType<typeof import("jspdf").jsPDF>, estimate: Record<string, unknown>) {
   const pageWidth = doc.internal.pageSize.getWidth();
   let y = 20;
 
@@ -304,7 +303,7 @@ export function EstimateDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [isDownloading, setIsDownloading] = useState(false);
+  const { exportPdf, isExporting: isDownloading } = usePdfExport();
   const [confirmDialog, setConfirmDialog] = useState<{
     type: "accept" | "decline" | null;
     open: boolean;
@@ -350,19 +349,16 @@ export function EstimateDetailPage() {
       toastError("Error", "Estimate data not loaded yet.");
       return;
     }
-    setIsDownloading(true);
-    try {
-      const filename = generateEstimatePDF(estimate);
+    exportPdf((doc) => {
+      const filename = generateEstimatePDF(doc, estimate);
       toastSuccess("PDF Downloaded", `${filename} has been downloaded.`);
-    } catch (error) {
+    }).catch((error) => {
       console.error("PDF generation failed:", error);
       toastError(
         "Download Failed",
         "Failed to generate PDF. Please try again.",
       );
-    } finally {
-      setIsDownloading(false);
-    }
+    });
   };
 
   const handleSend = () => {

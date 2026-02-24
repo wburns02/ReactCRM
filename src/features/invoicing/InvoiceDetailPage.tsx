@@ -34,7 +34,7 @@ import type { Invoice, InvoiceFormData } from "@/api/types/invoice.ts";
 import { useAIAnalyze } from "@/hooks/useAI";
 import { CreditCard, Download } from "lucide-react";
 import { useEmailCompose } from "@/context/EmailComposeContext";
-import { jsPDF } from "jspdf";
+import { usePdfExport } from "@/hooks/usePdfExport";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 /**
@@ -216,8 +216,7 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
  * Generate and download a PDF for the given invoice.
  * Uses jsPDF for client-side generation — no backend dependency.
  */
-function generateInvoicePDF(invoice: Invoice, customerName: string) {
-  const doc = new jsPDF();
+function generateInvoicePDF(doc: InstanceType<typeof import("jspdf").jsPDF>, invoice: Invoice, customerName: string) {
   const pageWidth = doc.internal.pageSize.getWidth();
   let y = 20;
 
@@ -474,6 +473,7 @@ export function InvoiceDetailPage() {
   const deleteMutation = useDeleteInvoice();
   const sendMutation = useSendInvoice();
   const markPaidMutation = useMarkInvoicePaid();
+  const { exportPdf, isExporting: isPdfExporting } = usePdfExport();
 
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -608,17 +608,18 @@ export function InvoiceDetailPage() {
           )}
           <Button
             variant="secondary"
+            disabled={isPdfExporting}
             onClick={() => {
-              try {
-                const filename = generateInvoicePDF(invoice, customerName);
+              exportPdf((doc) => {
+                const filename = generateInvoicePDF(doc, invoice, customerName);
                 toastSuccess(`Downloaded ${filename}`);
-              } catch {
+              }).catch(() => {
                 toastError("Failed to generate PDF");
-              }
+              });
             }}
           >
             <Download className="mr-2 h-4 w-4" />
-            PDF
+            {isPdfExporting ? "Generating..." : "PDF"}
           </Button>
           <Button variant="secondary" onClick={() => setIsEditOpen(true)}>
             Edit
