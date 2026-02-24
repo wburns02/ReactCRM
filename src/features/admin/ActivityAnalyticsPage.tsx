@@ -96,8 +96,8 @@ function SimpleBar({
   const max = Math.max(...items.map((i) => Number(i[valueKey]) || 0));
   return (
     <div className="space-y-1.5">
-      {items.map((item, idx) => (
-        <div key={idx} className="flex items-center gap-2 text-sm">
+      {items.map((item) => (
+        <div key={`${String(item[labelKey])}-${String(item[valueKey])}`} className="flex items-center gap-2 text-sm">
           <span className="w-28 truncate text-gray-600 text-right">
             {String(item[labelKey])}
           </span>

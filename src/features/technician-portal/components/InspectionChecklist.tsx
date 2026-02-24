@@ -45,12 +45,16 @@ interface Props {
 // ─── Voice helpers ──────────────────────────────────────────────────────────
 
 function speak(text: string) {
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.95;
-    u.pitch = 1;
-    window.speechSynthesis.speak(u);
+  try {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }
+  } catch {
+    // Speech synthesis unavailable — fail silently
   }
 }
 
@@ -1483,6 +1487,14 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       if (serverState.weather) setWeather(serverState.weather);
     }
   }, [serverState]);
+
+  // Cancel speech synthesis and voice recognition on unmount
+  useEffect(() => {
+    return () => {
+      try { window.speechSynthesis?.cancel(); } catch { /* noop */ }
+      recognitionRef.current?.stop();
+    };
+  }, []);
 
   const steps = getInspectionSteps(systemType);
   const equipmentItems = getEquipmentItems(systemType);

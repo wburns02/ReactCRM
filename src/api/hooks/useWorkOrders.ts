@@ -131,6 +131,9 @@ export function useUpdateWorkOrder() {
       queryClient.invalidateQueries({
         queryKey: workOrderKeys.detail(variables.id),
       });
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.auditLog(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.stats() });
@@ -306,6 +309,11 @@ export function useAssignWorkOrder() {
         );
       }
 
+      // Invalidate audit log (new entry created by backend)
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.auditLog(variables.id),
+      });
+
       // Toast notification
       toastSuccess(
         "Work Order Scheduled",
@@ -341,6 +349,9 @@ export function useUpdateWorkOrderStatus() {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: workOrderKeys.detail(variables.id),
+      });
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.auditLog(variables.id),
       });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
     },
@@ -400,6 +411,11 @@ export function useUnscheduleWorkOrder() {
           return { ...oldData, items: [...oldData.items, workOrder] };
         },
       );
+
+      // Invalidate audit log (new entry created by backend)
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.auditLog(id),
+      });
 
       // Toast notification
       toastSuccess(
