@@ -34,6 +34,7 @@ export interface OpsJob {
   longitude: number | null;
   amount: number | null;
   is_started: boolean;
+  customer_name: string | null;
 }
 
 export interface OpsAlert {

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
@@ -154,31 +155,102 @@ const JOB_STATUS_COLORS: Record<string, string> = {
   confirmed: "text-gray-500",
 };
 
-function JobRow({ job, onDispatch }: { job: OpsJob; onDispatch: (id: string) => void }) {
+function JobRow({ job, isExpanded, onToggle, onDispatch }: { job: OpsJob; isExpanded: boolean; onToggle: () => void; onDispatch: (id: string) => void }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white p-2 text-sm dark:border-gray-700 dark:bg-gray-800">
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <span className={`text-xs font-semibold ${JOB_STATUS_COLORS[job.status] || "text-gray-500"}`}>
-            {job.wo_number}
-          </span>
-          <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${PRIORITY_COLORS[job.priority] || PRIORITY_COLORS.normal}`}>
-            {job.priority}
-          </span>
-          <span className="text-xs text-gray-400">{job.job_type}</span>
+    <div className={`rounded-lg border transition ${isExpanded ? "border-blue-400 bg-blue-50/50 dark:border-blue-600 dark:bg-blue-950/20" : "border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"}`}>
+      <div
+        onClick={onToggle}
+        className="flex items-center gap-2 p-2 text-sm cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-750 rounded-lg"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className={`text-xs font-semibold ${JOB_STATUS_COLORS[job.status] || "text-gray-500"}`}>
+              {job.wo_number}
+            </span>
+            <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${PRIORITY_COLORS[job.priority] || PRIORITY_COLORS.normal}`}>
+              {job.priority}
+            </span>
+            <span className="text-xs text-gray-400">{job.job_type}</span>
+            {job.amount != null && job.amount > 0 && (
+              <span className="text-xs font-medium text-emerald-600">${job.amount.toFixed(0)}</span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {job.customer_name && <span className="text-xs font-medium text-gray-700 dark:text-gray-300 shrink-0">{job.customer_name}</span>}
+            {job.customer_name && <span className="text-gray-300 dark:text-gray-600">·</span>}
+            <p className="text-xs text-gray-500 truncate">{job.address}</p>
+            {job.is_started && <span className="text-[10px] text-amber-500 font-medium shrink-0">IN PROGRESS</span>}
+          </div>
         </div>
-        <p className="text-xs text-gray-500 truncate">{job.address}</p>
+        <div className="text-right shrink-0">
+          {job.time_window_start && <p className="text-xs text-gray-500">{job.time_window_start.slice(0, 5)}</p>}
+          {job.assigned_technician ? (
+            <p className="text-xs text-gray-400 truncate max-w-[80px]">{job.assigned_technician}</p>
+          ) : (
+            <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); onDispatch(job.id); }} className="text-xs h-6 px-2">
+              Assign
+            </Button>
+          )}
+        </div>
       </div>
-      <div className="text-right shrink-0">
-        {job.time_window_start && <p className="text-xs text-gray-500">{job.time_window_start.slice(0, 5)}</p>}
-        {job.assigned_technician ? (
-          <p className="text-xs text-gray-400 truncate max-w-[80px]">{job.assigned_technician}</p>
-        ) : (
-          <Button size="sm" variant="outline" onClick={() => onDispatch(job.id)} className="text-xs h-6 px-2">
-            Assign
-          </Button>
-        )}
-      </div>
+
+      {isExpanded && (
+        <div className="border-t border-gray-200 dark:border-gray-700 px-3 py-2.5 space-y-2 text-xs">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+            {job.customer_name && (
+              <div className="col-span-2">
+                <span className="text-gray-400">Customer</span>
+                <p className="font-semibold">{job.customer_name}</p>
+              </div>
+            )}
+            <div>
+              <span className="text-gray-400">Status</span>
+              <p className={`font-semibold capitalize ${JOB_STATUS_COLORS[job.status] || "text-gray-600"}`}>{job.status.replace("_", " ")}</p>
+            </div>
+            <div>
+              <span className="text-gray-400">Priority</span>
+              <p className="font-semibold capitalize">{job.priority}</p>
+            </div>
+            <div>
+              <span className="text-gray-400">Time Window</span>
+              <p className="font-semibold">
+                {job.time_window_start && job.time_window_end
+                  ? `${job.time_window_start.slice(0, 5)} – ${job.time_window_end.slice(0, 5)}`
+                  : job.time_window_start?.slice(0, 5) || "—"}
+              </p>
+            </div>
+            <div>
+              <span className="text-gray-400">Amount</span>
+              <p className="font-semibold">{job.amount ? `$${job.amount.toFixed(2)}` : "—"}</p>
+            </div>
+            <div className="col-span-2">
+              <span className="text-gray-400">Address</span>
+              <p className="font-semibold">{job.address || "—"}</p>
+            </div>
+            <div>
+              <span className="text-gray-400">Technician</span>
+              <p className="font-semibold">{job.assigned_technician || "Unassigned"}</p>
+            </div>
+            <div>
+              <span className="text-gray-400">Started</span>
+              <p className="font-semibold">{job.is_started ? "Yes" : "No"}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 pt-1">
+            <Link
+              to={`/work-orders/${job.id}`}
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            >
+              Open Work Order →
+            </Link>
+            {!job.technician_id && (
+              <Button size="sm" variant="outline" onClick={() => onDispatch(job.id)} className="text-xs h-6 px-2 ml-auto">
+                Dispatch Tech
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -272,6 +344,7 @@ export function GodModePage() {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const [dispatchJobId, setDispatchJobId] = useState<string | null>(null);
   const [jobFilter, setJobFilter] = useState<"all" | "unassigned" | "active" | "emergency">("all");
+  const [expandedJobId, setExpandedJobId] = useState<string | null>(null);
 
   const filteredJobs = useMemo(() => {
     if (!data) return [];
@@ -361,7 +434,7 @@ export function GodModePage() {
                   {selectedTechJobs.length === 0 ? (
                     <p className="text-xs text-gray-500">No jobs assigned today</p>
                   ) : (
-                    selectedTechJobs.map((j) => <JobRow key={j.id} job={j} onDispatch={setDispatchJobId} />)
+                    selectedTechJobs.map((j) => <JobRow key={j.id} job={j} isExpanded={expandedJobId === j.id} onToggle={() => setExpandedJobId(expandedJobId === j.id ? null : j.id)} onDispatch={setDispatchJobId} />)
                   )}
                 </div>
               </CardContent>
@@ -392,7 +465,7 @@ export function GodModePage() {
           {/* Job list */}
           <div className="space-y-1.5">
             {filteredJobs.map((j) => (
-              <JobRow key={j.id} job={j} onDispatch={setDispatchJobId} />
+              <JobRow key={j.id} job={j} isExpanded={expandedJobId === j.id} onToggle={() => setExpandedJobId(expandedJobId === j.id ? null : j.id)} onDispatch={setDispatchJobId} />
             ))}
             {filteredJobs.length === 0 && (
               <div className="text-center py-8 text-gray-400 text-sm">No jobs match this filter</div>
