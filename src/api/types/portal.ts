@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 /**
  * Customer portal types
  */
@@ -111,3 +113,68 @@ export interface PortalVerifyResponse {
   customer: PortalCustomer;
   token: string;
 }
+
+// Zod validation schemas
+
+export const portalCustomerSchema = z.object({
+  id: z.string(),
+  first_name: z.string(),
+  last_name: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  address: z.string(),
+  city: z.string(),
+  state: z.string(),
+  zip: z.string(),
+  notification_preferences: z.object({
+    email_reminders: z.boolean(),
+    sms_reminders: z.boolean(),
+    tech_arrival_alerts: z.boolean(),
+    invoice_notifications: z.boolean(),
+  }).optional(),
+  created_at: z.string().optional(),
+});
+
+export const portalWorkOrderSchema = z.object({
+  id: z.string(),
+  work_order_number: z.string(),
+  service_type: z.string(),
+  status: z.enum(["scheduled", "in_progress", "completed", "cancelled"]),
+  scheduled_date: z.string().optional(),
+  scheduled_time: z.string().optional(),
+  completed_date: z.string().optional(),
+  technician_id: z.string().optional(),
+  technician_name: z.string().optional(),
+  technician_phone: z.string().optional(),
+  notes: z.string().optional(),
+  total_amount: z.number().optional(),
+  service_address: z.string().optional(),
+  items: z.array(z.object({
+    id: z.string(),
+    description: z.string(),
+    quantity: z.number(),
+    unit_price: z.number(),
+    total: z.number(),
+  })).optional(),
+});
+
+export const portalInvoiceSchema = z.object({
+  id: z.string(),
+  invoice_number: z.string(),
+  work_order_id: z.string(),
+  amount: z.number(),
+  amount_paid: z.number(),
+  status: z.enum(["pending", "paid", "overdue"]),
+  due_date: z.string(),
+  created_at: z.string(),
+});
+
+export const portalLoginResponseSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+});
+
+export const portalVerifyResponseSchema = z.object({
+  customer: portalCustomerSchema,
+  token: z.string(),
+});

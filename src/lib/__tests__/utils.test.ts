@@ -121,9 +121,13 @@ describe("formatPhone", () => {
     expect(formatPhone("(123) 456-7890")).toBe("(123) 456-7890");
   });
 
-  it("returns original for non-10-digit numbers", () => {
+  it("returns original for non-standard-length numbers", () => {
     expect(formatPhone("12345")).toBe("12345");
-    expect(formatPhone("+1 123 456 7890")).toBe("+1 123 456 7890");
+  });
+
+  it("formats 11-digit number starting with 1", () => {
+    // formatPhone strips non-digits, then handles 11-digit with leading 1
+    expect(formatPhone("+1 123 456 7890")).toBe("(123) 456-7890");
   });
 
   it("handles null", () => {
@@ -138,8 +142,8 @@ describe("formatPhone", () => {
     expect(formatPhone("")).toBe("-");
   });
 
-  it("handles phone with country code", () => {
-    // 11 digits won't match the 10-digit format
-    expect(formatPhone("11234567890")).toBe("11234567890");
+  it("handles phone with country code prefix", () => {
+    // 11 digits starting with 1 → strips leading 1 and formats
+    expect(formatPhone("11234567890")).toBe("(123) 456-7890");
   });
 });

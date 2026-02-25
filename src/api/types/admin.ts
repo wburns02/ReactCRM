@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 /**
  * Admin-related types for settings and user management
  */
@@ -201,3 +203,39 @@ export const OAUTH_SCOPES = [
     description: "Create and manage webhooks",
   },
 ] as const;
+
+// Zod validation schemas
+
+export const userSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  first_name: z.string(),
+  last_name: z.string(),
+  role: z.enum(["admin", "manager", "technician", "office"]),
+  is_active: z.boolean(),
+  last_login: z.string().optional(),
+  created_at: z.string(),
+});
+
+export const systemSettingsSchema = z.object({
+  id: z.string(),
+  company_name: z.string(),
+  company_logo_url: z.string().optional(),
+  timezone: z.string(),
+  date_format: z.string(),
+  time_format: z.string(),
+  currency: z.string(),
+  updated_at: z.string(),
+});
+
+export const securitySettingsSchema = z.object({
+  id: z.string(),
+  password_min_length: z.number(),
+  password_require_uppercase: z.boolean(),
+  password_require_lowercase: z.boolean(),
+  password_require_numbers: z.boolean(),
+  password_require_special: z.boolean(),
+  session_timeout_minutes: z.number(),
+  two_factor_enabled: z.boolean(),
+  updated_at: z.string(),
+});
