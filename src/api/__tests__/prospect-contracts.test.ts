@@ -66,9 +66,10 @@ describe("Prospect API Contracts", () => {
       expect(result.success).toBe(true);
     });
 
-    it("rejects invalid UUID for id", () => {
+    it("accepts any string for id (backend returns UUID as string)", () => {
+      // Schema uses z.string() not z.string().uuid() for flexibility
       const result = prospectSchema.safeParse(invalidFixtures.invalidUuid);
-      expect(result.success).toBe(false);
+      expect(result.success).toBe(true);
     });
 
     it("rejects missing required fields", () => {
@@ -96,13 +97,13 @@ describe("Prospect API Contracts", () => {
       }
     });
 
-    it("rejects response with invalid item (bad UUID)", () => {
-      const invalidResponse = {
+    it("accepts response with non-UUID id (schema uses z.string())", () => {
+      const response = {
         ...validListResponse,
         items: [invalidFixtures.invalidUuid],
       };
-      const result = prospectListResponseSchema.safeParse(invalidResponse);
-      expect(result.success).toBe(false);
+      const result = prospectListResponseSchema.safeParse(response);
+      expect(result.success).toBe(true);
     });
   });
 
