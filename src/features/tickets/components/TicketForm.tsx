@@ -58,8 +58,7 @@ export function TicketForm({
     watch,
     setValue,
   } = useForm<TicketFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(ticketFormSchema) as any,
+    resolver: zodResolver(ticketFormSchema),
     defaultValues: ticket
       ? {
           title: ticket.title,

@@ -148,13 +148,43 @@ export function isAudioRecordingSupported(): boolean {
   return "MediaRecorder" in window && "getUserMedia" in navigator.mediaDevices;
 }
 
+interface WindowWithSpeechRecognition {
+  SpeechRecognition?: new () => SpeechRecognitionLike;
+  webkitSpeechRecognition?: new () => SpeechRecognitionLike;
+}
+
+interface SpeechRecognitionLike {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
+export interface SpeechRecognitionEventLike {
+  resultIndex: number;
+  results: {
+    length: number;
+    [index: number]: {
+      isFinal: boolean;
+      [index: number]: { transcript: string; confidence: number };
+    };
+  };
+}
+
+export interface SpeechRecognitionErrorEventLike {
+  error: string;
+}
+
 /**
  * Get speech recognition constructor
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getSpeechRecognition(): any {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const win = window as any;
+export function getSpeechRecognition(): (new () => SpeechRecognitionLike) | null {
+  const win = window as unknown as WindowWithSpeechRecognition;
   return win.SpeechRecognition || win.webkitSpeechRecognition || null;
 }
 

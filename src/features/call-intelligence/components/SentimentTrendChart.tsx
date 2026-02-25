@@ -38,11 +38,16 @@ interface SentimentTrendChartProps {
   onPointClick?: (date: string) => void;
 }
 
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{ payload: TrendDataPoint }>;
+  label?: string | number;
+}
+
 /**
  * Custom tooltip component for the sentiment trend chart
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload || payload.length === 0) {
     return null;
   }
@@ -172,8 +177,7 @@ export function SentimentTrendChart({
     [],
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleClick = (chartData: any) => {
+  const handleClick = (chartData: { activeLabel?: string | number } | null) => {
     if (onPointClick && chartData?.activeLabel) {
       const label = String(chartData.activeLabel);
       onPointClick(label);

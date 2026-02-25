@@ -53,8 +53,7 @@ export function CustomerForm({
     formState: { errors, isDirty },
     reset,
   } = useForm<CustomerFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(customerFormSchema) as any,
+    resolver: zodResolver(customerFormSchema),
     defaultValues: customer
       ? {
           first_name: customer.first_name || "",
@@ -139,8 +138,7 @@ export function CustomerForm({
           {isEdit ? "Edit Customer" : "Add New Customer"}
         </DialogHeader>
 
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
           <DialogBody className="space-y-6 max-h-[60vh] overflow-y-auto">
             {/* Basic Info Section */}
             <div>

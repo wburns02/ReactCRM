@@ -66,8 +66,7 @@ export function InvoiceForm({
     watch,
     setValue,
   } = useForm<InvoiceFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(invoiceFormSchema) as any,
+    resolver: zodResolver(invoiceFormSchema),
     defaultValues: invoice
       ? {
           customer_id: String(invoice.customer_id),

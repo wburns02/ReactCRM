@@ -42,8 +42,7 @@ export function InventoryAdjustment({
     reset,
     watch,
   } = useForm<InventoryAdjustmentData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(inventoryAdjustmentSchema) as any,
+    resolver: zodResolver(inventoryAdjustmentSchema),
     defaultValues: {
       adjustment: 0,
       reason: "",

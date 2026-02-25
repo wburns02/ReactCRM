@@ -52,8 +52,7 @@ export function ProspectForm({
     formState: { errors, isDirty },
     reset,
   } = useForm<ProspectFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(prospectFormSchema) as any,
+    resolver: zodResolver(prospectFormSchema),
     defaultValues: prospect
       ? {
           first_name: prospect.first_name || "",

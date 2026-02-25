@@ -53,8 +53,7 @@ export function InventoryForm({
     formState: { errors, isDirty },
     reset,
   } = useForm<InventoryFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(inventoryFormSchema) as any,
+    resolver: zodResolver(inventoryFormSchema),
     defaultValues: item
       ? {
           name: item.name,

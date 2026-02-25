@@ -64,8 +64,7 @@ export function PaymentForm({
     watch,
     setValue,
   } = useForm<PaymentFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(paymentFormSchema) as any,
+    resolver: zodResolver(paymentFormSchema),
     defaultValues: payment
       ? {
           invoice_id: payment.invoice_id || "",

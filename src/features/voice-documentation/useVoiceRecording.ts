@@ -8,6 +8,8 @@ import type {
   TranscriptionStatus,
   VoiceNote,
   VoiceRecordingSettings,
+  SpeechRecognitionEventLike,
+  SpeechRecognitionErrorEventLike,
 } from "./types";
 import {
   DEFAULT_VOICE_SETTINGS,
@@ -97,8 +99,7 @@ export function useVoiceRecording(
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<{ stop: () => void; start: () => void } | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const durationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
     null,
@@ -187,8 +188,7 @@ export function useVoiceRecording(
       setTranscriptionStatus("listening");
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
       let finalTranscript = "";
       let interimTranscript = "";
 
@@ -214,8 +214,7 @@ export function useVoiceRecording(
       }
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEventLike) => {
       // Ignore no-speech errors when continuous
       if (event.error === "no-speech" && settings.continuous) {
         return;

@@ -56,8 +56,7 @@ export function TechnicianForm({
     watch,
     setValue,
   } = useForm<TechnicianFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(technicianFormSchema) as any,
+    resolver: zodResolver(technicianFormSchema),
     defaultValues: technician
       ? {
           first_name: technician.first_name,

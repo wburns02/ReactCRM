@@ -278,8 +278,7 @@ export function WorkOrderEditModal({
     watch,
     setValue,
   } = useForm<WorkOrderFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(workOrderFormSchema) as any,
+    resolver: zodResolver(workOrderFormSchema),
     defaultValues: workOrder
       ? {
           customer_id: String(workOrder.customer_id),

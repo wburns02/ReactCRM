@@ -65,8 +65,7 @@ export function EquipmentForm({
     formState: { errors, isDirty },
     reset,
   } = useForm<EquipmentFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(equipmentFormSchema) as any,
+    resolver: zodResolver(equipmentFormSchema),
     defaultValues: equipment
       ? {
           name: equipment.name,

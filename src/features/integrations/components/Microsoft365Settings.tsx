@@ -9,6 +9,16 @@ import {
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 import { apiClient } from "@/api/client";
 
+interface Microsoft365StatusExtended {
+  configured?: boolean;
+  user_linked?: boolean;
+  microsoft_email?: string;
+  calendar_sync?: boolean;
+  teams_webhook?: boolean;
+  sharepoint?: boolean;
+  email_monitoring?: boolean;
+}
+
 export function Microsoft365Settings() {
   const [searchParams] = useSearchParams();
   const { data: status, isLoading } = useMicrosoft365Status();
@@ -132,10 +142,10 @@ export function Microsoft365Settings() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
             { name: "SSO Login", desc: "Sign in with Microsoft", ready: true, key: "configured" },
-            { name: "Outlook Calendar", desc: "Work order → calendar event sync", ready: !!(status as any)?.calendar_sync, key: "calendar_sync" },
-            { name: "Teams Notifications", desc: "Job completions, payments, quotes", ready: !!(status as any)?.teams_webhook, key: "teams_webhook" },
-            { name: "SharePoint Storage", desc: "Inspection reports, contracts", ready: !!(status as any)?.sharepoint, key: "sharepoint" },
-            { name: "Email Parsing", desc: "Auto-create leads from inbox", ready: !!(status as any)?.email_monitoring, key: "email_monitoring" },
+            { name: "Outlook Calendar", desc: "Work order → calendar event sync", ready: !!(status as Microsoft365StatusExtended)?.calendar_sync, key: "calendar_sync" },
+            { name: "Teams Notifications", desc: "Job completions, payments, quotes", ready: !!(status as Microsoft365StatusExtended)?.teams_webhook, key: "teams_webhook" },
+            { name: "SharePoint Storage", desc: "Inspection reports, contracts", ready: !!(status as Microsoft365StatusExtended)?.sharepoint, key: "sharepoint" },
+            { name: "Email Parsing", desc: "Auto-create leads from inbox", ready: !!(status as Microsoft365StatusExtended)?.email_monitoring, key: "email_monitoring" },
           ].map((f) => (
             <div key={f.name} className="flex items-center gap-3 p-3 rounded-lg bg-bg-hover">
               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
@@ -152,7 +162,7 @@ export function Microsoft365Settings() {
         </div>
       </div>
       {/* Teams Test */}
-      {(status as any)?.teams_webhook && (
+      {(status as Microsoft365StatusExtended)?.teams_webhook && (
         <div className="bg-bg-card border border-border rounded-xl p-6">
           <h3 className="font-semibold text-text-primary mb-3">Teams Notifications</h3>
           <p className="text-sm text-text-secondary mb-4">

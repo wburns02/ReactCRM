@@ -101,11 +101,21 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   );
 }
 
+interface ActiveShapeProps {
+  cx: number;
+  cy: number;
+  innerRadius: number;
+  outerRadius: number;
+  startAngle: number;
+  endAngle: number;
+  fill: string;
+  payload?: DispositionStats;
+}
+
 /**
  * Active shape renderer for hover state
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function renderActiveShape(props: any) {
+function renderActiveShape(props: ActiveShapeProps) {
   const {
     cx,
     cy,

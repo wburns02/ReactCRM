@@ -1,8 +1,48 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 
-// Web Speech API types - using 'any' to avoid conflicts with built-in types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type SpeechRecognitionInstance = any;
+// Web Speech API types
+interface SpeechRecognitionEvent {
+  resultIndex: number;
+  results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionResultList {
+  length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionResult {
+  isFinal: boolean;
+  length: number;
+  [index: number]: SpeechRecognitionAlternative;
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string;
+  confidence: number;
+}
+
+interface SpeechRecognitionErrorEvent {
+  error: string;
+}
+
+interface SpeechRecognitionInstance {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
+interface WindowWithSpeechRecognition {
+  SpeechRecognition?: new () => SpeechRecognitionInstance;
+  webkitSpeechRecognition?: new () => SpeechRecognitionInstance;
+}
 
 /**
  * Speech recognition result
@@ -29,8 +69,7 @@ interface UseVoiceToTextOptions {
  * Check if speech recognition is supported
  */
 export function isSpeechRecognitionSupported(): boolean {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const win = window as any;
+  const win = window as unknown as WindowWithSpeechRecognition;
   return !!(win.SpeechRecognition || win.webkitSpeechRecognition);
 }
 
@@ -53,7 +92,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
   const [error, setError] = useState<string | null>(null);
   const [isSupported, setIsSupported] = useState(false);
 
-  const recognitionRef = useRef<SpeechRecognitionInstance>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   // Check support on mount
   useEffect(() => {
@@ -67,8 +106,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
       return null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const win = window as any;
+    const win = window as unknown as WindowWithSpeechRecognition;
     const SpeechRecognitionClass =
       win.SpeechRecognition || win.webkitSpeechRecognition;
 
@@ -88,8 +126,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
       setError(null);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       let finalTranscript = "";
       let interim = "";
 
@@ -120,8 +157,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
       setInterimTranscript(interim);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       const errorMessage = getErrorMessage(event.error);
       setError(errorMessage);
       onError?.(errorMessage);
