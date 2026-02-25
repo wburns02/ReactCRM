@@ -94,6 +94,12 @@ const TechSettingsPage = lazy(() =>
   ),
 );
 
+const GamificationHub = lazy(() =>
+  import("@/features/technician-portal/components/GamificationHub.tsx").then(
+    (m) => ({ default: m.GamificationHub }),
+  ),
+);
+
 /**
  * Technician routes - technicians, schedule, service intervals, employee portal
  */
@@ -156,6 +162,14 @@ export function TechnicianRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <TechCommsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/achievements"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <GamificationHub />
           </Suspense>
         }
       />

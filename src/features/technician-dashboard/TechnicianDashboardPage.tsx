@@ -15,6 +15,8 @@ import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { formatCurrency } from "@/lib/utils.ts";
 import { CollectPaymentModal } from "@/features/payments/components/CollectPaymentModal.tsx";
+import { useGamificationStats, useGamificationBadges } from "@/hooks/useGamification.ts";
+import { Link } from "react-router-dom";
 
 // ─── Helpers ──────────────────────────────────────────────
 
@@ -456,6 +458,40 @@ function DashboardSkeleton() {
 
 // ─── Main Page ───────────────────────────────────────────
 
+function StreakBadgeMini() {
+  const { data: stats } = useGamificationStats();
+  const { data: badges } = useGamificationBadges();
+  const earned = badges?.filter((b) => b.unlocked) || [];
+
+  return (
+    <Link to="/portal/achievements" className="block">
+      <Card>
+        <CardContent className="flex items-center justify-between p-4">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🔥</span>
+            <div>
+              <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                {stats?.current_streak || 0} day streak
+              </p>
+              <p className="text-xs text-gray-500">
+                {earned.length} badge{earned.length !== 1 ? "s" : ""} earned
+              </p>
+            </div>
+          </div>
+          <div className="flex -space-x-1">
+            {earned.slice(0, 4).map((b) => (
+              <span key={b.id} className="text-lg" title={b.name}>{b.icon}</span>
+            ))}
+            {earned.length > 4 && (
+              <span className="text-xs text-gray-400 ml-2">+{earned.length - 4}</span>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
+
 export function TechnicianDashboardPage() {
   const { data, isLoading, refetch } = useTechnicianDashboard();
   const queryClient = useQueryClient();
@@ -625,7 +661,10 @@ export function TechnicianDashboardPage() {
         onTrack={pay?.on_track || false}
       />
 
-      {/* Section 5: How I'm Doing */}
+      {/* Section 5: Streaks & Badges Mini */}
+      <StreakBadgeMini />
+
+      {/* Section 6: How I'm Doing */}
       <HowImDoing
         jobsThisWeek={perf?.jobs_this_week || 0}
         jobsLastWeek={perf?.jobs_last_week || 0}
