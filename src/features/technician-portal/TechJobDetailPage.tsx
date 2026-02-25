@@ -1422,7 +1422,7 @@ export function TechJobDetailPage() {
           <CardContent className="p-4">
             <InspectionChecklist
               jobId={jobId!}
-              systemType={job?.system_type || "conventional"}
+              systemType={job?.system_type || "aerobic"}
               customerPhone={customer?.phone || undefined}
               customerName={customer ? `${customer.first_name || ""} ${customer.last_name || ""}`.trim() : undefined}
               customerEmail={customer?.email || undefined}

@@ -581,6 +581,38 @@ async function generateReportPDF(
     y += 22;
   }
 
+  // ═══ CHAMBER MEASUREMENTS (Aerobic step 4) ═══
+  if (!isConventional) {
+    const s4cf = state.steps[4]?.customFields || {};
+    const hasAnyDepth = s4cf.trash_tank_depth || s4cf.clarifier_depth || s4cf.effluent_depth;
+    if (hasAnyDepth) {
+      ensureSpace(30);
+      sectionHeader("Chamber Depth Measurements");
+      const colW = (contentW - 12) / 3;
+      const depthCards: { label: string; value: string }[] = [
+        { label: "TRASH TANK", value: s4cf.trash_tank_depth || "—" },
+        { label: "CLARIFIER", value: s4cf.clarifier_depth || "—" },
+        { label: "EFFLUENT", value: s4cf.effluent_depth || "—" },
+      ];
+      depthCards.forEach((card, i) => {
+        const cx = margin + i * (colW + 6);
+        setF(BRAND.cardBg);
+        setD(BRAND.divider);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(cx, y, colW, 22, 2, 2, "FD");
+        setC(BRAND.muted);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7);
+        doc.text(card.label, cx + colW / 2, y + 6, { align: "center" });
+        setC(BRAND.blue);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.text(card.value + '"', cx + colW / 2, y + 16, { align: "center" });
+      });
+      y += 28;
+    }
+  }
+
   // ═══ SYSTEM INFORMATION (Conventional only) ═══
   if (isConventional) {
     sectionHeader("System Information");
@@ -2770,7 +2802,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
               </div>
             )}
 
-            {/* Custom Input Fields (Conventional data collection) */}
+            {/* Custom Input Fields (data collection) */}
             {currentStepDef.customInputs && currentStepDef.customInputs.length > 0 && (
               <div className="space-y-3">
                 {currentStepDef.customInputs.map((input) => (
