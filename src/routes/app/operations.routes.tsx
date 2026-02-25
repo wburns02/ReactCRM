@@ -56,6 +56,13 @@ const PredictiveServicePage = lazy(() =>
   })),
 );
 
+// Live Operations Center — God Mode
+const GodModePage = lazy(() =>
+  import("@/features/ops-center/GodModePage.tsx").then((m) => ({
+    default: m.GodModePage,
+  })),
+);
+
 /**
  * Operations routes - Equipment, Inventory, Fleet, Tracking
  */
@@ -134,6 +141,16 @@ export function OperationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <PredictiveServicePage />
+          </Suspense>
+        }
+      />
+
+      {/* Live Operations Center — God Mode */}
+      <Route
+        path="god-mode"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <GodModePage />
           </Suspense>
         }
       />

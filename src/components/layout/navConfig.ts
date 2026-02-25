@@ -6,7 +6,7 @@ import {
   Inbox, MessageCircle, Mail, PhoneCall, Bell, Plug, Receipt, CreditCard,
   BarChart3, TrendingUp, Banknote, Calculator, Building2, Truck, Activity,
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
-  Download, Globe, type LucideIcon,
+  Download, Globe, Eye, type LucideIcon,
 } from "lucide-react";
 
 export interface NavItem {
@@ -50,6 +50,7 @@ export const navGroups: NavGroup[] = [
     label: "Operations",
     icon: Clipboard,
     items: [
+      { path: "/god-mode", label: "God Mode", icon: Eye, badge: "LIVE" },
       { path: "/command-center", label: "Command Center", icon: Target },
       { path: "/work-orders", label: "Work Orders", icon: Wrench },
       { path: "/tracking", label: "Tracking", icon: MapPin, badge: "LIVE" },
