@@ -1,23 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   useMicrosoft365Status,
   useMicrosoft365AuthUrl,
   useMicrosoft365Link,
   useMicrosoft365Unlink,
+  useBookingsStatus,
+  useBookingsServices,
+  useBookingsStaff,
+  useBookingsSyncNow,
 } from "@/api/hooks/useMicrosoft365";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 import { apiClient } from "@/api/client";
-
-interface Microsoft365StatusExtended {
-  configured?: boolean;
-  user_linked?: boolean;
-  microsoft_email?: string;
-  calendar_sync?: boolean;
-  teams_webhook?: boolean;
-  sharepoint?: boolean;
-  email_monitoring?: boolean;
-}
 
 export function Microsoft365Settings() {
   const [searchParams] = useSearchParams();
@@ -25,6 +19,7 @@ export function Microsoft365Settings() {
   const authUrlMutation = useMicrosoft365AuthUrl();
   const linkMutation = useMicrosoft365Link();
   const unlinkMutation = useMicrosoft365Unlink();
+  const [showBookings, setShowBookings] = useState(false);
 
   // Handle OAuth callback for account linking
   useEffect(() => {
@@ -43,7 +38,6 @@ export function Microsoft365Settings() {
   const handleLink = async () => {
     try {
       const result = await authUrlMutation.mutateAsync();
-      // Redirect to Microsoft OAuth with link state
       const url = new URL(result.authorization_url);
       url.searchParams.set("state", "link");
       window.location.href = url.toString();
@@ -66,6 +60,7 @@ export function Microsoft365Settings() {
 
   return (
     <div className="space-y-6">
+      {/* Connection Status */}
       <div className="bg-bg-card border border-border rounded-xl p-6">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-lg bg-[#0078d4]/10 flex items-center justify-center">
@@ -79,12 +74,11 @@ export function Microsoft365Settings() {
           <div>
             <h2 className="text-lg font-semibold text-text-primary">Microsoft 365</h2>
             <p className="text-sm text-text-secondary">
-              SSO login, Outlook calendar sync, Teams notifications, SharePoint storage
+              SSO, Outlook calendar, SharePoint, Bookings, and more
             </p>
           </div>
         </div>
 
-        {/* Connection Status */}
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 rounded-lg bg-bg-hover">
             <div>
@@ -141,11 +135,12 @@ export function Microsoft365Settings() {
         <h3 className="font-semibold text-text-primary mb-4">Available Features</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
-            { name: "SSO Login", desc: "Sign in with Microsoft", ready: true, key: "configured" },
-            { name: "Outlook Calendar", desc: "Work order → calendar event sync", ready: !!(status as Microsoft365StatusExtended)?.calendar_sync, key: "calendar_sync" },
-            { name: "Teams Notifications", desc: "Job completions, payments, quotes", ready: !!(status as Microsoft365StatusExtended)?.teams_webhook, key: "teams_webhook" },
-            { name: "SharePoint Storage", desc: "Inspection reports, contracts", ready: !!(status as Microsoft365StatusExtended)?.sharepoint, key: "sharepoint" },
-            { name: "Email Parsing", desc: "Auto-create leads from inbox", ready: !!(status as Microsoft365StatusExtended)?.email_monitoring, key: "email_monitoring" },
+            { name: "SSO Login", desc: "Sign in with Microsoft", ready: true },
+            { name: "Outlook Calendar", desc: "Work order → calendar event sync", ready: !!status?.calendar_sync },
+            { name: "Teams Notifications", desc: "Job completions, payments, quotes", ready: !!status?.teams_webhook },
+            { name: "SharePoint Storage", desc: "Inspection reports, contracts", ready: !!status?.sharepoint },
+            { name: "Email Parsing", desc: "Auto-create leads from inbox", ready: !!status?.email_monitoring },
+            { name: "Bookings", desc: "Self-service scheduling via Microsoft", ready: !!status?.bookings },
           ].map((f) => (
             <div key={f.name} className="flex items-center gap-3 p-3 rounded-lg bg-bg-hover">
               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
@@ -161,8 +156,37 @@ export function Microsoft365Settings() {
           ))}
         </div>
       </div>
+
+      {/* Microsoft Bookings */}
+      <div className="bg-bg-card border border-border rounded-xl p-6">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-semibold text-text-primary">Microsoft Bookings</h3>
+          <button
+            onClick={() => setShowBookings(!showBookings)}
+            className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+          >
+            {showBookings ? "Hide Details" : "Show Details"}
+          </button>
+        </div>
+        <p className="text-sm text-text-secondary mb-4">
+          Customers can self-schedule appointments via Microsoft Bookings. Appointments auto-sync to CRM work orders every 10 minutes.
+        </p>
+        {status?.bookings ? (
+          <BookingsDetails expanded={showBookings} />
+        ) : (
+          <div className="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
+            <p className="text-sm text-amber-700">
+              Not configured. Set <code className="bg-amber-500/10 px-1 rounded">MS365_BOOKING_BUSINESS_ID</code> in Railway to enable.
+            </p>
+            <p className="text-xs text-text-secondary mt-1">
+              Create a Booking business in Microsoft 365 Admin Center first, then add the business ID.
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Teams Test */}
-      {(status as Microsoft365StatusExtended)?.teams_webhook && (
+      {status?.teams_webhook && (
         <div className="bg-bg-card border border-border rounded-xl p-6">
           <h3 className="font-semibold text-text-primary mb-3">Teams Notifications</h3>
           <p className="text-sm text-text-secondary mb-4">
@@ -183,6 +207,113 @@ export function Microsoft365Settings() {
           </button>
         </div>
       )}
+    </div>
+  );
+}
+
+function BookingsDetails({ expanded }: { expanded: boolean }) {
+  const { data: bookingsStatus } = useBookingsStatus();
+  const { data: servicesData } = useBookingsServices();
+  const { data: staffData } = useBookingsStaff();
+  const syncNow = useBookingsSyncNow();
+
+  if (!expanded) {
+    return (
+      <div className="flex items-center gap-3">
+        <span className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600">
+          Active
+        </span>
+        <span className="text-sm text-text-secondary">
+          {bookingsStatus?.business_name || "Connected"}
+        </span>
+        {bookingsStatus?.public_url && (
+          <a
+            href={bookingsStatus.public_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-[#0078d4] hover:underline ml-auto"
+          >
+            Open Booking Page
+          </a>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Status */}
+      <div className="flex items-center justify-between p-3 rounded-lg bg-bg-hover">
+        <div>
+          <p className="text-sm font-medium text-text-primary">
+            {bookingsStatus?.business_name || "Loading..."}
+          </p>
+          <p className="text-xs text-text-secondary">
+            Business ID: {bookingsStatus?.business_id?.slice(0, 12)}...
+          </p>
+        </div>
+        <div className="flex gap-2">
+          {bookingsStatus?.public_url && (
+            <a
+              href={bookingsStatus.public_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 text-xs font-medium text-white bg-[#0078d4] rounded-lg hover:bg-[#106ebe] transition-colors"
+            >
+              Open Booking Page
+            </a>
+          )}
+          <button
+            onClick={() => {
+              syncNow.mutate(undefined, {
+                onSuccess: () => toastSuccess("Bookings sync triggered"),
+                onError: () => toastError("Sync failed"),
+              });
+            }}
+            disabled={syncNow.isPending}
+            className="px-3 py-1.5 text-xs font-medium text-text-primary border border-border rounded-lg hover:bg-bg-hover transition-colors disabled:opacity-50"
+          >
+            {syncNow.isPending ? "Syncing..." : "Sync Now"}
+          </button>
+        </div>
+      </div>
+
+      {/* Services */}
+      {servicesData?.services && servicesData.services.length > 0 && (
+        <div>
+          <p className="text-xs font-medium text-text-secondary uppercase mb-2">Services</p>
+          <div className="space-y-1">
+            {servicesData.services.map((s) => (
+              <div key={s.id} className="flex items-center justify-between p-2 rounded bg-bg-hover text-sm">
+                <span className="text-text-primary">{s.name}</span>
+                <span className="text-text-secondary">
+                  {s.duration} {s.price ? `· $${s.price}` : ""}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Staff */}
+      {staffData?.staff && staffData.staff.length > 0 && (
+        <div>
+          <p className="text-xs font-medium text-text-secondary uppercase mb-2">Staff Members</p>
+          <div className="space-y-1">
+            {staffData.staff.map((s) => (
+              <div key={s.id} className="flex items-center justify-between p-2 rounded bg-bg-hover text-sm">
+                <span className="text-text-primary">{s.display_name}</span>
+                <span className="text-text-secondary">{s.email}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p className="text-xs text-text-secondary">
+        Appointments from Microsoft Bookings are automatically synced to CRM work orders every 10 minutes.
+        New customers are auto-created when matched by email.
+      </p>
     </div>
   );
 }
