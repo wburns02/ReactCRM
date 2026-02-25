@@ -13,6 +13,8 @@ import { AdminMobileBottomNav } from "@/components/navigation/AdminMobileBottomN
 import { useTheme } from "@/hooks/useTheme";
 import { useRealtimeNotifications } from "@/hooks/useRealtimeNotifications";
 import { usePageTracker } from "@/hooks/usePageTracker";
+import { useIncomingCall } from "@/hooks/useIncomingCall";
+import { IncomingCallModal } from "@/features/calls/components/IncomingCallModal";
 import { Sidebar } from "./Sidebar";
 import { Sun, Moon } from "lucide-react";
 
@@ -21,6 +23,7 @@ export function AppLayout() {
   const { isDark, toggle: toggleTheme } = useTheme();
   useRealtimeNotifications();
   usePageTracker();
+  const { incomingCall, isOpen: callModalOpen, dismiss: dismissCall } = useIncomingCall();
   const [adminDrawerOpen, setAdminDrawerOpen] = useState(false);
 
   return (
@@ -104,6 +107,7 @@ export function AppLayout() {
         </div>
       )}
 
+      <IncomingCallModal call={incomingCall} open={callModalOpen} onDismiss={dismissCall} />
     </div>
     </EmailComposeProvider>
   );

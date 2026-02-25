@@ -21,6 +21,9 @@ export type WebSocketMessageType =
   | "payment_received"
   | "technician_location"
   | "system_message"
+  | "incoming_call"
+  | "call_ended"
+  | "call_analyzed"
   | "ping"
   | "pong";
 
@@ -730,6 +733,11 @@ export const WS_EVENTS = {
 
   // Notifications
   NOTIFICATION: "notification" as const,
+
+  // Calls
+  INCOMING_CALL: "incoming_call" as const,
+  CALL_ENDED: "call_ended" as const,
+  CALL_ANALYZED: "call_analyzed" as const,
 
   // System
   SYSTEM_MESSAGE: "system_message" as const,
