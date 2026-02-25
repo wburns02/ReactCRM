@@ -49,6 +49,13 @@ const PredictiveMaintenancePage = lazy(() =>
   })),
 );
 
+// Predictive Service Engine
+const PredictiveServicePage = lazy(() =>
+  import("@/features/predictive-service/PredictiveServicePage.tsx").then((m) => ({
+    default: m.PredictiveServicePage,
+  })),
+);
+
 /**
  * Operations routes - Equipment, Inventory, Fleet, Tracking
  */
@@ -117,6 +124,16 @@ export function OperationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <PredictiveMaintenancePage />
+          </Suspense>
+        }
+      />
+
+      {/* Predictive Service Engine */}
+      <Route
+        path="predictive-service"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PredictiveServicePage />
           </Suspense>
         }
       />
