@@ -1,6 +1,6 @@
 /**
  * Inspection Checklist Step Configuration
- * Based on MAC Septic field meeting notes — 9-step aerobic inspection flow
+ * Based on MAC Septic field meeting notes — 8-step aerobic inspection flow
  * (Consolidated from original 16 steps — all content preserved, fewer top-level steps)
  */
 
@@ -133,25 +133,12 @@ export const EQUIPMENT_ITEMS: EquipmentItem[] = [
   { id: "air_filter", label: "Air Filter ($10)", emoji: "🌀", category: "supplies" },
 ];
 
-// ─── 9-Step Aerobic Inspection Flow (consolidated from 16) ───────────────────
+// ─── 8-Step Aerobic Inspection Flow (consolidated from 16) ───────────────────
+// Equipment check is handled as a pre-inspection gate, not a numbered step.
 
 export const INSPECTION_STEPS: InspectionStep[] = [
   {
     stepNumber: 1,
-    title: "Equipment Checklist",
-    emoji: "🧰",
-    description: "Verify all required equipment before starting inspection.",
-    detailedInstructions: [
-      "Check truck inventory against the equipment list",
-      "Verify all tools are in working condition",
-      "Ensure PPE is present and clean",
-      "Report any missing or damaged equipment",
-    ],
-    requiresPhoto: false,
-    estimatedMinutes: 2,
-  },
-  {
-    stepNumber: 2,
     title: "Arrive & Greet Homeowner",
     emoji: "📱",
     description: "Notify homeowner, confirm location, introduce yourself, and explain the inspection.",
@@ -196,7 +183,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 4,
   },
   {
-    stepNumber: 3,
+    stepNumber: 2,
     title: "Locate Tank & Control Panel",
     emoji: "🗺️",
     description: "Find and identify the septic tank, control panel, and system manufacturer.",
@@ -221,7 +208,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 2,
   },
   {
-    stepNumber: 4,
+    stepNumber: 3,
     title: "Open Lids & Measure Sludge",
     emoji: "🔓",
     description: "Carefully open all septic tank and distribution box lids. Measure depths in trash tank, clarifier, and effluent chamber.",
@@ -267,7 +254,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 5,
+    stepNumber: 4,
     title: "Test Floats, Pump & Alarm",
     emoji: "🔴",
     description: "Test all float switches and verify pump operation.",
@@ -289,7 +276,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 6,
+    stepNumber: 5,
     title: "Inspect Control Panel, Timer & Air Filter",
     emoji: "🎛️",
     description: "Check corrosion, inspect control panel & timer, test alarm, check air filter, ventilate, and turn breakers back on.",
@@ -349,7 +336,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 7,
+    stepNumber: 6,
     title: "Check Valve & Spray/Drip System",
     emoji: "🚿",
     description: "Inspect check valve in distribution box and clean drip filter. Check spray heads OR drip emitters (system-dependent).",
@@ -371,7 +358,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 8,
+    stepNumber: 7,
     title: "Secure All Lids & Clean Up",
     emoji: "🔒",
     description: "Replace and secure ALL lids. Pick up ALL trash and debris.",
@@ -390,7 +377,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 1,
   },
   {
-    stepNumber: 9,
+    stepNumber: 8,
     title: "Discuss Findings with Homeowner",
     emoji: "🤝",
     description: "Knock on door, walk through findings, and prime for future services.",
@@ -1024,8 +1011,8 @@ export function generateRecommendations(state: InspectionState, systemType?: str
     }
   }
 
-  // Pumping recommendation based on sludge level (aerobic step 7, conventional step 9)
-  const sludgeStep = systemType === "conventional" ? state.steps[9] : state.steps[7];
+  // Pumping recommendation based on sludge level (aerobic step 6, conventional step 9)
+  const sludgeStep = systemType === "conventional" ? state.steps[9] : state.steps[6];
   if (sludgeStep?.sludgeLevel) {
     recs.push(
       `Sludge level measured at ${sludgeStep.sludgeLevel}. Schedule pumping based on current level.`,

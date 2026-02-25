@@ -113,18 +113,17 @@ function findingLabel(f: string) {
   return "Not Checked";
 }
 
-// Simple language mappings for step titles (10-step consolidated flows)
+// Simple language mappings for step titles (8-step aerobic, 10-step conventional)
 const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
   aerobic: {
-    1: "We checked that all our tools and safety equipment are ready.",
-    2: "We arrived, greeted the homeowner, confirmed the address, and explained the inspection.",
-    3: "We found where the septic tank and control panel are located.",
-    4: "We carefully opened the tank lids and measured the sludge level.",
-    5: "We tested the float switches, pump operation, and alarm.",
-    6: "We checked for corrosion, inspected the control panel, tested the timer, checked the air filter, and turned breakers back on.",
-    7: "We checked the valve and the spray or drip system that spreads treated water.",
-    8: "We put all the lids back on securely and cleaned up.",
-    9: "We discussed everything we found with you.",
+    1: "We arrived, greeted the homeowner, confirmed the address, and explained the inspection.",
+    2: "We found where the septic tank and control panel are located.",
+    3: "We carefully opened the tank lids and measured the sludge level.",
+    4: "We tested the float switches, pump operation, and alarm.",
+    5: "We checked for corrosion, inspected the control panel, tested the timer, checked the air filter, and turned breakers back on.",
+    6: "We checked the valve and the spray or drip system that spreads treated water.",
+    7: "We put all the lids back on securely and cleaned up.",
+    8: "We discussed everything we found with you.",
   },
   conventional: {
     1: "We checked that all our tools and safety equipment are ready.",
@@ -543,8 +542,8 @@ async function generateReportPDF(
   }
 
   // ═══ KEY READINGS (PSI / Sludge) — side-by-side stat cards ═══
-  const psi = isConventional ? undefined : state.steps[6]?.psiReading;
-  const sludge = isConventional ? state.steps[9]?.sludgeLevel : state.steps[7]?.sludgeLevel;
+  const psi = isConventional ? undefined : state.steps[5]?.psiReading;
+  const sludge = isConventional ? state.steps[9]?.sludgeLevel : state.steps[6]?.sludgeLevel;
   if (psi || sludge) {
     ensureSpace(24);
     const boxW = (contentW - 6) / 2;
@@ -1498,7 +1497,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
 
   // Manufacturer detection for aerobic systems (from step 6 custom field)
   const manufacturerId = !isConventional
-    ? resolveManufacturerId(localState.steps[6]?.customFields?.aerobic_manufacturer)
+    ? resolveManufacturerId(localState.steps[2]?.customFields?.aerobic_manufacturer)
     : null;
   const manufacturer = !isConventional ? getManufacturer(manufacturerId) : null;
 
@@ -1558,8 +1557,8 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       startedAt: new Date().toISOString(),
       equipmentVerified: true,
     }));
-    setCurrentStep(2);
-    if (voiceEnabled) speak("Inspection started. Step 2: Arrive and Greet Homeowner.");
+    setCurrentStep(1);
+    if (voiceEnabled) speak("Inspection started. Step 1: Arrive and Greet Homeowner.");
     // Auto-fetch weather data in background (non-blocking)
     weatherMutation.mutate(jobId, {
       onSuccess: (data) => {
@@ -2283,18 +2282,18 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         </div>
 
         {/* Sludge Level & PSI Summary */}
-        {(localState.steps[7]?.sludgeLevel || localState.steps[6]?.psiReading) && (
+        {(localState.steps[6]?.sludgeLevel || localState.steps[5]?.psiReading) && (
           <div className="grid grid-cols-2 gap-3">
-            {localState.steps[7]?.sludgeLevel && (
+            {localState.steps[6]?.sludgeLevel && (
               <div className="border border-border rounded-lg p-3 text-center">
                 <p className="text-xs text-text-muted">Sludge Level</p>
-                <p className="text-lg font-bold text-text-primary">{localState.steps[7].sludgeLevel}</p>
+                <p className="text-lg font-bold text-text-primary">{localState.steps[6].sludgeLevel}</p>
               </div>
             )}
-            {localState.steps[6]?.psiReading && (
+            {localState.steps[5]?.psiReading && (
               <div className="border border-border rounded-lg p-3 text-center">
                 <p className="text-xs text-text-muted">PSI Reading</p>
-                <p className="text-lg font-bold text-text-primary">{localState.steps[6].psiReading}</p>
+                <p className="text-lg font-bold text-text-primary">{localState.steps[5].psiReading}</p>
               </div>
             )}
           </div>
@@ -2650,12 +2649,12 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
       {/* Weather Card — show on site conditions step (conventional step 3) or compact when loaded */}
       {weather?.current ? (
         <WeatherCard weather={weather} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => setWeather(d) })} isFetching={weatherMutation.isPending} />
-      ) : currentStep === 3 && !weather ? (
+      ) : currentStep === 2 && !weather ? (
         <WeatherCard weather={null} onFetch={() => weatherMutation.mutate(jobId, { onSuccess: (d) => { setWeather(d); toastSuccess("Weather data loaded!"); } })} isFetching={weatherMutation.isPending} />
       ) : null}
 
       {/* Manufacturer Banner (aerobic only — shows after step 3 manufacturer selection) */}
-      {manufacturer && manufacturer.id !== "other" && currentStep > 3 && (
+      {manufacturer && manufacturer.id !== "other" && currentStep > 2 && (
         <ManufacturerBanner manufacturer={manufacturer} />
       )}
 
