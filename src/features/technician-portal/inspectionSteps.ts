@@ -1,6 +1,6 @@
 /**
  * Inspection Checklist Step Configuration
- * Based on MAC Septic field meeting notes — 10-step guided inspection flow
+ * Based on MAC Septic field meeting notes — 9-step aerobic inspection flow
  * (Consolidated from original 16 steps — all content preserved, fewer top-level steps)
  */
 
@@ -133,7 +133,7 @@ export const EQUIPMENT_ITEMS: EquipmentItem[] = [
   { id: "air_filter", label: "Air Filter ($10)", emoji: "🌀", category: "supplies" },
 ];
 
-// ─── 10-Step Inspection Flow (consolidated from 16) ─────────────────────────
+// ─── 9-Step Aerobic Inspection Flow (consolidated from 16) ───────────────────
 
 export const INSPECTION_STEPS: InspectionStep[] = [
   {
@@ -282,7 +282,6 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     requiresPhoto: true,
     photoType: "inspection_float_test",
     photoGuidance: "Photo of float switches and pump during test",
-    hasPsiReading: true,
     estimatedMinutes: 3,
     parts: [
       { name: "Replacement float switch", partNumber: "FLT-UNI-120", estimatedCost: 45 },
@@ -291,10 +290,15 @@ export const INSPECTION_STEPS: InspectionStep[] = [
   },
   {
     stepNumber: 6,
-    title: "Inspect Control Panel & Timer",
+    title: "Inspect Control Panel, Timer & Air Filter",
     emoji: "🎛️",
-    description: "Inspect control panel, test timer settings, and verify alarm bulb and buzzer.",
+    description: "Check corrosion, inspect control panel & timer, test alarm, check air filter, ventilate, and turn breakers back on.",
+    hasPsiReading: true,
     detailedInstructions: [
+      // Corrosion & connections
+      "Inspect all metal components for rust or corrosion",
+      "Check wire nuts and connections for degradation",
+      "Apply silicon sealant where needed",
       // Control panel inspection
       "Open control panel door carefully",
       "Check for warning lights",
@@ -316,28 +320,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Replace bulb if burned out (note replacement needed)",
       "Check alarm visibility from house — homeowner should see/hear it",
       "Verify alarm wiring integrity",
-    ],
-    requiresPhoto: true,
-    photoType: "control_panel",
-    photoGuidance: "Photo of control panel with all lights/indicators visible, timer settings, and alarm test",
-    estimatedMinutes: 5,
-    parts: [
-      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
-      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
-      { name: "Alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
-      { name: "Buzzer unit", partNumber: "BZR-12V-WP", estimatedCost: 25 },
-    ],
-  },
-  {
-    stepNumber: 7,
-    title: "Check Corrosion & Air Filter",
-    emoji: "🔍",
-    description: "Inspect for corrosion, apply sealant, check air filter, ventilate panel, and turn breakers back on.",
-    detailedInstructions: [
-      // Corrosion, seal & ventilate
-      "Inspect all metal components for rust or corrosion",
-      "Check wire nuts and connections for degradation",
-      "Apply silicon sealant where needed",
+      // Air filter & ventilation
       "🌀 CHECK AIR FILTER — replace if dirty/clogged ($10, annual replacement)",
       "Leave control panel door OPEN for 4-5 minutes to ventilate",
       "Note any parts that need replacement",
@@ -351,19 +334,22 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "If a breaker trips immediately, note as critical issue",
     ],
     requiresPhoto: true,
-    photoType: "inspection_corrosion",
-    photoGuidance: "Photo of any corrosion found or clean connections. Include air filter condition and breaker panel showing ALL breakers ON.",
+    photoType: "control_panel",
+    photoGuidance: "Photo of control panel, air filter condition, and breaker panel showing ALL breakers ON.",
     safetyWarning: "Leave panel door open 4-5 minutes for ventilation before closing. ALWAYS turn breakers back on — leaving them off will cause system failure and sewage backup.",
-    estimatedMinutes: 3,
+    estimatedMinutes: 8,
     parts: [
-      { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ", estimatedCost: 8 },
+      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
       { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
+      { name: "Alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
+      { name: "Buzzer unit", partNumber: "BZR-12V-WP", estimatedCost: 25 },
+      { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ", estimatedCost: 8 },
       { name: "Conduit sealant", partNumber: "CND-SEAL-GRY", estimatedCost: 12 },
       { name: "Air filter (annual replacement)", partNumber: "AF-STD-AEROBIC", estimatedCost: 10 },
     ],
   },
   {
-    stepNumber: 8,
+    stepNumber: 7,
     title: "Check Valve & Spray/Drip System",
     emoji: "🚿",
     description: "Inspect check valve in distribution box and clean drip filter. Check spray heads OR drip emitters (system-dependent).",
@@ -385,7 +371,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
   },
   {
-    stepNumber: 9,
+    stepNumber: 8,
     title: "Secure All Lids & Clean Up",
     emoji: "🔒",
     description: "Replace and secure ALL lids. Pick up ALL trash and debris.",
@@ -404,7 +390,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 1,
   },
   {
-    stepNumber: 10,
+    stepNumber: 9,
     title: "Discuss Findings with Homeowner",
     emoji: "🤝",
     description: "Knock on door, walk through findings, and prime for future services.",

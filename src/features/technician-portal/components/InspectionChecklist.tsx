@@ -121,11 +121,10 @@ const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
     3: "We found where the septic tank and control panel are located.",
     4: "We carefully opened the tank lids and measured the sludge level.",
     5: "We tested the float switches, pump operation, and alarm.",
-    6: "We inspected the control panel, tested the timer settings, and checked the alarm bulb and buzzer.",
-    7: "We checked for corrosion, inspected the air filter, and turned the breakers back on.",
-    8: "We checked the valve and the spray or drip system that spreads treated water.",
-    9: "We put all the lids back on securely and cleaned up.",
-    10: "We discussed everything we found with you.",
+    6: "We checked for corrosion, inspected the control panel, tested the timer, checked the air filter, and turned breakers back on.",
+    7: "We checked the valve and the spray or drip system that spreads treated water.",
+    8: "We put all the lids back on securely and cleaned up.",
+    9: "We discussed everything we found with you.",
   },
   conventional: {
     1: "We checked that all our tools and safety equipment are ready.",
@@ -544,7 +543,7 @@ async function generateReportPDF(
   }
 
   // ═══ KEY READINGS (PSI / Sludge) — side-by-side stat cards ═══
-  const psi = isConventional ? undefined : state.steps[8]?.psiReading;
+  const psi = isConventional ? undefined : state.steps[6]?.psiReading;
   const sludge = isConventional ? state.steps[9]?.sludgeLevel : state.steps[7]?.sludgeLevel;
   if (psi || sludge) {
     ensureSpace(24);
@@ -2284,7 +2283,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         </div>
 
         {/* Sludge Level & PSI Summary */}
-        {(localState.steps[7]?.sludgeLevel || localState.steps[8]?.psiReading) && (
+        {(localState.steps[7]?.sludgeLevel || localState.steps[6]?.psiReading) && (
           <div className="grid grid-cols-2 gap-3">
             {localState.steps[7]?.sludgeLevel && (
               <div className="border border-border rounded-lg p-3 text-center">
@@ -2292,10 +2291,10 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
                 <p className="text-lg font-bold text-text-primary">{localState.steps[7].sludgeLevel}</p>
               </div>
             )}
-            {localState.steps[8]?.psiReading && (
+            {localState.steps[6]?.psiReading && (
               <div className="border border-border rounded-lg p-3 text-center">
                 <p className="text-xs text-text-muted">PSI Reading</p>
-                <p className="text-lg font-bold text-text-primary">{localState.steps[8].psiReading}</p>
+                <p className="text-lg font-bold text-text-primary">{localState.steps[6].psiReading}</p>
               </div>
             )}
           </div>
