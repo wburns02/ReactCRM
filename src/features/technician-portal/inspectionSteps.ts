@@ -232,7 +232,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Check lid condition: cracks, deterioration, proper seal",
       "Measure and record sludge level using sludge judge",
       "Measure depth in the trash tank",
-      "Measure depth in the pre-treatment clarifier",
+      "Measure depth in the clarifier",
       "Measure depth in the effluent chamber",
     ],
     requiresPhoto: true,
@@ -249,7 +249,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       },
       {
         id: "clarifier_depth",
-        label: "Pre-Treatment Clarifier — Depth (inches)",
+        label: "Clarifier — Depth (inches)",
         type: "text",
         placeholder: "e.g., 10",
       },
