@@ -52,6 +52,12 @@ const StatusWidget = lazy(() =>
   })),
 );
 
+
+const PublicBookingPage = lazy(() =>
+  import("@/features/landing/pages/PublicBookingPage.tsx").then((m) => ({
+    default: m.PublicBookingPage,
+  })),
+);
 /**
  * Public routes - no authentication required
  * Includes: landing page, login, embeddable widgets, tracking, public payment
@@ -89,6 +95,16 @@ export function PublicRoutes() {
         }
       />
 
+
+      {/* Public Booking Page */}
+      <Route
+        path="/book"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PublicBookingPage />
+          </Suspense>
+        }
+      />
       {/* Public login route */}
       <Route path="/login" element={<LoginPage />} />
 

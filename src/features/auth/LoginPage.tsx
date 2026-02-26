@@ -322,7 +322,7 @@ export function LoginPage() {
         >
           {/* Mobile logo (hidden on lg+) */}
           <div className="lg:hidden flex items-center justify-center gap-2 mb-8">
-            <img src="/logo.svg" alt="MAC Septic Services" className="h-10" />
+            <img src="/logo.png" alt="MAC Septic" className="h-10 w-auto" />
           </div>
 
           {/* Welcome heading */}

@@ -45,6 +45,12 @@ const RequireCustomerPortalAuth = lazy(() =>
   })),
 );
 
+const PayInvoicePage = lazy(() =>
+  import("@/features/customer-portal/index.ts").then((m) => ({
+    default: m.PayInvoicePage,
+  })),
+);
+
 /**
  * Customer Self-Service Portal routes at /customer-portal/*
  *
@@ -60,6 +66,16 @@ export function CustomerPortalRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <CustomerPortalLogin />
+          </Suspense>
+        }
+      />
+
+      {/* Public: Pay invoice (no auth required) */}
+      <Route
+        path="/customer-portal/pay/:invoiceId"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PayInvoicePage />
           </Suspense>
         }
       />

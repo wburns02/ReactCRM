@@ -13,6 +13,7 @@ import type {
   MarginByJobType,
 } from "@/api/types/analytics";
 import { formatCurrency, cn } from "@/lib/utils";
+import { RevenueForecast } from "./components/RevenueForecast";
 
 export function FinancialDashboard() {
   const [dateRange, setDateRange] = useState<
@@ -106,6 +107,9 @@ export function FinancialDashboard() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Revenue Forecast */}
+          <RevenueForecast />
 
           {/* AR Aging & Margins */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

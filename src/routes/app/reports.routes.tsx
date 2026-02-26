@@ -76,6 +76,12 @@ const AIInsightsPanel = lazy(() =>
   })),
 );
 
+const CoachingPage = lazy(() =>
+  import("@/features/coaching/CoachingPage.tsx").then((m) => ({
+    default: m.CoachingPage,
+  })),
+);
+
 /**
  * Reports and Analytics routes
  */
@@ -173,6 +179,16 @@ export function ReportsRoutes() {
           </Suspense>
         }
       />
+      {/* AI Coaching */}
+      <Route
+        path="coaching"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <CoachingPage />
+          </Suspense>
+        }
+      />
+
       <Route
         path="analytics/insights"
         element={

@@ -63,6 +63,12 @@ const GreaseTrapPricingPage = lazy(() =>
   })),
 );
 
+const QuotesPage = lazy(() =>
+  import("@/features/billing/pages/QuotesPage.tsx").then((m) => ({
+    default: m.QuotesPage,
+  })),
+);
+
 /**
  * Billing routes - Invoices, Estimates, Payments, Payment Plans
  */
@@ -150,6 +156,16 @@ export function BillingRoutes() {
           </Suspense>
         }
       />
+      {/* Quotes */}
+      <Route
+        path="quotes"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <QuotesPage />
+          </Suspense>
+        }
+      />
+
       {/* Grease Trap Pricing */}
       <Route
         path="grease-trap-pricing"
