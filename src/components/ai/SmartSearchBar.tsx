@@ -10,9 +10,14 @@ import {
  * AI-powered smart search bar with natural language processing
  * Supports queries like "find customer John Smith" or "show overdue invoices"
  */
-export function SmartSearchBar() {
+interface SmartSearchBarProps {
+  forceOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function SmartSearchBar({ forceOpen, onClose }: SmartSearchBarProps = {}) {
   const [query, setQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(forceOpen ?? false);
   const [showResults, setShowResults] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,6 +25,21 @@ export function SmartSearchBar() {
 
   const searchMutation = useSmartSearch();
   const suggestionsMutation = useSearchSuggestions();
+
+  // Sync forceOpen prop
+  useEffect(() => {
+    if (forceOpen) {
+      setIsOpen(true);
+      setTimeout(() => inputRef.current?.focus(), 0);
+    }
+  }, [forceOpen]);
+
+  const closeSearch = () => {
+    setIsOpen(false);
+    setShowResults(false);
+    setQuery("");
+    onClose?.();
+  };
 
   // Handle keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {
@@ -30,8 +50,7 @@ export function SmartSearchBar() {
         setTimeout(() => inputRef.current?.focus(), 0);
       }
       if (e.key === "Escape") {
-        setIsOpen(false);
-        setShowResults(false);
+        closeSearch();
       }
     };
 
@@ -79,9 +98,7 @@ export function SmartSearchBar() {
 
   const handleResultClick = (result: SearchResultItem) => {
     navigate(result.url);
-    setIsOpen(false);
-    setShowResults(false);
-    setQuery("");
+    closeSearch();
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -169,11 +186,7 @@ export function SmartSearchBar() {
             <div className="animate-spin h-4 w-4 border-2 border-purple-500 border-t-transparent rounded-full" />
           )}
           <button
-            onClick={() => {
-              setIsOpen(false);
-              setShowResults(false);
-              setQuery("");
-            }}
+            onClick={closeSearch}
             className="text-text-muted hover:text-text-primary"
           >
             <kbd className="px-1.5 py-0.5 text-xs bg-bg-secondary rounded border border-border">

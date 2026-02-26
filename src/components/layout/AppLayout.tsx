@@ -16,6 +16,7 @@ import { usePageTracker } from "@/hooks/usePageTracker";
 import { useIncomingCall } from "@/hooks/useIncomingCall";
 import { IncomingCallModal } from "@/features/calls/components/IncomingCallModal";
 import { Sidebar } from "./Sidebar";
+import { SmartSearchBar } from "@/components/ai/SmartSearchBar";
 import { Sun, Moon } from "lucide-react";
 
 export function AppLayout() {
@@ -73,18 +74,21 @@ export function AppLayout() {
         )}
 
         {/* Desktop top bar */}
-        <div className="h-12 border-b border-border bg-bg-card px-6 hidden md:flex items-center justify-end gap-4">
-          <button
-            onClick={toggleTheme}
-            className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-bg-hover transition-colors"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
-          <ConnectionStatus showTooltip size="sm" />
-          <NotificationCenter />
-          <RCStatusIndicator />
+        <div className="h-12 border-b border-border bg-bg-card px-6 hidden md:flex items-center justify-between gap-4">
+          <SmartSearchBar />
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-bg-hover transition-colors"
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <ConnectionStatus showTooltip size="sm" />
+            <NotificationCenter />
+            <RCStatusIndicator />
+          </div>
         </div>
 
         {/* Page content */}

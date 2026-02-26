@@ -24,6 +24,7 @@ import { EnterpriseRoutes } from "./app/enterprise.routes";
 import { AdminRoutes } from "./app/admin.routes";
 import { MiscRoutes } from "./app/misc.routes";
 import { PropertyIntelligenceRoutes } from "./app/property-intelligence.routes";
+import { DispatchRoutes } from "./app/dispatch.routes";
 
 
 /**
@@ -112,6 +113,9 @@ export function AppRoutes() {
 
         {/* Admin & Settings */}
         {AdminRoutes()}
+
+        {/* Command Center Dispatch */}
+        {DispatchRoutes()}
 
         {/* Property Intelligence */}
         {PropertyIntelligenceRoutes()}
