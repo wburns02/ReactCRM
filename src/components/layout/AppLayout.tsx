@@ -17,6 +17,7 @@ import { useIncomingCall } from "@/hooks/useIncomingCall";
 import { IncomingCallModal } from "@/features/calls/components/IncomingCallModal";
 import { Sidebar } from "./Sidebar";
 import { SmartSearchBar } from "@/components/ai/SmartSearchBar";
+import { SoftPhone } from "@/features/phone/SoftPhone";
 import { Sun, Moon } from "lucide-react";
 
 export function AppLayout() {
@@ -112,6 +113,13 @@ export function AppLayout() {
       )}
 
       <IncomingCallModal call={incomingCall} open={callModalOpen} onDismiss={dismissCall} />
+
+      {/* WebRTC Softphone — desktop only (admin) */}
+      {!isTechnician && (
+        <div className="hidden md:block">
+          <SoftPhone />
+        </div>
+      )}
     </div>
     </EmailComposeProvider>
   );
