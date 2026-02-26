@@ -1,8 +1,9 @@
 import type { ImportRow } from "./store";
+import type ExcelJSType from "exceljs";
 
 /**
  * Parse an XLSX file (Sherrie Sheet format) into ImportRow[].
- * Uses the SheetJS library loaded from CDN at runtime.
+ * Uses the ExcelJS library.
  *
  * Expected "All Contracts 1030" columns:
  *   A: Account Number
@@ -13,10 +14,6 @@ import type { ImportRow } from "./store";
  *   J: Account Email
  *   L: Type (Initial/Renewal/Transfer/Perpetual)
  */
-
-interface SheetRow {
-  [key: string]: string | number | undefined;
-}
 
 // Column header mapping - maps possible header names to our fields
 const HEADER_MAP: Record<string, keyof ImportRow> = {
@@ -38,25 +35,6 @@ const HEADER_MAP: Record<string, keyof ImportRow> = {
 };
 
 /**
- * Load SheetJS (xlsx) library dynamically
- */
-async function loadXLSX(): Promise<typeof import("xlsx")> {
-  // Check if already loaded globally
-  const win = window as unknown as { XLSX?: typeof import("xlsx") };
-  if (win.XLSX) return win.XLSX;
-
-  // Dynamic import - works with bundler
-  try {
-    const mod = await import("xlsx");
-    return mod;
-  } catch {
-    throw new Error(
-      "XLSX library not available. Install with: npm install xlsx",
-    );
-  }
-}
-
-/**
  * Parse an XLSX file and return ImportRow[].
  * Tries to find the sheet with contract data (most rows).
  */
@@ -66,84 +44,98 @@ export async function parseXlsxFile(file: File): Promise<{
   totalRows: number;
   skippedRows: number;
 }> {
-  const XLSX = await loadXLSX();
   const buffer = await file.arrayBuffer();
-  const workbook = XLSX.read(buffer, { type: "array" });
+  const ExcelJS = (await import("exceljs")).default;
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(buffer);
 
   // Find the sheet with the most data (likely "All Contracts 1030")
-  let bestSheet = workbook.SheetNames[0];
+  let bestSheet: ExcelJSType.Worksheet | undefined;
   let bestRowCount = 0;
 
-  for (const name of workbook.SheetNames) {
-    const sheet = workbook.Sheets[name];
-    const data = XLSX.utils.sheet_to_json<SheetRow>(sheet);
-    if (data.length > bestRowCount) {
-      bestRowCount = data.length;
-      bestSheet = name;
+  workbook.eachSheet((worksheet) => {
+    // rowCount includes the header, so actual data rows = rowCount - 1
+    // but we just compare totals to pick the biggest sheet
+    if (worksheet.rowCount > bestRowCount) {
+      bestRowCount = worksheet.rowCount;
+      bestSheet = worksheet;
+    }
+  });
+
+  if (!bestSheet) {
+    throw new Error("No sheets found in workbook");
+  }
+
+  const worksheet = bestSheet;
+
+  // Read the header row (row 1) to build field mapping
+  const headerRow = worksheet.getRow(1);
+  const fieldMap: Record<number, keyof ImportRow> = {};
+  const headerCount = headerRow.cellCount;
+
+  for (let col = 1; col <= headerCount; col++) {
+    const cell = headerRow.getCell(col);
+    const headerText = cell.value != null ? String(cell.value).toLowerCase().trim() : "";
+    if (headerText && HEADER_MAP[headerText]) {
+      fieldMap[col] = HEADER_MAP[headerText];
     }
   }
 
-  const sheet = workbook.Sheets[bestSheet];
-  const rawRows = XLSX.utils.sheet_to_json<SheetRow>(sheet);
-
-  // Map headers to our fields
-  const headers = rawRows.length > 0 ? Object.keys(rawRows[0]) : [];
-  const fieldMap: Record<string, keyof ImportRow> = {};
-  for (const header of headers) {
-    const normalized = header.toLowerCase().trim();
-    if (HEADER_MAP[normalized]) {
-      fieldMap[header] = HEADER_MAP[normalized];
-    }
-  }
-
-  // Parse rows
+  // Parse data rows (skip header at row 1)
   const rows: ImportRow[] = [];
   let skipped = 0;
+  let totalDataRows = 0;
 
-  for (const raw of rawRows) {
-    const row: Partial<ImportRow> = {};
-    for (const [header, field] of Object.entries(fieldMap)) {
-      const val = raw[header];
+  worksheet.eachRow((row, rowNumber) => {
+    if (rowNumber === 1) return; // skip header
+    totalDataRows++;
+
+    const parsed: Partial<ImportRow> = {};
+    for (const [colStr, field] of Object.entries(fieldMap)) {
+      const col = Number(colStr);
+      const cell = row.getCell(col);
+      const val = cell.value;
+
       if (val !== undefined && val !== null) {
         if (field === "term_months") {
-          row[field] = typeof val === "number" ? val : parseInt(String(val), 10);
+          parsed[field] = typeof val === "number" ? val : parseInt(String(val), 10);
         } else {
-          row[field] = String(val).trim();
+          parsed[field] = String(val).trim();
         }
       }
     }
 
     // Must have phone to be callable
-    if (!row.phone) {
+    if (!parsed.phone) {
       skipped++;
-      continue;
+      return;
     }
 
     // Clean phone number
-    row.phone = cleanPhone(row.phone);
-    if (!row.phone) {
+    parsed.phone = cleanPhone(parsed.phone);
+    if (!parsed.phone) {
       skipped++;
-      continue;
+      return;
     }
 
     rows.push({
-      account_number: row.account_number || "",
-      account_name: row.account_name || "Unknown",
-      company: row.company || "",
-      contract_number: row.contract_number || "",
-      phone: row.phone,
-      email: row.email || "",
-      contract_type: row.contract_type || "",
-      start_date: row.start_date,
-      end_date: row.end_date,
-      term_months: row.term_months,
+      account_number: parsed.account_number || "",
+      account_name: parsed.account_name || "Unknown",
+      company: parsed.company || "",
+      contract_number: parsed.contract_number || "",
+      phone: parsed.phone,
+      email: parsed.email || "",
+      contract_type: parsed.contract_type || "",
+      start_date: parsed.start_date,
+      end_date: parsed.end_date,
+      term_months: parsed.term_months,
     });
-  }
+  });
 
   return {
     rows,
-    sheetName: bestSheet,
-    totalRows: rawRows.length,
+    sheetName: worksheet.name,
+    totalRows: totalDataRows,
     skippedRows: skipped,
   };
 }
