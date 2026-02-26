@@ -176,55 +176,6 @@ export function useQuickCreate() {
 /**
  * Send SMS notification to assigned tech for an existing work order
  */
-// --- Smart Dispatch types & hooks ---
-
-export interface TechRecommendation {
-  technician_id: string;
-  name: string;
-  score: number;
-  distance_miles: number | null;
-  estimated_travel_minutes: number | null;
-  availability: string;
-  location_source: string | null;
-  job_load: { scheduled_today: number; active_jobs: number };
-  skills_missing: string[];
-}
-
-/**
- * Get dispatch recommendation for a work order (not used directly — SmartAssign calls apiClient)
- */
-export function useDispatchRecommendation(workOrderId: string) {
-  return useQuery({
-    queryKey: ["dispatch", "recommend", workOrderId],
-    queryFn: async () => {
-      const { data } = await apiClient.get(`/dispatch/recommend/${workOrderId}`);
-      return data.recommended_technicians as TechRecommendation[];
-    },
-    enabled: !!workOrderId,
-  });
-}
-
-/**
- * Assign a technician to a work order via dispatch
- */
-export function useDispatchAssign() {
-  return useMutation({
-    mutationFn: async ({ workOrderId, technicianId }: { workOrderId: string; technicianId: string }) => {
-      const { data } = await apiClient.post("/dispatch/assign", {
-        work_order_id: workOrderId,
-        technician_id: technicianId,
-      });
-      return data;
-    },
-    onSuccess: () => {
-      toastSuccess("Technician assigned", "Work order updated successfully.");
-    },
-    onError: () => {
-      toastError("Assignment failed", "Could not assign technician.");
-    },
-  });
-}
-
 export function useNotifyTech() {
   return useMutation({
     mutationFn: async (workOrderId: string): Promise<NotifyResult> => {
@@ -240,3 +191,4 @@ export function useNotifyTech() {
     },
   });
 }
+
