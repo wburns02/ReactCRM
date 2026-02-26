@@ -48,6 +48,7 @@ export const WORK_ORDER_STATUS_SHORT: Record<string, string> = {
 export const jobTypeSchema = z.enum([
   "pumping",
   "inspection",
+  "real_estate_inspection",
   "repair",
   "installation",
   "emergency",
@@ -60,6 +61,7 @@ export type JobType = z.infer<typeof jobTypeSchema>;
 export const JOB_TYPE_LABELS: Record<JobType, string> = {
   pumping: "Pumping",
   inspection: "Inspection",
+  real_estate_inspection: "Real Estate Inspection",
   repair: "Repair",
   installation: "Installation",
   emergency: "Emergency",

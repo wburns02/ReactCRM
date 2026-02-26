@@ -11,7 +11,7 @@ WorkOrderStatus = Literal[
 ]
 
 JobType = Literal[
-    "pumping", "inspection", "repair", "installation",
+    "pumping", "inspection", "real_estate_inspection", "repair", "installation",
     "emergency", "maintenance", "grease_trap", "camera_inspection"
 ]
 
