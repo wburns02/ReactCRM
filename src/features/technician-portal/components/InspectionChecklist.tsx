@@ -123,7 +123,7 @@ const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
     2: "We found where the septic tank and control panel are located.",
     3: "We carefully opened the tank lids and measured the sludge level.",
     4: "We tested the float switches, pump operation, and alarm.",
-    5: "We checked for corrosion, inspected the control panel, tested the timer, checked the air filter, and turned breakers back on.",
+    5: "We verified breakers, inspected for corrosion, checked the control panel and timer, tested the alarm, checked the air filter, and confirmed the pump is running.",
     6: "We checked the valve and the spray or drip system that spreads treated water.",
     7: "We put all the lids back on securely and cleaned up.",
     8: "We discussed everything we found with you.",
