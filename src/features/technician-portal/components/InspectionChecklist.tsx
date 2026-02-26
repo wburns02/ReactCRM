@@ -36,11 +36,14 @@ import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 interface Props {
   jobId: string;
   systemType?: string;
+  jobType?: string;
   customerPhone?: string;
   customerName?: string;
   customerEmail?: string;
   onPhotoUploaded?: () => void;
 }
+
+const DOUG_EMAIL = "Doug@macseptic.com";
 
 // ─── Voice helpers ──────────────────────────────────────────────────────────
 
@@ -1466,7 +1469,9 @@ function BulkPhotoUploadStep({
 
 // ─── Main Component ─────────────────────────────────────────────────────────
 
-export function InspectionChecklist({ jobId, systemType = "aerobic", customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
+export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, customerPhone, customerName, customerEmail, onPhotoUploaded }: Props) {
+  const isRealEstateInspection = jobType === "real_estate_inspection";
+  const emailRecipient = isRealEstateInspection ? DOUG_EMAIL : customerEmail;
   const { data: serverState, isLoading } = useInspectionState(jobId);
   const { data: workOrderPhotos, refetch: refetchPhotos } = useWorkOrderPhotos(jobId);
   const { data: existingJobPhotos = [] } = useJobPhotos(jobId);
@@ -1891,7 +1896,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
   };
 
   const handleEmailReport = async () => {
-    if (!customerEmail) {
+    if (!emailRecipient) {
       toastInfo("No customer email on file");
       return;
     }
@@ -1916,7 +1921,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
             reportSentAt: new Date().toISOString(),
           },
         },
-        sendReport: { method: "email", to: customerEmail, pdfBase64: base64 },
+        sendReport: { method: "email", to: emailRecipient, pdfBase64: base64 },
       });
       console.log("[InspectionChecklist] Email result:", JSON.stringify(result));
       if (result?.report_sent === false) {
@@ -1950,11 +1955,11 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
           "MAC Septic Services — San Marcos, TX",
         ].join("\n");
 
-        window.open(`mailto:${customerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
+        window.open(`mailto:${emailRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
         toastSuccess("PDF downloaded — attach it to the email that just opened!");
       } else {
         const pdfNote = result?.pdf_attached ? " with PDF attached" : " (PDF not attached)";
-        toastSuccess(`Report emailed to ${customerEmail}${pdfNote}!`);
+        toastSuccess(`Report emailed to ${emailRecipient}${pdfNote}!`);
         if (!result?.pdf_attached) {
           console.warn("[InspectionChecklist] Email sent but PDF was NOT attached. Result:", result);
         }
@@ -2464,7 +2469,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
         <div className="border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 dark:border-green-700 rounded-xl p-4">
           <div className="text-center mb-3">
             <span className="text-3xl">📤</span>
-            <h4 className="font-bold text-text-primary text-lg mt-1">Send Report to Customer</h4>
+            <h4 className="font-bold text-text-primary text-lg mt-1">{isRealEstateInspection ? "Send Report to Doug" : "Send Report to Customer"}</h4>
             <p className="text-xs text-text-secondary mt-1">
               {workOrderPhotos && workOrderPhotos.length > 0
                 ? `Report includes AI analysis + ${workOrderPhotos.length} photos`
@@ -2475,11 +2480,13 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", customerPho
           {/* Primary action — Email (most common) */}
           <button
             onClick={handleEmailReport}
-            disabled={sendingReport === "email" || !customerEmail}
+            disabled={sendingReport === "email" || !emailRecipient}
             className="w-full py-4 rounded-xl bg-primary text-white font-bold text-base hover:bg-primary/90 active:scale-[0.98] transition-all disabled:opacity-50 mb-2"
           >
             {sendingReport === "email" ? (
               <span className="flex items-center justify-center gap-2"><span className="animate-spin">⏳</span> Sending Email...</span>
+            ) : isRealEstateInspection ? (
+              <span className="flex items-center justify-center gap-2">📧 Email to Doug</span>
             ) : customerEmail ? (
               <span className="flex items-center justify-center gap-2">📧 Email Report to Customer</span>
             ) : (

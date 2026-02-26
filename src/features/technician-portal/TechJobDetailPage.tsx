@@ -1423,6 +1423,7 @@ export function TechJobDetailPage() {
             <InspectionChecklist
               jobId={jobId!}
               systemType={job?.system_type || "conventional"}
+              jobType={job?.job_type || undefined}
               customerPhone={customer?.phone || undefined}
               customerName={customer ? `${customer.first_name || ""} ${customer.last_name || ""}`.trim() : undefined}
               customerEmail={customer?.email || undefined}
