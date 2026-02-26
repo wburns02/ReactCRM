@@ -341,6 +341,7 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       "Open distribution box",
       "Inspect check valve — should move freely and not be stuck",
       "Clean drip filter",
+      "Make sure ball valve is CLOSED after cleaning the drip filter",
       "For SPRAY systems: Each head should spray at least 20–30 feet — if not, clean or replace clogged heads",
       "For DRIP systems: Check drip emitters and distribution lines for blockages",
     ],
