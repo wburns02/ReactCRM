@@ -25,6 +25,7 @@ import { AdminRoutes } from "./app/admin.routes";
 import { MiscRoutes } from "./app/misc.routes";
 import { PropertyIntelligenceRoutes } from "./app/property-intelligence.routes";
 import { DispatchRoutes } from "./app/dispatch.routes";
+import { OutboundCampaignsRoutes } from "./app/outbound-campaigns.routes";
 
 
 /**
@@ -116,6 +117,9 @@ export function AppRoutes() {
 
         {/* Command Center Dispatch */}
         {DispatchRoutes()}
+
+        {/* Outbound Campaigns */}
+        {OutboundCampaignsRoutes()}
 
         {/* Property Intelligence */}
         {PropertyIntelligenceRoutes()}

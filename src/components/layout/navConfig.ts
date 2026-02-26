@@ -6,7 +6,7 @@ import {
   Inbox, MessageCircle, Mail, PhoneCall, Bell, Plug, Receipt, CreditCard,
   BarChart3, TrendingUp, Banknote, Calculator, Building2, Truck, Activity,
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
-  Download, Globe, Eye, type LucideIcon,
+  Download, Globe, Eye, PhoneOutgoing, type LucideIcon,
 } from "lucide-react";
 
 export interface NavItem {
@@ -74,6 +74,7 @@ export const navGroups: NavGroup[] = [
       { path: "/phone", label: "Phone Dashboard", icon: Phone },
       { path: "/communications/templates", label: "Message Templates", icon: FileText },
       { path: "/communications/reminders", label: "Auto-Reminders", icon: Bell },
+      { path: "/outbound-campaigns", label: "Outbound Campaigns", icon: PhoneOutgoing, badge: "NEW" },
       { path: "/integrations", label: "Integrations", icon: Plug },
     ],
   },
