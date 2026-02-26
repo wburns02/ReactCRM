@@ -161,7 +161,7 @@ apiClient.interceptors.response.use(
     // Handle authentication errors
     if (status === 401) {
       // Skip auth handling for optional endpoints that should fail silently
-      const optionalEndpoints = ["/roles", "/auth/refresh", "/entities"];
+      const optionalEndpoints = ["/roles", "/auth/refresh", "/entities", "/auth/me"];
       const isOptionalEndpoint = optionalEndpoints.some((endpoint) =>
         url?.includes(endpoint),
       );
