@@ -319,6 +319,77 @@ export interface GA4RealtimeData {
   };
 }
 
+// Session 1: Search Terms Analysis
+export interface SearchTermAnalysis {
+  search_term: string;
+  campaign: string;
+  clicks: number;
+  impressions: number;
+  conversions: number;
+  cost: number;
+  cpa: number | null;
+  flag: "competitor" | "out_of_area" | "irrelevant" | null;
+  category: string | null;
+}
+
+export interface SearchTermsAnalysisResponse {
+  success: boolean;
+  terms: SearchTermAnalysis[];
+  summary: {
+    total_waste: number;
+    total_waste_monthly: number;
+    competitor_waste: number;
+    out_of_area_waste: number;
+    irrelevant_waste: number;
+    flagged_count: number;
+    total_count: number;
+  };
+}
+
+export interface NegativeKeyword {
+  id: string;
+  keyword: string;
+  match_type: string;
+  source: string;
+  campaign_id: string | null;
+  campaign_name: string | null;
+  category: string | null;
+  estimated_waste: number | null;
+  status: string;
+  created_by: string;
+  created_at: string;
+}
+
+// Session 2: Ads Comparison
+export interface AdsComparisonResponse {
+  success: boolean;
+  period_days: number;
+  current: Record<string, number>;
+  previous: Record<string, number>;
+  changes: Record<string, { current: number; previous: number; change_percent: number; direction: "up" | "down" | "flat" }>;
+}
+
+// Session 3: Daily Reports + Alerts
+export interface MarketingAlert {
+  type: string;
+  severity: "high" | "medium" | "low";
+  message: string;
+  metric: string;
+  value: number;
+}
+
+export interface DailyReport {
+  id: string;
+  report_date: string;
+  ads_data: Record<string, number> | null;
+  ga4_data: Record<string, unknown> | null;
+  deltas: Record<string, { current: number; previous: number; change_percent: number }> | null;
+  alerts: MarketingAlert[] | null;
+  summary: string | null;
+  email_sent: boolean;
+  created_at: string;
+}
+
 // Query Keys
 export const marketingKeys = {
   all: ["marketing"] as const,
@@ -326,6 +397,13 @@ export const marketingKeys = {
   adsPerformance: (days: number) =>
     [...marketingKeys.all, "ads", "performance", days] as const,
   adsStatus: () => [...marketingKeys.all, "ads", "status"] as const,
+  searchTermsAnalysis: (days: number) =>
+    [...marketingKeys.all, "ads", "search-terms-analysis", days] as const,
+  negativeKeywords: () => [...marketingKeys.all, "ads", "negative-keywords"] as const,
+  adsComparison: (days: number) =>
+    [...marketingKeys.all, "ads", "comparison", days] as const,
+  dailyReport: () => [...marketingKeys.all, "reports", "daily"] as const,
+  adsAlerts: () => [...marketingKeys.all, "ads", "alerts"] as const,
   seoOverview: () => [...marketingKeys.all, "seo", "overview"] as const,
   seoKeywords: () => [...marketingKeys.all, "seo", "keywords"] as const,
   leadPipeline: () => [...marketingKeys.all, "leads", "pipeline"] as const,
@@ -735,5 +813,124 @@ export function useGA4Realtime() {
       return response.data;
     },
     refetchInterval: 60_000,
+  });
+}
+
+// ==========================================
+// Session 1: Search Terms Analysis + Negative Keywords
+// ==========================================
+
+export function useSearchTermsAnalysis(days: number = 7) {
+  return useQuery({
+    queryKey: marketingKeys.searchTermsAnalysis(days),
+    queryFn: async () => {
+      const response = await apiClient.get<SearchTermsAnalysisResponse>(
+        `/marketing-hub/ads/search-terms/analysis?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+export function useNegativeKeywords() {
+  return useQuery({
+    queryKey: marketingKeys.negativeKeywords(),
+    queryFn: async () => {
+      const response = await apiClient.get<{
+        success: boolean;
+        keywords: NegativeKeyword[];
+        total: number;
+        editor_format: string;
+      }>("/marketing-hub/ads/negative-keywords");
+      return response.data;
+    },
+  });
+}
+
+export function useSaveNegativeKeyword() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: {
+      keyword: string;
+      match_type?: string;
+      source?: string;
+      campaign_id?: string;
+      campaign_name?: string;
+      category?: string;
+      estimated_waste?: number;
+    }) => {
+      const response = await apiClient.post(
+        "/marketing-hub/ads/negative-keywords",
+        data,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: marketingKeys.negativeKeywords() });
+    },
+  });
+}
+
+export function useDeleteNegativeKeyword() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (keywordId: string) => {
+      const response = await apiClient.delete(
+        `/marketing-hub/ads/negative-keywords/${keywordId}`,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: marketingKeys.negativeKeywords() });
+    },
+  });
+}
+
+// ==========================================
+// Session 2: Ads Comparison
+// ==========================================
+
+export function useAdsComparison(days: number = 1) {
+  return useQuery({
+    queryKey: marketingKeys.adsComparison(days),
+    queryFn: async () => {
+      const response = await apiClient.get<AdsComparisonResponse>(
+        `/marketing-hub/ads/comparison?days=${days}`,
+      );
+      return response.data;
+    },
+  });
+}
+
+// ==========================================
+// Session 3: Daily Reports + Alerts
+// ==========================================
+
+export function useDailyReport() {
+  return useQuery({
+    queryKey: marketingKeys.dailyReport(),
+    queryFn: async () => {
+      const response = await apiClient.get<{
+        success: boolean;
+        report: DailyReport | null;
+        message?: string;
+      }>("/marketing-hub/reports/daily/latest");
+      return response.data;
+    },
+  });
+}
+
+export function useAdsAlerts() {
+  return useQuery({
+    queryKey: marketingKeys.adsAlerts(),
+    queryFn: async () => {
+      const response = await apiClient.get<{
+        success: boolean;
+        alerts: MarketingAlert[];
+        report_date: string | null;
+      }>("/marketing-hub/ads/alerts");
+      return response.data;
+    },
+    refetchInterval: 300_000, // 5 minutes
   });
 }

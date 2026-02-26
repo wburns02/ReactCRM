@@ -161,12 +161,18 @@ apiClient.interceptors.response.use(
     // Handle authentication errors
     if (status === 401) {
       // Skip auth handling for optional endpoints that should fail silently
-      const optionalEndpoints = ["/roles", "/auth/refresh"];
+      const optionalEndpoints = ["/roles", "/auth/refresh", "/entities"];
       const isOptionalEndpoint = optionalEndpoints.some((endpoint) =>
         url?.includes(endpoint),
       );
 
-      if (!isOptionalEndpoint) {
+      // Don't redirect on public pages — they don't require auth
+      const publicPaths = ["/home", "/book", "/privacy", "/terms", "/track/", "/pay/", "/embed/", "/portal/", "/customer-portal/"];
+      const isPublicPage = publicPaths.some((p) =>
+        window.location.pathname.startsWith(p),
+      );
+
+      if (!isOptionalEndpoint && !isPublicPage) {
         // Try to refresh the token before giving up
         if (!(error.config as Record<string, unknown>)?._retried) {
           try {
