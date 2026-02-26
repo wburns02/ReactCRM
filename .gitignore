@@ -60,3 +60,4 @@ scrapers/opengov/storage_state.json
 **/.claude/ralph-loop.local.md
 **/ralph-loop.local.md
 Already have records/all_permits_complete.csv
+e2e/.auth-state.json
