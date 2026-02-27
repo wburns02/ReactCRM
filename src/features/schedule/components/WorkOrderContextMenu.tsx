@@ -6,6 +6,7 @@ import {
   useUpdateWorkOrder,
   useAssignWorkOrder,
   useUnscheduleWorkOrder,
+  useDeleteWorkOrder,
 } from "@/api/hooks/useWorkOrders.ts";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import {
@@ -41,6 +42,7 @@ export function WorkOrderContextMenu() {
   const { state, closeMenu } = useContextMenu();
   const { isOpen, position, workOrder } = state;
   const [expanded, setExpanded] = useState<ExpandedSection>(null);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
 
@@ -48,6 +50,7 @@ export function WorkOrderContextMenu() {
   const updateWorkOrder = useUpdateWorkOrder();
   const assignWorkOrder = useAssignWorkOrder();
   const unscheduleWorkOrder = useUnscheduleWorkOrder();
+  const deleteWorkOrder = useDeleteWorkOrder();
 
   // Technician list (only fetched when menu is open)
   const { data: techData } = useTechnicians(
@@ -55,9 +58,12 @@ export function WorkOrderContextMenu() {
   );
   const technicians = techData?.items || [];
 
-  // Reset expanded section when menu opens/closes
+  // Reset expanded section and delete confirmation when menu opens/closes
   useEffect(() => {
-    if (!isOpen) setExpanded(null);
+    if (!isOpen) {
+      setExpanded(null);
+      setConfirmingDelete(false);
+    }
   }, [isOpen]);
 
   // Calculate position with viewport boundary detection
@@ -165,6 +171,12 @@ export function WorkOrderContextMenu() {
     unscheduleWorkOrder.mutate(workOrder.id);
     closeMenu();
   }, [workOrder, unscheduleWorkOrder, closeMenu]);
+
+  const handleDelete = useCallback(() => {
+    if (!workOrder) return;
+    deleteWorkOrder.mutate(workOrder.id);
+    closeMenu();
+  }, [workOrder, deleteWorkOrder, closeMenu]);
 
   if (!isOpen || !workOrder) return null;
 
@@ -437,6 +449,46 @@ export function WorkOrderContextMenu() {
               <span className="text-xs">✕</span>
               Unschedule
             </button>
+          )}
+          {!workOrder.scheduled_date && (
+            <>
+              {!confirmingDelete ? (
+                <button
+                  type="button"
+                  role="menuitem"
+                  data-testid="ctx-delete"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger hover:bg-danger/10 transition-colors"
+                  onClick={() => setConfirmingDelete(true)}
+                >
+                  <span className="text-xs">🗑️</span>
+                  Delete Work Order
+                </button>
+              ) : (
+                <div className="px-3 py-2 space-y-2" data-testid="ctx-delete-confirm">
+                  <p className="text-xs font-medium text-danger">
+                    Are you sure? This cannot be undone.
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      data-testid="ctx-delete-yes"
+                      className="flex-1 px-2 py-1.5 text-xs font-medium text-white bg-danger rounded hover:bg-danger/90 transition-colors"
+                      onClick={handleDelete}
+                    >
+                      Yes, Delete
+                    </button>
+                    <button
+                      type="button"
+                      data-testid="ctx-delete-cancel"
+                      className="flex-1 px-2 py-1.5 text-xs font-medium text-text-secondary bg-bg-muted rounded hover:bg-bg-hover transition-colors"
+                      onClick={() => setConfirmingDelete(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
