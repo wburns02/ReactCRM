@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useOutboundStore } from "../store";
 import {
   CALL_STATUS_CONFIG,
+  ZONE_CONFIG,
   type CampaignContact,
   type ContactCallStatus,
 } from "../types";
@@ -23,11 +24,26 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
 
   const [search, setSearch] = useState("");
   const [filterMode, setFilterMode] = useState<FilterMode>("all");
+  const [zoneFilter, setZoneFilter] = useState<string>("all");
   const [notesId, setNotesId] = useState<string | null>(null);
   const [notesText, setNotesText] = useState("");
 
+  // Collect unique zones for the filter dropdown
+  const availableZones = useMemo(() => {
+    const zones = new Set<string>();
+    for (const c of contacts) {
+      if (c.service_zone) zones.add(c.service_zone);
+    }
+    return Array.from(zones).sort();
+  }, [contacts]);
+
   const filtered = useMemo(() => {
     let list = contacts;
+
+    // Filter by zone
+    if (zoneFilter !== "all") {
+      list = list.filter((c) => c.service_zone === zoneFilter);
+    }
 
     // Filter by status group
     if (filterMode === "pending") {
@@ -57,12 +73,15 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
           c.phone.includes(q) ||
           c.company?.toLowerCase().includes(q) ||
           c.email?.toLowerCase().includes(q) ||
-          c.account_number?.includes(q),
+          c.account_number?.includes(q) ||
+          c.service_zone?.toLowerCase().includes(q) ||
+          c.zip_code?.includes(q) ||
+          c.address?.toLowerCase().includes(q),
       );
     }
 
     return list;
-  }, [contacts, filterMode, search]);
+  }, [contacts, filterMode, zoneFilter, search]);
 
   const filters: { key: FilterMode; label: string; count: number }[] = [
     { key: "all", label: "All", count: contacts.length },
@@ -116,6 +135,19 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
     return digits;
   }
 
+  function getZoneBadge(serviceZone: string | null) {
+    if (!serviceZone) return null;
+    // Look up by exact match first, then try to find a matching key
+    const conf = ZONE_CONFIG[serviceZone] ??
+      Object.entries(ZONE_CONFIG).find(([k]) => serviceZone.includes(k.split(" - ")[0]))?.[1];
+    if (!conf) return <span className="text-xs text-text-tertiary">{serviceZone}</span>;
+    return (
+      <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold ${conf.color}`}>
+        {conf.shortLabel}
+      </span>
+    );
+  }
+
   if (contacts.length === 0) {
     return (
       <div className="text-center py-12 text-text-tertiary text-sm">
@@ -131,12 +163,32 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary" />
           <input
-            placeholder="Search contacts..."
+            placeholder="Search contacts, zones, zip codes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
+
+        {/* Zone filter dropdown */}
+        {availableZones.length > 1 && (
+          <select
+            value={zoneFilter}
+            onChange={(e) => setZoneFilter(e.target.value)}
+            className="text-xs bg-bg-body border border-border rounded-lg px-2 py-2 text-text-secondary cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="all">All Zones</option>
+            {availableZones.map((z) => {
+              const conf = ZONE_CONFIG[z];
+              return (
+                <option key={z} value={z}>
+                  {conf ? conf.shortLabel + " — " : ""}{z}
+                </option>
+              );
+            })}
+          </select>
+        )}
+
         <div className="flex items-center gap-1">
           <Filter className="w-4 h-4 text-text-tertiary" />
           {filters.map((f) => (
@@ -161,6 +213,7 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
           <thead>
             <tr className="bg-bg-hover border-b border-border text-text-secondary text-xs">
               <th className="px-3 py-2 text-left font-medium">Contact</th>
+              <th className="px-3 py-2 text-left font-medium">Zone</th>
               <th className="px-3 py-2 text-left font-medium">Phone</th>
               <th className="px-3 py-2 text-left font-medium">Status</th>
               <th className="px-3 py-2 text-left font-medium">Attempts</th>
@@ -185,6 +238,14 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                         {contact.company}
                       </div>
                     )}
+                    {contact.zip_code && (
+                      <div className="text-[10px] text-text-tertiary font-mono">
+                        {contact.zip_code}
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-3 py-2.5">
+                    {getZoneBadge(contact.service_zone)}
                   </td>
                   <td className="px-3 py-2.5 text-text-primary font-mono text-xs">
                     {formatPhone(contact.phone)}
@@ -201,7 +262,12 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                     {contact.call_attempts > 0 ? contact.call_attempts : "-"}
                   </td>
                   <td className="px-3 py-2.5 text-text-secondary text-xs">
-                    {contact.contract_type || "-"}
+                    <div>{contact.contract_status || contact.contract_type || "-"}</div>
+                    {contact.days_since_expiry != null && contact.days_since_expiry > 0 && (
+                      <div className="text-[10px] text-amber-600">
+                        {contact.days_since_expiry}d expired
+                      </div>
+                    )}
                   </td>
                   <td className="px-3 py-2.5">
                     <div className="flex items-center justify-end gap-1">

@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useOutboundStore } from "../store";
-import { CALL_STATUS_CONFIG, type ContactCallStatus } from "../types";
+import { CALL_STATUS_CONFIG, ZONE_CONFIG, type ContactCallStatus } from "../types";
 import { useWebPhone } from "@/hooks/useWebPhone";
+import { CallScriptPanel } from "./CallScriptPanel";
+import { AgentAssist } from "./AgentAssist";
 import {
   Phone,
   PhoneOff,
@@ -41,6 +43,8 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const [notes, setNotes] = useState("");
   const [callTimer, setCallTimer] = useState(0);
   const [disposition, setDisposition] = useState<ContactCallStatus | "">("");
+  const [scriptCollapsed, setScriptCollapsed] = useState(false);
+  const [assistCollapsed, setAssistCollapsed] = useState(false);
 
   const callable = useMemo(
     () =>
@@ -242,8 +246,10 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
         </div>
       )}
 
-      {/* Current contact card */}
+      {/* Current contact card + assist panels */}
       {dialerActive && currentContact ? (
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_380px] gap-4">
+        {/* LEFT: Contact card + call controls */}
         <div className="bg-bg-card border border-border rounded-xl overflow-hidden">
           {/* Contact info header */}
           <div className="p-4 border-b border-border">
@@ -252,12 +258,27 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                 <div className="text-xs text-text-tertiary mb-0.5">
                   Contact {dialerContactIndex + 1} of {callable.length}
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">
-                  {currentContact.account_name}
-                </h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-text-primary">
+                    {currentContact.account_name}
+                  </h3>
+                  {currentContact.service_zone && (() => {
+                    const zc = ZONE_CONFIG[currentContact.service_zone];
+                    return zc ? (
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${zc.color}`}>
+                        {zc.shortLabel}
+                      </span>
+                    ) : null;
+                  })()}
+                </div>
                 {currentContact.company && (
                   <p className="text-sm text-text-secondary">
                     {currentContact.company}
+                  </p>
+                )}
+                {(currentContact.address || currentContact.zip_code) && (
+                  <p className="text-xs text-text-tertiary">
+                    {[currentContact.address, currentContact.zip_code].filter(Boolean).join(" · ")}
                   </p>
                 )}
               </div>
@@ -273,20 +294,34 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               </div>
             </div>
 
-            {/* Contract info */}
+            {/* Contract & equipment info */}
             {(currentContact.contract_type ||
+              currentContact.contract_status ||
+              currentContact.system_type ||
               currentContact.contract_start) && (
-              <div className="mt-3 flex gap-3 text-xs text-text-secondary">
+              <div className="mt-3 flex flex-wrap gap-2 text-xs text-text-secondary">
+                {currentContact.system_type && (
+                  <span className="bg-bg-hover px-2 py-0.5 rounded">
+                    {currentContact.system_type}
+                  </span>
+                )}
+                {currentContact.contract_status && (
+                  <span className="bg-bg-hover px-2 py-0.5 rounded">
+                    {currentContact.contract_status}
+                  </span>
+                )}
                 {currentContact.contract_type && (
                   <span className="bg-bg-hover px-2 py-0.5 rounded">
                     {currentContact.contract_type}
                   </span>
                 )}
-                {currentContact.contract_start && (
-                  <span>Start: {currentContact.contract_start}</span>
-                )}
                 {currentContact.contract_end && (
                   <span>End: {currentContact.contract_end}</span>
+                )}
+                {currentContact.days_since_expiry != null && currentContact.days_since_expiry > 0 && (
+                  <span className="text-amber-600 font-medium">
+                    {currentContact.days_since_expiry}d expired
+                  </span>
                 )}
               </div>
             )}
@@ -447,21 +482,45 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               <div className="space-y-1">
                 {callable
                   .slice(dialerContactIndex + 1, dialerContactIndex + 4)
-                  .map((c) => (
-                    <div
-                      key={c.id}
-                      className="flex items-center gap-2 text-xs text-text-secondary"
-                    >
-                      <ChevronRight className="w-3 h-3 text-text-tertiary" />
-                      <span className="truncate">{c.account_name}</span>
-                      <span className="font-mono text-text-tertiary">
-                        {formatPhone(c.phone)}
-                      </span>
-                    </div>
-                  ))}
+                  .map((c) => {
+                    const zc = c.service_zone ? ZONE_CONFIG[c.service_zone] : null;
+                    return (
+                      <div
+                        key={c.id}
+                        className="flex items-center gap-2 text-xs text-text-secondary"
+                      >
+                        <ChevronRight className="w-3 h-3 text-text-tertiary" />
+                        {zc && (
+                          <span className={`inline-flex items-center px-1 py-0 rounded text-[9px] font-bold ${zc.color}`}>
+                            {zc.shortLabel}
+                          </span>
+                        )}
+                        <span className="truncate">{c.account_name}</span>
+                        <span className="font-mono text-text-tertiary">
+                          {formatPhone(c.phone)}
+                        </span>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           )}
+        </div>
+
+        {/* RIGHT: Call Script + Agent Assist */}
+        <div className="space-y-3">
+          <CallScriptPanel
+            contact={currentContact}
+            collapsed={scriptCollapsed}
+            onToggle={() => setScriptCollapsed(!scriptCollapsed)}
+          />
+          <AgentAssist
+            contact={currentContact}
+            isOnCall={isOnCall}
+            collapsed={assistCollapsed}
+            onToggle={() => setAssistCollapsed(!assistCollapsed)}
+          />
+        </div>
         </div>
       ) : dialerActive ? (
         <div className="bg-bg-card border border-border rounded-xl p-8 text-center">

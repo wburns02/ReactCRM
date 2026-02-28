@@ -23,6 +23,17 @@ export interface ImportRow {
   start_date?: string;
   end_date?: string;
   term_months?: number;
+  address?: string;
+  zip_code?: string;
+  service_zone?: string;
+  system_type?: string;
+  contract_status?: string;
+  days_since_expiry?: number;
+  customer_type?: string;
+  call_priority_label?: string;
+  notes?: string;
+  callback_date?: string;
+  disposition?: string;
 }
 
 function generateId(): string {
@@ -43,7 +54,8 @@ interface OutboundCampaignState {
   setCampaignStatus: (id: string, status: CampaignStatus) => void;
 
   // Contact management
-  importContacts: (campaignId: string, rows: ImportRow[]) => number;
+  importContacts: (campaignId: string, rows: ImportRow[], sourceFile?: string, sourceSheet?: string) => number;
+  batchImportZones: (zones: { sheetName: string; rows: ImportRow[] }[], sourceFile: string) => string[];
   updateContact: (id: string, updates: Partial<CampaignContact>) => void;
   setContactCallStatus: (id: string, status: ContactCallStatus, notes?: string) => void;
   removeContact: (id: string) => void;
@@ -80,6 +92,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           description: description ?? null,
           status: "draft",
           source_file: null,
+          source_sheet: null,
           total_contacts: 0,
           contacts_called: 0,
           contacts_connected: 0,
@@ -123,7 +136,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         }));
       },
 
-      importContacts: (campaignId, rows) => {
+      importContacts: (campaignId, rows, sourceFile, sourceSheet) => {
         const now = new Date().toISOString();
         // Deduplicate by phone number within this campaign
         const existingPhones = new Set(
@@ -132,10 +145,22 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             .map((c) => c.phone),
         );
 
+        // Map text priority labels to numeric priority
+        const priorityMap: Record<string, number> = {
+          high: 3,
+          medium: 2,
+          med: 2,
+          low: 1,
+        };
+
         const newContacts: CampaignContact[] = [];
         for (const row of rows) {
           if (!row.phone || existingPhones.has(row.phone)) continue;
           existingPhones.add(row.phone);
+
+          const priorityNum = row.call_priority_label
+            ? (priorityMap[row.call_priority_label.toLowerCase().trim()] ?? 0)
+            : 0;
 
           newContacts.push({
             id: generateId(),
@@ -145,22 +170,29 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             company: row.company || null,
             phone: row.phone,
             email: row.email || null,
-            address: null,
+            address: row.address || null,
             city: null,
             state: null,
+            zip_code: row.zip_code || null,
+            service_zone: row.service_zone || null,
+            system_type: row.system_type || null,
             contract_type: row.contract_type || null,
+            contract_status: row.contract_status || null,
             contract_start: row.start_date || null,
             contract_end: row.end_date || null,
             contract_value: null,
+            days_since_expiry: row.days_since_expiry ?? null,
+            customer_type: row.customer_type || null,
+            call_priority_label: row.call_priority_label || null,
             call_status: "pending",
             call_attempts: 0,
             last_call_date: null,
             last_call_duration: null,
-            last_disposition: null,
-            notes: null,
-            callback_date: null,
+            last_disposition: row.disposition || null,
+            notes: row.notes || null,
+            callback_date: row.callback_date || null,
             assigned_rep: null,
-            priority: 0,
+            priority: priorityNum,
             created_at: now,
             updated_at: now,
           });
@@ -178,7 +210,8 @@ export const useOutboundStore = create<OutboundCampaignState>()(
                 ? {
                     ...c,
                     total_contacts: total,
-                    source_file: "Sherrie Sheet.xlsx",
+                    source_file: sourceFile ?? c.source_file ?? "Sherrie Sheet.xlsx",
+                    source_sheet: sourceSheet ?? c.source_sheet ?? null,
                     updated_at: now,
                   }
                 : c,
@@ -187,6 +220,18 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         });
 
         return newContacts.length;
+      },
+
+      batchImportZones: (zones, sourceFile) => {
+        const store = get();
+        const ids: string[] = [];
+        for (const zone of zones) {
+          const id = store.createCampaign(zone.sheetName);
+          // Re-read store after createCampaign mutated state
+          get().importContacts(id, zone.rows, sourceFile, zone.sheetName);
+          ids.push(id);
+        }
+        return ids;
       },
 
       updateContact: (id, updates) => {
@@ -386,7 +431,30 @@ export const useOutboundStore = create<OutboundCampaignState>()(
     }),
     {
       name: "outbound-campaigns-store",
-      version: 1,
+      version: 2,
+      migrate: (persisted: unknown, version: number) => {
+        const state = persisted as Record<string, unknown>;
+        if (version < 2) {
+          // Default new contact fields to null for existing data
+          const contacts = (state.contacts as CampaignContact[]) ?? [];
+          state.contacts = contacts.map((c) => ({
+            ...c,
+            zip_code: c.zip_code ?? null,
+            service_zone: c.service_zone ?? null,
+            system_type: c.system_type ?? null,
+            contract_status: c.contract_status ?? null,
+            days_since_expiry: c.days_since_expiry ?? null,
+            customer_type: c.customer_type ?? null,
+            call_priority_label: c.call_priority_label ?? null,
+          }));
+          const campaigns = (state.campaigns as Campaign[]) ?? [];
+          state.campaigns = campaigns.map((c) => ({
+            ...c,
+            source_sheet: (c as Campaign).source_sheet ?? null,
+          }));
+        }
+        return state as OutboundCampaignState;
+      },
     },
   ),
 );

@@ -47,10 +47,17 @@ export const campaignContactSchema = z.object({
   address: z.string().nullable(),
   city: z.string().nullable(),
   state: z.string().nullable(),
+  zip_code: z.string().nullable(),
+  service_zone: z.string().nullable(),
+  system_type: z.string().nullable(),
   contract_type: z.string().nullable(),
+  contract_status: z.string().nullable(),
   contract_start: z.string().nullable(),
   contract_end: z.string().nullable(),
   contract_value: z.number().nullable(),
+  days_since_expiry: z.number().nullable(),
+  customer_type: z.string().nullable(),
+  call_priority_label: z.string().nullable(),
   call_status: contactCallStatusSchema,
   call_attempts: z.number(),
   last_call_date: z.string().nullable(),
@@ -74,6 +81,7 @@ export const campaignSchema = z.object({
   description: z.string().nullable(),
   status: campaignStatusSchema,
   source_file: z.string().nullable(),
+  source_sheet: z.string().nullable(),
   total_contacts: z.number(),
   contacts_called: z.number(),
   contacts_connected: z.number(),
@@ -116,6 +124,14 @@ export const CAMPAIGN_STATUS_CONFIG: Record<
   paused: { label: "Paused", color: "bg-amber-100 text-amber-700" },
   completed: { label: "Completed", color: "bg-blue-100 text-blue-700" },
   archived: { label: "Archived", color: "bg-zinc-100 text-zinc-500" },
+};
+
+export const ZONE_CONFIG: Record<string, { shortLabel: string; color: string }> = {
+  "Zone 1 - Home Base": { shortLabel: "Z1", color: "bg-blue-100 text-blue-700" },
+  "Zone 2 - Local":     { shortLabel: "Z2", color: "bg-green-100 text-green-700" },
+  "Zone 3 - Regional":  { shortLabel: "Z3", color: "bg-amber-100 text-amber-700" },
+  "Zone 4 - Extended":  { shortLabel: "Z4", color: "bg-purple-100 text-purple-700" },
+  "Zone 5 - Outer":     { shortLabel: "Z5", color: "bg-red-100 text-red-700" },
 };
 
 export const CALL_STATUS_CONFIG: Record<
