@@ -1,6 +1,6 @@
 # Claude Code Documentation - ECBTX CRM
 
-> **Version:** v2.1 — January 7, 2026
+> **Version:** v2.2 — February 28, 2026
 > **Status:** Production
 
 ---
@@ -17,6 +17,7 @@
 | 4 | **Drag-and-drop mutations MUST succeed** with 200 (no 500s) |
 | 5 | **Relentless mode** — never ask to continue, just keep fixing |
 | 6 | **NEVER use `railway up`** — always deploy via git push to GitHub |
+| 7 | **ALWAYS push + Playwright test loop** — commit → push → wait for deploy → Playwright test production → fix issues → repeat until 0 failures |
 
 **When to use Playwright:** ANY UI check, error reproduction, drag test, page load
 
@@ -133,33 +134,50 @@ When user activates this mode:
 
 ---
 
-## Git & Deployment Policy
+## Git & Deployment Policy (MANDATORY)
 
-**ALWAYS commit and push when work is complete.** Do not wait for permission.
+> **This is a hard rule, same weight as "never fake Playwright."**
+> Every task that changes code MUST complete the full loop below. The task is NOT done until Playwright reports 0 failures against production.
 
-| Action | Policy |
-|--------|--------|
-| Commit | Create commits after completing features/fixes |
-| Push | ALWAYS push to GitHub immediately after committing |
-| Deploy | Railway auto-deploys on push — **VERIFY deployment succeeds** |
-| Troubleshoot | If deployment fails, immediately fix and re-push |
+### The Mandatory Loop
 
-**Workflow:**
-1. Complete feature/fix
-2. Run build to verify no errors
-3. Commit with descriptive message
-4. Push to GitHub (triggers Railway deployment)
-5. **VERIFY DEPLOYMENT SUCCESS** (see Railway Verification below)
-6. Run Playwright against production to verify
-7. If issues found, fix immediately and repeat
+```
+┌─────────────────────────────────────────────────┐
+│  1. Build locally (npm run build — must pass)   │
+│  2. Commit with descriptive message             │
+│  3. Push to GitHub (git push origin master)     │
+│  4. Wait ~2 min for Railway deploy              │
+│  5. Run Playwright tests against production     │
+│  6. ALL PASS? → Done ✓                          │
+│  7. ANY FAIL? → Fix code → Go to step 1        │
+└─────────────────────────────────────────────────┘
+```
 
-**Do NOT:**
-- Ask "should I commit this?"
+**You MUST NOT stop after pushing.** Push without Playwright verification is incomplete.
+**You MUST NOT stop after one Playwright run.** If ANY test fails, fix and retest.
+**The loop continues until 0 failures.** Only then is the task complete.
+
+### Rules
+
+| Action | Rule |
+|--------|------|
+| Commit | Create commits after completing features/fixes — do NOT ask permission |
+| Push | ALWAYS push to GitHub immediately after committing — do NOT ask permission |
+| Deploy | Railway auto-deploys on push — VERIFY deployment succeeds |
+| Test | ALWAYS run Playwright against production after deploy completes |
+| Fix | If Playwright finds ANY issue, fix immediately, push again, retest |
+| Loop | Repeat fix→push→test until **0 failures** |
+
+### Do NOT
+
+- Ask "should I commit this?" or "should I push?"
 - Wait for permission to push
 - Leave working code uncommitted
-- Stop after local success without deploying
+- Stop after local build success without pushing
+- Stop after pushing without running Playwright
+- Stop after Playwright finds failures without fixing them
 - Use `railway up` or `railway redeploy` — these commands do not work
-- **Assume deployment succeeded without verification**
+- Assume deployment succeeded without verification
 
 ---
 
@@ -219,6 +237,110 @@ npx playwright test [relevant-test-file]
 3. Check for missing dependencies in requirements.txt
 4. Try pushing an empty commit: `git commit --allow-empty -m "chore: retry deploy"`
 5. If still failing, investigate Railway service health/networking
+
+---
+
+## Playwright Testing Against Production (MANDATORY)
+
+> **After every push, you MUST run Playwright tests against production.**
+> This section contains the exact auth bypass and test setup that works. Do NOT guess — use this.
+
+### Key Details
+
+| Item | Value |
+|------|-------|
+| **Production URL** | `https://react.ecbtx.com` |
+| **Outbound Campaigns route** | `/outbound-campaigns` (NOT `/campaigns` — that 404s) |
+| **Script file extension** | `.cjs` (project has `"type": "module"` in package.json) |
+| **Run from directory** | `/home/will/ReactCRM` (playwright is a project dep) |
+| **Viewport for xl breakpoint** | `{ width: 1440, height: 900 }` |
+
+### Auth Bypass (Required)
+
+The app uses HTTP-only cookie auth + Bearer token fallback. To bypass in Playwright:
+
+```javascript
+// 1. Set session state in BOTH sessionStorage and localStorage
+await ctx.addInitScript((storeData) => {
+  const state = JSON.stringify({
+    isAuthenticated: true,
+    lastValidated: Date.now(),
+    userId: 'user-123',
+  });
+  sessionStorage.setItem('session_state', state);
+  localStorage.setItem('session_state', state);
+  localStorage.setItem('crm_session_token', 'mock-jwt-token-123');
+
+  // Optional: seed Zustand store data for features that use localStorage persist
+  if (storeData) {
+    localStorage.setItem('outbound-campaigns-store', JSON.stringify(storeData));
+  }
+}, MOCK_STORE_DATA_OR_NULL);
+
+// 2. Mock API responses — MUST use the full Railway API domain
+await ctx.route('https://react-crm-api-production.up.railway.app/**', async (route) => {
+  const url = route.request().url();
+  if (url.includes('/auth/me')) {
+    // Response MUST be wrapped: { user: { ... } }  — NOT flat user object
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
+      user: { id: 'user-123', email: 'test@ecbtx.com', first_name: 'Test', last_name: 'User', role: 'admin', is_active: true }
+    })});
+  }
+  if (url.includes('/roles')) {
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ role: 'admin', permissions: {} }) });
+  }
+  // Default: empty array for list endpoints
+  return route.fulfill({ status: 200, contentType: 'application/json', body: '[]' });
+});
+```
+
+### Common Pitfalls (Learned the Hard Way)
+
+| Pitfall | Wrong | Correct |
+|---------|-------|---------|
+| Auth response shape | `{ id: '...', email: '...' }` | `{ user: { id: '...', email: '...' } }` |
+| Route to mock | `**/*api*/**` (breaks Vite modules) | `https://react-crm-api-production.up.railway.app/**` |
+| Campaigns route | `/campaigns` | `/outbound-campaigns` |
+| Script extension | `.js` (ESM error) | `.cjs` |
+| Session storage key | `auth_token` (legacy) | `session_state` + `crm_session_token` |
+| Session state shape | `{ user: ..., token: ... }` | `{ isAuthenticated: true, lastValidated: Date.now(), userId: '...' }` |
+
+### Test Script Template
+
+Save as `/home/will/ReactCRM/pw-test.cjs` and run with `cd /home/will/ReactCRM && node pw-test.cjs`:
+
+```javascript
+const { chromium } = require('playwright');
+const PASS = [], FAIL = [];
+function check(name, ok) {
+  if (ok) { PASS.push(name); console.log('PASS -', name); }
+  else { FAIL.push(name); console.log('FAIL -', name); }
+}
+
+(async () => {
+  const browser = await chromium.launch({ headless: true });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+
+  // Auth bypass (see above)
+  // ...
+
+  const page = await ctx.newPage();
+  await page.goto('https://react.ecbtx.com/[route]', { waitUntil: 'networkidle', timeout: 30000 });
+  await page.waitForTimeout(2000);
+
+  // Tests go here
+  // check('Page loads', !(await page.textContent('body')).includes('404'));
+
+  await browser.close();
+  console.log(`\nTOTAL: ${PASS.length + FAIL.length} | PASS: ${PASS.length} | FAIL: ${FAIL.length}`);
+  if (FAIL.length) { FAIL.forEach(f => console.log('  FAIL -', f)); }
+  else { console.log('ALL TESTS PASSED!'); }
+})().catch(e => { console.error('ERROR:', e.message); process.exit(1); });
+```
+
+### Clean Up
+
+Delete test scripts after verification: `rm -f /home/will/ReactCRM/pw-test.cjs`
 
 ---
 
