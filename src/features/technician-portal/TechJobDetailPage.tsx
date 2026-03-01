@@ -726,6 +726,52 @@ export function TechJobDetailPage() {
         </CardContent>
       </Card>
 
+      {/* ── System Info Card (from permit/customer data) ──── */}
+      {(customer?.system_type || customer?.tank_size_gallons || customer?.manufacturer || customer?.system_issued_date) && (
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="py-3">
+            <p className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-2">System Info</p>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              {customer.system_type && (
+                <div>
+                  <span className="text-text-muted">Type:</span>{" "}
+                  <span className="font-medium">{customer.system_type}</span>
+                </div>
+              )}
+              {customer.tank_size_gallons && (
+                <div>
+                  <span className="text-text-muted">Tank:</span>{" "}
+                  <span className="font-medium">{customer.tank_size_gallons} gal</span>
+                </div>
+              )}
+              {customer.manufacturer && (
+                <div>
+                  <span className="text-text-muted">Mfr:</span>{" "}
+                  <span className="font-medium">{customer.manufacturer}</span>
+                </div>
+              )}
+              {customer.installer_name && (
+                <div>
+                  <span className="text-text-muted">Installer:</span>{" "}
+                  <span className="font-medium">{customer.installer_name}</span>
+                </div>
+              )}
+              {customer.system_issued_date && (
+                <div className="col-span-2">
+                  <span className="text-text-muted">Age:</span>{" "}
+                  {(() => {
+                    const issued = new Date(customer.system_issued_date);
+                    const age = Math.floor((Date.now() - issued.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+                    const color = age < 10 ? "text-green-600" : age < 20 ? "text-yellow-600" : "text-red-600";
+                    return <span className={`font-bold ${color}`}>{age} years</span>;
+                  })()}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* ── Status Action Buttons ──── */}
       {canStart && (
         <div className="space-y-2">

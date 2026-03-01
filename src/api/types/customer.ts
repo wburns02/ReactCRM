@@ -57,6 +57,10 @@ export const customerSchema = z.object({
   // System information (for aerobic manufacturer-specific contract pricing)
   system_type: z.string().nullable(),
   manufacturer: z.string().nullable(),
+  tank_size_gallons: z.number().nullable().optional(),
+  installer_name: z.string().nullable().optional(),
+  subdivision: z.string().nullable().optional(),
+  system_issued_date: z.string().nullable().optional(),
   // External IDs
   quickbooks_customer_id: z.string().nullable(),
   hubspot_contact_id: z.string().nullable(),
@@ -110,6 +114,9 @@ export const customerFormSchema = z.object({
   is_active: z.boolean().default(true),
   system_type: z.string().optional(),
   manufacturer: z.string().optional(),
+  tank_size_gallons: z.coerce.number().min(0).optional(),
+  installer_name: z.string().optional(),
+  system_issued_date: z.string().optional(),
 });
 
 export type CustomerFormData = z.infer<typeof customerFormSchema>;

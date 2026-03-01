@@ -394,3 +394,135 @@ export function useSourcePortals() {
     staleTime: 60 * 60 * 1000, // 1 hour
   });
 }
+
+// ===== PERMIT-CUSTOMER LINKING HOOKS =====
+
+/**
+ * Fetch permits linked to a customer
+ */
+export function useCustomerPermits(customerId: string | undefined) {
+  return useQuery({
+    queryKey: permitKeys.customerPermits(customerId!),
+    queryFn: async (): Promise<CustomerPermitsResponse> => {
+      const { data } = await apiClient.get(`/permits/customer/${customerId}`);
+      return validateResponse(
+        customerPermitsResponseSchema,
+        data,
+        `/permits/customer/${customerId}`
+      );
+    },
+    enabled: !!customerId,
+    staleTime: 30_000,
+  });
+}
+
+/**
+ * Lookup permits by address or phone
+ */
+export function usePermitLookup(address?: string, phone?: string) {
+  return useQuery({
+    queryKey: permitKeys.lookup(address, phone),
+    queryFn: async (): Promise<{ results: PermitLookupResult[]; total: number }> => {
+      const params = new URLSearchParams();
+      if (address) params.set("address", address);
+      if (phone) params.set("phone", phone);
+      const { data } = await apiClient.get(`/permits/lookup?${params.toString()}`);
+      return data;
+    },
+    enabled: !!(address && address.length > 5) || !!(phone && phone.length >= 10),
+    staleTime: 60_000,
+  });
+}
+
+/**
+ * Link a permit to a customer
+ */
+export function useLinkPermit() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      permitId,
+      customerId,
+    }: {
+      permitId: string;
+      customerId: string;
+    }): Promise<PermitLinkResponse> => {
+      const { data } = await apiClient.post(
+        `/permits/${permitId}/link/${customerId}`,
+      );
+      return data;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: permitKeys.customerPermits(variables.customerId),
+      });
+      queryClient.invalidateQueries({ queryKey: permitKeys.lists() });
+    },
+  });
+}
+
+/**
+ * Unlink a permit from a customer
+ */
+export function useUnlinkPermit() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (permitId: string): Promise<PermitLinkResponse> => {
+      const { data } = await apiClient.delete(`/permits/${permitId}/unlink`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: permitKeys.all });
+    },
+  });
+}
+
+/**
+ * Run batch auto-linking
+ */
+export function useBatchLink() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      limit = 1000,
+      includeMedium = false,
+    }: {
+      limit?: number;
+      includeMedium?: boolean;
+    } = {}): Promise<BatchLinkResponse> => {
+      const params = new URLSearchParams();
+      params.set("limit", String(limit));
+      if (includeMedium) params.set("include_medium", "true");
+      const { data } = await apiClient.post(`/permits/batch-link?${params.toString()}`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: permitKeys.all });
+    },
+  });
+}
+
+/**
+ * Fetch prospects (permit holders not in CRM)
+ */
+export function useProspects(filters: ProspectFilters = {}) {
+  return useQuery({
+    queryKey: permitKeys.prospects(filters),
+    queryFn: async (): Promise<ProspectsResponse> => {
+      const params = new URLSearchParams();
+      if (filters.county) params.set("county", filters.county);
+      if (filters.system_type) params.set("system_type", filters.system_type);
+      if (filters.min_age != null) params.set("min_age", String(filters.min_age));
+      if (filters.max_age != null) params.set("max_age", String(filters.max_age));
+      if (filters.has_phone != null) params.set("has_phone", String(filters.has_phone));
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      const { data } = await apiClient.get(`/permits/prospects?${params.toString()}`);
+      return validateResponse(prospectsResponseSchema, data, "/permits/prospects");
+    },
+    staleTime: 60_000,
+  });
+}

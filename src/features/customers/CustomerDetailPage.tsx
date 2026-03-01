@@ -38,6 +38,7 @@ import { CustomerHealthScore } from "./components/CustomerHealthScore.tsx";
 import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
 import { useEmailCompose } from "@/context/EmailComposeContext";
 import { ContractList } from "@/features/contracts/components/ContractList.tsx";
+import { PermitHistory } from "./components/PermitHistory.tsx";
 
 /**
  * Customer detail page - view/edit individual customer
@@ -263,6 +264,64 @@ export function CustomerDetailPage() {
             </dl>
           </CardContent>
         </Card>
+
+        {/* Septic System Information */}
+        {(customer.system_type ||
+          customer.tank_size_gallons ||
+          customer.manufacturer ||
+          customer.installer_name ||
+          customer.system_issued_date) && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Septic System</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <dl className="space-y-4">
+                {customer.system_type && (
+                  <div>
+                    <dt className="text-sm text-text-secondary">System Type</dt>
+                    <dd className="font-medium">{customer.system_type}</dd>
+                  </div>
+                )}
+                {customer.tank_size_gallons && (
+                  <div>
+                    <dt className="text-sm text-text-secondary">Tank Size</dt>
+                    <dd className="font-medium">{customer.tank_size_gallons} gallons</dd>
+                  </div>
+                )}
+                {customer.manufacturer && (
+                  <div>
+                    <dt className="text-sm text-text-secondary">Manufacturer</dt>
+                    <dd className="font-medium">{customer.manufacturer}</dd>
+                  </div>
+                )}
+                {customer.installer_name && (
+                  <div>
+                    <dt className="text-sm text-text-secondary">Installer</dt>
+                    <dd className="font-medium">{customer.installer_name}</dd>
+                  </div>
+                )}
+                {customer.system_issued_date && (
+                  <div>
+                    <dt className="text-sm text-text-secondary">System Age</dt>
+                    <dd className="font-medium">
+                      {(() => {
+                        const issued = new Date(customer.system_issued_date);
+                        const age = Math.floor((Date.now() - issued.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+                        const color = age < 10 ? "text-green-600" : age < 20 ? "text-yellow-600" : "text-red-600";
+                        return (
+                          <span className={color}>
+                            {age} years (installed {formatDate(customer.system_issued_date)})
+                          </span>
+                        );
+                      })()}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Sales/Prospect Information */}
         {(customer.prospect_stage ||
@@ -508,6 +567,11 @@ export function CustomerDetailPage() {
             )}
           </CardContent>
         </Card>
+
+        {/* Permit History */}
+        <div className="lg:col-span-2">
+          <PermitHistory customerId={id!} />
+        </div>
 
         {/* Contract History */}
         <Card className="lg:col-span-2">

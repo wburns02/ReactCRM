@@ -4,6 +4,7 @@ import { CampaignStatsBar } from "./components/CampaignStatsBar";
 import { ContactTable } from "./components/ContactTable";
 import { PowerDialer } from "./components/PowerDialer";
 import { CampaignAnalytics } from "./components/CampaignAnalytics";
+import { PermitCampaignBuilder } from "./components/PermitCampaignBuilder";
 import { ImportDialog } from "./components/ImportDialog";
 import { useOutboundStore } from "./store";
 import type { CampaignContact, CampaignStats } from "./types";
@@ -13,10 +14,11 @@ import {
   Zap,
   Upload,
   BarChart3,
+  FileSearch,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
-type Tab = "campaigns" | "contacts" | "dialer" | "analytics";
+type Tab = "campaigns" | "contacts" | "dialer" | "analytics" | "permits";
 
 export function OutboundCampaignsPage() {
   const [activeTab, setActiveTab] = useState<Tab>("campaigns");
@@ -91,6 +93,12 @@ export function OutboundCampaignsPage() {
       label: "Analytics",
       icon: BarChart3,
       disabled: !selectedCampaignId,
+    },
+    {
+      id: "permits",
+      label: "Permit Campaigns",
+      icon: FileSearch,
+      disabled: false,
     },
   ];
 
@@ -176,6 +184,9 @@ export function OutboundCampaignsPage() {
         )}
         {activeTab === "analytics" && selectedCampaignId && (
           <CampaignAnalytics campaignId={selectedCampaignId} />
+        )}
+        {activeTab === "permits" && (
+          <PermitCampaignBuilder />
         )}
       </div>
 

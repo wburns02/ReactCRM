@@ -80,6 +80,11 @@ export function CustomerForm({
           next_follow_up_date: customer.next_follow_up_date || "",
           lead_notes: customer.lead_notes || "",
           is_active: customer.is_active,
+          system_type: customer.system_type || undefined,
+          manufacturer: customer.manufacturer || undefined,
+          tank_size_gallons: customer.tank_size_gallons || undefined,
+          installer_name: customer.installer_name || undefined,
+          system_issued_date: customer.system_issued_date || "",
         }
       : {
           first_name: "",
@@ -99,6 +104,11 @@ export function CustomerForm({
           next_follow_up_date: "",
           lead_notes: "",
           is_active: true,
+          system_type: undefined,
+          manufacturer: undefined,
+          tank_size_gallons: undefined,
+          installer_name: undefined,
+          system_issued_date: "",
         },
   });
 
@@ -125,6 +135,11 @@ export function CustomerForm({
       assigned_sales_rep: data.assigned_sales_rep || undefined,
       next_follow_up_date: data.next_follow_up_date || undefined,
       lead_notes: data.lead_notes || undefined,
+      system_type: data.system_type || undefined,
+      manufacturer: data.manufacturer || undefined,
+      tank_size_gallons: data.tank_size_gallons || undefined,
+      installer_name: data.installer_name || undefined,
+      system_issued_date: data.system_issued_date || undefined,
     };
 
     await onSubmit(cleanedData);
@@ -363,6 +378,67 @@ export function CustomerForm({
                     {...register("assigned_sales_rep")}
                     error={!!errors.assigned_sales_rep}
                     placeholder="Sales rep name"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Septic System Section */}
+            <div>
+              <h4 className="text-sm font-medium text-text-secondary mb-3 uppercase tracking-wide">
+                Septic System (Optional)
+              </h4>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="system_type">System Type</Label>
+                  <Select id="system_type" {...register("system_type")}>
+                    <option value="">Select type...</option>
+                    <option value="Conventional Septic">Conventional</option>
+                    <option value="Aerobic Treatment Unit">Aerobic / ATU</option>
+                    <option value="Spray Distribution">Spray</option>
+                    <option value="Drip Irrigation">Drip</option>
+                    <option value="Mound System">Mound</option>
+                    <option value="Low Pressure Dosing">Low Pressure Dosing</option>
+                    <option value="Holding Tank">Holding Tank</option>
+                    <option value="Standard Septic">Standard Septic</option>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="tank_size_gallons">Tank Size (gallons)</Label>
+                  <Input
+                    id="tank_size_gallons"
+                    type="number"
+                    min="0"
+                    {...register("tank_size_gallons")}
+                    placeholder="1000"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="manufacturer">Manufacturer</Label>
+                  <Input
+                    id="manufacturer"
+                    {...register("manufacturer")}
+                    placeholder="e.g., Norweco, Fuji Clean"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="installer_name">Installer</Label>
+                  <Input
+                    id="installer_name"
+                    {...register("installer_name")}
+                    placeholder="Installation company"
+                  />
+                </div>
+
+                <div className="space-y-2 col-span-2">
+                  <Label htmlFor="system_issued_date">System Install Date</Label>
+                  <Input
+                    id="system_issued_date"
+                    type="date"
+                    {...register("system_issued_date")}
                   />
                 </div>
               </div>
