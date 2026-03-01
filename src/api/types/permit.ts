@@ -99,6 +99,8 @@ export type PermitSummary = z.infer<typeof permitSummarySchema>;
 export const permitResponseSchema = z.object({
   id: z.string().uuid(),
   permit_number: z.string().nullable(),
+  // Customer linking
+  customer_id: z.string().uuid().nullable().optional(),
   // Location
   state_id: z.number(),
   state_code: z.string().nullable(),
@@ -316,3 +318,95 @@ export const permitHistorySchema = z.object({
   versions: z.array(permitVersionSchema),
 });
 export type PermitHistory = z.infer<typeof permitHistorySchema>;
+
+// ===== PERMIT-CUSTOMER LINKING SCHEMAS =====
+
+export const permitCustomerSummarySchema = z.object({
+  id: z.string().uuid(),
+  permit_number: z.string().nullable(),
+  address: z.string().nullable(),
+  city: z.string().nullable(),
+  county_name: z.string().nullable(),
+  owner_name: z.string().nullable(),
+  contractor_name: z.string().nullable(),
+  permit_date: z.string().nullable(),
+  install_date: z.string().nullable(),
+  system_type_raw: z.string().nullable(),
+  tank_size_gallons: z.number().nullable(),
+  drainfield_size_sqft: z.number().nullable(),
+  bedrooms: z.number().nullable(),
+  raw_data: z.record(z.string(), z.any()).nullable(),
+  data_quality_score: z.number().nullable(),
+  created_at: z.string(),
+});
+export type PermitCustomerSummary = z.infer<typeof permitCustomerSummarySchema>;
+
+export const customerPermitsResponseSchema = z.object({
+  customer_id: z.string().uuid(),
+  permits: z.array(permitCustomerSummarySchema),
+  total: z.number(),
+});
+export type CustomerPermitsResponse = z.infer<typeof customerPermitsResponseSchema>;
+
+export const permitLinkResponseSchema = z.object({
+  permit_id: z.string().uuid(),
+  customer_id: z.string().uuid(),
+  message: z.string(),
+});
+export type PermitLinkResponse = z.infer<typeof permitLinkResponseSchema>;
+
+export const batchLinkResponseSchema = z.object({
+  processed: z.number(),
+  linked_high: z.number(),
+  linked_medium: z.number(),
+  skipped: z.number(),
+  errors: z.number(),
+});
+export type BatchLinkResponse = z.infer<typeof batchLinkResponseSchema>;
+
+export const prospectRecordSchema = z.object({
+  permit_id: z.string().uuid(),
+  owner_name: z.string().nullable(),
+  address: z.string().nullable(),
+  city: z.string().nullable(),
+  county_name: z.string().nullable(),
+  phone: z.string().nullable(),
+  system_type: z.string().nullable(),
+  permit_date: z.string().nullable(),
+  system_age_years: z.number().nullable(),
+});
+export type ProspectRecord = z.infer<typeof prospectRecordSchema>;
+
+export const prospectsResponseSchema = z.object({
+  prospects: z.array(prospectRecordSchema),
+  total: z.number(),
+  page: z.number(),
+  page_size: z.number(),
+});
+export type ProspectsResponse = z.infer<typeof prospectsResponseSchema>;
+
+export interface PermitLookupResult {
+  id: string;
+  permit_number: string | null;
+  address: string | null;
+  city: string | null;
+  state_code: string | null;
+  county_name: string | null;
+  owner_name: string | null;
+  contractor_name: string | null;
+  permit_date: string | null;
+  install_date: string | null;
+  system_type: string | null;
+  tank_size_gallons: number | null;
+  raw_data: Record<string, any> | null;
+}
+
+export interface ProspectFilters {
+  county?: string;
+  system_type?: string;
+  min_age?: number;
+  max_age?: number;
+  has_phone?: boolean;
+  page?: number;
+  page_size?: number;
+}

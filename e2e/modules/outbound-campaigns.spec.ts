@@ -62,7 +62,7 @@ function buildStoreData() {
       autoDialEnabled: false, autoDialDelay: 5, sortOrder: "default",
       campaignAutomationConfigs: {},
     },
-    version: 3,
+    version: 4,
   };
 }
 
@@ -81,8 +81,25 @@ async function loginAndSetup(page: import("@playwright/test").Page) {
     localStorage.setItem("crm_onboarding_completed", "true");
   });
 
-  await page.evaluate((storeData) => {
+  // Inject test data into IndexedDB (idb-keyval uses "keyval-store" db, "keyval" store)
+  await page.evaluate(async (storeData) => {
+    // Also set in localStorage as fallback for the migration path
     localStorage.setItem("outbound-campaigns-store", JSON.stringify(storeData));
+    // Write directly to IndexedDB where the store now persists
+    await new Promise<void>((resolve, reject) => {
+      const req = indexedDB.open("keyval-store");
+      req.onupgradeneeded = () => {
+        req.result.createObjectStore("keyval");
+      };
+      req.onsuccess = () => {
+        const db = req.result;
+        const tx = db.transaction("keyval", "readwrite");
+        tx.objectStore("keyval").put(JSON.stringify(storeData), "outbound-campaigns-store");
+        tx.oncomplete = () => { db.close(); resolve(); };
+        tx.onerror = () => { db.close(); reject(tx.error); };
+      };
+      req.onerror = () => reject(req.error);
+    });
   }, buildStoreData());
 
   await page.goto("/outbound-campaigns", { waitUntil: "domcontentloaded" });

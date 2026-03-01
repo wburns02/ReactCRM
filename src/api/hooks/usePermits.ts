@@ -12,6 +12,8 @@ import {
   permitStatsOverviewSchema,
   duplicatePairSchema,
   permitHistorySchema,
+  customerPermitsResponseSchema,
+  prospectsResponseSchema,
   type PermitSearchResponse,
   type PermitResponse,
   type PermitStatsOverview,
@@ -24,6 +26,12 @@ import {
   type DuplicateResolution,
   type DuplicateResponse,
   type PermitHistory,
+  type CustomerPermitsResponse,
+  type PermitLinkResponse,
+  type BatchLinkResponse,
+  type PermitLookupResult,
+  type ProspectsResponse,
+  type ProspectFilters,
 } from "../types/permit.ts";
 
 /**
@@ -41,6 +49,12 @@ export const permitKeys = {
   history: (id: string) => [...permitKeys.all, "history", id] as const,
   stats: () => [...permitKeys.all, "stats"] as const,
   duplicates: () => [...permitKeys.all, "duplicates"] as const,
+  customerPermits: (customerId: string) =>
+    [...permitKeys.all, "customer", customerId] as const,
+  lookup: (address?: string, phone?: string) =>
+    [...permitKeys.all, "lookup", address, phone] as const,
+  prospects: (filters: ProspectFilters) =>
+    [...permitKeys.all, "prospects", filters] as const,
   ref: {
     states: () => ["permits-ref", "states"] as const,
     counties: (stateCode?: string) =>
