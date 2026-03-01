@@ -2,20 +2,23 @@ import { useState, useEffect } from "react";
 import { apiClient } from "@/api/client";
 
 interface TechPerf {
-  technician_id: string;
+  id: string;
   name: string;
-  jobs_completed: number;
-  avg_rating: number;
-  ftfr: number;
-  avg_completion_time_hours: number;
+  total_jobs: number;
+  completed_jobs: number;
+  completion_rate: number;
+  avg_jobs_per_week: number;
+  top_job_type: string;
+  needs_coaching: boolean;
 }
 
 interface Recommendation {
-  technician_id: string;
-  technician_name: string;
-  area: string;
-  recommendation: string;
-  priority: string;
+  type: string;
+  target: string;
+  severity: string;
+  title: string;
+  detail: string;
+  action: string;
 }
 
 export function CoachingPage() {
@@ -79,23 +82,31 @@ export function CoachingPage() {
               <tr>
                 <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Technician</th>
                 <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Jobs</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Avg Rating</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">FTFR</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Avg Time</th>
+                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Completion Rate</th>
+                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Jobs/Week</th>
+                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Top Type</th>
+                <th className="text-left px-4 py-2 text-sm font-medium text-gray-500">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {performance.map((tech) => (
-                <tr key={tech.technician_id} className="hover:bg-gray-50">
+                <tr key={tech.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 text-sm font-medium text-gray-900">{tech.name}</td>
-                  <td className="px-4 py-3 text-sm">{tech.jobs_completed}</td>
+                  <td className="px-4 py-3 text-sm">{tech.completed_jobs}/{tech.total_jobs}</td>
                   <td className="px-4 py-3 text-sm">
-                    <span className={tech.avg_rating >= 4 ? "text-green-600" : tech.avg_rating >= 3 ? "text-yellow-600" : "text-red-600"}>
-                      {tech.avg_rating.toFixed(1)} / 5
+                    <span className={tech.completion_rate >= 0.8 ? "text-green-600" : tech.completion_rate >= 0.5 ? "text-yellow-600" : "text-red-600"}>
+                      {(tech.completion_rate * 100).toFixed(0)}%
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm">{(tech.ftfr * 100).toFixed(0)}%</td>
-                  <td className="px-4 py-3 text-sm">{tech.avg_completion_time_hours.toFixed(1)}h</td>
+                  <td className="px-4 py-3 text-sm">{tech.avg_jobs_per_week.toFixed(1)}</td>
+                  <td className="px-4 py-3 text-sm capitalize">{tech.top_job_type}</td>
+                  <td className="px-4 py-3 text-sm">
+                    {tech.needs_coaching ? (
+                      <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700">Needs Coaching</span>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">On Track</span>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -118,15 +129,16 @@ export function CoachingPage() {
               <div key={i} className="p-4">
                 <div className="flex items-start gap-3">
                   <span className={`mt-0.5 px-2 py-0.5 rounded text-xs font-medium ${
-                    rec.priority === "high" ? "bg-red-100 text-red-700" :
-                    rec.priority === "medium" ? "bg-yellow-100 text-yellow-700" :
+                    rec.severity === "critical" ? "bg-red-100 text-red-700" :
+                    rec.severity === "warning" ? "bg-yellow-100 text-yellow-700" :
                     "bg-blue-100 text-blue-700"
                   }`}>
-                    {rec.priority}
+                    {rec.severity}
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{rec.technician_name} — {rec.area}</p>
-                    <p className="text-sm text-gray-600 mt-1">{rec.recommendation}</p>
+                    <p className="text-sm font-medium text-gray-900">{rec.target} — {rec.title}</p>
+                    <p className="text-sm text-gray-600 mt-1">{rec.detail}</p>
+                    <p className="text-sm text-blue-600 mt-1 font-medium">{rec.action}</p>
                   </div>
                 </div>
               </div>
