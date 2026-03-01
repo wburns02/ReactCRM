@@ -514,7 +514,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
     }),
     {
       name: "outbound-campaigns-store",
-      version: 3,
+      version: 4,
       storage: idbStorage,
       onRehydrateStorage: () => {
         return (state) => {
@@ -550,6 +550,12 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           state.autoDialDelay = 5;
           state.sortOrder = "default";
           state.campaignAutomationConfigs = {};
+        }
+        if (version < 4) {
+          // v4: Replace category campaigns with geographical zones.
+          // Clear old data — onRehydrateStorage will re-seed with zone campaigns.
+          state.campaigns = [];
+          state.contacts = [];
         }
         return state as OutboundCampaignState;
       },
