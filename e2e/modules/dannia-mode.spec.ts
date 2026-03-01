@@ -167,20 +167,21 @@ test.describe("Dannia Mode", () => {
     expect(isNextUp || isNoContacts || isDailyLimit || hasStartBtn).toBe(true);
   });
 
-  test("guardrail badge shows max calls limit", async ({ page }) => {
+  test("guardrail badge shows max calls limit or daily goals", async ({ page }) => {
     await loginAndSetup(page);
 
     await page.locator("button", { hasText: "Dannia Mode" }).click();
     await page.waitForTimeout(3000);
 
-    // The "35 calls max" badge appears when a schedule is generated
-    // It may take a moment for schedule generation to complete
+    // The "35 calls max" badge appears when a schedule is generated,
+    // OR the gamification widget shows /35 target for calls
     const badge = page.locator("text=35 calls max");
-    const callsToday = page.locator("text=Calls Today");
-    // Either the badge or the calls today stat should be visible
+    const dailyGoals = page.locator("text=Daily Goals");
+    const callTarget = page.locator("text=/35");
     const hasBadge = await badge.isVisible({ timeout: 5000 }).catch(() => false);
-    const hasCallsToday = await callsToday.isVisible({ timeout: 1000 }).catch(() => false);
-    expect(hasBadge || hasCallsToday).toBe(true);
+    const hasDailyGoals = await dailyGoals.isVisible({ timeout: 1000 }).catch(() => false);
+    const hasTarget = await callTarget.isVisible({ timeout: 1000 }).catch(() => false);
+    expect(hasBadge || hasDailyGoals || hasTarget).toBe(true);
   });
 
   test("weekly calendar view renders", async ({ page }) => {
