@@ -123,18 +123,18 @@ test.describe("Dannia Mode", () => {
     await expect(page.locator("h1", { hasText: "Dannia Mode" })).toBeVisible({ timeout: 10000 });
   });
 
-  test("today's plan shows quick stats and performance meter", async ({ page }) => {
+  test("today's plan shows gamification dashboard and performance meter", async ({ page }) => {
     await loginAndSetup(page);
 
     // Enable Dannia Mode
     await page.locator("button", { hasText: "Dannia Mode" }).click();
     await page.waitForTimeout(2000);
 
-    // Quick stats cards should be visible
-    await expect(page.locator("text=Calls Today")).toBeVisible({ timeout: 10000 });
-    await expect(page.locator("text=Current Block")).toBeVisible();
-    await expect(page.locator("div", { hasText: /^Connect Rate$/ }).first()).toBeVisible();
-    await expect(page.locator("div", { hasText: /^Interested$/ }).first()).toBeVisible();
+    // Gamification dashboard should be visible (replaced QuickStats)
+    await expect(page.locator("text=Daily Goals")).toBeVisible({ timeout: 10000 });
+    await expect(page.locator("text=Calls").first()).toBeVisible();
+    await expect(page.locator("text=Connects").first()).toBeVisible();
+    await expect(page.locator("text=streak").first()).toBeVisible();
   });
 
   test("START DIALING button is visible", async ({ page }) => {
