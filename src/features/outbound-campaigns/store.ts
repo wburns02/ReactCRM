@@ -87,6 +87,9 @@ interface OutboundCampaignState {
   setSortOrder: (order: SortOrder) => void;
   getAutomationConfig: (campaignId: string) => CampaignAutomationConfig;
 
+  // Seeding
+  seedFromBuiltInData: () => Promise<void>;
+
   // Queries
   getCampaignContacts: (campaignId: string) => CampaignContact[];
   getCampaignStats: (campaignId: string) => CampaignStats;
@@ -366,6 +369,31 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         return get().campaignAutomationConfigs[campaignId] ?? DEFAULT_AUTOMATION_CONFIG;
       },
 
+      seedFromBuiltInData: async () => {
+        // Only seed if store has no campaigns
+        if (get().campaigns.length > 0) return;
+        try {
+          const { SEED_CAMPAIGNS, SEED_SOURCE_FILE } = await import("./seed-data");
+          const store = get();
+          for (const campaign of SEED_CAMPAIGNS) {
+            const id = store.createCampaign(campaign.sheetName);
+            // Set campaign to active
+            get().setCampaignStatus(id, "active");
+            // Import contacts
+            get().importContacts(id, campaign.rows, SEED_SOURCE_FILE, campaign.sheetName);
+            // If DNC campaign, mark all contacts as do_not_call
+            if (campaign.isDNC) {
+              const contacts = get().contacts.filter((c) => c.campaign_id === id);
+              for (const contact of contacts) {
+                get().updateContact(contact.id, { call_status: "do_not_call", priority: 0 });
+              }
+            }
+          }
+        } catch (err) {
+          console.error("Failed to seed campaign data:", err);
+        }
+      },
+
       getCampaignContacts: (campaignId) => {
         return get().contacts.filter((c) => c.campaign_id === campaignId);
       },
@@ -467,6 +495,14 @@ export const useOutboundStore = create<OutboundCampaignState>()(
     {
       name: "outbound-campaigns-store",
       version: 3,
+      onRehydrateStorage: () => {
+        return (state) => {
+          // After store hydrates from localStorage, seed if empty
+          if (state && state.campaigns.length === 0) {
+            state.seedFromBuiltInData();
+          }
+        };
+      },
       migrate: (persisted: unknown, version: number) => {
         const state = persisted as Record<string, unknown>;
         if (version < 2) {

@@ -69,8 +69,10 @@ export default defineConfig({
       workbox: {
         // Precache app shell
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}'],
-        // Don't precache source maps
-        globIgnores: ['**/*.map'],
+        // Don't precache source maps or large seed data
+        globIgnores: ['**/*.map', '**/seed-data-*.js'],
+        // Allow larger chunks for precaching
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         // Clean old caches
         cleanupOutdatedCaches: true,
         // Skip waiting to activate new SW immediately
