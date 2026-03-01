@@ -83,6 +83,8 @@ export interface AIChatRequest {
   session_id?: string;
   context?: AIContext;
   stream?: boolean;
+  /** Custom system prompt for context-aware responses (e.g., Dannia Mode call assist) */
+  system_prompt?: string;
 }
 
 /**
@@ -144,8 +146,10 @@ export const aiApi = {
       conversation_id: request.session_id,
     };
 
-    // Add context as system prompt if provided
-    if (request.context) {
+    // Use custom system prompt if provided, otherwise build from context
+    if (request.system_prompt) {
+      backendRequest.system_prompt = request.system_prompt;
+    } else if (request.context) {
       backendRequest.system_prompt = `You are a helpful CRM assistant. Current context: ${JSON.stringify(request.context)}`;
     }
 
