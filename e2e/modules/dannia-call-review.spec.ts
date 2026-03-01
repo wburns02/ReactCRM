@@ -19,7 +19,7 @@ test.describe("Dannia Call Review Panel", () => {
         zip_code: "78666",
         company: "",
         contact_name: "Carol Davis",
-        service_zone: 1,
+        service_zone: "Zone 1 - Home Base",
         system_type: "Aerobic",
         contract_type: "Residential",
         contract_status: "Expired",
@@ -44,22 +44,28 @@ test.describe("Dannia Call Review Panel", () => {
             id: "test-campaign-cr",
             name: "Call Review Campaign",
             description: "Testing call review",
-            status: "active",
+            status: "active" as const,
+            source_file: "test.xlsx",
+            source_sheet: "Zone 1",
             total_contacts: 1,
-            called_count: 0,
-            connected_count: 0,
-            interested_count: 0,
+            contacts_called: 0,
+            contacts_connected: 0,
+            contacts_interested: 0,
+            contacts_completed: 0,
+            assigned_reps: [],
+            created_by: null,
             created_at: "2024-01-01T00:00:00Z",
+            updated_at: "2024-01-01T00:00:00Z",
           },
         ],
         activeCampaignId: "test-campaign-cr",
         dialerContactIndex: 0,
         dialerActive: false,
-        danniaMode: true,
-        sortOrder: "smart",
-        autoDialEnabled: true,
+        danniaMode: false,
+        sortOrder: "default",
+        autoDialEnabled: false,
         autoDialDelay: 5,
-        automationConfig: {},
+        campaignAutomationConfigs: {},
       },
       version: 5,
     };
@@ -190,45 +196,31 @@ test.describe("Dannia Call Review Panel", () => {
     const storeData = buildStoreData();
     const danniaData = buildDanniaStoreData();
 
-    await page.evaluate(
-      async ([store, dannia]: [string, string]) => {
-        localStorage.setItem("outbound-campaigns-store", store);
-        localStorage.setItem("dannia-mode-store", dannia);
-
-        for (const [key, val] of [
-          ["outbound-campaigns-store", store],
-          ["dannia-mode-store", dannia],
-        ]) {
-          await new Promise<void>((resolve, reject) => {
-            const req = indexedDB.open("keyval-store");
-            req.onupgradeneeded = () => {
-              req.result.createObjectStore("keyval");
-            };
-            req.onsuccess = () => {
-              const db = req.result;
-              const tx = db.transaction("keyval", "readwrite");
-              tx.objectStore("keyval").put(val, key);
-              tx.oncomplete = () => {
-                db.close();
-                resolve();
-              };
-              tx.onerror = () => {
-                db.close();
-                reject(tx.error);
-              };
-            };
-            req.onerror = () => reject(req.error);
-          });
-        }
-      },
-      [JSON.stringify(storeData), JSON.stringify(danniaData)],
-    );
+    await page.evaluate(async ({ outbound, dannia }) => {
+      localStorage.setItem("outbound-campaigns-store", JSON.stringify(outbound));
+      await new Promise<void>((resolve, reject) => {
+        const req = indexedDB.open("keyval-store");
+        req.onupgradeneeded = () => { req.result.createObjectStore("keyval"); };
+        req.onsuccess = () => {
+          const db = req.result;
+          const tx = db.transaction("keyval", "readwrite");
+          const store = tx.objectStore("keyval");
+          store.put(JSON.stringify(outbound), "outbound-campaigns-store");
+          store.put(JSON.stringify(dannia), "dannia-mode-store");
+          tx.oncomplete = () => { db.close(); resolve(); };
+          tx.onerror = () => { db.close(); reject(tx.error); };
+        };
+        req.onerror = () => reject(req.error);
+      });
+    }, { outbound: storeData, dannia: danniaData });
 
     await page.goto("/outbound-campaigns", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
 
     const toggle = page.locator("button", { hasText: "Dannia Mode" });
-    await toggle.click({ timeout: 10000 });
+    await expect(toggle).toBeVisible({ timeout: 10000 });
+    await toggle.click();
+    await page.waitForTimeout(3000);
     await expect(
       page.locator("h1", { hasText: "Dannia Mode" }),
     ).toBeVisible({ timeout: 10000 });
