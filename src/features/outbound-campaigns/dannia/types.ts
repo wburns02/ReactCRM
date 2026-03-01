@@ -1,4 +1,8 @@
 import type { ContactScore, ScoreBreakdown } from "../types";
+import type {
+  LifetimeStats,
+  VoicemailDropConfig,
+} from "./gamification";
 
 /**
  * Time block types for daily schedule
@@ -209,6 +213,11 @@ export interface DanniaStoreState {
   // Session state
   activeBlockId: string | null;
   dialingActive: boolean;
+  // Gamification
+  earnedBadges: string[];
+  lifetimeStats: LifetimeStats;
+  // Voicemail drop
+  voicemailDropConfig: VoicemailDropConfig;
 
   // Actions
   setSchedule: (schedule: WeeklySchedule) => void;
@@ -241,6 +250,13 @@ export interface DanniaStoreState {
 
   // Reports
   addWeeklyReport: (report: WeeklyReport) => void;
+
+  // Gamification
+  earnBadge: (badgeId: string) => void;
+  updateLifetimeStats: (updates: Partial<LifetimeStats>) => void;
+
+  // Voicemail drop
+  updateVoicemailDropConfig: (updates: Partial<VoicemailDropConfig>) => void;
 
   // Queries
   getTodayPlan: () => DailyPlan | null;

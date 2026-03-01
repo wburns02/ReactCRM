@@ -5,6 +5,7 @@ import { usePerformanceLoop } from "../usePerformanceLoop";
 import { useDanniaStore } from "../danniaStore";
 import { useOutboundStore } from "../../store";
 import { PerformanceMeter } from "./PerformanceMeter";
+import { DanniaGamification } from "./DanniaGamification";
 import { ScoreExplanation } from "./ScoreExplanation";
 import { scoreContactV2 } from "../scoringV2";
 import { formatHour } from "../constants";
@@ -116,14 +117,8 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
 
   return (
     <div className="space-y-4">
-      {/* Quick stats */}
-      <QuickStats
-        callsMade={performanceMetrics.todayCallsMade}
-        maxCalls={config.maxCallsPerDay}
-        currentBlockLabel={currentBlock?.label ?? "—"}
-        connectRate={performanceMetrics.connectRate}
-        interested={performanceMetrics.todayInterested}
-      />
+      {/* Gamification dashboard — replaces QuickStats */}
+      <DanniaGamification />
 
       {/* Performance meter */}
       <div className="bg-bg-card border border-border rounded-xl p-4">

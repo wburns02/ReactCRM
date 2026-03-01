@@ -11,6 +11,11 @@ import type {
   WeeklyReport,
   DanniaModeConfig,
 } from "./types";
+import {
+  EMPTY_LIFETIME_STATS,
+  DEFAULT_VM_DROP_CONFIG,
+} from "./gamification";
+import type { LifetimeStats, VoicemailDropConfig } from "./gamification";
 import { DEFAULT_DANNIA_CONFIG, AUDIT_LOG_MAX } from "./constants";
 
 const idbStorage = createJSONStorage(() => ({
@@ -59,6 +64,9 @@ export const useDanniaStore = create<DanniaStoreState>()(
       weeklyReports: [],
       activeBlockId: null,
       dialingActive: false,
+      earnedBadges: [],
+      lifetimeStats: { ...EMPTY_LIFETIME_STATS },
+      voicemailDropConfig: { ...DEFAULT_VM_DROP_CONFIG },
 
       // Schedule actions
       setSchedule: (schedule: WeeklySchedule) => {
@@ -270,6 +278,27 @@ export const useDanniaStore = create<DanniaStoreState>()(
         }));
       },
 
+      // Gamification
+      earnBadge: (badgeId: string) => {
+        set((s) => {
+          if (s.earnedBadges.includes(badgeId)) return s;
+          return { earnedBadges: [...s.earnedBadges, badgeId] };
+        });
+      },
+
+      updateLifetimeStats: (updates: Partial<LifetimeStats>) => {
+        set((s) => ({
+          lifetimeStats: { ...s.lifetimeStats, ...updates },
+        }));
+      },
+
+      // Voicemail drop
+      updateVoicemailDropConfig: (updates: Partial<VoicemailDropConfig>) => {
+        set((s) => ({
+          voicemailDropConfig: { ...s.voicemailDropConfig, ...updates },
+        }));
+      },
+
       // Queries
       getTodayPlan: () => {
         const schedule = get().currentSchedule;
@@ -310,7 +339,7 @@ export const useDanniaStore = create<DanniaStoreState>()(
     }),
     {
       name: "dannia-mode-store",
-      version: 1,
+      version: 2,
       storage: idbStorage,
       partialize: (state) => ({
         currentSchedule: state.currentSchedule,
@@ -319,7 +348,20 @@ export const useDanniaStore = create<DanniaStoreState>()(
         auditLog: state.auditLog,
         config: state.config,
         weeklyReports: state.weeklyReports,
+        earnedBadges: state.earnedBadges,
+        lifetimeStats: state.lifetimeStats,
+        voicemailDropConfig: state.voicemailDropConfig,
       }),
+      migrate: (persisted: unknown, version: number) => {
+        const state = persisted as Record<string, unknown>;
+        if (version < 2) {
+          // v1 → v2: add gamification + voicemail drop fields
+          if (!state.earnedBadges) state.earnedBadges = [];
+          if (!state.lifetimeStats) state.lifetimeStats = { ...EMPTY_LIFETIME_STATS };
+          if (!state.voicemailDropConfig) state.voicemailDropConfig = { ...DEFAULT_VM_DROP_CONFIG };
+        }
+        return state as DanniaStoreState;
+      },
     },
   ),
 );

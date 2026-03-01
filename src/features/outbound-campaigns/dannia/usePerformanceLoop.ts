@@ -1,6 +1,8 @@
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useDanniaStore } from "./danniaStore";
 import { checkFailureConditions } from "./failureDetection";
+import { checkNewBadges } from "./gamification";
+import { showToast } from "@/components/ui/Toast";
 import type { FailureCondition } from "./failureDetection";
 import type { ContactCallStatus } from "../types";
 
@@ -47,6 +49,40 @@ export function usePerformanceLoop() {
         reason: `Call completed: ${status}`,
         details: { status, durationSec, connected, interested },
       });
+
+      // Update lifetime stats & check for new badges
+      const state = useDanniaStore.getState();
+      const lt = { ...state.lifetimeStats };
+      lt.totalCalls += 1;
+      if (connected) lt.totalConnected += 1;
+      if (interested) lt.totalInterested += 1;
+      if (voicemail) lt.totalVoicemails += 1;
+      if (state.performanceMetrics.currentStreak > lt.longestStreak) {
+        lt.longestStreak = state.performanceMetrics.currentStreak;
+      }
+      if (state.performanceMetrics.todayCallsMade > lt.bestDayCalls) {
+        lt.bestDayCalls = state.performanceMetrics.todayCallsMade;
+      }
+      if (state.performanceMetrics.connectRate > lt.bestDayConnectRate) {
+        lt.bestDayConnectRate = state.performanceMetrics.connectRate;
+      }
+      state.updateLifetimeStats(lt);
+
+      // Check for new badges
+      const newBadges = checkNewBadges(
+        state.performanceMetrics,
+        lt,
+        state.earnedBadges,
+      );
+      for (const badge of newBadges) {
+        state.earnBadge(badge.id);
+        showToast({
+          title: `${badge.icon} Badge Earned: ${badge.name}!`,
+          description: badge.description,
+          variant: "success",
+          duration: 4000,
+        });
+      }
     },
     [recordCall, addAuditEntry],
   );

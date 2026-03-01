@@ -14,6 +14,8 @@ import { usePerformanceLoop } from "../dannia/usePerformanceLoop";
 import { useWebPhone } from "@/hooks/useWebPhone";
 import { CallScriptPanel } from "./CallScriptPanel";
 import { AgentAssist } from "./AgentAssist";
+import { SmartDispositionPanel } from "../dannia/components/SmartDispositionPanel";
+import { VoicemailDropButton } from "../dannia/components/VoicemailDropButton";
 import {
   Phone,
   PhoneOff,
@@ -705,6 +707,17 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                     )}
                     {activeCall?.held ? "Resume" : "Hold"}
                   </button>
+                  {danniaMode && (
+                    <VoicemailDropButton
+                      isOnCall={isOnCall}
+                      transferFn={async (ext) => {
+                        if (activeCall?.session?.refer) {
+                          await activeCall.session.refer(ext);
+                        }
+                      }}
+                      onDisposition={handleDisposition}
+                    />
+                  )}
                   <div className="flex-1" />
                   <button
                     onClick={async () => {
@@ -731,39 +744,51 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             </div>
 
             {/* Disposition buttons */}
-            <div>
-              <div className="text-xs text-text-tertiary mb-2 font-medium">
-                Disposition
+            {danniaMode ? (
+              <SmartDispositionPanel
+                callTimer={callTimer}
+                phoneState={phoneState}
+                isCallback={currentContact?.call_status === "callback_scheduled"}
+                callAttempts={currentContact?.call_attempts ?? 0}
+                notes={notes}
+                onNotesChange={setNotes}
+                onDisposition={handleDisposition}
+              />
+            ) : (
+              <div>
+                <div className="text-xs text-text-tertiary mb-2 font-medium">
+                  Disposition
+                </div>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {(
+                    [
+                      "interested",
+                      "not_interested",
+                      "voicemail",
+                      "no_answer",
+                      "busy",
+                      "callback_scheduled",
+                      "wrong_number",
+                      "do_not_call",
+                      "completed",
+                    ] as ContactCallStatus[]
+                  ).map((status) => {
+                    const conf = CALL_STATUS_CONFIG[status];
+                    return (
+                      <button
+                        key={status}
+                        onClick={() => handleDisposition(status)}
+                        className={`px-2 py-2 rounded-lg text-[11px] font-medium transition-colors ${conf.color} hover:opacity-80`}
+                      >
+                        {conf.icon} {conf.label}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="grid grid-cols-3 gap-1.5">
-                {(
-                  [
-                    "interested",
-                    "not_interested",
-                    "voicemail",
-                    "no_answer",
-                    "busy",
-                    "callback_scheduled",
-                    "wrong_number",
-                    "do_not_call",
-                    "completed",
-                  ] as ContactCallStatus[]
-                ).map((status) => {
-                  const conf = CALL_STATUS_CONFIG[status];
-                  return (
-                    <button
-                      key={status}
-                      onClick={() => handleDisposition(status)}
-                      className={`px-2 py-2 rounded-lg text-[11px] font-medium transition-colors ${conf.color} hover:opacity-80`}
-                    >
-                      {conf.icon} {conf.label}
-                    </button>
-                  );
-                })}
-              </div>
-              {/* Automation result badges */}
-              <AutomationBadges results={automationResults} />
-            </div>
+            )}
+            {/* Automation result badges */}
+            <AutomationBadges results={automationResults} />
           </div>
 
           {/* Queue preview */}
