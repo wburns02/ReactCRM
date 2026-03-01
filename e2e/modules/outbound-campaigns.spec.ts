@@ -118,10 +118,10 @@ test.describe("Outbound Campaigns", () => {
     await loginAndSetup(page);
 
     await expect(page.locator("h1", { hasText: "Outbound Campaigns" })).toBeVisible({ timeout: 10000 });
-    await expect(page.locator("button", { hasText: "Campaigns" })).toBeVisible();
-    await expect(page.locator("button", { hasText: "Contacts" })).toBeVisible();
-    await expect(page.locator("button", { hasText: "Power Dialer" })).toBeVisible();
-    await expect(page.locator("button", { hasText: "Analytics" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Campaigns", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Contacts", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Power Dialer", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Analytics", exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Test Campaign" })).toBeVisible();
   });
 
