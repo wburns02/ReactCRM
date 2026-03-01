@@ -6,7 +6,7 @@ import {
   type CampaignContact,
   type ContactCallStatus,
 } from "../types";
-import { Phone, Search, Filter, Trash2, StickyNote } from "lucide-react";
+import { Phone, PhoneOff, Search, Filter, Trash2, StickyNote } from "lucide-react";
 
 interface ContactTableProps {
   campaignId: string;
@@ -257,6 +257,11 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                       <span>{statusConf.icon}</span>
                       {statusConf.label}
                     </span>
+                    {contact.call_status === "do_not_call" && (
+                      <span className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-red-200 text-red-800 dark:bg-red-950/50 dark:text-red-400">
+                        DNC
+                      </span>
+                    )}
                   </td>
                   <td className="px-3 py-2.5 text-text-secondary text-xs">
                     {contact.call_attempts > 0 ? contact.call_attempts : "-"}
@@ -275,13 +280,22 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                       {["pending", "queued", "no_answer", "busy", "callback_scheduled"].includes(
                         contact.call_status,
                       ) && (
-                        <button
-                          onClick={() => onDialContact(contact)}
-                          className="p-1.5 rounded-lg bg-green-50 dark:bg-green-950/30 text-green-600 hover:bg-green-100 dark:hover:bg-green-950/50"
-                          title="Dial"
-                        >
-                          <Phone className="w-3.5 h-3.5" />
-                        </button>
+                        <>
+                          <button
+                            onClick={() => onDialContact(contact)}
+                            className="p-1.5 rounded-lg bg-green-50 dark:bg-green-950/30 text-green-600 hover:bg-green-100 dark:hover:bg-green-950/50"
+                            title="Dial"
+                          >
+                            <Phone className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleQuickDisposition(contact.id, "do_not_call")}
+                            className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 text-text-tertiary hover:text-red-500"
+                            title="Mark Do Not Call"
+                          >
+                            <PhoneOff className="w-3.5 h-3.5" />
+                          </button>
+                        </>
                       )}
                       <button
                         onClick={() => {

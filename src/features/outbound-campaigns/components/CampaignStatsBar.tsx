@@ -9,7 +9,7 @@ export function CampaignStatsBar({ stats }: CampaignStatsBarProps) {
     stats.total > 0 ? ((stats.called / stats.total) * 100).toFixed(0) : "0";
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
       <StatCard
         label="Total"
         value={stats.total}
@@ -30,6 +30,7 @@ export function CampaignStatsBar({ stats }: CampaignStatsBarProps) {
         sub={`${stats.interest_rate.toFixed(0)}% of connected`}
       />
       <StatCard label="Voicemail" value={stats.voicemail} color="text-purple-600" />
+      <StatCard label="DNC" value={stats.do_not_call} color="text-red-600" />
       <StatCard
         label="Progress"
         value={`${progressPct}%`}

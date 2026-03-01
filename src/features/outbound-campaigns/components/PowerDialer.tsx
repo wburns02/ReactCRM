@@ -1,6 +1,14 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useOutboundStore } from "../store";
-import { CALL_STATUS_CONFIG, ZONE_CONFIG, type ContactCallStatus } from "../types";
+import {
+  CALL_STATUS_CONFIG,
+  ZONE_CONFIG,
+  type AutoDialDelay,
+  type ContactCallStatus,
+} from "../types";
+import type { AutomationResult } from "../types";
+import { scoreContact, scoreAndSortContacts } from "../scoring";
+import { usePostCallAutomation } from "../usePostCallAutomation";
 import { useWebPhone } from "@/hooks/useWebPhone";
 import { CallScriptPanel } from "./CallScriptPanel";
 import { AgentAssist } from "./AgentAssist";
@@ -17,16 +25,119 @@ import {
   WifiOff,
   ChevronRight,
   Timer,
+  X,
+  Brain,
+  Zap,
+  AlertTriangle,
 } from "lucide-react";
 
 interface PowerDialerProps {
   campaignId: string;
 }
 
+function ScoreBadge({ score, showTooltip = false }: { score: number; showTooltip?: boolean }) {
+  const color =
+    score >= 70
+      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+      : score >= 40
+        ? "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400"
+        : "bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400";
+
+  return (
+    <span
+      className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold tabular-nums ${color}`}
+      title={showTooltip ? `Smart Score: ${score}/100` : undefined}
+    >
+      {score}
+    </span>
+  );
+}
+
+function AutoDialCountdown({
+  seconds,
+  total,
+  onCancel,
+}: {
+  seconds: number;
+  total: number;
+  onCancel: () => void;
+}) {
+  const progress = total > 0 ? ((total - seconds) / total) * 100 : 0;
+  const circumference = 2 * Math.PI * 28;
+  const offset = circumference - (progress / 100) * circumference;
+
+  return (
+    <div className="flex flex-col items-center justify-center py-4 gap-3">
+      <div className="relative w-20 h-20">
+        <svg className="w-20 h-20 -rotate-90" viewBox="0 0 64 64">
+          <circle
+            cx="32"
+            cy="32"
+            r="28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            className="text-border"
+          />
+          <circle
+            cx="32"
+            cy="32"
+            r="28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            strokeLinecap="round"
+            className="text-primary transition-all duration-1000 ease-linear"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-2xl font-bold text-text-primary tabular-nums">
+            {seconds}
+          </span>
+        </div>
+      </div>
+      <div className="text-xs text-text-secondary">Auto-dialing next contact...</div>
+      <button
+        onClick={onCancel}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-text-secondary hover:bg-bg-hover text-xs font-medium"
+      >
+        <X className="w-3 h-3" /> Cancel
+      </button>
+    </div>
+  );
+}
+
+function AutomationBadges({ results }: { results: AutomationResult[] }) {
+  const recent = results.filter((r) => Date.now() - r.timestamp < 8000);
+  if (recent.length === 0) return null;
+
+  return (
+    <div className="flex flex-wrap gap-1 mt-2">
+      {recent.map((r) => (
+        <span
+          key={r.id}
+          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium transition-opacity ${
+            r.status === "success"
+              ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400"
+              : "bg-red-50 text-red-600 dark:bg-red-950/30 dark:text-red-400"
+          }`}
+        >
+          {r.status === "success" ? "\u2713" : "\u2717"} {r.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function PowerDialer({ campaignId }: PowerDialerProps) {
   const allContacts = useOutboundStore((s) => s.contacts);
   const dialerActive = useOutboundStore((s) => s.dialerActive);
   const dialerContactIndex = useOutboundStore((s) => s.dialerContactIndex);
+  const autoDialEnabled = useOutboundStore((s) => s.autoDialEnabled);
+  const autoDialDelay = useOutboundStore((s) => s.autoDialDelay);
+  const sortOrder = useOutboundStore((s) => s.sortOrder);
 
   const {
     state: phoneState,
@@ -40,27 +151,48 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     error: phoneError,
   } = useWebPhone();
 
+  const { runAutomation, results: automationResults } = usePostCallAutomation(campaignId);
+
   const [notes, setNotes] = useState("");
   const [callTimer, setCallTimer] = useState(0);
   const [disposition, setDisposition] = useState<ContactCallStatus | "">("");
   const [scriptCollapsed, setScriptCollapsed] = useState(false);
   const [assistCollapsed, setAssistCollapsed] = useState(false);
 
-  const callable = useMemo(
+  // Auto-dial countdown state
+  const [autoDialCountdown, setAutoDialCountdown] = useState<number | null>(null);
+  const autoDialTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoDialMountedRef = useRef(true);
+
+  // Filter callable contacts
+  const rawCallable = useMemo(
     () =>
-      allContacts
-        .filter(
-          (c) =>
-            c.campaign_id === campaignId &&
-            ["pending", "queued", "no_answer", "busy", "callback_scheduled"].includes(c.call_status),
-        )
-        .sort((a, b) => {
-          if (a.call_status === "callback_scheduled" && b.call_status !== "callback_scheduled") return -1;
-          if (b.call_status === "callback_scheduled" && a.call_status !== "callback_scheduled") return 1;
-          if (a.priority !== b.priority) return b.priority - a.priority;
-          return a.created_at.localeCompare(b.created_at);
-        }),
+      allContacts.filter(
+        (c) =>
+          c.campaign_id === campaignId &&
+          ["pending", "queued", "no_answer", "busy", "callback_scheduled"].includes(c.call_status),
+      ),
     [allContacts, campaignId],
+  );
+
+  // Sort: smart or default
+  const callable = useMemo(() => {
+    if (sortOrder === "smart") {
+      return scoreAndSortContacts(rawCallable);
+    }
+    return [...rawCallable].sort((a, b) => {
+      if (a.call_status === "callback_scheduled" && b.call_status !== "callback_scheduled") return -1;
+      if (b.call_status === "callback_scheduled" && a.call_status !== "callback_scheduled") return 1;
+      if (a.priority !== b.priority) return b.priority - a.priority;
+      return a.created_at.localeCompare(b.created_at);
+    });
+  }, [rawCallable, sortOrder]);
+
+  // Score for current contact (used for badge even in default mode)
+  const currentContact = callable[dialerContactIndex] ?? null;
+  const currentScore = useMemo(
+    () => (currentContact ? scoreContact(currentContact) : null),
+    [currentContact],
   );
 
   const stats = useMemo(() => {
@@ -73,13 +205,20 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     return { called, connected, interested };
   }, [allContacts, campaignId]);
 
-  const currentContact = callable[dialerContactIndex] ?? null;
-
   // Initialize active campaign
   useEffect(() => {
     useOutboundStore.getState().setActiveCampaign(campaignId);
     return () => useOutboundStore.getState().setActiveCampaign(null);
   }, [campaignId]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    autoDialMountedRef.current = true;
+    return () => {
+      autoDialMountedRef.current = false;
+      if (autoDialTimerRef.current) clearInterval(autoDialTimerRef.current);
+    };
+  }, []);
 
   // Call timer
   useEffect(() => {
@@ -95,6 +234,13 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     return () => clearInterval(interval);
   }, [phoneState, activeCall]);
 
+  // Cancel auto-dial if phone disconnects
+  useEffect(() => {
+    if (phoneState === "error" && autoDialCountdown !== null) {
+      cancelAutoDial();
+    }
+  }, [phoneState, autoDialCountdown]);
+
   const formatDuration = (s: number) => {
     const m = Math.floor(s / 60);
     const sec = s % 60;
@@ -108,35 +254,76 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     return digits;
   };
 
+  const cancelAutoDial = useCallback(() => {
+    if (autoDialTimerRef.current) {
+      clearInterval(autoDialTimerRef.current);
+      autoDialTimerRef.current = null;
+    }
+    setAutoDialCountdown(null);
+  }, []);
+
+  const startAutoDialCountdown = useCallback(() => {
+    if (!autoDialEnabled) return;
+    cancelAutoDial();
+    const delay = autoDialDelay;
+    setAutoDialCountdown(delay);
+
+    autoDialTimerRef.current = setInterval(() => {
+      setAutoDialCountdown((prev) => {
+        if (prev === null || prev <= 1) {
+          if (autoDialTimerRef.current) clearInterval(autoDialTimerRef.current);
+          autoDialTimerRef.current = null;
+          // Trigger auto-dial
+          if (autoDialMountedRef.current) {
+            setTimeout(() => handleDial(), 0);
+          }
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, [autoDialEnabled, autoDialDelay]);
+
   const handleDial = useCallback(async () => {
     if (!currentContact) return;
+    // DNC safety check
+    if (currentContact.call_status === "do_not_call") return;
+
+    cancelAutoDial();
     if (phoneState === "idle") {
       await connect();
-      // Wait a moment for registration, then dial
       setTimeout(async () => {
         await call(currentContact.phone);
       }, 2000);
     } else if (phoneState === "registered") {
       await call(currentContact.phone);
     }
-  }, [currentContact, phoneState, connect, call]);
+  }, [currentContact, phoneState, connect, call, cancelAutoDial]);
 
   const handleDisposition = useCallback(
     (status: ContactCallStatus) => {
       if (!currentContact) return;
       const store = useOutboundStore.getState();
       store.setContactCallStatus(currentContact.id, status, notes || undefined);
+
+      // Fire post-call automation
+      runAutomation(currentContact, status, notes || undefined);
+
       setNotes("");
       setDisposition("");
 
       // Auto-advance to next contact
       if (dialerContactIndex < callable.length - 1) {
         store.setDialerContactIndex(dialerContactIndex + 1);
+        // Start auto-dial countdown if enabled
+        if (autoDialEnabled && status !== "do_not_call") {
+          setTimeout(() => startAutoDialCountdown(), 100);
+        }
       } else {
         store.stopDialer();
       }
     },
-    [currentContact, notes, dialerContactIndex, callable.length],
+    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown],
   );
 
   const handleSkip = () => {
@@ -144,6 +331,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     if (currentContact) {
       store.setContactCallStatus(currentContact.id, "skipped");
     }
+    cancelAutoDial();
     if (dialerContactIndex < callable.length - 1) {
       store.setDialerContactIndex(dialerContactIndex + 1);
     }
@@ -162,6 +350,9 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const isPhoneReady = phoneState === "registered";
   const isOnCall = phoneState === "active" || phoneState === "calling";
 
+  // Check if current contact is DNC (shouldn't happen, but safety check)
+  const isDNC = currentContact?.call_status === "do_not_call";
+
   return (
     <div className="space-y-4">
       {/* Session header */}
@@ -171,6 +362,63 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             Power Dialer
           </h2>
           <div className="flex items-center gap-2">
+            {/* Sort order toggle */}
+            <div className="flex items-center bg-bg-hover rounded-lg p-0.5">
+              <button
+                onClick={() => useOutboundStore.getState().setSortOrder("default")}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+                  sortOrder === "default"
+                    ? "bg-bg-card text-text-primary shadow-sm"
+                    : "text-text-tertiary hover:text-text-secondary"
+                }`}
+              >
+                Default
+              </button>
+              <button
+                onClick={() => useOutboundStore.getState().setSortOrder("smart")}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+                  sortOrder === "smart"
+                    ? "bg-bg-card text-text-primary shadow-sm"
+                    : "text-text-tertiary hover:text-text-secondary"
+                }`}
+              >
+                <Brain className="w-3 h-3" /> Smart
+              </button>
+            </div>
+
+            {/* Auto-dial toggle */}
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() =>
+                  useOutboundStore.getState().setAutoDialEnabled(!autoDialEnabled)
+                }
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
+                  autoDialEnabled
+                    ? "bg-primary/10 text-primary border border-primary/30"
+                    : "bg-bg-hover text-text-tertiary border border-transparent"
+                }`}
+              >
+                <Zap className="w-3 h-3" />
+                Auto
+              </button>
+              {autoDialEnabled && (
+                <select
+                  value={autoDialDelay}
+                  onChange={(e) =>
+                    useOutboundStore
+                      .getState()
+                      .setAutoDialDelay(Number(e.target.value) as AutoDialDelay)
+                  }
+                  className="text-[11px] bg-bg-body border border-border rounded-md px-1 py-1 text-text-secondary cursor-pointer focus:outline-none"
+                >
+                  <option value={3}>3s</option>
+                  <option value={5}>5s</option>
+                  <option value={10}>10s</option>
+                </select>
+              )}
+            </div>
+
+            {/* Phone status */}
             <div
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                 isPhoneReady
@@ -201,7 +449,10 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               </button>
             ) : (
               <button
-                onClick={() => useOutboundStore.getState().stopDialer()}
+                onClick={() => {
+                  cancelAutoDial();
+                  useOutboundStore.getState().stopDialer();
+                }}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600"
               >
                 <Pause className="w-4 h-4" /> End Session
@@ -251,6 +502,22 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
         <div className="grid grid-cols-1 xl:grid-cols-[1fr_380px] gap-4">
         {/* LEFT: Contact card + call controls */}
         <div className="bg-bg-card border border-border rounded-xl overflow-hidden">
+          {/* DNC Warning Banner */}
+          {isDNC && (
+            <div className="px-4 py-2.5 bg-red-50 dark:bg-red-950/30 border-b border-red-200 dark:border-red-800 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-red-600" />
+              <span className="text-sm font-medium text-red-700 dark:text-red-400">
+                This contact is marked Do Not Call — skipping
+              </span>
+              <button
+                onClick={handleSkip}
+                className="ml-auto px-3 py-1 rounded-lg bg-red-600 text-white text-xs font-medium hover:bg-red-700"
+              >
+                Skip to Next
+              </button>
+            </div>
+          )}
+
           {/* Contact info header */}
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
@@ -270,6 +537,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                       </span>
                     ) : null;
                   })()}
+                  {currentScore && <ScoreBadge score={currentScore.total} showTooltip />}
                 </div>
                 {currentContact.company && (
                   <p className="text-sm text-text-secondary">
@@ -278,7 +546,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                 )}
                 {(currentContact.address || currentContact.zip_code) && (
                   <p className="text-xs text-text-tertiary">
-                    {[currentContact.address, currentContact.zip_code].filter(Boolean).join(" · ")}
+                    {[currentContact.address, currentContact.zip_code].filter(Boolean).join(" \u00b7 ")}
                   </p>
                 )}
               </div>
@@ -347,11 +615,18 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
 
           {/* Call controls */}
           <div className="p-4 space-y-3">
-            {!isOnCall ? (
+            {/* Auto-dial countdown overlay */}
+            {autoDialCountdown !== null ? (
+              <AutoDialCountdown
+                seconds={autoDialCountdown}
+                total={autoDialDelay}
+                onCancel={cancelAutoDial}
+              />
+            ) : !isOnCall ? (
               <div className="flex gap-2">
                 <button
                   onClick={handleDial}
-                  disabled={!isPhoneReady && phoneState !== "idle"}
+                  disabled={isDNC || (!isPhoneReady && phoneState !== "idle")}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg bg-green-500 text-white font-semibold hover:bg-green-600 disabled:opacity-40 touch-manipulation"
                 >
                   <Phone className="w-5 h-5" />
@@ -470,6 +745,8 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                   );
                 })}
               </div>
+              {/* Automation result badges */}
+              <AutomationBadges results={automationResults} />
             </div>
           </div>
 
@@ -484,12 +761,16 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                   .slice(dialerContactIndex + 1, dialerContactIndex + 4)
                   .map((c) => {
                     const zc = c.service_zone ? ZONE_CONFIG[c.service_zone] : null;
+                    const cs = scoreContact(c);
                     return (
                       <div
                         key={c.id}
                         className="flex items-center gap-2 text-xs text-text-secondary"
                       >
                         <ChevronRight className="w-3 h-3 text-text-tertiary" />
+                        {sortOrder === "smart" && (
+                          <ScoreBadge score={cs.total} />
+                        )}
                         {zc && (
                           <span className={`inline-flex items-center px-1 py-0 rounded text-[9px] font-bold ${zc.color}`}>
                             {zc.shortLabel}
@@ -524,7 +805,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
         </div>
       ) : dialerActive ? (
         <div className="bg-bg-card border border-border rounded-xl p-8 text-center">
-          <div className="text-4xl mb-3">🎉</div>
+          <div className="text-4xl mb-3">&#127881;</div>
           <h3 className="text-lg font-semibold text-text-primary">
             All contacts called!
           </h3>

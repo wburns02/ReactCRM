@@ -1,12 +1,16 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type {
+  AutoDialDelay,
   Campaign,
+  CampaignAutomationConfig,
   CampaignContact,
   CampaignStats,
   CampaignStatus,
   ContactCallStatus,
+  SortOrder,
 } from "./types";
+import { DEFAULT_AUTOMATION_CONFIG } from "./types";
 
 /**
  * Parse Sherrie Sheet XLSX data into campaign contacts.
@@ -47,6 +51,16 @@ interface OutboundCampaignState {
   dialerContactIndex: number;
   dialerActive: boolean;
 
+  // Auto-dial
+  autoDialEnabled: boolean;
+  autoDialDelay: AutoDialDelay;
+
+  // Smart ordering
+  sortOrder: SortOrder;
+
+  // Post-call automation
+  campaignAutomationConfigs: Record<string, CampaignAutomationConfig>;
+
   // Campaign CRUD
   createCampaign: (name: string, description?: string) => string;
   updateCampaign: (id: string, updates: Partial<Campaign>) => void;
@@ -67,6 +81,12 @@ interface OutboundCampaignState {
   stopDialer: () => void;
   advanceDialer: () => void;
 
+  // Auto-dial / sort setters
+  setAutoDialEnabled: (enabled: boolean) => void;
+  setAutoDialDelay: (delay: AutoDialDelay) => void;
+  setSortOrder: (order: SortOrder) => void;
+  getAutomationConfig: (campaignId: string) => CampaignAutomationConfig;
+
   // Queries
   getCampaignContacts: (campaignId: string) => CampaignContact[];
   getCampaignStats: (campaignId: string) => CampaignStats;
@@ -82,6 +102,10 @@ export const useOutboundStore = create<OutboundCampaignState>()(
       activeCampaignId: null,
       dialerContactIndex: 0,
       dialerActive: false,
+      autoDialEnabled: false,
+      autoDialDelay: 5,
+      sortOrder: "default",
+      campaignAutomationConfigs: {},
 
       createCampaign: (name, description) => {
         const id = generateId();
@@ -335,6 +359,13 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         }
       },
 
+      setAutoDialEnabled: (enabled) => set({ autoDialEnabled: enabled }),
+      setAutoDialDelay: (delay) => set({ autoDialDelay: delay }),
+      setSortOrder: (order) => set({ sortOrder: order }),
+      getAutomationConfig: (campaignId) => {
+        return get().campaignAutomationConfigs[campaignId] ?? DEFAULT_AUTOMATION_CONFIG;
+      },
+
       getCampaignContacts: (campaignId) => {
         return get().contacts.filter((c) => c.campaign_id === campaignId);
       },
@@ -370,6 +401,9 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         const callback_scheduled = contacts.filter(
           (c) => c.call_status === "callback_scheduled",
         ).length;
+        const do_not_call = contacts.filter(
+          (c) => c.call_status === "do_not_call",
+        ).length;
         const completed = contacts.filter((c) =>
           [
             "completed",
@@ -391,6 +425,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           no_answer,
           callback_scheduled,
           completed,
+          do_not_call,
           connect_rate: called > 0 ? (connected / called) * 100 : 0,
           interest_rate: connected > 0 ? (interested / connected) * 100 : 0,
         };
@@ -431,7 +466,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
     }),
     {
       name: "outbound-campaigns-store",
-      version: 2,
+      version: 3,
       migrate: (persisted: unknown, version: number) => {
         const state = persisted as Record<string, unknown>;
         if (version < 2) {
@@ -452,6 +487,12 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             ...c,
             source_sheet: (c as Campaign).source_sheet ?? null,
           }));
+        }
+        if (version < 3) {
+          state.autoDialEnabled = false;
+          state.autoDialDelay = 5;
+          state.sortOrder = "default";
+          state.campaignAutomationConfigs = {};
         }
         return state as OutboundCampaignState;
       },

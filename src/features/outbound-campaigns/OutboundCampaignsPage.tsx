@@ -3,6 +3,7 @@ import { CampaignList } from "./components/CampaignList";
 import { CampaignStatsBar } from "./components/CampaignStatsBar";
 import { ContactTable } from "./components/ContactTable";
 import { PowerDialer } from "./components/PowerDialer";
+import { CampaignAnalytics } from "./components/CampaignAnalytics";
 import { ImportDialog } from "./components/ImportDialog";
 import { useOutboundStore } from "./store";
 import type { CampaignContact, CampaignStats } from "./types";
@@ -11,10 +12,11 @@ import {
   Users,
   Zap,
   Upload,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
-type Tab = "campaigns" | "contacts" | "dialer";
+type Tab = "campaigns" | "contacts" | "dialer" | "analytics";
 
 export function OutboundCampaignsPage() {
   const [activeTab, setActiveTab] = useState<Tab>("campaigns");
@@ -44,9 +46,10 @@ export function OutboundCampaignsPage() {
     const completed = camp.filter((c) =>
       ["completed", "interested", "not_interested", "wrong_number", "do_not_call"].includes(c.call_status),
     ).length;
+    const do_not_call = camp.filter((c) => c.call_status === "do_not_call").length;
     return {
       total, pending, called, connected, interested, not_interested,
-      voicemail, no_answer, callback_scheduled, completed,
+      voicemail, no_answer, callback_scheduled, completed, do_not_call,
       connect_rate: called > 0 ? (connected / called) * 100 : 0,
       interest_rate: connected > 0 ? (interested / connected) * 100 : 0,
     };
@@ -81,6 +84,12 @@ export function OutboundCampaignsPage() {
       id: "dialer",
       label: "Power Dialer",
       icon: Zap,
+      disabled: !selectedCampaignId,
+    },
+    {
+      id: "analytics",
+      label: "Analytics",
+      icon: BarChart3,
       disabled: !selectedCampaignId,
     },
   ];
@@ -164,6 +173,9 @@ export function OutboundCampaignsPage() {
         )}
         {activeTab === "dialer" && selectedCampaignId && (
           <PowerDialer campaignId={selectedCampaignId} />
+        )}
+        {activeTab === "analytics" && selectedCampaignId && (
+          <CampaignAnalytics campaignId={selectedCampaignId} />
         )}
       </div>
 

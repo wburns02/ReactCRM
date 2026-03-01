@@ -108,8 +108,113 @@ export interface CampaignStats {
   no_answer: number;
   callback_scheduled: number;
   completed: number;
+  do_not_call: number;
   connect_rate: number;
   interest_rate: number;
+}
+
+/**
+ * Auto-dial delay options (seconds)
+ */
+export type AutoDialDelay = 3 | 5 | 10;
+
+/**
+ * Sort order for callable contacts
+ */
+export type SortOrder = "smart" | "default";
+
+/**
+ * Smart scoring breakdown for a contact
+ */
+export interface ScoreBreakdown {
+  contractUrgency: number;
+  priorityLabel: number;
+  customerType: number;
+  callbackDue: number;
+  attemptEfficiency: number;
+  timeOfDay: number;
+}
+
+export interface ContactScore {
+  contactId: string;
+  total: number;
+  breakdown: ScoreBreakdown;
+}
+
+/**
+ * Campaign automation configuration
+ */
+export interface CampaignAutomationConfig {
+  logActivity: boolean;
+  sendSms: boolean;
+  sendEmail: boolean;
+  createProspect: boolean;
+}
+
+export const DEFAULT_AUTOMATION_CONFIG: CampaignAutomationConfig = {
+  logActivity: true,
+  sendSms: false,
+  sendEmail: false,
+  createProspect: false,
+};
+
+/**
+ * Post-call automation result
+ */
+export interface AutomationResult {
+  id: string;
+  type: "activity" | "sms" | "email" | "prospect" | "priority";
+  status: "success" | "error";
+  label: string;
+  timestamp: number;
+}
+
+/**
+ * Analytics types
+ */
+export interface CampaignKPIs {
+  callsPerHour: number;
+  avgDuration: number;
+  connectRate: number;
+  interestRate: number;
+  callbackConversionRate: number;
+}
+
+export interface DispositionBreakdownItem {
+  name: string;
+  value: number;
+  color: string;
+}
+
+export interface CallsOverTimeItem {
+  date: string;
+  calls: number;
+  connected: number;
+}
+
+export interface FunnelStep {
+  label: string;
+  value: number;
+  percentage: number;
+  color: string;
+}
+
+export interface BestHourItem {
+  hour: string;
+  connectRate: number;
+  totalCalls: number;
+}
+
+export interface CallLogEntry {
+  id: string;
+  contactName: string;
+  phone: string;
+  zone: string | null;
+  status: ContactCallStatus;
+  attempts: number;
+  lastCallDate: string | null;
+  duration: number | null;
+  notes: string | null;
 }
 
 /**
