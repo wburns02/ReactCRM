@@ -20,17 +20,25 @@ const HOURLY_CHECK_INTERVAL = 60 * 60 * 1000; // 1 hour
  * - `onDisposition()` callback should be called after each call disposition
  * - Runs hourly failure checks via setInterval
  */
+export interface CallContext {
+  callId: string;
+  contactId: string;
+  contactName: string;
+  notes: string;
+}
+
 export function usePerformanceLoop() {
   const config = useDanniaStore((s) => s.config);
   const performanceMetrics = useDanniaStore((s) => s.performanceMetrics);
   const recordCall = useDanniaStore((s) => s.recordCall);
   const addAuditEntry = useDanniaStore((s) => s.addAuditEntry);
+  const addCallRecord = useDanniaStore((s) => s.addCallRecord);
   const [activeFailures, setActiveFailures] = useState<FailureCondition[]>([]);
   const checkIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Process a call disposition
   const onDisposition = useCallback(
-    (status: ContactCallStatus, durationSec: number = 0) => {
+    (status: ContactCallStatus, durationSec: number = 0, callContext?: CallContext) => {
       const connected = CONNECTED_STATUSES.includes(status);
       const interested = status === "interested";
       const voicemail = status === "voicemail";
@@ -83,8 +91,22 @@ export function usePerformanceLoop() {
           duration: 4000,
         });
       }
+
+      // Track call recording entry
+      if (callContext) {
+        addCallRecord({
+          contactId: callContext.contactId,
+          contactName: callContext.contactName,
+          callId: callContext.callId,
+          disposition: status,
+          durationSec,
+          recordingAvailable: !!callContext.callId,
+          timestamp: Date.now(),
+          notes: callContext.notes,
+        });
+      }
     },
-    [recordCall, addAuditEntry],
+    [recordCall, addAuditEntry, addCallRecord],
   );
 
   // Hourly failure check

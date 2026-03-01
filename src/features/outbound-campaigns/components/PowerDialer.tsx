@@ -16,6 +16,11 @@ import { CallScriptPanel } from "./CallScriptPanel";
 import { AgentAssist } from "./AgentAssist";
 import { SmartDispositionPanel } from "../dannia/components/SmartDispositionPanel";
 import { VoicemailDropButton } from "../dannia/components/VoicemailDropButton";
+import { SmsSequenceStatus } from "../dannia/components/SmsSequenceStatus";
+import { useSmsSequenceEngine } from "../dannia/useSmsSequenceEngine";
+import { extractCallId } from "../dannia/callRecordingTracker";
+import { useAutoSummary } from "../dannia/useAutoSummary";
+import { AutoSummaryBanner } from "../dannia/components/AutoSummaryBanner";
 import {
   Phone,
   PhoneOff,
@@ -158,6 +163,16 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
 
   const { runAutomation, results: automationResults } = usePostCallAutomation(campaignId);
   const { onDisposition: trackDisposition } = usePerformanceLoop();
+  const { enqueueSequence } = useSmsSequenceEngine();
+  const { summary, isGenerating, generateSummary, clearSummary } = useAutoSummary();
+
+  // Track transcript from LiveTranscriptPanel for auto-summary
+  const transcriptRef = useRef("");
+  const prevPhoneStateRef = useRef(phoneState);
+
+  const handleTranscriptCapture = useCallback((transcript: string) => {
+    transcriptRef.current = transcript;
+  }, []);
 
   const [notes, setNotes] = useState("");
   const [callTimer, setCallTimer] = useState(0);
@@ -243,6 +258,20 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     return () => clearInterval(interval);
   }, [phoneState, activeCall]);
 
+  // Detect call end (active → registered) and trigger AI summary
+  useEffect(() => {
+    if (
+      danniaMode &&
+      prevPhoneStateRef.current === "active" &&
+      phoneState === "registered" &&
+      transcriptRef.current &&
+      currentContact
+    ) {
+      generateSummary(transcriptRef.current, currentContact.account_name);
+    }
+    prevPhoneStateRef.current = phoneState;
+  }, [phoneState, danniaMode, currentContact, generateSummary]);
+
   // Cancel auto-dial if phone disconnects
   useEffect(() => {
     if (phoneState === "error" && autoDialCountdown !== null) {
@@ -320,11 +349,19 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
 
       // Track in Dannia Mode performance engine
       if (danniaMode) {
-        trackDisposition(status, callTimer);
+        trackDisposition(status, callTimer, {
+          callId: extractCallId(activeCall),
+          contactId: currentContact.id,
+          contactName: currentContact.account_name,
+          notes: notes || "",
+        });
+        enqueueSequence(currentContact, status);
       }
 
       setNotes("");
       setDisposition("");
+      clearSummary();
+      transcriptRef.current = "";
 
       // Auto-advance to next contact
       if (dialerContactIndex < callable.length - 1) {
@@ -337,7 +374,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
         store.stopDialer();
       }
     },
-    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown, danniaMode, trackDisposition, callTimer],
+    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown, danniaMode, trackDisposition, callTimer, enqueueSequence, clearSummary],
   );
 
   const handleSkip = () => {
@@ -731,6 +768,16 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               </>
             )}
 
+            {/* AI Auto-Summary Banner (Dannia Mode) */}
+            {danniaMode && (summary || isGenerating) && (
+              <AutoSummaryBanner
+                summary={summary}
+                isGenerating={isGenerating}
+                onUseAsNotes={(text) => setNotes(text)}
+                onDismiss={clearSummary}
+              />
+            )}
+
             {/* Notes */}
             <div className="relative">
               <StickyNote className="absolute left-3 top-3 w-4 h-4 text-text-tertiary" />
@@ -789,6 +836,9 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             )}
             {/* Automation result badges */}
             <AutomationBadges results={automationResults} />
+            {danniaMode && currentContact && (
+              <SmsSequenceStatus contactId={currentContact.id} />
+            )}
           </div>
 
           {/* Queue preview */}
@@ -841,6 +891,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             isOnCall={isOnCall}
             collapsed={assistCollapsed}
             onToggle={() => setAssistCollapsed(!assistCollapsed)}
+            onTranscriptCapture={danniaMode ? handleTranscriptCapture : undefined}
           />
         </div>
         </div>

@@ -195,6 +195,38 @@ export interface WeeklyReport {
 }
 
 /**
+ * SMS sequence step for post-call follow-up
+ */
+export interface SmsStep {
+  id: string;
+  contactId: string;
+  contactName: string;
+  contactPhone: string;
+  sequenceId: string;
+  stepIndex: number;
+  template: string;
+  scheduledAt: number; // epoch ms
+  status: "pending" | "sent" | "failed";
+  sentAt: number | null;
+  error: string | null;
+}
+
+/**
+ * Call recording entry for self-review
+ */
+export interface CallRecordingEntry {
+  id: string;
+  contactId: string;
+  contactName: string;
+  callId: string;
+  disposition: string;
+  durationSec: number;
+  recordingAvailable: boolean;
+  timestamp: number; // epoch ms
+  notes: string;
+}
+
+/**
  * Dannia store state shape
  */
 export interface DanniaStoreState {
@@ -218,6 +250,10 @@ export interface DanniaStoreState {
   lifetimeStats: LifetimeStats;
   // Voicemail drop
   voicemailDropConfig: VoicemailDropConfig;
+  // SMS sequences
+  pendingSmsSteps: SmsStep[];
+  // Call recordings
+  recentCallRecords: CallRecordingEntry[];
 
   // Actions
   setSchedule: (schedule: WeeklySchedule) => void;
@@ -257,6 +293,15 @@ export interface DanniaStoreState {
 
   // Voicemail drop
   updateVoicemailDropConfig: (updates: Partial<VoicemailDropConfig>) => void;
+
+  // SMS sequences
+  addSmsStep: (step: Omit<SmsStep, "id">) => void;
+  markSmsStepSent: (id: string) => void;
+  markSmsStepFailed: (id: string, error: string) => void;
+  clearSmsStepsForContact: (contactId: string) => void;
+
+  // Call recordings
+  addCallRecord: (entry: Omit<CallRecordingEntry, "id">) => void;
 
   // Queries
   getTodayPlan: () => DailyPlan | null;

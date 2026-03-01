@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Calendar, FileText, LayoutDashboard } from "lucide-react";
+import { Calendar, FileText, Headphones, LayoutDashboard } from "lucide-react";
 import { useOutboundStore } from "../../store";
 import { useDanniaStore } from "../danniaStore";
 import { TodaysPlan } from "./TodaysPlan";
@@ -7,8 +7,9 @@ import { WeeklyCalendarView } from "./WeeklyCalendarView";
 import { WeeklyReportView } from "./WeeklyReportView";
 import { AuditLogPanel } from "./AuditLogPanel";
 import { PowerDialer } from "../../components/PowerDialer";
+import { CallReviewPanel } from "./CallReviewPanel";
 
-type DanniaTab = "today" | "week" | "report";
+type DanniaTab = "today" | "week" | "report" | "calls";
 
 export function DanniaDashboard() {
   const [activeTab, setActiveTab] = useState<DanniaTab>("today");
@@ -39,6 +40,7 @@ export function DanniaDashboard() {
     { id: "today", label: "Today", icon: LayoutDashboard },
     { id: "week", label: "Week", icon: Calendar },
     { id: "report", label: "Report", icon: FileText },
+    { id: "calls", label: "My Calls", icon: Headphones },
   ];
 
   return (
@@ -62,6 +64,7 @@ export function DanniaDashboard() {
           )}
           {activeTab === "week" && <WeeklyCalendarView />}
           {activeTab === "report" && <WeeklyReportView />}
+          {activeTab === "calls" && <CallReviewPanel />}
 
           {/* Audit log (admin only) */}
           <AuditLogPanel />

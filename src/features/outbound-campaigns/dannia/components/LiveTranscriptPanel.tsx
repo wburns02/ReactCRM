@@ -11,11 +11,13 @@ import type { KBCategory } from "../macSepticKnowledgeBase";
 interface LiveTranscriptPanelProps {
   contact: CampaignContact | null;
   isOnCall: boolean;
+  onTranscriptCapture?: (transcript: string) => void;
 }
 
 export function LiveTranscriptPanel({
   contact,
   isOnCall,
+  onTranscriptCapture,
 }: LiveTranscriptPanelProps) {
   const {
     isListening,
@@ -35,6 +37,13 @@ export function LiveTranscriptPanel({
   useEffect(() => {
     transcriptEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [transcript, interimTranscript]);
+
+  // Report transcript to parent
+  useEffect(() => {
+    if (transcript && onTranscriptCapture) {
+      onTranscriptCapture(transcript);
+    }
+  }, [transcript, onTranscriptCapture]);
 
   // Auto-start when on call
   useEffect(() => {

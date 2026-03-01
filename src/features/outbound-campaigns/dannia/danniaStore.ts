@@ -10,6 +10,8 @@ import type {
   DailyPlan,
   WeeklyReport,
   DanniaModeConfig,
+  SmsStep,
+  CallRecordingEntry,
 } from "./types";
 import {
   EMPTY_LIFETIME_STATS,
@@ -67,6 +69,8 @@ export const useDanniaStore = create<DanniaStoreState>()(
       earnedBadges: [],
       lifetimeStats: { ...EMPTY_LIFETIME_STATS },
       voicemailDropConfig: { ...DEFAULT_VM_DROP_CONFIG },
+      pendingSmsSteps: [],
+      recentCallRecords: [],
 
       // Schedule actions
       setSchedule: (schedule: WeeklySchedule) => {
@@ -299,6 +303,60 @@ export const useDanniaStore = create<DanniaStoreState>()(
         }));
       },
 
+      // SMS sequences
+      addSmsStep: (step: Omit<SmsStep, "id">) => {
+        const id = crypto.randomUUID();
+        set((s) => {
+          const steps = [{ ...step, id }, ...s.pendingSmsSteps];
+          // Prune sent/failed older than 7 days, cap at 200
+          const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+          const pruned = steps.filter(
+            (st) =>
+              st.status === "pending" ||
+              (st.sentAt && st.sentAt > sevenDaysAgo) ||
+              st.scheduledAt > sevenDaysAgo,
+          );
+          return { pendingSmsSteps: pruned.slice(0, 200) };
+        });
+      },
+
+      markSmsStepSent: (id: string) => {
+        set((s) => ({
+          pendingSmsSteps: s.pendingSmsSteps.map((st) =>
+            st.id === id
+              ? { ...st, status: "sent" as const, sentAt: Date.now() }
+              : st,
+          ),
+        }));
+      },
+
+      markSmsStepFailed: (id: string, error: string) => {
+        set((s) => ({
+          pendingSmsSteps: s.pendingSmsSteps.map((st) =>
+            st.id === id ? { ...st, status: "failed" as const, error } : st,
+          ),
+        }));
+      },
+
+      clearSmsStepsForContact: (contactId: string) => {
+        set((s) => ({
+          pendingSmsSteps: s.pendingSmsSteps.filter(
+            (st) => st.contactId !== contactId,
+          ),
+        }));
+      },
+
+      // Call recordings
+      addCallRecord: (entry: Omit<CallRecordingEntry, "id">) => {
+        const id = crypto.randomUUID();
+        set((s) => ({
+          recentCallRecords: [{ ...entry, id }, ...s.recentCallRecords].slice(
+            0,
+            50,
+          ),
+        }));
+      },
+
       // Queries
       getTodayPlan: () => {
         const schedule = get().currentSchedule;
@@ -339,7 +397,7 @@ export const useDanniaStore = create<DanniaStoreState>()(
     }),
     {
       name: "dannia-mode-store",
-      version: 2,
+      version: 3,
       storage: idbStorage,
       partialize: (state) => ({
         currentSchedule: state.currentSchedule,
@@ -351,6 +409,8 @@ export const useDanniaStore = create<DanniaStoreState>()(
         earnedBadges: state.earnedBadges,
         lifetimeStats: state.lifetimeStats,
         voicemailDropConfig: state.voicemailDropConfig,
+        pendingSmsSteps: state.pendingSmsSteps,
+        recentCallRecords: state.recentCallRecords,
       }),
       migrate: (persisted: unknown, version: number) => {
         const state = persisted as Record<string, unknown>;
@@ -359,6 +419,11 @@ export const useDanniaStore = create<DanniaStoreState>()(
           if (!state.earnedBadges) state.earnedBadges = [];
           if (!state.lifetimeStats) state.lifetimeStats = { ...EMPTY_LIFETIME_STATS };
           if (!state.voicemailDropConfig) state.voicemailDropConfig = { ...DEFAULT_VM_DROP_CONFIG };
+        }
+        if (version < 3) {
+          // v2 → v3: add SMS sequences + call recordings
+          if (!state.pendingSmsSteps) state.pendingSmsSteps = [];
+          if (!state.recentCallRecords) state.recentCallRecords = [];
         }
         return state as DanniaStoreState;
       },
