@@ -80,6 +80,9 @@ interface OutboundCampaignState {
   dialerContactIndex: number;
   dialerActive: boolean;
 
+  // Dannia Mode
+  danniaMode: boolean;
+
   // Auto-dial
   autoDialEnabled: boolean;
   autoDialDelay: AutoDialDelay;
@@ -110,6 +113,9 @@ interface OutboundCampaignState {
   stopDialer: () => void;
   advanceDialer: () => void;
 
+  // Dannia Mode
+  setDanniaMode: (enabled: boolean) => void;
+
   // Auto-dial / sort setters
   setAutoDialEnabled: (enabled: boolean) => void;
   setAutoDialDelay: (delay: AutoDialDelay) => void;
@@ -134,6 +140,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
       activeCampaignId: null,
       dialerContactIndex: 0,
       dialerActive: false,
+      danniaMode: false,
       autoDialEnabled: false,
       autoDialDelay: 5,
       sortOrder: "default",
@@ -391,6 +398,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         }
       },
 
+      setDanniaMode: (enabled) => set({ danniaMode: enabled }),
       setAutoDialEnabled: (enabled) => set({ autoDialEnabled: enabled }),
       setAutoDialDelay: (delay) => set({ autoDialDelay: delay }),
       setSortOrder: (order) => set({ sortOrder: order }),
@@ -514,7 +522,7 @@ export const useOutboundStore = create<OutboundCampaignState>()(
     }),
     {
       name: "outbound-campaigns-store",
-      version: 4,
+      version: 5,
       storage: idbStorage,
       onRehydrateStorage: () => {
         return (state) => {
@@ -556,6 +564,9 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           // Clear old data — onRehydrateStorage will re-seed with zone campaigns.
           state.campaigns = [];
           state.contacts = [];
+        }
+        if (version < 5) {
+          state.danniaMode = false;
         }
         return state as OutboundCampaignState;
       },

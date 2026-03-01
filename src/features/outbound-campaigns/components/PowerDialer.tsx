@@ -8,7 +8,9 @@ import {
 } from "../types";
 import type { AutomationResult } from "../types";
 import { scoreContact, scoreAndSortContacts } from "../scoring";
+import { scoreAndSortContactsV2 } from "../dannia/scoringV2";
 import { usePostCallAutomation } from "../usePostCallAutomation";
+import { usePerformanceLoop } from "../dannia/usePerformanceLoop";
 import { useWebPhone } from "@/hooks/useWebPhone";
 import { CallScriptPanel } from "./CallScriptPanel";
 import { AgentAssist } from "./AgentAssist";
@@ -135,9 +137,10 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const allContacts = useOutboundStore((s) => s.contacts);
   const dialerActive = useOutboundStore((s) => s.dialerActive);
   const dialerContactIndex = useOutboundStore((s) => s.dialerContactIndex);
-  const autoDialEnabled = useOutboundStore((s) => s.autoDialEnabled);
+  const danniaMode = useOutboundStore((s) => s.danniaMode);
+  const autoDialEnabled = useOutboundStore((s) => danniaMode ? true : s.autoDialEnabled);
   const autoDialDelay = useOutboundStore((s) => s.autoDialDelay);
-  const sortOrder = useOutboundStore((s) => s.sortOrder);
+  const sortOrder = useOutboundStore((s) => danniaMode ? "smart" as const : s.sortOrder);
 
   const {
     state: phoneState,
@@ -152,6 +155,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   } = useWebPhone();
 
   const { runAutomation, results: automationResults } = usePostCallAutomation(campaignId);
+  const { onDisposition: trackDisposition } = usePerformanceLoop();
 
   const [notes, setNotes] = useState("");
   const [callTimer, setCallTimer] = useState(0);
@@ -175,9 +179,12 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     [allContacts, campaignId],
   );
 
-  // Sort: smart or default
+  // Sort: smart (v2 in Dannia mode) or default
   const callable = useMemo(() => {
     if (sortOrder === "smart") {
+      if (danniaMode) {
+        return scoreAndSortContactsV2(rawCallable, { allContacts });
+      }
       return scoreAndSortContacts(rawCallable);
     }
     return [...rawCallable].sort((a, b) => {
@@ -186,7 +193,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
       if (a.priority !== b.priority) return b.priority - a.priority;
       return a.created_at.localeCompare(b.created_at);
     });
-  }, [rawCallable, sortOrder]);
+  }, [rawCallable, sortOrder, danniaMode, allContacts]);
 
   // Score for current contact (used for badge even in default mode)
   const currentContact = callable[dialerContactIndex] ?? null;
@@ -309,6 +316,11 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
       // Fire post-call automation
       runAutomation(currentContact, status, notes || undefined);
 
+      // Track in Dannia Mode performance engine
+      if (danniaMode) {
+        trackDisposition(status, callTimer);
+      }
+
       setNotes("");
       setDisposition("");
 
@@ -323,7 +335,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
         store.stopDialer();
       }
     },
-    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown],
+    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown, danniaMode, trackDisposition, callTimer],
   );
 
   const handleSkip = () => {
@@ -362,61 +374,65 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             Power Dialer
           </h2>
           <div className="flex items-center gap-2">
-            {/* Sort order toggle */}
-            <div className="flex items-center bg-bg-hover rounded-lg p-0.5">
-              <button
-                onClick={() => useOutboundStore.getState().setSortOrder("default")}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
-                  sortOrder === "default"
-                    ? "bg-bg-card text-text-primary shadow-sm"
-                    : "text-text-tertiary hover:text-text-secondary"
-                }`}
-              >
-                Default
-              </button>
-              <button
-                onClick={() => useOutboundStore.getState().setSortOrder("smart")}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
-                  sortOrder === "smart"
-                    ? "bg-bg-card text-text-primary shadow-sm"
-                    : "text-text-tertiary hover:text-text-secondary"
-                }`}
-              >
-                <Brain className="w-3 h-3" /> Smart
-              </button>
-            </div>
-
-            {/* Auto-dial toggle */}
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() =>
-                  useOutboundStore.getState().setAutoDialEnabled(!autoDialEnabled)
-                }
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-                  autoDialEnabled
-                    ? "bg-primary/10 text-primary border border-primary/30"
-                    : "bg-bg-hover text-text-tertiary border border-transparent"
-                }`}
-              >
-                <Zap className="w-3 h-3" />
-                Auto
-              </button>
-              {autoDialEnabled && (
-                <select
-                  value={autoDialDelay}
-                  onChange={(e) =>
-                    useOutboundStore
-                      .getState()
-                      .setAutoDialDelay(Number(e.target.value) as AutoDialDelay)
-                  }
-                  className="text-[11px] bg-bg-body border border-border rounded-md px-1 py-1 text-text-secondary cursor-pointer focus:outline-none"
+            {/* Sort order toggle — hidden in Dannia Mode (forced smart v2) */}
+            {!danniaMode && (
+              <div className="flex items-center bg-bg-hover rounded-lg p-0.5">
+                <button
+                  onClick={() => useOutboundStore.getState().setSortOrder("default")}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+                    sortOrder === "default"
+                      ? "bg-bg-card text-text-primary shadow-sm"
+                      : "text-text-tertiary hover:text-text-secondary"
+                  }`}
                 >
-                  <option value={3}>3s</option>
-                  <option value={5}>5s</option>
-                  <option value={10}>10s</option>
-                </select>
-              )}
-            </div>
+                  Default
+                </button>
+                <button
+                  onClick={() => useOutboundStore.getState().setSortOrder("smart")}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+                    sortOrder === "smart"
+                      ? "bg-bg-card text-text-primary shadow-sm"
+                      : "text-text-tertiary hover:text-text-secondary"
+                  }`}
+                >
+                  <Brain className="w-3 h-3" /> Smart
+                </button>
+              </div>
+            )}
+
+            {/* Auto-dial toggle — hidden in Dannia Mode (forced on) */}
+            {!danniaMode && (
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() =>
+                    useOutboundStore.getState().setAutoDialEnabled(!autoDialEnabled)
+                  }
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
+                    autoDialEnabled
+                      ? "bg-primary/10 text-primary border border-primary/30"
+                      : "bg-bg-hover text-text-tertiary border border-transparent"
+                  }`}
+                >
+                  <Zap className="w-3 h-3" />
+                  Auto
+                </button>
+                {autoDialEnabled && (
+                  <select
+                    value={autoDialDelay}
+                    onChange={(e) =>
+                      useOutboundStore
+                        .getState()
+                        .setAutoDialDelay(Number(e.target.value) as AutoDialDelay)
+                    }
+                    className="text-[11px] bg-bg-body border border-border rounded-md px-1 py-1 text-text-secondary cursor-pointer focus:outline-none"
+                  >
+                    <option value={3}>3s</option>
+                    <option value={5}>5s</option>
+                    <option value={10}>10s</option>
+                  </select>
+                )}
+              </div>
+            )}
 
             {/* Phone status */}
             <div

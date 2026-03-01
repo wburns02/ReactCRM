@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import { CampaignList } from "./components/CampaignList";
 import { CampaignStatsBar } from "./components/CampaignStatsBar";
 import { ContactTable } from "./components/ContactTable";
@@ -18,6 +18,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
+const DanniaDashboard = lazy(() =>
+  import("./dannia/components/DanniaDashboard").then((m) => ({
+    default: m.DanniaDashboard,
+  })),
+);
+
 type Tab = "campaigns" | "contacts" | "dialer" | "analytics" | "permits";
 
 export function OutboundCampaignsPage() {
@@ -29,6 +35,7 @@ export function OutboundCampaignsPage() {
 
   const campaigns = useOutboundStore((s) => s.campaigns);
   const allContacts = useOutboundStore((s) => s.contacts);
+  const danniaMode = useOutboundStore((s) => s.danniaMode);
   const selectedCampaign = campaigns.find((c) => c.id === selectedCampaignId);
 
   const stats: CampaignStats | null = useMemo(() => {
@@ -109,86 +116,122 @@ export function OutboundCampaignsPage() {
         <div>
           <h1 className="text-2xl font-semibold text-text-primary flex items-center gap-2">
             <PhoneOutgoing className="w-6 h-6 text-primary" />
-            Outbound Campaigns
+            {danniaMode ? "Dannia Mode" : "Outbound Campaigns"}
           </h1>
           <p className="text-sm text-text-secondary mt-0.5">
-            Manage call lists, track dispositions, and power-dial through
-            contacts
+            {danniaMode
+              ? "Autonomous outbound engine — just show up and talk"
+              : "Manage call lists, track dispositions, and power-dial through contacts"}
           </p>
         </div>
-        {selectedCampaignId && (
-          <Button size="sm" variant="secondary" onClick={() => setImportOpen(true)}>
-            <Upload className="w-4 h-4 mr-1" /> Import Contacts
-          </Button>
-        )}
-      </div>
-
-      {/* Campaign stats bar */}
-      {stats && selectedCampaign && (
-        <div className="mb-6">
-          <div className="text-xs text-text-tertiary mb-2 flex items-center gap-2">
-            <span className="font-medium">{selectedCampaign.name}</span>
-            <button
-              onClick={() => {
-                setSelectedCampaignId(null);
-                setActiveTab("campaigns");
-              }}
-              className="text-primary hover:underline"
-            >
-              Change
-            </button>
-          </div>
-          <CampaignStatsBar stats={stats} />
-        </div>
-      )}
-
-      {/* Tab navigation */}
-      <div className="border-b border-border mb-6">
-        <nav className="flex gap-1">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => !tab.disabled && setActiveTab(tab.id)}
-              disabled={tab.disabled}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? "border-primary text-primary"
-                  : tab.disabled
-                    ? "border-transparent text-text-tertiary cursor-not-allowed"
-                    : "border-transparent text-text-secondary hover:text-text-primary hover:border-border"
+        <div className="flex items-center gap-3">
+          {/* Dannia Mode toggle */}
+          <button
+            onClick={() =>
+              useOutboundStore.getState().setDanniaMode(!danniaMode)
+            }
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+              danniaMode
+                ? "bg-primary text-white border-primary"
+                : "bg-bg-hover text-text-secondary border-border hover:border-primary/50"
+            }`}
+          >
+            <div
+              className={`w-2 h-2 rounded-full ${
+                danniaMode ? "bg-white animate-pulse" : "bg-text-tertiary"
               }`}
-            >
-              <tab.icon className="w-4 h-4" />
-              {tab.label}
-            </button>
-          ))}
-        </nav>
+            />
+            Dannia Mode
+          </button>
+          {!danniaMode && selectedCampaignId && (
+            <Button size="sm" variant="secondary" onClick={() => setImportOpen(true)}>
+              <Upload className="w-4 h-4 mr-1" /> Import Contacts
+            </Button>
+          )}
+        </div>
       </div>
 
-      {/* Tab content */}
-      <div>
-        {activeTab === "campaigns" && (
-          <CampaignList
-            onSelectCampaign={handleSelectCampaign}
-            selectedCampaignId={selectedCampaignId}
-          />
-        )}
-        {activeTab === "contacts" && selectedCampaignId && (
-          <ContactTable
-            campaignId={selectedCampaignId}
-            onDialContact={handleDialContact}
-          />
-        )}
-        {activeTab === "dialer" && selectedCampaignId && (
-          <PowerDialer campaignId={selectedCampaignId} />
-        )}
-        {activeTab === "analytics" && selectedCampaignId && (
-          <CampaignAnalytics campaignId={selectedCampaignId} />
-        )}
-        {activeTab === "permits" && (
-          <PermitCampaignBuilder />
-        )}
-      </div>
+      {/* Dannia Mode Dashboard */}
+      {danniaMode ? (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-12 text-text-tertiary text-sm">
+              Loading Dannia Mode...
+            </div>
+          }
+        >
+          <DanniaDashboard />
+        </Suspense>
+      ) : (
+        <>
+          {/* Campaign stats bar */}
+          {stats && selectedCampaign && (
+            <div className="mb-6">
+              <div className="text-xs text-text-tertiary mb-2 flex items-center gap-2">
+                <span className="font-medium">{selectedCampaign.name}</span>
+                <button
+                  onClick={() => {
+                    setSelectedCampaignId(null);
+                    setActiveTab("campaigns");
+                  }}
+                  className="text-primary hover:underline"
+                >
+                  Change
+                </button>
+              </div>
+              <CampaignStatsBar stats={stats} />
+            </div>
+          )}
+
+          {/* Tab navigation */}
+          <div className="border-b border-border mb-6">
+            <nav className="flex gap-1">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => !tab.disabled && setActiveTab(tab.id)}
+                  disabled={tab.disabled}
+                  className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                    activeTab === tab.id
+                      ? "border-primary text-primary"
+                      : tab.disabled
+                        ? "border-transparent text-text-tertiary cursor-not-allowed"
+                        : "border-transparent text-text-secondary hover:text-text-primary hover:border-border"
+                  }`}
+                >
+                  <tab.icon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Tab content */}
+          <div>
+            {activeTab === "campaigns" && (
+              <CampaignList
+                onSelectCampaign={handleSelectCampaign}
+                selectedCampaignId={selectedCampaignId}
+              />
+            )}
+            {activeTab === "contacts" && selectedCampaignId && (
+              <ContactTable
+                campaignId={selectedCampaignId}
+                onDialContact={handleDialContact}
+              />
+            )}
+            {activeTab === "dialer" && selectedCampaignId && (
+              <PowerDialer campaignId={selectedCampaignId} />
+            )}
+            {activeTab === "analytics" && selectedCampaignId && (
+              <CampaignAnalytics campaignId={selectedCampaignId} />
+            )}
+            {activeTab === "permits" && (
+              <PermitCampaignBuilder />
+            )}
+          </div>
+        </>
+      )}
 
       {/* Import dialog */}
       <ImportDialog
