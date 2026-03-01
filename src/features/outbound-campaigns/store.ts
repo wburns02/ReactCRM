@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { get as idbGet, set as idbSet, del as idbDel } from "idb-keyval";
 import type {
   AutoDialDelay,
   Campaign,
@@ -11,6 +12,34 @@ import type {
   SortOrder,
 } from "./types";
 import { DEFAULT_AUTOMATION_CONFIG } from "./types";
+
+/**
+ * IndexedDB-backed storage adapter for Zustand persist.
+ * localStorage has a ~5MB limit which is too small for 8k+ contacts.
+ * IndexedDB supports hundreds of MB.
+ */
+const idbStorage = createJSONStorage(() => ({
+  getItem: async (name: string): Promise<string | null> => {
+    const val = await idbGet(name);
+    // Migrate from localStorage if exists in localStorage but not IndexedDB
+    if (val === undefined) {
+      const lsVal = localStorage.getItem(name);
+      if (lsVal) {
+        await idbSet(name, lsVal);
+        localStorage.removeItem(name);
+        return lsVal;
+      }
+      return null;
+    }
+    return val ?? null;
+  },
+  setItem: async (name: string, value: string): Promise<void> => {
+    await idbSet(name, value);
+  },
+  removeItem: async (name: string): Promise<void> => {
+    await idbDel(name);
+  },
+}));
 
 /**
  * Parse Sherrie Sheet XLSX data into campaign contacts.
@@ -486,9 +515,10 @@ export const useOutboundStore = create<OutboundCampaignState>()(
     {
       name: "outbound-campaigns-store",
       version: 3,
+      storage: idbStorage,
       onRehydrateStorage: () => {
         return (state) => {
-          // After store hydrates from localStorage, seed if empty
+          // After store hydrates from IndexedDB, seed if empty
           if (state && state.campaigns.length === 0) {
             state.seedFromBuiltInData();
           }
