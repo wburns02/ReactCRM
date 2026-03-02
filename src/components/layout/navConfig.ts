@@ -6,7 +6,8 @@ import {
   Inbox, MessageCircle, Mail, PhoneCall, Bell, Plug, Receipt, CreditCard,
   BarChart3, TrendingUp, Banknote, Calculator, Building2, Truck, Activity,
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
-  Download, Globe, Eye, PhoneOutgoing, type LucideIcon,
+  Download, Globe, Eye, PhoneOutgoing, Shield, AlertTriangle,
+  type LucideIcon,
 } from "lucide-react";
 
 export interface NavItem {
@@ -144,6 +145,18 @@ export const navGroups: NavGroup[] = [
       { path: "/property-intelligence", label: "Dashboard", icon: LayoutDashboard },
       { path: "/property-intelligence/search", label: "Property Search", icon: Search },
       { path: "/permits", label: "Septic Permits", icon: FileText },
+    ],
+  },
+  {
+    name: "security",
+    label: "Security & SOC",
+    icon: Shield,
+    badge: "LIVE",
+    items: [
+      { path: "/security", label: "SOC Dashboard", icon: Shield },
+      { path: "/security/alerts", label: "Security Alerts", icon: AlertTriangle },
+      { path: "/security/agents", label: "Agents", icon: Users },
+      { path: "/security/chat", label: "Security AI", icon: MessageSquare },
     ],
   },
   {
