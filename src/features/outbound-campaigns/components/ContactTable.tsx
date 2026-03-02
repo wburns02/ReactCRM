@@ -268,11 +268,6 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                   </td>
                   <td className="px-3 py-2.5 text-text-secondary text-xs">
                     <div>{contact.contract_status || contact.contract_type || "-"}</div>
-                    {contact.days_since_expiry != null && contact.days_since_expiry > 0 && (
-                      <div className="text-[10px] text-amber-600">
-                        {contact.days_since_expiry}d expired
-                      </div>
-                    )}
                   </td>
                   <td className="px-3 py-2.5">
                     <div className="flex items-center justify-end gap-1">

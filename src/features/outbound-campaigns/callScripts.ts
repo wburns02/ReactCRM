@@ -29,8 +29,6 @@ export interface CallScript {
  */
 export function getCallScript(contact: CampaignContact): CallScript {
   const name = contact.account_name?.split(" ")[0] || "there";
-  const isExpired = (contact.days_since_expiry ?? 0) > 0;
-  const expiryDays = contact.days_since_expiry ?? 0;
   const hasContract = !!contact.contract_status;
   const contractStatus = contact.contract_status?.toLowerCase() ?? "";
   const customerType = contact.customer_type?.toLowerCase() ?? "";
@@ -60,25 +58,6 @@ export function getCallScript(contact: CampaignContact): CallScript {
 
   // --- CONTEXTUAL SECTIONS ---
   const contextual: ScriptSection[] = [];
-
-  if (isExpired) {
-    const timeFrame =
-      expiryDays > 365
-        ? `over ${Math.floor(expiryDays / 365)} year${Math.floor(expiryDays / 365) > 1 ? "s" : ""}`
-        : expiryDays > 30
-          ? `about ${Math.floor(expiryDays / 30)} months`
-          : `${expiryDays} days`;
-
-    contextual.push({
-      title: "Expired Contract",
-      highlight: true,
-      lines: [
-        `"I can see your previous service contract expired ${timeFrame} ago."`,
-        `"That means your ${systemType} hasn't had professional maintenance in a while — which can lead to costly problems down the road."`,
-        `"We'd love to get you set up with a new service plan. And since we're bringing on new customers, I can get you a deal that's likely better than what you were paying before."`,
-      ],
-    });
-  }
 
   if (contractStatus.includes("active") || contractStatus.includes("current")) {
     contextual.push({

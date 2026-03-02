@@ -65,7 +65,7 @@ const KNOWLEDGE_BASE: {
   {
     patterns: [/happy with|already have|current provider|switch|why.*change/i],
     response: (c) =>
-      `Don't bad-mouth their current provider. Instead: "That's great you're staying on top of it!" Then probe gently: "When was the last time they came out?" and "How's the communication been?" Many people settle for mediocre service because they don't know there's a better option. ${c.days_since_expiry && c.days_since_expiry > 365 ? `Note: their contract expired over ${Math.floor(c.days_since_expiry / 365)} year(s) ago — they may not actually be getting serviced.` : ""}`,
+      `Don't bad-mouth their current provider. Instead: "That's great you're staying on top of it!" Then probe gently: "When was the last time they came out?" and "How's the communication been?" Many people settle for mediocre service because they don't know there's a better option.`,
   },
   {
     patterns: [/not interested|don't need|go away|stop calling|no thank/i],

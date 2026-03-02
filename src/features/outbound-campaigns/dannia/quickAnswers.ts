@@ -30,24 +30,7 @@ export function generateQuickAnswers(
 
   // ─── CONTRACT STATUS CARDS ──────────────────────────────────────
 
-  if (contact.days_since_expiry != null && contact.days_since_expiry > 0) {
-    const days = contact.days_since_expiry;
-    const timeFrame =
-      days > 365
-        ? `over ${Math.floor(days / 365)} year${Math.floor(days / 365) > 1 ? "s" : ""}`
-        : days > 30
-          ? `${Math.floor(days / 30)} months`
-          : `${days} days`;
-
-    cards.push({
-      id: "qa-contract-expired",
-      category: "competitive",
-      title: "Contract Expired",
-      content: `Their contract expired ${timeFrame} ago (${days} days). Their system likely hasn't been serviced recently — great opportunity to offer a free inspection and new service plan.`,
-      talkingPoint: `I can see your previous service contract ended ${timeFrame} ago. That means your system hasn't had professional maintenance in a while — we'd love to get you set up with our new customer deal.`,
-      priority: 10,
-    });
-  } else if (
+  if (
     contact.contract_status?.toLowerCase().includes("active")
   ) {
     cards.push({

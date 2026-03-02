@@ -26,7 +26,6 @@ function buildStoreData() {
     contract_start: "2023-01-01",
     contract_end: i < 3 ? "2024-01-01" : "2027-01-01",
     contract_value: null,
-    days_since_expiry: i < 3 ? 400 + i * 30 : null,
     customer_type: i === 1 ? "Commercial" : "Residential",
     call_priority_label: i < 2 ? "High" : "Medium",
     call_status: "pending" as const,

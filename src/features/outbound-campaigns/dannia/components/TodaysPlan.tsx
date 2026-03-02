@@ -178,12 +178,6 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                           {zc.shortLabel}
                         </span>
                       )}
-                      {contact.days_since_expiry != null &&
-                        contact.days_since_expiry > 0 && (
-                          <span className="text-[10px] text-amber-600 tabular-nums">
-                            {contact.days_since_expiry}d exp
-                          </span>
-                        )}
                       {contact.call_status === "callback_scheduled" && (
                         <span className="text-[10px] text-indigo-600 font-medium">
                           Callback

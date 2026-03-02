@@ -61,7 +61,6 @@ export interface ImportRow {
   service_zone?: string;
   system_type?: string;
   contract_status?: string;
-  days_since_expiry?: number;
   customer_type?: string;
   call_priority_label?: string;
   notes?: string;
@@ -244,7 +243,6 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             contract_start: row.start_date || null,
             contract_end: row.end_date || null,
             contract_value: null,
-            days_since_expiry: row.days_since_expiry ?? null,
             customer_type: row.customer_type || null,
             call_priority_label: row.call_priority_label || null,
             call_status: "pending",
@@ -543,7 +541,6 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             service_zone: c.service_zone ?? null,
             system_type: c.system_type ?? null,
             contract_status: c.contract_status ?? null,
-            days_since_expiry: c.days_since_expiry ?? null,
             customer_type: c.customer_type ?? null,
             call_priority_label: c.call_priority_label ?? null,
           }));

@@ -167,9 +167,7 @@ export function useEnhancedAgentAssist(): UseEnhancedAgentAssistReturn {
       }
 
       // Contract-specific
-      if (contact.days_since_expiry && contact.days_since_expiry > 0) {
-        prompts.push("Their contract is expired — how to pitch?");
-      } else if (contact.contract_status?.toLowerCase().includes("active")) {
+      if (contact.contract_status?.toLowerCase().includes("active")) {
         prompts.push("They have an active contract elsewhere");
       }
 

@@ -641,11 +641,6 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                 {currentContact.contract_end && (
                   <span>End: {currentContact.contract_end}</span>
                 )}
-                {currentContact.days_since_expiry != null && currentContact.days_since_expiry > 0 && (
-                  <span className="text-amber-600 font-medium">
-                    {currentContact.days_since_expiry}d expired
-                  </span>
-                )}
               </div>
             )}
 

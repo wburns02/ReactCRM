@@ -51,7 +51,6 @@ const HEADER_MAP = {
   "contract type": "contract_type",
   "term (months)": "term_months",
   "renewal status": "contract_status",
-  "days since expiry": "days_since_expiry",
   "customer type": "customer_type",
   "# contracts on file": "contract_number",
   "called": "disposition",
@@ -153,7 +152,7 @@ async function main() {
       const val = cell.value;
 
       if (val !== undefined && val !== null) {
-        if (field === "term_months" || field === "days_since_expiry") {
+        if (field === "term_months") {
           const num = typeof val === "number" ? val : parseInt(String(val), 10);
           if (!isNaN(num)) parsed[field] = num;
         } else {
@@ -193,7 +192,6 @@ async function main() {
       contract_status: parsed.contract_status || undefined,
       start_date: parsed.start_date || undefined,
       end_date: parsed.end_date || undefined,
-      days_since_expiry: parsed.days_since_expiry || undefined,
       customer_type: parsed.customer_type || undefined,
       call_priority_label: parsed.call_priority_label || undefined,
       notes: parsed.notes || undefined,

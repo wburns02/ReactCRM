@@ -25,22 +25,21 @@ export function scoreContactV2(
   const connectTimeCluster = scoreConnectTimeCluster(context.hourlyData, now);
   const zoneDensity = scoreZoneDensity(contact, context.queueZones);
   const csrFamiliarity = scoreCsrFamiliarity(contact, context.calledContactIds);
-  const thirtyDayExpiry = scoreThirtyDayExpiry(contact);
   const multiContract = scoreMultiContract(contact, context.allContacts);
 
   const bonusTotal =
-    connectTimeCluster + zoneDensity + csrFamiliarity + thirtyDayExpiry + multiContract;
+    connectTimeCluster + zoneDensity + csrFamiliarity + multiContract;
 
-  // Normalize: (base 0-100 + bonus 0-30) → 0-100
+  // Normalize: (base 0-100 + bonus 0-25) → 0-100
   const rawTotal = baseTotal + bonusTotal;
-  const normalizedTotal = Math.min(100, Math.round((rawTotal / 130) * 100));
+  const normalizedTotal = Math.min(100, Math.round((rawTotal / 125) * 100));
 
   const enhancedBreakdown: EnhancedScoreBreakdown = {
     ...baseScore.breakdown,
     connectTimeCluster,
     zoneDensity,
     csrFamiliarity,
-    thirtyDayExpiry,
+    thirtyDayExpiry: 0,
     multiContract,
   };
 
@@ -146,27 +145,6 @@ function scoreCsrFamiliarity(
 }
 
 /**
- * 30-day expiry boost: 0-5 pts
- * Contract expiring within 30 days gets a boost
- */
-function scoreThirtyDayExpiry(contact: CampaignContact): number {
-  if (!contact.contract_end) return 0;
-
-  const endDate = new Date(contact.contract_end);
-  const now = new Date();
-  const daysUntilExpiry = Math.floor(
-    (endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
-  );
-
-  // Already expired — the base scoring handles urgency
-  if (daysUntilExpiry < 0) return 0;
-  if (daysUntilExpiry <= 7) return 5;
-  if (daysUntilExpiry <= 14) return 4;
-  if (daysUntilExpiry <= 30) return 3;
-  return 0;
-}
-
-/**
  * Multi-contract: 0-5 pts
  * Bonus if contact has multiple contracts (by matching phone across contacts)
  */
@@ -196,13 +174,8 @@ function generateExplanation(
   const parts: string[] = [];
 
   // Contract urgency
-  if (breakdown.contractUrgency >= 25) {
-    const days = contact.days_since_expiry ?? 0;
-    parts.push(`Contract expired ${days}+ days`);
-  } else if (breakdown.contractUrgency >= 15) {
-    parts.push(`Contract expired ${contact.days_since_expiry ?? 30}+ days`);
-  } else if (breakdown.thirtyDayExpiry > 0) {
-    parts.push("Contract expiring soon");
+  if (breakdown.contractUrgency >= 15) {
+    parts.push("No active contract");
   }
 
   // Priority

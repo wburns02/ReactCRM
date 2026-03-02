@@ -55,7 +55,6 @@ export const campaignContactSchema = z.object({
   contract_start: z.string().nullable(),
   contract_end: z.string().nullable(),
   contract_value: z.number().nullable(),
-  days_since_expiry: z.number().nullable(),
   customer_type: z.string().nullable(),
   call_priority_label: z.string().nullable(),
   call_status: contactCallStatusSchema,

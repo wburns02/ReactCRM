@@ -292,10 +292,8 @@ const COMPETITIVE_ENTRIES: KBEntry[] = [
     question: "Why should I switch from my current provider?",
     answer:
       "Don't bad-mouth their current provider. Instead: 'That's great you're staying on top of it!' Then probe: 'When was the last time they came out?' and 'How's the communication been?' Many people settle for mediocre service. Highlight: transparent pricing, written reports every visit, priority scheduling, and our new customer deals.",
-    dynamicAnswer: (c) =>
-      c.days_since_expiry && c.days_since_expiry > 365
-        ? `Their contract expired over ${Math.floor(c.days_since_expiry / 365)} year(s) ago — they may not actually be getting serviced. Gently ask: "When was the last time they actually came out?" This usually reveals gaps in service.`
-        : "Don't bad-mouth competitors. Probe gently about their satisfaction, then highlight what makes Mac Septic different: transparent pricing, thorough service with written reports, and competitive new customer rates.",
+    dynamicAnswer: () =>
+      "Don't bad-mouth competitors. Probe gently about their satisfaction, then highlight what makes Mac Septic different: transparent pricing, thorough service with written reports, and competitive new customer rates.",
     priority: 9,
   },
   {
@@ -516,9 +514,6 @@ export function buildSystemPrompt(contact?: CampaignContact | null): string {
     parts.push(`Name: ${contact.account_name || "Unknown"}`);
     if (contact.system_type) parts.push(`System Type: ${contact.system_type}`);
     if (contact.contract_status) parts.push(`Contract Status: ${contact.contract_status}`);
-    if (contact.days_since_expiry != null) {
-      parts.push(`Days Since Contract Expiry: ${contact.days_since_expiry}`);
-    }
     if (contact.service_zone) parts.push(`Service Zone: ${contact.service_zone}`);
     if (contact.customer_type) parts.push(`Customer Type: ${contact.customer_type}`);
     if (contact.city) parts.push(`City: ${contact.city}`);

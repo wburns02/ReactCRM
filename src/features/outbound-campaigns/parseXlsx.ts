@@ -41,7 +41,6 @@ const ZONE_HEADER_MAP: Record<string, keyof ImportRow> = {
   "contract type": "contract_type",
   "term (months)": "term_months",
   "renewal status": "contract_status",
-  "days since expiry": "days_since_expiry",
   "customer type": "customer_type",
   "# contracts on file": "contract_number",
   "called": "disposition",
@@ -179,7 +178,7 @@ function parseWorksheet(worksheet: ExcelJSType.Worksheet): ImportRow[] {
       const val = cell.value;
 
       if (val !== undefined && val !== null) {
-        if (field === "term_months" || field === "days_since_expiry") {
+        if (field === "term_months") {
           const num = typeof val === "number" ? val : parseInt(String(val), 10);
           (parsed as Record<string, unknown>)[field] = isNaN(num) ? undefined : num;
         } else {
@@ -210,7 +209,6 @@ function parseWorksheet(worksheet: ExcelJSType.Worksheet): ImportRow[] {
       service_zone: parsed.service_zone,
       system_type: parsed.system_type,
       contract_status: parsed.contract_status,
-      days_since_expiry: parsed.days_since_expiry,
       customer_type: parsed.customer_type,
       call_priority_label: parsed.call_priority_label,
       notes: parsed.notes,

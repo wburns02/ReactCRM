@@ -25,7 +25,6 @@ test.describe("Dannia Call Review Panel", () => {
         contract_status: "Expired",
         contract_start: "2023-01-01",
         contract_end: "2024-01-01",
-        days_since_expiry: 420,
         call_status: "pending",
         call_attempts: 0,
         last_disposition: null,

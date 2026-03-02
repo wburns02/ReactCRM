@@ -44,18 +44,11 @@ export function scoreAndSortContacts(
 
 // --- Scoring factors ---
 
-/** Contract urgency: 0-30 pts. Expired + high days = max. Active = 0. */
+/** Contract urgency: 0-30 pts. Expired = high, Active = 0. */
 function scoreContractUrgency(contact: CampaignContact): number {
   const status = contact.contract_status?.toLowerCase() ?? "";
-  const daysExpired = contact.days_since_expiry ?? 0;
 
-  if (status.includes("expired") || daysExpired > 0) {
-    if (daysExpired >= 365) return 30;
-    if (daysExpired >= 180) return 25;
-    if (daysExpired >= 90) return 20;
-    if (daysExpired >= 30) return 15;
-    return 10;
-  }
+  if (status.includes("expired")) return 20;
 
   if (status.includes("active")) return 0;
   // No contract info — moderate urgency

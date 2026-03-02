@@ -196,7 +196,6 @@ export function useCampaignAnalytics(campaignId: string | null) {
         "Last Call Date",
         "Duration (s)",
         "Contract Status",
-        "Days Since Expiry",
         "Customer Type",
         "Notes",
       ];
@@ -210,7 +209,6 @@ export function useCampaignAnalytics(campaignId: string | null) {
         c.last_call_date ?? "",
         c.last_call_duration?.toString() ?? "",
         c.contract_status ?? "",
-        c.days_since_expiry?.toString() ?? "",
         c.customer_type ?? "",
         (c.notes ?? "").replace(/"/g, '""'),
       ]);
