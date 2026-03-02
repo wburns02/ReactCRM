@@ -3,273 +3,420 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1200, initial-scale=1">
-<title>Mac Septic — Outbound Campaign Coverage Map</title>
+<title>Mac Septic — Service Coverage Map</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #0f172a;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0e1a;
     color: #f8fafc;
     overflow: hidden;
   }
 
   .container {
     width: 1200px;
-    height: 630px; /* LinkedIn recommended image size */
+    height: 630px;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
   }
 
-  #map {
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  #map { width: 100%; height: 100%; z-index: 1; }
+
+  .leaflet-tile-pane { filter: saturate(0.15) brightness(0.35) contrast(1.1); }
+  .leaflet-control-zoom, .leaflet-control-attribution { display: none !important; }
+
+  /* ── Animated glow overlay on the map ── */
+  .glow-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(ellipse 500px 500px at 50% 55%, rgba(14,165,233,0.06) 0%, transparent 70%);
   }
 
-  /* Dark map tiles */
-  .leaflet-tile-pane { filter: saturate(0.3) brightness(0.45); }
-  .leaflet-control-zoom { display: none; }
-  .leaflet-control-attribution { display: none !important; }
-
-  /* Header overlay */
+  /* ── Top gradient + header ── */
   .header {
     position: absolute;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    background: linear-gradient(180deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.8) 70%, transparent 100%);
-    padding: 24px 32px 40px;
+    background: linear-gradient(180deg,
+      rgba(10,14,26,0.97) 0%,
+      rgba(10,14,26,0.85) 60%,
+      transparent 100%);
+    padding: 20px 36px 44px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
+    opacity: 0;
+    animation: slideRight 0.8s ease-out 0.2s forwards;
   }
 
-  .brand-icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
-    border-radius: 10px;
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 900;
     color: white;
-    letter-spacing: -1px;
-    box-shadow: 0 4px 12px rgba(14,165,233,0.4);
+    box-shadow: 0 4px 20px rgba(14,165,233,0.35), 0 0 40px rgba(99,102,241,0.15);
+    position: relative;
   }
 
-  .brand-text h1 {
-    font-size: 22px;
+  .brand-logo::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(14,165,233,0.4), rgba(99,102,241,0.4));
+    z-index: -1;
+    filter: blur(6px);
+  }
+
+  .brand h1 {
+    font-size: 24px;
     font-weight: 800;
     letter-spacing: -0.5px;
-    color: #f8fafc;
-    line-height: 1.1;
+    background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .brand-text p {
-    font-size: 12px;
-    font-weight: 500;
-    color: #94a3b8;
-    margin-top: 2px;
-    letter-spacing: 0.5px;
+  .brand .tagline {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0ea5e9;
     text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 1px;
   }
 
-  .stats-row {
+  /* ── Hero stats ── */
+  .hero-stats {
     display: flex;
-    gap: 20px;
+    gap: 32px;
     align-items: center;
+    opacity: 0;
+    animation: slideLeft 0.8s ease-out 0.4s forwards;
   }
 
-  .stat {
-    text-align: center;
+  .hero-stat {
+    text-align: right;
   }
 
-  .stat-value {
-    font-size: 26px;
-    font-weight: 800;
-    color: #f8fafc;
+  .hero-number {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -2px;
     line-height: 1;
-    letter-spacing: -1px;
+    background: linear-gradient(135deg, #f8fafc 20%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .stat-label {
+  .hero-number .accent {
+    -webkit-text-fill-color: #0ea5e9;
+  }
+
+  .hero-label {
     font-size: 10px;
     font-weight: 600;
-    color: #64748b;
+    color: #475569;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 3px;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
   }
 
-  .stat-divider {
+  .stat-sep {
     width: 1px;
-    height: 36px;
-    background: #334155;
+    height: 40px;
+    background: linear-gradient(180deg, transparent, #334155, transparent);
   }
 
-  /* Legend overlay */
-  .legend {
+  /* ── Bottom panel ── */
+  .bottom {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     z-index: 1000;
-    background: linear-gradient(0deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.85) 60%, transparent 100%);
-    padding: 36px 32px 24px;
+    background: linear-gradient(0deg,
+      rgba(10,14,26,0.98) 0%,
+      rgba(10,14,26,0.9) 50%,
+      transparent 100%);
+    padding: 40px 36px 20px;
   }
 
-  .legend-grid {
+  .zone-strip {
     display: flex;
+    gap: 6px;
     justify-content: center;
-    gap: 8px;
   }
 
   .zone-card {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(71, 85, 105, 0.5);
-    border-radius: 12px;
-    padding: 12px 16px;
-    min-width: 190px;
-    backdrop-filter: blur(8px);
-    transition: transform 0.2s;
+    flex: 1;
+    max-width: 215px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(51, 65, 85, 0.4);
+    border-radius: 14px;
+    padding: 14px 16px 12px;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
   }
 
-  .zone-card-header {
+  .zone-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .zone-card:nth-child(1) { animation: cardUp 0.5s ease-out 0.6s forwards; }
+  .zone-card:nth-child(1)::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .zone-card:nth-child(2) { animation: cardUp 0.5s ease-out 0.7s forwards; }
+  .zone-card:nth-child(2)::before { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .zone-card:nth-child(3) { animation: cardUp 0.5s ease-out 0.8s forwards; }
+  .zone-card:nth-child(3)::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .zone-card:nth-child(4) { animation: cardUp 0.5s ease-out 0.9s forwards; }
+  .zone-card:nth-child(4)::before { background: linear-gradient(90deg, #a855f7, #c084fc); }
+  .zone-card:nth-child(5) { animation: cardUp 0.5s ease-out 1.0s forwards; }
+  .zone-card:nth-child(5)::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+  .zc-row1 {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .zc-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+  }
+
+  .zc-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .zc-row2 {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
     margin-bottom: 8px;
   }
 
-  .zone-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .zone-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: #f1f5f9;
+  .zc-count {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1px;
     line-height: 1;
   }
 
-  .zone-distance {
+  .zc-unit {
     font-size: 10px;
-    font-weight: 500;
-    color: #94a3b8;
-    margin-left: auto;
-  }
-
-  .zone-stats {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-  }
-
-  .zone-count {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    line-height: 1;
-  }
-
-  .zone-count-label {
-    font-size: 11px;
     font-weight: 500;
     color: #64748b;
   }
 
-  .zone-bar {
-    height: 3px;
-    border-radius: 2px;
-    margin-top: 8px;
-    opacity: 0.6;
+  .zc-bar-bg {
+    height: 4px;
+    background: rgba(51, 65, 85, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
   }
 
-  /* Zone colors */
-  .z1 { color: #3b82f6; }
-  .z2 { color: #22c55e; }
-  .z3 { color: #f59e0b; }
-  .z4 { color: #a855f7; }
-  .z5 { color: #ef4444; }
-
-  .z1-bg { background: #3b82f6; }
-  .z2-bg { background: #22c55e; }
-  .z3-bg { background: #f59e0b; }
-  .z4-bg { background: #a855f7; }
-  .z5-bg { background: #ef4444; }
-
-  /* Center marker */
-  .center-marker {
-    position: absolute;
-    z-index: 800;
-    pointer-events: none;
+  .zc-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .pulse-ring {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(14, 165, 233, 0.3);
-    animation: pulse 2s ease-out infinite;
+  /* zone colors */
+  .z1c { color: #60a5fa; }
+  .z2c { color: #4ade80; }
+  .z3c { color: #fbbf24; }
+  .z4c { color: #c084fc; }
+  .z5c { color: #f87171; }
+
+  .z1b { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .z2b { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .z3b { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .z4b { background: rgba(168,85,247,0.15); color: #c084fc; }
+  .z5b { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  .z1f { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .z2f { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .z3f { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .z4f { background: linear-gradient(90deg, #a855f7, #c084fc); }
+  .z5f { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+  /* ── Footer tagline ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(51,65,85,0.3);
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 1.3s forwards;
   }
 
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(3); opacity: 0; }
-  }
-
-  .center-dot {
-    width: 12px;
-    height: 12px;
-    background: #0ea5e9;
-    border: 2px solid #f8fafc;
-    border-radius: 50%;
-    box-shadow: 0 0 12px rgba(14,165,233,0.6);
-    position: absolute;
-    top: 4px;
-    left: 4px;
-  }
-
-  .center-label {
-    position: absolute;
-    top: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid #334155;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #0ea5e9;
+  .footer-left {
+    font-size: 10px;
+    font-weight: 500;
+    color: #475569;
     letter-spacing: 0.3px;
   }
 
-  /* Watermark */
-  .watermark {
+  .footer-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0ea5e9;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-cta .dot {
+    width: 6px;
+    height: 6px;
+    background: #0ea5e9;
+    border-radius: 50%;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  /* ── Center marker ── */
+  .hq-marker { position: absolute; z-index: 800; pointer-events: none; }
+
+  .hq-pulse {
     position: absolute;
-    bottom: 6px;
-    right: 16px;
-    z-index: 1000;
-    font-size: 9px;
-    color: #475569;
-    font-weight: 500;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(14,165,233,0.5);
+    animation: hqPulse 2.5s ease-out infinite;
+    top: -2px; left: -2px;
+  }
+
+  .hq-pulse2 {
+    position: absolute;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(14,165,233,0.3);
+    animation: hqPulse 2.5s ease-out 1.25s infinite;
+    top: -2px; left: -2px;
+  }
+
+  .hq-dot {
+    width: 16px; height: 16px;
+    background: radial-gradient(circle at 40% 40%, #38bdf8, #0284c7);
+    border: 2.5px solid #f0f9ff;
+    border-radius: 50%;
+    box-shadow: 0 0 16px rgba(14,165,233,0.6), 0 0 40px rgba(14,165,233,0.2);
+    position: relative;
+  }
+
+  .hq-label {
+    position: absolute;
+    top: -32px; left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95));
+    border: 1px solid rgba(14,165,233,0.3);
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #38bdf8;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+
+  .hq-label::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 7px; height: 7px;
+    background: rgba(15,23,42,0.95);
+    border-right: 1px solid rgba(14,165,233,0.3);
+    border-bottom: 1px solid rgba(14,165,233,0.3);
+  }
+
+  /* ── Animations ── */
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideLeft {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes cardUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes hqPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(3.5); opacity: 0; }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Scatter dots (contact density visualization) ── */
+  .scatter-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: dotAppear 0.4s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes dotAppear {
+    from { opacity: 0; transform: scale(0); }
+    to { opacity: 1; transform: scale(1); }
   }
 </style>
 </head>
@@ -277,109 +424,111 @@
 
 <div class="container">
   <div id="map"></div>
+  <div class="glow-overlay"></div>
 
   <!-- Header -->
   <div class="header">
     <div class="brand">
-      <div class="brand-icon">MS</div>
-      <div class="brand-text">
+      <div class="brand-logo">MS</div>
+      <div>
         <h1>Mac Septic Services</h1>
-        <p>Outbound Campaign Coverage Map</p>
+        <div class="tagline">Central Texas Coverage Map</div>
       </div>
     </div>
-    <div class="stats-row">
-      <div class="stat">
-        <div class="stat-value">8,178</div>
-        <div class="stat-label">Total Contacts</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-number" data-count="8178">0</div>
+        <div class="hero-label">Contacts Mapped</div>
       </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-value">5</div>
-        <div class="stat-label">Service Zones</div>
+      <div class="stat-sep"></div>
+      <div class="hero-stat">
+        <div class="hero-number"><span class="accent">5</span></div>
+        <div class="hero-label">Service Zones</div>
       </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-value">75+</div>
-        <div class="stat-label">Mile Radius</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Legend -->
-  <div class="legend">
-    <div class="legend-grid">
-      <div class="zone-card">
-        <div class="zone-card-header">
-          <div class="zone-dot z1-bg"></div>
-          <div class="zone-name">Home Base</div>
-          <div class="zone-distance">0–15 mi</div>
-        </div>
-        <div class="zone-stats">
-          <div class="zone-count z1">618</div>
-          <div class="zone-count-label">contacts</div>
-        </div>
-        <div class="zone-bar z1-bg" style="width: 15%"></div>
-      </div>
-      <div class="zone-card">
-        <div class="zone-card-header">
-          <div class="zone-dot z2-bg"></div>
-          <div class="zone-name">Local</div>
-          <div class="zone-distance">15–30 mi</div>
-        </div>
-        <div class="zone-stats">
-          <div class="zone-count z2">4,210</div>
-          <div class="zone-count-label">contacts</div>
-        </div>
-        <div class="zone-bar z2-bg" style="width: 100%"></div>
-      </div>
-      <div class="zone-card">
-        <div class="zone-card-header">
-          <div class="zone-dot z3-bg"></div>
-          <div class="zone-name">Regional</div>
-          <div class="zone-distance">30–50 mi</div>
-        </div>
-        <div class="zone-stats">
-          <div class="zone-count z3">1,826</div>
-          <div class="zone-count-label">contacts</div>
-        </div>
-        <div class="zone-bar z3-bg" style="width: 43%"></div>
-      </div>
-      <div class="zone-card">
-        <div class="zone-card-header">
-          <div class="zone-dot z4-bg"></div>
-          <div class="zone-name">Extended</div>
-          <div class="zone-distance">50–75 mi</div>
-        </div>
-        <div class="zone-stats">
-          <div class="zone-count z4">810</div>
-          <div class="zone-count-label">contacts</div>
-        </div>
-        <div class="zone-bar z4-bg" style="width: 19%"></div>
-      </div>
-      <div class="zone-card">
-        <div class="zone-card-header">
-          <div class="zone-dot z5-bg"></div>
-          <div class="zone-name">Outer</div>
-          <div class="zone-distance">75+ mi</div>
-        </div>
-        <div class="zone-stats">
-          <div class="zone-count z5">714</div>
-          <div class="zone-count-label">contacts</div>
-        </div>
-        <div class="zone-bar z5-bg" style="width: 17%"></div>
+      <div class="stat-sep"></div>
+      <div class="hero-stat">
+        <div class="hero-number">75<span style="font-size:22px;-webkit-text-fill-color:#64748b">+</span></div>
+        <div class="hero-label">Mile Radius</div>
       </div>
     </div>
   </div>
 
-  <div class="watermark">San Marcos, TX 78666 &bull; Central Texas Service Area</div>
+  <!-- Bottom zone cards -->
+  <div class="bottom">
+    <div class="zone-strip">
+      <div class="zone-card">
+        <div class="zc-row1">
+          <span class="zc-name">Home Base</span>
+          <span class="zc-badge z1b">0–15 mi</span>
+        </div>
+        <div class="zc-row2">
+          <span class="zc-count z1c" data-count="618">0</span>
+          <span class="zc-unit">contacts</span>
+        </div>
+        <div class="zc-bar-bg"><div class="zc-bar-fill z1f" data-width="15"></div></div>
+      </div>
+      <div class="zone-card">
+        <div class="zc-row1">
+          <span class="zc-name">Local</span>
+          <span class="zc-badge z2b">15–30 mi</span>
+        </div>
+        <div class="zc-row2">
+          <span class="zc-count z2c" data-count="4210">0</span>
+          <span class="zc-unit">contacts</span>
+        </div>
+        <div class="zc-bar-bg"><div class="zc-bar-fill z2f" data-width="100"></div></div>
+      </div>
+      <div class="zone-card">
+        <div class="zc-row1">
+          <span class="zc-name">Regional</span>
+          <span class="zc-badge z3b">30–50 mi</span>
+        </div>
+        <div class="zc-row2">
+          <span class="zc-count z3c" data-count="1826">0</span>
+          <span class="zc-unit">contacts</span>
+        </div>
+        <div class="zc-bar-bg"><div class="zc-bar-fill z3f" data-width="43"></div></div>
+      </div>
+      <div class="zone-card">
+        <div class="zc-row1">
+          <span class="zc-name">Extended</span>
+          <span class="zc-badge z4b">50–75 mi</span>
+        </div>
+        <div class="zc-row2">
+          <span class="zc-count z4c" data-count="810">0</span>
+          <span class="zc-unit">contacts</span>
+        </div>
+        <div class="zc-bar-bg"><div class="zc-bar-fill z4f" data-width="19"></div></div>
+      </div>
+      <div class="zone-card">
+        <div class="zc-row1">
+          <span class="zc-name">Outer</span>
+          <span class="zc-badge z5b">75+ mi</span>
+        </div>
+        <div class="zc-row2">
+          <span class="zc-count z5c" data-count="714">0</span>
+          <span class="zc-unit">contacts</span>
+        </div>
+        <div class="zc-bar-bg"><div class="zc-bar-fill z5f" data-width="17"></div></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">San Marcos, TX 78666 &bull; Serving Central Texas</div>
+      <div class="footer-cta">
+        <span class="dot"></span>
+        Built with Mac Service Platform &mdash; AI-Powered Outbound Engine
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-// San Marcos, TX coordinates
+// ── Map Setup ──
 const CENTER = [29.8833, -97.9414];
 
 const map = L.map('map', {
-  center: CENTER,
+  center: [29.85, -97.94], // slightly south to account for header/footer
   zoom: 9,
   zoomControl: false,
   attributionControl: false,
@@ -390,87 +539,129 @@ const map = L.map('map', {
   keyboard: false,
 });
 
-// Dark map tiles
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
   subdomains: 'abcd',
   maxZoom: 19,
 }).addTo(map);
 
-// Zone definitions (miles → meters: 1 mile = 1609.34m)
+// ── Zone Rings with glow ──
 const MILE = 1609.34;
 const zones = [
-  { name: 'Outer',     radius: 100 * MILE, color: '#ef4444', opacity: 0.08, border: '#ef4444' },
-  { name: 'Extended',  radius: 75 * MILE,  color: '#a855f7', opacity: 0.10, border: '#a855f7' },
-  { name: 'Regional',  radius: 50 * MILE,  color: '#f59e0b', opacity: 0.10, border: '#f59e0b' },
-  { name: 'Local',     radius: 30 * MILE,  color: '#22c55e', opacity: 0.12, border: '#22c55e' },
-  { name: 'Home Base', radius: 15 * MILE,  color: '#3b82f6', opacity: 0.15, border: '#3b82f6' },
+  { radius: 100, color: '#ef4444', fill: 0.04, weight: 1, dash: '6 8' },
+  { radius: 75,  color: '#a855f7', fill: 0.06, weight: 1.5, dash: null },
+  { radius: 50,  color: '#f59e0b', fill: 0.06, weight: 1.5, dash: null },
+  { radius: 30,  color: '#22c55e', fill: 0.08, weight: 2, dash: null },
+  { radius: 15,  color: '#3b82f6', fill: 0.12, weight: 2, dash: null },
 ];
 
-// Draw zones (largest first so smaller ones overlay)
+// Draw glow rings (thicker, blurred effect)
 zones.forEach(z => {
   L.circle(CENTER, {
-    radius: z.radius,
-    color: z.border,
-    weight: 1.5,
-    opacity: 0.5,
-    fillColor: z.color,
-    fillOpacity: z.opacity,
-    dashArray: z.name === 'Outer' ? '8 6' : null,
+    radius: z.radius * MILE,
+    color: z.color,
+    weight: 8,
+    opacity: 0.08,
+    fill: false,
+    dashArray: z.dash,
   }).addTo(map);
 });
 
-// Distance ring labels
-const labelOffsets = [
-  { dist: 15, angle: 45 },
-  { dist: 30, angle: 45 },
-  { dist: 50, angle: 45 },
-  { dist: 75, angle: 45 },
+// Draw main rings
+zones.forEach(z => {
+  L.circle(CENTER, {
+    radius: z.radius * MILE,
+    color: z.color,
+    weight: z.weight,
+    opacity: 0.45,
+    fillColor: z.color,
+    fillOpacity: z.fill,
+    dashArray: z.dash,
+  }).addTo(map);
+});
+
+// ── Scatter dots (density visualization) ──
+const dotConfig = [
+  { radius: 15, count: 35, color: '#3b82f6', size: [2, 4] },
+  { radius: 30, count: 90, color: '#22c55e', size: [2, 3] },
+  { radius: 50, count: 50, color: '#f59e0b', size: [1.5, 3] },
+  { radius: 75, count: 25, color: '#a855f7', size: [1.5, 2.5] },
+  { radius: 100, count: 15, color: '#ef4444', size: [1, 2] },
 ];
 
-labelOffsets.forEach(({ dist, angle }) => {
-  const rad = (angle * Math.PI) / 180;
-  const dLat = (dist * Math.cos(rad)) / 69.0; // ~69 miles per degree latitude
-  const dLng = (dist * Math.sin(rad)) / (69.0 * Math.cos(CENTER[0] * Math.PI / 180));
-  const pos = [CENTER[0] + dLat, CENTER[1] + dLng];
+dotConfig.forEach(cfg => {
+  for (let i = 0; i < cfg.count; i++) {
+    const angle = Math.random() * 2 * Math.PI;
+    const minR = cfg === dotConfig[0] ? 0 : (dotConfig[dotConfig.indexOf(cfg) - 1]?.radius || 0);
+    const r = (minR + Math.random() * (cfg.radius - minR)) * MILE;
+    const dLat = (r * Math.cos(angle)) / 111320;
+    const dLng = (r * Math.sin(angle)) / (111320 * Math.cos(CENTER[0] * Math.PI / 180));
+    const pos = [CENTER[0] + dLat, CENTER[1] + dLng];
+    const sz = cfg.size[0] + Math.random() * (cfg.size[1] - cfg.size[0]);
+    const opacity = 0.3 + Math.random() * 0.5;
+    const delay = 0.8 + Math.random() * 1.5;
 
-  L.marker(pos, {
+    L.marker(pos, {
+      icon: L.divIcon({
+        className: '',
+        html: `<div class="scatter-dot" style="
+          width:${sz}px; height:${sz}px;
+          background:${cfg.color};
+          box-shadow: 0 0 ${sz * 2}px ${cfg.color}40;
+          opacity:0;
+          animation-delay:${delay}s;
+        "></div>`,
+        iconSize: [0, 0],
+      }),
+    }).addTo(map);
+  }
+});
+
+// ── Distance labels ──
+[15, 30, 50, 75].forEach(dist => {
+  const angle = 0.78; // ~45 degrees
+  const dLat = (dist * MILE * Math.cos(angle)) / 111320;
+  const dLng = (dist * MILE * Math.sin(angle)) / (111320 * Math.cos(CENTER[0] * Math.PI / 180));
+
+  L.marker([CENTER[0] + dLat, CENTER[1] + dLng], {
     icon: L.divIcon({
       className: '',
       html: `<div style="
-        background: rgba(15,23,42,0.85);
-        border: 1px solid #334155;
-        border-radius: 4px;
-        padding: 2px 6px;
+        background: rgba(10,14,26,0.8);
+        border: 1px solid rgba(51,65,85,0.5);
+        border-radius: 5px;
+        padding: 2px 8px;
         font-family: Inter, sans-serif;
-        font-size: 10px;
-        font-weight: 600;
-        color: #94a3b8;
+        font-size: 9px;
+        font-weight: 700;
+        color: #64748b;
         white-space: nowrap;
         transform: translate(-50%, -50%);
+        letter-spacing: 0.5px;
       ">${dist} mi</div>`,
       iconSize: [0, 0],
     }),
   }).addTo(map);
 });
 
-// Center marker with pulse
-const centerIcon = L.divIcon({
-  className: 'center-marker',
-  html: `
-    <div class="pulse-ring"></div>
-    <div class="center-dot"></div>
-    <div class="center-label">San Marcos, TX</div>
-  `,
-  iconSize: [20, 20],
-  iconAnchor: [10, 10],
-});
+// ── HQ Marker ──
+L.marker(CENTER, {
+  icon: L.divIcon({
+    className: 'hq-marker',
+    html: `
+      <div class="hq-pulse"></div>
+      <div class="hq-pulse2"></div>
+      <div class="hq-dot"></div>
+      <div class="hq-label">HQ &mdash; San Marcos</div>
+    `,
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+  }),
+}).addTo(map);
 
-L.marker(CENTER, { icon: centerIcon }).addTo(map);
-
-// Key cities as reference points
+// ── City Labels ──
 const cities = [
-  { name: 'Austin', pos: [30.2672, -97.7431] },
-  { name: 'San Antonio', pos: [29.4241, -98.4936] },
+  { name: 'Austin', pos: [30.2672, -97.7431], big: true },
+  { name: 'San Antonio', pos: [29.4241, -98.4936], big: true },
   { name: 'New Braunfels', pos: [29.7030, -98.1245] },
   { name: 'Kyle', pos: [29.9888, -97.8772] },
   { name: 'Lockhart', pos: [29.8849, -97.6700] },
@@ -479,29 +670,62 @@ const cities = [
   { name: 'Dripping Springs', pos: [30.1902, -98.0867] },
   { name: 'Buda', pos: [30.0852, -97.8422] },
   { name: 'Luling', pos: [29.6808, -97.6495] },
-  { name: 'Gonzales', pos: [29.5018, -97.4526] },
   { name: 'Bastrop', pos: [30.1102, -97.3153] },
   { name: 'Georgetown', pos: [30.6327, -97.6780] },
   { name: 'Round Rock', pos: [30.5083, -97.6789] },
+  { name: 'Gonzales', pos: [29.5018, -97.4526] },
 ];
 
 cities.forEach(c => {
+  const sz = c.big ? 11 : 9;
+  const wt = c.big ? 700 : 500;
+  const op = c.big ? 0.65 : 0.4;
   L.marker(c.pos, {
     icon: L.divIcon({
       className: '',
       html: `<div style="
-        font-family: Inter, sans-serif;
-        font-size: 10px;
-        font-weight: 600;
-        color: rgba(148,163,184,0.7);
-        white-space: nowrap;
-        transform: translate(-50%, -50%);
-        text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        font-family:Inter,sans-serif;
+        font-size:${sz}px;
+        font-weight:${wt};
+        color:rgba(148,163,184,${op});
+        white-space:nowrap;
+        transform:translate(-50%,-50%);
+        text-shadow:0 1px 4px rgba(0,0,0,0.9);
+        ${c.big ? 'letter-spacing:0.5px;' : ''}
       ">${c.name}</div>`,
       iconSize: [0, 0],
     }),
   }).addTo(map);
 });
+
+// ── Animated count-up ──
+function animateCountUp(el, target, duration = 1500) {
+  const start = performance.now();
+  const format = target >= 1000;
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    const current = Math.round(eased * target);
+    el.textContent = format ? current.toLocaleString() : current;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// Trigger count-up after page load
+setTimeout(() => {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    animateCountUp(el, parseInt(el.dataset.count), 1800);
+  });
+}, 600);
+
+// Trigger bar fills
+setTimeout(() => {
+  document.querySelectorAll('.zc-bar-fill').forEach(bar => {
+    bar.style.width = bar.dataset.width + '%';
+  });
+}, 1200);
 </script>
 
 </body>
