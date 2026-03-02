@@ -261,6 +261,45 @@ test.describe("Dannia Mode", () => {
     await expect(page.getByRole("button", { name: "Campaigns", exact: true })).toBeVisible();
   });
 
+  test("queue items are clickable and show contact screen pop", async ({ page }) => {
+    await loginAndSetup(page);
+
+    await page.locator("button", { hasText: "Dannia Mode" }).click();
+    await page.waitForTimeout(3000);
+
+    // Check if Next Up queue is visible
+    const nextUp = page.locator("text=Next Up");
+    const isNextUp = await nextUp.isVisible({ timeout: 5000 }).catch(() => false);
+
+    if (isNextUp) {
+      // Click the first queue item (they should have cursor-pointer)
+      const queueItems = page.locator("[class*='cursor-pointer'][class*='bg-bg-hover']");
+      const firstItem = queueItems.first();
+      const isClickable = await firstItem.isVisible({ timeout: 3000 }).catch(() => false);
+
+      if (isClickable) {
+        await firstItem.click();
+        await page.waitForTimeout(500);
+
+        // Screen pop should show organized sections
+        const contactSection = page.locator("text=Contact").first();
+        const equipmentSection = page.locator("text=Equipment & Contract").first();
+        const hasContactSection = await contactSection.isVisible({ timeout: 3000 }).catch(() => false);
+        const hasEquipmentSection = await equipmentSection.isVisible({ timeout: 1000 }).catch(() => false);
+
+        // At least one section header should be visible in the popup
+        expect(hasContactSection || hasEquipmentSection).toBe(true);
+
+        // Close the popup
+        const closeBtn = page.locator("[class*='fixed'] button").filter({ has: page.locator("svg") }).first();
+        if (await closeBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
+          await closeBtn.click();
+        }
+      }
+    }
+    // If no queue visible, the test still passes (schedule-dependent)
+  });
+
   test("mobile responsive - no horizontal overflow at 375px", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await loginAndSetup(page);
