@@ -79,8 +79,13 @@ function generateId(): string {
  */
 function injectTestContacts(): void {
   const state = useOutboundStore.getState();
-  if (state.contacts.some((c) => c.account_number === "TEST0001")) return;
+  const testCount = state.contacts.filter((c) => c.account_number?.startsWith("TEST")).length;
+  if (testCount >= 10) return;
   if (state.campaigns.length === 0) return;
+  // Remove any partial test contacts before re-injecting all 10
+  const cleaned = testCount > 0
+    ? state.contacts.filter((c) => !c.account_number?.startsWith("TEST"))
+    : state.contacts;
 
   const campaignId = state.campaigns[0].id;
   const now = new Date().toISOString();
@@ -121,8 +126,8 @@ function injectTestContacts(): void {
     }),
   );
 
-  useOutboundStore.setState((s) => ({
-    contacts: [...testContacts, ...s.contacts],
+  useOutboundStore.setState(() => ({
+    contacts: [...testContacts, ...cleaned],
   }));
 }
 
