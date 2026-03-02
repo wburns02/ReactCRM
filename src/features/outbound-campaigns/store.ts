@@ -72,6 +72,60 @@ function generateId(): string {
   return crypto.randomUUID();
 }
 
+/**
+ * Inject 10 test contacts with Will's phone for power dialer testing.
+ * Bypasses importContacts dedup (which filters duplicate phones).
+ * Only runs once — checks for TEST0001 existence.
+ */
+function injectTestContacts(): void {
+  const state = useOutboundStore.getState();
+  if (state.contacts.some((c) => c.account_number === "TEST0001")) return;
+  if (state.campaigns.length === 0) return;
+
+  const campaignId = state.campaigns[0].id;
+  const now = new Date().toISOString();
+  const testContacts: CampaignContact[] = Array.from(
+    { length: 10 },
+    (_, i) => ({
+      id: `test-will-${i + 1}`,
+      campaign_id: campaignId,
+      account_number: `TEST${String(i + 1).padStart(4, "0")}`,
+      account_name: `Test Call ${i + 1} - Will Burns`,
+      company: "Mac Septic (Test)",
+      phone: "9792361958",
+      email: "will@macseptic.com",
+      address: "123 Test Street, San Marcos, TX 78666",
+      city: null,
+      state: null,
+      zip_code: "78666",
+      service_zone: "Zone 1 - Home Base",
+      system_type: "Aerobic",
+      contract_type: "Annual",
+      contract_status: "Expired",
+      contract_start: "2024-01-01",
+      contract_end: "2025-12-31",
+      contract_value: null,
+      customer_type: "Residential",
+      call_priority_label: "High",
+      call_status: "pending",
+      call_attempts: 0,
+      last_call_date: null,
+      last_call_duration: null,
+      last_disposition: null,
+      notes: null,
+      callback_date: null,
+      assigned_rep: null,
+      priority: 3,
+      created_at: now,
+      updated_at: now,
+    }),
+  );
+
+  useOutboundStore.setState((s) => ({
+    contacts: [...testContacts, ...s.contacts],
+  }));
+}
+
 interface OutboundCampaignState {
   campaigns: Campaign[];
   contacts: CampaignContact[];
@@ -415,6 +469,8 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             get().setCampaignStatus(id, "active");
             get().importContacts(id, campaign.rows, SEED_SOURCE_FILE, campaign.sheetName);
           }
+          // After seeding, inject test contacts for dialer testing
+          injectTestContacts();
         } catch (err) {
           console.error("Failed to seed campaign data:", err);
         }
@@ -526,57 +582,11 @@ export const useOutboundStore = create<OutboundCampaignState>()(
         return (state) => {
           // After store hydrates from IndexedDB, seed if empty
           if (state && state.campaigns.length === 0) {
+            // seedFromBuiltInData calls injectTestContacts() after seeding
             state.seedFromBuiltInData();
-          }
-
-          // Inject test contacts for power dialer testing
-          if (
-            state &&
-            state.campaigns.length > 0 &&
-            !state.contacts.some((c) => c.account_number === "TEST0001")
-          ) {
-            const campaignId = state.campaigns[0].id;
-            const now = new Date().toISOString();
-            const testContacts: CampaignContact[] = Array.from(
-              { length: 10 },
-              (_, i) => ({
-                id: `test-will-${i + 1}`,
-                campaign_id: campaignId,
-                account_number: `TEST${String(i + 1).padStart(4, "0")}`,
-                account_name: `Test Call ${i + 1} - Will Burns`,
-                company: "Mac Septic (Test)",
-                phone: "9792361958",
-                email: "will@macseptic.com",
-                address: "123 Test Street, San Marcos, TX 78666",
-                city: null,
-                state: null,
-                zip_code: "78666",
-                service_zone: "Zone 1 - Home Base",
-                system_type: "Aerobic",
-                contract_type: "Annual",
-                contract_status: "Expired",
-                contract_start: "2024-01-01",
-                contract_end: "2025-12-31",
-                contract_value: null,
-                customer_type: "Residential",
-                call_priority_label: "High",
-                call_status: "pending",
-                call_attempts: 0,
-                last_call_date: null,
-                last_call_duration: null,
-                last_disposition: null,
-                notes: null,
-                callback_date: null,
-                assigned_rep: null,
-                priority: 3,
-                created_at: now,
-                updated_at: now,
-              }),
-            );
-            // Prepend test contacts so they appear first
-            useOutboundStore.setState({
-              contacts: [...testContacts, ...state.contacts],
-            });
+          } else if (state && state.campaigns.length > 0) {
+            // Data already exists — inject test contacts if missing
+            injectTestContacts();
           }
         };
       },
