@@ -6,15 +6,18 @@ interface SmsSequenceStatusProps {
 }
 
 export function SmsSequenceStatus({ contactId }: SmsSequenceStatusProps) {
-  const steps = useDanniaStore((s) =>
-    s.pendingSmsSteps.filter((st) => st.contactId === contactId),
+  // Use primitive selectors to avoid creating new array references on every store change
+  const pending = useDanniaStore(
+    (s) => s.pendingSmsSteps.filter((st) => st.contactId === contactId && st.status === "pending").length,
+  );
+  const sent = useDanniaStore(
+    (s) => s.pendingSmsSteps.filter((st) => st.contactId === contactId && st.status === "sent").length,
+  );
+  const failed = useDanniaStore(
+    (s) => s.pendingSmsSteps.filter((st) => st.contactId === contactId && st.status === "failed").length,
   );
 
-  if (steps.length === 0) return null;
-
-  const pending = steps.filter((s) => s.status === "pending").length;
-  const sent = steps.filter((s) => s.status === "sent").length;
-  const failed = steps.filter((s) => s.status === "failed").length;
+  if (pending === 0 && sent === 0 && failed === 0) return null;
 
   return (
     <div className="flex flex-wrap gap-1 mt-1">
