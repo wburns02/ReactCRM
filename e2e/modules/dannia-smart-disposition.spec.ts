@@ -52,9 +52,9 @@ function buildStoreData() {
         created_by: null, created_at: now, updated_at: now,
       }],
       contacts,
-      activeCampaignId: null,
+      activeCampaignId: campaignId,
       dialerContactIndex: 0,
-      dialerActive: false,
+      dialerActive: true,
       danniaMode: false,
       autoDialEnabled: false,
       autoDialDelay: 5,
@@ -105,11 +105,15 @@ function buildDanniaStoreData(contactIds: string[]) {
       auditLog: [],
       config: { maxCallsPerDay: 35, callbackReservePercent: 15, workStartHour: 8.5, workEndHour: 16.5, lunchStartHour: 12, lunchEndHour: 13, avgCallCycleMinutes: 7, bufferMinutesPerHour: 10, connectRateThreshold: 15, interestRateThreshold: 5, lowVelocityThreshold: 4, failureWindowHours: 2 },
       weeklyReports: [],
+      activeBlockId: null,
+      dialingActive: true,
       earnedBadges: [],
       lifetimeStats: { totalCalls: 0, totalConnected: 0, totalInterested: 0, totalVoicemails: 0, totalDaysWorked: 0, longestStreak: 0, bestDayCalls: 0, bestDayConnectRate: 0 },
       voicemailDropConfig: { vmExtension: "", enabled: false, dropCount: 0 },
+      pendingSmsSteps: [],
+      recentCallRecords: [],
     },
-    version: 2,
+    version: 3,
   };
 }
 
@@ -156,9 +160,7 @@ async function loginAndOpenDialer(page: import("@playwright/test").Page) {
   await page.waitForTimeout(3000);
   await expect(page.locator("h1", { hasText: "Dannia Mode" })).toBeVisible({ timeout: 10000 });
 
-  const startBtn = page.locator("button", { hasText: "START DIALING" });
-  await expect(startBtn).toBeEnabled({ timeout: 20000 });
-  await startBtn.click();
+  // dialingActive: true in the dannia store means Power Dialer renders automatically
   await expect(page.locator("text=Power Dialer")).toBeVisible({ timeout: 10000 });
   await page.waitForTimeout(1000);
 }
