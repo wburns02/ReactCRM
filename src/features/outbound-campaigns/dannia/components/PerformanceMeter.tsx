@@ -38,20 +38,21 @@ export function PerformanceMeter({ connectRate, label }: PerformanceMeterProps) 
   const c = colors[status];
 
   return (
-    <div className="space-y-1">
-      <div className={`w-full h-3 rounded-full ${c.bg} overflow-hidden`}>
-        <div
-          className={`h-full rounded-full ${c.bar} transition-all duration-500 ease-out`}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
-      <div className="flex items-center justify-between text-xs">
-        <span className="text-text-secondary">
+    <div className="space-y-2">
+      <div className="flex items-center justify-between text-xs mb-0.5">
+        <span className="text-text-secondary font-medium">
           {label ?? "Connect Rate"}
         </span>
-        <span className={`font-medium ${c.text}`}>
-          {connectRate.toFixed(0)}% ({c.label})
+        <span className={`font-bold ${c.text}`}>
+          {connectRate.toFixed(0)}%
+          <span className="ml-1 font-normal opacity-70">({c.label})</span>
         </span>
+      </div>
+      <div className={`w-full h-2.5 rounded-full ${c.bg} overflow-hidden`}>
+        <div
+          className={`h-full rounded-full ${c.bar} transition-all duration-700 ease-out`}
+          style={{ width: `${percentage}%` }}
+        />
       </div>
     </div>
   );

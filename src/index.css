@@ -527,3 +527,191 @@ kbd {
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.75rem;
 }
+
+/* ============================================
+   DANNIA MODE THEME
+   Purple/violet theme that activates when
+   data-dannia attribute is present
+   ============================================ */
+
+[data-dannia] {
+  --color-primary: #7c3aed;
+  --color-primary-hover: #6d28d9;
+  --color-primary-light: #ede9fe;
+  --color-text-link: #7c3aed;
+}
+
+.dark [data-dannia] {
+  --color-primary: #a78bfa;
+  --color-primary-hover: #8b5cf6;
+  --color-primary-light: #2e1065;
+  --color-text-link: #a78bfa;
+}
+
+/* Dannia mode animations */
+@keyframes dannia-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.3), 0 0 30px rgba(124, 58, 237, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(124, 58, 237, 0.5), 0 0 50px rgba(124, 58, 237, 0.2);
+  }
+}
+
+.dark [data-dannia] .dannia-glow {
+  animation: dannia-glow-dark 2s ease-in-out infinite;
+}
+
+@keyframes dannia-glow-dark {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.2), 0 0 30px rgba(167, 139, 250, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(167, 139, 250, 0.4), 0 0 50px rgba(167, 139, 250, 0.15);
+  }
+}
+
+.dannia-glow {
+  animation: dannia-glow 2s ease-in-out infinite;
+}
+
+@keyframes dannia-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.dannia-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: dannia-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes dannia-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+.dannia-float {
+  animation: dannia-float 3s ease-in-out infinite;
+}
+
+@keyframes dannia-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dannia-enter {
+  animation: dannia-enter 0.4s ease-out forwards;
+}
+
+.dannia-enter-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.dannia-enter-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.dannia-enter-delay-3 { animation-delay: 0.3s; opacity: 0; }
+.dannia-enter-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+/* Dannia gradient backgrounds */
+.dannia-gradient-header {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #6366f1 100%);
+}
+
+.dark .dannia-gradient-header {
+  background: linear-gradient(135deg, #4c1d95 0%, #312e81 50%, #3730a3 100%);
+}
+
+.dannia-gradient-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(99, 102, 241, 0.03) 100%);
+  border-color: rgba(124, 58, 237, 0.15);
+}
+
+.dark .dannia-gradient-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+  border-color: rgba(167, 139, 250, 0.2);
+}
+
+/* Dannia start button */
+.dannia-start-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4), 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dannia-start-btn:hover {
+  box-shadow: 0 6px 25px rgba(124, 58, 237, 0.5), 0 2px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.dannia-start-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
+}
+
+/* Dannia queue item hover */
+.dannia-queue-item {
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.dannia-queue-item:hover {
+  background: rgba(124, 58, 237, 0.06);
+  border-color: rgba(124, 58, 237, 0.15);
+  transform: translateX(4px);
+}
+
+.dark .dannia-queue-item:hover {
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.2);
+}
+
+/* Dannia tab styling */
+.dannia-tab-active {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%);
+  color: #7c3aed;
+  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.1);
+}
+
+.dark .dannia-tab-active {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.15) 0%, rgba(129, 140, 248, 0.1) 100%);
+  color: #a78bfa;
+}
+
+/* Dannia toggle button */
+.dannia-toggle-active {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #7c3aed;
+}
+
+.dark .dannia-toggle-active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-color: #8b5cf6;
+}
+
+/* Dannia dialer border */
+.dannia-dialer-border {
+  border: 2px solid rgba(124, 58, 237, 0.3);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.1), 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.dark .dannia-dialer-border {
+  border-color: rgba(167, 139, 250, 0.25);
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.08), 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress ring glow for Dannia */
+[data-dannia] .progress-ring-glow {
+  filter: drop-shadow(0 0 4px rgba(124, 58, 237, 0.3));
+}
+
+/* Smooth transition between modes */
+[data-dannia] * {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}

@@ -94,7 +94,7 @@ export function WeeklyCalendarView() {
 
   if (!schedule) {
     return (
-      <div className="bg-bg-card border border-border rounded-xl p-8 text-center">
+      <div className="bg-bg-card border dannia-gradient-card rounded-2xl p-8 text-center">
         <div className="text-text-tertiary text-sm">
           No schedule generated yet. Open Today&apos;s Plan to generate one.
         </div>
@@ -103,9 +103,10 @@ export function WeeklyCalendarView() {
   }
 
   return (
-    <div className="bg-bg-card border border-border rounded-xl p-4">
+    <div className="bg-bg-card border dannia-gradient-card rounded-2xl p-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-text-primary">
+        <h3 className="text-sm font-bold text-text-primary flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
           Weekly Schedule
         </h3>
         <div className="text-xs text-text-tertiary">

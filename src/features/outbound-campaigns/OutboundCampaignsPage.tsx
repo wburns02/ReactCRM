@@ -15,6 +15,7 @@ import {
   Upload,
   BarChart3,
   FileSearch,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
@@ -110,52 +111,81 @@ export function OutboundCampaignsPage() {
   ];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div
+      className="p-6 max-w-7xl mx-auto"
+      {...(danniaMode ? { "data-dannia": true } : {})}
+    >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-semibold text-text-primary flex items-center gap-2">
-            <PhoneOutgoing className="w-6 h-6 text-primary" />
-            {danniaMode ? "Dannia Mode" : "Outbound Campaigns"}
-          </h1>
-          <p className="text-sm text-text-secondary mt-0.5">
-            {danniaMode
-              ? "Autonomous outbound engine — just show up and talk"
-              : "Manage call lists, track dispositions, and power-dial through contacts"}
-          </p>
+      {danniaMode ? (
+        /* ── Dannia Mode header: gradient banner ── */
+        <div className="dannia-enter mb-6">
+          <div className="dannia-gradient-header rounded-2xl px-6 py-5 mb-4 relative overflow-hidden">
+            <div className="dannia-shimmer absolute inset-0 rounded-2xl" />
+            <div className="relative flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-white flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-white" />
+                  </div>
+                  Dannia Mode
+                </h1>
+                <p className="text-sm text-white/80 mt-1 ml-[42px]">
+                  Autonomous outbound engine — just show up and talk
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() =>
+                    useOutboundStore.getState().setDanniaMode(false)
+                  }
+                  className="dannia-toggle-active flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white border transition-all"
+                >
+                  <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  Dannia Mode
+                  <span className="text-white/60 text-[10px]">ON</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          {/* Dannia Mode toggle */}
-          <button
-            onClick={() =>
-              useOutboundStore.getState().setDanniaMode(!danniaMode)
-            }
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-              danniaMode
-                ? "bg-primary text-white border-primary"
-                : "bg-bg-hover text-text-secondary border-border hover:border-primary/50"
-            }`}
-          >
-            <div
-              className={`w-2 h-2 rounded-full ${
-                danniaMode ? "bg-white animate-pulse" : "bg-text-tertiary"
-              }`}
-            />
-            Dannia Mode
-          </button>
-          {!danniaMode && selectedCampaignId && (
-            <Button size="sm" variant="secondary" onClick={() => setImportOpen(true)}>
-              <Upload className="w-4 h-4 mr-1" /> Import Contacts
-            </Button>
-          )}
+      ) : (
+        /* ── Normal mode header ── */
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-semibold text-text-primary flex items-center gap-2">
+              <PhoneOutgoing className="w-6 h-6 text-primary" />
+              Outbound Campaigns
+            </h1>
+            <p className="text-sm text-text-secondary mt-0.5">
+              Manage call lists, track dispositions, and power-dial through contacts
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            {/* Dannia Mode toggle */}
+            <button
+              onClick={() =>
+                useOutboundStore.getState().setDanniaMode(true)
+              }
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border border-violet-200 dark:border-violet-800 bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950/30 dark:to-indigo-950/30 text-violet-700 dark:text-violet-300 hover:from-violet-100 hover:to-indigo-100 dark:hover:from-violet-950/50 dark:hover:to-indigo-950/50 hover:border-violet-300 dark:hover:border-violet-700 transition-all hover:shadow-md hover:shadow-violet-500/10"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Dannia Mode
+            </button>
+            {selectedCampaignId && (
+              <Button size="sm" variant="secondary" onClick={() => setImportOpen(true)}>
+                <Upload className="w-4 h-4 mr-1" /> Import Contacts
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Dannia Mode Dashboard */}
       {danniaMode ? (
         <Suspense
           fallback={
             <div className="flex items-center justify-center py-12 text-text-tertiary text-sm">
+              <Sparkles className="w-5 h-5 animate-pulse mr-2 text-violet-400" />
               Loading Dannia Mode...
             </div>
           }

@@ -47,7 +47,7 @@ export function DanniaDashboard() {
     <div className="space-y-4">
       {/* Dialer overlay when active */}
       {dialingActive && activeCampaign && (
-        <div className="bg-bg-card border-2 border-primary rounded-xl p-4">
+        <div className="dannia-enter bg-bg-card dannia-dialer-border rounded-2xl p-4">
           <PowerDialer campaignId={activeCampaign.id} />
         </div>
       )}
@@ -62,37 +62,51 @@ export function DanniaDashboard() {
               dialingActive={dialingActive}
             />
           )}
-          {activeTab === "week" && <WeeklyCalendarView />}
-          {activeTab === "report" && <WeeklyReportView />}
-          {activeTab === "calls" && <CallReviewPanel />}
+          {activeTab === "week" && (
+            <div className="dannia-enter dannia-enter-delay-1">
+              <WeeklyCalendarView />
+            </div>
+          )}
+          {activeTab === "report" && (
+            <div className="dannia-enter dannia-enter-delay-1">
+              <WeeklyReportView />
+            </div>
+          )}
+          {activeTab === "calls" && (
+            <div className="dannia-enter dannia-enter-delay-1">
+              <CallReviewPanel />
+            </div>
+          )}
 
           {/* Audit log (admin only) */}
           <AuditLogPanel />
         </>
       )}
 
-      {/* Sub-tabs */}
-      <div className="flex justify-center gap-1 pt-2">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => {
-              if (dialingActive) {
-                setDialingActive(false);
-                useOutboundStore.getState().stopDialer();
-              }
-              setActiveTab(tab.id);
-            }}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id && !dialingActive
-                ? "bg-primary/10 text-primary"
-                : "text-text-tertiary hover:text-text-secondary hover:bg-bg-hover"
-            }`}
-          >
-            <tab.icon className="w-4 h-4" />
-            {tab.label}
-          </button>
-        ))}
+      {/* Sub-tabs — pill style */}
+      <div className="flex justify-center pt-2">
+        <div className="inline-flex gap-1 p-1 bg-bg-hover/60 rounded-xl border border-border/50">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => {
+                if (dialingActive) {
+                  setDialingActive(false);
+                  useOutboundStore.getState().stopDialer();
+                }
+                setActiveTab(tab.id);
+              }}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === tab.id && !dialingActive
+                  ? "dannia-tab-active shadow-sm"
+                  : "text-text-tertiary hover:text-text-secondary hover:bg-bg-hover"
+              }`}
+            >
+              <tab.icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

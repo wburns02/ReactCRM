@@ -90,10 +90,11 @@ export function DanniaGamification() {
   );
 
   return (
-    <div className="bg-bg-card border border-border rounded-xl p-4 space-y-4">
+    <div className="bg-bg-card border dannia-gradient-card rounded-2xl p-5 space-y-4">
       {/* Daily goal progress rings */}
       <div>
-        <div className="text-xs font-semibold text-text-primary mb-3">
+        <div className="text-xs font-bold text-text-primary mb-3 flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
           Daily Goals
         </div>
         <div className="flex items-center justify-around">
@@ -104,20 +105,20 @@ export function DanniaGamification() {
       </div>
 
       {/* Streak counter */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-1 border-t border-border/50">
         <StreakCounter
           currentStreak={performanceMetrics.currentStreak}
           bestStreak={performanceMetrics.bestStreak}
         />
-        <div className="text-xs text-text-tertiary tabular-nums">
+        <div className="text-xs text-text-tertiary tabular-nums px-2.5 py-1 rounded-full bg-bg-hover/60">
           {performanceMetrics.connectRate.toFixed(0)}% connect
         </div>
       </div>
 
       {/* Earned badges */}
       {earnedBadgeObjects.length > 0 && (
-        <div>
-          <div className="text-[10px] font-medium text-text-tertiary mb-1.5">
+        <div className="pt-1 border-t border-border/50">
+          <div className="text-[10px] font-semibold text-text-tertiary uppercase tracking-wider mb-2">
             Badges Earned
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -125,7 +126,7 @@ export function DanniaGamification() {
               <div
                 key={badge.id}
                 title={`${badge.name}: ${badge.description}`}
-                className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-bg-hover border border-border text-[10px] font-medium"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/8 border border-primary/15 text-[10px] font-medium hover:bg-primary/12 transition-colors"
               >
                 <span>{badge.icon}</span>
                 <span className="text-text-secondary">{badge.name}</span>

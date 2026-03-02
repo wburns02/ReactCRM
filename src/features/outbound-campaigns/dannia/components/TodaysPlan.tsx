@@ -121,10 +121,12 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
   return (
     <div className="space-y-4">
       {/* Gamification dashboard — replaces QuickStats */}
-      <DanniaGamification />
+      <div className="dannia-enter">
+        <DanniaGamification />
+      </div>
 
       {/* Performance meter */}
-      <div className="bg-bg-card border border-border rounded-xl p-4">
+      <div className="dannia-enter dannia-enter-delay-1 bg-bg-card border dannia-gradient-card rounded-2xl p-4">
         <PerformanceMeter connectRate={performanceMetrics.connectRate} />
       </div>
 
@@ -133,7 +135,7 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
 
       {/* Current block + progress */}
       {todayPlan && (
-        <div className="bg-bg-card border border-border rounded-xl p-4">
+        <div className="dannia-enter dannia-enter-delay-2 bg-bg-card border dannia-gradient-card rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
               <div className="text-sm font-semibold text-text-primary">
@@ -145,7 +147,7 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                 </div>
               )}
             </div>
-            <div className="flex items-center gap-1 text-[10px] text-text-tertiary">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/8 text-[10px] text-primary font-semibold">
               <Shield className="w-3 h-3" />
               {config.maxCallsPerDay} calls max
             </div>
@@ -154,11 +156,12 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
           {/* Next up queue */}
           {scoredNext.length > 0 ? (
             <div>
-              <div className="text-xs text-text-tertiary font-medium mb-2">
+              <div className="text-xs text-text-tertiary font-medium mb-2 flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 Next Up
               </div>
               <div className="space-y-1.5">
-                {scoredNext.map(({ contact, score }) => {
+                {scoredNext.map(({ contact, score }, idx) => {
                   const zc = contact.service_zone
                     ? ZONE_CONFIG[contact.service_zone]
                     : null;
@@ -166,7 +169,8 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                     <div
                       key={contact.id}
                       onClick={() => setSelectedContact(contact)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-hover text-sm cursor-pointer hover:bg-primary/5 hover:border-primary/20 border border-transparent transition-colors"
+                      className="dannia-queue-item flex items-center gap-2 px-3 py-2.5 rounded-xl bg-bg-hover/60 text-sm cursor-pointer"
+                      style={{ animationDelay: `${idx * 60}ms` }}
                     >
                       <ScoreExplanation
                         score={score.normalizedTotal}
@@ -177,13 +181,13 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                       </span>
                       {zc && (
                         <span
-                          className={`inline-flex items-center px-1.5 py-0 rounded text-[9px] font-bold ${zc.color}`}
+                          className={`inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-bold ${zc.color}`}
                         >
                           {zc.shortLabel}
                         </span>
                       )}
                       {contact.call_status === "callback_scheduled" && (
-                        <span className="text-[10px] text-indigo-600 font-medium">
+                        <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-medium px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/30">
                           Callback
                         </span>
                       )}
@@ -193,7 +197,7 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
               </div>
             </div>
           ) : (
-            <div className="text-center py-4 text-sm text-text-tertiary">
+            <div className="text-center py-6 text-sm text-text-tertiary">
               {performanceMetrics.todayCallsMade >= config.maxCallsPerDay
                 ? "Daily limit reached! Great work today."
                 : "No contacts scheduled for this block."}
@@ -203,7 +207,7 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
       )}
 
       {/* START/PAUSE DIALING button */}
-      <div className="text-center">
+      <div className="dannia-enter dannia-enter-delay-3 text-center py-2">
         <button
           onClick={onStartDialing}
           disabled={
@@ -211,11 +215,11 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
             !dialingActive &&
             performanceMetrics.todayCallsMade < config.maxCallsPerDay
           }
-          className={`px-8 py-3 rounded-xl text-base font-bold shadow-sm transition-colors ${
+          className={`px-10 py-3.5 rounded-2xl text-base font-bold transition-all ${
             dialingActive
-              ? "bg-amber-500 hover:bg-amber-600 text-white"
-              : "bg-primary hover:bg-primary/90 text-white"
-          } disabled:opacity-40`}
+              ? "bg-amber-500 hover:bg-amber-600 text-white shadow-lg shadow-amber-500/25"
+              : "dannia-start-btn text-white"
+          } disabled:opacity-40 disabled:shadow-none disabled:transform-none`}
         >
           {dialingActive ? "PAUSE DIALING" : "START DIALING"}
         </button>

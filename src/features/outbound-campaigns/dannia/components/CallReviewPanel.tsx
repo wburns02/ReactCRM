@@ -42,8 +42,8 @@ export function CallReviewPanel() {
 
   if (records.length === 0) {
     return (
-      <div className="bg-bg-card border border-border rounded-xl p-8 text-center">
-        <Headphones className="w-10 h-10 text-text-tertiary mx-auto mb-3" />
+      <div className="bg-bg-card border dannia-gradient-card rounded-2xl p-8 text-center">
+        <Headphones className="w-10 h-10 text-primary/30 mx-auto mb-3" />
         <h3 className="text-base font-semibold text-text-primary">
           No calls recorded today
         </h3>
@@ -120,7 +120,7 @@ export function CallReviewPanel() {
           return (
             <div
               key={record.id}
-              className="bg-bg-card border border-border rounded-lg p-3"
+              className="bg-bg-card border border-border/60 rounded-xl p-3 hover:border-primary/20 transition-colors"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">

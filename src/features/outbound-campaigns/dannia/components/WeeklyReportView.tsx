@@ -9,33 +9,33 @@ function ReportCard({ report }: { report: WeeklyReport }) {
     <div className="space-y-4">
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-bg-hover rounded-xl p-3 text-center">
-          <Phone className="w-4 h-4 mx-auto mb-1 text-primary" />
+        <div className="bg-bg-hover/60 rounded-2xl p-3.5 text-center border border-border/50 hover:border-primary/20 transition-colors">
+          <Phone className="w-4 h-4 mx-auto mb-1.5 text-primary" />
           <div className="text-lg font-bold text-text-primary tabular-nums">
             {report.totalCalls}
           </div>
-          <div className="text-[10px] text-text-tertiary">Total Calls</div>
+          <div className="text-[10px] text-text-tertiary font-medium">Total Calls</div>
         </div>
-        <div className="bg-bg-hover rounded-xl p-3 text-center">
-          <TrendingUp className="w-4 h-4 mx-auto mb-1 text-emerald-500" />
+        <div className="bg-bg-hover/60 rounded-2xl p-3.5 text-center border border-border/50 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors">
+          <TrendingUp className="w-4 h-4 mx-auto mb-1.5 text-emerald-500" />
           <div className="text-lg font-bold text-text-primary tabular-nums">
             {report.connectRate.toFixed(0)}%
           </div>
-          <div className="text-[10px] text-text-tertiary">Connect Rate</div>
+          <div className="text-[10px] text-text-tertiary font-medium">Connect Rate</div>
         </div>
-        <div className="bg-bg-hover rounded-xl p-3 text-center">
-          <Users className="w-4 h-4 mx-auto mb-1 text-emerald-600" />
+        <div className="bg-bg-hover/60 rounded-2xl p-3.5 text-center border border-border/50 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors">
+          <Users className="w-4 h-4 mx-auto mb-1.5 text-emerald-600" />
           <div className="text-lg font-bold text-text-primary tabular-nums">
             {report.totalInterested}
           </div>
-          <div className="text-[10px] text-text-tertiary">Interested</div>
+          <div className="text-[10px] text-text-tertiary font-medium">Interested</div>
         </div>
-        <div className="bg-bg-hover rounded-xl p-3 text-center">
-          <Star className="w-4 h-4 mx-auto mb-1 text-amber-500" />
+        <div className="bg-bg-hover/60 rounded-2xl p-3.5 text-center border border-border/50 hover:border-amber-200 dark:hover:border-amber-800 transition-colors">
+          <Star className="w-4 h-4 mx-auto mb-1.5 text-amber-500" />
           <div className="text-lg font-bold text-text-primary tabular-nums">
             {report.contractsSaved}
           </div>
-          <div className="text-[10px] text-text-tertiary">Contracts Saved</div>
+          <div className="text-[10px] text-text-tertiary font-medium">Contracts Saved</div>
         </div>
       </div>
 
@@ -137,11 +137,11 @@ export function WeeklyReportView() {
   const isFriday = useMemo(() => new Date().getDay() === 5, []);
 
   return (
-    <div className="bg-bg-card border border-border rounded-xl p-4">
+    <div className="bg-bg-card border dannia-gradient-card rounded-2xl p-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <FileText className="w-4 h-4 text-text-tertiary" />
-          <h3 className="text-sm font-semibold text-text-primary">
+          <FileText className="w-4 h-4 text-primary" />
+          <h3 className="text-sm font-bold text-text-primary">
             Weekly Report
           </h3>
         </div>

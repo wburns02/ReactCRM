@@ -53,9 +53,9 @@ function StatCard({
   sub?: string;
 }) {
   return (
-    <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-      <div className="text-xs text-text-secondary mb-1">{label}</div>
-      <div className={`text-xl font-bold ${color}`}>{value}</div>
+    <div className="bg-bg-card border border-border rounded-xl p-3 text-center hover:border-primary/30 transition-all hover:shadow-sm group">
+      <div className="text-[10px] text-text-tertiary font-medium uppercase tracking-wider mb-1">{label}</div>
+      <div className={`text-xl font-bold ${color} tabular-nums`}>{value}</div>
       {sub && <div className="text-[10px] text-text-tertiary mt-0.5">{sub}</div>}
     </div>
   );
