@@ -227,7 +227,7 @@ function generateInvoicePDF(doc: InstanceType<typeof import("jspdf").jsPDF>, inv
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
   doc.setFont("helvetica", "bold");
-  doc.text("MAC SEPTIC SERVICES", 15, 18);
+  doc.text("MAC SEPTIC", 15, 18);
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -447,7 +447,7 @@ function generateInvoicePDF(doc: InstanceType<typeof import("jspdf").jsPDF>, inv
   doc.setFontSize(9);
   doc.setTextColor(160, 160, 160);
   doc.text(
-    "Thank you for choosing Mac Septic Services!",
+    "Thank you for choosing Mac Septic!",
     pageWidth / 2,
     footerY,
     { align: "center" },

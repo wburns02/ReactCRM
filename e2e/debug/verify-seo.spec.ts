@@ -64,7 +64,7 @@ test("verify SEO meta tags and structured data", async ({ page }) => {
   const localBusiness = jsonLdScripts.find((s) => s["@type"] === "LocalBusiness");
   console.log("LocalBusiness Schema:", localBusiness ? "Found" : "Not found");
   expect(localBusiness).toBeTruthy();
-  expect(localBusiness?.name).toBe("MAC Septic Services");
+  expect(localBusiness?.name).toBe("MAC Septic");
   expect(localBusiness?.telephone).toContain("936");
 
   // Find FAQ schema

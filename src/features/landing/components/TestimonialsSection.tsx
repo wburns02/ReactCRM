@@ -48,7 +48,7 @@ export function TestimonialsSection() {
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Don't just take our word for it. Here's what our neighbors are
-            saying about MAC Septic Services.
+            saying about MAC Septic.
           </p>
           {/* Google Reviews badge */}
           <div className="inline-flex items-center gap-2 mt-4 bg-white px-4 py-2 rounded-full shadow-sm">

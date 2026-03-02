@@ -9,7 +9,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
   const quoteUrl = `#quote${utmParams.utm_source ? `?utm_source=${utmParams.utm_source}` : ""}`;
 
   return (
-    <section aria-label="MAC Septic Services - Hero" className="relative bg-gradient-to-br from-mac-dark-blue via-mac-navy to-mac-dark-blue overflow-hidden">
+    <section aria-label="MAC Septic - Hero" className="relative bg-gradient-to-br from-mac-dark-blue via-mac-navy to-mac-dark-blue overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div

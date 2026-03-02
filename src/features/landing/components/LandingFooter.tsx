@@ -19,7 +19,7 @@ export function LandingFooter() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">MAC Septic Services</h3>
+            <h3 className="text-xl font-bold mb-4">MAC Septic</h3>
             <p className="text-gray-400 mb-4">
               Family-owned and operated since 1996. Providing professional
               septic services to East Central Texas.
@@ -152,7 +152,7 @@ export function LandingFooter() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
             <p>
-              &copy; {currentYear} MAC Septic Services. All rights reserved.
+              &copy; {currentYear} MAC Septic. All rights reserved.
             </p>
             <div className="flex gap-6">
               <a href="/privacy" className="hover:text-white transition-colors">

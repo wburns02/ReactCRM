@@ -380,7 +380,7 @@ async function generateReportPDF(
     setC({ r: 148, g: 163, b: 184 });
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
-    doc.text("MAC Septic Services  |  (512) 737-8711  |  macseptic.com  |  San Marcos, TX", pageW / 2, pageH - 5.5, { align: "center" });
+    doc.text("MAC Septic  |  (512) 737-8711  |  macseptic.com  |  San Marcos, TX", pageW / 2, pageH - 5.5, { align: "center" });
     setC({ r: 100, g: 116, b: 139 });
     doc.text(`Page ${doc.getNumberOfPages()}`, pageW - margin, pageH - 5.5, { align: "right" });
   }
@@ -1236,7 +1236,7 @@ async function generateReportPDF(
   setC(BRAND.white);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
-  doc.text("Thank you for trusting MAC Septic Services!", pageW / 2, y + 10, { align: "center" });
+  doc.text("Thank you for trusting MAC Septic!", pageW / 2, y + 10, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   setC(BRAND.blueLight);
@@ -1689,7 +1689,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
 
   const handleNotifyHomeowner = () => {
     if (!customerPhone) return;
-    const msg = `Hi${customerName ? ` ${customerName}` : ""}, this is your technician from MAC Septic Services. I've arrived and will begin the inspection process which will take about 25 minutes.`;
+    const msg = `Hi${customerName ? ` ${customerName}` : ""}, this is your technician from MAC Septic. I've arrived and will begin the inspection process which will take about 25 minutes.`;
     window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
     setLocalState((s) => ({
       ...s,
@@ -1944,7 +1944,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
         const body = [
           `Hi ${customerName || ""},`,
           "",
-          "Thank you for choosing MAC Septic Services. Please find your septic inspection report attached to this email.",
+          "Thank you for choosing MAC Septic. Please find your septic inspection report attached to this email.",
           "",
           `Overall Condition: ${condition}`,
           `Issues found: ${s.totalIssues || 0}`,
@@ -1952,7 +1952,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
           "Please attach the downloaded PDF to this email before sending.",
           "",
           "Questions? Call us at (512) 737-8711",
-          "MAC Septic Services — San Marcos, TX",
+          "MAC Septic — San Marcos, TX",
         ].join("\n");
 
         window.open(`mailto:${emailRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
@@ -1992,7 +1992,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
       ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
       : "";
 
-    const msg = `MAC Septic Services — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}${estimateLine}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 737-8711.`;
+    const msg = `MAC Septic — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}${estimateLine}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 737-8711.`;
 
     window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
 

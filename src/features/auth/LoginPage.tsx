@@ -237,7 +237,7 @@ export function LoginPage() {
                 MAC
               </span>
               <span className="text-white/50 text-xs lg:text-sm block tracking-[0.2em] uppercase">
-                Septic Services
+                Septic
               </span>
             </div>
           </div>
@@ -540,7 +540,7 @@ export function LoginPage() {
               </span>
             </p>
             <p className="text-text-muted/50 text-[11px] text-center mt-3">
-              Mac Service Platform v2.10 &middot; {new Date().getFullYear()} MAC Septic Services
+              Mac Service Platform v2.10 &middot; {new Date().getFullYear()} MAC Septic
             </p>
           </div>
         </div>

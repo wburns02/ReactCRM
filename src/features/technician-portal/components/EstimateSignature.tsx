@@ -99,7 +99,7 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
         <div className="bg-white dark:bg-gray-900 rounded-xl p-8 max-w-md w-full text-center">
           <div className="text-5xl mb-4">✅</div>
           <h2 className="text-xl font-bold text-text-primary mb-2">All Done!</h2>
-          <p className="text-text-secondary mb-6">Thank you for choosing MAC Septic Services.</p>
+          <p className="text-text-secondary mb-6">Thank you for choosing MAC Septic.</p>
           <button
             onClick={onClose}
             className="w-full py-3 bg-primary text-white rounded-lg font-semibold text-lg"
@@ -161,7 +161,7 @@ export function EstimateSignature({ quoteId, onClose, onComplete }: Props) {
 
           {/* Header */}
           <div className="bg-[#1e40af] text-white p-5 text-center">
-            <h1 className="text-lg font-bold">MAC Septic Services</h1>
+            <h1 className="text-lg font-bold">MAC Septic</h1>
             <p className="text-blue-200 text-sm mt-1">Repair Estimate</p>
           </div>
 

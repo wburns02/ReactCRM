@@ -1,5 +1,5 @@
 /**
- * Grease Trap Pricing — MAC Septic Services 2026
+ * Grease Trap Pricing — MAC Septic 2026
  *
  * Based on official pricing sheet from Doug Carter (EVP).
  * Two models: one-time service and monthly subscription.

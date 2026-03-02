@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function TermsPage() {
   useEffect(() => {
-    document.title = "Terms of Service | MAC Septic Services";
+    document.title = "Terms of Service | MAC Septic";
     window.scrollTo(0, 0);
   }, []);
 
@@ -24,7 +24,7 @@ export function TermsPage() {
                   <path d="M19 8h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v2H5c-1.1 0-2 .9-2 2v5h2v5h14v-5h2v-5c0-1.1-.9-2-2-2zM8 6h8v2H8V6zm9 14H7v-3h10v3zm2-5H5v-3c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3z" />
                 </svg>
               </div>
-              <span className="text-xl font-bold">MAC Septic Services</span>
+              <span className="text-xl font-bold">MAC Septic</span>
             </Link>
             <Link
               to="/home"
@@ -50,7 +50,7 @@ export function TermsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Agreement to Terms</h2>
             <p>
               These Terms of Service ("Terms") constitute a legally binding agreement between you
-              and MAC Septic Services ("Company," "we," "our," or "us"), located in Nacogdoches,
+              and MAC Septic ("Company," "we," "our," or "us"), located in Nacogdoches,
               Texas. By accessing or using our website at{" "}
               <a href="https://react.ecbtx.com" className="text-mac-dark-blue hover:underline">
                 react.ecbtx.com
@@ -69,7 +69,7 @@ export function TermsPage() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Service Description</h2>
             <p>
-              MAC Septic Services provides professional septic system services in East Central
+              MAC Septic provides professional septic system services in East Central
               Texas, including but not limited to:
             </p>
             <ul className="list-disc pl-6 space-y-2">
@@ -224,7 +224,7 @@ export function TermsPage() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                MAC Septic Services shall not be liable for any indirect, incidental, special,
+                MAC Septic shall not be liable for any indirect, incidental, special,
                 consequential, or punitive damages arising from or related to the use of our
                 services or website.
               </li>
@@ -249,7 +249,7 @@ export function TermsPage() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Indemnification</h2>
             <p>
-              You agree to indemnify, defend, and hold harmless MAC Septic Services, its owners,
+              You agree to indemnify, defend, and hold harmless MAC Septic, its owners,
               employees, technicians, and agents from and against any claims, liabilities, damages,
               losses, costs, or expenses (including reasonable attorneys' fees) arising from:
             </p>
@@ -266,7 +266,7 @@ export function TermsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Intellectual Property</h2>
             <p>
               All content on our website, including text, graphics, logos, images, software, and
-              design elements, is the property of MAC Septic Services or its licensors and is
+              design elements, is the property of MAC Septic or its licensors and is
               protected by copyright, trademark, and other intellectual property laws.
             </p>
             <p>
@@ -338,7 +338,7 @@ export function TermsPage() {
               <Link to="/privacy" className="text-mac-dark-blue hover:underline">
                 Privacy Policy
               </Link>
-              , constitute the entire agreement between you and MAC Septic Services regarding the
+              , constitute the entire agreement between you and MAC Septic regarding the
               use of our website and services. These Terms supersede any prior agreements or
               communications regarding the same subject matter.
             </p>
@@ -351,7 +351,7 @@ export function TermsPage() {
               If you have any questions about these Terms of Service, please contact us:
             </p>
             <div className="bg-gray-50 rounded-lg p-6 mt-4">
-              <p className="font-semibold text-gray-900 text-lg mb-3">MAC Septic Services</p>
+              <p className="font-semibold text-gray-900 text-lg mb-3">MAC Septic</p>
               <div className="space-y-2 text-gray-700">
                 <p className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -394,7 +394,7 @@ export function TermsPage() {
       <footer className="bg-gray-900 text-white mt-16">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-            <p>&copy; {new Date().getFullYear()} MAC Septic Services. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} MAC Septic. All rights reserved.</p>
             <div className="flex gap-6">
               <Link to="/privacy" className="hover:text-white transition-colors">
                 Privacy Policy

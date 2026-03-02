@@ -35,7 +35,7 @@ function generateEstimatePDF(doc: InstanceType<typeof import("jspdf").jsPDF>, es
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
   doc.setFont("helvetica", "bold");
-  doc.text("MAC SEPTIC SERVICES", 15, 18);
+  doc.text("MAC SEPTIC", 15, 18);
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -284,7 +284,7 @@ function generateEstimatePDF(doc: InstanceType<typeof import("jspdf").jsPDF>, es
   doc.setFontSize(9);
   doc.setTextColor(160, 160, 160);
   doc.text(
-    "Thank you for considering Mac Septic Services!",
+    "Thank you for considering Mac Septic!",
     pageWidth / 2,
     footerY,
     { align: "center" },

@@ -165,7 +165,7 @@ export function YelpSettings() {
                   <Input
                     id="yelp-name"
                     type="text"
-                    placeholder="e.g., Mac Septic Services"
+                    placeholder="e.g., Mac Septic"
                     value={searchName}
                     onChange={(e) => setSearchName(e.target.value)}
                   />

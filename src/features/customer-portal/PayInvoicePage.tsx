@@ -67,7 +67,7 @@ export function PayInvoicePage() {
       <div className="max-w-lg mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">MAC Septic Services</h1>
+          <h1 className="text-2xl font-bold text-gray-900">MAC Septic</h1>
           <p className="text-gray-500 mt-1">Invoice Payment</p>
         </div>
 

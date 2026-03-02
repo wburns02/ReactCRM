@@ -1,4 +1,4 @@
-# robots.txt for MAC Septic Services
+# robots.txt for MAC Septic
 # https://react.ecbtx.com
 
 User-agent: *

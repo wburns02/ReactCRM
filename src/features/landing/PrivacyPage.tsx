@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function PrivacyPage() {
   useEffect(() => {
-    document.title = "Privacy Policy | MAC Septic Services";
+    document.title = "Privacy Policy | MAC Septic";
     window.scrollTo(0, 0);
   }, []);
 
@@ -24,7 +24,7 @@ export function PrivacyPage() {
                   <path d="M19 8h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v2H5c-1.1 0-2 .9-2 2v5h2v5h14v-5h2v-5c0-1.1-.9-2-2-2zM8 6h8v2H8V6zm9 14H7v-3h10v3zm2-5H5v-3c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3z" />
                 </svg>
               </div>
-              <span className="text-xl font-bold">MAC Septic Services</span>
+              <span className="text-xl font-bold">MAC Septic</span>
             </Link>
             <Link
               to="/home"
@@ -49,7 +49,7 @@ export function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introduction</h2>
             <p>
-              MAC Septic Services ("we," "our," or "us") is committed to protecting the privacy
+              MAC Septic ("we," "our," or "us") is committed to protecting the privacy
               of our customers and website visitors. This Privacy Policy describes how we collect,
               use, disclose, and safeguard your personal information when you visit our website at{" "}
               <a href="https://react.ecbtx.com" className="text-mac-dark-blue hover:underline">
@@ -325,7 +325,7 @@ export function PrivacyPage() {
               our data practices, please contact us:
             </p>
             <div className="bg-gray-50 rounded-lg p-6 mt-4">
-              <p className="font-semibold text-gray-900 text-lg mb-3">MAC Septic Services</p>
+              <p className="font-semibold text-gray-900 text-lg mb-3">MAC Septic</p>
               <div className="space-y-2 text-gray-700">
                 <p className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -368,7 +368,7 @@ export function PrivacyPage() {
       <footer className="bg-gray-900 text-white mt-16">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-            <p>&copy; {new Date().getFullYear()} MAC Septic Services. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} MAC Septic. All rights reserved.</p>
             <div className="flex gap-6">
               <span className="text-white font-medium">Privacy Policy</span>
               <Link to="/terms" className="hover:text-white transition-colors">

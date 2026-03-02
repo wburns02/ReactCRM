@@ -100,7 +100,7 @@ export function CustomerPortalLogin() {
                 <circle cx="46" cy="42" r="2.5" fill="#1d4ed8" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold">MAC Septic Services</h1>
+            <h1 className="text-xl font-bold">MAC Septic</h1>
             <p className="text-blue-100 text-sm mt-1">Customer Portal</p>
           </div>
 
@@ -256,7 +256,7 @@ export function CustomerPortalLogin() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-4">
-          MAC Septic Services &mdash; Secure Customer Access
+          MAC Septic &mdash; Secure Customer Access
         </p>
       </div>
     </div>

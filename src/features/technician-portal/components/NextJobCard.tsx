@@ -90,7 +90,7 @@ export function NextJobCard({ currentJobId }: Props) {
 
   const handleTextCustomer = () => {
     if (!phone) return;
-    const msg = `Hi${customerName !== "Customer" ? ` ${customerName}` : ""}, this is your technician from MAC Septic Services. I'm headed your way now — estimated arrival ${arrivalTime ? `around ${arrivalTime}` : "in about 20-30 minutes"}. I'll be checking your septic system, should take about 25 minutes.`;
+    const msg = `Hi${customerName !== "Customer" ? ` ${customerName}` : ""}, this is your technician from MAC Septic. I'm headed your way now — estimated arrival ${arrivalTime ? `around ${arrivalTime}` : "in about 20-30 minutes"}. I'll be checking your septic system, should take about 25 minutes.`;
     window.open(`sms:${phone}?body=${encodeURIComponent(msg)}`, "_self");
   };
 

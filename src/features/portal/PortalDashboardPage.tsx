@@ -46,7 +46,7 @@ export function PortalDashboardPage() {
           Welcome back, {customer?.first_name || "Customer"}!
         </h1>
         <p className="text-text-secondary mt-1">
-          Here's an overview of your account with MAC Septic Services
+          Here's an overview of your account with MAC Septic
         </p>
       </div>
 

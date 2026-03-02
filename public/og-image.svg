@@ -43,7 +43,7 @@
     fill="#ffffff"
     text-anchor="middle"
     letter-spacing="4"
-  >MAC SEPTIC SERVICES</text>
+  >MAC SEPTIC</text>
 
   <!-- Divider line -->
   <rect x="440" y="235" width="320" height="3" rx="1.5" fill="url(#accentGrad)"/>

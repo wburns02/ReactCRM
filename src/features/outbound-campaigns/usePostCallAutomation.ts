@@ -148,9 +148,9 @@ function buildSmsMessage(contact: CampaignContact, disposition: ContactCallStatu
   const name = contact.account_name.split(" ")[0] || "there";
 
   if (disposition === "interested") {
-    return `Hi ${name}, thanks for your interest in Mac Septic services! We'll follow up shortly with more details. Questions? Call us anytime.`;
+    return `Hi ${name}, thanks for your interest in Mac Septic! We'll follow up shortly with more details. Questions? Call us anytime.`;
   }
 
   // voicemail
-  return `Hi ${name}, we tried reaching you from Mac Septic. We'd love to discuss how we can help with your septic needs. Call us back at your convenience!`;
+  return `Hi ${name}, we tried reaching you from Mac Septic. We'd love to help with your septic needs. Call us back at your convenience!`;
 }

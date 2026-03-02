@@ -53,7 +53,7 @@ export function LandingPage() {
 
     // Update page title for SEO
     document.title =
-      "Septic Tank Pumping & Repair | MAC Septic Services | Central Texas";
+      "Septic Tank Pumping & Repair | MAC Septic | Central Texas";
 
     // Scroll to top on mount
     window.scrollTo(0, 0);

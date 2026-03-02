@@ -31,7 +31,7 @@ export function PublicBookingPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-8 mt-16">
         <div className="max-w-4xl mx-auto px-4 text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} MAC Septic Services. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} MAC Septic. All rights reserved.</p>
           <div className="mt-2 space-x-4">
             <a href="/privacy" className="hover:text-white">Privacy Policy</a>
             <a href="/terms" className="hover:text-white">Terms of Service</a>

@@ -111,7 +111,7 @@ export function CustomerPortalLayout() {
       {/* Footer */}
       <footer className="hidden sm:block bg-white border-t border-gray-200 py-4 mt-auto">
         <p className="text-center text-gray-400 text-xs">
-          MAC Septic Services &mdash; Customer Portal &mdash; Need help? Call{" "}
+          MAC Septic &mdash; Customer Portal &mdash; Need help? Call{" "}
           <a href="tel:+15125550123" className="text-blue-600 hover:underline">
             (512) 555-0123
           </a>
