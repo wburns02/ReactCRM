@@ -56,9 +56,10 @@ export function AgentAssist({
     stopTranscription,
   } = assist;
 
+  const getQuickPromptsFn = "getQuickPrompts" in enhancedAssist ? enhancedAssist.getQuickPrompts : null;
   const quickPrompts = useMemo(() => {
-    if (danniaMode && "getQuickPrompts" in enhancedAssist) {
-      return enhancedAssist.getQuickPrompts(contact);
+    if (danniaMode && getQuickPromptsFn) {
+      return getQuickPromptsFn(contact);
     }
     return [
       "How much does pumping cost?",
@@ -68,7 +69,7 @@ export function AgentAssist({
       "They asked about our experience",
       "Emergency/backup situation",
     ];
-  }, [danniaMode, enhancedAssist, contact]);
+  }, [danniaMode, getQuickPromptsFn, contact]);
 
   const [input, setInput] = useState("");
   // Default to "quick" tab in Dannia Mode, "chat" otherwise

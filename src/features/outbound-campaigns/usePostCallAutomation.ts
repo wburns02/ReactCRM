@@ -21,6 +21,12 @@ export function usePostCallAutomation(campaignId: string) {
 
   const createActivity = useCreateActivity();
   const sendSms = useSendSMS();
+  // Refs to hold mutation objects — avoids recreating runAutomation on every render
+  // (useMutation returns a new object each render, destabilizing deps)
+  const createActivityRef = useRef(createActivity);
+  createActivityRef.current = createActivity;
+  const sendSmsRef = useRef(sendSms);
+  sendSmsRef.current = sendSms;
 
   const addResult = useCallback((result: AutomationResult) => {
     resultsRef.current = [result, ...resultsRef.current].slice(0, MAX_RESULTS);
@@ -34,7 +40,7 @@ export function usePostCallAutomation(campaignId: string) {
       // 1. Log activity (for all dispositions when enabled)
       if (config.logActivity && contact.account_number) {
         const description = buildActivityDescription(contact, disposition, notes);
-        createActivity
+        createActivityRef.current
           .mutateAsync({
             customer_id: contact.account_number,
             activity_type: "call",
@@ -67,7 +73,7 @@ export function usePostCallAutomation(campaignId: string) {
         ["interested", "voicemail"].includes(disposition)
       ) {
         const message = buildSmsMessage(contact, disposition);
-        sendSms
+        sendSmsRef.current
           .mutateAsync({
             to_phone: contact.phone,
             message,
@@ -105,7 +111,7 @@ export function usePostCallAutomation(campaignId: string) {
         });
       }
     },
-    [campaignId, createActivity, sendSms, addResult],
+    [campaignId, addResult],
   );
 
   return { runAutomation, results };

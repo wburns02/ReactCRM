@@ -47,6 +47,9 @@ export function useWebPhone(): UseWebPhoneReturn {
   const [activeCall, setActiveCall] = useState<ActiveCall | null>(null);
   const webPhoneRef = useRef<any>(null);
   const callSessionRef = useRef<any>(null);
+  // Ref to hold state — avoids recreating `call` callback on every state change
+  const stateRef = useRef<PhoneState>(state);
+  stateRef.current = state;
 
   // Cleanup on unmount
   useEffect(() => {
@@ -120,7 +123,7 @@ export function useWebPhone(): UseWebPhoneReturn {
   }, []);
 
   const call = useCallback(async (number: string) => {
-    if (!webPhoneRef.current || state !== "registered") {
+    if (!webPhoneRef.current || stateRef.current !== "registered") {
       setError("Phone not connected");
       return;
     }
@@ -149,7 +152,7 @@ export function useWebPhone(): UseWebPhoneReturn {
       setError(err?.message || "Call failed");
       setState("registered");
     }
-  }, [state]);
+  }, []);
 
   const answer = useCallback(async () => {
     const session = callSessionRef.current;
