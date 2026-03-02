@@ -528,6 +528,56 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           if (state && state.campaigns.length === 0) {
             state.seedFromBuiltInData();
           }
+
+          // Inject test contacts for power dialer testing
+          if (
+            state &&
+            state.campaigns.length > 0 &&
+            !state.contacts.some((c) => c.account_number === "TEST0001")
+          ) {
+            const campaignId = state.campaigns[0].id;
+            const now = new Date().toISOString();
+            const testContacts: CampaignContact[] = Array.from(
+              { length: 10 },
+              (_, i) => ({
+                id: `test-will-${i + 1}`,
+                campaign_id: campaignId,
+                account_number: `TEST${String(i + 1).padStart(4, "0")}`,
+                account_name: `Test Call ${i + 1} - Will Burns`,
+                company: "Mac Septic (Test)",
+                phone: "9792361958",
+                email: "will@macseptic.com",
+                address: "123 Test Street, San Marcos, TX 78666",
+                city: null,
+                state: null,
+                zip_code: "78666",
+                service_zone: "Zone 1 - Home Base",
+                system_type: "Aerobic",
+                contract_type: "Annual",
+                contract_status: "Expired",
+                contract_start: "2024-01-01",
+                contract_end: "2025-12-31",
+                contract_value: null,
+                customer_type: "Residential",
+                call_priority_label: "High",
+                call_status: "pending",
+                call_attempts: 0,
+                last_call_date: null,
+                last_call_duration: null,
+                last_disposition: null,
+                notes: null,
+                callback_date: null,
+                assigned_rep: null,
+                priority: 3,
+                created_at: now,
+                updated_at: now,
+              }),
+            );
+            // Prepend test contacts so they appear first
+            useOutboundStore.setState({
+              contacts: [...testContacts, ...state.contacts],
+            });
+          }
         };
       },
       migrate: (persisted: unknown, version: number) => {

@@ -45,54 +45,6 @@ export function OutboundCampaignsPage() {
     }
   }, [campaigns, selectedCampaignId]);
 
-  // Inject test contacts for power dialer testing (bypasses phone dedup)
-  useEffect(() => {
-    if (campaigns.length === 0) return;
-    const store = useOutboundStore.getState();
-    const hasTest = store.contacts.some((c) => c.account_number === "TEST0001");
-    if (hasTest) return;
-
-    const campaignId = campaigns[0].id;
-    const now = new Date().toISOString();
-    const testContacts = Array.from({ length: 10 }, (_, i) => ({
-      id: `test-will-${i + 1}`,
-      campaign_id: campaignId,
-      account_number: `TEST${String(i + 1).padStart(4, "0")}`,
-      account_name: `Test Call ${i + 1} - Will Burns`,
-      company: "Mac Septic (Test)" as string | null,
-      phone: "9792361958",
-      email: "will@macseptic.com" as string | null,
-      address: "123 Test Street, San Marcos, TX 78666" as string | null,
-      city: null as string | null,
-      state: null as string | null,
-      zip_code: "78666" as string | null,
-      service_zone: "Zone 1 - Home Base" as string | null,
-      system_type: "Aerobic" as string | null,
-      contract_type: "Annual" as string | null,
-      contract_status: "Expired" as string | null,
-      contract_start: "2024-01-01" as string | null,
-      contract_end: "2025-12-31" as string | null,
-      contract_value: null as number | null,
-      customer_type: "Residential" as string | null,
-      call_priority_label: "High" as string | null,
-      call_status: "pending" as const,
-      call_attempts: 0,
-      last_call_date: null as string | null,
-      last_call_duration: null as number | null,
-      last_disposition: null as string | null,
-      notes: null as string | null,
-      callback_date: null as string | null,
-      assigned_rep: null as string | null,
-      priority: 3,
-      created_at: now,
-      updated_at: now,
-    }));
-
-    useOutboundStore.setState((s) => ({
-      contacts: [...testContacts, ...s.contacts],
-    }));
-  }, [campaigns]);
-
   const selectedCampaign = campaigns.find((c) => c.id === selectedCampaignId);
 
   const stats: CampaignStats | null = useMemo(() => {
