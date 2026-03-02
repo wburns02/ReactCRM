@@ -1,5 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Phone, Clock, TrendingUp, Users, Shield } from "lucide-react";
+import { ContactScreenPop } from "../../components/ContactScreenPop";
+import type { CampaignContact } from "../../types";
 import { useScheduleEngine } from "../useScheduleEngine";
 import { usePerformanceLoop } from "../usePerformanceLoop";
 import { useDanniaStore } from "../danniaStore";
@@ -93,6 +95,7 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
   const { activeFailures, performanceMetrics } = usePerformanceLoop();
   const config = useDanniaStore((s) => s.config);
   const allContacts = useOutboundStore((s) => s.contacts);
+  const [selectedContact, setSelectedContact] = useState<CampaignContact | null>(null);
 
   const nextContacts = useMemo(() => getNextContacts(5), [getNextContacts]);
 
@@ -162,7 +165,8 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                   return (
                     <div
                       key={contact.id}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-hover text-sm"
+                      onClick={() => setSelectedContact(contact)}
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-bg-hover text-sm cursor-pointer hover:bg-primary/5 hover:border-primary/20 border border-transparent transition-colors"
                     >
                       <ScoreExplanation
                         score={score.normalizedTotal}
@@ -216,6 +220,14 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
           {dialingActive ? "PAUSE DIALING" : "START DIALING"}
         </button>
       </div>
+
+      {/* Contact detail popup */}
+      {selectedContact && (
+        <ContactScreenPop
+          contact={selectedContact}
+          onClose={() => setSelectedContact(null)}
+        />
+      )}
     </div>
   );
 }

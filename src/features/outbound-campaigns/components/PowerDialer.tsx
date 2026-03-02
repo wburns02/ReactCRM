@@ -21,6 +21,8 @@ import { useSmsSequenceEngine } from "../dannia/useSmsSequenceEngine";
 import { extractCallId } from "../dannia/callRecordingTracker";
 import { useAutoSummary } from "../dannia/useAutoSummary";
 import { AutoSummaryBanner } from "../dannia/components/AutoSummaryBanner";
+import { ContactScreenPop } from "./ContactScreenPop";
+import type { CampaignContact } from "../types";
 import {
   Phone,
   PhoneOff,
@@ -179,6 +181,8 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const [disposition, setDisposition] = useState<ContactCallStatus | "">("");
   const [scriptCollapsed, setScriptCollapsed] = useState(false);
   const [assistCollapsed, setAssistCollapsed] = useState(false);
+  const [screenPopContact, setScreenPopContact] = useState<CampaignContact | null>(null);
+  const [screenPopDismissed, setScreenPopDismissed] = useState(false);
 
   // Auto-dial countdown state
   const [autoDialCountdown, setAutoDialCountdown] = useState<number | null>(null);
@@ -278,6 +282,22 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
       cancelAutoDial();
     }
   }, [phoneState, autoDialCountdown]);
+
+  // Auto-show screen pop when dialing starts (phone goes active/calling)
+  useEffect(() => {
+    if (
+      (phoneState === "active" || phoneState === "calling") &&
+      currentContact &&
+      !screenPopDismissed
+    ) {
+      setScreenPopContact(currentContact);
+    }
+    // Reset dismissed flag when contact changes or call ends
+    if (phoneState === "registered" || phoneState === "idle") {
+      setScreenPopDismissed(false);
+      setScreenPopContact(null);
+    }
+  }, [phoneState, currentContact, screenPopDismissed]);
 
   const formatDuration = (s: number) => {
     const m = Math.floor(s / 60);
@@ -851,7 +871,8 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
                     return (
                       <div
                         key={c.id}
-                        className="flex items-center gap-2 text-xs text-text-secondary"
+                        onClick={() => setScreenPopContact(c)}
+                        className="flex items-center gap-2 text-xs text-text-secondary cursor-pointer hover:bg-primary/5 rounded px-1 py-0.5 transition-colors"
                       >
                         <ChevronRight className="w-3 h-3 text-text-tertiary" />
                         {sortOrder === "smart" && (
@@ -912,6 +933,17 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               : "No callable contacts. Import contacts or check filters."}
           </p>
         </div>
+      )}
+
+      {/* Contact screen pop modal */}
+      {screenPopContact && (
+        <ContactScreenPop
+          contact={screenPopContact}
+          onClose={() => {
+            setScreenPopContact(null);
+            setScreenPopDismissed(true);
+          }}
+        />
       )}
     </div>
   );
