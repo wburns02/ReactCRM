@@ -39,7 +39,6 @@ export function scoreContactV2(
     connectTimeCluster,
     zoneDensity,
     csrFamiliarity,
-    thirtyDayExpiry: 0,
     multiContract,
   };
 

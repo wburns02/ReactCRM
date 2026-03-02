@@ -150,7 +150,6 @@ export interface EnhancedScoreBreakdown extends ScoreBreakdown {
   connectTimeCluster: number; // 0-8
   zoneDensity: number; // 0-7
   csrFamiliarity: number; // 0-5
-  thirtyDayExpiry: number; // 0-5
   multiContract: number; // 0-5
 }
 
