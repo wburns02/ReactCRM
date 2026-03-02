@@ -1,4 +1,4 @@
-import { useState, useMemo, lazy, Suspense } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import { CampaignList } from "./components/CampaignList";
 import { CampaignStatsBar } from "./components/CampaignStatsBar";
 import { ContactTable } from "./components/ContactTable";
@@ -37,6 +37,14 @@ export function OutboundCampaignsPage() {
   const campaigns = useOutboundStore((s) => s.campaigns);
   const allContacts = useOutboundStore((s) => s.contacts);
   const danniaMode = useOutboundStore((s) => s.danniaMode);
+
+  // Auto-select the first campaign so tabs are never disabled
+  useEffect(() => {
+    if (!selectedCampaignId && campaigns.length > 0) {
+      setSelectedCampaignId(campaigns[0].id);
+    }
+  }, [campaigns, selectedCampaignId]);
+
   const selectedCampaign = campaigns.find((c) => c.id === selectedCampaignId);
 
   const stats: CampaignStats | null = useMemo(() => {
@@ -225,7 +233,7 @@ export function OutboundCampaignsPage() {
                     activeTab === tab.id
                       ? "border-primary text-primary"
                       : tab.disabled
-                        ? "border-transparent text-text-tertiary cursor-not-allowed"
+                        ? "border-transparent text-text-tertiary/50 opacity-40"
                         : "border-transparent text-text-secondary hover:text-text-primary hover:border-border"
                   }`}
                 >
