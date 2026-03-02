@@ -55,7 +55,7 @@ function buildStoreData() {
       activeCampaignId: campaignId,
       dialerContactIndex: 0,
       dialerActive: true,
-      danniaMode: false,
+      danniaMode: true,
       autoDialEnabled: false,
       autoDialDelay: 5,
       sortOrder: "default" as const,
@@ -154,15 +154,13 @@ async function loginAndOpenDialer(page: import("@playwright/test").Page) {
   await page.goto("/outbound-campaigns", { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(3000);
 
-  const toggle = page.locator("button", { hasText: "Dannia Mode" });
-  await expect(toggle).toBeVisible({ timeout: 10000 });
-  await toggle.click();
-  await page.waitForTimeout(3000);
-  await expect(page.locator("h1", { hasText: "Dannia Mode" })).toBeVisible({ timeout: 10000 });
-
-  // dialingActive: true in the dannia store means Power Dialer renders automatically
+  // danniaMode: true + dialerActive: true + dialingActive: true in store data
+  // means page loads directly into Dannia Mode with full dialer UI
+  await expect(page.locator("h1", { hasText: "Dannia Mode" })).toBeVisible({ timeout: 15000 });
   await expect(page.locator("text=Power Dialer")).toBeVisible({ timeout: 10000 });
-  await page.waitForTimeout(1000);
+
+  // Wait for the contact card to render (confirms full dialer is active)
+  await expect(page.locator("text=Contact 1 of")).toBeVisible({ timeout: 10000 });
 }
 
 test.describe("Dannia Smart Disposition + Quick Notes", () => {

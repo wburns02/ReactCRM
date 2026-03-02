@@ -17,6 +17,10 @@ export function useSmsSequenceEngine() {
   const markSmsStepFailed = useDanniaStore((s) => s.markSmsStepFailed);
   const sendSms = useSendSMS();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // Ref to hold sendSms — avoids recreating callbacks on every render
+  // (useMutation returns a new object each render, destabilizing deps)
+  const sendSmsRef = useRef(sendSms);
+  sendSmsRef.current = sendSms;
 
   const enqueueSequence = useCallback(
     (contact: CampaignContact, disposition: ContactCallStatus) => {
@@ -52,7 +56,7 @@ export function useSmsSequenceEngine() {
 
     for (const step of due) {
       try {
-        await sendSms.mutateAsync({
+        await sendSmsRef.current.mutateAsync({
           to_phone: step.contactPhone,
           message: step.template,
         });
@@ -63,7 +67,7 @@ export function useSmsSequenceEngine() {
         markSmsStepFailed(step.id, msg);
       }
     }
-  }, [sendSms, markSmsStepSent, markSmsStepFailed]);
+  }, [markSmsStepSent, markSmsStepFailed]);
 
   // 60-second polling interval
   useEffect(() => {
