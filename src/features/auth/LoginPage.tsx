@@ -61,7 +61,6 @@ export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [featureIdx, setFeatureIdx] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [msLoading, setMsLoading] = useState(false);
   const msAuthUrl = useMicrosoft365AuthUrl();
@@ -71,14 +70,6 @@ export function LoginPage() {
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50);
     return () => clearTimeout(t);
-  }, []);
-
-  // Rotate features every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFeatureIdx((i) => (i + 1) % FEATURES.length);
-    }, 4000);
-    return () => clearInterval(interval);
   }, []);
 
   // SECURITY: Sanitize return URL to prevent open redirect
@@ -186,91 +177,63 @@ export function LoginPage() {
     [navigate, returnUrl, queryClient],
   );
 
-  const currentFeature = FEATURES[featureIdx];
-
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* ── Hero Panel (left side on desktop, top strip on mobile) ── */}
-      <div className="relative lg:w-[55%] overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#122a4e] to-[#1a3a6a]">
-        {/* Animated mesh gradient overlay */}
+      <div className="relative lg:w-[48%] overflow-hidden bg-gradient-to-br from-[#0b1a30] via-[#112744] to-[#183660]">
+        {/* Subtle animated gradient */}
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-40"
           style={{
             backgroundImage:
-              "radial-gradient(at 20% 30%, rgba(42,171,225,0.25) 0%, transparent 50%), radial-gradient(at 80% 70%, rgba(218,104,51,0.2) 0%, transparent 50%), radial-gradient(at 50% 50%, rgba(16,75,149,0.3) 0%, transparent 70%)",
-            animation: "meshShift 12s ease-in-out infinite alternate",
+              "radial-gradient(ellipse at 20% 80%, rgba(42,171,225,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.12) 0%, transparent 60%)",
+            animation: "meshShift 20s ease-in-out infinite alternate",
           }}
         />
 
-        {/* Floating grid pattern */}
+        {/* Dot pattern */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
           }}
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col justify-between h-full p-8 lg:p-12 xl:p-16">
+        <div className="relative z-10 flex flex-col justify-between h-full p-8 lg:p-12 xl:p-14">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
-              <svg viewBox="0 0 56 47" className="w-6 h-6 lg:w-7 lg:h-7">
-                <g transform="translate(0, 0)">
-                  <rect x="0" y="16" width="38" height="24" rx="3" fill="white" opacity="0.9" />
-                  <ellipse cx="19" cy="22" rx="16" ry="10" fill="white" opacity="0.7" />
-                  <rect x="3" y="22" width="32" height="14" rx="2" fill="white" opacity="0.9" />
-                  <path d="M38 24 L50 24 L54 32 L54 40 L38 40 Z" fill="white" opacity="0.9" />
-                  <path d="M40 26 L48 26 L52 32 L40 32 Z" fill="#2aabe1" opacity="0.6" />
-                  <circle cx="12" cy="42" r="5" fill="white" opacity="0.9" />
-                  <circle cx="12" cy="42" r="2.5" fill="#122a4e" />
-                  <circle cx="46" cy="42" r="5" fill="white" opacity="0.9" />
-                  <circle cx="46" cy="42" r="2.5" fill="#122a4e" />
-                  <path d="M26 8 Q28 14 30 8 Q28 4 26 8 Z" fill="#2aabe1" opacity="0.8" />
-                </g>
-              </svg>
-            </div>
-            <div>
-              <span className="text-white font-bold text-lg lg:text-xl tracking-wide">
-                MAC
-              </span>
-              <span className="text-white/50 text-xs lg:text-sm block tracking-[0.2em] uppercase">
-                Septic
-              </span>
-            </div>
+          <div>
+            <img
+              src="/logo-white.png"
+              alt="MAC Septic"
+              className="h-12 lg:h-14 w-auto"
+            />
           </div>
 
           {/* Hero text — hidden on mobile, visible on lg+ */}
-          <div className="hidden lg:flex flex-1 flex-col justify-center my-12">
-            <h2 className="text-white text-4xl xl:text-5xl font-bold leading-tight mb-4">
-              Powering Precision
-              <br />
-              <span className="bg-gradient-to-r from-[#2aabe1] to-[#4ac3e0] bg-clip-text text-transparent">
-                Field Service
+          <div className="hidden lg:flex flex-1 flex-col justify-center my-8">
+            <p className="text-[#2aabe1] font-semibold text-sm tracking-widest uppercase mb-3">
+              Mac Service Platform
+            </p>
+            <h2 className="text-white text-3xl xl:text-4xl font-bold leading-snug mb-5">
+              Your business,{" "}
+              <span className="bg-gradient-to-r from-[#2aabe1] to-[#60c5ee] bg-clip-text text-transparent">
+                running smoother.
               </span>
             </h2>
-            <p className="text-white/60 text-lg max-w-md leading-relaxed">
-              The complete platform for scheduling, dispatch, payments, and
-              customer management — built for septic service professionals.
+            <p className="text-white/50 text-base max-w-sm leading-relaxed">
+              Scheduling, dispatch, payments, and customer management
+              in one platform.
             </p>
 
-            {/* Feature carousel */}
-            <div className="mt-10 relative h-20">
-              {FEATURES.map((feat, i) => (
-                <div
-                  key={feat.title}
-                  className="absolute inset-0 flex items-start gap-4 transition-all duration-700"
-                  style={{
-                    opacity: i === featureIdx ? 1 : 0,
-                    transform: i === featureIdx ? "translateY(0)" : "translateY(12px)",
-                    pointerEvents: i === featureIdx ? "auto" : "none",
-                  }}
-                >
-                  <div className="shrink-0 w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mt-0.5">
+            {/* Feature list — all visible, no carousel */}
+            <div className="mt-10 space-y-4">
+              {FEATURES.map((feat) => (
+                <div key={feat.title} className="flex items-center gap-3">
+                  <div className="shrink-0 w-9 h-9 rounded-lg bg-white/[0.07] flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-[#2aabe1]"
+                      className="w-[18px] h-[18px] text-[#2aabe1]"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -280,35 +243,30 @@ export function LoginPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-white font-semibold">{feat.title}</p>
-                    <p className="text-white/50 text-sm">{feat.desc}</p>
+                    <p className="text-white/90 text-sm font-medium">{feat.title}</p>
+                    <p className="text-white/40 text-xs">{feat.desc}</p>
                   </div>
                 </div>
               ))}
-              {/* Carousel dots */}
-              <div className="absolute -bottom-6 flex gap-2">
-                {FEATURES.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setFeatureIdx(i)}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      i === featureIdx
-                        ? "w-6 bg-[#2aabe1]"
-                        : "w-1.5 bg-white/20 hover:bg-white/40"
-                    }`}
-                    aria-label={`Feature ${i + 1}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
 
-          {/* Bottom trust indicator */}
-          <div className="hidden lg:flex items-center gap-3 text-white/30 text-sm">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            <span>256-bit encrypted &middot; SOC 2 compliant &middot; 99.9% uptime</span>
+          {/* Bottom stats */}
+          <div className="hidden lg:flex items-center gap-6">
+            <div className="text-center">
+              <p className="text-white font-bold text-xl">4.9</p>
+              <p className="text-white/30 text-[11px] uppercase tracking-wider">Rating</p>
+            </div>
+            <div className="w-px h-8 bg-white/10" />
+            <div className="text-center">
+              <p className="text-white font-bold text-xl">28+</p>
+              <p className="text-white/30 text-[11px] uppercase tracking-wider">Years</p>
+            </div>
+            <div className="w-px h-8 bg-white/10" />
+            <div className="text-center">
+              <p className="text-white font-bold text-xl">500+</p>
+              <p className="text-white/30 text-[11px] uppercase tracking-wider">Customers</p>
+            </div>
           </div>
         </div>
       </div>
