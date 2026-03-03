@@ -182,6 +182,29 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
           </div>
         )}
 
+        {(wo.customer?.phone || wo.customer_email) && (
+          <div className="flex items-center gap-3 flex-wrap">
+            {wo.customer?.phone && (
+              <a
+                href={`tel:${wo.customer.phone}`}
+                className="text-text-link hover:underline text-sm"
+                onClick={(e) => e.stopPropagation()}
+              >
+                📞 {wo.customer.phone}
+              </a>
+            )}
+            {wo.customer_email && (
+              <a
+                href={`mailto:${wo.customer_email}`}
+                className="text-text-link hover:underline text-sm"
+                onClick={(e) => e.stopPropagation()}
+              >
+                ✉️ {wo.customer_email}
+              </a>
+            )}
+          </div>
+        )}
+
         {(wo.service_city || wo.service_state) && (
           <div className="flex items-center gap-2">
             <span className="text-text-muted">📍</span>
@@ -285,8 +308,30 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
                 ? `${wo.customer.first_name} ${wo.customer.last_name}`
                 : `Customer #${wo.customer_id}`)}
           </p>
+          {(wo.customer?.phone || wo.customer_email) && (
+            <div className="flex items-center gap-3 text-xs mt-0.5">
+              {wo.customer?.phone && (
+                <a
+                  href={`tel:${wo.customer.phone}`}
+                  className="text-text-link hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {wo.customer.phone}
+                </a>
+              )}
+              {wo.customer_email && (
+                <a
+                  href={`mailto:${wo.customer_email}`}
+                  className="text-text-link hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {wo.customer_email}
+                </a>
+              )}
+            </div>
+          )}
           {wo.service_city && wo.service_state && (
-            <p className="text-sm text-text-secondary">
+            <p className="text-xs text-text-secondary">
               {wo.service_city}, {wo.service_state}
             </p>
           )}

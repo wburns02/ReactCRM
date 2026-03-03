@@ -395,35 +395,43 @@ export function WorkOrderDetailPage() {
               {/* Customer Info */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Customer</CardTitle>
+                  <CardTitle>Customer Contact</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-start justify-between">
-                    <div>
+                    <div className="space-y-1.5">
                       <p className="font-medium text-text-primary text-lg">
                         {customerName}
                       </p>
-                      {workOrder.customer?.email && (
-                        <button
-                          onClick={() => openEmailCompose({ to: workOrder.customer!.email!, customerId: workOrder.customer_id, customerName: customerName })}
-                          className="text-text-link hover:underline block mt-1 text-left"
-                        >
-                          {workOrder.customer.email}
-                        </button>
-                      )}
-                      {workOrder.customer?.phone && (
+                      {(workOrder.customer?.phone || workOrder.customer_phone) && (
                         <div className="flex items-center gap-2">
                           <a
-                            href={"tel:" + workOrder.customer.phone}
+                            href={"tel:" + (workOrder.customer?.phone || workOrder.customer_phone)}
                             className="text-text-link hover:underline"
                           >
-                            {workOrder.customer.phone}
+                            {workOrder.customer?.phone || workOrder.customer_phone}
                           </a>
                           <DialButton
-                            phoneNumber={workOrder.customer.phone}
+                            phoneNumber={(workOrder.customer?.phone || workOrder.customer_phone)!}
                             customerId={workOrder.customer_id}
                           />
                         </div>
+                      )}
+                      {(workOrder.customer?.email || workOrder.customer_email) && (
+                        <button
+                          onClick={() => openEmailCompose({ to: (workOrder.customer?.email || workOrder.customer_email)!, customerId: workOrder.customer_id, customerName: customerName })}
+                          className="text-text-link hover:underline block text-left"
+                        >
+                          {workOrder.customer?.email || workOrder.customer_email}
+                        </button>
+                      )}
+                      {workOrder.customer?.address_line1 && (
+                        <p className="text-sm text-text-secondary">
+                          {workOrder.customer.address_line1}
+                          {workOrder.customer.city && `, ${workOrder.customer.city}`}
+                          {workOrder.customer.state && `, ${workOrder.customer.state}`}
+                          {workOrder.customer.postal_code && ` ${workOrder.customer.postal_code}`}
+                        </p>
                       )}
                     </div>
                     <Link to={`/customers/${workOrder.customer_id}`}>
