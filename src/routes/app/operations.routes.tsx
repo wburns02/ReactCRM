@@ -29,19 +29,6 @@ const FleetMapPage = lazy(() =>
   })),
 );
 
-// Tracking
-const TrackingDashboard = lazy(() =>
-  import("@/features/tracking/index.ts").then((m) => ({
-    default: m.TrackingDashboard,
-  })),
-);
-
-const TechnicianTracker = lazy(() =>
-  import("@/features/tracking/index.ts").then((m) => ({
-    default: m.TechnicianTracker,
-  })),
-);
-
 // Predictive Maintenance
 const PredictiveMaintenancePage = lazy(() =>
   import("@/features/predictive-maintenance/index.ts").then((m) => ({
@@ -103,24 +90,6 @@ export function OperationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <FleetMapPage />
-          </Suspense>
-        }
-      />
-
-      {/* Tracking */}
-      <Route
-        path="tracking"
-        element={
-          <Suspense fallback={<PageLoader />}>
-            <TrackingDashboard />
-          </Suspense>
-        }
-      />
-      <Route
-        path="tracking/dispatch"
-        element={
-          <Suspense fallback={<PageLoader />}>
-            <TechnicianTracker />
           </Suspense>
         }
       />

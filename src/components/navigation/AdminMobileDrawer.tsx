@@ -40,7 +40,6 @@ const navGroups: NavGroup[] = [
     items: [
       { path: "/command-center", label: "Command Center", icon: "🎯" },
       { path: "/work-orders", label: "Work Orders", icon: "🔧" },
-      { path: "/tracking", label: "Tracking", icon: "🗺️", badge: "LIVE" },
       { path: "/schedule", label: "Schedule", icon: "📅" },
       { path: "/technicians", label: "Technicians", icon: "👷" },
       { path: "/employee", label: "Employee Portal", icon: "📱" },
