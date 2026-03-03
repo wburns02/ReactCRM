@@ -357,24 +357,69 @@ export function useSMSConversation(customerId: number) {
 }
 
 /**
- * Send bulk SMS
+ * Send bulk SMS to multiple customers via RingCentral
  */
 export function useSendBulkSMS() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (params: {
-      customer_ids: number[];
-      template_id: string;
-      template_variables?: Record<string, string>;
-    }): Promise<{ sent: number; failed: number; errors: string[] }> => {
-      const { data } = await apiClient.post("/sms/send-bulk", params);
+      customer_ids: string[];
+      message: string;
+    }): Promise<BulkSMSResponse> => {
+      const { data } = await apiClient.post("/communications/sms/send-bulk", params);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: smsKeys.messages() });
       queryClient.invalidateQueries({ queryKey: smsKeys.stats() });
+      queryClient.invalidateQueries({ queryKey: smsKeys.conversations() });
     },
+  });
+}
+
+export interface BulkSMSResponse {
+  total: number;
+  sent: number;
+  failed: number;
+  skipped: number;
+  results: Array<{
+    customer_id: string;
+    customer_name: string;
+    phone?: string;
+    status: "sent" | "failed" | "skipped";
+    reason?: string;
+    external_id?: string;
+  }>;
+}
+
+export interface SMSCustomer {
+  id: string;
+  first_name: string;
+  last_name: string;
+  name: string;
+  phone: string;
+  email: string;
+  city: string | null;
+  state: string | null;
+  is_active: boolean;
+}
+
+/**
+ * Search customers with phone numbers for SMS sending
+ */
+export function useSearchCustomersForSMS(search: string, page = 1, pageSize = 20) {
+  return useQuery({
+    queryKey: ["sms-customers", search, page, pageSize],
+    queryFn: async (): Promise<{ items: SMSCustomer[]; total: number; page: number; page_size: number }> => {
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/communications/sms/customers", {
+          params: { search, page, page_size: pageSize, active_only: true },
+        });
+        return data;
+      }, { items: [], total: 0, page: 1, page_size: 20 });
+    },
+    enabled: true,
   });
 }
 

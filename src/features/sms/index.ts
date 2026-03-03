@@ -3,6 +3,7 @@ export { SMSSettingsPage } from "./SMSSettingsPage";
 
 // Components
 export { SMSComposeModal } from "./SMSComposeModal";
+export { SMSCommandCenter } from "./SMSCommandCenter";
 export { SMSPreferences } from "./components/SMSPreferences";
 
 // Services

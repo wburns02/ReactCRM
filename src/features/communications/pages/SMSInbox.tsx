@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
-import { SMSComposeModal } from "@/features/sms/SMSComposeModal";
+import { SMSCommandCenter } from "@/features/sms/SMSCommandCenter";
 import { CommunicationsNav } from "../components/CommunicationsNav";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
@@ -82,7 +82,7 @@ export function SMSInbox() {
           </div>
           <button
             onClick={() => setIsComposeOpen(true)}
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 transition-all shadow-sm"
           >
             <svg
               className="w-4 h-4"
@@ -94,10 +94,10 @@ export function SMSInbox() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M12 4v16m8-8H4"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
               />
             </svg>
-            New Message
+            SMS Command Center
           </button>
         </div>
 
@@ -173,7 +173,7 @@ export function SMSInbox() {
                 onClick={() => setIsComposeOpen(true)}
                 className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
               >
-                Send first message
+                Open Command Center
               </button>
             )}
           </div>
@@ -261,8 +261,8 @@ export function SMSInbox() {
       {/* ── Bottom nav ─────────────────────────────────────────────── */}
       <CommunicationsNav />
 
-      {/* Compose Modal */}
-      <SMSComposeModal
+      {/* SMS Command Center */}
+      <SMSCommandCenter
         open={isComposeOpen}
         onClose={() => setIsComposeOpen(false)}
       />
