@@ -26,6 +26,12 @@ const SecurityChat = lazy(() =>
   })),
 );
 
+const SecurityPentest = lazy(() =>
+  import("@/features/security/index.ts").then((m) => ({
+    default: m.SecurityPentest,
+  })),
+);
+
 /**
  * Security & SOC routes — embedded SOC Dashboard pages
  */
@@ -61,6 +67,14 @@ export function SecurityRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <SecurityChat />
+          </Suspense>
+        }
+      />
+      <Route
+        path="security/pentest"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <SecurityPentest />
           </Suspense>
         }
       />

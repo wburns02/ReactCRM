@@ -157,6 +157,7 @@ export const navGroups: NavGroup[] = [
       { path: "/security/alerts", label: "Security Alerts", icon: AlertTriangle },
       { path: "/security/agents", label: "Agents", icon: Users },
       { path: "/security/chat", label: "Security AI", icon: MessageSquare },
+      { path: "/security/pentest", label: "Pentest", icon: AlertTriangle, badge: "NEW" },
     ],
   },
   {
