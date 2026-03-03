@@ -77,6 +77,12 @@ const CallIntelligenceDashboard = lazy(() =>
   })),
 );
 
+const QuickCallLogPage = lazy(() =>
+  import("@/features/quick-call-log/QuickCallLogPage.tsx").then((m) => ({
+    default: m.QuickCallLogPage,
+  })),
+);
+
 /**
  * Communications routes - SMS, Email, Phone, Templates, Reminders
  */
@@ -199,6 +205,16 @@ export function CommunicationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <CallIntelligenceDashboard />
+          </Suspense>
+        }
+      />
+
+      {/* Quick Call Log */}
+      <Route
+        path="quick-call-log"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <QuickCallLogPage />
           </Suspense>
         }
       />
