@@ -228,12 +228,11 @@ export function OutboundCampaignsPage() {
                 <button
                   key={tab.id}
                   onClick={() => !tab.disabled && setActiveTab(tab.id)}
-                  disabled={tab.disabled}
                   className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                     activeTab === tab.id
                       ? "border-primary text-primary"
                       : tab.disabled
-                        ? "border-transparent text-text-tertiary/50 opacity-40"
+                        ? "border-transparent text-text-tertiary/50 opacity-40 cursor-default"
                         : "border-transparent text-text-secondary hover:text-text-primary hover:border-border"
                   }`}
                 >
