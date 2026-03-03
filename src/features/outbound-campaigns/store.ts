@@ -73,27 +73,40 @@ function generateId(): string {
 }
 
 /**
- * Inject 10 test contacts with Will's phone for power dialer testing.
- * Bypasses importContacts dedup (which filters duplicate phones).
- * Only runs once — checks for TEST0001 existence.
+ * Inject a dedicated "Test Calls - Will Burns" campaign with 10 contacts.
+ * This creates its own campaign so the power dialer only dials these 10.
+ * Only runs once — checks for existing test campaign.
  */
 function injectTestContacts(): void {
   const state = useOutboundStore.getState();
-  const testCount = state.contacts.filter((c) => c.account_number?.startsWith("TEST")).length;
-  if (testCount >= 10) return;
-  if (state.campaigns.length === 0) return;
-  // Remove any partial test contacts before re-injecting all 10
-  const cleaned = testCount > 0
-    ? state.contacts.filter((c) => !c.account_number?.startsWith("TEST"))
-    : state.contacts;
+  const TEST_CAMPAIGN_ID = "test-campaign-will";
+  // Already injected
+  if (state.campaigns.some((c) => c.id === TEST_CAMPAIGN_ID)) return;
 
-  const campaignId = state.campaigns[0].id;
   const now = new Date().toISOString();
+  const testCampaign: Campaign = {
+    id: TEST_CAMPAIGN_ID,
+    name: "Test Calls - Will Burns",
+    description: "10 test calls to Will's cell for power dialer testing",
+    status: "active",
+    source_file: null,
+    source_sheet: null,
+    total_contacts: 10,
+    contacts_called: 0,
+    contacts_connected: 0,
+    contacts_interested: 0,
+    contacts_completed: 0,
+    assigned_reps: [],
+    created_by: null,
+    created_at: now,
+    updated_at: now,
+  };
+
   const testContacts: CampaignContact[] = Array.from(
     { length: 10 },
     (_, i) => ({
       id: `test-will-${i + 1}`,
-      campaign_id: campaignId,
+      campaign_id: TEST_CAMPAIGN_ID,
       account_number: `TEST${String(i + 1).padStart(4, "0")}`,
       account_name: `Test Call ${i + 1} - Will Burns`,
       company: "Mac Septic (Test)",
@@ -126,8 +139,9 @@ function injectTestContacts(): void {
     }),
   );
 
-  useOutboundStore.setState(() => ({
-    contacts: [...testContacts, ...cleaned],
+  useOutboundStore.setState((s) => ({
+    campaigns: [testCampaign, ...s.campaigns],
+    contacts: [...testContacts, ...s.contacts],
   }));
 }
 
