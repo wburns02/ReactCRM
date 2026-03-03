@@ -18,7 +18,7 @@ export function PhoneSettings({ onProviderChange }: PhoneSettingsProps) {
   const [selectedProvider, setSelectedProvider] = useState<PhoneProvider>(
     () => {
       const stored = localStorage.getItem("phone_provider");
-      return (stored as PhoneProvider) || "ringcentral";
+      return (stored as PhoneProvider) || "twilio";
     },
   );
 

@@ -7,13 +7,14 @@ type PhoneProvider = "ringcentral" | "twilio";
 export function usePhoneProvider(): PhoneProvider {
   const [provider, setProvider] = useState<PhoneProvider>(() => {
     const stored = localStorage.getItem("phone_provider");
-    return (stored as PhoneProvider) || "ringcentral";
+    // Default to Twilio — RingCentral WebPhone is broken (ICE server parsing error)
+    return (stored as PhoneProvider) || "twilio";
   });
 
   useEffect(() => {
     const handler = () => {
       const stored = localStorage.getItem("phone_provider");
-      setProvider((stored as PhoneProvider) || "ringcentral");
+      setProvider((stored as PhoneProvider) || "twilio");
     };
     window.addEventListener("phone_provider_changed", handler);
     window.addEventListener("storage", handler);
@@ -28,6 +29,8 @@ export function usePhoneProvider(): PhoneProvider {
 
 export function usePhone() {
   const provider = usePhoneProvider();
+  // Both hooks are inert in "idle" state — they only activate when connect() is called.
+  // Only the selected provider's connect/call/etc. will be invoked by consumers.
   const rc = useWebPhone();
   const twilio = useTwilioPhone();
   return provider === "twilio" ? twilio : rc;
