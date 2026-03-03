@@ -137,6 +137,7 @@ export function Microsoft365Settings() {
           {[
             { name: "SSO Login", desc: "Sign in with Microsoft", ready: true },
             { name: "Outlook Calendar", desc: "Work order → calendar event sync", ready: !!status?.calendar_sync },
+            { name: "Shared Calendar", desc: "Dispatch mailbox calendar sync", ready: !!status?.shared_calendar },
             { name: "Teams Notifications", desc: "Job completions, payments, quotes", ready: !!status?.teams_webhook },
             { name: "SharePoint Storage", desc: "Inspection reports, contracts", ready: !!status?.sharepoint },
             { name: "Email Parsing", desc: "Auto-create leads from inbox", ready: !!status?.email_monitoring },
