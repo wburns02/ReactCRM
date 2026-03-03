@@ -656,7 +656,6 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     safetyWarning: "Stand upwind. Never lean into the tank opening. Toxic gases present.",
     hasYesNo: true,
     yesNoQuestion: "Does the tank appear to be in good working condition with no visible damage?",
-    hasSludgeLevel: true,
     estimatedMinutes: 5,
     parts: [
       { name: "Replacement lid", partNumber: "LID-24-GRN", estimatedCost: 125 },

@@ -1507,7 +1507,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
   const manufacturer = !isConventional ? getManufacturer(manufacturerId) : null;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const sludgePhotoRef = useRef<HTMLInputElement>(null);
   const psiPhotoRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
@@ -2957,7 +2956,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
               </div>
             ) : null}
 
-            {/* Sludge Level Input + Evidence Photo */}
+            {/* Sludge Level Input */}
             {currentStepDef.hasSludgeLevel && (
               <div className="space-y-2">
                 <p className="text-xs font-semibold text-text-primary">📏 Sludge Level</p>
@@ -2968,20 +2967,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
                   placeholder='e.g., "8 inches" or "1/3 full"'
                   className="w-full p-3 rounded-lg border border-border bg-bg-body text-sm text-text-primary"
                 />
-                <input
-                  ref={sludgePhotoRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => handleEvidenceFileSelected(e, "sludge_level_evidence")}
-                />
-                <button
-                  onClick={() => handleEvidencePhoto(sludgePhotoRef)}
-                  disabled={uploadingPhoto}
-                  className="w-full py-2 rounded-lg border border-dashed border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-xs font-medium flex items-center justify-center gap-1 active:scale-[0.98] transition-transform"
-                >
-                  📸 Photo of Sludge Level {(currentStepState.photos || []).includes("sludge_level_evidence") ? "✅" : "(required)"}
-                </button>
               </div>
             )}
 
