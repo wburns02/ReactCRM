@@ -32,6 +32,7 @@ export function PhoneSettings({ onProviderChange }: PhoneSettingsProps) {
 
   const handleProviderSelect = (provider: PhoneProvider) => {
     setSelectedProvider(provider);
+    window.dispatchEvent(new Event("phone_provider_changed"));
   };
 
   return (
@@ -111,10 +112,5 @@ export function PhoneSettings({ onProviderChange }: PhoneSettingsProps) {
   );
 }
 
-export function usePhoneProvider(): PhoneProvider {
-  const [provider] = useState<PhoneProvider>(() => {
-    const stored = localStorage.getItem("phone_provider");
-    return (stored as PhoneProvider) || "ringcentral";
-  });
-  return provider;
-}
+// usePhoneProvider moved to src/hooks/usePhone.ts (reactive version with event listener)
+export { usePhoneProvider } from "@/hooks/usePhone";

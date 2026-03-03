@@ -9,6 +9,9 @@ export function extractCallId(activeCall: ActiveCall | null): string {
   if (!activeCall?.session) return "";
   const session = activeCall.session;
   return (
+    // Twilio Call SID
+    session.parameters?.CallSid ||
+    // RingCentral WebPhone session IDs
     session.telephonySessionId ||
     session.id ||
     session.callId ||

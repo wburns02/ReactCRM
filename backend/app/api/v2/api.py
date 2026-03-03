@@ -6,6 +6,7 @@ from fastapi import APIRouter
 
 from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai, admin_tools
 from app.api.v2.endpoints import deployment_test, permits, properties, roles, work_orders, quotes, estimates, availability, payroll
+from app.api.v2.endpoints import twilio
 try:
     from app.api.v2.endpoints import geocivix
     GEOCIVIX_AVAILABLE = True
@@ -135,4 +136,11 @@ api_router.include_router(
     payroll.router,
     prefix="/payroll",
     tags=["payroll"]
+)
+
+# Twilio Voice integration endpoints (browser-based calling)
+api_router.include_router(
+    twilio.router,
+    prefix="/twilio",
+    tags=["twilio"]
 )

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useWebPhone, type PhoneState } from "@/hooks/useWebPhone";
+import { usePhone } from "@/hooks/usePhone";
+import type { PhoneState } from "@/hooks/useWebPhone";
 import { useCustomerLookup } from "@/api/hooks/useDispatch";
 import {
   Phone, PhoneOff, PhoneIncoming, PhoneOutgoing, PhoneForwarded,
@@ -18,7 +19,7 @@ export function SoftPhone() {
     state, error, activeCall,
     connect, disconnect, call, answer, hangup,
     toggleMute, toggleHold, sendDtmf, transfer, toVoicemail,
-  } = useWebPhone();
+  } = usePhone();
 
   const [dialInput, setDialInput] = useState("");
   const [showDtmf, setShowDtmf] = useState(false);

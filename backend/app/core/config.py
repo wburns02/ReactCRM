@@ -50,6 +50,14 @@ class Settings(BaseSettings):
     RINGCENTRAL_WEBHOOK_SECRET: str
     RINGCENTRAL_WEBHOOK_URL: str  # Public URL for webhook delivery
 
+    # ===== TWILIO INTEGRATION =====
+    TWILIO_ACCOUNT_SID: Optional[str] = None
+    TWILIO_AUTH_TOKEN: Optional[str] = None
+    TWILIO_PHONE_NUMBER: Optional[str] = None
+    TWILIO_API_KEY: Optional[str] = None  # SK... API Key SID
+    TWILIO_API_SECRET: Optional[str] = None
+    TWILIO_TWIML_APP_SID: Optional[str] = None  # AP... TwiML App SID
+
     # ===== AI SERVICES =====
     OPENAI_API_KEY: str
     WHISPER_MODEL: str = "gpt-4o-transcribe"

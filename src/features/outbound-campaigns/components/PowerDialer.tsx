@@ -11,7 +11,7 @@ import { scoreContact, scoreAndSortContacts } from "../scoring";
 import { scoreAndSortContactsV2 } from "../dannia/scoringV2";
 import { usePostCallAutomation } from "../usePostCallAutomation";
 import { usePerformanceLoop } from "../dannia/usePerformanceLoop";
-import { useWebPhone } from "@/hooks/useWebPhone";
+import { usePhone } from "@/hooks/usePhone";
 import { CallScriptPanel } from "./CallScriptPanel";
 import { AgentAssist } from "./AgentAssist";
 import { SmartDispositionPanel } from "../dannia/components/SmartDispositionPanel";
@@ -161,7 +161,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     toggleMute,
     toggleHold,
     error: phoneError,
-  } = useWebPhone();
+  } = usePhone();
 
   const { runAutomation, results: automationResults } = usePostCallAutomation(campaignId);
   const { onDisposition: trackDisposition } = usePerformanceLoop();
