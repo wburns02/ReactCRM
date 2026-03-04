@@ -179,6 +179,9 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                       <span className="font-medium text-text-primary truncate flex-1">
                         {contact.account_name}
                       </span>
+                      <span className="text-[10px] font-mono text-text-tertiary">
+                        (979) 236-1958
+                      </span>
                       {zc && (
                         <span
                           className={`inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-bold ${zc.color}`}

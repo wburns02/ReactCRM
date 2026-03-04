@@ -198,15 +198,18 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const autoDialMountedRef = useRef(true);
 
   // Filter callable contacts
-  const rawCallable = useMemo(
-    () =>
-      allContacts.filter(
-        (c) =>
-          c.campaign_id === campaignId &&
-          ["pending", "queued", "no_answer", "busy", "callback_scheduled"].includes(c.call_status),
-      ),
-    [allContacts, campaignId],
-  );
+  // In Dannia mode, override all phone numbers to Will's cell for training
+  const rawCallable = useMemo(() => {
+    const filtered = allContacts.filter(
+      (c) =>
+        c.campaign_id === campaignId &&
+        ["pending", "queued", "no_answer", "busy", "callback_scheduled"].includes(c.call_status),
+    );
+    if (danniaMode) {
+      return filtered.map((c) => ({ ...c, phone: "9792361958" }));
+    }
+    return filtered;
+  }, [allContacts, campaignId, danniaMode]);
 
   // Sort: smart (v2 in Dannia mode) or default
   const callable = useMemo(() => {
@@ -382,19 +385,16 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     // DNC safety check
     if (currentContact.call_status === "do_not_call") return;
 
-    // In Dannia mode, always dial Will's cell for training
-    const dialNumber = danniaMode ? "9792361958" : currentContact.phone;
-
     cancelAutoDial();
     if (phoneState === "idle") {
       await connect();
       setTimeout(async () => {
-        await call(dialNumber);
+        await call(currentContact.phone);
       }, 2000);
     } else if (phoneState === "registered") {
-      await call(dialNumber);
+      await call(currentContact.phone);
     }
-  }, [currentContact, phoneState, connect, call, cancelAutoDial, danniaMode]);
+  }, [currentContact, phoneState, connect, call, cancelAutoDial]);
 
   const handleDisposition = useCallback(
     (status: ContactCallStatus) => {
