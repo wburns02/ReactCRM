@@ -214,7 +214,10 @@ export function UnscheduledOrdersTable() {
 
     // Filter by region (using global store filter)
     if (filters.region) {
-      items = items.filter((wo) => getWorkOrderRegion(wo) === filters.region);
+      items = items.filter((wo) => {
+        const r = getWorkOrderRegion(wo);
+        return r === null || r === filters.region;
+      });
     }
 
     // Filter by search

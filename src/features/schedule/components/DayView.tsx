@@ -335,7 +335,7 @@ export function DayView() {
       // Apply region filter
       if (filters.region) {
         const woRegion = getWorkOrderRegion(wo);
-        if (woRegion !== filters.region) return;
+        if (woRegion !== null && woRegion !== filters.region) return;
       }
 
       // Parse hour from time_window_start

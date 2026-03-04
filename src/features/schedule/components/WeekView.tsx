@@ -270,7 +270,7 @@ export function WeekView() {
       // Apply region filter
       if (filters.region) {
         const woRegion = getWorkOrderRegion(wo);
-        if (woRegion !== filters.region) return;
+        if (woRegion !== null && woRegion !== filters.region) return;
       }
 
       const dateKey = wo.scheduled_date;
