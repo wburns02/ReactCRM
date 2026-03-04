@@ -35,6 +35,8 @@ export const REGION_LABELS: Record<Region, string> = {
 /**
  * Map cities to regions for filtering.
  * Keys are lowercase city names.
+ * For cities that exist in multiple states (e.g. Columbia TN vs SC),
+ * we use AMBIGUOUS_CITIES with state-based disambiguation.
  */
 export const CITY_TO_REGION: Record<string, Region> = {
   // Central Texas
@@ -58,8 +60,9 @@ export const CITY_TO_REGION: Record<string, Region> = {
   "taylor": "central_texas",
   "temple": "central_texas",
   "waco": "central_texas",
+  "san antonio": "central_texas",
+  "seguin": "central_texas",
   // Midlands SC
-  "columbia": "midlands_sc",
   "lexington": "midlands_sc",
   "irmo": "midlands_sc",
   "chapin": "midlands_sc",
@@ -86,12 +89,33 @@ export const CITY_TO_REGION: Record<string, Region> = {
   "spring hill": "greater_nashville",
   "smyrna": "greater_nashville",
   "la vergne": "greater_nashville",
+  "lavergne": "greater_nashville",
   "nolensville": "greater_nashville",
   "goodlettsville": "greater_nashville",
   "antioch": "greater_nashville",
   "hermitage": "greater_nashville",
   "dickson": "greater_nashville",
   "clarksville": "greater_nashville",
+  "lewisburg": "greater_nashville",
+  "cornersville": "greater_nashville",
+  "shelbyville": "greater_nashville",
+  "tullahoma": "greater_nashville",
+  "manchester": "greater_nashville",
+  "cookeville": "greater_nashville",
+  "fairview": "greater_nashville",
+  "white house": "greater_nashville",
+  "portland": "greater_nashville",
+  "white bluff": "greater_nashville",
+  "thompson's station": "greater_nashville",
+  "thompsons station": "greater_nashville",
+  "arrington": "greater_nashville",
+  "college grove": "greater_nashville",
+  "eagleville": "greater_nashville",
+  "chapel hill": "greater_nashville",
+  "lascassas": "greater_nashville",
+  "watertown": "greater_nashville",
+  "carthage": "greater_nashville",
+  "woodbury": "greater_nashville",
   // Rock Hill SC
   "rock hill": "rock_hill_sc",
   "fort mill": "rock_hill_sc",
@@ -105,14 +129,75 @@ export const CITY_TO_REGION: Record<string, Region> = {
 };
 
 /**
- * Get the region for a work order based on its service_city.
- * Returns null if the city doesn't match any known region.
+ * Cities that exist in multiple states and need state-based disambiguation.
+ * Map of lowercase city name → { state abbreviation → region }.
+ */
+const AMBIGUOUS_CITIES: Record<string, Record<string, Region>> = {
+  columbia: {
+    tn: "greater_nashville",
+    sc: "midlands_sc",
+  },
+  franklin: {
+    tn: "greater_nashville",
+  },
+  lebanon: {
+    tn: "greater_nashville",
+  },
+  lancaster: {
+    sc: "rock_hill_sc",
+  },
+  lexington: {
+    sc: "midlands_sc",
+  },
+  chester: {
+    sc: "rock_hill_sc",
+  },
+};
+
+/**
+ * State-to-region fallback when city is null or not in mapping.
+ */
+const STATE_TO_REGION: Record<string, Region> = {
+  tx: "central_texas",
+  tn: "greater_nashville",
+  // SC is ambiguous (Midlands vs Rock Hill), default to Midlands
+  sc: "midlands_sc",
+};
+
+/**
+ * Get the region for a work order based on its service_city and service_state.
+ * Uses city-to-region mapping first, then state-based disambiguation for
+ * ambiguous cities, and finally state-based fallback for null/unknown cities.
  */
 export function getWorkOrderRegion(workOrder: {
   service_city?: string | null;
+  service_state?: string | null;
 }): Region | null {
-  if (!workOrder.service_city) return null;
-  return CITY_TO_REGION[workOrder.service_city.toLowerCase()] ?? null;
+  const city = workOrder.service_city?.toLowerCase()?.trim();
+  const state = workOrder.service_state?.toLowerCase()?.trim();
+
+  if (city) {
+    // Check ambiguous cities first (need state to disambiguate)
+    if (city in AMBIGUOUS_CITIES) {
+      if (state && state in AMBIGUOUS_CITIES[city]) {
+        return AMBIGUOUS_CITIES[city][state];
+      }
+      // If no state info, try the ambiguous city's first entry as default
+      const entries = Object.values(AMBIGUOUS_CITIES[city]);
+      if (entries.length > 0) return entries[0];
+    }
+
+    // Standard city lookup
+    const regionFromCity = CITY_TO_REGION[city];
+    if (regionFromCity) return regionFromCity;
+  }
+
+  // Fallback: use state if city is null or not in mapping
+  if (state) {
+    return STATE_TO_REGION[state] ?? null;
+  }
+
+  return null;
 }
 
 /**
