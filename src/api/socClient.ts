@@ -1,12 +1,18 @@
 /**
  * SOC API Client — connects to the Security Operations Center backend on R730.
- * Separate from the CRM apiClient since it's a different service with Bearer auth.
+ * In production, routes through /soc-api/ proxy on the frontend server to avoid
+ * Chrome Private Network Access blocking of Tailscale CGNAT IPs.
+ * In dev, connects directly to the SOC API via Tailscale.
  */
 import axios from "axios";
 
-const SOC_API_URL =
-  import.meta.env.VITE_SOC_API_URL || "https://soc-api.tailad2d5f.ts.net";
+const DIRECT_SOC_URL = import.meta.env.VITE_SOC_API_URL || "https://soc-api.tailad2d5f.ts.net";
 const SOC_API_KEY = import.meta.env.VITE_SOC_API_KEY || "";
+
+// In production (react.ecbtx.com), use the same-origin proxy to avoid PNA issues.
+// In dev (localhost:5173), use the direct URL.
+const isProduction = typeof window !== "undefined" && !window.location.hostname.includes("localhost");
+const SOC_API_URL = isProduction ? "/soc-api" : DIRECT_SOC_URL;
 
 export const socClient = axios.create({
   baseURL: SOC_API_URL,

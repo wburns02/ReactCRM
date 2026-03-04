@@ -17,6 +17,10 @@ const DIST_DIR = path.join(__dirname, 'dist');
 const PROPINTEL_UPSTREAM = process.env.PROPINTEL_UPSTREAM || 'https://poweredge-t430.tailad2d5f.ts.net';
 const PROPINTEL_API_KEY = process.env.PROPINTEL_API_KEY || '';
 
+// SOC API R730 proxy config (avoids Chrome PNA blocking of Tailscale CGNAT IPs)
+const SOC_UPSTREAM = process.env.SOC_UPSTREAM || 'https://soc-api.tailad2d5f.ts.net';
+const SOC_API_KEY = process.env.SOC_API_KEY || process.env.VITE_SOC_API_KEY || '';
+
 // App is deployed at root - no path prefix
 
 const mimeTypes = {
@@ -75,6 +79,47 @@ const server = http.createServer((req, res) => {
       res.end();
       return;
     }
+    req.pipe(proxyReq);
+    return;
+  }
+
+  // Reverse proxy for SOC API (R730 rag-service)
+  // Avoids Chrome Private Network Access (PNA) blocking of Tailscale CGNAT IPs
+  if (req.url.startsWith('/soc-api/')) {
+    const upstreamPath = req.url.replace('/soc-api', '');
+    const upstreamUrl = new URL(upstreamPath, SOC_UPSTREAM);
+    if (req.method === 'OPTIONS') {
+      res.writeHead(200, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      });
+      res.end();
+      return;
+    }
+    const headers = {
+      'Content-Type': req.headers['content-type'] || 'application/json',
+    };
+    // Forward auth header or use server-side key
+    if (req.headers['authorization']) {
+      headers['Authorization'] = req.headers['authorization'];
+    } else if (SOC_API_KEY) {
+      headers['Authorization'] = `Bearer ${SOC_API_KEY}`;
+    }
+    const proxyReq = https.request(upstreamUrl, { method: req.method, headers }, (proxyRes) => {
+      const resHeaders = {
+        'Content-Type': proxyRes.headers['content-type'] || 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      };
+      res.writeHead(proxyRes.statusCode, resHeaders);
+      proxyRes.pipe(res);
+    });
+    proxyReq.on('error', (err) => {
+      res.writeHead(502, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'SOC API upstream unavailable', detail: err.message }));
+    });
     req.pipe(proxyReq);
     return;
   }
