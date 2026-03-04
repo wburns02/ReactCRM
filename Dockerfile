@@ -15,7 +15,11 @@ RUN npm ci --ignore-scripts
 # Copy source code
 COPY . .
 
-# Cache bust: 2026-02-19-t430
+# Declare Railway env vars as Docker build args so Vite can inline them
+ARG VITE_PROPINTEL_API_URL
+ARG VITE_PROPINTEL_API_KEY
+
+# Cache bust: 2026-03-04-t430-funnel
 RUN npm run build
 
 # Verify build output
