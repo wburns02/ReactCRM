@@ -8,7 +8,7 @@ import axios, { type AxiosInstance } from "axios";
 
 const PROPINTEL_API_URL =
   import.meta.env.VITE_PROPINTEL_API_URL ||
-  "https://poweredge-t430.tailad2d5f.ts.net:8100";
+  "https://poweredge-t430.tailad2d5f.ts.net";
 
 const PROPINTEL_API_KEY = import.meta.env.VITE_PROPINTEL_API_KEY || "";
 
