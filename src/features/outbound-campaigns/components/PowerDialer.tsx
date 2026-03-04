@@ -20,6 +20,7 @@ import { SmsSequenceStatus } from "../dannia/components/SmsSequenceStatus";
 import { useSmsSequenceEngine } from "../dannia/useSmsSequenceEngine";
 import { extractCallId } from "../dannia/callRecordingTracker";
 import { useAutoSummary } from "../dannia/useAutoSummary";
+import { useVoiceToText } from "@/hooks/useVoiceToText";
 import { AutoSummaryBanner } from "../dannia/components/AutoSummaryBanner";
 import { ContactScreenPop } from "./ContactScreenPop";
 import type { CampaignContact } from "../types";
@@ -167,6 +168,13 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const { onDisposition: trackDisposition } = usePerformanceLoop();
   const { enqueueSequence } = useSmsSequenceEngine();
   const { summary, isGenerating, generateSummary, clearSummary } = useAutoSummary();
+  const {
+    transcript: speechTranscript,
+    isListening,
+    isSupported: speechSupported,
+    startListening,
+    stopListening,
+  } = useVoiceToText();
 
   // Track transcript from LiveTranscriptPanel for auto-summary
   const transcriptRef = useRef("");
@@ -262,10 +270,29 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     return () => clearInterval(interval);
   }, [phoneState, activeCall]);
 
+  // Auto-start/stop speech transcription on call state changes
+  // Skip if Dannia mode is active (LiveTranscriptPanel handles its own transcription)
+  useEffect(() => {
+    if (danniaMode) return;
+
+    if ((phoneState === "active" || phoneState === "calling") && speechSupported && !isListening) {
+      startListening();
+    }
+    if (phoneState !== "active" && phoneState !== "calling" && isListening) {
+      stopListening();
+    }
+  }, [phoneState, speechSupported, isListening, danniaMode, startListening, stopListening]);
+
+  // Keep transcriptRef updated from our own useVoiceToText hook
+  useEffect(() => {
+    if (speechTranscript) {
+      transcriptRef.current = speechTranscript;
+    }
+  }, [speechTranscript]);
+
   // Detect call end (active → registered) and trigger AI summary
   useEffect(() => {
     if (
-      danniaMode &&
       prevPhoneStateRef.current === "active" &&
       phoneState === "registered" &&
       transcriptRef.current &&
@@ -274,7 +301,15 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
       generateSummary(transcriptRef.current, currentContact.account_name);
     }
     prevPhoneStateRef.current = phoneState;
-  }, [phoneState, danniaMode, currentContact, generateSummary]);
+  }, [phoneState, currentContact, generateSummary]);
+
+  // Auto-populate notes when AI summary arrives
+  useEffect(() => {
+    if (summary && summary.length > 0) {
+      const bulletsText = summary.map((b) => `\u2022 ${b}`).join("\n");
+      setNotes(bulletsText);
+    }
+  }, [summary]);
 
   // Cancel auto-dial if phone disconnects
   useEffect(() => {
@@ -783,8 +818,8 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               </>
             )}
 
-            {/* AI Auto-Summary Banner (Dannia Mode) */}
-            {danniaMode && (summary || isGenerating) && (
+            {/* AI Auto-Summary Banner */}
+            {(summary || isGenerating) && (
               <AutoSummaryBanner
                 summary={summary}
                 isGenerating={isGenerating}
@@ -907,7 +942,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             isOnCall={isOnCall}
             collapsed={assistCollapsed}
             onToggle={() => setAssistCollapsed(!assistCollapsed)}
-            onTranscriptCapture={danniaMode ? handleTranscriptCapture : undefined}
+            onTranscriptCapture={handleTranscriptCapture}
           />
         </div>
         </div>
