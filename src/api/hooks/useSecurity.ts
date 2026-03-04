@@ -117,7 +117,7 @@ export function useRunPentest() {
   });
 }
 
-export function usePentestStatus(enabled: boolean) {
+export function usePentestStatus(enabled: boolean, polling = false) {
   return useQuery({
     queryKey: socKeys.pentestStatus(),
     queryFn: async () => {
@@ -126,6 +126,7 @@ export function usePentestStatus(enabled: boolean) {
     },
     enabled,
     refetchInterval: (query) => {
+      if (!polling) return false;
       const status = query.state.data?.status;
       if (status === "running") return 2_000;
       return false;
