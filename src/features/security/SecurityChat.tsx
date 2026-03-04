@@ -10,11 +10,11 @@ interface Message {
 }
 
 const SUGGESTED_QUERIES = [
-  "What are the most critical alerts in the last 24 hours?",
-  "Which agents are showing unusual activity?",
-  "Explain our ransomware detection capabilities",
-  "What MITRE ATT&CK techniques have we seen recently?",
   "Summarize our security posture",
+  "What are the most critical alerts recently?",
+  "Help me draft a customer follow-up email",
+  "What's the best way to optimize our technician routes?",
+  "Explain our ransomware detection capabilities",
 ];
 
 export function SecurityChat() {
@@ -92,9 +92,9 @@ export function SecurityChat() {
             <MessageSquare className="h-5 w-5 text-purple-500" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-text-primary">Security AI Copilot</h1>
+            <h1 className="text-2xl font-bold text-text-primary">AI Copilot</h1>
             <p className="text-sm text-text-secondary">
-              Ask questions about your security posture — powered by Qwen3 32B + RAG
+              Ask anything — powered by Qwen3 32B + RAG
             </p>
           </div>
         </div>
@@ -107,11 +107,12 @@ export function SecurityChat() {
             <Bot className="w-16 h-16 text-purple-500/30" />
             <div className="text-center">
               <h2 className="text-lg font-semibold text-text-primary mb-1">
-                SOC AI Security Copilot
+                AI Copilot
               </h2>
               <p className="text-sm text-text-secondary max-w-md">
-                I can analyze alerts, explain threats, suggest remediations, and provide
-                security insights using your Wazuh data and MITRE ATT&CK knowledge base.
+                Ask me anything — security analysis, business questions, drafting emails,
+                technical support, or general knowledge. I have deep security expertise
+                with access to your Wazuh data and MITRE ATT&CK knowledge base.
               </p>
             </div>
             <div className="flex flex-wrap gap-2 max-w-xl justify-center">
@@ -172,7 +173,7 @@ export function SecurityChat() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about security alerts, threats, or best practices..."
+            placeholder="Ask anything — security, business, technical, or general..."
             className="flex-1 resize-none rounded-lg border border-border bg-bg-muted px-4 py-3 text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-purple-500/50 min-h-[44px] max-h-[120px]"
             rows={1}
             disabled={isStreaming}
