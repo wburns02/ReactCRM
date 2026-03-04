@@ -382,16 +382,19 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     // DNC safety check
     if (currentContact.call_status === "do_not_call") return;
 
+    // In Dannia mode, always dial Will's cell for training
+    const dialNumber = danniaMode ? "9792361958" : currentContact.phone;
+
     cancelAutoDial();
     if (phoneState === "idle") {
       await connect();
       setTimeout(async () => {
-        await call(currentContact.phone);
+        await call(dialNumber);
       }, 2000);
     } else if (phoneState === "registered") {
-      await call(currentContact.phone);
+      await call(dialNumber);
     }
-  }, [currentContact, phoneState, connect, call, cancelAutoDial]);
+  }, [currentContact, phoneState, connect, call, cancelAutoDial, danniaMode]);
 
   const handleDisposition = useCallback(
     (status: ContactCallStatus) => {
