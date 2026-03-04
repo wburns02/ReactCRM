@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { socClient } from "../socClient";
 import type {
   SocHealthResponse,
@@ -9,6 +9,12 @@ import type {
   EscalationStats,
   EscalationHistoryResponse,
 } from "../types/security";
+import type {
+  RunPentestRequest,
+  RunPentestResponse,
+  PentestStatusResponse,
+  PentestResults,
+} from "../types/pentest";
 
 export const socKeys = {
   all: ["soc"] as const,
@@ -19,6 +25,8 @@ export const socKeys = {
   alerts: (params?: Record<string, string>) => [...socKeys.all, "alerts", params] as const,
   escalationStats: () => [...socKeys.all, "escalation-stats"] as const,
   escalationHistory: (limit?: number) => [...socKeys.all, "escalation-history", limit] as const,
+  pentestStatus: () => [...socKeys.all, "pentest-status"] as const,
+  pentestResults: () => [...socKeys.all, "pentest-results"] as const,
 };
 
 export function useSocHealth() {
@@ -95,5 +103,43 @@ export function useEscalationHistory(limit = 50) {
       return data;
     },
     refetchInterval: 30_000,
+  });
+}
+
+// --- Pentest hooks ---
+
+export function useRunPentest() {
+  return useMutation({
+    mutationFn: async (req: RunPentestRequest) => {
+      const { data } = await socClient.post<RunPentestResponse>("/management/pentest/run", req);
+      return data;
+    },
+  });
+}
+
+export function usePentestStatus(enabled: boolean) {
+  return useQuery({
+    queryKey: socKeys.pentestStatus(),
+    queryFn: async () => {
+      const { data } = await socClient.get<PentestStatusResponse>("/management/pentest/status");
+      return data;
+    },
+    enabled,
+    refetchInterval: (query) => {
+      const status = query.state.data?.status;
+      if (status === "running") return 2_000;
+      return false;
+    },
+  });
+}
+
+export function usePentestResults(enabled: boolean) {
+  return useQuery({
+    queryKey: socKeys.pentestResults(),
+    queryFn: async () => {
+      const { data } = await socClient.get<PentestResults>("/management/pentest/results");
+      return data;
+    },
+    enabled,
   });
 }
