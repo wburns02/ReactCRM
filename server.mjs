@@ -1,4 +1,5 @@
 import http from 'http';
+import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,6 +12,10 @@ const __dirname = path.dirname(__filename);
 // Fallback to 5000 for local development
 const PORT = process.env.PORT || 5000;
 const DIST_DIR = path.join(__dirname, 'dist');
+
+// Property Intelligence T430 proxy config
+const PROPINTEL_UPSTREAM = process.env.PROPINTEL_UPSTREAM || 'https://poweredge-t430.tailad2d5f.ts.net';
+const PROPINTEL_API_KEY = process.env.PROPINTEL_API_KEY || '';
 
 // App is deployed at root - no path prefix
 
@@ -36,6 +41,42 @@ const server = http.createServer((req, res) => {
       res.end('OK');
       return;
     }
+  }
+
+  // Reverse proxy for Property Intelligence T430 API
+  // Avoids Chrome Private Network Access (PNA) blocking of Tailscale CGNAT IPs
+  if (req.url.startsWith('/propintel/')) {
+    const upstreamPath = req.url.replace('/propintel', '');
+    const upstreamUrl = new URL(upstreamPath, PROPINTEL_UPSTREAM);
+    const headers = {
+      'Content-Type': req.headers['content-type'] || 'application/json',
+      'X-API-Key': req.headers['x-api-key'] || PROPINTEL_API_KEY,
+    };
+    const proxyReq = https.request(upstreamUrl, { method: req.method, headers }, (proxyRes) => {
+      const resHeaders = {
+        'Content-Type': proxyRes.headers['content-type'] || 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, X-API-Key',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      };
+      res.writeHead(proxyRes.statusCode, resHeaders);
+      proxyRes.pipe(res);
+    });
+    proxyReq.on('error', (err) => {
+      res.writeHead(502, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'T430 upstream unavailable', detail: err.message }));
+    });
+    if (req.method === 'OPTIONS') {
+      res.writeHead(200, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, X-API-Key',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      });
+      res.end();
+      return;
+    }
+    req.pipe(proxyReq);
+    return;
   }
 
   let urlPath = req.url;

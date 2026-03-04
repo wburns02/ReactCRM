@@ -2,13 +2,13 @@ import axios, { type AxiosInstance } from "axios";
 
 /**
  * Property Intelligence API client
- * Connects to T430 on-premise server via Tailscale Funnel
- * Uses API key auth (not cookies) since it's a separate service
+ * Routes through /propintel/ reverse proxy on the frontend server
+ * to avoid Chrome Private Network Access blocking of Tailscale IPs.
+ * The server.mjs proxy forwards to T430 via Tailscale Funnel.
  */
 
 const PROPINTEL_API_URL =
-  import.meta.env.VITE_PROPINTEL_API_URL ||
-  "https://poweredge-t430.tailad2d5f.ts.net";
+  import.meta.env.VITE_PROPINTEL_API_URL || "/propintel";
 
 const PROPINTEL_API_KEY = import.meta.env.VITE_PROPINTEL_API_KEY || "";
 
@@ -23,8 +23,8 @@ export const propIntelClient: AxiosInstance = axios.create({
 
 /**
  * Check if Property Intelligence API is configured
- * Returns false if no API URL or key is set
+ * Returns true — proxy is always available via /propintel
  */
 export function isPropIntelConfigured(): boolean {
-  return !!(PROPINTEL_API_URL && PROPINTEL_API_KEY);
+  return true;
 }
