@@ -21,6 +21,7 @@ import {
   type JobType,
   JOB_TYPE_LABELS,
 } from "@/api/types/workOrder.ts";
+import { getWorkOrderRegion } from "@/api/types/schedule.ts";
 
 /**
  * Priority color mapping
@@ -308,6 +309,12 @@ export function ResourceTimeline() {
       // Filter by status
       if (filters.status && wo.status !== filters.status) return;
 
+      // Filter by region
+      if (filters.region) {
+        const woRegion = getWorkOrderRegion(wo);
+        if (woRegion !== filters.region) return;
+      }
+
       const scheduledDate = parseISO(wo.scheduled_date);
       // Parse time from time_window_start if available
       const scheduledHour = wo.time_window_start
@@ -323,7 +330,7 @@ export function ResourceTimeline() {
     });
 
     return map;
-  }, [workOrdersData?.items, filters.status]);
+  }, [workOrdersData?.items, filters.status, filters.region]);
 
   // Calculate stats per technician
   const techStats = useMemo(() => {

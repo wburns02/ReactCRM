@@ -19,6 +19,7 @@ import {
 import {
   formatDateKey,
   generateTimeSlots,
+  getWorkOrderRegion,
   SCHEDULE_CONFIG,
   type DropTargetData,
 } from "@/api/types/schedule.ts";
@@ -330,6 +331,12 @@ export function DayView() {
       // Apply status filter
       if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status))
         return;
+
+      // Apply region filter
+      if (filters.region) {
+        const woRegion = getWorkOrderRegion(wo);
+        if (woRegion !== filters.region) return;
+      }
 
       // Parse hour from time_window_start
       let hour: number = SCHEDULE_CONFIG.WORK_HOURS.start;

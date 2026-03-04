@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/Button.tsx";
 import { Select } from "@/components/ui/Select.tsx";
 import {
@@ -9,14 +9,17 @@ import {
   DialogFooter,
 } from "@/components/ui/Dialog.tsx";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
-import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
 import {
   useOptimizeRoutes,
   useApplyOptimizedRoutes,
   type TechnicianRoute,
 } from "@/api/hooks/useRouteOptimization.ts";
 import { useScheduleStore } from "../store/scheduleStore.ts";
-import { formatWeekRange } from "@/api/types/schedule.ts";
+import {
+  formatWeekRange,
+  REGIONS,
+  type Region,
+} from "@/api/types/schedule.ts";
 import {
   WORK_ORDER_STATUS_LABELS,
   type WorkOrderStatus,
@@ -95,17 +98,8 @@ export function ScheduleToolbar() {
   });
   const technicians = techniciansData?.items || [];
 
-  // Fetch work orders to get unique regions
-  const { data: workOrdersData } = useWorkOrders();
-
-  // Get unique regions from work orders
-  const regions = useMemo(() => {
-    const cities = new Set<string>();
-    (workOrdersData?.items || []).forEach((wo) => {
-      if (wo.service_city) cities.add(wo.service_city);
-    });
-    return Array.from(cities).sort();
-  }, [workOrdersData?.items]);
+  // Region entries from config
+  const regionEntries = Object.entries(REGIONS) as [Region, (typeof REGIONS)[Region]][];
 
   // Navigation based on current view
   const handlePrevious = () => {
@@ -276,12 +270,12 @@ export function ScheduleToolbar() {
           <Select
             value={filters.region || ""}
             onChange={(e) => setRegionFilter(e.target.value || null)}
-            className="w-32 text-sm"
+            className="w-40 text-sm"
           >
             <option value="">All Regions</option>
-            {regions.map((region) => (
-              <option key={region} value={region}>
-                {region}
+            {regionEntries.map(([key, config]) => (
+              <option key={key} value={key}>
+                {config.name}
               </option>
             ))}
           </Select>

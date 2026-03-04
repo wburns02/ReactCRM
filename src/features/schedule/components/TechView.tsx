@@ -24,6 +24,7 @@ import {
   getWeekDays,
   formatDateKey,
   formatTimeDisplay,
+  getWorkOrderRegion,
   type DropTargetData,
 } from "@/api/types/schedule.ts";
 import { useScheduleStore } from "../store/scheduleStore.ts";
@@ -410,6 +411,12 @@ export function TechView() {
       // Apply status filter
       if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status))
         return;
+
+      // Apply region filter
+      if (filters.region) {
+        const woRegion = getWorkOrderRegion(wo);
+        if (woRegion !== filters.region) return;
+      }
 
       if (!grouped[wo.assigned_technician]) {
         grouped[wo.assigned_technician] = [];

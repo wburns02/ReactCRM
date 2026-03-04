@@ -14,6 +14,12 @@ import {
   PRIORITY_LABELS,
 } from "@/api/types/workOrder.ts";
 import { useContextMenu } from "../context/ContextMenuContext.tsx";
+import { useScheduleStore } from "../store/scheduleStore.ts";
+import {
+  REGIONS,
+  getWorkOrderRegion,
+  type Region,
+} from "@/api/types/schedule.ts";
 
 /**
  * Priority color mapping for indicators
@@ -181,13 +187,14 @@ export function UnscheduledOrdersTable() {
     data: { type: "unschedule" },
   });
 
+  const { filters, setRegionFilter } = useScheduleStore();
+
   const [isExpanded, setIsExpanded] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState<SortState>({
     field: "priority",
     direction: "desc",
   });
-  const [regionFilter, setRegionFilter] = useState<string>("all");
 
   // Priority order for sorting
   const priorityOrder: Record<Priority, number> = {
@@ -198,22 +205,16 @@ export function UnscheduledOrdersTable() {
     low: 1,
   };
 
-  // Get unique regions (cities) from work orders
-  const regions = useMemo(() => {
-    const cities = new Set<string>();
-    (data?.items || []).forEach((wo) => {
-      if (wo.service_city) cities.add(wo.service_city);
-    });
-    return Array.from(cities).sort();
-  }, [data?.items]);
+  // Region entries from config
+  const regionEntries = Object.entries(REGIONS) as [Region, (typeof REGIONS)[Region]][];
 
   // Filter and sort work orders
   const filteredWorkOrders = useMemo(() => {
     let items = data?.items || [];
 
-    // Filter by region
-    if (regionFilter !== "all") {
-      items = items.filter((wo) => wo.service_city === regionFilter);
+    // Filter by region (using global store filter)
+    if (filters.region) {
+      items = items.filter((wo) => getWorkOrderRegion(wo) === filters.region);
     }
 
     // Filter by search
@@ -269,7 +270,7 @@ export function UnscheduledOrdersTable() {
     });
 
     return items;
-  }, [data?.items, searchQuery, sort, regionFilter, priorityOrder]);
+  }, [data?.items, searchQuery, sort, filters.region, priorityOrder]);
 
   // Toggle sort
   const toggleSort = (field: SortField) => {
@@ -328,7 +329,7 @@ export function UnscheduledOrdersTable() {
           </h3>
           <Badge variant="primary" className="text-xs">
             {filteredWorkOrders.length}{" "}
-            {regionFilter !== "all" || searchQuery ? `of ${totalCount}` : ""}{" "}
+            {filters.region || searchQuery ? `of ${totalCount}` : ""}{" "}
             jobs
           </Badge>
         </div>
@@ -339,14 +340,14 @@ export function UnscheduledOrdersTable() {
         >
           {/* Region filter */}
           <select
-            value={regionFilter}
-            onChange={(e) => setRegionFilter(e.target.value)}
+            value={filters.region || ""}
+            onChange={(e) => setRegionFilter(e.target.value || null)}
             className="text-sm border border-border rounded px-2 py-1 bg-white text-text-primary"
           >
-            <option value="all">All Regions</option>
-            {regions.map((region) => (
-              <option key={region} value={region}>
-                {region}
+            <option value="">All Regions</option>
+            {regionEntries.map(([key, config]) => (
+              <option key={key} value={key}>
+                {config.name}
               </option>
             ))}
           </select>
@@ -378,7 +379,7 @@ export function UnscheduledOrdersTable() {
             </div>
           ) : filteredWorkOrders.length === 0 ? (
             <div className="p-8 text-center text-text-muted">
-              {searchQuery || regionFilter !== "all"
+              {searchQuery || filters.region
                 ? "No matching jobs found"
                 : "No unscheduled work orders"}
             </div>

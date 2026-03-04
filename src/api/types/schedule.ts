@@ -17,6 +17,10 @@ export const REGIONS = {
     name: "Greater Nashville",
     center: { lat: 36.1627, lon: -86.7816 },
   },
+  rock_hill_sc: {
+    name: "Rock Hill SC",
+    center: { lat: 34.9249, lon: -81.0251 },
+  },
 } as const;
 
 export type Region = keyof typeof REGIONS;
@@ -25,7 +29,91 @@ export const REGION_LABELS: Record<Region, string> = {
   central_texas: "Central Texas",
   midlands_sc: "Midlands SC",
   greater_nashville: "Greater Nashville",
+  rock_hill_sc: "Rock Hill SC",
 };
+
+/**
+ * Map cities to regions for filtering.
+ * Keys are lowercase city names.
+ */
+export const CITY_TO_REGION: Record<string, Region> = {
+  // Central Texas
+  "san marcos": "central_texas",
+  "austin": "central_texas",
+  "round rock": "central_texas",
+  "georgetown": "central_texas",
+  "cedar park": "central_texas",
+  "kyle": "central_texas",
+  "buda": "central_texas",
+  "new braunfels": "central_texas",
+  "wimberley": "central_texas",
+  "dripping springs": "central_texas",
+  "pflugerville": "central_texas",
+  "lakeway": "central_texas",
+  "bastrop": "central_texas",
+  "lockhart": "central_texas",
+  "marble falls": "central_texas",
+  "leander": "central_texas",
+  "hutto": "central_texas",
+  "taylor": "central_texas",
+  "temple": "central_texas",
+  "waco": "central_texas",
+  // Midlands SC
+  "columbia": "midlands_sc",
+  "lexington": "midlands_sc",
+  "irmo": "midlands_sc",
+  "chapin": "midlands_sc",
+  "elgin": "midlands_sc",
+  "cayce": "midlands_sc",
+  "west columbia": "midlands_sc",
+  "blythewood": "midlands_sc",
+  "lugoff": "midlands_sc",
+  "camden": "midlands_sc",
+  "sumter": "midlands_sc",
+  "orangeburg": "midlands_sc",
+  "newberry": "midlands_sc",
+  "batesburg-leesville": "midlands_sc",
+  // Greater Nashville
+  "nashville": "greater_nashville",
+  "franklin": "greater_nashville",
+  "murfreesboro": "greater_nashville",
+  "brentwood": "greater_nashville",
+  "hendersonville": "greater_nashville",
+  "gallatin": "greater_nashville",
+  "lebanon": "greater_nashville",
+  "mt. juliet": "greater_nashville",
+  "mount juliet": "greater_nashville",
+  "spring hill": "greater_nashville",
+  "smyrna": "greater_nashville",
+  "la vergne": "greater_nashville",
+  "nolensville": "greater_nashville",
+  "goodlettsville": "greater_nashville",
+  "antioch": "greater_nashville",
+  "hermitage": "greater_nashville",
+  "dickson": "greater_nashville",
+  "clarksville": "greater_nashville",
+  // Rock Hill SC
+  "rock hill": "rock_hill_sc",
+  "fort mill": "rock_hill_sc",
+  "york": "rock_hill_sc",
+  "tega cay": "rock_hill_sc",
+  "clover": "rock_hill_sc",
+  "lake wylie": "rock_hill_sc",
+  "indian land": "rock_hill_sc",
+  "lancaster": "rock_hill_sc",
+  "chester": "rock_hill_sc",
+};
+
+/**
+ * Get the region for a work order based on its service_city.
+ * Returns null if the city doesn't match any known region.
+ */
+export function getWorkOrderRegion(workOrder: {
+  service_city?: string | null;
+}): Region | null {
+  if (!workOrder.service_city) return null;
+  return CITY_TO_REGION[workOrder.service_city.toLowerCase()] ?? null;
+}
 
 /**
  * Technician status for dispatch

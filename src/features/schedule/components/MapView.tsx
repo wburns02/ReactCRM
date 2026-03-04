@@ -22,7 +22,11 @@ import {
 } from "@/api/types/workOrder.ts";
 import type { Technician } from "@/api/types/technician.ts";
 import { useScheduleStore } from "../store/scheduleStore.ts";
-import { formatTimeDisplay } from "@/api/types/schedule.ts";
+import {
+  formatTimeDisplay,
+  getWorkOrderRegion,
+  REGIONS,
+} from "@/api/types/schedule.ts";
 
 // Fix Leaflet default marker icon issue with bundlers
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })
@@ -566,6 +570,12 @@ export function MapView() {
         if (filters.technician && wo.assigned_technician !== filters.technician)
           return;
 
+        // Apply region filter
+        if (filters.region) {
+          const woRegion = getWorkOrderRegion(wo);
+          if (woRegion !== filters.region) return;
+        }
+
         const position = getWorkOrderCoordinates(wo);
         allWorkOrders.push({ workOrder: wo, position });
         seenIds.add(wo.id);
@@ -581,6 +591,12 @@ export function MapView() {
         // Apply technician filter
         if (filters.technician && wo.assigned_technician !== filters.technician)
           return;
+
+        // Apply region filter
+        if (filters.region) {
+          const woRegion = getWorkOrderRegion(wo);
+          if (woRegion !== filters.region) return;
+        }
 
         // Apply status filter
         if (
@@ -642,8 +658,14 @@ export function MapView() {
     return L.latLngBounds(allPoints);
   }, [workOrdersForMap, techniciansWithLocation]);
 
-  // Default center (San Marcos, TX area)
-  const defaultCenter: [number, number] = SAN_MARCOS_CENTER;
+  // Default center based on selected region (falls back to San Marcos, TX)
+  const defaultCenter: [number, number] = useMemo(() => {
+    if (filters.region && filters.region in REGIONS) {
+      const regionConfig = REGIONS[filters.region as keyof typeof REGIONS];
+      return [regionConfig.center.lat, regionConfig.center.lon];
+    }
+    return SAN_MARCOS_CENTER;
+  }, [filters.region]);
 
   if (woLoading || techLoading || unscheduledLoading) {
     return (
