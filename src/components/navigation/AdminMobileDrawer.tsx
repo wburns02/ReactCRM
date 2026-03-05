@@ -27,12 +27,20 @@ const topNavItems: NavItem[] = [
   { path: "/dashboard", label: "Dashboard", icon: "📊" },
   { path: "/customers", label: "Customers", icon: "👥" },
   { path: "/prospects", label: "Prospects", icon: "📋" },
-  { path: "/contracts", label: "Contracts", icon: "🤝" },
-  { path: "/bookings", label: "Bookings", icon: "📅" },
-  { path: "/customer-success", label: "Customer Success", icon: "💚" },
+  { path: "/schedule", label: "Schedule", icon: "📅" },
 ];
 
 const navGroups: NavGroup[] = [
+  {
+    name: "customer-management",
+    label: "Customer Management",
+    icon: "💚",
+    items: [
+      { path: "/contracts", label: "Contracts & Maintenance", icon: "🤝" },
+      { path: "/bookings", label: "Bookings", icon: "📅" },
+      { path: "/customer-success", label: "Customer Success", icon: "💚" },
+    ],
+  },
   {
     name: "operations",
     label: "Operations",
@@ -40,7 +48,6 @@ const navGroups: NavGroup[] = [
     items: [
       { path: "/command-center", label: "Command Center", icon: "🎯" },
       { path: "/work-orders", label: "Work Orders", icon: "🔧" },
-      { path: "/schedule", label: "Schedule", icon: "📅" },
       { path: "/technicians", label: "Technicians", icon: "👷" },
       { path: "/employee", label: "Employee Portal", icon: "📱" },
       { path: "/service-intervals", label: "Service Intervals", icon: "🔄" },
