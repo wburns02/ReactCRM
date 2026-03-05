@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-export function FAQSection() {
+interface FAQSectionProps {
+  phone?: string;
+  phoneTel?: string;
+  serviceArea?: string;
+}
+
+export function FAQSection({ phone = "(936) 564-1440", phoneTel = "tel:+19365641440", serviceArea }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -26,13 +32,14 @@ export function FAQSection() {
     },
     {
       question: "What areas do you serve?",
-      answer:
-        "We proudly serve East Central Texas including Nacogdoches, Lufkin, Diboll, Huntington, Garrison, Cushing, and surrounding communities. If you're unsure whether we serve your area, give us a call and we'll let you know.",
+      answer: serviceArea
+        ? `We proudly serve ${serviceArea}. If you're unsure whether we serve your area, give us a call and we'll let you know.`
+        : "We proudly serve East Central Texas including Nacogdoches, Lufkin, Diboll, Huntington, Garrison, Cushing, and surrounding communities. If you're unsure whether we serve your area, give us a call and we'll let you know.",
     },
     {
       question: "Are you licensed and insured?",
       answer:
-        "Absolutely. We are fully licensed by the State of Texas (TCEQ) and carry comprehensive liability insurance. Our technicians are trained professionals with years of experience. You can trust that your property and septic system are in good hands.",
+        "Absolutely. We are fully licensed and carry comprehensive liability insurance. Our technicians are trained professionals with years of experience. You can trust that your property and septic system are in good hands.",
     },
   ];
 
@@ -108,14 +115,14 @@ export function FAQSection() {
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">Still have questions?</p>
           <a
-            href="tel:+19365641440"
-            aria-label="Call MAC Septic at (936) 564-1440"
+            href={phoneTel}
+            aria-label={`Call MAC Septic at ${phone}`}
             className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-hover transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
-            Call us at (936) 564-1440
+            Call us at {phone}
           </a>
         </div>
       </div>

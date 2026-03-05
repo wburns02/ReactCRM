@@ -17,7 +17,7 @@ const NASHVILLE_SERVICE_AREA = "Nashville & Middle Tennessee";
 const BOOK_BENEFITS = [
   "Skip the scheduling wait",
   "Instant confirmation",
-  "Secure payment (not charged until service)",
+  "No payment required to book",
   "Same-day service available",
   "$625 base price, transparent overage",
 ];
@@ -287,7 +287,11 @@ export function NashvilleLandingPage() {
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
       <Suspense fallback={<div className="min-h-[200px]" />}>
-        <FAQSection />
+        <FAQSection
+          phone={NASHVILLE_PHONE}
+          phoneTel={NASHVILLE_PHONE_TEL}
+          serviceArea="Nashville and Middle Tennessee including Franklin, Murfreesboro, Hendersonville, Mt. Juliet, Lebanon, Gallatin, Spring Hill, Brentwood, and surrounding communities"
+        />
       </Suspense>
 
       {/* ── CTA / Booking Section ───────────────────────────────────── */}
@@ -337,12 +341,12 @@ export function NashvilleLandingPage() {
               {activeOption === "book" && (
                 <div>
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-gray-900">Schedule &amp; Pay</h3>
+                    <h3 className="text-2xl font-bold text-gray-900">Schedule Your Service</h3>
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <span className="text-3xl font-bold text-green-600">$625</span>
                       <span className="text-gray-500">up to 1,000 gal</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">Card pre-authorized, charged after service</p>
+                    <p className="text-sm text-gray-500 mt-1">No payment required — pay at time of service</p>
                   </div>
                   <NashvilleBookingForm testMode={true} />
                 </div>
