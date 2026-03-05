@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 // Communications lazy imports
@@ -95,6 +95,9 @@ const LiveChatPage = lazy(() =>
 export function CommunicationsRoutes() {
   return (
     <>
+      {/* /messages → /communications redirect */}
+      <Route path="messages" element={<Navigate to="/communications" replace />} />
+
       {/* Communications Overview */}
       <Route
         path="communications"

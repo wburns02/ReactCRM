@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 // Technician lazy imports
@@ -181,6 +181,9 @@ export function TechnicianRoutes() {
           </Suspense>
         }
       />
+
+      {/* /technician → /technicians redirect (singular alias) */}
+      <Route path="technician" element={<Navigate to="/technicians" replace />} />
 
       {/* Technicians */}
       <Route

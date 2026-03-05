@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 // Marketing lazy imports
@@ -114,6 +114,9 @@ export function MarketingRoutes() {
           </Suspense>
         }
       />
+
+      {/* /marketing/email → /marketing/email-marketing redirect */}
+      <Route path="marketing/email" element={<Navigate to="/marketing/email-marketing" replace />} />
 
       {/* Email Marketing */}
       <Route
