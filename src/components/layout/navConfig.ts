@@ -134,6 +134,7 @@ export const navGroups: NavGroup[] = [
       { path: "/predictive-maintenance", label: "AI Predictions", icon: Zap },
       { path: "/coaching", label: "AI Coaching", icon: Sparkles, badge: "NEW" },
       { path: "/predictive-service", label: "Service Predictions", icon: TrendingUp, badge: "NEW" },
+      { path: "/reports/custom", label: "Custom Reports", icon: BarChart3, badge: "NEW" },
     ],
   },
   {

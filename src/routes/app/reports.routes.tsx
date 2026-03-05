@@ -2,6 +2,25 @@ import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import { PageLoader } from "../utils";
 
+// Custom Reports lazy imports
+const ReportListPage = lazy(() =>
+  import("@/features/custom-reports/index.ts").then((m) => ({
+    default: m.ReportListPage,
+  })),
+);
+
+const ReportBuilderPage = lazy(() =>
+  import("@/features/custom-reports/index.ts").then((m) => ({
+    default: m.ReportBuilderPage,
+  })),
+);
+
+const ReportViewerPage = lazy(() =>
+  import("@/features/custom-reports/index.ts").then((m) => ({
+    default: m.ReportViewerPage,
+  })),
+);
+
 // Reports lazy imports
 const ReportsPage = lazy(() =>
   import("@/features/reports/pages/ReportsPage.tsx").then((m) => ({
@@ -134,6 +153,40 @@ export function ReportsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <LocationReportPage />
+          </Suspense>
+        }
+      />
+
+      {/* Custom Reports */}
+      <Route
+        path="reports/custom"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ReportListPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="reports/custom/new"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ReportBuilderPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="reports/custom/:id"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ReportViewerPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="reports/custom/:id/edit"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ReportBuilderPage />
           </Suspense>
         }
       />

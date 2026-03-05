@@ -27,6 +27,7 @@ import { PropertyIntelligenceRoutes } from "./app/property-intelligence.routes";
 import { DispatchRoutes } from "./app/dispatch.routes";
 import { OutboundCampaignsRoutes } from "./app/outbound-campaigns.routes";
 import { SecurityRoutes } from "./app/security.routes";
+import { AutomationsRoutes } from "./app/automations.routes";
 
 
 /**
@@ -124,6 +125,9 @@ export function AppRoutes() {
 
         {/* Security & SOC */}
         {SecurityRoutes()}
+
+        {/* Workflow Automations */}
+        {AutomationsRoutes()}
 
         {/* Property Intelligence */}
         {PropertyIntelligenceRoutes()}
