@@ -31,19 +31,34 @@ interface DetectionPattern {
  */
 const AGENT_EXCLUSION_PATTERNS: RegExp[] = [
   // Agent introductions / outbound phrasing
-  /\b(my name is|i'm calling|i wanted to|i'd like to)\b/i,
-  // Agent offering / pitching
+  /\b(my name is|i'm calling|i wanted to|i'd like to|this is .+ from|calling from)\b/i,
+  /\b(hi .+ this is|hello .+ this is|good (morning|afternoon|evening))\b/i,
+  // Agent offering / pitching / explaining
   /\b(let me tell you|i can explain|we offer|our price|we charge)\b/i,
-  /\b(we provide|we specialize|we can schedule|i'll send you)\b/i,
-  // Agent confirmations / wrap-up
+  /\b(we provide|we specialize|we can schedule|i'll send you|we can help)\b/i,
+  /\b(what we do is|the way it works|the reason i'm calling|i'm reaching out)\b/i,
+  /\b(we also|we actually|we currently|we normally|we typically|we usually)\b/i,
+  // Agent selling / pitching Mac Septic
+  /\b(mac septic|our company|our team|our technicians|we've been)\b/i,
+  /\b(free inspection|complimentary|no obligation|no cost to you)\b/i,
+  /\b(we'd love to|we would love|i'd love to|happy to help|glad to)\b/i,
+  // Agent confirmations / scheduling
   /\b(i'll go ahead|let me get that|i'll put you down|we'll have someone)\b/i,
-  /\b(thank you for your time|have a great day|is there anything else i can)\b/i,
+  /\b(i can set that up|let me schedule|how about|does .+ work for you)\b/i,
+  /\b(i'll make a note|i'll send you|i'll email you|i'll text you)\b/i,
+  // Agent wrap-up / pleasantries
+  /\b(thank you for your time|have a great|have a good|take care|you too)\b/i,
+  /\b(is there anything else|that's all i needed|appreciate your time)\b/i,
+  /\b(sounds good|perfect|great|absolutely|of course|no problem|you're welcome)\b/i,
+  // First-person agent statements (I/we + verb)
+  /\b(i understand|i see|i hear you|i know|i appreciate|i wanted)\b/i,
+  /\b(we handle|we take care|we service|we cover|we do|we get)\b/i,
 ];
 
 /**
  * Returns true if the sentence looks like agent speech (not a caller question).
  */
-function isAgentSpeech(sentence: string): boolean {
+export function isAgentSpeech(sentence: string): boolean {
   return AGENT_EXCLUSION_PATTERNS.some((p) => p.test(sentence));
 }
 
@@ -160,7 +175,7 @@ export function matchToKnowledgeBase(
 /**
  * Split text into rough sentences for analysis.
  */
-function splitIntoSentences(text: string): string[] {
+export function splitIntoSentences(text: string): string[] {
   // Split on sentence boundaries and question marks
   return text
     .split(/(?<=[.!?])\s+|(?<=\?)/g)

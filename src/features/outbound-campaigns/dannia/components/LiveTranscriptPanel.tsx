@@ -7,6 +7,7 @@ import {
 } from "../useTranscriptionAssist";
 import { KB_CATEGORIES } from "../macSepticKnowledgeBase";
 import type { KBCategory } from "../macSepticKnowledgeBase";
+import { isAgentSpeech, splitIntoSentences } from "../questionDetection";
 
 interface LiveTranscriptPanelProps {
   contact: CampaignContact | null;
@@ -61,6 +62,19 @@ export function LiveTranscriptPanel({
     () => suggestions.filter((s) => !s.dismissed),
     [suggestions],
   );
+
+  // Filter transcript to only show caller speech (hide agent's own voice)
+  const callerTranscript = useMemo(() => {
+    if (!transcript) return "";
+    const sentences = splitIntoSentences(transcript);
+    return sentences.filter((s) => s.trim().length >= 3 && !isAgentSpeech(s)).join(" ");
+  }, [transcript]);
+
+  const callerInterim = useMemo(() => {
+    if (!interimTranscript) return "";
+    // Don't filter interim — show it live, it gets filtered once finalized
+    return interimTranscript;
+  }, [interimTranscript]);
 
   if (!isSupported) {
     return (
@@ -117,32 +131,35 @@ export function LiveTranscriptPanel({
         </div>
       )}
 
-      {/* Transcript area */}
+      {/* Transcript area — only shows caller speech */}
       <div className="flex-1 overflow-y-auto px-3 py-2 max-h-[200px] min-h-[80px]">
-        {!transcript && !interimTranscript && (
+        {!callerTranscript && !callerInterim && (
           <div className="text-center py-4">
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <span className="text-xs font-medium text-text-secondary">
-                Listening for caller questions...
+                {isListening ? "Listening for caller questions..." : "Paused"}
               </span>
             </div>
             <p className="text-[10px] text-text-tertiary">
               Caller questions will be detected and answered automatically
             </p>
+            <p className="text-[10px] text-text-tertiary mt-0.5">
+              Your voice is filtered out — only caller speech appears here
+            </p>
           </div>
         )}
 
-        {(transcript || interimTranscript) && (
+        {(callerTranscript || callerInterim) && (
           <div className="space-y-1">
-            {transcript && (
+            {callerTranscript && (
               <p className="text-xs leading-relaxed text-text-primary">
-                {transcript}
+                {callerTranscript}
               </p>
             )}
-            {interimTranscript && (
+            {callerInterim && (
               <p className="text-xs leading-relaxed text-text-tertiary italic">
-                {interimTranscript}
+                {callerInterim}
               </p>
             )}
           </div>
