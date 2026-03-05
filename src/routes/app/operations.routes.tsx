@@ -50,6 +50,13 @@ const GodModePage = lazy(() =>
   })),
 );
 
+// Document Center (placeholder version for now)
+const DocumentCenterPage = lazy(() =>
+  import("@/features/document-center/DocumentCenterPlaceholder.tsx").then((m) => ({
+    default: m.DocumentCenterPage,
+  })),
+);
+
 /**
  * Operations routes - Equipment, Inventory, Fleet, Tracking
  */
@@ -120,6 +127,16 @@ export function OperationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <GodModePage />
+          </Suspense>
+        }
+      />
+
+      {/* Document Center */}
+      <Route
+        path="documents"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <DocumentCenterPage />
           </Suspense>
         }
       />

@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { FileText } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -78,6 +79,8 @@ import {
 } from "./Payments/hooks/usePayments.ts";
 import { SmartAssign } from "./components/SmartAssign.tsx";
 import { useEmailCompose } from "@/context/EmailComposeContext";
+import { GenerateDocumentModal } from "@/features/document-center/components/GenerateDocumentModal.tsx";
+import { DocumentType } from "@/api/types/documentCenter.ts";
 
 /**
  * Get badge variant based on status
@@ -140,6 +143,7 @@ export function WorkOrderDetailPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [isGenerateDocOpen, setIsGenerateDocOpen] = useState(false);
 
   // Tab state
   const [activeTab, setActiveTab] = useState("overview");
@@ -368,6 +372,14 @@ export function WorkOrderDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setIsGenerateDocOpen(true)}
+            className="flex items-center gap-2"
+          >
+            <FileText size={16} />
+            Generate PDF
+          </Button>
           <Button variant="secondary" onClick={() => setIsEditOpen(true)}>
             Edit
           </Button>
@@ -1646,6 +1658,14 @@ export function WorkOrderDetailPage() {
         customerName={customerName}
         suggestedAmount={workOrder.total_amount != null ? Number(workOrder.total_amount) : undefined}
         onSuccess={() => setIsPaymentOpen(false)}
+      />
+
+      {/* Generate Document Modal */}
+      <GenerateDocumentModal
+        isOpen={isGenerateDocOpen}
+        onClose={() => setIsGenerateDocOpen(false)}
+        initialDocumentType={DocumentType.WORK_ORDER}
+        onSuccess={() => setIsGenerateDocOpen(false)}
       />
     </div>
   );
