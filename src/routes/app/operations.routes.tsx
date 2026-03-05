@@ -50,9 +50,9 @@ const GodModePage = lazy(() =>
   })),
 );
 
-// Document Center (placeholder version for now)
+// Document Center
 const DocumentCenterPage = lazy(() =>
-  import("@/features/document-center/DocumentCenterPlaceholder.tsx").then((m) => ({
+  import("@/features/document-center/DocumentCenterPage.tsx").then((m) => ({
     default: m.DocumentCenterPage,
   })),
 );

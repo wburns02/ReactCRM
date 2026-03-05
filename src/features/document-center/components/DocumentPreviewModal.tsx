@@ -134,6 +134,7 @@ export function DocumentPreviewModal({
             sandbox="allow-same-origin"
           />
         </div>
+        </div>
       </DialogContent>
     </Dialog>
   );

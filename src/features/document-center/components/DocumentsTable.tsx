@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/Button.tsx";
 // Using simple div-based table instead of Table component
 import { Badge } from "@/components/ui/Badge.tsx";
-import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/ui/Dropdown.tsx";
+import { Dropdown, DropdownMenu, DropdownItem, DropdownTrigger } from "@/components/ui/Dropdown.tsx";
 import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import { ApiError } from "@/components/ui/ApiError.tsx";
 import { Pagination } from "@/components/ui/Pagination.tsx";
@@ -90,7 +90,7 @@ function ActionDropdown({ document, onPreview, onSendEmail, onDownload, onDelete
           <MoreVertical className="w-4 h-4" />
         </Button>
       </DropdownTrigger>
-      <DropdownContent align="end">
+      <DropdownMenu align="end">
         <DropdownItem onClick={() => onPreview(document)}>
           <Eye className="w-4 h-4 mr-2" />
           Preview
@@ -110,7 +110,7 @@ function ActionDropdown({ document, onPreview, onSendEmail, onDownload, onDelete
           <Trash2 className="w-4 h-4 mr-2" />
           Delete
         </DropdownItem>
-      </DropdownContent>
+      </DropdownMenu>
     </Dropdown>
   );
 }
@@ -177,25 +177,25 @@ export function DocumentsTable({
     <div>
       {/* Table */}
       <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Type</TableHead>
-              <TableHead>Reference #</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>File Size</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead className="w-12">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+        <table className="w-full text-sm">
+          <thead className="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference #</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File Size</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
             {data.items.map((document) => {
               const typeInfo = DOCUMENT_TYPE_INFO[document.document_type as DocumentType];
 
               return (
-                <TableRow key={document.id} className="hover:bg-gray-50">
-                  <TableCell>
+                <tr key={document.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2">
                       <DocumentTypeIcon
                         type={document.document_type as DocumentType}
@@ -205,9 +205,9 @@ export function DocumentsTable({
                         {typeInfo?.label || document.document_type}
                       </span>
                     </div>
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <Button
                       variant="link"
                       className="p-0 h-auto font-medium text-blue-600 hover:text-blue-800"
@@ -215,25 +215,25 @@ export function DocumentsTable({
                     >
                       {document.reference_number || "N/A"}
                     </Button>
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <span className="text-sm text-gray-900">
                       {document.customer_name || "Unknown Customer"}
                     </span>
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <StatusBadge status={document.status as DocumentStatus} />
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <span className="text-sm text-gray-600">
                       {formatFileSize(document.file_size)}
                     </span>
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm">
                       <div className="text-gray-900">
                         {new Date(document.created_at).toLocaleDateString()}
@@ -245,9 +245,9 @@ export function DocumentsTable({
                         })}
                       </div>
                     </div>
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <ActionDropdown
                       document={document}
                       onPreview={onPreview}
@@ -255,12 +255,12 @@ export function DocumentsTable({
                       onDownload={onDownload}
                       onDelete={onDelete}
                     />
-                  </TableCell>
-                </TableRow>
+                  </td>
+                </tr>
               );
             })}
-          </TableBody>
-        </Table>
+          </tbody>
+        </table>
       </div>
 
       {/* Pagination */}
