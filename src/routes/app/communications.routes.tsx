@@ -83,6 +83,12 @@ const QuickCallLogPage = lazy(() =>
   })),
 );
 
+const LiveChatPage = lazy(() =>
+  import("@/features/live-chat/index.ts").then((m) => ({
+    default: m.LiveChatPage,
+  })),
+);
+
 /**
  * Communications routes - SMS, Email, Phone, Templates, Reminders
  */
@@ -215,6 +221,16 @@ export function CommunicationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <QuickCallLogPage />
+          </Suspense>
+        }
+      />
+
+      {/* Live Chat */}
+      <Route
+        path="live-chat"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <LiveChatPage />
           </Suspense>
         }
       />
