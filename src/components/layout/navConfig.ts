@@ -29,9 +29,7 @@ export const topNavItems: NavItem[] = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { path: "/customers", label: "Customers", icon: Users },
   { path: "/prospects", label: "Prospects", icon: ClipboardList },
-  { path: "/contracts", label: "Contracts & Maintenance", icon: FileText },
-  { path: "/bookings", label: "Bookings", icon: CalendarCheck },
-  { path: "/customer-success", label: "Customer Success", icon: Heart },
+  { path: "/schedule", label: "Schedule", icon: Calendar },
 ];
 
 export const techNavItems: NavItem[] = [
@@ -47,6 +45,16 @@ export const techNavItems: NavItem[] = [
 
 export const navGroups: NavGroup[] = [
   {
+    name: "customer-management",
+    label: "Customer Management",
+    icon: Heart,
+    items: [
+      { path: "/contracts", label: "Contracts & Maintenance", icon: FileText },
+      { path: "/bookings", label: "Bookings", icon: CalendarCheck },
+      { path: "/customer-success", label: "Customer Success", icon: Heart },
+    ],
+  },
+  {
     name: "operations",
     label: "Operations",
     icon: Clipboard,
@@ -54,7 +62,6 @@ export const navGroups: NavGroup[] = [
       { path: "/god-mode", label: "God Mode", icon: Eye, badge: "LIVE" },
       { path: "/command-center", label: "Command Center", icon: Target },
       { path: "/work-orders", label: "Work Orders", icon: Wrench },
-      { path: "/schedule", label: "Schedule", icon: Calendar },
       { path: "/documents", label: "Document Center", icon: FileText, badge: "NEW" },
       { path: "/technicians", label: "Technicians", icon: HardHat },
       { path: "/employee", label: "Employee Portal", icon: Smartphone },
