@@ -60,7 +60,7 @@ export function QuotesPage() {
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-900">{quote.customer_name || "—"}</td>
                   <td className="px-4 py-3 text-sm text-gray-900">
-                    ${(quote.total_amount || 0).toFixed(2)}
+                    ${(quote.total || quote.total_amount || 0).toFixed(2)}
                   </td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[quote.status] || "bg-gray-100"}`}>

@@ -69,6 +69,12 @@ const QuotesPage = lazy(() =>
   })),
 );
 
+const QuoteDetailPage = lazy(() =>
+  import("@/features/billing/pages/QuoteDetailPage.tsx").then((m) => ({
+    default: m.QuoteDetailPage,
+  })),
+);
+
 /**
  * Billing routes - Invoices, Estimates, Payments, Payment Plans
  */
@@ -162,6 +168,14 @@ export function BillingRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <QuotesPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="quotes/:id"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <QuoteDetailPage />
           </Suspense>
         }
       />
