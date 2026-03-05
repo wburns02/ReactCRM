@@ -80,6 +80,32 @@ export function useScheduleEngine() {
     }
   }, [callableContacts.length, activeCampaignId]); // Re-run when callable count or campaign changes
 
+  // Backfill today if it has no contacts but callable contacts exist
+  useEffect(() => {
+    if (!currentSchedule || callableContacts.length === 0) return;
+
+    const today = new Date().toISOString().split("T")[0];
+    const todayDay = currentSchedule.days.find((d) => d.date === today);
+    if (!todayDay) return;
+
+    const todayHasContacts = todayDay.blocks.some((b) => b.contactIds.length > 0);
+    if (todayHasContacts) return;
+
+    // Today is empty but we have callable contacts — backfill today's plan
+    const newSchedule = regenerateDayPlan(
+      currentSchedule,
+      today,
+      callableContacts,
+      config,
+    );
+    setSchedule(newSchedule);
+    addAuditEntry({
+      action: "day_regenerated",
+      reason: `Backfilled today (${today}) — had 0 contacts but ${callableContacts.length} callable`,
+      details: { date: today, contactsAvailable: callableContacts.length },
+    });
+  }, [currentSchedule, callableContacts.length]);
+
   // Regenerate a specific day
   const regenerateDay = useCallback(
     (date: string) => {
@@ -136,30 +162,44 @@ export function useScheduleEngine() {
   const todayPlan = useDanniaStore((s) => s.getTodayPlan());
   const currentBlock = useDanniaStore((s) => s.getCurrentBlock());
 
-  // Get next N contacts from current block
+  // Get next N contacts — tries current block, then any block, then falls back to callable contacts
   const getNextContacts = useCallback(
     (count: number = 5): CampaignContact[] => {
-      if (!currentBlock) {
-        // Find the next active block
-        if (!todayPlan) return [];
+      // 1. Current time block
+      if (currentBlock) {
+        const remaining = currentBlock.contactIds.filter(
+          (id) => !currentBlock.completedIds.includes(id),
+        );
+        if (remaining.length > 0) return getBlockContacts(remaining.slice(0, count));
+      }
+
+      // 2. Any future block today
+      if (todayPlan) {
         const now = new Date();
         const currentHour = now.getHours() + now.getMinutes() / 60;
         const nextBlock = todayPlan.blocks.find(
           (b) => b.capacity > 0 && b.endHour > currentHour && b.contactIds.length > 0,
         );
-        if (!nextBlock) return [];
-        const remaining = nextBlock.contactIds.filter(
-          (id) => !nextBlock.completedIds.includes(id),
-        );
-        return getBlockContacts(remaining.slice(0, count));
+        if (nextBlock) {
+          const remaining = nextBlock.contactIds.filter(
+            (id) => !nextBlock.completedIds.includes(id),
+          );
+          if (remaining.length > 0) return getBlockContacts(remaining.slice(0, count));
+        }
+
+        // 3. Any block with remaining contacts (outside working hours)
+        for (const block of todayPlan.blocks) {
+          const remaining = block.contactIds.filter(
+            (id) => !block.completedIds.includes(id),
+          );
+          if (remaining.length > 0) return getBlockContacts(remaining.slice(0, count));
+        }
       }
 
-      const remaining = currentBlock.contactIds.filter(
-        (id) => !currentBlock.completedIds.includes(id),
-      );
-      return getBlockContacts(remaining.slice(0, count));
+      // 4. Fallback: return callable contacts directly (always have something to dial)
+      return callableContacts.slice(0, count);
     },
-    [currentBlock, todayPlan, getBlockContacts],
+    [currentBlock, todayPlan, getBlockContacts, callableContacts],
   );
 
   return {

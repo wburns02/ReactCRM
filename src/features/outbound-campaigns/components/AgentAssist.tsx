@@ -27,6 +27,7 @@ interface AgentAssistProps {
   collapsed?: boolean;
   onToggle?: () => void;
   onTranscriptCapture?: (transcript: string) => void;
+  onUseAsNotes?: (text: string) => void;
 }
 
 type TabId = "quick" | "chat" | "live";
@@ -37,6 +38,7 @@ export function AgentAssist({
   collapsed = false,
   onToggle,
   onTranscriptCapture,
+  onUseAsNotes,
 }: AgentAssistProps) {
   const danniaMode = useOutboundStore((s) => s.danniaMode);
 
@@ -72,15 +74,22 @@ export function AgentAssist({
   }, [danniaMode, getQuickPromptsFn, contact]);
 
   const [input, setInput] = useState("");
-  // Default to "quick" tab in Dannia Mode, "chat" otherwise
-  const [activeTab, setActiveTab] = useState<TabId>(danniaMode ? "quick" : "chat");
+  // Default to "live" tab in Dannia Mode so caller questions are front-and-center
+  const [activeTab, setActiveTab] = useState<TabId>(danniaMode ? "live" : "chat");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Reset tab when Dannia mode changes
   useEffect(() => {
-    setActiveTab(danniaMode ? "quick" : "chat");
+    setActiveTab(danniaMode ? "live" : "chat");
   }, [danniaMode]);
+
+  // Auto-switch to Live tab when a call starts in Dannia mode
+  useEffect(() => {
+    if (danniaMode && isOnCall) {
+      setActiveTab("live");
+    }
+  }, [danniaMode, isOnCall]);
 
   // Auto-scroll messages
   useEffect(() => {
@@ -283,7 +292,7 @@ export function AgentAssist({
         <>
           {danniaMode ? (
             /* Dannia Mode: Full live transcription panel */
-            <LiveTranscriptPanel contact={contact} isOnCall={isOnCall} onTranscriptCapture={onTranscriptCapture} />
+            <LiveTranscriptPanel contact={contact} isOnCall={isOnCall} onTranscriptCapture={onTranscriptCapture} onUseAsNotes={onUseAsNotes} />
           ) : (
             /* Standard mode: Original live hints */
             <div className="flex flex-col flex-1 min-h-0">
