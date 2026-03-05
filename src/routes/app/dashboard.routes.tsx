@@ -3,6 +3,12 @@ import { Route } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 // Dashboard lazy imports
+const ExecutiveDashboard = lazy(() =>
+  import("@/features/dashboard/ExecutiveDashboard.tsx").then((m) => ({
+    default: m.ExecutiveDashboard,
+  })),
+);
+
 const DashboardPage = lazy(() =>
   import("@/features/dashboard/DashboardPage.tsx").then((m) => ({
     default: m.DashboardPage,
@@ -23,6 +29,14 @@ export function DashboardRoutes() {
     <>
       <Route
         path="dashboard"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ExecutiveDashboard />
+          </Suspense>
+        }
+      />
+      <Route
+        path="dashboard/classic"
         element={
           <Suspense fallback={<PageLoader />}>
             <DashboardPage />
