@@ -1,145 +1,162 @@
-# Claude Code Documentation - ECBTX CRM
+# ReactCRM - ECBTX Septic Service Management Platform
 
-> **Version:** v2.2 — February 28, 2026
-> **Status:** Production
-
----
-
-## Quick Reference (Read This First)
-
-**Most Important Rules** (Break these = invalid response):
-
-| # | Rule |
-|---|------|
-| 1 | **NEVER fake Playwright** — always show full script + evidence bundle |
-| 2 | **NO /app/ routes** — basename="/", no /app in links |
-| 3 | **NO double /api** in API calls |
-| 4 | **Drag-and-drop mutations MUST succeed** with 200 (no 500s) |
-| 5 | **Relentless mode** — never ask to continue, just keep fixing |
-| 6 | **NEVER use `railway up`** — always deploy via git push to GitHub |
-| 7 | **ALWAYS push + Playwright test loop** — commit → push → wait for deploy → Playwright test production → fix issues → repeat until 0 failures |
-
-**When to use Playwright:** ANY UI check, error reproduction, drag test, page load
-
-**Activation phrases:**
-- `"Enter relentless autonomous troubleshooter mode"`
-- `"Fix until all tests pass and zero console errors"`
-
-> **CRITICAL**: This document contains binding rules. Violations (especially faked Playwright usage or reintroduction of banned bugs) invalidate the entire response.
+> **Version:** v2.3 — March 5, 2026  
+> **Status:** Production  
+> **Purpose:** Comprehensive CRM for septic service operations with AI-powered call intelligence and field management
 
 ---
 
-## Current Feature: Role-Switching Demo
+## Tech Stack
 
-**Demo User:** `will@macseptic.com`
-**Purpose:** When this user logs in, show a floating role switcher to demo different CRM views.
-
-### Available Roles
-
-| Role | Display Name | Icon | Focus |
-|------|-------------|------|-------|
-| `admin` | Administrator | 👑 | Full system access |
-| `executive` | Executive | 📊 | High-level KPIs |
-| `manager` | Operations Manager | 📋 | Day-to-day ops |
-| `technician` | Field Technician | 🔧 | Mobile work orders |
-| `phone_agent` | Phone Agent | 📞 | Customer service |
-| `dispatcher` | Dispatcher | 🗺️ | Schedule management |
-| `billing` | Billing Specialist | 💰 | Invoicing/payments |
-
-### Implementation Requirements
-
-**Backend (FastAPI):**
-- `app/models/role_view.py` - SQLAlchemy model
-- `app/schemas/role_view.py` - Pydantic schemas
-- `app/services/role_view_service.py` - Business logic
-- `app/api/v2/endpoints/roles.py` - API endpoints
-- `app/core/demo_mode.py` - Middleware/dependencies
-
-**Frontend (React):**
-- `src/context/RoleContext.tsx` - State management
-- `src/components/RoleSwitcher/` - UI component
-- `src/components/Dashboard/RoleDashboard.tsx` - Role-specific views
-- `src/components/Navigation/RoleBasedNav.tsx` - Dynamic nav
-
-**API Endpoints:**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v2/roles` | List available roles (demo user only) |
-| POST | `/api/v2/roles/switch` | Switch active role |
-| GET | `/api/v2/roles/current` | Get current role config |
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | React 19 + TypeScript 5.9 + Vite 7 + Tailwind CSS 4 |
+| **State Management** | TanStack Query v5, Zustand, React Hook Form |
+| **Backend** | FastAPI + SQLAlchemy 2.0 + PostgreSQL + Redis |
+| **Testing** | Playwright E2E, Vitest unit tests |
+| **Deployment** | Railway (auto-deploy on git push) |
+| **Integrations** | RingCentral, Twilio, Stripe, Sentry |
 
 ---
 
-## Documentation Structure
+## Project Structure
 
 ```
-claude-docs/
-├── README.md           ← System overview, deployment info
-├── quick-reference.md  ← Cheat sheet, activation commands, banned bugs
-├── frontend.md         ← React CRM architecture, components, routing
-└── backend.md          ← FastAPI endpoints, models, database
+ReactCRM/
+├── src/
+│   ├── components/        # Reusable UI components
+│   ├── features/         # Feature-specific modules (73 files)
+│   ├── hooks/            # Custom React hooks (26 files)  
+│   ├── lib/              # Utilities and configurations
+│   ├── api/              # API client and endpoints
+│   └── context/          # React context providers
+├── e2e/                  # Playwright test suites (56 files)
+├── backend/              # FastAPI server (separate repo link)
+├── docs/                 # Architecture and user guides
+├── scrapers/             # Government data extraction (39 files)
+├── mobile/               # Mobile-optimized components
+├── scripts/              # Automation and utilities
+└── claude-docs/          # AI assistant documentation
 ```
 
-**Always read `claude-docs/quick-reference.md` first.**
-
 ---
 
-## Zero Tolerance for Fake Playwright Usage
+## Local Development
 
-Any claim of testing, verifying, checking UI, reproducing bugs, or confirming behavior **MUST** include:
+```bash
+# Frontend (ReactCRM repo)
+npm install
+npm run dev          # Dev server on localhost:5173
+npm run build        # Production build
+npm run test         # Unit tests
+npm run e2e          # Playwright tests
 
-1. Full, runnable Playwright script code
-2. Execution output (console logs, network responses, screenshot descriptions)
-3. The mandatory evidence bundle:
-
-```
-PLAYWRIGHT RUN RESULTS:
-Timestamp: [ISO timestamp]
-Target URL: https://react.ecbtx.com/[path]
-Actions Performed:
-  1. [action]
-  2. [action]
-Console Logs: [output]
-Network Failures/Status:
-  • GET /api/v2/... → 200
-  • PATCH /api/v2/... → [status]
-Screenshot Description:
-  • [visual state]
-Test Outcome: PASS / FAIL
+# Backend (separate repo: ~/react-crm-api)
+cd ~/react-crm-api
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload  # Dev server on localhost:8000
 ```
 
-**Missing bundle = invalid response**
+---
+
+## Architecture Decisions
+
+### Frontend Architecture
+- **Router:** React Router v6 with basename="/" (NO /app/ routes)
+- **API Client:** Axios with TanStack Query for caching/sync
+- **Forms:** React Hook Form + Zod validation  
+- **Drag & Drop:** @dnd-kit for reorderable lists
+- **Auth:** HTTP-only cookies + Bearer token fallback
+
+### Backend Architecture  
+- **API:** FastAPI with automatic OpenAPI docs
+- **Database:** PostgreSQL 17 with async SQLAlchemy 2.0
+- **Caching:** Redis for session storage and API caching
+- **Auth:** JWT tokens with refresh mechanism
+- **Migrations:** Alembic for schema versioning
+
+### Key Patterns
+- Feature-based folder structure (not layer-based)
+- Server state via TanStack Query, local state via useState/Zustand
+- API calls: `/customers/` NOT `/api/customers/` (no double /api)
+- All mutations return 200 OK (never 500 on drag-drop)
 
 ---
 
-## Banned Bugs (NEVER Reintroduce)
+## Core Features
 
-| Bug | Wrong | Correct |
-|-----|-------|---------|
-| `/app/` prefix | `<Link to="/app/customers">` | `<Link to="/customers">` |
-| Double `/api` | `apiClient.get('/api/customers/')` | `apiClient.get('/customers/')` |
-| PATCH 500 | No error handling | try/except + validation |
-| Fake Playwright | "I verified..." without proof | Full script + evidence bundle |
+### Customer Management
+- Customer profiles with service history
+- Property management and permit tracking  
+- Communication logs and follow-ups
+
+### Field Operations
+- Work order creation and scheduling
+- Quote generation and approval workflow
+- Real-time technician dispatch and tracking
+- Mobile-optimized field interfaces
+
+### Call Intelligence
+- AI-powered call transcription and analysis
+- Automatic lead qualification and routing
+- Call disposition tracking and follow-up automation
+- RingCentral and Twilio voice integration
+
+### Financial Management  
+- Commission calculation engine
+- Stripe payment processing
+- Quote-to-invoice workflow
+- Payroll integration (new 2026)
+
+### Role-Based Access
+- Admin, Executive, Manager, Technician, Phone Agent, Dispatcher, Billing
+- Dynamic UI based on user permissions
+- Demo mode for `will@macseptic.com`
+
+### AI Assistant
+- Natural language query interface
+- Automated task completion
+- Integration with CRM workflows
+- Context-aware suggestions
 
 ---
 
-## Relentless Autonomous Troubleshooter Mode
+## Production Deployment
 
-When user activates this mode:
-- Never ask permission to continue
-- Never stop at phase boundaries
-- Never summarize or check in
-- Loop: **Fix bug → Playwright verify → Next bug**
-- Only stop when: Zero errors AND all tests pass
+| Service | URL | Repository |
+|---------|-----|------------|
+| **Frontend** | https://react.ecbtx.com | `wburns02/ReactCRM` |
+| **API** | https://react-crm-api-production.up.railway.app | `wburns02/react-crm-api` |
+| **Monitoring** | https://uptime-kuma-production-3500.up.railway.app | Railway template |
+
+### Deployment Process
+```bash
+# 1. Make changes locally
+npm run build        # Verify frontend builds
+cd ~/react-crm-api && python -c "from app.main import app"  # Verify backend
+
+# 2. Commit and push  
+git add .
+git commit -m "descriptive message"
+git push origin master    # Auto-deploys via Railway
+
+# 3. Wait 2-3 minutes for Railway deployment
+
+# 4. Verify backend health
+curl "https://react-crm-api-production.up.railway.app/health"
+
+# 5. Run Playwright tests against production (MANDATORY)
+npx playwright test
+```
 
 ---
 
-## Git & Deployment Policy (MANDATORY)
+## Development Rules (MANDATORY)
 
-> **This is a hard rule, same weight as "never fake Playwright."**
-> Every task that changes code MUST complete the full loop below. The task is NOT done until Playwright reports 0 failures against production.
-
-### The Mandatory Loop
+### The Sacred Loop
+Every code change MUST complete this cycle:
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -153,115 +170,19 @@ When user activates this mode:
 └─────────────────────────────────────────────────┘
 ```
 
-**You MUST NOT stop after pushing.** Push without Playwright verification is incomplete.
-**You MUST NOT stop after one Playwright run.** If ANY test fails, fix and retest.
-**The loop continues until 0 failures.** Only then is the task complete.
+### Hard Rules
+1. **NEVER fake Playwright** — always show full script + evidence bundle
+2. **NO /app/ routes** — basename="/", no /app in links  
+3. **NO double /api** in API calls
+4. **Drag-and-drop mutations MUST succeed** with 200 (no 500s)
+5. **Relentless mode** — never ask to continue, just keep fixing
+6. **NEVER use `railway up`** — always deploy via git push to GitHub
+7. **ALWAYS push + Playwright test loop** — fix until 0 failures
 
-### Rules
-
-| Action | Rule |
-|--------|------|
-| Commit | Create commits after completing features/fixes — do NOT ask permission |
-| Push | ALWAYS push to GitHub immediately after committing — do NOT ask permission |
-| Deploy | Railway auto-deploys on push — VERIFY deployment succeeds |
-| Test | ALWAYS run Playwright against production after deploy completes |
-| Fix | If Playwright finds ANY issue, fix immediately, push again, retest |
-| Loop | Repeat fix→push→test until **0 failures** |
-
-### Do NOT
-
-- Ask "should I commit this?" or "should I push?"
-- Wait for permission to push
-- Leave working code uncommitted
-- Stop after local build success without pushing
-- Stop after pushing without running Playwright
-- Stop after Playwright finds failures without fixing them
-- Use `railway up` or `railway redeploy` — these commands do not work
-- Assume deployment succeeded without verification
-
----
-
-## Railway Deployment Verification (MANDATORY)
-
-**CRITICAL: After EVERY push, verify Railway deployment succeeded.**
-
-### Two Separate Services
-
-| Service | Repo | Railway Service | Health Check |
-|---------|------|-----------------|--------------|
-| **Frontend** | `ReactCRM` | react.ecbtx.com | N/A (static) |
-| **Backend API** | `react-crm-api` | react-crm-api-production | `/health` endpoint |
-
-### Backend Deployment Verification
-
-After pushing to `react-crm-api`, ALWAYS run:
-```bash
-curl -s "https://react-crm-api-production.up.railway.app/health"
-```
-
-Check:
-1. **Version number** matches expected (e.g., "2.5.4")
-2. **Status** is "healthy"
-
-If version is old, deployment may have **FAILED SILENTLY**.
-
-### Common Deployment Failures
-
-| Error | Cause | Fix |
-|-------|-------|-----|
-| "Deployment failed during network process" | Railway networking issue | Wait 5 min, push empty commit to retry |
-| Version unchanged after push | Build failed or webhook broken | Check Railway dashboard logs |
-| 500 errors after deploy | Code bug or missing migration | Check logs, rollback if needed |
-
-### Verification Workflow
-
-```bash
-# 1. Push changes
-git push origin master
-
-# 2. Wait 2-3 minutes for deploy
-
-# 3. Check backend version
-curl -s "https://react-crm-api-production.up.railway.app/health" | grep version
-
-# 4. If version unchanged, CHECK RAILWAY DASHBOARD for failures
-
-# 5. Run Playwright tests to verify functionality
-npx playwright test [relevant-test-file]
-```
-
-### If Deployment Keeps Failing
-
-1. Check Railway dashboard for error logs
-2. Verify no syntax errors: `cd backend && python -c "from app.main import app"`
-3. Check for missing dependencies in requirements.txt
-4. Try pushing an empty commit: `git commit --allow-empty -m "chore: retry deploy"`
-5. If still failing, investigate Railway service health/networking
-
----
-
-## Playwright Testing Against Production (MANDATORY)
-
-> **After every push, you MUST run Playwright tests against production.**
-> This section contains the exact auth bypass and test setup that works. Do NOT guess — use this.
-
-### Key Details
-
-| Item | Value |
-|------|-------|
-| **Production URL** | `https://react.ecbtx.com` |
-| **Outbound Campaigns route** | `/outbound-campaigns` (NOT `/campaigns` — that 404s) |
-| **Script file extension** | `.cjs` (project has `"type": "module"` in package.json) |
-| **Run from directory** | `/home/will/ReactCRM` (playwright is a project dep) |
-| **Viewport for xl breakpoint** | `{ width: 1440, height: 900 }` |
-
-### Auth Bypass (Required)
-
-The app uses HTTP-only cookie auth + Bearer token fallback. To bypass in Playwright:
-
+### Playwright Testing
 ```javascript
-// 1. Set session state in BOTH sessionStorage and localStorage
-await ctx.addInitScript((storeData) => {
+// Auth bypass for production testing
+await ctx.addInitScript(() => {
   const state = JSON.stringify({
     isAuthenticated: true,
     lastValidated: Date.now(),
@@ -270,156 +191,46 @@ await ctx.addInitScript((storeData) => {
   sessionStorage.setItem('session_state', state);
   localStorage.setItem('session_state', state);
   localStorage.setItem('crm_session_token', 'mock-jwt-token-123');
+});
 
-  // Optional: seed Zustand store data for features that use localStorage persist
-  if (storeData) {
-    localStorage.setItem('outbound-campaigns-store', JSON.stringify(storeData));
-  }
-}, MOCK_STORE_DATA_OR_NULL);
-
-// 2. Mock API responses — MUST use the full Railway API domain
+// Mock API responses
 await ctx.route('https://react-crm-api-production.up.railway.app/**', async (route) => {
   const url = route.request().url();
   if (url.includes('/auth/me')) {
-    // Response MUST be wrapped: { user: { ... } }  — NOT flat user object
-    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
-      user: { id: 'user-123', email: 'test@ecbtx.com', first_name: 'Test', last_name: 'User', role: 'admin', is_active: true }
-    })});
+    return route.fulfill({ 
+      status: 200, 
+      contentType: 'application/json', 
+      body: JSON.stringify({
+        user: { id: 'user-123', email: 'test@ecbtx.com', role: 'admin' }
+      })
+    });
   }
-  if (url.includes('/roles')) {
-    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ role: 'admin', permissions: {} }) });
-  }
-  // Default: empty array for list endpoints
   return route.fulfill({ status: 200, contentType: 'application/json', body: '[]' });
 });
 ```
 
-### Common Pitfalls (Learned the Hard Way)
-
-| Pitfall | Wrong | Correct |
-|---------|-------|---------|
-| Auth response shape | `{ id: '...', email: '...' }` | `{ user: { id: '...', email: '...' } }` |
-| Route to mock | `**/*api*/**` (breaks Vite modules) | `https://react-crm-api-production.up.railway.app/**` |
-| Campaigns route | `/campaigns` | `/outbound-campaigns` |
-| Script extension | `.js` (ESM error) | `.cjs` |
-| Session storage key | `auth_token` (legacy) | `session_state` + `crm_session_token` |
-| Session state shape | `{ user: ..., token: ... }` | `{ isAuthenticated: true, lastValidated: Date.now(), userId: '...' }` |
-
-### Test Script Template
-
-Save as `/home/will/ReactCRM/pw-test.cjs` and run with `cd /home/will/ReactCRM && node pw-test.cjs`:
-
-```javascript
-const { chromium } = require('playwright');
-const PASS = [], FAIL = [];
-function check(name, ok) {
-  if (ok) { PASS.push(name); console.log('PASS -', name); }
-  else { FAIL.push(name); console.log('FAIL -', name); }
-}
-
-(async () => {
-  const browser = await chromium.launch({ headless: true });
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-
-  // Auth bypass (see above)
-  // ...
-
-  const page = await ctx.newPage();
-  await page.goto('https://react.ecbtx.com/[route]', { waitUntil: 'networkidle', timeout: 30000 });
-  await page.waitForTimeout(2000);
-
-  // Tests go here
-  // check('Page loads', !(await page.textContent('body')).includes('404'));
-
-  await browser.close();
-  console.log(`\nTOTAL: ${PASS.length + FAIL.length} | PASS: ${PASS.length} | FAIL: ${FAIL.length}`);
-  if (FAIL.length) { FAIL.forEach(f => console.log('  FAIL -', f)); }
-  else { console.log('ALL TESTS PASSED!'); }
-})().catch(e => { console.error('ERROR:', e.message); process.exit(1); });
-```
-
-### Clean Up
-
-Delete test scripts after verification: `rm -f /home/will/ReactCRM/pw-test.cjs`
-
 ---
 
-## Deployment URLs
+## Known Issues & Priorities
 
-| Service | URL |
-|---------|-----|
-| Frontend | https://react.ecbtx.com |
-| API | https://react-crm-api-production.up.railway.app/api/v2 |
-| Uptime Kuma | https://uptime-kuma-production-3500.up.railway.app |
-| Legacy | https://crm.ecbtx.com |
+### Current Sprint Focus
+- **AI Assistant Integration:** Voice command processing and natural language workflows
+- **Call Intelligence:** Advanced sentiment analysis and automated lead scoring  
+- **Mobile Optimization:** Offline-capable field technician interface
+- **Commission Engine:** Automated calculation with manager approval workflow
 
----
+### Banned Bugs (NEVER Reintroduce)
+| Bug | Wrong | Correct |
+|-----|-------|---------|
+| `/app/` prefix | `<Link to="/app/customers">` | `<Link to="/customers">` |
+| Double `/api` | `apiClient.get('/api/customers/')` | `apiClient.get('/customers/')` |
+| PATCH 500 | No error handling | try/catch + validation |
+| Fake Playwright | "I verified..." without proof | Full script + evidence bundle |
 
-## Railway Infrastructure (Updated 2026-02-12)
-
-### Project: Mac-CRM-React
-- **Project ID:** `2f53f388-7aa5-41eb-842e-e565b1a8fdcb`
-- **Workspace:** wburns02's Projects (`a82459bc-1ed6-433c-97f3-0e3310706ccd`)
-- **Region:** US East (Virginia) — `us-east4-eqdc4a`
-
-### Environments
-| Environment | ID | Purpose |
-|-------------|-----|---------|
-| **production** | `111ffeb6-6b6b-4d0b-9f1a-af621704c363` | Live production |
-| **staging** | `ca636a04-fc1e-481f-b42b-23106c9d6347` | Testing before production (duplicated from prod) |
-
-**PR Deploys: ENABLED** — Every PR gets its own preview environment with unique URL.
-
-### Services (Production)
-| Service | ID | Type | Status |
-|---------|-----|------|--------|
-| **Mac-Septic-CRM** (frontend) | `fd8ee9bd-3449-4c5a-9110-6de8af3a3a72` | GitHub: wburns02/ReactCRM | react.ecbtx.com |
-| **react-crm-api** (backend) | `bdab375c-d825-43bb-869a-b23224bd6a9f` | GitHub: wburns02/react-crm-api | react-crm-api-production.up.railway.app |
-| **Postgres** | `f4704085-831e-4c44-bbff-51a210268e14` | PostgreSQL 17 (SSL) | Internal only |
-| **Redis** | *(new 2026-02-12)* | Redis 8.2.1 | Internal only (`redis.railway.internal:6379`) |
-| **Uptime Kuma** | *(new 2026-02-12)* | louislam/uptime-kuma:latest | uptime-kuma-production-3500.up.railway.app |
-| **function-bun** | `8971ba59-fdd3-4abb-8e56-f3c98afb22df` | Hono test server | SLEEPING (can be deleted) |
-
-### Railway CLI Linking
-Both repos are linked to Railway CLI (v4.29.0):
-- `/home/will/ReactCRM/` → Mac-Septic-CRM service
-- `/home/will/react-crm-api/` → react-crm-api service
-
-### Key Environment Variables on Backend
-| Variable | Value/Reference | Purpose |
-|----------|----------------|---------|
-| `DATABASE_URL` | `postgresql://...@postgres.railway.internal:5432/railway` | PostgreSQL connection |
-| `REDIS_URL` | `${{Redis.REDIS_URL}}` → `redis://...@redis.railway.internal:6379` | Redis caching |
-| `ENVIRONMENT` | `production` | Runtime environment flag |
-
-### Railway Skill Quick Reference
-Use these Claude Code skills for infrastructure management:
-| Skill | Example Use |
-|-------|-------------|
-| `railway-status` | "Is production up?" |
-| `railway-deployment` | "Show me the last 50 backend logs" / "Why did deploy fail?" |
-| `railway-environment` | "Add env var FOO=bar to backend" / "Show all variables" |
-| `railway-metrics` | "What's the CPU/memory usage?" |
-| `railway-projects` | "Enable/disable PR deploys" |
-| `railway-database` | "Add a new database service" |
-| `railway-templates` | "Deploy n8n / Minio / etc." |
-
-### Resource Usage (as of 2026-02-12)
-- **Backend memory:** ~426 MB (limit: 32 GB) — very healthy
-- **CPU:** Minimal usage, well under 32-core limit
-- **Samsara poller:** Runs every 5 seconds (visible in logs as httpx INFO)
-
----
-
-## Tech Stack Summary
-
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 19, TypeScript 5.9, Vite 7, TanStack Query, Tailwind 4 |
-| Backend | FastAPI, SQLAlchemy 2.0 async, PostgreSQL 16, Redis 8.2.1 |
-| Testing | Playwright, Vitest |
-| Deployment | Railway (git push auto-deploy) |
-| Monitoring | Uptime Kuma (self-hosted) |
+### Recent Fixes
+- **2026-03-05:** Fixed `pw-pentest.cjs` monitoring script module imports
+- **2026-02-28:** Dannia Live Assist caller-focused transcript filtering
+- **2026-02-27:** Playwright module import resolution in pentest automation
 
 ---
 
@@ -428,35 +239,23 @@ Use these Claude Code skills for infrastructure management:
 ```env
 # Frontend (.env.production)
 VITE_API_URL=https://react-crm-api-production.up.railway.app/api/v2
-
-# Sentry Error Tracking (Optional)
 VITE_SENTRY_DSN=https://your-key@o123456.ingest.sentry.io/123456
 
-# Backend (set on Railway, NOT in local .env)
+# Backend (Railway environment)
 DATABASE_URL=postgresql://...@postgres.railway.internal:5432/railway
 REDIS_URL=redis://...@redis.railway.internal:6379
 SECRET_KEY=...
 ENVIRONMENT=production
 ```
 
-### Sentry DSN Configuration
-
-To enable Sentry error tracking:
-1. Create a Sentry account at https://sentry.io
-2. Create a new React project
-3. Copy the DSN from Project Settings > Client Keys (DSN)
-4. Add `VITE_SENTRY_DSN` to Railway environment variables
-5. Redeploy the frontend
-
-Without VITE_SENTRY_DSN, error tracking is disabled (console shows "[Sentry] DSN not configured").
-
 ---
 
-## For Detailed Documentation
+## Activation Commands
 
-See the `claude-docs/` folder:
+**Enter Relentless Mode:**
+- `"Enter relentless autonomous troubleshooter mode"`
+- `"Fix until all tests pass and zero console errors"`
 
-- **[README.md](claude-docs/README.md)** — System overview, quick start
-- **[quick-reference.md](claude-docs/quick-reference.md)** — Activation commands, banned bugs, evidence format
-- **[frontend.md](claude-docs/frontend.md)** — React architecture, components, performance
-- **[backend.md](claude-docs/backend.md)** — API endpoints, models, database
+**When to use Playwright:** ANY UI check, error reproduction, drag test, page load verification
+
+> **CRITICAL:** This document contains binding rules. Violations invalidate the entire response.
