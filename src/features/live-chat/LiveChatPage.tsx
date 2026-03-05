@@ -201,13 +201,22 @@ export function LiveChatPage() {
     [],
   );
 
-  // Close context menu on click anywhere
+  // Close context menu on click anywhere (delayed to avoid catching the opening event)
   useEffect(() => {
     if (!contextMenu) return;
-    const handler = () => setContextMenu(null);
-    window.addEventListener("click", handler);
-    window.addEventListener("contextmenu", handler);
+    const handler = (e: MouseEvent) => {
+      // Don't close if clicking inside the context menu itself
+      const target = e.target as HTMLElement;
+      if (target.closest("[data-context-menu]")) return;
+      setContextMenu(null);
+    };
+    // Delay attachment so the opening right-click doesn't immediately dismiss
+    const raf = requestAnimationFrame(() => {
+      window.addEventListener("click", handler);
+      window.addEventListener("contextmenu", handler);
+    });
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener("click", handler);
       window.removeEventListener("contextmenu", handler);
     };
@@ -639,6 +648,7 @@ export function LiveChatPage() {
       {/* ── Right-click Context Menu ──────────────────────────────────── */}
       {contextMenu && (
         <div
+          data-context-menu
           className="fixed z-50 min-w-[180px] bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-600 py-1.5 animate-in fade-in zoom-in-95 duration-100"
           style={{
             left: Math.min(contextMenu.x, window.innerWidth - 200),
