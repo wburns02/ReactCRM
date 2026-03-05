@@ -13,7 +13,7 @@
  * 6. History - Activity timeline
  */
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -320,6 +320,53 @@ export function WorkOrderEditModal({
           notes: "",
         },
   });
+
+  useEffect(() => {
+    if (open) {
+      reset(
+        workOrder
+          ? {
+              customer_id: String(workOrder.customer_id),
+              job_type: workOrder.job_type as JobType,
+              status: workOrder.status as WorkOrderStatus,
+              priority: workOrder.priority as Priority,
+              scheduled_date: workOrder.scheduled_date || "",
+              time_window_start: workOrder.time_window_start?.slice(0, 5) || "",
+              time_window_end: workOrder.time_window_end?.slice(0, 5) || "",
+              estimated_duration_hours:
+                workOrder.estimated_duration_hours || undefined,
+              assigned_technician: workOrder.assigned_technician || "",
+              assigned_vehicle: workOrder.assigned_vehicle || "",
+              service_address_line1: workOrder.service_address_line1 || "",
+              service_address_line2: workOrder.service_address_line2 || "",
+              service_city: workOrder.service_city || "",
+              service_state: workOrder.service_state || "",
+              service_postal_code: workOrder.service_postal_code || "",
+              system_type: workOrder.system_type || "conventional",
+              notes: workOrder.notes || "",
+            }
+          : {
+              customer_id: "",
+              job_type: "pumping" as JobType,
+              status: "draft" as WorkOrderStatus,
+              priority: "normal" as Priority,
+              scheduled_date: "",
+              time_window_start: "",
+              time_window_end: "",
+              estimated_duration_hours: 1,
+              assigned_technician: "",
+              assigned_vehicle: "",
+              service_address_line1: "",
+              service_address_line2: "",
+              service_city: "",
+              service_state: "",
+              service_postal_code: "",
+              system_type: "conventional",
+              notes: "",
+            },
+      );
+    }
+  }, [open, workOrder, reset]);
 
   const customerId = watch("customer_id");
 

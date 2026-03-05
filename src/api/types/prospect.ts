@@ -73,7 +73,7 @@ export const prospectFormSchema = z.object({
   state: z.string().max(2, "Use 2-letter state code").optional(),
   postal_code: z.string().optional(),
   prospect_stage: prospectStageSchema,
-  lead_source: leadSourceSchema.optional(),
+  lead_source: z.union([leadSourceSchema, z.literal("")]).optional().transform(v => v === "" ? undefined : v),
   estimated_value: z.coerce.number().min(0).optional(),
   assigned_sales_rep: z.string().optional(),
   next_follow_up_date: z.string().optional(),

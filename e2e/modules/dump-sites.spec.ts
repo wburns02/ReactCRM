@@ -73,6 +73,19 @@ test.describe('Dump Sites', () => {
       console.log('Error message:', errorText);
     }
 
+    // Cleanup: delete all Playwright test dump sites
+    const sites = await page.evaluate(async () => {
+      const resp = await fetch('/api/v2/dump-sites/', { credentials: 'include' });
+      const data = await resp.json();
+      return data.sites?.filter((s: { name: string }) => s.name?.includes('Playwright Test')) || [];
+    });
+    for (const site of sites) {
+      await page.evaluate(async (id) => {
+        await fetch(`/api/v2/dump-sites/${id}`, { method: 'DELETE', credentials: 'include' });
+      }, site.id);
+    }
+    console.log(`Cleaned up ${sites.length} test dump sites`);
+
     console.log('Test completed');
   });
 });

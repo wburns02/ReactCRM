@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button.tsx";
@@ -111,6 +112,69 @@ export function CustomerForm({
           system_issued_date: "",
         },
   });
+
+  useEffect(() => {
+    if (open) {
+      reset(
+        customer
+          ? {
+              first_name: customer.first_name || "",
+              last_name: customer.last_name || "",
+              email: customer.email || "",
+              phone: customer.phone || "",
+              address_line1: customer.address_line1 || "",
+              address_line2: customer.address_line2 || "",
+              city: customer.city || "",
+              state: customer.state || "",
+              postal_code: customer.postal_code || "",
+              customer_type:
+                (customer.customer_type as
+                  | "residential"
+                  | "commercial"
+                  | "hoa"
+                  | "municipal"
+                  | "property_management"
+                  | undefined) || undefined,
+              prospect_stage: (customer.prospect_stage as CustomerFormData["prospect_stage"]) || undefined,
+              lead_source: (customer.lead_source as CustomerFormData["lead_source"]) || undefined,
+              estimated_value: customer.estimated_value || undefined,
+              assigned_sales_rep: customer.assigned_sales_rep || "",
+              next_follow_up_date: customer.next_follow_up_date || "",
+              lead_notes: customer.lead_notes || "",
+              is_active: customer.is_active,
+              system_type: customer.system_type || undefined,
+              manufacturer: customer.manufacturer || undefined,
+              tank_size_gallons: customer.tank_size_gallons || undefined,
+              installer_name: customer.installer_name || undefined,
+              system_issued_date: customer.system_issued_date || "",
+            }
+          : {
+              first_name: "",
+              last_name: "",
+              email: "",
+              phone: "",
+              address_line1: "",
+              address_line2: "",
+              city: "",
+              state: "",
+              postal_code: "",
+              customer_type: undefined,
+              prospect_stage: undefined,
+              lead_source: undefined,
+              estimated_value: undefined,
+              assigned_sales_rep: "",
+              next_follow_up_date: "",
+              lead_notes: "",
+              is_active: true,
+              system_type: undefined,
+              manufacturer: undefined,
+              tank_size_gallons: undefined,
+              installer_name: undefined,
+              system_issued_date: "",
+            },
+      );
+    }
+  }, [open, customer, reset]);
 
   const handleClose = () => {
     reset();
@@ -239,6 +303,11 @@ export function CustomerForm({
                       ),
                     )}
                   </Select>
+                  {errors.customer_type && (
+                    <p className="text-sm text-danger">
+                      {errors.customer_type.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -327,6 +396,11 @@ export function CustomerForm({
                       ),
                     )}
                   </Select>
+                  {errors.prospect_stage && (
+                    <p className="text-sm text-danger">
+                      {errors.prospect_stage.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -341,6 +415,11 @@ export function CustomerForm({
                       ),
                     )}
                   </Select>
+                  {errors.lead_source && (
+                    <p className="text-sm text-danger">
+                      {errors.lead_source.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
