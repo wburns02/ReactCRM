@@ -58,7 +58,7 @@ export function useScheduleEngine() {
     const needsGeneration =
       !currentSchedule || currentSchedule.weekStart !== currentWeekStart;
 
-    if (needsGeneration && callableContacts.length > 0) {
+    if ((needsGeneration || activeCampaignId) && callableContacts.length > 0) {
       const schedule = generateWeeklyPlan(
         callableContacts,
         config,
@@ -67,15 +67,18 @@ export function useScheduleEngine() {
       setSchedule(schedule);
       addAuditEntry({
         action: "schedule_generated",
-        reason: `Weekly schedule generated for week of ${currentWeekStart}`,
+        reason: activeCampaignId
+          ? `Schedule regenerated for campaign ${activeCampaignId}`
+          : `Weekly schedule generated for week of ${currentWeekStart}`,
         details: {
           totalContacts: callableContacts.length,
           daysPlanned: schedule.days.length,
           callbackReserve: schedule.callbackReserve,
+          campaignFilter: activeCampaignId ?? "all",
         },
       });
     }
-  }, [callableContacts.length]); // Only re-run when callable count changes significantly
+  }, [callableContacts.length, activeCampaignId]); // Re-run when callable count or campaign changes
 
   // Regenerate a specific day
   const regenerateDay = useCallback(
