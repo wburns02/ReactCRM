@@ -162,30 +162,44 @@ export function useScheduleEngine() {
   const todayPlan = useDanniaStore((s) => s.getTodayPlan());
   const currentBlock = useDanniaStore((s) => s.getCurrentBlock());
 
-  // Get next N contacts from current block
+  // Get next N contacts — tries current block, then any block, then falls back to callable contacts
   const getNextContacts = useCallback(
     (count: number = 5): CampaignContact[] => {
-      if (!currentBlock) {
-        // Find the next active block
-        if (!todayPlan) return [];
+      // 1. Current time block
+      if (currentBlock) {
+        const remaining = currentBlock.contactIds.filter(
+          (id) => !currentBlock.completedIds.includes(id),
+        );
+        if (remaining.length > 0) return getBlockContacts(remaining.slice(0, count));
+      }
+
+      // 2. Any future block today
+      if (todayPlan) {
         const now = new Date();
         const currentHour = now.getHours() + now.getMinutes() / 60;
         const nextBlock = todayPlan.blocks.find(
           (b) => b.capacity > 0 && b.endHour > currentHour && b.contactIds.length > 0,
         );
-        if (!nextBlock) return [];
-        const remaining = nextBlock.contactIds.filter(
-          (id) => !nextBlock.completedIds.includes(id),
-        );
-        return getBlockContacts(remaining.slice(0, count));
+        if (nextBlock) {
+          const remaining = nextBlock.contactIds.filter(
+            (id) => !nextBlock.completedIds.includes(id),
+          );
+          if (remaining.length > 0) return getBlockContacts(remaining.slice(0, count));
+        }
+
+        // 3. Any block with remaining contacts (outside working hours)
+        for (const block of todayPlan.blocks) {
+          const remaining = block.contactIds.filter(
+            (id) => !block.completedIds.includes(id),
+          );
+          if (remaining.length > 0) return getBlockContacts(remaining.slice(0, count));
+        }
       }
 
-      const remaining = currentBlock.contactIds.filter(
-        (id) => !currentBlock.completedIds.includes(id),
-      );
-      return getBlockContacts(remaining.slice(0, count));
+      // 4. Fallback: return callable contacts directly (always have something to dial)
+      return callableContacts.slice(0, count);
     },
-    [currentBlock, todayPlan, getBlockContacts],
+    [currentBlock, todayPlan, getBlockContacts, callableContacts],
   );
 
   return {
