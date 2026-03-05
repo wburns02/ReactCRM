@@ -162,9 +162,7 @@ export function LiveChatPage() {
 
   const markAsReadMutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await apiClient.patch(`/chat/conversations/${id}`, {
-        unread_count: 0,
-      });
+      const response = await apiClient.post(`/chat/conversations/${id}/mark-read`);
       return response.data;
     },
     onSuccess: () => {

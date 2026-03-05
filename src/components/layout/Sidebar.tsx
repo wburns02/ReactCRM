@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Truck, ChevronDown, Sun, Moon, LogOut } from "lucide-react";
 import { EntitySwitcher } from "@/components/layout/EntitySwitcher";
 import { topNavItems, techNavItems, navGroups, type NavGroup } from "./navConfig";
+import { useLiveChatUnread } from "@/features/live-chat/useLiveChatUnread";
 
 interface SidebarProps {
   user: { first_name?: string; last_name?: string; email?: string } | null;
@@ -14,6 +15,7 @@ interface SidebarProps {
 
 export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: SidebarProps) {
   const location = useLocation();
+  const { totalUnread } = useLiveChatUnread();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     const saved = localStorage.getItem("sidebarExpandedGroups");
     return saved ? new Set(JSON.parse(saved)) : new Set(["operations"]);
@@ -98,7 +100,11 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
                     >
                       <Icon className={`w-[18px] h-[18px] shrink-0 transition-colors ${active ? "text-[#2aabe1]" : ""}`} />
                       <span className="truncate">{item.label}</span>
-                      {item.badge === "LIVE" ? (
+                      {item.path === "/live-chat" && totalUnread > 0 ? (
+                        <span className="ml-auto flex items-center gap-1 px-1.5 py-0.5 text-[9px] rounded-full font-bold shrink-0 bg-red-500 text-white animate-pulse">
+                          {totalUnread > 99 ? "99+" : totalUnread}
+                        </span>
+                      ) : item.badge === "LIVE" ? (
                         <span className="ml-auto flex items-center gap-1 px-1.5 py-0.5 text-[9px] rounded font-semibold shrink-0 bg-emerald-500/20 text-emerald-400">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                           {item.badge}
