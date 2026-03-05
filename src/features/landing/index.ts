@@ -13,6 +13,7 @@ export { LandingFooter } from "./components/LandingFooter";
 export { LeadCaptureForm } from "./components/LeadCaptureForm";
 export { useLeadSubmit } from "./hooks/useLeadSubmit";
 export { PublicBookingPage } from "./pages/PublicBookingPage";
+export { NashvilleLandingPage } from "./pages/NashvilleLandingPage";
 
 // Types
 export type { UTMParams, LeadFormData, LeadSubmitData } from "./types/lead";

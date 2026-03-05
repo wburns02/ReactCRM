@@ -58,6 +58,12 @@ const PublicBookingPage = lazy(() =>
     default: m.PublicBookingPage,
   })),
 );
+
+const NashvilleLandingPage = lazy(() =>
+  import("@/features/landing/pages/NashvilleLandingPage.tsx").then((m) => ({
+    default: m.NashvilleLandingPage,
+  })),
+);
 /**
  * Public routes - no authentication required
  * Includes: landing page, login, embeddable widgets, tracking, public payment
@@ -102,6 +108,16 @@ export function PublicRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <PublicBookingPage />
+          </Suspense>
+        }
+      />
+
+      {/* Nashville Landing & Booking Page */}
+      <Route
+        path="/nashville"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <NashvilleLandingPage />
           </Suspense>
         }
       />
