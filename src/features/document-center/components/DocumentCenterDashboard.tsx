@@ -76,10 +76,10 @@ export function DocumentCenterDashboard({ stats, isLoading, error }: DocumentCen
   }
 
   // Calculate additional metrics
-  const openRate = calculateOpenRate(stats.viewed_count, stats.sent_this_month);
+  const openRate = calculateOpenRate(stats.viewed_count ?? 0, stats.sent_this_month ?? 0);
 
   // Prepare chart data for last 12 months
-  const chartData = stats.monthly_counts.map((month) => ({
+  const chartData = (stats.monthly_counts ?? []).map((month) => ({
     month: new Date(month.month + "-01").toLocaleDateString("en-US", { month: "short", year: "numeric" }),
     invoices: month.invoices,
     quotes: month.quotes,
@@ -94,12 +94,12 @@ export function DocumentCenterDashboard({ stats, isLoading, error }: DocumentCen
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Total Documents"
-          value={stats.total_documents.toLocaleString()}
+          value={(stats.total_documents ?? 0).toLocaleString()}
           icon={<FileText size={24} />}
         />
         <StatCard
           title="Sent This Month"
-          value={stats.sent_this_month.toLocaleString()}
+          value={(stats.sent_this_month ?? 0).toLocaleString()}
           icon={<Send size={24} />}
         />
         <StatCard
@@ -111,9 +111,9 @@ export function DocumentCenterDashboard({ stats, isLoading, error }: DocumentCen
         />
         <StatCard
           title="Pending Drafts"
-          value={stats.pending_drafts.toLocaleString()}
+          value={(stats.pending_drafts ?? 0).toLocaleString()}
           icon={<Clock size={24} />}
-          className={stats.pending_drafts > 10 ? "border-yellow-200 bg-yellow-50" : ""}
+          className={(stats.pending_drafts ?? 0) > 10 ? "border-yellow-200 bg-yellow-50" : ""}
         />
       </div>
 
