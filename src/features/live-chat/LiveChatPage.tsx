@@ -13,6 +13,8 @@ import {
   Trash2,
   XCircle,
   Eye,
+  Phone,
+  PhoneCall,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -30,12 +32,22 @@ interface ChatConversation {
   id: string;
   visitor_name: string | null;
   visitor_email: string | null;
+  visitor_phone: string | null;
   status: "active" | "closed";
   unread_count: number;
   last_message?: string;
   last_message_at?: string;
   created_at: string;
   messages?: ChatMessage[];
+  callback_requested?: boolean;
+}
+
+interface ChatStatus {
+  online: boolean;
+  hours: string;
+  days: string;
+  message: string;
+  current_time_cst: string;
 }
 
 type FilterStatus = "active" | "closed" | "all";
@@ -79,6 +91,22 @@ export function LiveChatPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // ── Fetch business hours status ─────────────────────────────────────
+
+  const { data: chatStatus } = useQuery({
+    queryKey: ["chat-status"],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get("/chat/status");
+        return response.data as ChatStatus;
+      } catch {
+        return null;
+      }
+    },
+    refetchInterval: 60000, // check every minute
+    staleTime: 30000,
+  });
 
   // ── Fetch conversations list ─────────────────────────────────────────
 
@@ -279,8 +307,10 @@ export function LiveChatPage() {
     "Anonymous Visitor";
   const visitorEmail =
     selectedConvSummary?.visitor_email || selectedConversation?.visitor_email;
+  const visitorPhone = selectedConvSummary?.visitor_phone;
   const convStatus =
     selectedConvSummary?.status || selectedConversation?.status || "active";
+  const isCallback = selectedConvSummary?.callback_requested;
 
   // ── Filter tabs ──────────────────────────────────────────────────────
 
@@ -297,22 +327,41 @@ export function LiveChatPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
-      {/* ── Prominent alert banner when customers are waiting ────────── */}
-      {activeCount > 0 && (
-        <div className="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-xl flex-shrink-0">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-white" />
-          </span>
-          <span className="text-sm font-semibold">
-            {activeCount} active conversation{activeCount !== 1 ? "s" : ""}
-            {totalUnread > 0 && ` — ${totalUnread} unread message${totalUnread !== 1 ? "s" : ""}`}
-          </span>
-          <span className="text-xs opacity-80 ml-auto">Right-click conversations for actions</span>
-        </div>
-      )}
+      {/* ── Status banner ────────────────────────────────────────────── */}
+      <div className={`flex items-center gap-3 px-4 py-2.5 text-white rounded-t-xl flex-shrink-0 ${
+        activeCount > 0
+          ? "bg-gradient-to-r from-green-600 to-emerald-600"
+          : chatStatus?.online
+            ? "bg-gradient-to-r from-blue-600 to-blue-500"
+            : "bg-gradient-to-r from-gray-600 to-gray-500"
+      }`}>
+        <span className="relative flex h-3 w-3">
+          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+            chatStatus?.online ? "bg-white" : "bg-amber-300"
+          }`} />
+          <span className={`relative inline-flex rounded-full h-3 w-3 ${
+            chatStatus?.online ? "bg-white" : "bg-amber-300"
+          }`} />
+        </span>
+        <span className="text-sm font-semibold">
+          {activeCount > 0 ? (
+            <>
+              {activeCount} active conversation{activeCount !== 1 ? "s" : ""}
+              {totalUnread > 0 && ` — ${totalUnread} unread message${totalUnread !== 1 ? "s" : ""}`}
+            </>
+          ) : chatStatus?.online ? (
+            "Online — Ready for chats"
+          ) : (
+            "Offline — Customers can leave messages"
+          )}
+        </span>
+        <span className="text-xs opacity-80 ml-auto flex items-center gap-2">
+          <Clock className="w-3 h-3" />
+          {chatStatus?.hours || "8:00 AM – 5:00 PM CST"} · {chatStatus?.days || "Mon–Fri"}
+        </span>
+      </div>
 
-      <div className={`flex flex-1 bg-white dark:bg-gray-900 ${activeCount > 0 ? "rounded-b-xl" : "rounded-xl"} border border-gray-200 dark:border-gray-700 overflow-hidden`}>
+      <div className="flex flex-1 bg-white dark:bg-gray-900 rounded-b-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
       {/* ── Left Panel: Conversation List ─────────────────────────────── */}
       <div className="w-[350px] flex-shrink-0 flex flex-col border-r border-gray-200 dark:border-gray-700">
         {/* Header */}
@@ -413,8 +462,14 @@ export function LiveChatPage() {
                         {/* Content */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                            <span className="text-sm font-medium text-gray-900 dark:text-white truncate flex items-center gap-1.5">
                               {conv.visitor_name || "Anonymous Visitor"}
+                              {conv.callback_requested && (
+                                <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[9px] font-bold rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                                  <PhoneCall className="w-2.5 h-2.5" />
+                                  CALLBACK
+                                </span>
+                              )}
                             </span>
                             <span className="text-[11px] text-gray-400 flex-shrink-0 ml-2">
                               {conv.last_message_at
@@ -422,6 +477,12 @@ export function LiveChatPage() {
                                 : relativeTime(conv.created_at)}
                             </span>
                           </div>
+                          {conv.callback_requested && conv.visitor_phone && (
+                            <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mt-0.5 flex items-center gap-1">
+                              <Phone className="w-3 h-3" />
+                              {conv.visitor_phone}
+                            </p>
+                          )}
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
                             {truncate(conv.last_message || "No messages yet", 60)}
                           </p>
@@ -477,10 +538,22 @@ export function LiveChatPage() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                  <h2 className="text-sm font-semibold text-gray-900 dark:text-white truncate flex items-center gap-2">
                     {visitorName}
+                    {isCallback && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-bold rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                        <PhoneCall className="w-3 h-3" />
+                        CALLBACK REQUESTED
+                      </span>
+                    )}
                   </h2>
                   <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    {isCallback && visitorPhone && (
+                      <a href={`tel:${visitorPhone}`} className="text-amber-600 dark:text-amber-400 font-medium hover:underline flex items-center gap-1">
+                        <Phone className="w-3 h-3" />
+                        {visitorPhone}
+                      </a>
+                    )}
                     {visitorEmail && (
                       <span className="truncate">{visitorEmail}</span>
                     )}
