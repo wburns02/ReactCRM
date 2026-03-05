@@ -9,6 +9,10 @@ import {
   Clock,
   User,
   Search,
+  CheckCheck,
+  Trash2,
+  XCircle,
+  Eye,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -35,6 +39,14 @@ interface ChatConversation {
 }
 
 type FilterStatus = "active" | "closed" | "all";
+
+interface ContextMenuState {
+  x: number;
+  y: number;
+  conversationId: string;
+  status: "active" | "closed";
+  unreadCount: number;
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────────
 
@@ -127,6 +139,10 @@ export function LiveChatPage() {
     },
   });
 
+  // ── Context menu state ───────────────────────────────────────────────
+
+  const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
+
   // ── Close conversation mutation ──────────────────────────────────────
 
   const closeConversationMutation = useMutation({
@@ -141,6 +157,61 @@ export function LiveChatPage() {
       queryClient.invalidateQueries({ queryKey: ["chat-conversation", selectedId] });
     },
   });
+
+  // ── Mark as read mutation ──────────────────────────────────────────
+
+  const markAsReadMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const response = await apiClient.patch(`/chat/conversations/${id}`, {
+        unread_count: 0,
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["chat-conversations"] });
+    },
+  });
+
+  // ── Delete conversation mutation ───────────────────────────────────
+
+  const deleteConversationMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const response = await apiClient.delete(`/chat/conversations/${id}`);
+      return response.data;
+    },
+    onSuccess: (_data, deletedId) => {
+      queryClient.invalidateQueries({ queryKey: ["chat-conversations"] });
+      if (selectedId === deletedId) setSelectedId(null);
+    },
+  });
+
+  // ── Context menu handlers ──────────────────────────────────────────
+
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent, conv: ChatConversation) => {
+      e.preventDefault();
+      setContextMenu({
+        x: e.clientX,
+        y: e.clientY,
+        conversationId: conv.id,
+        status: conv.status,
+        unreadCount: conv.unread_count,
+      });
+    },
+    [],
+  );
+
+  // Close context menu on click anywhere
+  useEffect(() => {
+    if (!contextMenu) return;
+    const handler = () => setContextMenu(null);
+    window.addEventListener("click", handler);
+    window.addEventListener("contextmenu", handler);
+    return () => {
+      window.removeEventListener("click", handler);
+      window.removeEventListener("contextmenu", handler);
+    };
+  }, [contextMenu]);
 
   // ── Auto-scroll to bottom on new messages ────────────────────────────
 
@@ -212,8 +283,29 @@ export function LiveChatPage() {
     { value: "all", label: "All" },
   ];
 
+  const totalUnread = useMemo(
+    () => conversations.reduce((sum, c) => sum + (c.unread_count || 0), 0),
+    [conversations],
+  );
+
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div className="flex flex-col h-[calc(100vh-4rem)]">
+      {/* ── Prominent alert banner when customers are waiting ────────── */}
+      {activeCount > 0 && (
+        <div className="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-xl flex-shrink-0">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-white" />
+          </span>
+          <span className="text-sm font-semibold">
+            {activeCount} active conversation{activeCount !== 1 ? "s" : ""}
+            {totalUnread > 0 && ` — ${totalUnread} unread message${totalUnread !== 1 ? "s" : ""}`}
+          </span>
+          <span className="text-xs opacity-80 ml-auto">Right-click conversations for actions</span>
+        </div>
+      )}
+
+      <div className={`flex flex-1 bg-white dark:bg-gray-900 ${activeCount > 0 ? "rounded-b-xl" : "rounded-xl"} border border-gray-200 dark:border-gray-700 overflow-hidden`}>
       {/* ── Left Panel: Conversation List ─────────────────────────────── */}
       <div className="w-[350px] flex-shrink-0 flex flex-col border-r border-gray-200 dark:border-gray-700">
         {/* Header */}
@@ -226,7 +318,7 @@ export function LiveChatPage() {
               </h1>
             </div>
             {activeCount > 0 && (
-              <span className="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full">
+              <span className="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full animate-pulse">
                 {activeCount} active
               </span>
             )}
@@ -289,6 +381,7 @@ export function LiveChatPage() {
                   <li key={conv.id}>
                     <button
                       onClick={() => setSelectedId(conv.id)}
+                      onContextMenu={(e) => handleContextMenu(e, conv)}
                       className={`w-full text-left px-4 py-3 border-b border-gray-100 dark:border-gray-800 transition-colors ${
                         isSelected
                           ? "bg-green-50 dark:bg-green-900/20 border-l-2 border-l-green-500"
@@ -542,6 +635,66 @@ export function LiveChatPage() {
           </>
         )}
       </div>
+      </div>
+      {/* ── Right-click Context Menu ──────────────────────────────────── */}
+      {contextMenu && (
+        <div
+          className="fixed z-50 min-w-[180px] bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-600 py-1.5 animate-in fade-in zoom-in-95 duration-100"
+          style={{
+            left: Math.min(contextMenu.x, window.innerWidth - 200),
+            top: Math.min(contextMenu.y, window.innerHeight - 220),
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => {
+              setSelectedId(contextMenu.conversationId);
+              setContextMenu(null);
+            }}
+            className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            <Eye className="w-4 h-4 text-gray-500" />
+            Open Conversation
+          </button>
+          {contextMenu.unreadCount > 0 && (
+            <button
+              onClick={() => {
+                markAsReadMutation.mutate(contextMenu.conversationId);
+                setContextMenu(null);
+              }}
+              className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <CheckCheck className="w-4 h-4 text-blue-500" />
+              Mark as Read
+            </button>
+          )}
+          {contextMenu.status === "active" && (
+            <button
+              onClick={() => {
+                closeConversationMutation.mutate(contextMenu.conversationId);
+                setContextMenu(null);
+              }}
+              className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <XCircle className="w-4 h-4 text-amber-500" />
+              Close Conversation
+            </button>
+          )}
+          <div className="my-1 border-t border-gray-200 dark:border-gray-600" />
+          <button
+            onClick={() => {
+              if (confirm("Delete this conversation? This cannot be undone.")) {
+                deleteConversationMutation.mutate(contextMenu.conversationId);
+              }
+              setContextMenu(null);
+            }}
+            className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+            Delete Conversation
+          </button>
+        </div>
+      )}
     </div>
   );
 }

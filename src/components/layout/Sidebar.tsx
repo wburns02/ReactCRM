@@ -98,7 +98,18 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
                     >
                       <Icon className={`w-[18px] h-[18px] shrink-0 transition-colors ${active ? "text-[#2aabe1]" : ""}`} />
                       <span className="truncate">{item.label}</span>
-                      {active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#2aabe1] shrink-0" />}
+                      {item.badge === "LIVE" ? (
+                        <span className="ml-auto flex items-center gap-1 px-1.5 py-0.5 text-[9px] rounded font-semibold shrink-0 bg-emerald-500/20 text-emerald-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          {item.badge}
+                        </span>
+                      ) : item.badge ? (
+                        <span className="ml-auto px-1.5 py-0.5 text-[9px] rounded font-semibold shrink-0 bg-amber-500/20 text-amber-400">
+                          {item.badge}
+                        </span>
+                      ) : active ? (
+                        <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#2aabe1] shrink-0" />
+                      ) : null}
                     </Link>
                   </li>
                 );

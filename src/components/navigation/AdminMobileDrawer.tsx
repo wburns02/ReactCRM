@@ -28,6 +28,7 @@ const topNavItems: NavItem[] = [
   { path: "/customers", label: "Customers", icon: "👥" },
   { path: "/prospects", label: "Prospects", icon: "📋" },
   { path: "/schedule", label: "Schedule", icon: "📅" },
+  { path: "/live-chat", label: "Live Chat", icon: "💬", badge: "LIVE" },
 ];
 
 const navGroups: NavGroup[] = [
@@ -271,7 +272,16 @@ export function AdminMobileDrawer({ open, onClose }: AdminMobileDrawerProps) {
                 }`}
               >
                 <span className="text-lg w-7 text-center">{item.icon}</span>
-                {item.label}
+                <span className="flex-1">{item.label}</span>
+                {item.badge && (
+                  <span className={`px-1.5 py-0.5 text-[10px] rounded font-semibold ${
+                    item.badge === "LIVE"
+                      ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                      : "bg-warning/20 text-warning"
+                  }`}>
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             ))}
           </div>
