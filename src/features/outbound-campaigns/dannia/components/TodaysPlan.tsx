@@ -180,7 +180,7 @@ export function TodaysPlan({ onStartDialing, dialingActive }: TodaysPlanProps) {
                         {contact.account_name}
                       </span>
                       <span className="text-[10px] font-mono text-text-tertiary">
-                        (979) 236-1958
+                        {contact.phone?.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3") ?? "—"}
                       </span>
                       {zc && (
                         <span

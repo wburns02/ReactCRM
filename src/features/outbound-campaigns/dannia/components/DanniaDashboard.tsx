@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Calendar, FileText, Headphones, LayoutDashboard } from "lucide-react";
 import { useOutboundStore } from "../../store";
 import { useDanniaStore } from "../danniaStore";
@@ -14,11 +14,21 @@ type DanniaTab = "today" | "week" | "report" | "calls";
 export function DanniaDashboard() {
   const [activeTab, setActiveTab] = useState<DanniaTab>("today");
   const campaigns = useOutboundStore((s) => s.campaigns);
+  const activeCampaignId = useOutboundStore((s) => s.activeCampaignId);
   const dialingActive = useDanniaStore((s) => s.dialingActive);
   const setDialingActive = useDanniaStore((s) => s.setDialingActive);
 
   // Find first active campaign for the dialer
-  const activeCampaign = campaigns.find((c) => c.status === "active");
+  const activeCampaign = activeCampaignId
+    ? campaigns.find((c) => c.id === activeCampaignId && c.status === "active")
+    : campaigns.find((c) => c.status === "active");
+
+  // Auto-select the active campaign in the outbound store on mount
+  useEffect(() => {
+    if (!activeCampaignId && activeCampaign) {
+      useOutboundStore.getState().setActiveCampaign(activeCampaign.id);
+    }
+  }, [activeCampaignId, activeCampaign]);
 
   const handleStartDialing = useCallback(() => {
     if (dialingActive) {

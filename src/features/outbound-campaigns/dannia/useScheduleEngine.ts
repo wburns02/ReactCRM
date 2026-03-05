@@ -17,21 +17,25 @@ export function useScheduleEngine() {
   const setSchedule = useDanniaStore((s) => s.setSchedule);
   const addAuditEntry = useDanniaStore((s) => s.addAuditEntry);
 
-  // Get all callable contacts across all active campaigns
+  const activeCampaignId = useOutboundStore((s) => s.activeCampaignId);
+
+  // Get callable contacts — scoped to activeCampaignId if set, else all active campaigns
   const callableContacts = useMemo(() => {
-    const activeCampaignIds = campaigns
-      .filter((c) => c.status === "active")
-      .map((c) => c.id);
+    const targetCampaignIds = activeCampaignId
+      ? [activeCampaignId]
+      : campaigns
+          .filter((c) => c.status === "active")
+          .map((c) => c.id);
 
     return allContacts.filter(
       (c) =>
-        activeCampaignIds.includes(c.campaign_id) &&
+        targetCampaignIds.includes(c.campaign_id) &&
         ["pending", "queued", "no_answer", "busy", "callback_scheduled"].includes(
           c.call_status,
         ) &&
         c.call_status !== "do_not_call",
     );
-  }, [campaigns, allContacts]);
+  }, [campaigns, allContacts, activeCampaignId]);
 
   // Build context for v2 scoring
   const scoringContext = useMemo(() => {
