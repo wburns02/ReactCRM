@@ -1,5 +1,5 @@
 import { useRef, useEffect, useMemo } from "react";
-import { Mic, MicOff, X, Sparkles, AlertTriangle } from "lucide-react";
+import { Mic, MicOff, X, Sparkles, AlertTriangle, ClipboardCopy } from "lucide-react";
 import type { CampaignContact } from "../../types";
 import {
   useTranscriptionAssist,
@@ -12,12 +12,14 @@ interface LiveTranscriptPanelProps {
   contact: CampaignContact | null;
   isOnCall: boolean;
   onTranscriptCapture?: (transcript: string) => void;
+  onUseAsNotes?: (text: string) => void;
 }
 
 export function LiveTranscriptPanel({
   contact,
   isOnCall,
   onTranscriptCapture,
+  onUseAsNotes,
 }: LiveTranscriptPanelProps) {
   const {
     isListening,
@@ -78,10 +80,10 @@ export function LiveTranscriptPanel({
         <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
           <Mic className="w-8 h-8 text-text-tertiary mb-2" />
           <p className="text-xs text-text-tertiary">
-            Start a call to activate live AI transcription
+            Start a call — AI will detect caller questions and show you answers
           </p>
           <p className="text-[10px] text-text-tertiary mt-1">
-            Real-time speech detection will surface answers as the customer asks questions
+            Use speakerphone for best caller detection
           </p>
         </div>
 
@@ -103,12 +105,13 @@ export function LiveTranscriptPanel({
     <div className="flex flex-col flex-1 min-h-0">
       {/* Auto-suggest cards strip */}
       {activeSuggestions.length > 0 && (
-        <div className="border-b border-border bg-gradient-to-r from-emerald-500/5 to-blue-500/5 px-2 py-1.5 space-y-1 max-h-[120px] overflow-y-auto">
+        <div className="border-b border-border bg-gradient-to-r from-emerald-500/5 to-blue-500/5 px-2 py-2 space-y-1.5 max-h-[200px] overflow-y-auto">
           {activeSuggestions.map((card) => (
             <SuggestionCard
               key={card.id}
               card={card}
               onDismiss={() => dismissSuggestion(card.id)}
+              onUseAsNotes={onUseAsNotes ? () => onUseAsNotes(card.answer) : undefined}
             />
           ))}
         </div>
@@ -121,11 +124,11 @@ export function LiveTranscriptPanel({
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <span className="text-xs font-medium text-text-secondary">
-                Listening...
+                Listening for caller questions...
               </span>
             </div>
             <p className="text-[10px] text-text-tertiary">
-              Speak naturally — questions will be detected and answered automatically
+              Caller questions will be detected and answered automatically
             </p>
           </div>
         )}
@@ -204,27 +207,38 @@ export function LiveTranscriptPanel({
 function SuggestionCard({
   card,
   onDismiss,
+  onUseAsNotes,
 }: {
   card: AutoSuggestCard;
   onDismiss: () => void;
+  onUseAsNotes?: () => void;
 }) {
   const catInfo = KB_CATEGORIES[card.category as KBCategory] || KB_CATEGORIES.service;
 
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-purple-200 dark:border-purple-800/50 bg-white dark:bg-bg-card px-2.5 py-1.5 animate-in slide-in-from-top-2">
-      <Sparkles className="w-3.5 h-3.5 shrink-0 mt-0.5 text-purple-500" />
+    <div className="flex items-start gap-2 rounded-lg border border-purple-200 dark:border-purple-800/50 bg-white dark:bg-bg-card px-3 py-2 animate-in slide-in-from-top-2">
+      <Sparkles className="w-4 h-4 shrink-0 mt-0.5 text-purple-500" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 mb-0.5">
-          <span className={`text-[9px] font-bold px-1 py-0 rounded ${catInfo.color}`}>
+          <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${catInfo.color}`}>
             {catInfo.label}
           </span>
           <span className="text-[10px] text-text-tertiary truncate">
             {card.question}
           </span>
         </div>
-        <p className="text-[11px] leading-relaxed text-text-primary line-clamp-2">
+        <p className="text-xs leading-relaxed text-text-primary font-medium line-clamp-3">
           {card.answer}
         </p>
+        {onUseAsNotes && (
+          <button
+            onClick={onUseAsNotes}
+            className="flex items-center gap-1 mt-1 text-[10px] font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+          >
+            <ClipboardCopy className="w-3 h-3" />
+            Use as Notes
+          </button>
+        )}
       </div>
       <button
         onClick={onDismiss}

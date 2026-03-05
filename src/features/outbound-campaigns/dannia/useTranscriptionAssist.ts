@@ -40,6 +40,7 @@ interface UseTranscriptionAssistReturn {
 }
 
 const AUTO_DISMISS_MS = 30_000; // 30 seconds
+const MIN_CARD_CONFIDENCE = 0.7; // Only show suggestion cards for high-confidence caller questions
 
 export function useTranscriptionAssist(
   contact: CampaignContact | null,
@@ -66,9 +67,12 @@ export function useTranscriptionAssist(
       // Add to detected questions list
       setDetectedQuestions((prev) => [...prev, ...questions]);
 
-      // For each detected question, try to generate a suggestion
+      // For each detected question, try to generate a suggestion card (high-confidence only)
       for (const q of questions) {
         seenQuestionIds.current.add(q.id);
+
+        // Only create visible cards for high-confidence caller questions
+        if (q.confidence < MIN_CARD_CONFIDENCE) continue;
 
         // Use KB to find an answer
         const kbResult = getBestAnswer(q.text, contact);
@@ -127,6 +131,8 @@ export function useTranscriptionAssist(
     const questions = detectQuestions(newText, seenQuestionIds.current);
     for (const q of questions) {
       seenQuestionIds.current.add(q.id);
+
+      if (q.confidence < MIN_CARD_CONFIDENCE) continue;
 
       const kbResult = getBestAnswer(q.text, contact);
       const answer = kbResult?.answer || q.answer;

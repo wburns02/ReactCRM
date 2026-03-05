@@ -80,6 +80,32 @@ export function useScheduleEngine() {
     }
   }, [callableContacts.length, activeCampaignId]); // Re-run when callable count or campaign changes
 
+  // Backfill today if it has no contacts but callable contacts exist
+  useEffect(() => {
+    if (!currentSchedule || callableContacts.length === 0) return;
+
+    const today = new Date().toISOString().split("T")[0];
+    const todayDay = currentSchedule.days.find((d) => d.date === today);
+    if (!todayDay) return;
+
+    const todayHasContacts = todayDay.blocks.some((b) => b.contactIds.length > 0);
+    if (todayHasContacts) return;
+
+    // Today is empty but we have callable contacts — backfill today's plan
+    const newSchedule = regenerateDayPlan(
+      currentSchedule,
+      today,
+      callableContacts,
+      config,
+    );
+    setSchedule(newSchedule);
+    addAuditEntry({
+      action: "day_regenerated",
+      reason: `Backfilled today (${today}) — had 0 contacts but ${callableContacts.length} callable`,
+      details: { date: today, contactsAvailable: callableContacts.length },
+    });
+  }, [currentSchedule, callableContacts.length]);
+
   // Regenerate a specific day
   const regenerateDay = useCallback(
     (date: string) => {

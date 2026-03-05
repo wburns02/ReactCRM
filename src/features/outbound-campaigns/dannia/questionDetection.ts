@@ -26,6 +26,28 @@ interface DetectionPattern {
 }
 
 /**
+ * Patterns that match agent speech — sentences matching these are skipped
+ * so only caller questions trigger suggestions.
+ */
+const AGENT_EXCLUSION_PATTERNS: RegExp[] = [
+  // Agent introductions / outbound phrasing
+  /\b(my name is|i'm calling|i wanted to|i'd like to)\b/i,
+  // Agent offering / pitching
+  /\b(let me tell you|i can explain|we offer|our price|we charge)\b/i,
+  /\b(we provide|we specialize|we can schedule|i'll send you)\b/i,
+  // Agent confirmations / wrap-up
+  /\b(i'll go ahead|let me get that|i'll put you down|we'll have someone)\b/i,
+  /\b(thank you for your time|have a great day|is there anything else i can)\b/i,
+];
+
+/**
+ * Returns true if the sentence looks like agent speech (not a caller question).
+ */
+function isAgentSpeech(sentence: string): boolean {
+  return AGENT_EXCLUSION_PATTERNS.some((p) => p.test(sentence));
+}
+
+/**
  * Patterns that indicate a customer is asking a question or raising a topic.
  */
 const DETECTION_PATTERNS: DetectionPattern[] = [
@@ -86,6 +108,9 @@ export function detectQuestions(
   for (const sentence of sentences) {
     const trimmed = sentence.trim();
     if (trimmed.length < 5) continue;
+
+    // Skip agent speech so only caller questions trigger suggestions
+    if (isAgentSpeech(trimmed)) continue;
 
     // Find matching patterns
     let bestMatch: DetectionPattern | null = null;

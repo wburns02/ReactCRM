@@ -73,25 +73,35 @@ function generateId(): string {
 }
 
 /**
- * Inject a dedicated "Test Calls - Will Burns" campaign with 10 contacts.
- * This creates its own campaign so the power dialer only dials these 10.
- * Only runs once — checks for existing test campaign.
+ * Inject a dedicated "Test Calls - Will Burns" campaign with 5 contacts.
+ * This creates its own campaign so the power dialer only dials these 5.
+ * Replaces any existing test campaign to ensure correct contact count.
  */
 function injectTestContacts(): void {
   const state = useOutboundStore.getState();
   const TEST_CAMPAIGN_ID = "test-campaign-will";
-  // Already injected
-  if (state.campaigns.some((c) => c.id === TEST_CAMPAIGN_ID)) return;
+  const EXPECTED_COUNT = 5;
+
+  // Always rebuild Will Burns contacts so data stays fresh
+  // (also resets any that were previously called so they can be re-tested)
+
+  // Remove old test campaign + contacts if present
+  const cleanedCampaigns = state.campaigns.filter(
+    (c) => c.id !== TEST_CAMPAIGN_ID,
+  );
+  const cleanedContacts = state.contacts.filter(
+    (c) => c.campaign_id !== TEST_CAMPAIGN_ID,
+  );
 
   const now = new Date().toISOString();
   const testCampaign: Campaign = {
     id: TEST_CAMPAIGN_ID,
-    name: "Test Calls - Will Burns",
-    description: "10 test calls to Will's cell for power dialer testing",
+    name: "Will Burns - Outbound",
+    description: "Will Burns contacts across service zones",
     status: "active",
     source_file: null,
     source_sheet: null,
-    total_contacts: 10,
+    total_contacts: EXPECTED_COUNT,
     contacts_called: 0,
     contacts_connected: 0,
     contacts_interested: 0,
@@ -102,47 +112,124 @@ function injectTestContacts(): void {
     updated_at: now,
   };
 
-  const testContacts: CampaignContact[] = Array.from(
-    { length: 10 },
-    (_, i) => ({
-      id: `test-will-${i + 1}`,
-      campaign_id: TEST_CAMPAIGN_ID,
-      account_number: `TEST${String(i + 1).padStart(4, "0")}`,
-      account_name: `Test Call ${i + 1} - Will Burns`,
-      company: "Mac Septic (Test)",
-      phone: "9792361958",
-      email: "will@macseptic.com",
-      address: "123 Test Street, San Marcos, TX 78666",
-      city: null,
-      state: null,
+  const willBurnsData: Array<{
+    account_number: string;
+    account_name: string;
+    address: string;
+    city: string;
+    zip_code: string;
+    service_zone: string;
+    system_type: string;
+    contract_type: string;
+    contract_status: string;
+    customer_type: string;
+    priority: number;
+  }> = [
+    {
+      account_number: "WB-0001",
+      account_name: "Will Burns",
+      address: "142 Post Oak Ln, San Marcos, TX 78666",
+      city: "San Marcos",
       zip_code: "78666",
       service_zone: "Zone 1 - Home Base",
       system_type: "Aerobic",
       contract_type: "Annual",
       contract_status: "Expired",
-      contract_start: "2024-01-01",
-      contract_end: "2025-12-31",
-      contract_value: null,
       customer_type: "Residential",
-      call_priority_label: "High",
-      call_status: "pending",
-      call_attempts: 0,
-      last_call_date: null,
-      last_call_duration: null,
-      last_disposition: null,
-      notes: null,
-      callback_date: null,
-      assigned_rep: null,
+      priority: 5,
+    },
+    {
+      account_number: "WB-0002",
+      account_name: "Will Burns",
+      address: "308 Elm Creek Dr, Buda, TX 78610",
+      city: "Buda",
+      zip_code: "78610",
+      service_zone: "Zone 2 - Buda / Kyle",
+      system_type: "Conventional",
+      contract_type: "Bi-Annual",
+      contract_status: "Active",
+      customer_type: "Residential",
       priority: 3,
-      created_at: now,
-      updated_at: now,
-    }),
-  );
+    },
+    {
+      account_number: "WB-0003",
+      account_name: "Will Burns",
+      address: "720 Blanco River Rd, Wimberley, TX 78676",
+      city: "Wimberley",
+      zip_code: "78676",
+      service_zone: "Zone 3 - Wimberley",
+      system_type: "Aerobic",
+      contract_type: "Annual",
+      contract_status: "Expired",
+      customer_type: "Residential",
+      priority: 4,
+    },
+    {
+      account_number: "WB-0004",
+      account_name: "Will Burns",
+      address: "55 Hilltop Cir, Dripping Springs, TX 78620",
+      city: "Dripping Springs",
+      zip_code: "78620",
+      service_zone: "Zone 4 - Dripping Springs",
+      system_type: "Aerobic",
+      contract_type: "Quarterly",
+      contract_status: "Expired",
+      customer_type: "Commercial",
+      priority: 4,
+    },
+    {
+      account_number: "WB-0005",
+      account_name: "Will Burns",
+      address: "901 Ranch Rd 12, San Marcos, TX 78666",
+      city: "San Marcos",
+      zip_code: "78666",
+      service_zone: "Zone 1 - Home Base",
+      system_type: "Conventional",
+      contract_type: "Annual",
+      contract_status: "Pending Renewal",
+      customer_type: "Residential",
+      priority: 3,
+    },
+  ];
 
-  useOutboundStore.setState((s) => ({
-    campaigns: [testCampaign, ...s.campaigns],
-    contacts: [...testContacts, ...s.contacts],
+  const testContacts: CampaignContact[] = willBurnsData.map((data, i) => ({
+    id: `test-will-${i + 1}`,
+    campaign_id: TEST_CAMPAIGN_ID,
+    account_number: data.account_number,
+    account_name: data.account_name,
+    company: "Mac Septic",
+    phone: "9792361958",
+    email: "will@macseptic.com",
+    address: data.address,
+    city: data.city,
+    state: "TX",
+    zip_code: data.zip_code,
+    service_zone: data.service_zone,
+    system_type: data.system_type,
+    contract_type: data.contract_type,
+    contract_status: data.contract_status,
+    contract_start: "2024-01-01",
+    contract_end: "2025-12-31",
+    contract_value: null,
+    customer_type: data.customer_type,
+    call_priority_label: data.priority >= 4 ? "High" : "Medium",
+    call_status: "pending" as const,
+    call_attempts: 0,
+    last_call_date: null,
+    last_call_duration: null,
+    last_disposition: null,
+    notes: null,
+    callback_date: null,
+    assigned_rep: null,
+    priority: data.priority,
+    created_at: now,
+    updated_at: now,
   }));
+
+  useOutboundStore.setState({
+    campaigns: [testCampaign, ...cleanedCampaigns],
+    contacts: [...testContacts, ...cleanedContacts],
+  });
 }
 
 interface OutboundCampaignState {

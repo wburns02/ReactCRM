@@ -41,6 +41,7 @@ import {
   Brain,
   Zap,
   AlertTriangle,
+  Sparkles,
 } from "lucide-react";
 
 interface PowerDialerProps {
@@ -821,14 +822,28 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
               </>
             )}
 
-            {/* AI Auto-Summary Banner */}
-            {(summary || isGenerating) && (
+            {/* AI Auto-Summary Banner + live generate button */}
+            {(summary || isGenerating) ? (
               <AutoSummaryBanner
                 summary={summary}
                 isGenerating={isGenerating}
                 onUseAsNotes={(text) => setNotes(text)}
                 onDismiss={clearSummary}
               />
+            ) : isOnCall && (
+              <button
+                onClick={() => {
+                  const transcript = transcriptRef.current;
+                  if (transcript && currentContact) {
+                    generateSummary(transcript, currentContact.account_name);
+                  }
+                }}
+                disabled={!transcriptRef.current || isGenerating}
+                className="flex items-center justify-center gap-2 w-full py-2 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/20 text-blue-700 dark:text-blue-400 text-xs font-medium hover:bg-blue-100 dark:hover:bg-blue-950/40 disabled:opacity-40 transition-colors"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                Generate AI Notes from Call
+              </button>
             )}
 
             {/* Notes */}
@@ -946,6 +961,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             collapsed={assistCollapsed}
             onToggle={() => setAssistCollapsed(!assistCollapsed)}
             onTranscriptCapture={handleTranscriptCapture}
+            onUseAsNotes={(text) => setNotes((prev) => prev ? `${prev}\n${text}` : text)}
           />
         </div>
         </div>
