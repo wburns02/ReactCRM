@@ -159,18 +159,22 @@ export function generateWeeklyPlan(
   // Reserve top contacts for callback replacements
   const available = scored.slice(0, scored.length - callbackReserve);
 
-  // Generate 5 days (Mon-Fri)
+  // Generate 5 days (Mon-Fri), assigning contacts starting from today
   const days: DailyPlan[] = [];
   let contactPool = [...available];
+  const todayDow = now.getDay(); // 0=Sun, 1=Mon, ...
+  const todayOffset = todayDow === 0 ? 4 : todayDow - 1; // Mon=0..Fri=4, clamp weekend to Fri
 
   for (let dayOffset = 0; dayOffset < 5; dayOffset++) {
     const dayDate = new Date(weekStart);
     dayDate.setDate(dayDate.getDate() + dayOffset);
     const dateStr = dayDate.toISOString().split("T")[0];
 
+    // Only assign contacts from today onwards (past days get empty blocks)
+    const isPastDay = dayOffset < todayOffset;
     const blocks = generateDayBlocks();
-    const dailySlice = contactPool.slice(0, config.maxCallsPerDay);
-    contactPool = contactPool.slice(config.maxCallsPerDay);
+    const dailySlice = isPastDay ? [] : contactPool.slice(0, config.maxCallsPerDay);
+    if (!isPastDay) contactPool = contactPool.slice(config.maxCallsPerDay);
 
     const assignedBlocks = assignContactsToBlocks(blocks, dailySlice, config);
     const totalCapacity = assignedBlocks.reduce(
