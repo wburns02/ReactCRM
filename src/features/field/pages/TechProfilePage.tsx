@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/features/auth/useAuth.ts";
 
 /**
@@ -8,9 +8,16 @@ export function TechProfilePage() {
   const { user, logout } = useAuth();
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
-  // Listen for online/offline status
-  window.addEventListener("online", () => setIsOnline(true));
-  window.addEventListener("offline", () => setIsOnline(false));
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   return (
     <div className="p-4 pb-20">

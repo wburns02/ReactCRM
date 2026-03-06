@@ -796,7 +796,7 @@ export function PayrollSummaryDashboard({
             Hours by Technician
           </h3>
           <div className="h-72">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={100}>
               <BarChart data={hoursChartData} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis type="number" tick={{ fill: "#6b7280", fontSize: 12 }} />
@@ -839,7 +839,7 @@ export function PayrollSummaryDashboard({
           </h3>
           <div className="h-72 flex items-center justify-center">
             {payBreakdownData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={100}>
                 <PieChart>
                   <Pie
                     data={payBreakdownData}
@@ -900,7 +900,7 @@ export function PayrollSummaryDashboard({
             Payroll Trends Across Periods
           </h3>
           <div className="h-72">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={100}>
               <LineChart data={trendChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis
