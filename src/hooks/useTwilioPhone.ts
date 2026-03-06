@@ -64,6 +64,7 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
           direction: "inbound",
           remoteNumber: call.parameters?.From || "Unknown",
           callerIdName: call.parameters?.FromCity,
+          callSid: call.parameters?.CallSid,
           startTime: Date.now(),
           muted: false,
           held: false,
@@ -144,6 +145,7 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
       setActiveCall({
         direction: "outbound",
         remoteNumber: number,
+        callSid: twilioCall.parameters?.CallSid,
         startTime: Date.now(),
         muted: false,
         held: false,
@@ -151,7 +153,14 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
         session: twilioCall,
       });
 
-      twilioCall.on("accept", () => setState("active"));
+      twilioCall.on("accept", () => {
+        // CallSid may not be available until after accept
+        const sid = twilioCall.parameters?.CallSid;
+        if (sid) {
+          setActiveCall((prev) => prev ? { ...prev, callSid: sid } : null);
+        }
+        setState("active");
+      });
 
       twilioCall.on("disconnect", () => {
         callRef.current = null;

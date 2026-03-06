@@ -1,5 +1,5 @@
 import { useRef, useEffect, useMemo } from "react";
-import { Mic, MicOff, X, Sparkles, AlertTriangle, ClipboardCopy } from "lucide-react";
+import { Mic, MicOff, X, Sparkles, AlertTriangle, ClipboardCopy, PhoneIncoming, User } from "lucide-react";
 import type { CampaignContact } from "../../types";
 import {
   useTranscriptionAssist,
@@ -8,10 +8,12 @@ import {
 import { KB_CATEGORIES } from "../macSepticKnowledgeBase";
 import type { KBCategory } from "../macSepticKnowledgeBase";
 import { isAgentSpeech, splitIntoSentences } from "../questionDetection";
+import { useCustomerTranscript, type TranscriptEntry } from "@/hooks/useCustomerTranscript";
 
 interface LiveTranscriptPanelProps {
   contact: CampaignContact | null;
   isOnCall: boolean;
+  callSid?: string;
   onTranscriptCapture?: (transcript: string) => void;
   onUseAsNotes?: (text: string) => void;
 }
@@ -19,6 +21,7 @@ interface LiveTranscriptPanelProps {
 export function LiveTranscriptPanel({
   contact,
   isOnCall,
+  callSid,
   onTranscriptCapture,
   onUseAsNotes,
 }: LiveTranscriptPanelProps) {
@@ -34,19 +37,36 @@ export function LiveTranscriptPanel({
     dismissSuggestion,
   } = useTranscriptionAssist(contact);
 
+  // Customer-side transcription via Google STT WebSocket
+  const { transcripts: customerTranscripts, isConnected: sttConnected } =
+    useCustomerTranscript(isOnCall ? callSid : undefined);
+
   const transcriptEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll transcript
   useEffect(() => {
     transcriptEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [transcript, interimTranscript]);
+  }, [transcript, interimTranscript, customerTranscripts]);
 
-  // Report transcript to parent
+  // Report transcript to parent (include both sides)
   useEffect(() => {
     if (transcript && onTranscriptCapture) {
-      onTranscriptCapture(transcript);
+      const customerText = customerTranscripts
+        .filter((t) => t.isFinal)
+        .map((t) => t.text)
+        .join(" ");
+      const combined = customerText
+        ? `[Agent] ${transcript}\n[Customer] ${customerText}`
+        : transcript;
+      onTranscriptCapture(combined);
     }
-  }, [transcript, onTranscriptCapture]);
+  }, [transcript, customerTranscripts, onTranscriptCapture]);
+
+  // Also feed customer transcripts into the suggestion engine via a pseudo-question check
+  const lastCustomerFinal = useMemo(() => {
+    const finals = customerTranscripts.filter((t) => t.isFinal);
+    return finals.length > 0 ? finals[finals.length - 1].text : "";
+  }, [customerTranscripts]);
 
   // Auto-start when on call
   useEffect(() => {
@@ -72,9 +92,11 @@ export function LiveTranscriptPanel({
 
   const callerInterim = useMemo(() => {
     if (!interimTranscript) return "";
-    // Don't filter interim — show it live, it gets filtered once finalized
     return interimTranscript;
   }, [interimTranscript]);
+
+  // Build interleaved two-sided transcript entries
+  const hasCustomerTranscripts = customerTranscripts.length > 0;
 
   if (!isSupported) {
     return (
@@ -97,7 +119,7 @@ export function LiveTranscriptPanel({
             Start a call — AI will detect caller questions and show you answers
           </p>
           <p className="text-[10px] text-text-tertiary mt-1">
-            Use speakerphone for best caller detection
+            {callSid ? "Two-sided transcription enabled" : "Use speakerphone for best caller detection"}
           </p>
         </div>
 
@@ -131,9 +153,9 @@ export function LiveTranscriptPanel({
         </div>
       )}
 
-      {/* Transcript area — only shows caller speech */}
+      {/* Transcript area — two-sided when STT is connected */}
       <div className="flex-1 overflow-y-auto px-3 py-2 max-h-[200px] min-h-[80px]">
-        {!callerTranscript && !callerInterim && (
+        {!callerTranscript && !callerInterim && !hasCustomerTranscripts && (
           <div className="text-center py-4">
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -142,27 +164,69 @@ export function LiveTranscriptPanel({
               </span>
             </div>
             <p className="text-[10px] text-text-tertiary">
-              Caller questions will be detected and answered automatically
+              {sttConnected
+                ? "Two-sided transcription active — customer audio via Google STT"
+                : "Caller questions will be detected and answered automatically"}
             </p>
-            <p className="text-[10px] text-text-tertiary mt-0.5">
-              Your voice is filtered out — only caller speech appears here
-            </p>
+            {!sttConnected && (
+              <p className="text-[10px] text-text-tertiary mt-0.5">
+                Your voice is filtered out — only caller speech appears here
+              </p>
+            )}
           </div>
         )}
 
-        {(callerTranscript || callerInterim) && (
-          <div className="space-y-1">
+        {/* Two-sided transcript view when Google STT is connected */}
+        {hasCustomerTranscripts ? (
+          <div className="space-y-1.5">
+            {/* Show agent speech (from Web Speech API) */}
             {callerTranscript && (
-              <p className="text-xs leading-relaxed text-text-primary">
-                {callerTranscript}
-              </p>
+              <div className="flex items-start gap-1.5">
+                <User className="w-3 h-3 mt-0.5 text-blue-500 shrink-0" />
+                <div>
+                  <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">[You]</span>
+                  <p className="text-xs leading-relaxed text-text-primary">{callerTranscript}</p>
+                </div>
+              </div>
             )}
+
+            {/* Show customer transcripts from Google STT */}
+            {customerTranscripts.map((entry, i) => (
+              <div key={`${entry.timestamp}-${i}`} className="flex items-start gap-1.5">
+                <PhoneIncoming className="w-3 h-3 mt-0.5 text-emerald-500 shrink-0" />
+                <div>
+                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">[Customer]</span>
+                  <p className={`text-xs leading-relaxed ${entry.isFinal ? "text-text-primary" : "text-text-tertiary italic"}`}>
+                    {entry.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+            {/* Agent interim */}
             {callerInterim && (
-              <p className="text-xs leading-relaxed text-text-tertiary italic">
-                {callerInterim}
-              </p>
+              <div className="flex items-start gap-1.5">
+                <User className="w-3 h-3 mt-0.5 text-blue-400 shrink-0" />
+                <p className="text-xs leading-relaxed text-text-tertiary italic">{callerInterim}</p>
+              </div>
             )}
           </div>
+        ) : (
+          /* Fallback: single-sided transcript (no Google STT) */
+          (callerTranscript || callerInterim) && (
+            <div className="space-y-1">
+              {callerTranscript && (
+                <p className="text-xs leading-relaxed text-text-primary">
+                  {callerTranscript}
+                </p>
+              )}
+              {callerInterim && (
+                <p className="text-xs leading-relaxed text-text-tertiary italic">
+                  {callerInterim}
+                </p>
+              )}
+            </div>
+          )
         )}
 
         {error && (
@@ -181,13 +245,18 @@ export function LiveTranscriptPanel({
           {isListening ? (
             <>
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              Live transcription active
+              Live transcription
             </>
           ) : (
             <>
               <MicOff className="w-3.5 h-3.5" />
-              Transcription stopped
+              Stopped
             </>
+          )}
+          {sttConnected && (
+            <span className="text-[10px] text-emerald-500 font-medium">
+              STT
+            </span>
           )}
           {activeSuggestions.length > 0 && (
             <span className="text-[10px] text-purple-500 font-medium">

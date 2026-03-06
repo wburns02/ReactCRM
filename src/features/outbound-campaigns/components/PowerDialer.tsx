@@ -958,6 +958,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
           <AgentAssist
             contact={currentContact}
             isOnCall={isOnCall}
+            callSid={activeCall?.callSid}
             collapsed={assistCollapsed}
             onToggle={() => setAssistCollapsed(!assistCollapsed)}
             onTranscriptCapture={handleTranscriptCapture}

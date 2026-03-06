@@ -18,6 +18,7 @@ export interface ActiveCall {
   direction: "inbound" | "outbound";
   remoteNumber: string;
   callerIdName?: string;
+  callSid?: string;
   startTime: number;
   muted: boolean;
   held: boolean;

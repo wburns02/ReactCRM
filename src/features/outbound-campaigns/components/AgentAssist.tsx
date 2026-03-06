@@ -24,6 +24,7 @@ import {
 interface AgentAssistProps {
   contact: CampaignContact | null;
   isOnCall: boolean;
+  callSid?: string;
   collapsed?: boolean;
   onToggle?: () => void;
   onTranscriptCapture?: (transcript: string) => void;
@@ -35,6 +36,7 @@ type TabId = "quick" | "chat" | "live";
 export function AgentAssist({
   contact,
   isOnCall,
+  callSid,
   collapsed = false,
   onToggle,
   onTranscriptCapture,
@@ -292,7 +294,7 @@ export function AgentAssist({
         <>
           {danniaMode ? (
             /* Dannia Mode: Full live transcription panel */
-            <LiveTranscriptPanel contact={contact} isOnCall={isOnCall} onTranscriptCapture={onTranscriptCapture} onUseAsNotes={onUseAsNotes} />
+            <LiveTranscriptPanel contact={contact} isOnCall={isOnCall} callSid={callSid} onTranscriptCapture={onTranscriptCapture} onUseAsNotes={onUseAsNotes} />
           ) : (
             /* Standard mode: Original live hints */
             <div className="flex flex-col flex-1 min-h-0">
