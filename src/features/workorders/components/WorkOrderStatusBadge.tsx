@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Tooltip } from "@/components/ui/Tooltip";
 import type { WorkOrderStatus } from "@/api/types/workOrder";
-import { WORK_ORDER_STATUS_LABELS } from "@/api/types/workOrder";
+import { WORK_ORDER_STATUS_LABELS, normalizeStatus } from "@/api/types/workOrder";
 import { getStatusClasses, getStatusColor } from "../utils/workOrderHelpers";
 
 /**
@@ -12,7 +12,6 @@ const STATUS_DESCRIPTIONS: Record<string, string> = {
   scheduled: "Work order has been scheduled for service",
   confirmed: "Customer has confirmed the appointment",
   enroute: "Technician is traveling to the job site",
-  en_route: "Technician is traveling to the job site",
   on_site: "Technician has arrived at the location",
   in_progress: "Work is currently being performed",
   completed: "All work has been successfully completed",
@@ -49,9 +48,10 @@ export function WorkOrderStatusBadge({
   className,
   dotOnly = false,
 }: WorkOrderStatusBadgeProps) {
-  const label = WORK_ORDER_STATUS_LABELS[status];
-  const description = STATUS_DESCRIPTIONS[status];
-  const statusClasses = getStatusClasses(status);
+  const norm = normalizeStatus(status);
+  const label = WORK_ORDER_STATUS_LABELS[norm] || status;
+  const description = STATUS_DESCRIPTIONS[norm];
+  const statusClasses = getStatusClasses(norm as typeof status);
 
   // Dot-only mode for compact displays
   if (dotOnly) {
@@ -64,7 +64,7 @@ export function WorkOrderStatusBadge({
     const dot = (
       <span
         className={cn("inline-block rounded-full", dotSizes[size], className)}
-        style={{ backgroundColor: getStatusColor(status) }}
+        style={{ backgroundColor: getStatusColor(norm as typeof status) }}
         aria-label={label}
       />
     );
@@ -102,7 +102,7 @@ export function WorkOrderStatusBadge({
               ? "h-2 w-2"
               : "h-2.5 w-2.5",
         )}
-        style={{ backgroundColor: getStatusColor(status) }}
+        style={{ backgroundColor: getStatusColor(norm as typeof status) }}
       />
       {label}
     </span>

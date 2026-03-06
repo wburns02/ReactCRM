@@ -9,6 +9,7 @@ import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
+  getStatusLabel,
   type WorkOrder,
   type WorkOrderStatus,
   type JobType,
@@ -134,7 +135,7 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
           <p className="text-xs text-text-muted">{wo.work_order_number || `WO-${wo.id.slice(0, 8)}`}</p>
         </div>
         <Badge variant={getStatusVariant(wo.status as WorkOrderStatus)}>
-          {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] || wo.status}
+          {getStatusLabel(wo.status)}
         </Badge>
       </div>
 
@@ -367,7 +368,7 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
       </td>
       <td className="px-4 py-3">
         <Badge variant={getStatusVariant(wo.status as WorkOrderStatus)}>
-          {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] || wo.status}
+          {getStatusLabel(wo.status)}
         </Badge>
       </td>
       <td className="px-4 py-3 text-right">

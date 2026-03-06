@@ -22,7 +22,6 @@ export const WORK_ORDER_STATUS_LABELS: Record<string, string> = {
   scheduled: "Scheduled",
   confirmed: "Confirmed",
   enroute: "En Route",
-  en_route: "En Route",
   on_site: "On Site",
   in_progress: "In Progress",
   completed: "Completed",
@@ -30,13 +29,21 @@ export const WORK_ORDER_STATUS_LABELS: Record<string, string> = {
   requires_followup: "Requires Follow-up",
 };
 
+/** Normalize backend status (en_route -> enroute) for consistent map lookups */
+export function normalizeStatus(s: string): string {
+  return s === "en_route" ? "enroute" : s;
+}
+
+export function getStatusLabel(status: string): string {
+  return WORK_ORDER_STATUS_LABELS[normalizeStatus(status)] || status;
+}
+
 /** Short abbreviations for compact schedule views (3-4 chars, human-readable). */
 export const WORK_ORDER_STATUS_SHORT: Record<string, string> = {
   draft: "DFT",
   scheduled: "SCHD",
   confirmed: "CNFM",
   enroute: "ENRT",
-  en_route: "ENRT",
   on_site: "SITE",
   in_progress: "PROG",
   completed: "DONE",
@@ -253,7 +260,6 @@ export const STATUS_COLORS: Record<string, string> = {
   scheduled: "#3b82f6",
   confirmed: "#10b981",
   enroute: "#f59e0b",
-  en_route: "#f59e0b",
   on_site: "#06b6d4",
   in_progress: "#8b5cf6",
   completed: "#22c55e",
