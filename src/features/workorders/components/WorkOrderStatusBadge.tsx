@@ -7,11 +7,12 @@ import { getStatusClasses, getStatusColor } from "../utils/workOrderHelpers";
 /**
  * Status descriptions for tooltip display
  */
-const STATUS_DESCRIPTIONS: Record<WorkOrderStatus, string> = {
+const STATUS_DESCRIPTIONS: Record<string, string> = {
   draft: "Work order is being prepared and not yet scheduled",
   scheduled: "Work order has been scheduled for service",
   confirmed: "Customer has confirmed the appointment",
   enroute: "Technician is traveling to the job site",
+  en_route: "Technician is traveling to the job site",
   on_site: "Technician has arrived at the location",
   in_progress: "Work is currently being performed",
   completed: "All work has been successfully completed",

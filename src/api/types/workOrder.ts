@@ -17,11 +17,12 @@ export const workOrderStatusSchema = z.enum([
 ]).or(z.string()); // Allow unknown statuses (like quote_request) to pass through
 export type WorkOrderStatus = z.infer<typeof workOrderStatusSchema>;
 
-export const WORK_ORDER_STATUS_LABELS: Record<WorkOrderStatus, string> = {
+export const WORK_ORDER_STATUS_LABELS: Record<string, string> = {
   draft: "Draft",
   scheduled: "Scheduled",
   confirmed: "Confirmed",
   enroute: "En Route",
+  en_route: "En Route",
   on_site: "On Site",
   in_progress: "In Progress",
   completed: "Completed",
@@ -35,6 +36,7 @@ export const WORK_ORDER_STATUS_SHORT: Record<string, string> = {
   scheduled: "SCHD",
   confirmed: "CNFM",
   enroute: "ENRT",
+  en_route: "ENRT",
   on_site: "SITE",
   in_progress: "PROG",
   completed: "DONE",
@@ -246,11 +248,12 @@ export type WorkOrderFormData = z.infer<typeof workOrderFormSchema>;
 /**
  * Status colors for UI rendering
  */
-export const STATUS_COLORS: Record<WorkOrderStatus, string> = {
+export const STATUS_COLORS: Record<string, string> = {
   draft: "#6b7280",
   scheduled: "#3b82f6",
   confirmed: "#10b981",
   enroute: "#f59e0b",
+  en_route: "#f59e0b",
   on_site: "#06b6d4",
   in_progress: "#8b5cf6",
   completed: "#22c55e",

@@ -31,8 +31,8 @@ export function useReports(page = 1, dataSource?: string, isFavorite?: boolean) 
       const params = new URLSearchParams({ page: String(page) });
       if (dataSource) params.set("data_source", dataSource);
       if (isFavorite !== undefined) params.set("is_favorite", String(isFavorite));
-      const { data } = await apiClient.get(`/reports?${params}`);
-      return validateResponse(reportListResponseSchema, data, "/reports");
+      const { data } = await apiClient.get(`/reports/custom?${params}`);
+      return validateResponse(reportListResponseSchema, data, "/reports/custom");
     },
     staleTime: 30_000,
   });
@@ -42,8 +42,8 @@ export function useReport(id: string | undefined) {
   return useQuery({
     queryKey: reportKeys.detail(id!),
     queryFn: async (): Promise<ReportDetail> => {
-      const { data } = await apiClient.get(`/reports/${id}`);
-      return validateResponse(reportDetailSchema, data, `/reports/${id}`);
+      const { data } = await apiClient.get(`/reports/custom/${id}`);
+      return validateResponse(reportDetailSchema, data, `/reports/custom/${id}`);
     },
     enabled: !!id,
   });
@@ -53,8 +53,8 @@ export function useDataSources() {
   return useQuery({
     queryKey: reportKeys.dataSources(),
     queryFn: async (): Promise<Record<string, DataSourceMeta>> => {
-      const { data } = await apiClient.get("/reports/data-sources");
-      return validateResponse(dataSourcesResponseSchema, data, "/reports/data-sources");
+      const { data } = await apiClient.get("/reports/custom/data-sources");
+      return validateResponse(dataSourcesResponseSchema, data, "/reports/custom/data-sources");
     },
     staleTime: 10 * 60_000,
   });
@@ -64,7 +64,7 @@ export function useCreateReport() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (formData: ReportFormData): Promise<CustomReport> => {
-      const { data } = await apiClient.post("/reports", formData);
+      const { data } = await apiClient.post("/reports/custom", formData);
       return data;
     },
     onSuccess: (report) => {
@@ -81,7 +81,7 @@ export function useUpdateReport() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, data: formData }: { id: string; data: Partial<ReportFormData> }): Promise<CustomReport> => {
-      const { data } = await apiClient.patch(`/reports/${id}`, formData);
+      const { data } = await apiClient.patch(`/reports/custom/${id}`, formData);
       return data;
     },
     onSuccess: (report) => {
@@ -99,7 +99,7 @@ export function useDeleteReport() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      await apiClient.delete(`/reports/${id}`);
+      await apiClient.delete(`/reports/custom/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: reportKeys.lists() });
@@ -121,8 +121,8 @@ export function usePreviewReport() {
       sort_by?: { field: string; direction: string } | null;
       date_range?: Record<string, unknown> | null;
     }): Promise<PreviewResponse> => {
-      const { data } = await apiClient.post("/reports/preview", config);
-      return validateResponse(previewResponseSchema, data, "/reports/preview");
+      const { data } = await apiClient.post("/reports/custom/preview", config);
+      return validateResponse(previewResponseSchema, data, "/reports/custom/preview");
     },
     onError: (error: Error & { response?: { data?: { detail?: string } } }) => {
       toastError("Preview Failed", error?.response?.data?.detail || error?.message || "Failed to preview report");
@@ -134,8 +134,8 @@ export function useExecuteReport() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string): Promise<PreviewResponse> => {
-      const { data } = await apiClient.post(`/reports/${id}/execute`);
-      return validateResponse(previewResponseSchema, data, `/reports/${id}/execute`);
+      const { data } = await apiClient.post(`/reports/custom/${id}/execute`);
+      return validateResponse(previewResponseSchema, data, `/reports/custom/${id}/execute`);
     },
     onSuccess: (_data, id) => {
       queryClient.invalidateQueries({ queryKey: reportKeys.detail(id) });
@@ -150,7 +150,7 @@ export function useExecuteReport() {
 export function useExportReport() {
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      const response = await apiClient.post(`/reports/${id}/export`, {}, { responseType: "blob" });
+      const response = await apiClient.post(`/reports/custom/${id}/export`, {}, { responseType: "blob" });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
@@ -168,7 +168,7 @@ export function useToggleFavorite() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string): Promise<CustomReport> => {
-      const { data } = await apiClient.patch(`/reports/${id}/favorite`);
+      const { data } = await apiClient.patch(`/reports/custom/${id}/favorite`);
       return data;
     },
     onSuccess: (report) => {
