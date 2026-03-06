@@ -67,10 +67,10 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Precache app shell
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}'],
-        // Don't precache source maps or large seed data
-        globIgnores: ['**/*.map', '**/seed-data-*.js'],
+        // Precache app shell — but NOT index.html (let browser fetch fresh)
+        globPatterns: ['**/*.{js,css,ico,png,svg,woff2,woff,ttf}'],
+        // Don't precache source maps, large seed data, or HTML
+        globIgnores: ['**/*.map', '**/seed-data-*.js', '**/*.html'],
         // Allow larger chunks for precaching
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         // Clean old caches
@@ -78,6 +78,10 @@ export default defineConfig({
         // Skip waiting to activate new SW immediately
         skipWaiting: true,
         clientsClaim: true,
+        // Do NOT let SW handle navigation — let browser fetch index.html fresh
+        navigateFallback: null,
+        // Extra safety: deny all navigation fallbacks
+        navigateFallbackDenylist: [/.*/],
         // Runtime caching strategies
         runtimeCaching: [
           // API calls - Network First with fallback
