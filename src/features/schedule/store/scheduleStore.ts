@@ -9,6 +9,7 @@ export interface ScheduleFilters {
   statuses: string[];
   status: string | null;
   region: string | null;
+  jobType: string | null;
 }
 
 export interface ScheduleState {
@@ -36,6 +37,7 @@ export interface ScheduleState {
   setTechnicianFilter: (technician: string | null) => void;
   setStatusFilter: (statuses: string[]) => void;
   setRegionFilter: (region: string | null) => void;
+  setJobTypeFilter: (jobType: string | null) => void;
   clearFilters: () => void;
 
   // UI actions
@@ -72,6 +74,7 @@ export const useScheduleStore = create<ScheduleState>()(
         statuses: [],
         status: null,
         region: null,
+        jobType: null,
       },
       unscheduledPanelOpen: false,
       selectedWorkOrderId: null,
@@ -136,6 +139,11 @@ export const useScheduleStore = create<ScheduleState>()(
           filters: { ...state.filters, region },
         })),
 
+      setJobTypeFilter: (jobType) =>
+        set((state) => ({
+          filters: { ...state.filters, jobType },
+        })),
+
       clearFilters: () =>
         set({
           filters: {
@@ -144,6 +152,7 @@ export const useScheduleStore = create<ScheduleState>()(
             statuses: [],
             status: null,
             region: null,
+            jobType: null,
           },
         }),
 

@@ -46,19 +46,45 @@ function getStatusVariant(
 }
 
 /**
- * Get priority color class
+ * Get color class based on job type (color-coded schedule)
  */
-function getPriorityColor(priority: Priority): string {
-  switch (priority) {
+function getJobTypeColor(jobType: string): string {
+  switch (jobType) {
+    case "pumping":
+      return "border-l-blue-500 bg-blue-50";
+    case "maintenance":
+      return "border-l-green-500 bg-green-50";
+    case "inspection":
+    case "aerobic_inspection":
+      return "border-l-emerald-500 bg-emerald-50";
+    case "repair":
+      return "border-l-red-500 bg-red-50";
     case "emergency":
-      return "border-l-danger bg-danger/5";
-    case "urgent":
-      return "border-l-orange-500 bg-orange-500/5";
-    case "high":
-      return "border-l-warning bg-warning/5";
+      return "border-l-orange-500 bg-orange-50";
+    case "real_estate_inspection":
+      return "border-l-purple-500 bg-purple-50";
+    case "installation":
+      return "border-l-indigo-500 bg-indigo-50";
     default:
-      return "border-l-primary bg-bg-card";
+      return "border-l-gray-400 bg-bg-card";
   }
+}
+
+/** Small colored dot for job type */
+function JobTypeDot({ jobType }: { jobType: string }) {
+  const colorMap: Record<string, string> = {
+    pumping: "bg-blue-500",
+    maintenance: "bg-green-500",
+    inspection: "bg-emerald-500",
+    aerobic_inspection: "bg-emerald-500",
+    repair: "bg-red-500",
+    emergency: "bg-orange-500",
+    real_estate_inspection: "bg-purple-500",
+    installation: "bg-indigo-500",
+  };
+  return (
+    <span className={`inline-block w-2 h-2 rounded-full ${colorMap[jobType] || "bg-gray-400"}`} />
+  );
 }
 
 /**
@@ -93,7 +119,7 @@ function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
       data-testid={`scheduled-wo-${workOrder.id}`}
       className={`
         block p-2 rounded border-l-4 hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing
-        ${getPriorityColor(workOrder.priority as Priority)}
+        ${getJobTypeColor(workOrder.job_type || "pumping")}
         ${isDragging ? "shadow-lg ring-2 ring-primary" : ""}
       `}
     >
@@ -115,7 +141,8 @@ function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
       <p className="text-xs text-text-primary font-medium truncate">
         {workOrder.customer_name || `Customer #${workOrder.customer_id}`}
       </p>
-      <p className="text-[10px] text-text-secondary truncate">
+      <p className="text-[10px] text-text-secondary truncate flex items-center gap-1">
+        <JobTypeDot jobType={workOrder.job_type || "pumping"} />
         {JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}
       </p>
       {workOrder.assigned_technician && (
@@ -267,11 +294,14 @@ export function WeekView() {
       if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status))
         return;
 
-      // Apply region filter
+      // Apply region filter — exclude jobs with null/unknown region when filtering
       if (filters.region) {
         const woRegion = getWorkOrderRegion(wo);
-        if (woRegion !== null && woRegion !== filters.region) return;
+        if (woRegion !== filters.region) return;
       }
+
+      // Apply job type filter
+      if (filters.jobType && wo.job_type !== filters.jobType) return;
 
       const dateKey = wo.scheduled_date;
       if (grouped[dateKey]) {

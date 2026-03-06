@@ -573,7 +573,7 @@ export function MapView() {
         // Apply region filter
         if (filters.region) {
           const woRegion = getWorkOrderRegion(wo);
-          if (woRegion !== null && woRegion !== filters.region) return;
+          if (woRegion !== filters.region) return;
         }
 
         const position = getWorkOrderCoordinates(wo);
@@ -595,7 +595,7 @@ export function MapView() {
         // Apply region filter
         if (filters.region) {
           const woRegion = getWorkOrderRegion(wo);
-          if (woRegion !== null && woRegion !== filters.region) return;
+          if (woRegion !== filters.region) return;
         }
 
         // Apply status filter

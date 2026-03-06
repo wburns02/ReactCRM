@@ -415,7 +415,7 @@ export function TechView() {
       // Apply region filter
       if (filters.region) {
         const woRegion = getWorkOrderRegion(wo);
-        if (woRegion !== null && woRegion !== filters.region) return;
+        if (woRegion !== filters.region) return;
       }
 
       if (!grouped[wo.assigned_technician]) {

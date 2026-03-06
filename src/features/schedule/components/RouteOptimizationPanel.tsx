@@ -1,37 +1,75 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/Button";
 import {
   useOptimizeRoute,
   type RouteOptimizeResponse,
 } from "@/api/hooks/useRouteOptimization";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders";
+import { useScheduleStore } from "../store/scheduleStore";
+import {
+  formatDateKey,
+  getWeekDays,
+  getWorkOrderRegion,
+} from "@/api/types/schedule";
 
 /**
  * RouteOptimizationPanel
  *
- * A compact panel in the Schedule page that lets dispatchers optimize the
- * order of today's (or visible) jobs using a haversine nearest-neighbor
- * algorithm on the backend.
- *
- * - Visible when there are 2+ scheduled work orders
- * - Click "Optimize Route" → spinner → result banner
- * - Shows: X miles, ~Y minutes driving, reordered waypoints
+ * Optimizes routes using haversine nearest-neighbor for the currently
+ * visible week/day jobs, respecting region and technician filters.
  */
 export function RouteOptimizationPanel() {
-  const { data: workOrdersData } = useWorkOrders();
+  const { currentDate, currentView, filters } = useScheduleStore();
   const optimizeRoute = useOptimizeRoute();
   const [result, setResult] = useState<RouteOptimizeResponse | null>(null);
   const [showWaypoints, setShowWaypoints] = useState(false);
 
-  // Get scheduled job IDs (any status except draft/canceled)
-  const scheduledJobs = (workOrdersData?.items || []).filter(
-    (wo) =>
-      wo.status &&
-      !["draft", "canceled"].includes(wo.status) &&
-      wo.id,
-  );
+  // Calculate date range based on current view
+  const dateRange = useMemo(() => {
+    if (currentView === "day") {
+      const dateStr = formatDateKey(currentDate);
+      return { from: dateStr, to: dateStr };
+    }
+    const weekDays = getWeekDays(currentDate);
+    return {
+      from: formatDateKey(weekDays[0]),
+      to: formatDateKey(weekDays[6]),
+    };
+  }, [currentDate, currentView]);
 
-  const jobIds = scheduledJobs.map((wo) => wo.id);
+  // Fetch work orders for the visible date range
+  const { data: workOrdersData } = useWorkOrders({
+    page: 1,
+    page_size: 200,
+    scheduled_date_from: dateRange.from,
+    scheduled_date_to: dateRange.to,
+  });
+
+  // Filter jobs by region, technician, and status (same logic as views)
+  const filteredJobs = useMemo(() => {
+    return (workOrdersData?.items || []).filter((wo) => {
+      if (!wo.id || !wo.status) return false;
+      if (["draft", "canceled"].includes(wo.status)) return false;
+
+      // Apply technician filter
+      if (filters.technician && wo.assigned_technician !== filters.technician)
+        return false;
+
+      // Apply status filter
+      if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status))
+        return false;
+
+      // Apply region filter
+      if (filters.region) {
+        const woRegion = getWorkOrderRegion(wo);
+        if (woRegion !== filters.region) return false;
+      }
+
+      return true;
+    });
+  }, [workOrdersData, filters]);
+
+  const jobIds = filteredJobs.map((wo) => wo.id);
   const canOptimize = jobIds.length >= 2;
 
   const handleOptimize = async () => {
@@ -55,6 +93,11 @@ export function RouteOptimizationPanel() {
     optimizeRoute.reset();
   };
 
+  // Fuel savings estimate (avg 10 mpg for service truck, $3.50/gal)
+  const fuelCost = result
+    ? ((result.total_distance_miles / 10) * 3.5).toFixed(2)
+    : null;
+
   return (
     <div
       className="bg-bg-card border border-border rounded-lg p-4 mb-6"
@@ -65,9 +108,14 @@ export function RouteOptimizationPanel() {
           <span className="text-base font-semibold text-text-primary">
             Route Optimization
           </span>
-          {canOptimize && (
+          {filteredJobs.length > 0 && (
             <span className="text-xs text-text-muted bg-bg-muted px-2 py-0.5 rounded-full">
-              {jobIds.length} jobs
+              {filteredJobs.length} jobs
+            </span>
+          )}
+          {filters.region && (
+            <span className="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+              {filters.region.replace(/_/g, " ")}
             </span>
           )}
         </div>
@@ -104,7 +152,9 @@ export function RouteOptimizationPanel() {
 
       {!canOptimize && (
         <p className="text-xs text-text-muted mt-2">
-          Add 2 or more scheduled jobs to enable route optimization.
+          {filteredJobs.length === 0
+            ? "No scheduled jobs for the current view/filters."
+            : "Add 2 or more scheduled jobs to enable route optimization."}
         </p>
       )}
 
@@ -119,8 +169,8 @@ export function RouteOptimizationPanel() {
           className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg"
           data-testid="route-optimization-result"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-4 flex-wrap">
               <span className="text-sm font-medium text-green-800">
                 Route optimized
               </span>
@@ -139,6 +189,11 @@ export function RouteOptimizationPanel() {
               <span className="text-sm text-green-600">
                 {result.ordered_job_ids.length} stops
               </span>
+              {fuelCost && (
+                <span className="text-sm text-green-600" data-testid="route-fuel-cost">
+                  ~${fuelCost} fuel
+                </span>
+              )}
             </div>
             <button
               onClick={() => setShowWaypoints(!showWaypoints)}
