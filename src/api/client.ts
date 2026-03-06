@@ -167,7 +167,21 @@ apiClient.interceptors.response.use(
         "/api/v2/entities/",
         "/auth/me",
         "/roles",  // fallback for direct calls
-        "/entities/"  // fallback for direct calls
+        "/entities/",  // fallback for direct calls
+        "/chat/conversations",  // live chat unread count
+        "/chat/status",  // live chat status check
+        "/ai/conversations",  // AI assistant conversations
+        "/ops-center/live-state",  // ops center status
+        "/local-ai/health",  // local AI health check
+        "/local-ai/config",  // local AI configuration
+        "/twilio/token",  // Twilio phone integration
+        "/ringcentral/sip-provision",  // RingCentral SIP provisioning
+        "/predictive-service/scores",  // predictive scoring
+        "/gamification/my-stats",  // gamification stats
+        "/gamification/badges",  // gamification badges
+        "/gamification/leaderboard",  // gamification leaderboard
+        "/cs/segments/suggestions",  // customer segments
+        "/cs/segments/smart"  // smart customer segments
       ];
       const isOptionalEndpoint = optionalEndpoints.some((endpoint) =>
         url?.includes(endpoint),
