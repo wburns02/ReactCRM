@@ -22,7 +22,7 @@ export function GeneralSettings() {
 
   const [formData, setFormData] = useState({
     company_name: "",
-    timezone: "America/New_York",
+    timezone: "America/Chicago",
     date_format: "MM/DD/YYYY",
     time_format: "12h",
     currency: "USD",
@@ -94,11 +94,11 @@ export function GeneralSettings() {
                   setFormData({ ...formData, timezone: e.target.value })
                 }
               >
-                <option value="America/New_York">
-                  Eastern Time (US & Canada)
-                </option>
                 <option value="America/Chicago">
                   Central Time (US & Canada)
+                </option>
+                <option value="America/New_York">
+                  Eastern Time (US & Canada)
                 </option>
                 <option value="America/Denver">
                   Mountain Time (US & Canada)

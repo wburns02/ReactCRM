@@ -103,7 +103,7 @@ export function SoftPhone() {
     return (
       <button
         onClick={connect}
-        className="fixed bottom-20 right-4 md:bottom-4 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 active:bg-primary/80 touch-manipulation transition-colors"
+        className="fixed bottom-24 right-4 md:bottom-4 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 active:bg-primary/80 touch-manipulation transition-colors"
         title="Connect Softphone"
       >
         <Phone className="w-4 h-4" />
@@ -113,7 +113,7 @@ export function SoftPhone() {
   }
 
   return (
-    <div className="fixed bottom-20 right-4 md:bottom-4 z-50 w-72 select-none">
+    <div className="fixed bottom-24 right-4 md:bottom-4 z-50 w-72 select-none">
       {/* Header bar — always visible */}
       <div
         className={`flex items-center justify-between px-3 py-2 rounded-t-xl ${collapsed && !activeCall ? "rounded-b-xl" : ""} ${stateColor[state]} text-white cursor-pointer`}
