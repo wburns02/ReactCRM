@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiClient } from "../client";
+import { apiClient, withAuthFallback } from "../client";
 import { validateResponse } from "../validateResponse";
 import {
   companyEntityListSchema,
@@ -19,11 +19,13 @@ export const entityKeys = {
 export function useEntities() {
   return useQuery({
     queryKey: entityKeys.list(),
-    queryFn: async (): Promise<CompanyEntity[]> => {
-      const { data } = await apiClient.get("/entities/");
-      return validateResponse(companyEntityListSchema, data);
-    },
+    queryFn: (): Promise<CompanyEntity[]> =>
+      withAuthFallback(async () => {
+        const { data } = await apiClient.get("/entities/");
+        return validateResponse(companyEntityListSchema, data);
+      }, []),
     staleTime: 5 * 60_000, // entities rarely change
+    retry: false,
   });
 }
 
@@ -31,11 +33,13 @@ export function useEntities() {
 export function useCurrentEntity() {
   return useQuery({
     queryKey: entityKeys.current(),
-    queryFn: async (): Promise<CompanyEntity> => {
-      const { data } = await apiClient.get("/entities/current");
-      return validateResponse(companyEntitySchema, data);
-    },
+    queryFn: (): Promise<CompanyEntity | null> =>
+      withAuthFallback(async () => {
+        const { data } = await apiClient.get("/entities/current");
+        return validateResponse(companyEntitySchema, data);
+      }, null),
     staleTime: 5 * 60_000,
+    retry: false,
   });
 }
 

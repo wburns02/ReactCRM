@@ -58,7 +58,8 @@ export function EntityProvider({ children }: { children: ReactNode }) {
 
   // Resolve the selected entity from the list
   const entity = useMemo(() => {
-    if (entities.length === 0) return null;
+    // Return null if still loading or no entities available (unauthenticated user)
+    if (isLoading || entities.length === 0) return null;
     // Try to find the stored selection
     if (selectedId) {
       const found = entities.find((e) => e.id === selectedId);
@@ -66,7 +67,7 @@ export function EntityProvider({ children }: { children: ReactNode }) {
     }
     // Fall back to default entity
     return entities.find((e) => e.is_default) ?? entities[0];
-  }, [entities, selectedId]);
+  }, [entities, selectedId, isLoading]);
 
   // Keep localStorage in sync
   useEffect(() => {
