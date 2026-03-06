@@ -124,7 +124,7 @@ function KPICard({ title, value, subtitle, icon, borderColor, trend, sparkData }
       </div>
       {sparkData && sparkData.length > 1 && (
         <div className="h-8 mt-1">
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={50} minHeight={30}>
             <LineChart data={sparkPoints}>
               <Line
                 type="monotone"
@@ -174,7 +174,7 @@ function RevenueTrendChart() {
         {isLoading ? (
           <div className="flex items-center justify-center h-full text-text-muted">Loading...</div>
         ) : (
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={200}>
             <AreaChart data={trend?.data ?? []}>
               <defs>
                 <linearGradient id="revGradient" x1="0" y1="0" x2="0" y2="1">
@@ -230,7 +230,7 @@ function ServiceMixDonut() {
       ) : (
         <div className="flex flex-col items-center">
           <div className="h-52 w-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={100}>
               <PieChart>
                 <Pie
                   data={mix?.data ?? []}
