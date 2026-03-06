@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiClient, withAuthFallback } from "../client";
+import { apiClient, withAuthFallback, hasAuthToken } from "../client";
 import { validateResponse } from "../validateResponse";
 import {
   companyEntityListSchema,
@@ -26,6 +26,8 @@ export function useEntities() {
       }, []),
     staleTime: 5 * 60_000, // entities rarely change
     retry: false,
+    // Only run if user has auth token to prevent 401 console errors
+    enabled: hasAuthToken(),
   });
 }
 
@@ -40,6 +42,8 @@ export function useCurrentEntity() {
       }, null),
     staleTime: 5 * 60_000,
     retry: false,
+    // Only run if user has auth token to prevent 401 console errors
+    enabled: hasAuthToken(),
   });
 }
 

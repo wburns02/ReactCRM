@@ -6,7 +6,7 @@
  */
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiClient, withAuthFallback } from "../client";
+import { apiClient, withAuthFallback, hasAuthToken } from "../client";
 
 // ============================================
 // Types
@@ -121,6 +121,8 @@ export function useDemoStatus() {
       }),
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: false,
+    // Only run if user has auth token to prevent 401 console errors
+    enabled: hasAuthToken(),
   });
 }
 
@@ -140,6 +142,8 @@ export function useRoles() {
       }),
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: false,
+    // Only run if user has auth token to prevent 401 console errors
+    enabled: hasAuthToken(),
   });
 }
 
