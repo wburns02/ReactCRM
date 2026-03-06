@@ -21,34 +21,28 @@ interface Recommendation {
   action: string;
 }
 
-interface CallInsight {
+interface CallInsights {
   total_calls: number;
-  answered_calls: number;
-  missed_calls: number;
-  avg_duration_seconds: number;
-  answer_rate: number;
-  peak_hour: number | null;
-  by_direction: { direction: string; count: number }[];
-  by_result: { result: string; count: number }[];
-  calls_by_day: { day: string; count: number }[];
-  booking_conversion_rate: number;
-  avg_calls_per_day: number;
+  avg_duration_minutes: number;
+  by_outcome: Record<string, number>;
+  conversion_rate: number;
+  top_agents: { name: string; calls: number; conversion_rate: number }[];
+  coaching_flags: { agent: string; issue: string; rate: number }[];
 }
 
 interface TeamBenchmarks {
-  team_size: number;
-  total_jobs: number;
-  avg_completion_rate: number;
-  avg_jobs_per_tech_per_week: number;
-  top_performer: { name: string; completion_rate: number; total_jobs: number } | null;
-  needs_coaching_count: number;
-  job_type_distribution: { job_type: string; count: number; percentage: number }[];
+  period_days: number;
+  total_work_orders: number;
+  completed: number;
+  team_completion_rate: number;
+  top_performer: { name: string; completion_rate: number } | null;
+  most_active: { name: string; total_jobs: number } | null;
 }
 
 export function CoachingPage() {
   const [performance, setPerformance] = useState<TechPerf[]>([]);
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
-  const [callInsights, setCallInsights] = useState<CallInsight | null>(null);
+  const [callInsights, setCallInsights] = useState<CallInsights | null>(null);
   const [benchmarks, setBenchmarks] = useState<TeamBenchmarks | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -101,47 +95,27 @@ export function CoachingPage() {
       {benchmarks && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white border rounded-lg p-4">
-            <p className="text-sm text-gray-500">Team Size</p>
-            <p className="text-2xl font-bold text-gray-900">{benchmarks.team_size}</p>
+            <p className="text-sm text-gray-500">Total Work Orders</p>
+            <p className="text-2xl font-bold text-gray-900">{benchmarks.total_work_orders ?? 0}</p>
+            <p className="text-xs text-gray-400">Last {benchmarks.period_days ?? 90} days</p>
           </div>
           <div className="bg-white border rounded-lg p-4">
-            <p className="text-sm text-gray-500">Avg Completion Rate</p>
+            <p className="text-sm text-gray-500">Completed</p>
+            <p className="text-2xl font-bold text-green-600">{benchmarks.completed ?? 0}</p>
+          </div>
+          <div className="bg-white border rounded-lg p-4">
+            <p className="text-sm text-gray-500">Team Completion Rate</p>
             <p className="text-2xl font-bold text-gray-900">
-              {(benchmarks.avg_completion_rate * 100).toFixed(0)}%
-            </p>
-          </div>
-          <div className="bg-white border rounded-lg p-4">
-            <p className="text-sm text-gray-500">Avg Jobs/Week</p>
-            <p className="text-2xl font-bold text-gray-900">
-              {benchmarks.avg_jobs_per_tech_per_week.toFixed(1)}
-            </p>
-          </div>
-          <div className="bg-white border rounded-lg p-4">
-            <p className="text-sm text-gray-500">Needs Coaching</p>
-            <p className={`text-2xl font-bold ${benchmarks.needs_coaching_count > 0 ? "text-red-600" : "text-green-600"}`}>
-              {benchmarks.needs_coaching_count}
+              {((benchmarks.team_completion_rate ?? 0) * 100).toFixed(0)}%
             </p>
           </div>
           {benchmarks.top_performer && (
-            <div className="bg-white border rounded-lg p-4 col-span-2">
+            <div className="bg-white border rounded-lg p-4">
               <p className="text-sm text-gray-500">Top Performer</p>
               <p className="text-lg font-bold text-gray-900">{benchmarks.top_performer.name}</p>
-              <p className="text-sm text-gray-500">
-                {(benchmarks.top_performer.completion_rate * 100).toFixed(0)}% completion &middot; {benchmarks.top_performer.total_jobs} jobs
+              <p className="text-xs text-gray-400">
+                {((benchmarks.top_performer.completion_rate ?? 0) * 100).toFixed(0)}% completion
               </p>
-            </div>
-          )}
-          {benchmarks.job_type_distribution.length > 0 && (
-            <div className="bg-white border rounded-lg p-4 col-span-2">
-              <p className="text-sm text-gray-500 mb-2">Job Type Distribution</p>
-              <div className="space-y-1">
-                {benchmarks.job_type_distribution.slice(0, 5).map((jt) => (
-                  <div key={jt.job_type} className="flex justify-between text-sm">
-                    <span className="capitalize text-gray-700">{jt.job_type}</span>
-                    <span className="text-gray-500">{jt.count} ({jt.percentage.toFixed(0)}%)</span>
-                  </div>
-                ))}
-              </div>
             </div>
           )}
         </div>
@@ -204,46 +178,57 @@ export function CoachingPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div>
                 <p className="text-sm text-gray-500">Total Calls</p>
-                <p className="text-xl font-bold">{callInsights.total_calls}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Answer Rate</p>
-                <p className="text-xl font-bold text-green-600">
-                  {(callInsights.answer_rate * 100).toFixed(0)}%
-                </p>
+                <p className="text-xl font-bold">{callInsights.total_calls ?? 0}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Avg Duration</p>
                 <p className="text-xl font-bold">
-                  {Math.floor(callInsights.avg_duration_seconds / 60)}m {Math.round(callInsights.avg_duration_seconds % 60)}s
+                  {(callInsights.avg_duration_minutes ?? 0).toFixed(1)} min
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Booking Conversion</p>
+                <p className="text-sm text-gray-500">Conversion Rate</p>
                 <p className="text-xl font-bold text-blue-600">
-                  {(callInsights.booking_conversion_rate * 100).toFixed(0)}%
+                  {((callInsights.conversion_rate ?? 0) * 100).toFixed(0)}%
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Outcomes</p>
+                <p className="text-xl font-bold">
+                  {Object.keys(callInsights.by_outcome ?? {}).length} types
                 </p>
               </div>
             </div>
 
-            {callInsights.by_result.length > 0 && (
+            {callInsights.by_outcome && Object.keys(callInsights.by_outcome).length > 0 && (
               <div className="mt-3">
-                <p className="text-sm font-medium text-gray-700 mb-2">Call Results</p>
+                <p className="text-sm font-medium text-gray-700 mb-2">Call Outcomes</p>
                 <div className="flex flex-wrap gap-2">
-                  {callInsights.by_result.map((r) => (
-                    <span key={r.result} className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700">
-                      {r.result}: <strong>{r.count}</strong>
+                  {Object.entries(callInsights.by_outcome).map(([outcome, count]) => (
+                    <span key={outcome} className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700 capitalize">
+                      {outcome}: <strong>{count}</strong>
                     </span>
                   ))}
                 </div>
               </div>
             )}
 
-            {callInsights.peak_hour !== null && (
-              <p className="text-sm text-gray-500 mt-3">
-                Peak call hour: <strong>{callInsights.peak_hour}:00</strong> &middot;{" "}
-                Avg {callInsights.avg_calls_per_day.toFixed(1)} calls/day
-              </p>
+            {callInsights.coaching_flags && callInsights.coaching_flags.length > 0 && (
+              <div className="mt-4">
+                <p className="text-sm font-medium text-gray-700 mb-2">Coaching Flags</p>
+                <div className="space-y-2">
+                  {callInsights.coaching_flags.map((flag, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm">
+                      <span className="px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">
+                        flag
+                      </span>
+                      <span className="text-gray-700">
+                        <strong>{flag.agent}</strong>: {flag.issue} ({((flag.rate ?? 0) * 100).toFixed(0)}%)
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
         </div>
