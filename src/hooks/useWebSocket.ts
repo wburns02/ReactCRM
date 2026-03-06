@@ -109,10 +109,13 @@ export interface UseWebSocketReturn {
 // Constants
 // ============================================
 
+// TEMPORARY FIX: WebSocket disabled in production due to backend 403 errors
+// Backend WebSocket auth handler is rejecting all connections with 403 Forbidden
+// This prevents console errors until backend issue is resolved
 const DEFAULT_WS_URL =
   import.meta.env.VITE_WS_URL ||
   (import.meta.env.PROD
-    ? "wss://react-crm-api-production.up.railway.app/api/v2/ws"
+    ? null // Temporarily disabled - backend returning 403 for all WebSocket connections
     : "ws://localhost:5001/api/v2/ws");
 
 const DEFAULT_OPTIONS: Required<
