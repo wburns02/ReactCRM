@@ -1,6 +1,9 @@
+import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/Button.tsx";
 import { Select } from "@/components/ui/Select.tsx";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { useScheduleAhead } from "@/api/hooks/useRouteOptimization.ts";
 import { useScheduleStore } from "../store/scheduleStore.ts";
 import {
   formatWeekRange,
@@ -93,6 +96,14 @@ export function ScheduleToolbar() {
     toggleUnscheduledPanel,
     unscheduledPanelOpen,
   } = useScheduleStore();
+
+  const queryClient = useQueryClient();
+  const scheduleAhead = useScheduleAhead();
+  const [scheduleAheadResult, setScheduleAheadResult] = useState<{
+    created_count: number;
+    contracts_processed: number;
+    skipped_existing: number;
+  } | null>(null);
 
   // Fetch technicians for filter dropdown
   const { data: techniciansData } = useTechnicians({
@@ -249,6 +260,25 @@ export function ScheduleToolbar() {
             ))}
           </Select>
 
+          {/* Schedule Ahead */}
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={scheduleAhead.isPending}
+            data-testid="schedule-ahead-button"
+            onClick={async () => {
+              try {
+                const res = await scheduleAhead.mutateAsync({ months_ahead: 12 });
+                setScheduleAheadResult(res);
+                queryClient.invalidateQueries({ queryKey: ["workOrders"] });
+              } catch {
+                // error handled by mutation state
+              }
+            }}
+          >
+            {scheduleAhead.isPending ? "Generating..." : "Schedule Ahead"}
+          </Button>
+
           {/* Unscheduled Toggle */}
           <Button
             variant={unscheduledPanelOpen ? "primary" : "secondary"}
@@ -307,6 +337,29 @@ export function ScheduleToolbar() {
           onClick={() => setJobTypeFilter(filters.jobType === "real_estate_inspection" ? null : "real_estate_inspection")}
         />
       </div>
+
+      {/* Schedule Ahead Result */}
+      {scheduleAheadResult && (
+        <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center justify-between">
+          <span className="text-sm text-green-800">
+            Created {scheduleAheadResult.created_count} inspections from{" "}
+            {scheduleAheadResult.contracts_processed} contracts
+            {scheduleAheadResult.skipped_existing > 0 &&
+              ` (${scheduleAheadResult.skipped_existing} skipped — already scheduled)`}
+          </span>
+          <button
+            onClick={() => setScheduleAheadResult(null)}
+            className="text-xs text-green-600 hover:text-green-800 underline"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+      {scheduleAhead.isError && (
+        <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+          Failed to generate schedule. Please try again.
+        </div>
+      )}
     </div>
   );
 }

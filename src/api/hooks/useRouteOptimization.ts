@@ -187,6 +187,47 @@ export function useOptimizeRoute() {
   });
 }
 
+// ============================================================
+// Schedule Ahead — auto-generate maintenance inspections
+// ============================================================
+
+export interface ScheduleAheadRequest {
+  months_ahead?: number;
+  contract_ids?: string[];
+}
+
+export interface ScheduleAheadResponse {
+  created_count: number;
+  skipped_existing: number;
+  contracts_processed: number;
+  work_orders: {
+    id: string;
+    customer_id: string;
+    customer_name: string;
+    job_type: string;
+    scheduled_date: string;
+    contract_number: string;
+  }[];
+}
+
+/**
+ * Auto-generate recurring maintenance work orders from active contracts.
+ * Calls POST /schedule/schedule-ahead.
+ */
+export function useScheduleAhead() {
+  return useMutation({
+    mutationFn: async (
+      params: ScheduleAheadRequest,
+    ): Promise<ScheduleAheadResponse> => {
+      const { data } = await apiClient.post(
+        "/schedule/schedule-ahead",
+        params,
+      );
+      return data;
+    },
+  });
+}
+
 /**
  * Get optimization history for a date range
  */
