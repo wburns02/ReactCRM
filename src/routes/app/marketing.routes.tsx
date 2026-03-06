@@ -118,6 +118,9 @@ export function MarketingRoutes() {
       {/* /marketing/email → /marketing/email-marketing redirect */}
       <Route path="marketing/email" element={<Navigate to="/marketing/email-marketing" replace />} />
 
+      {/* /email-marketing → /marketing/email-marketing redirect (dead route fix) */}
+      <Route path="email-marketing" element={<Navigate to="/marketing/email-marketing" replace />} />
+
       {/* Email Marketing */}
       <Route
         path="marketing/email-marketing"
