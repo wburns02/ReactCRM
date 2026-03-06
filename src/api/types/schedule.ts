@@ -166,15 +166,17 @@ const STATE_TO_REGION: Record<string, Region> = {
 
 /**
  * Get the region for a work order based on its service_city and service_state.
+ * Falls back to customer.city / customer.state when service fields are null.
  * Uses city-to-region mapping first, then state-based disambiguation for
  * ambiguous cities, and finally state-based fallback for null/unknown cities.
  */
 export function getWorkOrderRegion(workOrder: {
   service_city?: string | null;
   service_state?: string | null;
+  customer?: { city?: string | null; state?: string | null } | null;
 }): Region | null {
-  const city = workOrder.service_city?.toLowerCase()?.trim();
-  const state = workOrder.service_state?.toLowerCase()?.trim();
+  const city = (workOrder.service_city || workOrder.customer?.city)?.toLowerCase()?.trim();
+  const state = (workOrder.service_state || workOrder.customer?.state)?.toLowerCase()?.trim();
 
   if (city) {
     // Check ambiguous cities first (need state to disambiguate)
