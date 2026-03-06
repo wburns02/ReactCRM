@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,6 +12,21 @@ import {
 } from "../hooks/useBooking";
 import type { TimeSlot } from "../types/lead";
 import { toastWarning } from "@/components/ui/Toast";
+
+const API_URL = import.meta.env.VITE_API_URL || "https://react-crm-api-production.up.railway.app/api/v2";
+
+interface TankEstimate {
+  estimated_gallons: number;
+  confidence: string;
+  source: string;
+  message: string;
+  overage_gallons: number;
+  estimated_overage_cost: number;
+  estimated_total: number;
+  address_matched?: string;
+  county?: string;
+  sqft?: number;
+}
 
 const bookingSchema = z.object({
   first_name: z.string().min(1, "First name is required"),
@@ -41,6 +56,35 @@ export function NashvilleBookingForm({ testMode = true }: NashvilleBookingFormPr
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<TimeSlot | undefined>();
   const [isAsap, setIsAsap] = useState(false);
+
+  // Tank size estimation
+  const [tankEstimate, setTankEstimate] = useState<TankEstimate | null>(null);
+  const [estimateLoading, setEstimateLoading] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  const fetchTankEstimate = useCallback((address: string) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (!address || address.length < 5) {
+      setTankEstimate(null);
+      return;
+    }
+    debounceRef.current = setTimeout(async () => {
+      setEstimateLoading(true);
+      try {
+        const resp = await fetch(
+          `${API_URL}/properties/estimate-tank?address=${encodeURIComponent(address)}`
+        );
+        if (resp.ok) {
+          const data: TankEstimate = await resp.json();
+          setTankEstimate(data);
+        }
+      } catch {
+        // Silently fail — estimate is a nice-to-have
+      } finally {
+        setEstimateLoading(false);
+      }
+    }, 600);
+  }, []);
 
   const {
     mutate: createBooking,
@@ -262,12 +306,56 @@ export function NashvilleBookingForm({ testMode = true }: NashvilleBookingFormPr
             Service Address
           </label>
           <input
-            {...register("service_address")}
+            {...register("service_address", {
+              onBlur: (e) => fetchTankEstimate(e.target.value),
+            })}
             id="nash-address"
             type="text"
             placeholder="123 Main St, Nashville, TN"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
           />
+
+          {/* Tank Size Estimate Display */}
+          {estimateLoading && (
+            <div className="mt-2 flex items-center gap-2 text-sm text-blue-600">
+              <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Looking up your property...
+            </div>
+          )}
+          {tankEstimate && !estimateLoading && (
+            <div className={`mt-2 rounded-lg p-3 text-sm ${
+              tankEstimate.overage_gallons > 0
+                ? "bg-amber-50 border border-amber-200 text-amber-800"
+                : "bg-green-50 border border-green-200 text-green-800"
+            }`}>
+              <div className="flex items-start gap-2">
+                <svg className="w-5 h-5 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  {tankEstimate.overage_gallons > 0 ? (
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  ) : (
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  )}
+                </svg>
+                <div>
+                  <p className="font-medium">{tankEstimate.message}</p>
+                  {tankEstimate.overage_gallons > 0 && (
+                    <p className="mt-1 font-semibold">
+                      Estimated total: ${tankEstimate.estimated_total.toFixed(0)}
+                      <span className="font-normal"> ($625 base + ~${tankEstimate.estimated_overage_cost.toFixed(0)} overage)</span>
+                    </p>
+                  )}
+                  {tankEstimate.confidence !== "low" && tankEstimate.county && (
+                    <p className="mt-0.5 text-xs opacity-75">
+                      Source: {tankEstimate.county} County property records
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Date/Time Selection */}
