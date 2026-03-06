@@ -181,7 +181,13 @@ apiClient.interceptors.response.use(
         "/gamification/badges",  // gamification badges
         "/gamification/leaderboard",  // gamification leaderboard
         "/cs/segments/suggestions",  // customer segments
-        "/cs/segments/smart"  // smart customer segments
+        "/cs/segments/smart",  // smart customer segments
+        "/reports/custom",  // custom reports (GET, POST)
+        "/reports/custom/data-sources",  // custom reports data sources
+        "/reports/custom/preview",  // custom reports preview
+        "/api/v2/reports/custom",  // custom reports with full path prefix
+        "/api/v2/reports/custom/data-sources",  // custom reports data sources with prefix
+        "/api/v2/reports/custom/preview"  // custom reports preview with prefix
       ];
       const isOptionalEndpoint = optionalEndpoints.some((endpoint) =>
         url?.includes(endpoint),
