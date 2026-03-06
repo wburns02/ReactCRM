@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 // Admin lazy imports
@@ -101,6 +101,12 @@ export function AdminRoutes() {
             <AdminSettingsPage />
           </Suspense>
         }
+      />
+
+      {/* Redirect /admin/settings → /settings */}
+      <Route
+        path="admin/settings"
+        element={<Navigate to="/settings" replace />}
       />
 
       {/* Data Import */}

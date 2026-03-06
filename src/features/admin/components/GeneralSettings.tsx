@@ -31,8 +31,8 @@ export function GeneralSettings() {
   useEffect(() => {
     if (settings) {
       setFormData({
-        company_name: settings.company_name || "",
-        timezone: settings.timezone || "America/New_York",
+        company_name: settings.company_name || "MAC Septic",
+        timezone: settings.timezone || "America/Chicago",
         date_format: settings.date_format || "MM/DD/YYYY",
         time_format: settings.time_format || "12h",
         currency: settings.currency || "USD",
