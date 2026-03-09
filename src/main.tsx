@@ -1,7 +1,7 @@
 import { initSentry } from "./lib/sentry";
 
-// Temporarily disable Sentry to isolate createContext error source
-// initSentry();
+// Initialize Sentry before React imports
+initSentry();
 
 // Use dynamic imports to avoid immediate React access at module evaluation time
 async function initializeApp() {
