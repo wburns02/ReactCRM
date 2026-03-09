@@ -1,3 +1,4 @@
+import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppRoutes } from "@/routes/index.tsx";
@@ -57,6 +58,28 @@ const queryClient = new QueryClient({
  * 9. PWAProvider - install prompts, update notifications, offline banner
  */
 function App() {
+  // CRITICAL: Prevent createContext errors from chunk load ordering issues
+  // If React isn't fully loaded yet, show a minimal loading state
+  if (!React.createContext) {
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#1e3a5f',
+        color: 'white',
+        fontSize: '18px'
+      }}>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>

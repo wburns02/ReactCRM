@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Site Test</title>
+</head>
+<body>
+    <h1>Testing React.ecbtx.com after revert</h1>
+    <iframe src="https://react.ecbtx.com" width="800" height="600" style="border: 1px solid #ccc;"></iframe>
+    <script>
+        setTimeout(() => {
+            const iframe = document.querySelector('iframe');
+            try {
+                const content = iframe.contentDocument || iframe.contentWindow.document;
+                console.log('iframe content loaded:', content.title);
+            } catch(e) {
+                console.log('iframe cross-origin, but that means site is loading');
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
