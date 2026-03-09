@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
+import { SignaturePad } from "@/components/SignaturePad.tsx";
 import {
   ClipboardCheck,
   CheckCircle2,
@@ -11,6 +12,7 @@ import {
   ChevronDown,
   ChevronUp,
   Plus,
+  PenLine,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────
@@ -32,6 +34,8 @@ interface DVIRRecord {
   overallResult: "PASS" | "FAIL";
   defectNotes: string;
   driverConfirmed: boolean;
+  driverName: string;
+  driverSignature: string; // base64 PNG
 }
 
 // ── Constants ────────────────────────────────────────────────
@@ -200,6 +204,8 @@ function InspectionForm({
   );
   const [defectNotes, setDefectNotes] = useState("");
   const [driverConfirmed, setDriverConfirmed] = useState(false);
+  const [driverName, setDriverName] = useState("");
+  const [driverSignature, setDriverSignature] = useState("");
 
   const hasFailures = useMemo(() => {
     return (
@@ -239,6 +245,14 @@ function InspectionForm({
       toastError("You must confirm the driver inspection statement.");
       return;
     }
+    if (!driverName.trim()) {
+      toastError("Please type your full name.");
+      return;
+    }
+    if (!driverSignature) {
+      toastError("Please sign the inspection with your finger or mouse.");
+      return;
+    }
 
     const record: DVIRRecord = {
       id: generateId(),
@@ -251,6 +265,8 @@ function InspectionForm({
       overallResult,
       defectNotes: defectNotes.trim(),
       driverConfirmed,
+      driverName: driverName.trim(),
+      driverSignature,
     };
 
     onSubmit(record);
@@ -263,6 +279,8 @@ function InspectionForm({
     overallResult,
     defectNotes,
     driverConfirmed,
+    driverName,
+    driverSignature,
     onSubmit,
   ]);
 
@@ -370,6 +388,59 @@ function InspectionForm({
             equipment. The information above is accurate.
           </span>
         </label>
+
+        {/* Driver Signature */}
+        <div>
+          <h3 className="text-sm font-bold text-text-secondary uppercase tracking-wide mb-3 flex items-center gap-2">
+            <PenLine className="w-4 h-4" />
+            Driver Signature
+          </h3>
+
+          {/* Printed Name */}
+          <div className="mb-3">
+            <label className="block text-xs font-medium text-text-muted mb-1">
+              Full Name (printed) <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              value={driverName}
+              onChange={(e) => setDriverName(e.target.value)}
+              placeholder="Type your full name"
+              className="w-full px-3 py-2 rounded-lg border border-border bg-bg-surface text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* Signature Pad */}
+          {driverSignature ? (
+            <div className="space-y-2">
+              <div className="border-2 border-green-300 dark:border-green-700 rounded-lg p-2 bg-white">
+                <img
+                  src={driverSignature}
+                  alt="Driver signature"
+                  className="w-full h-[150px] object-contain"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-600" />
+                <span className="text-sm text-green-600 dark:text-green-400 font-medium">
+                  Signature captured
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setDriverSignature("")}
+                  className="ml-auto text-xs text-text-muted hover:text-red-500 transition-colors"
+                >
+                  Re-sign
+                </button>
+              </div>
+            </div>
+          ) : (
+            <SignaturePad
+              onSignature={(base64) => setDriverSignature(base64)}
+              height={150}
+            />
+          )}
+        </div>
 
         {/* Actions */}
         <div className="flex gap-3">
@@ -520,6 +591,30 @@ function HistoryRow({ record }: { record: DVIRRecord }) {
               <p className="text-sm text-red-700 dark:text-red-300">
                 {record.defectNotes}
               </p>
+            </div>
+          )}
+
+          {/* Driver Signature */}
+          {(record.driverName || record.driverSignature) && (
+            <div className="px-3 py-2 rounded-lg bg-bg-muted/50 border border-border">
+              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide mb-2">
+                Driver Signature
+              </p>
+              {record.driverName && (
+                <p className="text-sm text-text-primary mb-2">
+                  <span className="text-text-muted">Signed by:</span>{" "}
+                  <span className="font-semibold">{record.driverName}</span>
+                </p>
+              )}
+              {record.driverSignature && (
+                <div className="bg-white rounded border border-border p-1 inline-block">
+                  <img
+                    src={record.driverSignature}
+                    alt={`Signature of ${record.driverName || "driver"}`}
+                    className="h-[80px] object-contain"
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
