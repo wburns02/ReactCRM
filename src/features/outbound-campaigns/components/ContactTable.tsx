@@ -6,7 +6,7 @@ import {
   type CampaignContact,
   type ContactCallStatus,
 } from "../types";
-import { Phone, PhoneOff, Search, Filter, Trash2, StickyNote } from "lucide-react";
+import { Phone, PhoneOff, Search, Filter, Trash2, StickyNote, Pencil, Plus, X, Check, UserPlus } from "lucide-react";
 
 interface ContactTableProps {
   campaignId: string;
@@ -27,6 +27,90 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
   const [zoneFilter, setZoneFilter] = useState<string>("all");
   const [notesId, setNotesId] = useState<string | null>(null);
   const [notesText, setNotesText] = useState("");
+
+  // Edit/Add contact modal
+  const [editContact, setEditContact] = useState<CampaignContact | null>(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [formName, setFormName] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formCompany, setFormCompany] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formAddress, setFormAddress] = useState("");
+  const [formCity, setFormCity] = useState("");
+  const [formState, setFormState] = useState("");
+  const [formZip, setFormZip] = useState("");
+  const [formZone, setFormZone] = useState("");
+  const [formNotes, setFormNotes] = useState("");
+
+  function openEditModal(contact: CampaignContact) {
+    setEditContact(contact);
+    setIsAdding(false);
+    setFormName(contact.account_name);
+    setFormPhone(formatPhone(contact.phone));
+    setFormCompany(contact.company || "");
+    setFormEmail(contact.email || "");
+    setFormAddress(contact.address || "");
+    setFormCity(contact.city || "");
+    setFormState(contact.state || "");
+    setFormZip(contact.zip_code || "");
+    setFormZone(contact.service_zone || "");
+    setFormNotes(contact.notes || "");
+  }
+
+  function openAddModal() {
+    setEditContact(null);
+    setIsAdding(true);
+    setFormName("");
+    setFormPhone("");
+    setFormCompany("");
+    setFormEmail("");
+    setFormAddress("");
+    setFormCity("");
+    setFormState("");
+    setFormZip("");
+    setFormZone("");
+    setFormNotes("");
+  }
+
+  function closeModal() {
+    setEditContact(null);
+    setIsAdding(false);
+  }
+
+  function handleSaveContact() {
+    if (!formName.trim() || !formPhone.trim()) return;
+    const phone = formPhone.replace(/\D/g, "");
+    if (phone.length < 7) return;
+
+    if (editContact) {
+      useOutboundStore.getState().updateContact(editContact.id, {
+        account_name: formName.trim(),
+        phone,
+        company: formCompany.trim() || null,
+        email: formEmail.trim() || null,
+        address: formAddress.trim() || null,
+        city: formCity.trim() || null,
+        state: formState.trim() || null,
+        zip_code: formZip.trim() || null,
+        service_zone: formZone.trim() || null,
+        notes: formNotes.trim() || null,
+      });
+    } else {
+      useOutboundStore.getState().addContact(campaignId, {
+        name: formName.trim(),
+        phone,
+        company: formCompany.trim() || undefined,
+        email: formEmail.trim() || undefined,
+        address: formAddress.trim() || undefined,
+        city: formCity.trim() || undefined,
+        state: formState.trim() || undefined,
+        zip_code: formZip.trim() || undefined,
+        service_zone: formZone.trim() || undefined,
+        notes: formNotes.trim() || undefined,
+      });
+    }
+    closeModal();
+  }
 
   // Collect unique zones for the filter dropdown
   const availableZones = useMemo(() => {
@@ -169,6 +253,12 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
             className="w-full pl-9 pr-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
+        <button
+          onClick={openAddModal}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary/90 transition-colors"
+        >
+          <UserPlus className="w-3.5 h-3.5" /> Add Contact
+        </button>
 
         {/* Zone filter dropdown */}
         {availableZones.length > 1 && (
@@ -230,19 +320,25 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                   className="border-b border-border last:border-0 hover:bg-bg-hover/50"
                 >
                   <td className="px-3 py-2.5">
-                    <div className="font-medium text-text-primary">
-                      {contact.account_name}
-                    </div>
-                    {contact.company && (
-                      <div className="text-xs text-text-tertiary">
-                        {contact.company}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); openEditModal(contact); }}
+                      className="text-left hover:underline"
+                      title="Click to edit contact"
+                    >
+                      <div className="font-medium text-text-primary">
+                        {contact.account_name}
                       </div>
-                    )}
-                    {contact.zip_code && (
-                      <div className="text-[10px] text-text-tertiary font-mono">
-                        {contact.zip_code}
-                      </div>
-                    )}
+                      {contact.company && (
+                        <div className="text-xs text-text-tertiary">
+                          {contact.company}
+                        </div>
+                      )}
+                      {contact.zip_code && (
+                        <div className="text-[10px] text-text-tertiary font-mono">
+                          {contact.zip_code}
+                        </div>
+                      )}
+                    </button>
                   </td>
                   <td className="px-3 py-2.5">
                     {getZoneBadge(contact.service_zone)}
@@ -292,6 +388,13 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                           </button>
                         </>
                       )}
+                      <button
+                        onClick={() => openEditModal(contact)}
+                        className="p-1.5 rounded-lg hover:bg-bg-hover text-text-secondary"
+                        title="Edit contact"
+                      >
+                        <Pencil className="w-3.5 h-3.5" />
+                      </button>
                       <button
                         onClick={() => {
                           setNotesId(contact.id);
@@ -380,6 +483,141 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                 className="px-3 py-1.5 rounded-lg text-sm bg-primary text-white hover:bg-primary/90"
               >
                 Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit / Add Contact Modal */}
+      {(editContact || isAdding) && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={closeModal} />
+          <div className="relative bg-bg-card border border-border rounded-xl shadow-xl max-w-lg w-full mx-4 p-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
+                {isAdding ? (
+                  <><UserPlus className="w-4 h-4 text-primary" /> Add Contact</>
+                ) : (
+                  <><Pencil className="w-4 h-4 text-primary" /> Edit Contact</>
+                )}
+              </h3>
+              <button onClick={closeModal} className="p-1 rounded hover:bg-bg-hover text-text-tertiary">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2 sm:col-span-1">
+                <label className="block text-xs text-text-secondary mb-1">Name *</label>
+                <input
+                  autoFocus
+                  value={formName}
+                  onChange={(e) => setFormName(e.target.value)}
+                  placeholder="Contact name"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <label className="block text-xs text-text-secondary mb-1">Phone *</label>
+                <input
+                  value={formPhone}
+                  onChange={(e) => setFormPhone(e.target.value)}
+                  placeholder="(555) 123-4567"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <label className="block text-xs text-text-secondary mb-1">Company</label>
+                <input
+                  value={formCompany}
+                  onChange={(e) => setFormCompany(e.target.value)}
+                  placeholder="Company name"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <label className="block text-xs text-text-secondary mb-1">Email</label>
+                <input
+                  value={formEmail}
+                  onChange={(e) => setFormEmail(e.target.value)}
+                  placeholder="email@example.com"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="col-span-2">
+                <label className="block text-xs text-text-secondary mb-1">Address</label>
+                <input
+                  value={formAddress}
+                  onChange={(e) => setFormAddress(e.target.value)}
+                  placeholder="Street address"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-text-secondary mb-1">City</label>
+                <input
+                  value={formCity}
+                  onChange={(e) => setFormCity(e.target.value)}
+                  placeholder="City"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-xs text-text-secondary mb-1">State</label>
+                  <input
+                    value={formState}
+                    onChange={(e) => setFormState(e.target.value)}
+                    placeholder="TX"
+                    maxLength={2}
+                    className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-text-secondary mb-1">Zip</label>
+                  <input
+                    value={formZip}
+                    onChange={(e) => setFormZip(e.target.value)}
+                    placeholder="78666"
+                    className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <label className="block text-xs text-text-secondary mb-1">Service Zone</label>
+                <input
+                  value={formZone}
+                  onChange={(e) => setFormZone(e.target.value)}
+                  placeholder="Zone 1, Zone 2..."
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div className="col-span-2">
+                <label className="block text-xs text-text-secondary mb-1">Notes</label>
+                <textarea
+                  value={formNotes}
+                  onChange={(e) => setFormNotes(e.target.value)}
+                  rows={2}
+                  placeholder="Additional notes..."
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                onClick={closeModal}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-text-secondary hover:bg-bg-hover"
+              >
+                <X className="w-3.5 h-3.5" /> Cancel
+              </button>
+              <button
+                onClick={handleSaveContact}
+                disabled={!formName.trim() || !formPhone.trim() || formPhone.replace(/\D/g, "").length < 7}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Check className="w-3.5 h-3.5" /> {isAdding ? "Add Contact" : "Save Changes"}
               </button>
             </div>
           </div>

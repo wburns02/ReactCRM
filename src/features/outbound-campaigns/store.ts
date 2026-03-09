@@ -259,6 +259,7 @@ interface OutboundCampaignState {
   setCampaignStatus: (id: string, status: CampaignStatus) => void;
 
   // Contact management
+  addContact: (campaignId: string, data: { name: string; phone: string; company?: string; email?: string; address?: string; city?: string; state?: string; zip_code?: string; service_zone?: string; notes?: string }) => string;
   importContacts: (campaignId: string, rows: ImportRow[], sourceFile?: string, sourceSheet?: string) => number;
   batchImportZones: (zones: { sheetName: string; rows: ImportRow[] }[], sourceFile: string) => string[];
   updateContact: (id: string, updates: Partial<CampaignContact>) => void;
@@ -356,6 +357,53 @@ export const useOutboundStore = create<OutboundCampaignState>()(
               : c,
           ),
         }));
+      },
+
+      addContact: (campaignId, data) => {
+        const now = new Date().toISOString();
+        const id = crypto.randomUUID();
+        const contact: CampaignContact = {
+          id,
+          campaign_id: campaignId,
+          account_number: null,
+          account_name: data.name,
+          company: data.company || null,
+          phone: data.phone.replace(/\D/g, ""),
+          email: data.email || null,
+          address: data.address || null,
+          city: data.city || null,
+          state: data.state || null,
+          zip_code: data.zip_code || null,
+          service_zone: data.service_zone || null,
+          system_type: null,
+          contract_type: null,
+          contract_status: null,
+          contract_start: null,
+          contract_end: null,
+          contract_value: null,
+          customer_type: null,
+          call_priority_label: null,
+          call_status: "pending",
+          call_attempts: 0,
+          last_call_date: null,
+          last_call_duration: null,
+          last_disposition: null,
+          notes: data.notes || null,
+          callback_date: null,
+          assigned_rep: null,
+          priority: 2,
+          created_at: now,
+          updated_at: now,
+        };
+        set((s) => ({
+          contacts: [...s.contacts, contact],
+          campaigns: s.campaigns.map((c) =>
+            c.id === campaignId
+              ? { ...c, total_contacts: c.total_contacts + 1, updated_at: now }
+              : c,
+          ),
+        }));
+        return id;
       },
 
       importContacts: (campaignId, rows, sourceFile, sourceSheet) => {
