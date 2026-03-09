@@ -94,6 +94,12 @@ const TechSettingsPage = lazy(() =>
   ),
 );
 
+const TechDVIRPage = lazy(() =>
+  import("@/features/technician-portal/TechDVIRPage.tsx").then(
+    (m) => ({ default: m.TechDVIRPage }),
+  ),
+);
+
 const GamificationHub = lazy(() =>
   import("@/features/technician-portal/components/GamificationHub.tsx").then(
     (m) => ({ default: m.GamificationHub }),
@@ -122,6 +128,14 @@ export function TechnicianRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <TechSchedulePage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="portal/dvir"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechDVIRPage />
           </Suspense>
         }
       />

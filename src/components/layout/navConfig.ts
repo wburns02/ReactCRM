@@ -6,7 +6,7 @@ import {
   Inbox, MessageCircle, Mail, PhoneCall, Bell, Plug, Receipt, CreditCard,
   BarChart3, TrendingUp, Banknote, Calculator, Building2, Truck, Activity,
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
-  Download, Globe, Eye, PhoneOutgoing, Shield, AlertTriangle,
+  Download, Globe, Eye, PhoneOutgoing, Shield, AlertTriangle, ClipboardCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -37,6 +37,7 @@ export const techNavItems: NavItem[] = [
   { path: "/my-dashboard", label: "My Dashboard", icon: Home },
   { path: "/portal/jobs", label: "My Jobs", icon: Wrench },
   { path: "/portal/schedule", label: "My Schedule", icon: Calendar },
+  { path: "/portal/dvir", label: "DVIR", icon: ClipboardCheck },
   { path: "/portal/time-clock", label: "Time Clock", icon: Clock },
   { path: "/portal/pay", label: "Pay & Performance", icon: DollarSign },
   { path: "/field", label: "Field View", icon: Map },
