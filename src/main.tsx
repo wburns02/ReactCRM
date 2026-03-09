@@ -1,7 +1,7 @@
 import { initSentry } from "./lib/sentry";
 
-// Initialize Sentry before React imports
-initSentry();
+// Temporarily disable Sentry to isolate createContext error source
+// initSentry();
 
 // Use dynamic imports to avoid immediate React access at module evaluation time
 async function initializeApp() {
@@ -17,8 +17,10 @@ async function initializeApp() {
       import("./App.tsx")
     ]);
 
+    const React = await import("react");
+
     createRoot(document.getElementById("root")!).render(
-      StrictMode({ children: App({}) })
+      React.createElement(StrictMode, null, React.createElement(App))
     );
   } catch (error) {
     console.error("Failed to initialize app:", error);
