@@ -92,3 +92,4 @@ Railway auto-deploys on push to `master`. Never use `railway up`.
 git push origin master
 ```
 # Force deployment - Mon Mar  9 05:20:19 PM CDT 2026
+# Deploy vendor-react chunk fix - Mon Mar  9 05:25:38 PM CDT 2026
