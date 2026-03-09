@@ -207,8 +207,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-query': ['@tanstack/react-query'],
+          // CRITICAL: React + React Query MUST be in the same chunk
+          // to prevent createContext undefined errors from chunk load ordering
+          'vendor-react': ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query'],
           'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
           'vendor-charts': ['recharts'],
           'vendor-maplibre': ['maplibre-gl', 'react-map-gl/maplibre'],
