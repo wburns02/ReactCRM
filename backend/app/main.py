@@ -187,6 +187,7 @@ def create_application() -> FastAPI:
         logger.info(f"CORS origins: {settings.BACKEND_CORS_ORIGINS}")
         logger.info(f"RingCentral server: {settings.RINGCENTRAL_SERVER_URL}")
         logger.info(f"Auto-disposition enabled: {settings.ENABLE_AUTO_DISPOSITION}")
+        logger.info(f"Google STT enabled: {settings.GOOGLE_STT_ENABLED}, credentials: {'set' if settings.GOOGLE_STT_CREDENTIALS_JSON else 'missing'}")
 
     @app.on_event("shutdown")
     async def shutdown_event():
@@ -224,12 +225,17 @@ def create_application() -> FastAPI:
                 "ringcentral_configured": bool(settings.RINGCENTRAL_CLIENT_ID),
                 "openai_configured": bool(settings.OPENAI_API_KEY),
                 "redis_configured": bool(settings.REDIS_URL),
-                "s3_configured": settings.USE_S3
+                "s3_configured": settings.USE_S3,
+                "google_stt_configured": settings.GOOGLE_STT_ENABLED and bool(settings.GOOGLE_STT_CREDENTIALS_JSON)
             }
         }
 
     # ===== API ROUTES =====
     app.include_router(api_router, prefix="/api/v2")
+
+    # ===== WEBSOCKET ROUTES (no /api/v2 prefix — frontend connects to /ws/...) =====
+    from app.api.v2.endpoints.call_transcript_ws import router as ws_router
+    app.include_router(ws_router)
 
     # ===== ROOT ENDPOINT =====
     @app.get("/")

@@ -90,6 +90,11 @@ class Settings(BaseSettings):
     S3_SECRET_ACCESS_KEY: Optional[str] = None
     LOCAL_STORAGE_PATH: str = "/var/crm/recordings"
 
+    # ===== GOOGLE SPEECH-TO-TEXT (Real-time transcription) =====
+    GOOGLE_STT_ENABLED: bool = False
+    GOOGLE_STT_CREDENTIALS_JSON: Optional[str] = None  # Base64-encoded service account JSON
+    GOOGLE_STT_LANGUAGE_CODE: str = "en-US"
+
     # ===== FEATURE FLAGS =====
     AUTO_DOWNLOAD_RECORDINGS: bool = True
     AUTO_SYNC_INTERVAL_MINUTES: int = 60
