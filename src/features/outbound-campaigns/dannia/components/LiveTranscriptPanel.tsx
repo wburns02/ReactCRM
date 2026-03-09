@@ -1,5 +1,5 @@
-import { useRef, useEffect, useMemo } from "react";
-import { Mic, MicOff, X, Sparkles, AlertTriangle, ClipboardCopy, PhoneIncoming, User } from "lucide-react";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Mic, MicOff, X, Sparkles, AlertTriangle, ClipboardCopy, PhoneIncoming, User, ChevronDown, ChevronUp } from "lucide-react";
 import type { CampaignContact } from "../../types";
 import {
   useTranscriptionAssist,
@@ -289,6 +289,7 @@ export function LiveTranscriptPanel({
 
 /**
  * Individual auto-suggest card shown in the strip above the transcript.
+ * Collapsed by default — shows question header. Click to expand and see full answer.
  */
 function SuggestionCard({
   card,
@@ -299,39 +300,53 @@ function SuggestionCard({
   onDismiss: () => void;
   onUseAsNotes?: () => void;
 }) {
+  const [expanded, setExpanded] = useState(false);
   const catInfo = KB_CATEGORIES[card.category as KBCategory] || KB_CATEGORIES.service;
 
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-purple-200 dark:border-purple-800/50 bg-white dark:bg-bg-card px-3 py-2 animate-in slide-in-from-top-2">
-      <Sparkles className="w-4 h-4 shrink-0 mt-0.5 text-purple-500" />
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5 mb-0.5">
-          <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${catInfo.color}`}>
-            {catInfo.label}
-          </span>
-          <span className="text-[10px] text-text-tertiary truncate">
-            {card.question}
-          </span>
-        </div>
-        <p className="text-xs leading-relaxed text-text-primary font-medium line-clamp-3">
-          {card.answer}
-        </p>
-        {onUseAsNotes && (
-          <button
-            onClick={onUseAsNotes}
-            className="flex items-center gap-1 mt-1 text-[10px] font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
-          >
-            <ClipboardCopy className="w-3 h-3" />
-            Use as Notes
-          </button>
-        )}
-      </div>
+    <div className="rounded-lg border border-purple-200 dark:border-purple-800/50 bg-white dark:bg-bg-card animate-in slide-in-from-top-2 overflow-hidden">
+      {/* Header — always visible, click to toggle */}
       <button
-        onClick={onDismiss}
-        className="shrink-0 p-0.5 rounded hover:bg-bg-hover text-text-tertiary"
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-purple-50/50 dark:hover:bg-purple-950/20 transition-colors"
       >
-        <X className="w-3 h-3" />
+        <Sparkles className="w-3.5 h-3.5 shrink-0 text-purple-500" />
+        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0 ${catInfo.color}`}>
+          {catInfo.label}
+        </span>
+        <span className="text-[11px] font-medium text-text-primary truncate flex-1">
+          {card.question}
+        </span>
+        <button
+          onClick={(e) => { e.stopPropagation(); onDismiss(); }}
+          className="shrink-0 p-0.5 rounded hover:bg-bg-hover text-text-tertiary"
+        >
+          <X className="w-3 h-3" />
+        </button>
+        {expanded ? (
+          <ChevronUp className="w-3 h-3 shrink-0 text-text-tertiary" />
+        ) : (
+          <ChevronDown className="w-3 h-3 shrink-0 text-text-tertiary" />
+        )}
       </button>
+
+      {/* Expandable answer body */}
+      {expanded && (
+        <div className="px-3 pb-2.5 border-t border-purple-100 dark:border-purple-900/30">
+          <p className="text-xs leading-relaxed text-text-primary mt-2">
+            {card.answer}
+          </p>
+          {onUseAsNotes && (
+            <button
+              onClick={onUseAsNotes}
+              className="flex items-center gap-1 mt-2 text-[10px] font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+            >
+              <ClipboardCopy className="w-3 h-3" />
+              Use as Notes
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

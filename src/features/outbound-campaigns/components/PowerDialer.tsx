@@ -211,6 +211,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const callStartTimeRef = useRef<number>(0);
   const callDurationRef = useRef<number>(0);
   const callSidRef = useRef<string | null>(null);
+  const callContactRef = useRef<CampaignContact | null>(null);
   const assistMessagesRef = useRef<{ role: string; content: string }[]>([]);
 
   // Auto-dial countdown state
@@ -301,11 +302,14 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
 
   // Capture call info when call goes active (before it resets on call end)
   useEffect(() => {
-    if (phoneState === "active" && activeCall) {
+    if ((phoneState === "active" || phoneState === "calling") && activeCall) {
       callStartTimeRef.current = activeCall.startTime;
       callSidRef.current = activeCall.callSid ?? null;
+      if (currentContact) {
+        callContactRef.current = currentContact;
+      }
     }
-  }, [phoneState, activeCall]);
+  }, [phoneState, activeCall, currentContact]);
 
   // Callback for assist messages from AgentAssist
   const handleAssistMessagesChange = useCallback((messages: { role: string; content: string }[]) => {
@@ -323,13 +327,15 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   useEffect(() => {
     if (
       prevPhoneStateRef.current === "active" &&
-      phoneState === "registered" &&
-      currentContact
+      phoneState === "registered"
     ) {
-      if (transcriptRef.current) {
-        generateSummary(transcriptRef.current, currentContact.account_name);
+      const contact = callContactRef.current || currentContact;
+      if (contact) {
+        if (transcriptRef.current) {
+          generateSummary(transcriptRef.current, contact.account_name);
+        }
+        setShowPostCallReport(true);
       }
-      setShowPostCallReport(true);
     }
     prevPhoneStateRef.current = phoneState;
   }, [phoneState, currentContact, generateSummary]);
@@ -1023,11 +1029,13 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
       )}
 
       {/* Post-call report modal */}
-      {showPostCallReport && currentContact && (() => {
+      {showPostCallReport && (() => {
+        const reportContact = callContactRef.current || currentContact;
+        if (!reportContact) return null;
         const parsed = parseTranscripts(transcriptRef.current);
         return (
           <PostCallReportModal
-            contact={currentContact}
+            contact={reportContact}
             campaignId={campaignId}
             callDuration={callDurationRef.current}
             callSid={callSidRef.current}
@@ -1041,8 +1049,12 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             twoSidedTranscription={parsed.customer.length > 0}
             onDisposition={(status, editedNotes) => {
               handleDisposition(status, editedNotes);
+              callContactRef.current = null;
             }}
-            onClose={() => setShowPostCallReport(false)}
+            onClose={() => {
+              setShowPostCallReport(false);
+              callContactRef.current = null;
+            }}
           />
         );
       })()}

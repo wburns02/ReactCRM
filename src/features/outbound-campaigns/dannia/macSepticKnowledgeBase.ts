@@ -1,4 +1,5 @@
 import type { CampaignContact } from "../types";
+import { SEPTIC_FAQ } from "../septicFAQ";
 
 /**
  * Mac Septic Knowledge Base — comprehensive Q&A entries for AI call assistance.
@@ -433,7 +434,25 @@ export const KB_CATEGORIES: Record<KBCategory, { label: string; color: string; i
 };
 
 /**
+ * Map FAQ categories to KBCategory for consistent UI display.
+ */
+function mapFAQCategory(faqCategory: string): KBCategory {
+  const map: Record<string, KBCategory> = {
+    "Cost & Pricing": "pricing",
+    "Maintenance & Pumping": "technical",
+    "Signs of Problems / Emergency": "emergency",
+    "System Types": "technical",
+    "Regulations & Permits": "regulatory",
+    "Installation & Replacement": "service",
+    "Environmental & Health": "emergency",
+    "General / How It Works": "technical",
+  };
+  return map[faqCategory] || "service";
+}
+
+/**
  * Search the knowledge base for relevant entries.
+ * Searches both curated KB entries AND the 50-question FAQ for maximum coverage.
  * Returns matches sorted by relevance score (highest first).
  */
 export function searchKnowledgeBase(
@@ -441,8 +460,11 @@ export function searchKnowledgeBase(
   limit = 5,
 ): { entry: KBEntry; score: number }[] {
   const lowerQuery = query.toLowerCase();
+  const queryWords = lowerQuery.split(/\s+/);
   const results: { entry: KBEntry; score: number }[] = [];
+  const seenIds = new Set<string>();
 
+  // Search curated KB entries (higher base score)
   for (const entry of KNOWLEDGE_BASE) {
     let score = 0;
 
@@ -459,7 +481,6 @@ export function searchKnowledgeBase(
     }
 
     // Question similarity (basic word overlap)
-    const queryWords = lowerQuery.split(/\s+/);
     const questionWords = entry.question.toLowerCase().split(/\s+/);
     const overlap = queryWords.filter((w) => questionWords.includes(w)).length;
     score += overlap * 3;
@@ -469,6 +490,43 @@ export function searchKnowledgeBase(
 
     if (score > 10) {
       results.push({ entry, score });
+      seenIds.add(entry.id);
+    }
+  }
+
+  // Search 50-question FAQ for additional coverage
+  for (const faq of SEPTIC_FAQ) {
+    const faqId = `faq-${faq.id}`;
+    if (seenIds.has(faqId)) continue;
+
+    let score = 0;
+
+    // Keyword matching (FAQ has more comprehensive keywords)
+    for (const keyword of faq.keywords) {
+      const kw = keyword.toLowerCase();
+      if (lowerQuery.includes(kw)) {
+        // Multi-word keywords score higher
+        score += kw.split(/\s+/).length * 8;
+      }
+    }
+
+    // Question word overlap
+    const questionWords = faq.question.toLowerCase().split(/\s+/);
+    const overlap = queryWords.filter((w) => questionWords.includes(w)).length;
+    score += overlap * 3;
+
+    if (score > 8) {
+      const syntheticEntry: KBEntry = {
+        id: faqId,
+        category: mapFAQCategory(faq.category),
+        keywords: faq.keywords,
+        patterns: [],
+        question: faq.question,
+        answer: faq.answer,
+        priority: 5,
+      };
+      results.push({ entry: syntheticEntry, score });
+      seenIds.add(faqId);
     }
   }
 

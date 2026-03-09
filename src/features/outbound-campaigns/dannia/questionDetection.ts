@@ -98,9 +98,39 @@ const DETECTION_PATTERNS: DetectionPattern[] = [
   { pattern: /tceq|regulation|requirement|law|code|permit/i, category: "regulatory", confidence: 0.85 },
   { pattern: /sell.*home|real.*estate|property.*transfer/i, category: "regulatory", confidence: 0.9 },
 
-  // Emergency
+  // Emergency / Signs of trouble
   { pattern: /emergency|urgent|back.*up|overflow|smell|odor|sewage/i, category: "emergency", confidence: 0.95 },
   { pattern: /help|now|immediate|right away|asap/i, category: "emergency", confidence: 0.6 },
+  { pattern: /slow.*drain|drain.*slow|gurgl|bubbl|standing.*water|soggy/i, category: "emergency", confidence: 0.85 },
+  { pattern: /green.*grass|lush.*grass|wet.*spot|puddle.*yard/i, category: "emergency", confidence: 0.8 },
+  { pattern: /well.*water|contamina|drinking.*water|e.*coli|nitrate/i, category: "emergency", confidence: 0.9 },
+
+  // Installation & replacement
+  { pattern: /install|new.*system|replace.*system|perc.*test|percolat/i, category: "service", confidence: 0.85 },
+  { pattern: /tear.*up.*yard|excavat|dig.*up|how long.*install/i, category: "service", confidence: 0.8 },
+  { pattern: /riser|lid|locate.*tank|find.*tank|where.*tank/i, category: "service", confidence: 0.8 },
+  { pattern: /repair.*or.*replace|worth.*fix|need.*new/i, category: "service", confidence: 0.85 },
+
+  // Maintenance specifics
+  { pattern: /garbage.*dispos|rid[\s-]?x|additive|enzyme|treatment/i, category: "technical", confidence: 0.8 },
+  { pattern: /laundry|wash.*machine|detergent|loads/i, category: "technical", confidence: 0.75 },
+  { pattern: /plant.*over|tree.*root|garden.*over|drive.*over|park.*on/i, category: "technical", confidence: 0.8 },
+  { pattern: /never.*pump|first.*time|been.*years|don't.*know.*when/i, category: "technical", confidence: 0.85 },
+  { pattern: /insurance|cover|homeowner.*policy|claim/i, category: "pricing", confidence: 0.85 },
+
+  // Environmental
+  { pattern: /health.*hazard|danger|toxic|safe.*breathe|gas|fume/i, category: "emergency", confidence: 0.85 },
+  { pattern: /pollut|lake|river|stream|environment|eco/i, category: "emergency", confidence: 0.75 },
+
+  // System types
+  { pattern: /mound.*system|sand.*mound|raised|what.*type.*have/i, category: "technical", confidence: 0.85 },
+  { pattern: /effluent.*filter|outlet.*filter|baffle.*filter/i, category: "technical", confidence: 0.8 },
+  { pattern: /city.*sewer|connect.*sewer|municipal|hook.*up/i, category: "technical", confidence: 0.8 },
+  { pattern: /how.*work|how.*septic.*work|explain|basics|what.*is.*septic/i, category: "technical", confidence: 0.75 },
+
+  // Regulations
+  { pattern: /diy|do.*it.*myself|need.*licensed|contractor|handyman/i, category: "regulatory", confidence: 0.8 },
+  { pattern: /fail.*inspect|violation|fine|non.*compliant|county.*inspect/i, category: "regulatory", confidence: 0.85 },
 
   // General question indicators
   { pattern: /do you|can you|are you|will you|would you/i, category: "company", confidence: 0.5 },

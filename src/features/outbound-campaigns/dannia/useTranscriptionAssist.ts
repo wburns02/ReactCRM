@@ -39,8 +39,8 @@ interface UseTranscriptionAssistReturn {
   clearSuggestions: () => void;
 }
 
-const AUTO_DISMISS_MS = 30_000; // 30 seconds
-const MIN_CARD_CONFIDENCE = 0.7; // Only show suggestion cards for high-confidence caller questions
+const AUTO_DISMISS_MS = 60_000; // 60 seconds — give agent time to expand and read
+const MIN_CARD_CONFIDENCE = 0.6; // Show suggestion cards for medium+ confidence caller questions
 
 export function useTranscriptionAssist(
   contact: CampaignContact | null,
