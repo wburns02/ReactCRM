@@ -296,18 +296,8 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     return () => clearInterval(interval);
   }, [phoneState, activeCall]);
 
-  // Auto-start/stop speech transcription on call state changes
-  // Skip if Dannia mode is active (LiveTranscriptPanel handles its own transcription)
-  useEffect(() => {
-    if (danniaMode) return;
-
-    if ((phoneState === "active" || phoneState === "calling") && speechSupported && !isListening) {
-      startListening();
-    }
-    if (phoneState !== "active" && phoneState !== "calling" && isListening) {
-      stopListening();
-    }
-  }, [phoneState, speechSupported, isListening, danniaMode, startListening, stopListening]);
+  // LiveTranscriptPanel handles speech transcription and feeds it back
+  // via onTranscriptCapture — no need for PowerDialer's own speech management
 
   // Capture call info when call goes active (before it resets on call end)
   useEffect(() => {

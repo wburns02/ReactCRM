@@ -1,21 +1,15 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import type { CampaignContact } from "../types";
-import { useAgentAssist } from "../useAgentAssist";
 import { useEnhancedAgentAssist } from "../dannia/useEnhancedAgentAssist";
 import { useOutboundStore } from "../store";
-import type { AssistMessage, LiveHint } from "../useAgentAssist";
+import type { AssistMessage } from "../useAgentAssist";
 import { QuickAnswerPanel } from "../dannia/components/QuickAnswerPanel";
 import { LiveTranscriptPanel } from "../dannia/components/LiveTranscriptPanel";
 import {
   Bot,
   Send,
   Trash2,
-  Mic,
-  MicOff,
   Sparkles,
-  AlertTriangle,
-  TrendingUp,
-  Info,
   ChevronDown,
   ClipboardList,
   Headphones,
@@ -45,12 +39,10 @@ export function AgentAssist({
   onAssistMessagesChange,
 }: AgentAssistProps) {
   const danniaMode = useOutboundStore((s) => s.danniaMode);
-
-  // Use enhanced hook when in Dannia Mode, basic hook otherwise
-  const basicAssist = useAgentAssist();
   const enhancedAssist = useEnhancedAgentAssist();
 
-  const assist = danniaMode ? enhancedAssist : basicAssist;
+  // Always use the enhanced assist (50+ KB entries, Claude API fallback)
+  const assist = enhancedAssist;
   const {
     messages,
     isThinking,
@@ -64,7 +56,7 @@ export function AgentAssist({
 
   const getQuickPromptsFn = "getQuickPrompts" in enhancedAssist ? enhancedAssist.getQuickPrompts : null;
   const quickPrompts = useMemo(() => {
-    if (danniaMode && getQuickPromptsFn) {
+    if (getQuickPromptsFn) {
       return getQuickPromptsFn(contact);
     }
     return [
@@ -75,25 +67,20 @@ export function AgentAssist({
       "They asked about our experience",
       "Emergency/backup situation",
     ];
-  }, [danniaMode, getQuickPromptsFn, contact]);
+  }, [getQuickPromptsFn, contact]);
 
   const [input, setInput] = useState("");
-  // Default to "live" tab in Dannia Mode so caller questions are front-and-center
-  const [activeTab, setActiveTab] = useState<TabId>(danniaMode ? "live" : "chat");
+  // Default to "live" tab so caller questions are front-and-center
+  const [activeTab, setActiveTab] = useState<TabId>("live");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Reset tab when Dannia mode changes
+  // Auto-switch to Live tab when a call starts
   useEffect(() => {
-    setActiveTab(danniaMode ? "live" : "chat");
-  }, [danniaMode]);
-
-  // Auto-switch to Live tab when a call starts in Dannia mode
-  useEffect(() => {
-    if (danniaMode && isOnCall) {
+    if (isOnCall) {
       setActiveTab("live");
     }
-  }, [danniaMode, isOnCall]);
+  }, [isOnCall]);
 
   // Report assist messages to parent for post-call report
   useEffect(() => {
@@ -107,17 +94,7 @@ export function AgentAssist({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, liveHints]);
 
-  // Auto-start transcription when on a call (non-Dannia live hints tab)
-  useEffect(() => {
-    if (!danniaMode) {
-      if (isOnCall && activeTab === "live" && !isTranscribing) {
-        startTranscription();
-      }
-      if (!isOnCall && isTranscribing) {
-        stopTranscription();
-      }
-    }
-  }, [isOnCall, activeTab, isTranscribing, startTranscription, stopTranscription, danniaMode]);
+  // LiveTranscriptPanel handles its own transcription start/stop
 
   if (collapsed) {
     return (
@@ -143,17 +120,12 @@ export function AgentAssist({
     inputRef.current?.focus();
   }
 
-  // Tab config — 3 tabs in Dannia Mode, 2 tabs otherwise
-  const tabs: { id: TabId; label: string; icon: typeof Send }[] = danniaMode
-    ? [
-        { id: "quick", label: "Quick Answers", icon: ClipboardList },
-        { id: "chat", label: "Ask AI", icon: Send },
-        { id: "live", label: "Live Assist", icon: Headphones },
-      ]
-    : [
-        { id: "chat", label: "Ask AI", icon: Send },
-        { id: "live", label: "Live Hints", icon: Mic },
-      ];
+  // Tab config — always 3 tabs with full Live Assist
+  const tabs: { id: TabId; label: string; icon: typeof Send }[] = [
+    { id: "quick", label: "Quick Answers", icon: ClipboardList },
+    { id: "chat", label: "Ask AI", icon: Send },
+    { id: "live", label: "Live Assist", icon: Headphones },
+  ];
 
   return (
     <div className="bg-bg-card border border-border rounded-xl overflow-hidden flex flex-col">
@@ -201,8 +173,8 @@ export function AgentAssist({
         })}
       </div>
 
-      {/* Quick Answers tab (Dannia Mode only) */}
-      {activeTab === "quick" && danniaMode && (
+      {/* Quick Answers tab */}
+      {activeTab === "quick" && (
         <QuickAnswerPanel contact={contact} />
       )}
 
@@ -298,91 +270,9 @@ export function AgentAssist({
         </div>
       )}
 
-      {/* Live tab */}
+      {/* Live Assist tab — full transcription + auto-suggest in all modes */}
       {activeTab === "live" && (
-        <>
-          {danniaMode ? (
-            /* Dannia Mode: Full live transcription panel */
-            <LiveTranscriptPanel contact={contact} isOnCall={isOnCall} callSid={callSid} onTranscriptCapture={onTranscriptCapture} onUseAsNotes={onUseAsNotes} />
-          ) : (
-            /* Standard mode: Original live hints */
-            <div className="flex flex-col flex-1 min-h-0">
-              <div className="flex-1 overflow-y-auto px-3 py-2 space-y-2 max-h-[280px] min-h-[120px]">
-                {!isOnCall && (
-                  <div className="text-center py-6">
-                    <Mic className="w-8 h-8 text-text-tertiary mx-auto mb-2" />
-                    <p className="text-xs text-text-tertiary">
-                      Start a call to receive live AI-powered hints and suggestions
-                    </p>
-                    <p className="text-[10px] text-text-tertiary mt-1">
-                      Real-time transcription will analyze the conversation and
-                      surface relevant tips
-                    </p>
-                  </div>
-                )}
-
-                {isOnCall && liveHints.length === 0 && (
-                  <div className="text-center py-4">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                      <span className="text-xs font-medium text-text-secondary">
-                        Listening...
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-text-tertiary">
-                      AI is analyzing the conversation. Hints will appear as
-                      opportunities are detected.
-                    </p>
-                  </div>
-                )}
-
-                {liveHints.map((hint) => (
-                  <HintCard key={hint.id} hint={hint} />
-                ))}
-
-                <div ref={messagesEndRef} />
-              </div>
-
-              {/* Transcription toggle */}
-              <div className="border-t border-border px-3 py-2 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-text-secondary">
-                  {isTranscribing ? (
-                    <>
-                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                      Live transcription active
-                    </>
-                  ) : (
-                    <>
-                      <MicOff className="w-3.5 h-3.5" />
-                      Transcription inactive
-                    </>
-                  )}
-                </div>
-                <button
-                  onClick={() =>
-                    isTranscribing ? stopTranscription() : startTranscription()
-                  }
-                  disabled={!isOnCall}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors disabled:opacity-40 ${
-                    isTranscribing
-                      ? "bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-950/40 dark:text-red-400"
-                      : "bg-purple-100 text-purple-600 hover:bg-purple-200 dark:bg-purple-950/40 dark:text-purple-400"
-                  }`}
-                >
-                  {isTranscribing ? (
-                    <>
-                      <MicOff className="w-3 h-3" /> Stop
-                    </>
-                  ) : (
-                    <>
-                      <Mic className="w-3 h-3" /> Start
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
-        </>
+        <LiveTranscriptPanel contact={contact} isOnCall={isOnCall} callSid={callSid} onTranscriptCapture={onTranscriptCapture} onUseAsNotes={onUseAsNotes} />
       )}
     </div>
   );
@@ -412,38 +302,3 @@ function MessageBubble({ message }: { message: AssistMessage }) {
   );
 }
 
-function HintCard({ hint }: { hint: LiveHint }) {
-  const config = {
-    tip: {
-      icon: Sparkles,
-      color: "bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300",
-      iconColor: "text-blue-500",
-    },
-    warning: {
-      icon: AlertTriangle,
-      color: "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300",
-      iconColor: "text-amber-500",
-    },
-    upsell: {
-      icon: TrendingUp,
-      color: "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300",
-      iconColor: "text-emerald-500",
-    },
-    info: {
-      icon: Info,
-      color: "bg-zinc-50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700 text-text-secondary",
-      iconColor: "text-zinc-500",
-    },
-  }[hint.type];
-
-  const Icon = config.icon;
-
-  return (
-    <div
-      className={`flex items-start gap-2 rounded-lg border px-3 py-2 text-xs leading-relaxed animate-in slide-in-from-left ${config.color}`}
-    >
-      <Icon className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${config.iconColor}`} />
-      <span>{hint.text}</span>
-    </div>
-  );
-}
