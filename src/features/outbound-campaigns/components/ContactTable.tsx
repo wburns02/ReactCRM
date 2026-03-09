@@ -307,7 +307,6 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
               <th className="px-3 py-2 text-left font-medium">Phone</th>
               <th className="px-3 py-2 text-left font-medium">Status</th>
               <th className="px-3 py-2 text-left font-medium">Attempts</th>
-              <th className="px-3 py-2 text-left font-medium">Contract</th>
               <th className="px-3 py-2 text-right font-medium">Actions</th>
             </tr>
           </thead>
@@ -361,9 +360,6 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                   </td>
                   <td className="px-3 py-2.5 text-text-secondary text-xs">
                     {contact.call_attempts > 0 ? contact.call_attempts : "-"}
-                  </td>
-                  <td className="px-3 py-2.5 text-text-secondary text-xs">
-                    <div>{contact.contract_status || contact.contract_type || "-"}</div>
                   </td>
                   <td className="px-3 py-2.5">
                     <div className="flex items-center justify-end gap-1">
