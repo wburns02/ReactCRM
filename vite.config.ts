@@ -207,9 +207,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // CRITICAL: React + React Query + Sentry MUST be in the same chunk
+          // CRITICAL: ALL React-dependent packages MUST be in the same chunk
           // to prevent createContext undefined errors from chunk load ordering
-          'vendor-react': ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query', '@sentry/react'],
+          'vendor-react': [
+            'react', 'react-dom', 'react-router-dom',
+            '@tanstack/react-query', '@tanstack/react-virtual',
+            '@sentry/react', '@stripe/react-stripe-js',
+            'lucide-react', 'react-window'
+          ],
           'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
           'vendor-charts': ['recharts'],
           'vendor-maplibre': ['maplibre-gl', 'react-map-gl/maplibre'],
