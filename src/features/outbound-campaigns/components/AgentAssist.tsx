@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import type { CampaignContact } from "../types";
 import { useAgentAssist } from "../useAgentAssist";
 import { useEnhancedAgentAssist } from "../dannia/useEnhancedAgentAssist";
@@ -29,6 +29,7 @@ interface AgentAssistProps {
   onToggle?: () => void;
   onTranscriptCapture?: (transcript: string) => void;
   onUseAsNotes?: (text: string) => void;
+  onAssistMessagesChange?: (messages: { role: string; content: string }[]) => void;
 }
 
 type TabId = "quick" | "chat" | "live";
@@ -41,6 +42,7 @@ export function AgentAssist({
   onToggle,
   onTranscriptCapture,
   onUseAsNotes,
+  onAssistMessagesChange,
 }: AgentAssistProps) {
   const danniaMode = useOutboundStore((s) => s.danniaMode);
 
@@ -92,6 +94,13 @@ export function AgentAssist({
       setActiveTab("live");
     }
   }, [danniaMode, isOnCall]);
+
+  // Report assist messages to parent for post-call report
+  useEffect(() => {
+    if (onAssistMessagesChange) {
+      onAssistMessagesChange(messages.map((m) => ({ role: m.role, content: m.content })));
+    }
+  }, [messages, onAssistMessagesChange]);
 
   // Auto-scroll messages
   useEffect(() => {

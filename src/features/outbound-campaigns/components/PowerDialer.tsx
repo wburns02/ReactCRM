@@ -23,6 +23,7 @@ import { useAutoSummary } from "../dannia/useAutoSummary";
 import { useVoiceToText } from "@/hooks/useVoiceToText";
 import { AutoSummaryBanner } from "../dannia/components/AutoSummaryBanner";
 import { ContactScreenPop } from "./ContactScreenPop";
+import { PostCallReportModal } from "./PostCallReportModal";
 import type { CampaignContact } from "../types";
 import {
   Phone,
@@ -144,6 +145,18 @@ function AutomationBadges({ results }: { results: AutomationResult[] }) {
   );
 }
 
+function parseTranscripts(combined: string): { agent: string; customer: string } {
+  if (combined.includes("[Agent]") && combined.includes("[Customer]")) {
+    const agentMatch = combined.match(/\[Agent\]\s*([\s\S]*?)(?=\n\[Customer\]|$)/);
+    const customerMatch = combined.match(/\[Customer\]\s*([\s\S]*?)$/);
+    return {
+      agent: agentMatch?.[1]?.trim() || "",
+      customer: customerMatch?.[1]?.trim() || "",
+    };
+  }
+  return { agent: combined, customer: "" };
+}
+
 export function PowerDialer({ campaignId }: PowerDialerProps) {
   const allContacts = useOutboundStore((s) => s.contacts);
   const dialerActive = useOutboundStore((s) => s.dialerActive);
@@ -192,6 +205,13 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const [assistCollapsed, setAssistCollapsed] = useState(false);
   const [screenPopContact, setScreenPopContact] = useState<CampaignContact | null>(null);
   const [screenPopDismissed, setScreenPopDismissed] = useState(false);
+
+  // Post-call report state
+  const [showPostCallReport, setShowPostCallReport] = useState(false);
+  const callStartTimeRef = useRef<number>(0);
+  const callDurationRef = useRef<number>(0);
+  const callSidRef = useRef<string | null>(null);
+  const assistMessagesRef = useRef<{ role: string; content: string }[]>([]);
 
   // Auto-dial countdown state
   const [autoDialCountdown, setAutoDialCountdown] = useState<number | null>(null);
@@ -268,7 +288,9 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     }
     const interval = setInterval(() => {
       if (activeCall) {
-        setCallTimer(Math.floor((Date.now() - activeCall.startTime) / 1000));
+        const duration = Math.floor((Date.now() - activeCall.startTime) / 1000);
+        setCallTimer(duration);
+        callDurationRef.current = duration;
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -287,6 +309,19 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     }
   }, [phoneState, speechSupported, isListening, danniaMode, startListening, stopListening]);
 
+  // Capture call info when call goes active (before it resets on call end)
+  useEffect(() => {
+    if (phoneState === "active" && activeCall) {
+      callStartTimeRef.current = activeCall.startTime;
+      callSidRef.current = activeCall.callSid ?? null;
+    }
+  }, [phoneState, activeCall]);
+
+  // Callback for assist messages from AgentAssist
+  const handleAssistMessagesChange = useCallback((messages: { role: string; content: string }[]) => {
+    assistMessagesRef.current = messages;
+  }, []);
+
   // Keep transcriptRef updated from our own useVoiceToText hook
   useEffect(() => {
     if (speechTranscript) {
@@ -294,15 +329,17 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     }
   }, [speechTranscript]);
 
-  // Detect call end (active → registered) and trigger AI summary
+  // Detect call end (active → registered) and trigger AI summary + post-call report
   useEffect(() => {
     if (
       prevPhoneStateRef.current === "active" &&
       phoneState === "registered" &&
-      transcriptRef.current &&
       currentContact
     ) {
-      generateSummary(transcriptRef.current, currentContact.account_name);
+      if (transcriptRef.current) {
+        generateSummary(transcriptRef.current, currentContact.account_name);
+      }
+      setShowPostCallReport(true);
     }
     prevPhoneStateRef.current = phoneState;
   }, [phoneState, currentContact, generateSummary]);
@@ -398,13 +435,17 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   }, [currentContact, phoneState, connect, call, cancelAutoDial]);
 
   const handleDisposition = useCallback(
-    (status: ContactCallStatus) => {
+    (status: ContactCallStatus, overrideNotes?: string) => {
       if (!currentContact) return;
+      const effectiveNotes = overrideNotes ?? notes;
       const store = useOutboundStore.getState();
-      store.setContactCallStatus(currentContact.id, status, notes || undefined);
+      store.setContactCallStatus(currentContact.id, status, effectiveNotes || undefined);
 
       // Fire post-call automation
-      runAutomation(currentContact, status, notes || undefined);
+      runAutomation(currentContact, status, effectiveNotes || undefined);
+
+      // Close post-call report modal if open
+      setShowPostCallReport(false);
 
       // Track in Dannia Mode performance engine
       if (danniaMode) {
@@ -412,7 +453,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
           callId: extractCallId(activeCall),
           contactId: currentContact.id,
           contactName: currentContact.account_name,
-          notes: notes || "",
+          notes: effectiveNotes || "",
         });
         enqueueSequence(currentContact, status);
       }
@@ -963,6 +1004,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
             onToggle={() => setAssistCollapsed(!assistCollapsed)}
             onTranscriptCapture={handleTranscriptCapture}
             onUseAsNotes={(text) => setNotes((prev) => prev ? `${prev}\n${text}` : text)}
+            onAssistMessagesChange={handleAssistMessagesChange}
           />
         </div>
         </div>
@@ -989,6 +1031,31 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
           </p>
         </div>
       )}
+
+      {/* Post-call report modal */}
+      {showPostCallReport && currentContact && (() => {
+        const parsed = parseTranscripts(transcriptRef.current);
+        return (
+          <PostCallReportModal
+            contact={currentContact}
+            campaignId={campaignId}
+            callDuration={callDurationRef.current}
+            callSid={callSidRef.current}
+            callStartTime={callStartTimeRef.current}
+            agentTranscript={parsed.agent}
+            customerTranscript={parsed.customer}
+            aiSummary={summary ?? []}
+            notes={notes}
+            detectedQuestions={[]}
+            assistMessages={assistMessagesRef.current}
+            twoSidedTranscription={parsed.customer.length > 0}
+            onDisposition={(status, editedNotes) => {
+              handleDisposition(status, editedNotes);
+            }}
+            onClose={() => setShowPostCallReport(false)}
+          />
+        );
+      })()}
 
       {/* Contact screen pop modal */}
       {screenPopContact && (
