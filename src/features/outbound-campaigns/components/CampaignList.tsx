@@ -14,6 +14,9 @@ import {
   Archive,
   ChevronRight,
   Upload,
+  Pencil,
+  Check,
+  X,
 } from "lucide-react";
 import { ImportDialog } from "./ImportDialog";
 
@@ -44,6 +47,31 @@ export function CampaignList({
   const [newName, setNewName] = useState("");
   const [newDesc, setNewDesc] = useState("");
   const [importCampaignId, setImportCampaignId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editDesc, setEditDesc] = useState("");
+  const [editStatus, setEditStatus] = useState<CampaignStatus>("draft");
+
+  function startEdit(campaign: Campaign) {
+    setEditingId(campaign.id);
+    setEditName(campaign.name);
+    setEditDesc(campaign.description || "");
+    setEditStatus(campaign.status);
+  }
+
+  function handleSaveEdit() {
+    if (!editingId || !editName.trim()) return;
+    useOutboundStore.getState().updateCampaign(editingId, {
+      name: editName.trim(),
+      description: editDesc.trim() || null,
+      status: editStatus,
+    });
+    setEditingId(null);
+  }
+
+  function cancelEdit() {
+    setEditingId(null);
+  }
 
   function handleCreate() {
     if (!newName.trim()) return;
@@ -132,6 +160,62 @@ export function CampaignList({
           const isSelected = campaign.id === selectedCampaignId;
           const statusConf = CAMPAIGN_STATUS_CONFIG[campaign.status];
           const action = statusAction[campaign.status];
+          const isEditing = editingId === campaign.id;
+
+          if (isEditing) {
+            return (
+              <div
+                key={campaign.id}
+                className="bg-bg-card border border-primary ring-1 ring-primary/30 rounded-xl p-4 space-y-3"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center gap-2 text-xs font-medium text-primary">
+                  <Pencil className="w-3.5 h-3.5" />
+                  Edit Campaign
+                </div>
+                <input
+                  autoFocus
+                  placeholder="Campaign name..."
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSaveEdit();
+                    if (e.key === "Escape") cancelEdit();
+                  }}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <textarea
+                  placeholder="Description (optional)"
+                  value={editDesc}
+                  onChange={(e) => setEditDesc(e.target.value)}
+                  rows={2}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-body text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                />
+                <div className="flex items-center gap-2">
+                  <label className="text-xs text-text-secondary">Status:</label>
+                  <select
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value as CampaignStatus)}
+                    className="px-2 py-1 rounded-lg border border-border bg-bg-body text-text-primary text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {(Object.keys(CAMPAIGN_STATUS_CONFIG) as CampaignStatus[]).map((s) => (
+                      <option key={s} value={s}>
+                        {CAMPAIGN_STATUS_CONFIG[s].label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex gap-2 justify-end">
+                  <Button variant="ghost" size="sm" onClick={cancelEdit}>
+                    <X className="w-3.5 h-3.5 mr-1" /> Cancel
+                  </Button>
+                  <Button size="sm" onClick={handleSaveEdit} disabled={!editName.trim()}>
+                    <Check className="w-3.5 h-3.5 mr-1" /> Save
+                  </Button>
+                </div>
+              </div>
+            );
+          }
 
           return (
             <div
@@ -182,6 +266,16 @@ export function CampaignList({
                 </div>
 
                 <div className="flex items-center gap-1 ml-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      startEdit(campaign);
+                    }}
+                    className="p-1.5 rounded-lg hover:bg-bg-hover text-text-secondary"
+                    title="Edit campaign"
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
