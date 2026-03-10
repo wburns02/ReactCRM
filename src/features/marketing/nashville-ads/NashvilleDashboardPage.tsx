@@ -77,6 +77,67 @@ function useNashvilleAutomationStatus() {
   });
 }
 
+function useNashvilleNegativeCandidates(days: number = 7) {
+  return useQuery({
+    queryKey: ["marketing", "nashville", "negative-candidates", days],
+    queryFn: async () => {
+      const res = await apiClient.get(`/marketing-hub/nashville/negative-keyword-candidates?days=${days}`);
+      return res.data;
+    },
+  });
+}
+
+function useNashvilleHourlyBids(days: number = 30) {
+  return useQuery({
+    queryKey: ["marketing", "nashville", "hourly-bids", days],
+    queryFn: async () => {
+      const res = await apiClient.get(`/marketing-hub/nashville/hourly-bid-analysis?days=${days}`);
+      return res.data;
+    },
+  });
+}
+
+function useNashvilleDailyBids(days: number = 90) {
+  return useQuery({
+    queryKey: ["marketing", "nashville", "daily-bids", days],
+    queryFn: async () => {
+      const res = await apiClient.get(`/marketing-hub/nashville/daily-bid-analysis?days=${days}`);
+      return res.data;
+    },
+  });
+}
+
+function useNashvillePauseCandidates(days: number = 30) {
+  return useQuery({
+    queryKey: ["marketing", "nashville", "pause-candidates", days],
+    queryFn: async () => {
+      const res = await apiClient.get(`/marketing-hub/nashville/pause-candidates?days=${days}`);
+      return res.data;
+    },
+  });
+}
+
+function useNashvilleBudgetPacing() {
+  return useQuery({
+    queryKey: ["marketing", "nashville", "budget-pacing"],
+    queryFn: async () => {
+      const res = await apiClient.get("/marketing-hub/nashville/budget-pacing");
+      return res.data;
+    },
+    refetchInterval: 300_000,
+  });
+}
+
+function useNashvilleDailyReport() {
+  return useQuery({
+    queryKey: ["marketing", "nashville", "daily-report"],
+    queryFn: async () => {
+      const res = await apiClient.get("/marketing-hub/nashville/daily-report");
+      return res.data;
+    },
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Formatters
 // ---------------------------------------------------------------------------
@@ -97,6 +158,7 @@ const fmtPct = (v: number) => `${(v * 100).toFixed(1)}%`;
 // ---------------------------------------------------------------------------
 
 type Tab = "live" | "search-terms" | "keywords" | "waste" | "automations";
+type AutoTab = "overview" | "negatives" | "hourly" | "daily" | "pausing" | "pacing" | "report";
 
 interface HourlyBucket {
   hour: number;
@@ -160,8 +222,10 @@ interface AutomationItem {
 
 export function NashvilleDashboardPage() {
   const [activeTab, setActiveTab] = useState<Tab>("live");
+  const [autoTab, setAutoTab] = useState<AutoTab>("overview");
   const [searchDays, setSearchDays] = useState(1);
   const [keywordDays, setKeywordDays] = useState(7);
+  const [applyingNeg, setApplyingNeg] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: dashboard, isLoading, dataUpdatedAt } = useNashvilleDashboard();
@@ -170,9 +234,26 @@ export function NashvilleDashboardPage() {
   const { data: wasteData, isLoading: wasteLoading } = useNashvilleWasteAlerts();
   const { data: impressionData } = useNashvilleImpressionShare();
   const { data: automationData, isLoading: autoLoading } = useNashvilleAutomationStatus();
+  const { data: negData, isLoading: negLoading } = useNashvilleNegativeCandidates();
+  const { data: hourlyBidData, isLoading: hourlyBidLoading } = useNashvilleHourlyBids();
+  const { data: dailyBidData, isLoading: dailyBidLoading } = useNashvilleDailyBids();
+  const { data: pauseData, isLoading: pauseLoading } = useNashvillePauseCandidates();
+  const { data: pacingData } = useNashvilleBudgetPacing();
+  const { data: reportData, isLoading: reportLoading } = useNashvilleDailyReport();
 
   const handleRefresh = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: ["marketing", "nashville"] });
+  }, [queryClient]);
+
+  const handleApplyNegatives = useCallback(async (keywords: { keyword_text: string; match_type: string }[]) => {
+    setApplyingNeg(true);
+    try {
+      await apiClient.post("/marketing-hub/nashville/apply-negative-keywords", { keywords });
+      queryClient.invalidateQueries({ queryKey: ["marketing", "nashville", "negative-candidates"] });
+      queryClient.invalidateQueries({ queryKey: ["marketing", "nashville", "search-terms"] });
+    } finally {
+      setApplyingNeg(false);
+    }
   }, [queryClient]);
 
   // Budget health — API returns budget_summary with total_daily_budget, total_today_spend, etc.
@@ -926,75 +1007,451 @@ export function NashvilleDashboardPage() {
       {/* ============================================================= */}
       {activeTab === "automations" && (
         <div className="space-y-4">
-          {autoLoading ? (
-            <div className="animate-pulse space-y-4">
-              <div className="h-20 bg-surface-hover rounded" />
-              <div className="h-20 bg-surface-hover rounded" />
-              <div className="h-20 bg-surface-hover rounded" />
-            </div>
-          ) : automations.length === 0 ? (
-            <Card>
-              <CardContent>
-                <div className="text-center py-12">
-                  <h3 className="text-lg font-semibold text-text-primary mb-1">
-                    No Automations Configured
-                  </h3>
-                  <p className="text-sm text-text-secondary">
-                    Automations will appear here once the Nashville Ads backend
-                    is configured.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            automations.map((auto) => (
-              <Card key={auto.id}>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div
-                        className={`flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center ${
-                          auto.enabled
-                            ? "bg-green-100 dark:bg-green-900/30"
-                            : "bg-gray-100 dark:bg-gray-800"
-                        }`}
-                      >
-                        <div
-                          className={`h-3 w-3 rounded-full ${
-                            auto.enabled ? "bg-green-500" : "bg-gray-400"
-                          }`}
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 mb-0.5">
-                          <h4 className="font-semibold text-text-primary truncate">
-                            {auto.name}
-                          </h4>
-                          <Badge
-                            variant={auto.enabled ? "success" : "secondary"}
-                            size="sm"
-                          >
-                            {auto.enabled ? "Enabled" : "Disabled"}
-                          </Badge>
+          {/* Automation sub-tabs */}
+          <div className="flex gap-1 overflow-x-auto pb-1 border-b border-border">
+            {([
+              ["overview", "Overview"],
+              ["negatives", "Negative Keywords"],
+              ["hourly", "Hourly Bids"],
+              ["daily", "Day-of-Week"],
+              ["pausing", "Keyword Pausing"],
+              ["pacing", "Budget Pacing"],
+              ["report", "Daily Report"],
+            ] as [AutoTab, string][]).map(([key, label]) => (
+              <button
+                key={key}
+                onClick={() => setAutoTab(key)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-t whitespace-nowrap transition-colors ${
+                  autoTab === key
+                    ? "bg-primary text-white"
+                    : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* OVERVIEW — status cards for all automations */}
+          {autoTab === "overview" && (
+            autoLoading ? (
+              <div className="animate-pulse space-y-3">
+                <div className="h-16 bg-surface-hover rounded" />
+                <div className="h-16 bg-surface-hover rounded" />
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {automations.map((auto) => (
+                  <Card key={auto.id}>
+                    <CardContent>
+                      <div className="flex items-center gap-4">
+                        <div className={`flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center ${
+                          auto.enabled ? "bg-green-100 dark:bg-green-900/30" : "bg-gray-100 dark:bg-gray-800"
+                        }`}>
+                          <div className={`h-3 w-3 rounded-full ${auto.enabled ? "bg-green-500" : "bg-gray-400"}`} />
                         </div>
-                        <p className="text-sm text-text-secondary">
-                          {auto.description}
-                        </p>
-                        {auto.last_run && (
-                          <p className="text-xs text-text-secondary/70 mt-1">
-                            Last run:{" "}
-                            {new Date(auto.last_run).toLocaleString("en-US", {
-                              dateStyle: "short",
-                              timeStyle: "short",
-                            })}
-                          </p>
-                        )}
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <h4 className="font-semibold text-text-primary text-sm">{auto.name}</h4>
+                            <Badge variant={auto.enabled ? "success" : "secondary"} size="sm">
+                              {auto.enabled ? "Active" : "Off"}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-text-secondary">{auto.description}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )
+          )}
+
+          {/* NEGATIVE KEYWORDS — candidates + apply */}
+          {autoTab === "negatives" && (
+            negLoading ? (
+              <div className="animate-pulse h-40 bg-surface-hover rounded" />
+            ) : (
+              <div className="space-y-4">
+                {negData?.summary && (
+                  <Card>
+                    <CardContent>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-text-secondary">Estimated Waste (7d)</p>
+                          <p className="text-2xl font-bold text-red-600">{fmt(negData.summary.total_waste)}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-text-secondary">Candidates</p>
+                          <p className="text-2xl font-bold text-text-primary">{negData.summary.candidate_count}</p>
+                        </div>
+                        <Button
+                          size="sm"
+                          disabled={applyingNeg || !negData?.candidates?.length}
+                          onClick={() => {
+                            const kws = (negData.candidates || []).map((c: { search_term: string; recommended_match_type: string }) => ({
+                              keyword_text: c.search_term,
+                              match_type: c.recommended_match_type || "EXACT",
+                            }));
+                            handleApplyNegatives(kws);
+                          }}
+                        >
+                          {applyingNeg ? "Applying..." : "Apply All Negatives"}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border text-left">
+                        <th className="py-2 pr-4 text-text-secondary font-medium">Search Term</th>
+                        <th className="py-2 pr-4 text-text-secondary font-medium">Reason</th>
+                        <th className="py-2 pr-4 text-text-secondary font-medium text-right">Cost</th>
+                        <th className="py-2 pr-4 text-text-secondary font-medium text-right">Clicks</th>
+                        <th className="py-2 pr-4 text-text-secondary font-medium text-right">Conv</th>
+                        <th className="py-2 text-text-secondary font-medium">Match</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(negData?.candidates || []).map((c: { search_term: string; reason: string; cost: number; clicks: number; conversions: number; recommended_match_type: string }, i: number) => (
+                        <tr key={i} className="border-b border-border/50">
+                          <td className="py-2 pr-4 text-text-primary">{c.search_term}</td>
+                          <td className="py-2 pr-4">
+                            <Badge variant={c.reason === "competitor" ? "danger" : c.reason === "irrelevant" ? "warning" : "secondary"} size="sm">
+                              {c.reason}
+                            </Badge>
+                          </td>
+                          <td className="py-2 pr-4 text-right text-text-primary">{fmt(c.cost)}</td>
+                          <td className="py-2 pr-4 text-right text-text-secondary">{c.clicks}</td>
+                          <td className="py-2 pr-4 text-right text-text-secondary">{c.conversions}</td>
+                          <td className="py-2 text-xs text-text-secondary">{c.recommended_match_type}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {(!negData?.candidates || negData.candidates.length === 0) && (
+                    <p className="text-center py-8 text-sm text-text-secondary">No negative keyword candidates found.</p>
+                  )}
+                </div>
+              </div>
+            )
+          )}
+
+          {/* HOURLY BID ANALYSIS */}
+          {autoTab === "hourly" && (
+            hourlyBidLoading ? (
+              <div className="animate-pulse h-40 bg-surface-hover rounded" />
+            ) : (
+              <div className="space-y-4">
+                {(hourlyBidData?.recommendations || []).length > 0 && (
+                  <Card>
+                    <CardHeader><CardTitle>Bid Recommendations</CardTitle></CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        {(hourlyBidData.recommendations as { hour: number; action: string; bid_modifier: number; reason: string }[]).map((r, i: number) => (
+                          <div key={i} className={`flex items-center justify-between p-3 rounded-lg ${
+                            r.action === "increase" ? "bg-green-50 dark:bg-green-900/20" : "bg-red-50 dark:bg-red-900/20"
+                          }`}>
+                            <div>
+                              <span className="font-medium text-sm text-text-primary">
+                                {r.hour}:00 — {r.action === "increase" ? "Increase" : "Decrease"} bids to {r.bid_modifier}x
+                              </span>
+                              <p className="text-xs text-text-secondary">{r.reason}</p>
+                            </div>
+                            <Badge variant={r.action === "increase" ? "success" : "danger"} size="sm">
+                              {r.action === "increase" ? "+" : ""}{((r.bid_modifier - 1) * 100).toFixed(0)}%
+                            </Badge>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                <Card>
+                  <CardHeader><CardTitle>Hourly Performance (30d)</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs">
+                        <thead>
+                          <tr className="border-b border-border text-left">
+                            <th className="py-1.5 pr-3 text-text-secondary">Hour</th>
+                            <th className="py-1.5 pr-3 text-right text-text-secondary">Clicks</th>
+                            <th className="py-1.5 pr-3 text-right text-text-secondary">Impr</th>
+                            <th className="py-1.5 pr-3 text-right text-text-secondary">Conv</th>
+                            <th className="py-1.5 pr-3 text-right text-text-secondary">Cost</th>
+                            <th className="py-1.5 text-right text-text-secondary">Conv Rate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {(hourlyBidData?.hours || []).filter((h: { impressions: number }) => h.impressions > 0).map((h: { hour: number; clicks: number; impressions: number; conversions: number; cost: number; conv_rate: number }, i: number) => (
+                            <tr key={i} className="border-b border-border/30">
+                              <td className="py-1.5 pr-3 text-text-primary font-medium">{h.hour}:00</td>
+                              <td className="py-1.5 pr-3 text-right">{h.clicks}</td>
+                              <td className="py-1.5 pr-3 text-right">{fmtNum(h.impressions)}</td>
+                              <td className="py-1.5 pr-3 text-right font-medium">{h.conversions}</td>
+                              <td className="py-1.5 pr-3 text-right">{fmt(h.cost)}</td>
+                              <td className="py-1.5 text-right">{(h.conv_rate * 100).toFixed(1)}%</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )
+          )}
+
+          {/* DAY-OF-WEEK BID ANALYSIS */}
+          {autoTab === "daily" && (
+            dailyBidLoading ? (
+              <div className="animate-pulse h-40 bg-surface-hover rounded" />
+            ) : (
+              <div className="space-y-4">
+                {(dailyBidData?.recommendations || []).length > 0 && (
+                  <Card>
+                    <CardHeader><CardTitle>Day-of-Week Bid Recommendations</CardTitle></CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        {(dailyBidData.recommendations as { day: string; action: string; bid_modifier: number; reason: string }[]).map((r, i: number) => (
+                          <div key={i} className={`flex items-center justify-between p-3 rounded-lg ${
+                            r.action === "increase" ? "bg-green-50 dark:bg-green-900/20" : "bg-red-50 dark:bg-red-900/20"
+                          }`}>
+                            <div>
+                              <span className="font-medium text-sm text-text-primary">
+                                {r.day} — {r.action === "increase" ? "Increase" : "Decrease"} bids to {r.bid_modifier}x
+                              </span>
+                              <p className="text-xs text-text-secondary">{r.reason}</p>
+                            </div>
+                            <Badge variant={r.action === "increase" ? "success" : "danger"} size="sm">
+                              {r.action === "increase" ? "+" : ""}{((r.bid_modifier - 1) * 100).toFixed(0)}%
+                            </Badge>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                <Card>
+                  <CardHeader><CardTitle>Day-of-Week Performance (90d)</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-border text-left">
+                            <th className="py-2 pr-4 text-text-secondary font-medium">Day</th>
+                            <th className="py-2 pr-4 text-right text-text-secondary font-medium">Clicks</th>
+                            <th className="py-2 pr-4 text-right text-text-secondary font-medium">Impr</th>
+                            <th className="py-2 pr-4 text-right text-text-secondary font-medium">Conv</th>
+                            <th className="py-2 pr-4 text-right text-text-secondary font-medium">Cost</th>
+                            <th className="py-2 text-right text-text-secondary font-medium">CPA</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {(dailyBidData?.days || []).map((d: { day: string; clicks: number; impressions: number; conversions: number; cost: number; cpa: number | null }, i: number) => (
+                            <tr key={i} className="border-b border-border/50">
+                              <td className="py-2 pr-4 font-medium text-text-primary">{d.day}</td>
+                              <td className="py-2 pr-4 text-right">{d.clicks}</td>
+                              <td className="py-2 pr-4 text-right">{fmtNum(d.impressions)}</td>
+                              <td className="py-2 pr-4 text-right font-semibold">{d.conversions}</td>
+                              <td className="py-2 pr-4 text-right">{fmt(d.cost)}</td>
+                              <td className="py-2 text-right">{d.cpa ? fmt(d.cpa) : "—"}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )
+          )}
+
+          {/* KEYWORD PAUSING CANDIDATES */}
+          {autoTab === "pausing" && (
+            pauseLoading ? (
+              <div className="animate-pulse h-40 bg-surface-hover rounded" />
+            ) : (
+              <div className="space-y-4">
+                {pauseData?.summary && (
+                  <Card>
+                    <CardContent>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-text-secondary">Potential Savings (30d)</p>
+                          <p className="text-2xl font-bold text-green-600">{fmt(pauseData.summary.potential_savings)}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-text-secondary">Pause Candidates</p>
+                          <p className="text-2xl font-bold text-text-primary">{pauseData.summary.candidate_count}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                {(pauseData?.candidates || []).length === 0 ? (
+                  <Card>
+                    <CardContent>
+                      <div className="text-center py-8">
+                        <p className="text-green-600 font-semibold">All keywords performing well</p>
+                        <p className="text-sm text-text-secondary mt-1">No keywords meet the pause threshold ($50+ spend, 0 conversions).</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-border text-left">
+                          <th className="py-2 pr-4 text-text-secondary font-medium">Keyword</th>
+                          <th className="py-2 pr-4 text-text-secondary font-medium">Match</th>
+                          <th className="py-2 pr-4 text-text-secondary font-medium">Reason</th>
+                          <th className="py-2 pr-4 text-right text-text-secondary font-medium">Cost</th>
+                          <th className="py-2 pr-4 text-right text-text-secondary font-medium">Clicks</th>
+                          <th className="py-2 text-right text-text-secondary font-medium">Conv</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(pauseData.candidates as { keyword: string; match_type: string; reason: string; cost: number; clicks: number; conversions: number }[]).map((c, i: number) => (
+                          <tr key={i} className="border-b border-border/50">
+                            <td className="py-2 pr-4 text-text-primary font-medium">{c.keyword}</td>
+                            <td className="py-2 pr-4 text-xs text-text-secondary">{c.match_type}</td>
+                            <td className="py-2 pr-4"><Badge variant="danger" size="sm">{c.reason.replace(/_/g, " ")}</Badge></td>
+                            <td className="py-2 pr-4 text-right text-red-600 font-medium">{fmt(c.cost)}</td>
+                            <td className="py-2 pr-4 text-right">{c.clicks}</td>
+                            <td className="py-2 text-right">{c.conversions}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )
+          )}
+
+          {/* BUDGET PACING */}
+          {autoTab === "pacing" && (
+            <div className="space-y-4">
+              {pacingData?.summary && (
+                <Card>
+                  <CardContent>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                      <div>
+                        <p className="text-xs text-text-secondary">Daily Budget</p>
+                        <p className="text-lg font-bold text-text-primary">{fmt(pacingData.summary.total_daily_budget)}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-text-secondary">Today&apos;s Spend</p>
+                        <p className="text-lg font-bold text-text-primary">{fmt(pacingData.summary.total_today_spend)}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-text-secondary">Remaining</p>
+                        <p className="text-lg font-bold text-green-600">{fmt(pacingData.summary.total_remaining)}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-text-secondary">Hour {pacingData.summary.current_hour} of 24</p>
+                        <p className="text-lg font-bold text-text-primary">{pacingData.summary.overall_pacing_pct}%</p>
                       </div>
                     </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              )}
+              {(pacingData?.campaigns || []).map((c: { campaign: string; daily_budget: number; today_spend: number; remaining: number; projected_eod_spend: number; projected_over_under: number; status: string; hourly_rate: number; recommended_hourly: number }, i: number) => (
+                <Card key={i}>
+                  <CardContent>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-sm text-text-primary">{c.campaign}</h4>
+                      <Badge variant={c.status === "on_track" ? "success" : c.status === "overspending" ? "danger" : "warning"} size="sm">
+                        {c.status.replace(/_/g, " ")}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                      <div><span className="text-text-secondary">Budget:</span> <span className="font-medium">{fmt(c.daily_budget)}</span></div>
+                      <div><span className="text-text-secondary">Spent:</span> <span className="font-medium">{fmt(c.today_spend)}</span></div>
+                      <div><span className="text-text-secondary">Projected EOD:</span> <span className={`font-medium ${c.projected_over_under > 0 ? "text-red-600" : "text-green-600"}`}>{fmt(c.projected_eod_spend)}</span></div>
+                      <div><span className="text-text-secondary">Rate:</span> <span className="font-medium">{fmt(c.hourly_rate)}/hr</span></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {/* DAILY REPORT */}
+          {autoTab === "report" && (
+            reportLoading ? (
+              <div className="animate-pulse h-40 bg-surface-hover rounded" />
+            ) : reportData ? (
+              <div className="space-y-4">
+                {/* Alerts */}
+                {(reportData.alerts || []).length > 0 && (
+                  <Card>
+                    <CardContent>
+                      <div className="space-y-2">
+                        {(reportData.alerts as string[]).map((alert, i: number) => (
+                          <div key={i} className="flex items-center gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded text-sm">
+                            <span className="text-yellow-600 font-medium">!</span>
+                            <span className="text-text-primary">{alert}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Card>
+                    <CardHeader><CardTitle>Today&apos;s Performance</CardTitle></CardHeader>
+                    <CardContent>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between"><span className="text-text-secondary">Spend</span><span className="font-medium">{fmt(reportData.performance?.total_spend ?? 0)}</span></div>
+                        <div className="flex justify-between"><span className="text-text-secondary">Clicks</span><span className="font-medium">{reportData.performance?.clicks ?? 0}</span></div>
+                        <div className="flex justify-between"><span className="text-text-secondary">Impressions</span><span className="font-medium">{fmtNum(reportData.performance?.impressions ?? 0)}</span></div>
+                        <div className="flex justify-between"><span className="text-text-secondary">Conversions</span><span className="font-medium">{reportData.performance?.conversions ?? 0}</span></div>
+                        <div className="flex justify-between"><span className="text-text-secondary">CPA</span><span className="font-medium">{fmt(reportData.performance?.cpa ?? 0)}</span></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader><CardTitle>Waste Analysis</CardTitle></CardHeader>
+                    <CardContent>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between"><span className="text-text-secondary">Total Waste</span><span className="font-medium text-red-600">{fmt(reportData.waste_analysis?.total_waste ?? 0)}</span></div>
+                        <div className="flex justify-between"><span className="text-text-secondary">Waste % of Spend</span><span className="font-medium">{reportData.waste_analysis?.waste_pct_of_spend ?? 0}%</span></div>
+                        <div className="flex justify-between"><span className="text-text-secondary">Budget Utilization</span><span className="font-medium">{reportData.budget?.utilization_pct ?? 0}%</span></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                {/* Top Keywords */}
+                {(reportData.top_keywords || []).length > 0 && (
+                  <Card>
+                    <CardHeader><CardTitle>Top Converting Keywords (Today)</CardTitle></CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        {(reportData.top_keywords as { keyword: string; conversions: number; cost: number; clicks: number }[]).map((kw, i: number) => (
+                          <div key={i} className="flex items-center justify-between text-sm">
+                            <span className="text-text-primary font-medium">{kw.keyword}</span>
+                            <div className="flex items-center gap-4">
+                              <span className="text-green-600 font-medium">{kw.conversions} conv</span>
+                              <span className="text-text-secondary">{fmt(kw.cost)}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            ) : (
+              <Card>
+                <CardContent>
+                  <p className="text-center py-8 text-sm text-text-secondary">Unable to generate daily report.</p>
                 </CardContent>
               </Card>
-            ))
+            )
           )}
         </div>
       )}
