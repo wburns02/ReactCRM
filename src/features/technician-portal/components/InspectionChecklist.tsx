@@ -2,11 +2,9 @@ import { useState, useRef, useCallback, useEffect } from "react";
 // jsPDF is dynamically imported in generateReportPDF to keep it out of the main bundle
 import {
   getInspectionSteps,
-  getEquipmentItems,
   getCompletionPercent,
   createDefaultInspectionState,
   createDefaultStepState,
-  calculateEstimate,
   CONVENTIONAL_BULK_PHOTOS,
   type BulkPhotoRequirement,
   type InspectionState,
@@ -129,16 +127,15 @@ const SIMPLE_DESCRIPTIONS: Record<string, Record<number, string>> = {
     8: "We discussed everything we found with you.",
   },
   conventional: {
-    1: "We checked that all our tools and safety equipment are ready.",
-    2: "We arrived, confirmed the address, met the client, and recorded who was present.",
-    3: "We documented site conditions and located the septic tank.",
-    4: "We identified the system type, tank size, age, and drain field configuration.",
-    5: "We inspected the pump system (forced flow only).",
-    6: "We opened the tank, inspected its condition, and checked for any damage.",
-    7: "We walked the drain field and checked for leaching and saturation.",
-    8: "We assessed overall system health and documented additional notes.",
-    9: "We secured all lids and cleaned up the work area.",
-    10: "We discussed findings with you and uploaded all inspection photos.",
+    1: "We arrived, confirmed the address, met the client, and recorded who was present.",
+    2: "We documented site conditions and located the septic tank.",
+    3: "We identified the system type, tank size, age, and drain field configuration.",
+    4: "We inspected the pump system (forced flow only).",
+    5: "We opened the tank, inspected its condition, and checked for any damage.",
+    6: "We walked the drain field and checked for leaching and saturation.",
+    7: "We assessed overall system health and documented additional notes.",
+    8: "We secured all lids and cleaned up the work area.",
+    9: "We discussed findings with you and uploaded all inspection photos.",
   },
 };
 
@@ -246,7 +243,7 @@ function ManufacturerBanner({ manufacturer, compact }: { manufacturer: Manufactu
           {manufacturer.maintenanceItems.map((item) => (
             <div key={item.id}>
               <p className="text-[11px] text-text-secondary">
-                {item.emoji} <strong>{item.label}</strong>: {item.frequency}{item.estimatedCost > 0 ? ` ($${item.estimatedCost})` : ""}
+                {item.emoji} <strong>{item.label}</strong>: {item.frequency}
                 {item.preferredSeason && <span className="text-[10px] text-green-600 dark:text-green-400 ml-1">— {item.preferredSeason}</span>}
               </p>
               {item.upchargeNote && (
@@ -546,7 +543,7 @@ async function generateReportPDF(
 
   // ═══ KEY READINGS (PSI / Sludge) — side-by-side stat cards ═══
   const psi = isConventional ? undefined : state.steps[5]?.psiReading;
-  const sludge = isConventional ? state.steps[9]?.sludgeLevel : state.steps[6]?.sludgeLevel;
+  const sludge = isConventional ? state.steps[5]?.sludgeLevel : state.steps[6]?.sludgeLevel;
   if (psi || sludge) {
     ensureSpace(24);
     const boxW = (contentW - 6) / 2;
@@ -618,25 +615,24 @@ async function generateReportPDF(
   if (isConventional) {
     sectionHeader("System Information");
     const sysFields: [string, string][] = [];
-    // Pull custom fields from relevant steps
-    const step5 = state.steps[5]?.customFields || {};
-    const step6 = state.steps[6]?.customFields || {};
-    const step7cf = state.steps[7]?.customFields || {};
-    const step8cf = state.steps[8]?.customFields || {};
-    const step4cf = state.steps[4]?.customFields || {};
-    if (step5.weather_conditions) sysFields.push(["Weather Conditions", step5.weather_conditions]);
-    if (step5.last_precipitation) sysFields.push(["Last Precipitation", step5.last_precipitation]);
-    if (step4cf.persons_present) sysFields.push(["Present at Inspection", step4cf.persons_present]);
-    if (step4cf.last_service) sysFields.push(["Last Service/Cleaning", step4cf.last_service]);
-    if (step6.tank_location) sysFields.push(["Tank Location", step6.tank_location]);
-    if (step6.tank_depth) sysFields.push(["Depth & Accessibility", step6.tank_depth]);
-    if (step7cf.system_type) sysFields.push(["System Type", step7cf.system_type]);
-    if (step7cf.tank_size) sysFields.push(["Tank Size", step7cf.tank_size]);
-    if (step7cf.system_age) sysFields.push(["System Age", step7cf.system_age]);
-    if (step7cf.drain_field_type) sysFields.push(["Drain Field", step7cf.drain_field_type]);
-    if (step8cf.pump_chamber_size) sysFields.push(["Pump Chamber", step8cf.pump_chamber_size]);
-    if (step8cf.pump_make_model) sysFields.push(["Pump Make/Model", step8cf.pump_make_model]);
-    if (step8cf.pump_amps) sysFields.push(["Pump Amp Draw", step8cf.pump_amps]);
+    // Pull custom fields from relevant steps (9-step conventional flow)
+    const step1cf = state.steps[1]?.customFields || {}; // Arrive & Document Attendees
+    const step2cf = state.steps[2]?.customFields || {}; // Site Conditions & Locate Tank
+    const step3cf = state.steps[3]?.customFields || {}; // Identify System Type & Size
+    const step4cf = state.steps[4]?.customFields || {}; // Pump System Check
+    if (step2cf.weather_conditions) sysFields.push(["Weather Conditions", step2cf.weather_conditions]);
+    if (step2cf.last_precipitation) sysFields.push(["Last Precipitation", step2cf.last_precipitation]);
+    if (step1cf.persons_present) sysFields.push(["Present at Inspection", step1cf.persons_present]);
+    if (step1cf.last_service) sysFields.push(["Last Service/Cleaning", step1cf.last_service]);
+    if (step2cf.tank_location) sysFields.push(["Tank Location", step2cf.tank_location]);
+    if (step2cf.tank_depth) sysFields.push(["Depth & Accessibility", step2cf.tank_depth]);
+    if (step3cf.system_type) sysFields.push(["System Type", step3cf.system_type]);
+    if (step3cf.tank_size) sysFields.push(["Tank Size", step3cf.tank_size]);
+    if (step3cf.system_age) sysFields.push(["System Age", step3cf.system_age]);
+    if (step3cf.drain_field_type) sysFields.push(["Drain Field", step3cf.drain_field_type]);
+    if (step4cf.pump_chamber_size) sysFields.push(["Pump Chamber", step4cf.pump_chamber_size]);
+    if (step4cf.pump_make_model) sysFields.push(["Pump Make/Model", step4cf.pump_make_model]);
+    if (step4cf.pump_amps) sysFields.push(["Pump Amp Draw", step4cf.pump_amps]);
 
     for (let i = 0; i < sysFields.length; i++) {
       ensureSpace(12);
@@ -670,7 +666,7 @@ async function generateReportPDF(
     // Manufacturer maintenance notes
     for (const item of mfr.maintenanceItems) {
       ensureSpace(10);
-      doc.text(`${item.emoji} ${item.label}: ${item.frequency}${item.estimatedCost > 0 ? ` ($${item.estimatedCost})` : ""}`, margin + 4, y + 4);
+      doc.text(`${item.emoji} ${item.label}: ${item.frequency}`, margin + 4, y + 4);
       y += 8;
     }
     // Pumping notes
@@ -694,11 +690,10 @@ async function generateReportPDF(
   // ═══ INSPECTION RESULTS ═══
   sectionHeader(isConventional ? "Condition Assessment" : "What We Checked");
 
-  // Summary stats row before details (exclude equipment checklist from customer report)
-  const reportSteps = isConventional ? steps.filter(s => !(s.stepNumber === 1 && s.title === "Equipment Checklist")) : steps;
-  const okCount = reportSteps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
-  const attentionCount = reportSteps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
-  const critCount = reportSteps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
+  // Summary stats row before details
+  const okCount = steps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
+  const attentionCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
+  const critCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
   if (okCount + attentionCount + critCount > 0) {
     const statW = (contentW - 8) / 3;
     // Good stat
@@ -732,9 +727,6 @@ async function generateReportPDF(
   }
 
   for (const step of steps) {
-    // Skip Equipment Checklist from customer-facing report (tech-only step)
-    if (isConventional && step.stepNumber === 1 && step.title === "Equipment Checklist") continue;
-
     ensureSpace(16);
     const ss = state.steps[step.stepNumber];
     const finding = ss?.findings || "pending";
@@ -1031,57 +1023,7 @@ async function generateReportPDF(
     }
   }
 
-  // ═══ ESTIMATED COSTS TABLE ═══
-  const estimate = calculateEstimate(state, { includePumping, systemType, manufacturer: manufacturerId || undefined });
-  if (estimate.items.length > 0) {
-    ensureSpace(40);
-    sectionHeader("Estimated Repair Costs");
-
-    // Table header
-    setF(BRAND.navy);
-    doc.rect(margin, y - 3, contentW, 9, "F");
-    setC(BRAND.white);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(9);
-    doc.text("Service / Part", margin + 4, y + 3);
-    doc.text("Amount", pageW - margin - 4, y + 3, { align: "right" });
-    y += 10;
-
-    for (let i = 0; i < estimate.items.length; i++) {
-      ensureSpace(9);
-      const item = estimate.items[i];
-      if (i % 2 === 0) {
-        setF(BRAND.cardBg);
-        doc.rect(margin, y - 3, contentW, 8, "F");
-      }
-      setC(BRAND.text);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(9);
-      doc.text(item.name, margin + 4, y + 2);
-      doc.text(`$${item.cost.toFixed(2)}`, pageW - margin - 4, y + 2, { align: "right" });
-      y += 8;
-    }
-
-    // Total bar
-    y += 2;
-    setF(BRAND.blue);
-    doc.roundedRect(margin, y - 3, contentW, 12, 2, 2, "F");
-    setC(BRAND.white);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.text("ESTIMATED TOTAL", margin + 6, y + 4);
-    doc.text(`$${estimate.total.toFixed(2)}`, pageW - margin - 6, y + 4, { align: "right" });
-    y += 16;
-
-    // Disclaimer
-    setC(BRAND.muted);
-    doc.setFont("helvetica", "italic");
-    doc.setFontSize(7);
-    doc.text("* Estimates are approximate. Final costs may vary based on actual conditions found during repair.", margin, y);
-    y += 8;
-  }
-
-  // ═══ WEATHER CONDITIONS — shown after costs ═══
+  // ═══ WEATHER CONDITIONS ═══
   if (weatherData?.current) {
     sectionHeader("Weather Conditions");
     const wc = weatherData.current;
@@ -1536,15 +1478,11 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
   }, []);
 
   const steps = getInspectionSteps(systemType);
-  const equipmentItems = getEquipmentItems(systemType);
   const totalSteps = steps.length;
   const percent = getCompletionPercent(localState, systemType);
   const currentStepDef = steps.find((s) => s.stepNumber === currentStep);
   const currentStepState: StepState =
     localState.steps[currentStep] || createDefaultStepState();
-  const allEquipmentChecked = equipmentItems.every(
-    (item) => localState.equipmentItems[item.id],
-  );
 
   // Check if a conditional step should be shown
   const isStepApplicable = (step: InspectionStep): boolean => {
@@ -1558,7 +1496,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
   const handleStartInspection = async () => {
     await startMutation.mutateAsync({
       jobId,
-      equipmentItems: localState.equipmentItems,
+      equipmentItems: {},
     });
     setLocalState((s) => ({
       ...s,
@@ -1574,22 +1512,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
         toastSuccess("Weather data loaded!");
       },
     });
-  };
-
-  const toggleEquipment = (itemId: string) => {
-    setLocalState((s) => ({
-      ...s,
-      equipmentItems: {
-        ...s.equipmentItems,
-        [itemId]: !s.equipmentItems[itemId],
-      },
-    }));
-  };
-
-  const checkAllEquipment = () => {
-    const all: Record<string, boolean> = {};
-    for (const item of equipmentItems) all[item.id] = true;
-    setLocalState((s) => ({ ...s, equipmentItems: all }));
   };
 
   const updateStepField = (field: keyof StepState, value: string | string[] | Record<string, string> | undefined) => {
@@ -1990,12 +1912,7 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
       ? "\n\nFindings:\n" + issues.map((r: string) => `- ${r}`).join("\n")
       : "";
 
-    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType, manufacturer: manufacturerId || undefined });
-    const estimateLine = estimate.total > 0
-      ? `\n\nEstimated repairs: $${estimate.total.toFixed(2)}`
-      : "";
-
-    const msg = `MAC Septic — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}${estimateLine}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 737-8711.`;
+    const msg = `MAC Septic — Inspection Report\n\nHi${customerName ? ` ${customerName}` : ""}, your septic inspection is complete.\n\nCondition: ${condition}${issueLines}\n\nWe'll send a detailed PDF report by email. Questions? Call us at (512) 737-8711.`;
 
     window.open(`sms:${customerPhone}?body=${encodeURIComponent(msg)}`, "_self");
 
@@ -2062,52 +1979,13 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
           </div>
         </label>
 
-        {/* Equipment Checklist */}
-        <div className="border border-border rounded-lg overflow-hidden">
-          <div className="bg-bg-hover p-3 flex items-center justify-between">
-            <h4 className="font-semibold text-text-primary">🧰 Equipment Check</h4>
-            <button
-              onClick={checkAllEquipment}
-              className="text-xs text-primary font-medium"
-            >
-              Check All
-            </button>
-          </div>
-          <div className="p-3 grid grid-cols-2 gap-2">
-            {equipmentItems.map((item) => (
-              <label
-                key={item.id}
-                className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors ${
-                  localState.equipmentItems[item.id]
-                    ? "bg-success/10 border border-success/30"
-                    : "bg-bg-body border border-border"
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={localState.equipmentItems[item.id] || false}
-                  onChange={() => toggleEquipment(item.id)}
-                  className="w-4 h-4 rounded accent-success"
-                />
-                <span className="text-sm">{item.emoji}</span>
-                <span className="text-xs text-text-primary truncate">{item.label}</span>
-              </label>
-            ))}
-          </div>
-          <div className="px-3 pb-3">
-            <div className="text-xs text-text-secondary text-center">
-              {equipmentItems.filter((i) => localState.equipmentItems[i.id]).length}/{equipmentItems.length} verified
-            </div>
-          </div>
-        </div>
-
         {/* Start Button */}
         <button
           onClick={handleStartInspection}
-          disabled={!allEquipmentChecked || startMutation.isPending}
+          disabled={startMutation.isPending}
           className="w-full py-4 rounded-xl text-lg font-bold text-white bg-primary disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-transform"
         >
-          {startMutation.isPending ? "Starting..." : allEquipmentChecked ? "▶️ Start Inspection" : "✅ Check All Equipment First"}
+          {startMutation.isPending ? "Starting..." : "▶️ Start Inspection"}
         </button>
       </div>
     );
@@ -2117,7 +1995,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
 
   if (showSummary && localState.summary) {
     const s = localState.summary;
-    const estimate = calculateEstimate(localState, { includePumping: localState.recommendPumping ? includePumping : false, systemType, manufacturer: manufacturerId || undefined });
     const conditionColors = {
       good: "text-success bg-success/10 border-success/30",
       fair: "text-yellow-600 bg-yellow-50 border-yellow-300",
@@ -2355,60 +2232,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
                 </div>
               )}
             </div>
-          </div>
-        )}
-
-        {/* Estimate */}
-        {estimate.items.length > 0 && (
-          <div className="border border-border rounded-lg p-4">
-            <h4 className="font-semibold text-text-primary mb-2">💰 Estimated Repairs</h4>
-            <div className="space-y-1">
-              {estimate.items.map((item, i) => (
-                <div key={i} className="flex justify-between text-sm">
-                  <span className="text-text-secondary">{item.name}</span>
-                  <span className="font-medium text-text-primary">${item.cost.toFixed(2)}</span>
-                </div>
-              ))}
-              <div className="border-t border-border pt-2 mt-2 flex justify-between">
-                <span className="font-bold text-text-primary">Estimated Total</span>
-                <span className="font-bold text-primary">${estimate.total.toFixed(2)}</span>
-              </div>
-            </div>
-            {/* Pumping toggle — visible when tech recommended pumping */}
-            {localState.recommendPumping && (
-              <label className="flex items-center gap-3 mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg cursor-pointer border border-blue-200 dark:border-blue-800">
-                <input
-                  type="checkbox"
-                  checked={includePumping}
-                  onChange={(e) => setIncludePumping(e.target.checked)}
-                  className="w-5 h-5 rounded accent-primary"
-                />
-                <div className="flex-1">
-                  <p className="font-medium text-text-primary text-sm">
-                    🚛 {manufacturer && manufacturer.pumpingRules.priceAdjustment > 0 ? `${manufacturer.name} Aerobic Tank Pumping` : "Septic Tank Pumping"}
-                  </p>
-                  <p className="text-xs text-text-secondary">
-                    {manufacturer?.pumpingRules.refillRequired ? "Extended service — refill required after pumping" : "Standard pump out — up to 2,000 gal"}
-                  </p>
-                </div>
-                <span className="font-bold text-primary text-sm">${getAdjustedPumpingPrice(manufacturerId).toFixed(2)}</span>
-              </label>
-            )}
-            <button
-              onClick={async () => {
-                try {
-                  const result = await createEstimateMutation.mutateAsync({
-                    jobId,
-                    includePumping: localState.recommendPumping ? includePumping : false,
-                  });
-                  setEstimateQuoteId(result.quote_id);
-                } catch { /* error toast from hook */ }
-              }}
-              disabled={createEstimateMutation.isPending}
-              className="w-full mt-3 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 active:scale-[0.98] transition-all disabled:opacity-50"
-            >
-              {createEstimateMutation.isPending ? "⏳ Creating..." : "📋 Create Estimate for Customer"}
-            </button>
           </div>
         )}
 
@@ -2746,11 +2569,6 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
                       <span className={`flex-1 text-xs ${isSelected ? "text-text-primary font-medium" : "text-text-secondary"}`}>
                         {part.name} {part.partNumber && <span className="text-text-muted">({part.partNumber})</span>}
                       </span>
-                      {part.estimatedCost && (
-                        <span className={`text-xs ${isSelected ? "text-primary font-medium" : "text-text-primary"}`}>
-                          ${part.estimatedCost}
-                        </span>
-                      )}
                     </label>
                   );
                 })}

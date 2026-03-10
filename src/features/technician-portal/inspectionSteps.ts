@@ -37,7 +37,7 @@ export interface InspectionStep {
   /** Video tutorial link (placeholder — populated per step when videos available) */
   videoLink?: string;
   /** Parts/materials that may be needed for this step */
-  parts?: { name: string; partNumber?: string; estimatedCost?: number }[];
+  parts?: { name: string; partNumber?: string }[];
   /** Whether this step has a sludge level reading */
   hasSludgeLevel?: boolean;
   /** Whether this step has a PSI reading */
@@ -248,9 +248,9 @@ export const INSPECTION_STEPS: InspectionStep[] = [
       },
     ],
     parts: [
-      { name: "Replacement lid", partNumber: "LID-24-GRN", estimatedCost: 125 },
-      { name: "Replacement lid screws", partNumber: "LID-SCR-SS", estimatedCost: 8 },
-      { name: "Riser extension", partNumber: "RSR-24-GRN", estimatedCost: 65 },
+      { name: "Replacement lid", partNumber: "LID-24-GRN" },
+      { name: "Replacement lid screws", partNumber: "LID-SCR-SS" },
+      { name: "Riser extension", partNumber: "RSR-24-GRN" },
     ],
   },
   {
@@ -271,8 +271,8 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     photoGuidance: "Photo of float switches and pump during test",
     estimatedMinutes: 3,
     parts: [
-      { name: "Replacement float switch", partNumber: "FLT-UNI-120", estimatedCost: 45 },
-      { name: "Float switch wire nuts", partNumber: "WN-14-WP", estimatedCost: 5 },
+      { name: "Replacement float switch", partNumber: "FLT-UNI-120" },
+      { name: "Float switch wire nuts", partNumber: "WN-14-WP" },
     ],
   },
   {
@@ -324,12 +324,12 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     safetyWarning: "Leave panel door open 4-5 minutes for ventilation before closing. ALWAYS turn breakers back on — leaving them off will cause system failure and sewage backup.",
     estimatedMinutes: 8,
     parts: [
-      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V", estimatedCost: 12 },
-      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP", estimatedCost: 5 },
-      { name: "Buzzer unit", partNumber: "BZR-12V-WP", estimatedCost: 25 },
-      { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ", estimatedCost: 8 },
-      { name: "Conduit sealant", partNumber: "CND-SEAL-GRY", estimatedCost: 12 },
-      { name: "Air filter (annual replacement)", partNumber: "AF-STD-AEROBIC", estimatedCost: 10 },
+      { name: "Replacement alarm light bulb", partNumber: "ALM-BULB-12V" },
+      { name: "Wire nuts (waterproof)", partNumber: "WN-14-WP" },
+      { name: "Buzzer unit", partNumber: "BZR-12V-WP" },
+      { name: "Silicon sealant", partNumber: "SIL-CLR-10OZ" },
+      { name: "Conduit sealant", partNumber: "CND-SEAL-GRY" },
+      { name: "Air filter (annual replacement)", partNumber: "AF-STD-AEROBIC" },
     ],
   },
   {
@@ -351,9 +351,9 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     photoGuidance: "Photo of spray heads or drip emitters and distribution box",
     estimatedMinutes: 2,
     parts: [
-      { name: "Drip filter", partNumber: "DRP-FLT-STD", estimatedCost: 18 },
-      { name: "Check valve", partNumber: "CHK-VLV-1IN", estimatedCost: 22 },
-      { name: "Spray head (replacement)", partNumber: "SPR-HD-360", estimatedCost: 15 },
+      { name: "Drip filter", partNumber: "DRP-FLT-STD" },
+      { name: "Check valve", partNumber: "CHK-VLV-1IN" },
+      { name: "Spray head (replacement)", partNumber: "SPR-HD-360" },
     ],
   },
   {
@@ -430,25 +430,11 @@ export const CONVENTIONAL_EQUIPMENT_ITEMS: EquipmentItem[] = [
   { id: "water_hose", label: "Water Hose", emoji: "🚿", category: "cleaning" },
 ];
 
-// ─── 10-Step Conventional Inspection Flow (consolidated from 17) ─────────────
+// ─── 9-Step Conventional Inspection Flow ─────────────────────────────────────
 
 export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
   {
     stepNumber: 1,
-    title: "Equipment Checklist",
-    emoji: "🧰",
-    description: "Verify all required equipment before starting the conventional inspection.",
-    detailedInstructions: [
-      "Check truck inventory against the equipment list",
-      "Verify probe rod, shovel, and flashlight are present",
-      "Ensure PPE (gloves, safety glasses) is available",
-      "Have clipboard or phone ready for data entry",
-    ],
-    requiresPhoto: false,
-    estimatedMinutes: 2,
-  },
-  {
-    stepNumber: 2,
     title: "Arrive & Document Attendees",
     emoji: "📱",
     description: "Arrive on-site, confirm location, notify the client, and record who is present.",
@@ -499,7 +485,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 5,
   },
   {
-    stepNumber: 3,
+    stepNumber: 2,
     title: "Site Conditions & Locate Tank",
     emoji: "🌤️",
     description: "Record weather and site conditions, then find and document the septic tank.",
@@ -552,7 +538,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 4,
   },
   {
-    stepNumber: 4,
+    stepNumber: 3,
     title: "Identify System Type & Size",
     emoji: "📐",
     description: "Document the septic system type, tank size, age, and drain field configuration.",
@@ -593,7 +579,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 3,
   },
   {
-    stepNumber: 5,
+    stepNumber: 4,
     title: "Pump System Check",
     emoji: "⚙️",
     description: "If forced flow: Document pump chamber, pump details, and test operation.",
@@ -608,7 +594,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
       "Skip this step if system is gravity flow only",
     ],
     requiresPhoto: false,
-    conditionalOn: { stepNumber: 4, fieldId: "drain_field_type", value: "Forced flow" },
+    conditionalOn: { stepNumber: 3, fieldId: "drain_field_type", value: "Forced flow" },
     customInputs: [
       {
         id: "pump_chamber_size",
@@ -632,7 +618,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 3,
   },
   {
-    stepNumber: 6,
+    stepNumber: 5,
     title: "Inspect Tank Condition & Damage",
     emoji: "🔍",
     description: "Open and inspect the tank for working condition and any structural damage.",
@@ -659,17 +645,17 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     hasSludgeLevel: true,
     estimatedMinutes: 5,
     parts: [
-      { name: "Replacement lid", partNumber: "LID-24-GRN", estimatedCost: 125 },
-      { name: "Inlet baffle", partNumber: "BFL-INL-4IN", estimatedCost: 45 },
-      { name: "Outlet baffle", partNumber: "BFL-OUT-4IN", estimatedCost: 45 },
-      { name: "Riser extension", partNumber: "RSR-24-GRN", estimatedCost: 65 },
-      { name: "Tank lid replacement", partNumber: "LID-CONC-24", estimatedCost: 150 },
-      { name: "Riser repair kit", partNumber: "RSR-RPR-KIT", estimatedCost: 85 },
-      { name: "Root treatment", partNumber: "ROOT-TREAT", estimatedCost: 35 },
+      { name: "Replacement lid", partNumber: "LID-24-GRN" },
+      { name: "Inlet baffle", partNumber: "BFL-INL-4IN" },
+      { name: "Outlet baffle", partNumber: "BFL-OUT-4IN" },
+      { name: "Riser extension", partNumber: "RSR-24-GRN" },
+      { name: "Tank lid replacement", partNumber: "LID-CONC-24" },
+      { name: "Riser repair kit", partNumber: "RSR-RPR-KIT" },
+      { name: "Root treatment", partNumber: "ROOT-TREAT" },
     ],
   },
   {
-    stepNumber: 7,
+    stepNumber: 6,
     title: "Inspect Drain Field",
     emoji: "🌿",
     description: "Walk the drain field area and check for signs of leaching and saturation.",
@@ -695,7 +681,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 5,
   },
   {
-    stepNumber: 8,
+    stepNumber: 7,
     title: "Final Assessment & Notes",
     emoji: "✅",
     description: "Make a final assessment of the entire system and document additional observations.",
@@ -728,7 +714,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 4,
   },
   {
-    stepNumber: 9,
+    stepNumber: 8,
     title: "Secure Site & Clean Up",
     emoji: "🔒",
     description: "Replace and secure ALL lids. Leave the site clean.",
@@ -744,7 +730,7 @@ export const CONVENTIONAL_INSPECTION_STEPS: InspectionStep[] = [
     estimatedMinutes: 2,
   },
   {
-    stepNumber: 10,
+    stepNumber: 9,
     title: "Discuss Findings & Upload Photos",
     emoji: "🤝",
     description: "Review all findings with the client, provide recommendations, and upload all inspection photos.",
@@ -1031,51 +1017,3 @@ export function generateRecommendations(state: InspectionState, systemType?: str
   return recs;
 }
 
-/**
- * Calculate estimate total from parts needed (based on findings)
- */
-export function calculateEstimate(
-  state: InspectionState,
-  options?: { includePumping?: boolean; systemType?: string; manufacturer?: string },
-): { items: { name: string; cost: number }[]; total: number } {
-  const items: { name: string; cost: number }[] = [];
-  const steps = getInspectionSteps(options?.systemType);
-
-  for (const step of steps) {
-    const stepState = state.steps[step.stepNumber];
-    if (!stepState || stepState.findings === "ok") continue;
-    if (!step.parts) continue;
-
-    // Use selectedParts if tech has made selections, otherwise include all parts
-    const selected = stepState.selectedParts;
-    const hasSelections = selected && selected.length > 0;
-
-    for (const part of step.parts) {
-      if (!part.estimatedCost) continue;
-      if (hasSelections && !selected.includes(part.name)) continue;
-      items.push({ name: part.name, cost: part.estimatedCost });
-    }
-  }
-
-  // Add labor estimate for non-OK steps
-  const issueSteps = steps.filter((s) => {
-    const ss = state.steps[s.stepNumber];
-    return ss && ss.findings !== "ok";
-  });
-  if (issueSteps.length > 0) {
-    items.push({ name: "Labor (estimated)", cost: issueSteps.length * 75 });
-  }
-
-  // Add pumping if included — adjust price for manufacturer
-  if (options?.includePumping) {
-    const mfrId = options?.manufacturer?.toLowerCase().replace(/\s.*/, "") || "";
-    const mfrPriceMap: Record<string, { label: string; cost: number }> = {
-      norweco: { label: "Norweco Aerobic Tank Pumping (extended service)", cost: 795 },
-      fuji: { label: "Fuji Aerobic Tank Pumping (fiberglass — refill required)", cost: 745 },
-    };
-    const pumpInfo = mfrPriceMap[mfrId] || { label: "Septic Tank Pumping (up to 2000 gal)", cost: 595 };
-    items.push({ name: pumpInfo.label, cost: pumpInfo.cost });
-  }
-
-  return { items, total: items.reduce((sum, i) => sum + i.cost, 0) };
-}
