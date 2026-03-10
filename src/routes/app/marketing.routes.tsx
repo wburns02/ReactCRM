@@ -65,6 +65,14 @@ const GA4DashboardPage = lazy(() =>
   })),
 );
 
+const NashvilleDashboardPage = lazy(() =>
+  import("@/features/marketing/nashville-ads/NashvilleDashboardPage.tsx").then(
+    (m) => ({
+      default: m.NashvilleDashboardPage,
+    }),
+  ),
+);
+
 /**
  * Marketing routes - Marketing Hub, Ads, Reviews, AI Content, Email Marketing,
  * Lead Pipeline, SEO Dashboard, Marketing Analytics
@@ -167,6 +175,16 @@ export function MarketingRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <GA4DashboardPage />
+          </Suspense>
+        }
+      />
+
+      {/* Nashville Ads Command Center */}
+      <Route
+        path="marketing/nashville-ads"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <NashvilleDashboardPage />
           </Suspense>
         }
       />

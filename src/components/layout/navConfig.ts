@@ -129,6 +129,7 @@ export const navGroups: NavGroup[] = [
       { path: "/marketing/ai-content", label: "AI Content", icon: Bot },
       { path: "/marketing/email-marketing", label: "Email Marketing", icon: Mail },
       { path: "/marketing/analytics", label: "Analytics & ROI", icon: LineChart },
+      { path: "/marketing/nashville-ads", label: "Nashville Ads", icon: Target },
     ],
   },
   {
