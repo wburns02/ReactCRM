@@ -690,10 +690,11 @@ async function generateReportPDF(
   // ═══ INSPECTION RESULTS ═══
   sectionHeader(isConventional ? "Condition Assessment" : "What We Checked");
 
-  // Summary stats row before details
-  const okCount = steps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
-  const attentionCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
-  const critCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
+  // Summary stats row before details (exclude cleanup step from customer report)
+  const pdfSteps = steps.filter(s => !(s.title.includes("Secure") && s.title.includes("Clean Up")));
+  const okCount = pdfSteps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
+  const attentionCount = pdfSteps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
+  const critCount = pdfSteps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
   if (okCount + attentionCount + critCount > 0) {
     const statW = (contentW - 8) / 3;
     // Good stat
@@ -727,6 +728,9 @@ async function generateReportPDF(
   }
 
   for (const step of steps) {
+    // Skip cleanup steps from customer-facing report (tech-only)
+    if (step.title.includes("Secure") && step.title.includes("Clean Up")) continue;
+
     ensureSpace(16);
     const ss = state.steps[step.stepNumber];
     const finding = ss?.findings || "pending";
