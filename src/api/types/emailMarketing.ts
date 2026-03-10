@@ -240,3 +240,60 @@ export const campaignFormSchema = z.object({
   scheduled_at: z.string().optional(),
 });
 export type CampaignFormData = z.infer<typeof campaignFormSchema>;
+
+// ============================================================================
+// Email Lists & Subscribers
+// ============================================================================
+
+export const emailListSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+  source: z.string(),
+  is_active: z.boolean(),
+  subscriber_count: z.number(),
+  created_at: z.string().nullable().optional(),
+  updated_at: z.string().nullable().optional(),
+});
+export type EmailList = z.infer<typeof emailListSchema>;
+
+export const emailSubscriberSchema = z.object({
+  id: z.string(),
+  list_id: z.string(),
+  email: z.string(),
+  first_name: z.string().nullable().optional(),
+  last_name: z.string().nullable().optional(),
+  source: z.string(),
+  status: z.string(),
+  subscribed_at: z.string().nullable().optional(),
+  unsubscribed_at: z.string().nullable().optional(),
+  metadata: z.record(z.string(), z.unknown()).nullable().optional(),
+  unsubscribe_token: z.string().optional(),
+});
+export type EmailSubscriber = z.infer<typeof emailSubscriberSchema>;
+
+export const emailListDetailSchema = z.object({
+  list: emailListSchema,
+  subscribers: z.array(emailSubscriberSchema),
+  pagination: z.object({
+    page: z.number(),
+    page_size: z.number(),
+    total: z.number(),
+    total_pages: z.number(),
+  }),
+});
+export type EmailListDetail = z.infer<typeof emailListDetailSchema>;
+
+export const importPreviewSchema = z.object({
+  total_permits_with_email: z.number().optional(),
+  total_customers_with_email: z.number().optional(),
+  already_in_list: z.number(),
+  estimated_new: z.number(),
+});
+export type ImportPreview = z.infer<typeof importPreviewSchema>;
+
+export const emailListFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+});
+export type EmailListFormData = z.infer<typeof emailListFormSchema>;

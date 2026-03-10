@@ -14,11 +14,12 @@ import {
 import { CampaignsTab } from "./components/CampaignsTab.tsx";
 import { TemplatesTab } from "./components/TemplatesTab.tsx";
 import { SegmentsTab } from "./components/SegmentsTab.tsx";
+import { ListsTab } from "./components/ListsTab.tsx";
 import { AISuggestionsTab } from "./components/AISuggestionsTab.tsx";
 import { AnalyticsTab } from "./components/AnalyticsTab.tsx";
 import { formatCurrency } from "@/lib/utils.ts";
 
-type Tab = "campaigns" | "templates" | "segments" | "suggestions" | "analytics";
+type Tab = "campaigns" | "templates" | "segments" | "lists" | "suggestions" | "analytics";
 
 /**
  * Email Marketing Hub - Main page with tier-based features
@@ -70,6 +71,7 @@ export function EmailMarketingPage() {
     { id: "campaigns", label: "Campaigns", icon: "📧" },
     { id: "templates", label: "Templates", icon: "📝" },
     { id: "segments", label: "Segments", icon: "👥" },
+    { id: "lists", label: "Lists", icon: "📋" },
     {
       id: "suggestions",
       label: "AI Suggestions",
@@ -243,6 +245,7 @@ export function EmailMarketingPage() {
         {activeTab === "campaigns" && <CampaignsTab tier={tier} />}
         {activeTab === "templates" && <TemplatesTab tier={tier} />}
         {activeTab === "segments" && <SegmentsTab tier={tier} />}
+        {activeTab === "lists" && <ListsTab tier={tier} />}
         {activeTab === "suggestions" && canAccessAI && (
           <AISuggestionsTab tier={tier} />
         )}

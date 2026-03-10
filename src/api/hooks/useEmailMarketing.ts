@@ -11,6 +11,10 @@ import type {
   OnboardingQuestion,
   TemplateFormData,
   CampaignFormData,
+  EmailList,
+  EmailListDetail,
+  EmailListFormData,
+  ImportPreview,
 } from "../types/emailMarketing.ts";
 
 // Query keys
@@ -35,6 +39,13 @@ export const emailMarketingKeys = {
     [...emailMarketingKeys.all, "analytics", { days }] as const,
   onboardingQuestions: () =>
     [...emailMarketingKeys.all, "onboarding", "questions"] as const,
+  lists: () => [...emailMarketingKeys.all, "lists"] as const,
+  listDetail: (id: string, page?: number) =>
+    [...emailMarketingKeys.all, "lists", id, { page }] as const,
+  importPermitsPreview: (listId: string) =>
+    [...emailMarketingKeys.all, "lists", listId, "import-permits-preview"] as const,
+  importCustomersPreview: (listId: string) =>
+    [...emailMarketingKeys.all, "lists", listId, "import-customers-preview"] as const,
 };
 
 // =============================================================================
@@ -503,5 +514,220 @@ export function useGenerateMarketingPlan() {
       );
       return data;
     },
+  });
+}
+
+// =============================================================================
+// Email Lists
+// =============================================================================
+
+export function useEmailLists() {
+  return useQuery({
+    queryKey: emailMarketingKeys.lists(),
+    queryFn: async (): Promise<EmailList[]> => {
+      const { data } = await apiClient.get("/email-marketing/lists");
+      return Array.isArray(data) ? data : [];
+    },
+  });
+}
+
+export function useEmailListDetail(listId: string, page = 1) {
+  return useQuery({
+    queryKey: emailMarketingKeys.listDetail(listId, page),
+    queryFn: async (): Promise<EmailListDetail> => {
+      const { data } = await apiClient.get(
+        `/email-marketing/lists/${listId}?page=${page}&page_size=50`,
+      );
+      return data;
+    },
+    enabled: !!listId,
+  });
+}
+
+export function useCreateEmailList() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (
+      listData: EmailListFormData,
+    ): Promise<{ success: boolean; list: EmailList }> => {
+      const { data } = await apiClient.post("/email-marketing/lists", listData);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: emailMarketingKeys.lists() });
+    },
+  });
+}
+
+export function useDeleteEmailList() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (listId: string): Promise<{ success: boolean }> => {
+      const { data } = await apiClient.delete(
+        `/email-marketing/lists/${listId}`,
+      );
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: emailMarketingKeys.lists() });
+    },
+  });
+}
+
+export function useAddSubscribers() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      listId,
+      subscribers,
+    }: {
+      listId: string;
+      subscribers: Array<{
+        email: string;
+        first_name?: string;
+        last_name?: string;
+        source?: string;
+      }>;
+    }): Promise<{ success: boolean; added: number; skipped: number }> => {
+      const { data } = await apiClient.post(
+        `/email-marketing/lists/${listId}/subscribers`,
+        { subscribers },
+      );
+      return data;
+    },
+    onSuccess: (_, { listId }) => {
+      queryClient.invalidateQueries({ queryKey: emailMarketingKeys.lists() });
+      queryClient.invalidateQueries({
+        queryKey: emailMarketingKeys.listDetail(listId),
+      });
+    },
+  });
+}
+
+export function useRemoveSubscriber() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      listId,
+      subscriberId,
+    }: {
+      listId: string;
+      subscriberId: string;
+    }): Promise<{ success: boolean }> => {
+      const { data } = await apiClient.delete(
+        `/email-marketing/lists/${listId}/subscribers/${subscriberId}`,
+      );
+      return data;
+    },
+    onSuccess: (_, { listId }) => {
+      queryClient.invalidateQueries({ queryKey: emailMarketingKeys.lists() });
+      queryClient.invalidateQueries({
+        queryKey: emailMarketingKeys.listDetail(listId),
+      });
+    },
+  });
+}
+
+export function useImportPermits() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      listId,
+      county,
+      stateCode,
+      limit,
+    }: {
+      listId: string;
+      county?: string;
+      stateCode?: string;
+      limit?: number;
+    }): Promise<{
+      success: boolean;
+      added: number;
+      skipped: number;
+      total_permits_found: number;
+    }> => {
+      const { data } = await apiClient.post(
+        `/email-marketing/lists/${listId}/import-permits`,
+        {
+          county,
+          state_code: stateCode,
+          has_email_only: true,
+          limit,
+        },
+      );
+      return data;
+    },
+    onSuccess: (_, { listId }) => {
+      queryClient.invalidateQueries({ queryKey: emailMarketingKeys.lists() });
+      queryClient.invalidateQueries({
+        queryKey: emailMarketingKeys.listDetail(listId),
+      });
+    },
+  });
+}
+
+export function useImportCustomers() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      listId,
+      segment,
+    }: {
+      listId: string;
+      segment?: string;
+    }): Promise<{
+      success: boolean;
+      added: number;
+      skipped: number;
+      total_customers_found: number;
+    }> => {
+      const { data } = await apiClient.post(
+        `/email-marketing/lists/${listId}/import-customers`,
+        {
+          segment,
+          has_email_only: true,
+        },
+      );
+      return data;
+    },
+    onSuccess: (_, { listId }) => {
+      queryClient.invalidateQueries({ queryKey: emailMarketingKeys.lists() });
+      queryClient.invalidateQueries({
+        queryKey: emailMarketingKeys.listDetail(listId),
+      });
+    },
+  });
+}
+
+export function useImportPermitsPreview(listId: string) {
+  return useQuery({
+    queryKey: emailMarketingKeys.importPermitsPreview(listId),
+    queryFn: async (): Promise<ImportPreview> => {
+      const { data } = await apiClient.get(
+        `/email-marketing/lists/${listId}/import-permits/preview`,
+      );
+      return data;
+    },
+    enabled: !!listId,
+  });
+}
+
+export function useImportCustomersPreview(listId: string) {
+  return useQuery({
+    queryKey: emailMarketingKeys.importCustomersPreview(listId),
+    queryFn: async (): Promise<ImportPreview> => {
+      const { data } = await apiClient.get(
+        `/email-marketing/lists/${listId}/import-customers/preview`,
+      );
+      return data;
+    },
+    enabled: !!listId,
   });
 }
