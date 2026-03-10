@@ -51,9 +51,11 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
           {/* Logo/Header */}
           <View style={styles.header}>
             <View style={styles.logoContainer}>
-              <Text style={styles.logoText}>CRM</Text>
+              <Text style={styles.logoText}>MAC</Text>
+              <View style={styles.logoDivider} />
+              <Text style={styles.logoSubtext}>SEPTIC</Text>
             </View>
-            <Text style={styles.title}>Field Service CRM</Text>
+            <Text style={styles.title}>Field Service</Text>
             <Text style={styles.subtitle}>Sign in to your account</Text>
           </View>
 
@@ -130,8 +132,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xl,
   },
   logoContainer: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     borderRadius: borderRadius.xl,
     backgroundColor: colors.primary,
     alignItems: 'center',
@@ -140,8 +142,20 @@ const styles = StyleSheet.create({
   },
   logoText: {
     color: colors.white,
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: '700',
+  },
+  logoDivider: {
+    width: 50,
+    height: 1,
+    backgroundColor: '#4299e1',
+    marginVertical: 2,
+  },
+  logoSubtext: {
+    color: colors.white,
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 3,
   },
   title: {
     ...typography.h2,

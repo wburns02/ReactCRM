@@ -33,7 +33,7 @@ export function Button({
     styles.base,
     styles[`${variant}Button`],
     styles[`${size}Size`],
-    (disabled || loading) && styles.disabled,
+    (disabled || loading) ? styles.disabled : {},
     style as ViewStyle,
   ];
 

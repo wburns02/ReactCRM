@@ -1,25 +1,32 @@
 {
   "expo": {
-    "name": "CRM Mobile",
-    "slug": "crm-mobile",
+    "name": "Mac Septic Field",
+    "slug": "mac-septic-field",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "crm-mobile",
+    "scheme": "macseptic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#1a365d"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.crm.mobile",
+      "bundleIdentifier": "com.macseptic.field",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to capture photos of work sites.",
-        "NSLocationWhenInUseUsageDescription": "This app uses your location to verify arrival at work sites.",
-        "NSPhotoLibraryUsageDescription": "This app accesses your photo library to upload work site photos."
+        "NSCameraUsageDescription": "Mac Septic Field uses the camera to capture before and after photos of work sites for documentation.",
+        "NSLocationWhenInUseUsageDescription": "Mac Septic Field uses your location to verify arrival at job sites and optimize routing.",
+        "NSPhotoLibraryUsageDescription": "Mac Septic Field accesses your photo library to attach existing photos to work orders.",
+        "CFBundleDisplayName": "Mac Septic",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "config": {
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
@@ -27,15 +34,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1a365d"
       },
-      "package": "com.crm.mobile",
+      "package": "com.macseptic.field",
+      "versionCode": 1,
       "permissions": [
-        "CAMERA",
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "VIBRATE",
-        "RECEIVE_BOOT_COMPLETED"
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.VIBRATE",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
@@ -48,13 +57,20 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow CRM Mobile to access your camera to capture work site photos."
+          "cameraPermission": "Allow Mac Septic Field to access your camera to capture work site photos."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Mac Septic Field to access your photos for work order documentation.",
+          "cameraPermission": "Allow Mac Septic Field to take photos for work order documentation."
         }
       ],
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow CRM Mobile to use your location to verify arrival at work sites."
+          "locationAlwaysAndWhenInUsePermission": "Allow Mac Septic Field to use your location to verify arrival at work sites and optimize routing."
         }
       ],
       [
@@ -67,7 +83,7 @@
       [
         "expo-barcode-scanner",
         {
-          "cameraPermission": "Allow CRM Mobile to access your camera to scan barcodes."
+          "cameraPermission": "Allow Mac Septic Field to access your camera to scan equipment barcodes."
         }
       ]
     ],
@@ -77,8 +93,16 @@
     "extra": {
       "apiUrl": "https://react-crm-api-production.up.railway.app/api/v2",
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "5946c232-1c4b-4016-8218-d7780771eaf9"
+      },
+      "router": {
+        "origin": false
       }
+    },
+    "owner": "rondiggity1",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/5946c232-1c4b-4016-8218-d7780771eaf9"
     }
   }
 }

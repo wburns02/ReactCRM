@@ -694,10 +694,11 @@ async function generateReportPDF(
   // ═══ INSPECTION RESULTS ═══
   sectionHeader(isConventional ? "Condition Assessment" : "What We Checked");
 
-  // Summary stats row before details
-  const okCount = steps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
-  const attentionCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
-  const critCount = steps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
+  // Summary stats row before details (exclude equipment checklist from customer report)
+  const reportSteps = isConventional ? steps.filter(s => !(s.stepNumber === 1 && s.title === "Equipment Checklist")) : steps;
+  const okCount = reportSteps.filter(s => (state.steps[s.stepNumber]?.findings || "pending") === "ok").length;
+  const attentionCount = reportSteps.filter(s => state.steps[s.stepNumber]?.findings === "needs_attention").length;
+  const critCount = reportSteps.filter(s => state.steps[s.stepNumber]?.findings === "critical").length;
   if (okCount + attentionCount + critCount > 0) {
     const statW = (contentW - 8) / 3;
     // Good stat
@@ -731,6 +732,9 @@ async function generateReportPDF(
   }
 
   for (const step of steps) {
+    // Skip Equipment Checklist from customer-facing report (tech-only step)
+    if (isConventional && step.stepNumber === 1 && step.title === "Equipment Checklist") continue;
+
     ensureSpace(16);
     const ss = state.steps[step.stepNumber];
     const finding = ss?.findings || "pending";

@@ -1,5 +1,5 @@
 /**
- * CRM Mobile App - Main Entry Point
+ * Mac Septic CRM - Field Service Mobile App
  * React Native / Expo application for field technicians
  */
 import React, { useState, useEffect, useCallback } from 'react';
@@ -11,6 +11,9 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import { LoginScreen } from './src/screens/LoginScreen';
 import { WorkOrdersScreen } from './src/screens/WorkOrdersScreen';
+import { WorkOrderDetailScreen } from './src/screens/WorkOrderDetailScreen';
+import { CompletionScreen } from './src/screens/CompletionScreen';
+import { SettingsScreen } from './src/screens/SettingsScreen';
 import { hasAuthToken, clearAuthToken, authEventEmitter } from './src/api/client';
 import { offlineQueue } from './src/api/offlineQueue';
 import { colors } from './src/utils/theme';
@@ -33,7 +36,7 @@ const queryClient = new QueryClient({
   },
 });
 
-type AppScreen = 'loading' | 'login' | 'workOrders' | 'workOrderDetail' | 'settings';
+type AppScreen = 'loading' | 'login' | 'workOrders' | 'workOrderDetail' | 'completion' | 'settings';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<AppScreen>('loading');
@@ -79,8 +82,20 @@ export default function App() {
     setCurrentScreen('workOrderDetail');
   }, []);
 
-  // Handle navigation back
-  const handleBack = useCallback(() => {
+  // Handle back to work orders list
+  const handleBackToList = useCallback(() => {
+    setSelectedWorkOrder(null);
+    setCurrentScreen('workOrders');
+  }, []);
+
+  // Handle start completion flow
+  const handleStartCompletion = useCallback((workOrder: WorkOrder) => {
+    setSelectedWorkOrder(workOrder);
+    setCurrentScreen('completion');
+  }, []);
+
+  // Handle completion finished
+  const handleCompletionDone = useCallback(() => {
     setSelectedWorkOrder(null);
     setCurrentScreen('workOrders');
   }, []);
@@ -88,6 +103,11 @@ export default function App() {
   // Handle settings navigation
   const handleSettingsPress = useCallback(() => {
     setCurrentScreen('settings');
+  }, []);
+
+  // Handle back from settings
+  const handleSettingsBack = useCallback(() => {
+    setCurrentScreen('workOrders');
   }, []);
 
   // Render current screen
@@ -112,23 +132,31 @@ export default function App() {
         );
 
       case 'workOrderDetail':
-        // TODO: Implement WorkOrderDetailScreen
-        return (
-          <View style={styles.placeholderScreen}>
-            <View style={styles.placeholderContent}>
-              <ActivityIndicator size="small" color={colors.primary} />
-            </View>
-          </View>
-        );
+        return selectedWorkOrder ? (
+          <WorkOrderDetailScreen
+            workOrder={selectedWorkOrder}
+            onBack={handleBackToList}
+            onStartCompletion={handleStartCompletion}
+          />
+        ) : null;
+
+      case 'completion':
+        return selectedWorkOrder ? (
+          <CompletionScreen
+            workOrder={selectedWorkOrder}
+            onBack={() => {
+              setCurrentScreen('workOrderDetail');
+            }}
+            onComplete={handleCompletionDone}
+          />
+        ) : null;
 
       case 'settings':
-        // TODO: Implement SettingsScreen
         return (
-          <View style={styles.placeholderScreen}>
-            <View style={styles.placeholderContent}>
-              <ActivityIndicator size="small" color={colors.primary} />
-            </View>
-          </View>
+          <SettingsScreen
+            onBack={handleSettingsBack}
+            onLogout={handleLogout}
+          />
         );
 
       default:
@@ -157,14 +185,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.background,
-  },
-  placeholderScreen: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  placeholderContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
