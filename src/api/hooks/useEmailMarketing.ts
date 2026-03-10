@@ -526,7 +526,9 @@ export function useEmailLists() {
     queryKey: emailMarketingKeys.lists(),
     queryFn: async (): Promise<EmailList[]> => {
       const { data } = await apiClient.get("/email-marketing/lists");
-      return Array.isArray(data) ? data : [];
+      if (Array.isArray(data)) return data;
+      if (data?.lists && Array.isArray(data.lists)) return data.lists;
+      return [];
     },
   });
 }
