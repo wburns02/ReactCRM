@@ -116,7 +116,8 @@ interface CampaignRow {
 }
 
 interface SearchTermRow {
-  term: string;
+  search_term: string;
+  term?: string;
   clicks: number;
   impressions: number;
   cost: number;
@@ -130,9 +131,11 @@ interface KeywordRow {
   clicks: number;
   impressions: number;
   conversions: number;
-  cpc: number;
+  avg_cpc: number;
+  cpc?: number;
   cost: number;
-  impression_share: number;
+  search_is: number | null;
+  impression_share?: number;
 }
 
 interface WasteAlert {
@@ -216,19 +219,30 @@ export function NashvilleDashboardPage() {
   // Campaign data
   const campaigns: CampaignRow[] = dashboard?.campaigns ?? [];
 
-  // Search terms
+  // Search terms — API returns { terms: [...], summary: { total_waste } }
   const searchTerms: SearchTermRow[] = searchTermsData?.terms ?? [];
-  const totalWaste: number = searchTermsData?.total_waste ?? 0;
+  const totalWaste: number = searchTermsData?.summary?.total_waste ?? 0;
 
-  // Keywords
-  const keywords: KeywordRow[] = keywordsData?.keywords ?? [];
+  // Keywords — API returns { data: [...] }
+  const keywords: KeywordRow[] = keywordsData?.data ?? [];
   const sortedKeywords = [...keywords].sort((a, b) => b.cost - a.cost);
 
   // Waste alerts
   const alerts: WasteAlert[] = wasteData?.alerts ?? [];
 
-  // Automations
-  const automations: AutomationItem[] = automationData?.automations ?? [];
+  // Automations — API returns object keyed by automation name, convert to array
+  const automations: AutomationItem[] = automationData?.automations
+    ? Object.entries(automationData.automations as Record<string, { enabled: boolean; description: string; action_id?: string }>).map(
+        ([key, val]) => ({
+          id: key,
+          name: key
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (c: string) => c.toUpperCase()),
+          description: val.description || "",
+          enabled: val.enabled ?? false,
+        }),
+      )
+    : [];
 
   // Impression share
   const impressionShareSummary = impressionData?.summary;
@@ -707,7 +721,7 @@ export function NashvilleDashboardPage() {
                     <tbody>
                       {searchTerms.map((t, idx) => (
                         <tr
-                          key={`${t.term}-${idx}`}
+                          key={`${t.search_term}-${idx}`}
                           className={`border-b border-border/50 hover:bg-surface-hover/50 transition-colors ${
                             t.flag === "competitor" || t.flag === "irrelevant"
                               ? "bg-red-50/50 dark:bg-red-950/10"
@@ -715,7 +729,7 @@ export function NashvilleDashboardPage() {
                           }`}
                         >
                           <td className="py-2.5 font-medium text-text-primary max-w-[300px] truncate">
-                            {t.term}
+                            {t.search_term}
                           </td>
                           <td className="py-2.5">{flagBadge(t.flag)}</td>
                           <td className="py-2.5 text-right">{fmtNum(t.clicks)}</td>
@@ -812,7 +826,7 @@ export function NashvilleDashboardPage() {
                         <td className="py-2.5 text-right">{fmtNum(k.clicks)}</td>
                         <td className="py-2.5 text-right">{fmtNum(k.impressions)}</td>
                         <td className="py-2.5 text-right">{fmtNum(k.conversions)}</td>
-                        <td className="py-2.5 text-right">{fmt(k.cpc)}</td>
+                        <td className="py-2.5 text-right">{fmt(k.avg_cpc)}</td>
                         <td className="py-2.5 text-right font-medium">{fmt(k.cost)}</td>
                         <td className="py-2.5 text-right">
                           <div className="flex items-center justify-end gap-2">
@@ -820,13 +834,13 @@ export function NashvilleDashboardPage() {
                               <div
                                 className="h-full rounded-full bg-primary/70"
                                 style={{
-                                  width: `${Math.min((k.impression_share ?? 0) * 100, 100)}%`,
+                                  width: `${Math.min((k.search_is ?? 0) * 100, 100)}%`,
                                 }}
                               />
                             </div>
                             <span className="text-xs">
-                              {k.impression_share != null
-                                ? fmtPct(k.impression_share)
+                              {k.search_is != null
+                                ? fmtPct(k.search_is)
                                 : "--"}
                             </span>
                           </div>
