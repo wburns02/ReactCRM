@@ -175,10 +175,11 @@ export function NashvilleDashboardPage() {
     queryClient.invalidateQueries({ queryKey: ["marketing", "nashville"] });
   }, [queryClient]);
 
-  // Budget health
-  const dailyBudget: number = dashboard?.budget?.daily_total ?? 0;
-  const todaySpend: number = dashboard?.budget?.today_spend ?? 0;
-  const remaining: number = dailyBudget - todaySpend;
+  // Budget health — API returns budget_summary with total_daily_budget, total_today_spend, etc.
+  const budgetSummary = dashboard?.budget_summary;
+  const dailyBudget: number = budgetSummary?.total_daily_budget ?? 0;
+  const todaySpend: number = budgetSummary?.total_today_spend ?? 0;
+  const remaining: number = budgetSummary?.total_remaining ?? (dailyBudget - todaySpend);
   const pacingPct: number = dailyBudget > 0 ? todaySpend / dailyBudget : 0;
 
   const pacingColor =
@@ -202,22 +203,23 @@ export function NashvilleDashboardPage() {
         ? "Watch Pacing"
         : "On Track";
 
-  // KPI values
-  const kpis = dashboard?.kpis ?? {
-    spend_today: 0,
-    clicks: 0,
-    impressions: 0,
-    conversions: 0,
-    calls: 0,
-    cpa: 0,
+  // KPI values — API returns today.totals with cost, clicks, impressions, conversions, calls, cpa
+  const totals = dashboard?.today?.totals;
+  const kpis = {
+    spend_today: totals?.cost ?? 0,
+    clicks: totals?.clicks ?? 0,
+    impressions: totals?.impressions ?? 0,
+    conversions: totals?.conversions ?? 0,
+    calls: totals?.calls ?? 0,
+    cpa: totals?.cpa ?? 0,
   };
 
   // Hourly data
   const hourlyData: HourlyBucket[] = dashboard?.hourly ?? [];
   const maxHourlyCost = Math.max(...(hourlyData.map((h) => h.cost) || [1]), 1);
 
-  // Campaign data
-  const campaigns: CampaignRow[] = dashboard?.campaigns ?? [];
+  // Campaign data — API nests campaigns inside today.campaigns
+  const campaigns: CampaignRow[] = dashboard?.today?.campaigns ?? [];
 
   // Search terms — API returns { terms: [...], summary: { total_waste } }
   const searchTerms: SearchTermRow[] = searchTermsData?.terms ?? [];
