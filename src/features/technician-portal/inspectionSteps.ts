@@ -4,13 +4,6 @@
  * (Consolidated from original 16 steps — all content preserved, fewer top-level steps)
  */
 
-export interface EquipmentItem {
-  id: string;
-  label: string;
-  emoji: string;
-  category: "tools" | "safety" | "supplies" | "cleaning";
-}
-
 export interface CustomInput {
   id: string;
   label: string;
@@ -107,34 +100,7 @@ export interface InspectionSummary {
   estimateTotal?: number | null;
 }
 
-// ─── Equipment Checklist (Step 1) ───────────────────────────────────────────
-
-export const EQUIPMENT_ITEMS: EquipmentItem[] = [
-  { id: "sludge_judge", label: "Sludge Judge", emoji: "📏", category: "tools" },
-  { id: "tool_bag", label: "Tool Bag", emoji: "🧰", category: "tools" },
-  { id: "multimeter", label: "Multimeter", emoji: "⚡", category: "tools" },
-  { id: "tire_gauge", label: "Tire Pressure Gauge", emoji: "🔧", category: "tools" },
-  { id: "drill", label: "Drill", emoji: "🔩", category: "tools" },
-  { id: "hand_tools", label: "Hand Tools", emoji: "🛠️", category: "tools" },
-  { id: "screws_lids", label: "Screws for Lids", emoji: "🔩", category: "supplies" },
-  { id: "drill_bits", label: "Drill Bits", emoji: "⚙️", category: "supplies" },
-  { id: "speedout", label: "Speedout", emoji: "🔧", category: "tools" },
-  { id: "gloves", label: "Gloves", emoji: "🧤", category: "safety" },
-  { id: "silicon_sealant", label: "Silicon Sealant", emoji: "💧", category: "supplies" },
-  { id: "water", label: "Water", emoji: "💦", category: "supplies" },
-  { id: "shovel", label: "Shovel", emoji: "⛏️", category: "tools" },
-  { id: "hoe", label: "Hoe", emoji: "🪓", category: "tools" },
-  { id: "mini_pick_axe", label: "Mini-Pick Axe", emoji: "⛏️", category: "tools" },
-  { id: "mini_shovel", label: "Mini-Shovel", emoji: "🪣", category: "tools" },
-  { id: "foam_pad", label: "Foam Pad", emoji: "🟦", category: "safety" },
-  { id: "water_hose", label: "Water Hose", emoji: "🚿", category: "cleaning" },
-  { id: "spray_nozzle", label: "Spray Nozzle", emoji: "💨", category: "cleaning" },
-  { id: "check_valve", label: "Check Valve", emoji: "🔄", category: "supplies" },
-  { id: "air_filter", label: "Air Filter ($10)", emoji: "🌀", category: "supplies" },
-];
-
-// ─── 8-Step Aerobic Inspection Flow (consolidated from 16) ───────────────────
-// Equipment check is handled as a pre-inspection gate, not a numbered step.
+// ─── 8-Step Aerobic Inspection Flow ──────────────────────────────────────────
 
 export const INSPECTION_STEPS: InspectionStep[] = [
   {
@@ -408,26 +374,6 @@ export const INSPECTION_STEPS: InspectionStep[] = [
     ],
     estimatedMinutes: 2,
   },
-];
-
-// ─── Conventional Equipment Checklist ────────────────────────────────────────
-
-export const CONVENTIONAL_EQUIPMENT_ITEMS: EquipmentItem[] = [
-  { id: "probe_rod", label: "Probe Rod", emoji: "📏", category: "tools" },
-  { id: "tool_bag", label: "Tool Bag", emoji: "🧰", category: "tools" },
-  { id: "shovel", label: "Shovel", emoji: "⛏️", category: "tools" },
-  { id: "mini_shovel", label: "Mini-Shovel", emoji: "🪣", category: "tools" },
-  { id: "hoe", label: "Hoe", emoji: "🪓", category: "tools" },
-  { id: "flashlight", label: "Flashlight", emoji: "🔦", category: "tools" },
-  { id: "hand_tools", label: "Hand Tools", emoji: "🛠️", category: "tools" },
-  { id: "tape_measure", label: "Tape Measure", emoji: "📐", category: "tools" },
-  { id: "gloves", label: "Gloves", emoji: "🧤", category: "safety" },
-  { id: "safety_glasses", label: "Safety Glasses", emoji: "🥽", category: "safety" },
-  { id: "foam_pad", label: "Foam Pad", emoji: "🟦", category: "safety" },
-  { id: "camera", label: "Camera/Phone", emoji: "📷", category: "tools" },
-  { id: "clipboard", label: "Clipboard & Forms", emoji: "📋", category: "supplies" },
-  { id: "paint_marker", label: "Paint/Marker", emoji: "🖊️", category: "supplies" },
-  { id: "water_hose", label: "Water Hose", emoji: "🚿", category: "cleaning" },
 ];
 
 // ─── 9-Step Conventional Inspection Flow ─────────────────────────────────────
@@ -868,14 +814,6 @@ export function getInspectionSteps(systemType?: string): InspectionStep[] {
 }
 
 /**
- * Get equipment items for the given system type.
- */
-export function getEquipmentItems(systemType?: string): EquipmentItem[] {
-  if (systemType === "conventional") return CONVENTIONAL_EQUIPMENT_ITEMS;
-  return EQUIPMENT_ITEMS;
-}
-
-/**
  * Get total estimated time for inspection
  */
 export function getEstimatedTime(systemType?: string): number {
@@ -903,17 +841,12 @@ export function createDefaultStepState(): StepState {
 /**
  * Create default inspection state
  */
-export function createDefaultInspectionState(systemType?: string): InspectionState {
-  const items = getEquipmentItems(systemType);
-  const equipmentItems: Record<string, boolean> = {};
-  for (const item of items) {
-    equipmentItems[item.id] = false;
-  }
+export function createDefaultInspectionState(): InspectionState {
   return {
     startedAt: null,
     completedAt: null,
     equipmentVerified: false,
-    equipmentItems,
+    equipmentItems: {},
     homeownerNotifiedAt: null,
     currentStep: 1,
     steps: {},
