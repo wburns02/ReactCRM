@@ -168,13 +168,15 @@ interface HourlyBucket {
 }
 
 interface CampaignRow {
-  id: string;
   name: string;
-  spend: number;
+  cost: number;
   clicks: number;
+  impressions: number;
   conversions: number;
-  budget: number;
-  budget_used_pct: number;
+  calls: number;
+  channel_type: string;
+  ctr: number;
+  avg_cpc: number;
 }
 
 interface SearchTermRow {
@@ -613,54 +615,27 @@ export function NashvilleDashboardPage() {
                             <th className="pb-2 font-medium text-text-secondary">Campaign</th>
                             <th className="pb-2 font-medium text-text-secondary text-right">Spend</th>
                             <th className="pb-2 font-medium text-text-secondary text-right">Clicks</th>
+                            <th className="pb-2 font-medium text-text-secondary text-right">Impr</th>
                             <th className="pb-2 font-medium text-text-secondary text-right">Conv.</th>
-                            <th className="pb-2 font-medium text-text-secondary text-right">Budget Used</th>
+                            <th className="pb-2 font-medium text-text-secondary text-right">Avg CPC</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {campaigns.map((c) => {
-                            const usedPct = c.budget_used_pct ?? (c.budget > 0 ? c.spend / c.budget : 0);
-                            const usedColor =
-                              usedPct > 1.0
-                                ? "text-red-600"
-                                : usedPct > 0.85
-                                  ? "text-yellow-600"
-                                  : "text-green-600";
-                            return (
+                          {campaigns.map((c, idx) => (
                               <tr
-                                key={c.id}
+                                key={idx}
                                 className="border-b border-border/50 hover:bg-surface-hover/50 transition-colors"
                               >
                                 <td className="py-2.5 font-medium text-text-primary">
                                   {c.name}
                                 </td>
-                                <td className="py-2.5 text-right">{fmt(c.spend)}</td>
+                                <td className="py-2.5 text-right">{fmt(c.cost)}</td>
                                 <td className="py-2.5 text-right">{fmtNum(c.clicks)}</td>
-                                <td className="py-2.5 text-right">{fmtNum(c.conversions)}</td>
-                                <td className="py-2.5 text-right">
-                                  <div className="flex items-center justify-end gap-2">
-                                    <div className="w-16 bg-surface-hover rounded-full h-1.5 overflow-hidden">
-                                      <div
-                                        className={`h-full rounded-full ${
-                                          usedPct > 1.0
-                                            ? "bg-red-500"
-                                            : usedPct > 0.85
-                                              ? "bg-yellow-500"
-                                              : "bg-green-500"
-                                        }`}
-                                        style={{
-                                          width: `${Math.min(usedPct * 100, 100)}%`,
-                                        }}
-                                      />
-                                    </div>
-                                    <span className={`font-medium ${usedColor}`}>
-                                      {fmtPct(usedPct)}
-                                    </span>
-                                  </div>
-                                </td>
+                                <td className="py-2.5 text-right">{fmtNum(c.impressions)}</td>
+                                <td className="py-2.5 text-right font-medium">{c.conversions}</td>
+                                <td className="py-2.5 text-right">{fmt(c.avg_cpc)}</td>
                               </tr>
-                            );
-                          })}
+                          ))}
                         </tbody>
                       </table>
                     </div>
