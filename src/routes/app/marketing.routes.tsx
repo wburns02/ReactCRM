@@ -4,55 +4,55 @@ import { PageLoader } from "../utils";
 
 // Marketing lazy imports
 const MarketingHubPage = lazy(() =>
-  import("@/features/marketing/MarketingHubPage.tsx").then((m) => ({
+  import("@/features/marketing/MarketingHubPage").then((m) => ({
     default: m.MarketingHubPage,
   })),
 );
 
 const MarketingTasksPage = lazy(() =>
-  import("@/features/marketing/tasks/MarketingTasksPage.tsx").then((m) => ({
+  import("@/features/marketing/tasks/MarketingTasksPage").then((m) => ({
     default: m.MarketingTasksPage,
   })),
 );
 
 const GoogleAdsPage = lazy(() =>
-  import("@/features/marketing/google-ads/GoogleAdsPage.tsx").then((m) => ({
+  import("@/features/marketing/google-ads/GoogleAdsPage").then((m) => ({
     default: m.GoogleAdsPage,
   })),
 );
 
 const ReviewsPage = lazy(() =>
-  import("@/features/marketing/reviews/ReviewsPage.tsx").then((m) => ({
+  import("@/features/marketing/reviews/ReviewsPage").then((m) => ({
     default: m.ReviewsPage,
   })),
 );
 
 const AIContentPage = lazy(() =>
-  import("@/features/marketing/ai-content/AIContentPage.tsx").then((m) => ({
+  import("@/features/marketing/ai-content/AIContentPage").then((m) => ({
     default: m.AIContentPage,
   })),
 );
 
 const EmailMarketingPage = lazy(() =>
-  import("@/features/email-marketing/EmailMarketingPage.tsx").then((m) => ({
+  import("@/features/email-marketing/EmailMarketingPage").then((m) => ({
     default: m.EmailMarketingPage,
   })),
 );
 
 const LeadPipelinePage = lazy(() =>
-  import("@/features/marketing/leads/LeadPipelinePage.tsx").then((m) => ({
+  import("@/features/marketing/leads/LeadPipelinePage").then((m) => ({
     default: m.LeadPipelinePage,
   })),
 );
 
 const SEODashboardPage = lazy(() =>
-  import("@/features/marketing/seo/SEODashboardPage.tsx").then((m) => ({
+  import("@/features/marketing/seo/SEODashboardPage").then((m) => ({
     default: m.SEODashboardPage,
   })),
 );
 
 const MarketingAnalyticsPage = lazy(() =>
-  import("@/features/marketing/analytics/MarketingAnalyticsPage.tsx").then(
+  import("@/features/marketing/analytics/MarketingAnalyticsPage").then(
     (m) => ({
       default: m.MarketingAnalyticsPage,
     }),
@@ -60,13 +60,13 @@ const MarketingAnalyticsPage = lazy(() =>
 );
 
 const GA4DashboardPage = lazy(() =>
-  import("@/features/marketing/ga4/GA4DashboardPage.tsx").then((m) => ({
+  import("@/features/marketing/ga4/GA4DashboardPage").then((m) => ({
     default: m.GA4DashboardPage,
   })),
 );
 
 const NashvilleDashboardPage = lazy(() =>
-  import("@/features/marketing/nashville-ads/NashvilleDashboardPage.tsx").then(
+  import("@/features/marketing/nashville-ads/NashvilleDashboardPage").then(
     (m) => ({
       default: m.NashvilleDashboardPage,
     }),

@@ -23,37 +23,37 @@ const ReportViewerPage = lazy(() =>
 
 // Reports lazy imports
 const ReportsPage = lazy(() =>
-  import("@/features/reports/pages/ReportsPage.tsx").then((m) => ({
+  import("@/features/reports/pages/ReportsPage").then((m) => ({
     default: m.ReportsPage,
   })),
 );
 
 const RevenueReport = lazy(() =>
-  import("@/features/reports/pages/RevenueReport.tsx").then((m) => ({
+  import("@/features/reports/pages/RevenueReport").then((m) => ({
     default: m.RevenueReport,
   })),
 );
 
 const TechnicianPerformance = lazy(() =>
-  import("@/features/reports/pages/TechnicianPerformance.tsx").then((m) => ({
+  import("@/features/reports/pages/TechnicianPerformance").then((m) => ({
     default: m.TechnicianPerformance,
   })),
 );
 
 const CLVReportPage = lazy(() =>
-  import("@/features/reports/pages/CLVReportPage.tsx").then((m) => ({
+  import("@/features/reports/pages/CLVReportPage").then((m) => ({
     default: m.CLVReportPage,
   })),
 );
 
 const ServiceReportPage = lazy(() =>
-  import("@/features/reports/pages/ServiceReportPage.tsx").then((m) => ({
+  import("@/features/reports/pages/ServiceReportPage").then((m) => ({
     default: m.ServiceReportPage,
   })),
 );
 
 const LocationReportPage = lazy(() =>
-  import("@/features/reports/pages/LocationReportPage.tsx").then((m) => ({
+  import("@/features/reports/pages/LocationReportPage").then((m) => ({
     default: m.LocationReportPage,
   })),
 );
@@ -96,7 +96,7 @@ const AIInsightsPanel = lazy(() =>
 );
 
 const CoachingPage = lazy(() =>
-  import("@/features/coaching/CoachingPage.tsx").then((m) => ({
+  import("@/features/coaching/CoachingPage").then((m) => ({
     default: m.CoachingPage,
   })),
 );

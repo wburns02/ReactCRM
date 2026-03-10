@@ -4,19 +4,19 @@ import { PageLoader } from "../utils";
 
 // Dashboard lazy imports
 const ExecutiveDashboard = lazy(() =>
-  import("@/features/dashboard/ExecutiveDashboard.tsx").then((m) => ({
+  import("@/features/dashboard/ExecutiveDashboard").then((m) => ({
     default: m.ExecutiveDashboard,
   })),
 );
 
 const DashboardPage = lazy(() =>
-  import("@/features/dashboard/DashboardPage.tsx").then((m) => ({
+  import("@/features/dashboard/DashboardPage").then((m) => ({
     default: m.DashboardPage,
   })),
 );
 
 const CommandCenter = lazy(() =>
-  import("@/features/dashboard/CommandCenter.tsx").then((m) => ({
+  import("@/features/dashboard/CommandCenter").then((m) => ({
     default: m.CommandCenter,
   })),
 );

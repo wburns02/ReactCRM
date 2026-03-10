@@ -4,73 +4,73 @@ import { PageLoader } from "../utils";
 
 // Billing lazy imports
 const BillingOverview = lazy(() =>
-  import("@/features/billing/pages/BillingOverview.tsx").then((m) => ({
+  import("@/features/billing/pages/BillingOverview").then((m) => ({
     default: m.BillingOverview,
   })),
 );
 
 const EstimatesPage = lazy(() =>
-  import("@/features/billing/pages/EstimatesPage.tsx").then((m) => ({
+  import("@/features/billing/pages/EstimatesPage").then((m) => ({
     default: m.EstimatesPage,
   })),
 );
 
 const EstimateDetailPage = lazy(() =>
-  import("@/features/billing/pages/EstimateDetailPage.tsx").then((m) => ({
+  import("@/features/billing/pages/EstimateDetailPage").then((m) => ({
     default: m.EstimateDetailPage,
   })),
 );
 
 const PaymentPlansPage = lazy(() =>
-  import("@/features/billing/pages/PaymentPlansPage.tsx").then((m) => ({
+  import("@/features/billing/pages/PaymentPlansPage").then((m) => ({
     default: m.PaymentPlansPage,
   })),
 );
 
 const PaymentPlanDetailPage = lazy(() =>
-  import("@/features/billing/pages/PaymentPlanDetailPage.tsx").then((m) => ({
+  import("@/features/billing/pages/PaymentPlanDetailPage").then((m) => ({
     default: m.PaymentPlanDetailPage,
   })),
 );
 
 const InvoicesPage = lazy(() =>
-  import("@/features/invoicing/InvoicesPage.tsx").then((m) => ({
+  import("@/features/invoicing/InvoicesPage").then((m) => ({
     default: m.InvoicesPage,
   })),
 );
 
 const InvoiceDetailPage = lazy(() =>
-  import("@/features/invoicing/InvoiceDetailPage.tsx").then((m) => ({
+  import("@/features/invoicing/InvoiceDetailPage").then((m) => ({
     default: m.InvoiceDetailPage,
   })),
 );
 
 const InvoiceCreatePage = lazy(() =>
-  import("@/features/invoicing/InvoiceCreatePage.tsx").then((m) => ({
+  import("@/features/invoicing/InvoiceCreatePage").then((m) => ({
     default: m.InvoiceCreatePage,
   })),
 );
 
 const PaymentsPage = lazy(() =>
-  import("@/features/payments/PaymentsPage.tsx").then((m) => ({
+  import("@/features/payments/PaymentsPage").then((m) => ({
     default: m.PaymentsPage,
   })),
 );
 
 const GreaseTrapPricingPage = lazy(() =>
-  import("@/features/grease-trap-pricing/GreaseTrapPricingPage.tsx").then((m) => ({
+  import("@/features/grease-trap-pricing/GreaseTrapPricingPage").then((m) => ({
     default: m.GreaseTrapPricingPage,
   })),
 );
 
 const QuotesPage = lazy(() =>
-  import("@/features/billing/pages/QuotesPage.tsx").then((m) => ({
+  import("@/features/billing/pages/QuotesPage").then((m) => ({
     default: m.QuotesPage,
   })),
 );
 
 const QuoteDetailPage = lazy(() =>
-  import("@/features/billing/pages/QuoteDetailPage.tsx").then((m) => ({
+  import("@/features/billing/pages/QuoteDetailPage").then((m) => ({
     default: m.QuoteDetailPage,
   })),
 );

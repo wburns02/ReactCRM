@@ -29,7 +29,7 @@ const CustomerTrackingPage = lazy(() =>
 );
 
 const PublicPaymentPage = lazy(() =>
-  import("@/features/billing/pages/PublicPaymentPage.tsx").then((m) => ({
+  import("@/features/billing/pages/PublicPaymentPage").then((m) => ({
     default: m.PublicPaymentPage,
   })),
 );
@@ -54,13 +54,13 @@ const StatusWidget = lazy(() =>
 
 
 const PublicBookingPage = lazy(() =>
-  import("@/features/landing/pages/PublicBookingPage.tsx").then((m) => ({
+  import("@/features/landing/pages/PublicBookingPage").then((m) => ({
     default: m.PublicBookingPage,
   })),
 );
 
 const NashvilleLandingPage = lazy(() =>
-  import("@/features/landing/pages/NashvilleLandingPage.tsx").then((m) => ({
+  import("@/features/landing/pages/NashvilleLandingPage").then((m) => ({
     default: m.NashvilleLandingPage,
   })),
 );

@@ -4,7 +4,7 @@ import { PageLoader } from "../utils";
 
 // Equipment lazy imports
 const EquipmentPage = lazy(() =>
-  import("@/features/equipment/EquipmentPage.tsx").then((m) => ({
+  import("@/features/equipment/EquipmentPage").then((m) => ({
     default: m.EquipmentPage,
   })),
 );
@@ -17,7 +17,7 @@ const EquipmentHealthPage = lazy(() =>
 
 // Inventory
 const InventoryPage = lazy(() =>
-  import("@/features/inventory/InventoryPage.tsx").then((m) => ({
+  import("@/features/inventory/InventoryPage").then((m) => ({
     default: m.InventoryPage,
   })),
 );
@@ -38,21 +38,21 @@ const PredictiveMaintenancePage = lazy(() =>
 
 // Predictive Service Engine
 const PredictiveServicePage = lazy(() =>
-  import("@/features/predictive-service/PredictiveServicePage.tsx").then((m) => ({
+  import("@/features/predictive-service/PredictiveServicePage").then((m) => ({
     default: m.PredictiveServicePage,
   })),
 );
 
 // Live Operations Center — God Mode
 const GodModePage = lazy(() =>
-  import("@/features/ops-center/GodModePage.tsx").then((m) => ({
+  import("@/features/ops-center/GodModePage").then((m) => ({
     default: m.GodModePage,
   })),
 );
 
 // Document Center
 const DocumentCenterPage = lazy(() =>
-  import("@/features/document-center/DocumentCenterPage.tsx").then((m) => ({
+  import("@/features/document-center/DocumentCenterPage").then((m) => ({
     default: m.DocumentCenterPage,
   })),
 );

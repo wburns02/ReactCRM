@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 const OutboundCampaignsPage = lazy(() =>
-  import("@/features/outbound-campaigns/OutboundCampaignsPage.tsx").then(
+  import("@/features/outbound-campaigns/OutboundCampaignsPage").then(
     (m) => ({
       default: m.OutboundCampaignsPage,
     }),

@@ -4,13 +4,13 @@ import { PageLoader } from "../utils";
 
 // Tickets lazy imports
 const TicketsPage = lazy(() =>
-  import("@/features/tickets/TicketsPage.tsx").then((m) => ({
+  import("@/features/tickets/TicketsPage").then((m) => ({
     default: m.TicketsPage,
   })),
 );
 
 const TicketDetailPage = lazy(() =>
-  import("@/features/tickets/TicketDetailPage.tsx").then((m) => ({
+  import("@/features/tickets/TicketDetailPage").then((m) => ({
     default: m.TicketDetailPage,
   })),
 );

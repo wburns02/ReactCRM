@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 const CommandCenterPage = lazy(() =>
-  import("@/features/dispatch/CommandCenterPage.tsx").then((m) => ({
+  import("@/features/dispatch/CommandCenterPage").then((m) => ({
     default: m.CommandCenterPage,
   })),
 );

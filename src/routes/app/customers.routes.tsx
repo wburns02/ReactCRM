@@ -4,25 +4,25 @@ import { PageLoader } from "../utils";
 
 // Customer-related lazy imports
 const ProspectsPage = lazy(() =>
-  import("@/features/prospects/ProspectsPage.tsx").then((m) => ({
+  import("@/features/prospects/ProspectsPage").then((m) => ({
     default: m.ProspectsPage,
   })),
 );
 
 const ProspectDetailPage = lazy(() =>
-  import("@/features/prospects/ProspectDetailPage.tsx").then((m) => ({
+  import("@/features/prospects/ProspectDetailPage").then((m) => ({
     default: m.ProspectDetailPage,
   })),
 );
 
 const CustomersPage = lazy(() =>
-  import("@/features/customers/CustomersPage.tsx").then((m) => ({
+  import("@/features/customers/CustomersPage").then((m) => ({
     default: m.CustomersPage,
   })),
 );
 
 const CustomerDetailPage = lazy(() =>
-  import("@/features/customers/CustomerDetailPage.tsx").then((m) => ({
+  import("@/features/customers/CustomerDetailPage").then((m) => ({
     default: m.CustomerDetailPage,
   })),
 );

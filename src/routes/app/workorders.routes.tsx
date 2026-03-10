@@ -4,37 +4,37 @@ import { PageLoader } from "../utils";
 
 // Work order lazy imports
 const WorkOrdersPage = lazy(() =>
-  import("@/features/workorders/WorkOrdersPage.tsx").then((m) => ({
+  import("@/features/workorders/WorkOrdersPage").then((m) => ({
     default: m.WorkOrdersPage,
   })),
 );
 
 const NewWorkOrderPage = lazy(() =>
-  import("@/features/workorders/NewWorkOrderPage.tsx").then((m) => ({
+  import("@/features/workorders/NewWorkOrderPage").then((m) => ({
     default: m.NewWorkOrderPage,
   })),
 );
 
 const WorkOrderDetailPage = lazy(() =>
-  import("@/features/workorders/WorkOrderDetailPage.tsx").then((m) => ({
+  import("@/features/workorders/WorkOrderDetailPage").then((m) => ({
     default: m.WorkOrderDetailPage,
   })),
 );
 
 const CalendarView = lazy(() =>
-  import("@/features/workorders/views/CalendarView.tsx").then((m) => ({
+  import("@/features/workorders/views/CalendarView").then((m) => ({
     default: m.CalendarView,
   })),
 );
 
 const KanbanBoard = lazy(() =>
-  import("@/features/workorders/views/KanbanBoard.tsx").then((m) => ({
+  import("@/features/workorders/views/KanbanBoard").then((m) => ({
     default: m.KanbanBoard,
   })),
 );
 
 const MapView = lazy(() =>
-  import("@/features/workorders/views/MapView.tsx").then((m) => ({
+  import("@/features/workorders/views/MapView").then((m) => ({
     default: m.MapView,
   })),
 );

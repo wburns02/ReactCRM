@@ -4,61 +4,61 @@ import { PageLoader } from "../utils";
 
 // Communications lazy imports
 const CommunicationsOverview = lazy(() =>
-  import("@/features/communications/pages/CommunicationsOverview.tsx").then(
+  import("@/features/communications/pages/CommunicationsOverview").then(
     (m) => ({ default: m.CommunicationsOverview }),
   ),
 );
 
 const SMSInbox = lazy(() =>
-  import("@/features/communications/pages/SMSInbox.tsx").then((m) => ({
+  import("@/features/communications/pages/SMSInbox").then((m) => ({
     default: m.SMSInbox,
   })),
 );
 
 const SMSConversation = lazy(() =>
-  import("@/features/communications/pages/SMSConversation.tsx").then((m) => ({
+  import("@/features/communications/pages/SMSConversation").then((m) => ({
     default: m.SMSConversation,
   })),
 );
 
 const EmailInbox = lazy(() =>
-  import("@/features/communications/pages/EmailInbox.tsx").then((m) => ({
+  import("@/features/communications/pages/EmailInbox").then((m) => ({
     default: m.EmailInbox,
   })),
 );
 
 const EmailConversation = lazy(() =>
-  import("@/features/communications/pages/EmailConversation.tsx").then((m) => ({
+  import("@/features/communications/pages/EmailConversation").then((m) => ({
     default: m.EmailConversation,
   })),
 );
 
 const AllTemplates = lazy(() =>
-  import("@/features/communications/pages/AllTemplates.tsx").then((m) => ({
+  import("@/features/communications/pages/AllTemplates").then((m) => ({
     default: m.AllTemplates,
   })),
 );
 
 const SMSTemplates = lazy(() =>
-  import("@/features/communications/pages/SMSTemplates.tsx").then((m) => ({
+  import("@/features/communications/pages/SMSTemplates").then((m) => ({
     default: m.SMSTemplates,
   })),
 );
 
 const EmailTemplates = lazy(() =>
-  import("@/features/communications/pages/EmailTemplates.tsx").then((m) => ({
+  import("@/features/communications/pages/EmailTemplates").then((m) => ({
     default: m.EmailTemplates,
   })),
 );
 
 const ReminderConfig = lazy(() =>
-  import("@/features/communications/pages/ReminderConfig.tsx").then((m) => ({
+  import("@/features/communications/pages/ReminderConfig").then((m) => ({
     default: m.ReminderConfig,
   })),
 );
 
 const ReminderDetail = lazy(() =>
-  import("@/features/communications/pages/ReminderDetail.tsx").then((m) => ({
+  import("@/features/communications/pages/ReminderDetail").then((m) => ({
     default: m.ReminderDetail,
   })),
 );
@@ -78,7 +78,7 @@ const CallIntelligenceDashboard = lazy(() =>
 );
 
 const QuickCallLogPage = lazy(() =>
-  import("@/features/quick-call-log/QuickCallLogPage.tsx").then((m) => ({
+  import("@/features/quick-call-log/QuickCallLogPage").then((m) => ({
     default: m.QuickCallLogPage,
   })),
 );

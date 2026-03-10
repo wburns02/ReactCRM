@@ -4,13 +4,13 @@ import { PageLoader } from "../utils";
 
 // Admin lazy imports
 const UsersPage = lazy(() =>
-  import("@/features/users/UsersPage.tsx").then((m) => ({
+  import("@/features/users/UsersPage").then((m) => ({
     default: m.UsersPage,
   })),
 );
 
 const AdminSettingsPage = lazy(() =>
-  import("@/features/admin/AdminSettingsPage.tsx").then((m) => ({
+  import("@/features/admin/AdminSettingsPage").then((m) => ({
     default: m.AdminSettingsPage,
   })),
 );
@@ -49,21 +49,21 @@ const SMSSettingsPage = lazy(() =>
 
 // Dump Sites
 const DumpSitesPage = lazy(() =>
-  import("@/features/admin/DumpSitesPage.tsx").then((m) => ({
+  import("@/features/admin/DumpSitesPage").then((m) => ({
     default: m.DumpSitesPage,
   })),
 );
 
 // Company Entities (Multi-LLC)
 const EntitiesPage = lazy(() =>
-  import("@/features/admin/EntitiesPage.tsx").then((m) => ({
+  import("@/features/admin/EntitiesPage").then((m) => ({
     default: m.EntitiesPage,
   })),
 );
 
 // Activity Analytics
 const ActivityAnalyticsPage = lazy(() =>
-  import("@/features/admin/ActivityAnalyticsPage.tsx").then((m) => ({
+  import("@/features/admin/ActivityAnalyticsPage").then((m) => ({
     default: m.ActivityAnalyticsPage,
   })),
 );

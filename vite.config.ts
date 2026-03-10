@@ -8,6 +8,19 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    // Exclude seed data from production builds (3.8MB of demo contacts)
+    {
+      name: 'exclude-seed-data',
+      transform(code, id) {
+        if (process.env.NODE_ENV === 'production' && code.includes('import("./seed-data")')) {
+          return code.replace(
+            /await import\("\.\/seed-data"\)/g,
+            'Promise.resolve({ SEED_CAMPAIGNS: [], SEED_SOURCE_FILE: "" })'
+          );
+        }
+        return null;
+      }
+    },
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.svg', 'pwa-512x512.svg'],

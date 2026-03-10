@@ -4,19 +4,19 @@ import { PageLoader } from "../utils";
 
 // Technician lazy imports
 const TechniciansPage = lazy(() =>
-  import("@/features/technicians/TechniciansPage.tsx").then((m) => ({
+  import("@/features/technicians/TechniciansPage").then((m) => ({
     default: m.TechniciansPage,
   })),
 );
 
 const TechnicianDetailPage = lazy(() =>
-  import("@/features/technicians/TechnicianDetailPage.tsx").then((m) => ({
+  import("@/features/technicians/TechnicianDetailPage").then((m) => ({
     default: m.TechnicianDetailPage,
   })),
 );
 
 const SchedulePage = lazy(() =>
-  import("@/features/schedule/SchedulePage.tsx").then((m) => ({
+  import("@/features/schedule/SchedulePage").then((m) => ({
     default: m.SchedulePage,
   })),
 );
@@ -28,80 +28,80 @@ const ServiceIntervalsPage = lazy(() =>
 );
 
 const EmployeePortalPage = lazy(() =>
-  import("@/features/employee/EmployeePortalPage.tsx").then((m) => ({
+  import("@/features/employee/EmployeePortalPage").then((m) => ({
     default: m.EmployeePortalPage,
   })),
 );
 
 const PayrollPage = lazy(() =>
-  import("@/features/payroll/PayrollPage.tsx").then((m) => ({
+  import("@/features/payroll/PayrollPage").then((m) => ({
     default: m.PayrollPage,
   })),
 );
 
 const PayrollPeriodDetailPage = lazy(() =>
-  import("@/features/payroll/PayrollPeriodDetailPage.tsx").then((m) => ({
+  import("@/features/payroll/PayrollPeriodDetailPage").then((m) => ({
     default: m.PayrollPeriodDetailPage,
   })),
 );
 
 const TechnicianDashboardPage = lazy(() =>
-  import("@/features/technician-dashboard/TechnicianDashboardPage.tsx").then(
+  import("@/features/technician-dashboard/TechnicianDashboardPage").then(
     (m) => ({ default: m.TechnicianDashboardPage }),
   ),
 );
 
 // Tech Portal pages
 const TechSchedulePage = lazy(() =>
-  import("@/features/technician-portal/TechSchedulePage.tsx").then(
+  import("@/features/technician-portal/TechSchedulePage").then(
     (m) => ({ default: m.TechSchedulePage }),
   ),
 );
 
 const TechJobsPage = lazy(() =>
-  import("@/features/technician-portal/TechJobsPage.tsx").then(
+  import("@/features/technician-portal/TechJobsPage").then(
     (m) => ({ default: m.TechJobsPage }),
   ),
 );
 
 const TechJobDetailPage = lazy(() =>
-  import("@/features/technician-portal/TechJobDetailPage.tsx").then(
+  import("@/features/technician-portal/TechJobDetailPage").then(
     (m) => ({ default: m.TechJobDetailPage }),
   ),
 );
 
 const TechTimeClockPage = lazy(() =>
-  import("@/features/technician-portal/TechTimeClockPage.tsx").then(
+  import("@/features/technician-portal/TechTimeClockPage").then(
     (m) => ({ default: m.TechTimeClockPage }),
   ),
 );
 
 const TechPayPage = lazy(() =>
-  import("@/features/technician-portal/TechPayPage.tsx").then(
+  import("@/features/technician-portal/TechPayPage").then(
     (m) => ({ default: m.TechPayPage }),
   ),
 );
 
 const TechCommsPage = lazy(() =>
-  import("@/features/technician-portal/TechCommsPage.tsx").then(
+  import("@/features/technician-portal/TechCommsPage").then(
     (m) => ({ default: m.TechCommsPage }),
   ),
 );
 
 const TechSettingsPage = lazy(() =>
-  import("@/features/technician-portal/TechSettingsPage.tsx").then(
+  import("@/features/technician-portal/TechSettingsPage").then(
     (m) => ({ default: m.TechSettingsPage }),
   ),
 );
 
 const TechDVIRPage = lazy(() =>
-  import("@/features/technician-portal/TechDVIRPage.tsx").then(
+  import("@/features/technician-portal/TechDVIRPage").then(
     (m) => ({ default: m.TechDVIRPage }),
   ),
 );
 
 const GamificationHub = lazy(() =>
-  import("@/features/technician-portal/components/GamificationHub.tsx").then(
+  import("@/features/technician-portal/components/GamificationHub").then(
     (m) => ({ default: m.GamificationHub }),
   ),
 );
