@@ -1,0 +1,6 @@
+# EAS Build ignore file
+.git
+node_modules
+APP_STORE_PREP.md
+README.md
+privacy-policy.html

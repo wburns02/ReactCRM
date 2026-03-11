@@ -79,12 +79,6 @@
           "icon": "./assets/notification-icon.png",
           "color": "#1a365d"
         }
-      ],
-      [
-        "expo-barcode-scanner",
-        {
-          "cameraPermission": "Allow Mac Septic Field to access your camera to scan equipment barcodes."
-        }
       ]
     ],
     "experiments": {
