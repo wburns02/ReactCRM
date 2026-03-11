@@ -616,3 +616,31 @@ export function useWorkOrderAuditLog(id: string | undefined) {
     enabled: !!id,
   });
 }
+
+/**
+ * Send "$25 Off — Book Today" follow-up SMS for a work order
+ */
+export function useSendFollowUpSMS() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      workOrderId,
+      customMessage,
+    }: {
+      workOrderId: string;
+      customMessage?: string;
+    }): Promise<{ success: boolean; message: string; phone?: string }> => {
+      const { data } = await apiClient.post(
+        `/work-orders/${workOrderId}/send-follow-up`,
+        { custom_message: customMessage },
+      );
+      return data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.detail(variables.workOrderId),
+      });
+    },
+  });
+}

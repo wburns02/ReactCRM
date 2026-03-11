@@ -27,6 +27,7 @@ import {
   useUpdateWorkOrder,
   useDeleteWorkOrder,
   useWorkOrderAuditLog,
+  useSendFollowUpSMS,
 } from "@/api/hooks/useWorkOrders.ts";
 import { useWorkOrderPhotoOperations } from "@/api/hooks/useWorkOrderPhotos.ts";
 import { WorkOrderForm } from "./components/WorkOrderForm.tsx";
@@ -136,6 +137,7 @@ export function WorkOrderDetailPage() {
   const { data: auditLog = [] } = useWorkOrderAuditLog(id);
   const updateMutation = useUpdateWorkOrder();
   const deleteMutation = useDeleteWorkOrder();
+  const followUpMutation = useSendFollowUpSMS();
   const autoGenerateInvoice = useAutoGenerateInvoice();
   const { data: existingInvoice } = useWorkOrderInvoice(id);
 
@@ -624,6 +626,51 @@ export function WorkOrderDetailPage() {
                       <span className="text-xs">Navigate</span>
                     </Button>
                   </div>
+                  {/* Follow-Up SMS — visible for draft/pending WOs with a phone number */}
+                  {(workOrder.status === "draft" || workOrder.status === "pending" || workOrder.status === "scheduled") &&
+                    (workOrder.customer?.phone || workOrder.customer_phone) && (
+                    <div className="mt-3">
+                      <Button
+                        variant="secondary"
+                        className={`w-full flex items-center justify-center gap-2 py-3 ${
+                          workOrder.checklist?.follow_up_sent
+                            ? "bg-green-50 border-green-200 text-green-700"
+                            : "bg-amber-50 border-amber-200 text-amber-800 hover:bg-amber-100"
+                        }`}
+                        onClick={() => {
+                          if (workOrder.checklist?.follow_up_sent) return;
+                          if (!confirm("Send '$25 Off — Book Today' follow-up text to this customer?")) return;
+                          followUpMutation.mutate(
+                            { workOrderId: workOrder.id },
+                            {
+                              onSuccess: (data) => toastSuccess(data.message),
+                              onError: (err: any) =>
+                                toastError(err?.response?.data?.detail || "Failed to send follow-up"),
+                            },
+                          );
+                        }}
+                        disabled={followUpMutation.isPending || !!workOrder.checklist?.follow_up_sent}
+                      >
+                        {workOrder.checklist?.follow_up_sent ? (
+                          <>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Follow-Up Sent
+                          </>
+                        ) : followUpMutation.isPending ? (
+                          "Sending..."
+                        ) : (
+                          <>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Send $25 Off Follow-Up
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
