@@ -222,12 +222,230 @@ interface AutomationItem {
 // Component
 // ---------------------------------------------------------------------------
 
+type KpiKey = "spend_today" | "clicks" | "impressions" | "conversions" | "calls" | "cpa";
+
+const KPI_META: Record<KpiKey, { label: string; campaignField: keyof CampaignRow; hourlyField?: keyof HourlyBucket; isCurrency: boolean; description: string }> = {
+  spend_today: { label: "Spend Today", campaignField: "cost", hourlyField: "cost", isCurrency: true, description: "Total ad spend across all campaigns today" },
+  clicks: { label: "Clicks", campaignField: "clicks", hourlyField: "clicks", isCurrency: false, description: "Total clicks on your ads today" },
+  impressions: { label: "Impressions", campaignField: "impressions", hourlyField: "impressions", isCurrency: false, description: "Total times your ads were shown today" },
+  conversions: { label: "Conversions", campaignField: "conversions", isCurrency: false, description: "Total conversion actions (form fills, calls) today" },
+  calls: { label: "Calls", campaignField: "calls", isCurrency: false, description: "Total phone calls generated from ads today" },
+  cpa: { label: "CPA", campaignField: "avg_cpc", isCurrency: true, description: "Average cost per conversion — lower is better" },
+};
+
+function KpiDrillDown({
+  kpiKey,
+  campaigns,
+  hourlyData,
+  kpis,
+  onClose,
+}: {
+  kpiKey: KpiKey;
+  campaigns: CampaignRow[];
+  hourlyData: HourlyBucket[];
+  kpis: Record<string, number>;
+  onClose: () => void;
+}) {
+  const meta = KPI_META[kpiKey];
+  const field = meta.campaignField;
+
+  // Sort campaigns by the selected metric descending
+  const sorted = [...campaigns].sort((a, b) => {
+    const aVal = kpiKey === "cpa" ? (a.conversions > 0 ? a.cost / a.conversions : 0) : (a[field] as number);
+    const bVal = kpiKey === "cpa" ? (b.conversions > 0 ? b.cost / b.conversions : 0) : (b[field] as number);
+    return bVal - aVal;
+  });
+
+  // Total for the metric
+  const total = kpiKey === "cpa"
+    ? kpis.cpa
+    : sorted.reduce((sum, c) => sum + (c[field] as number), 0);
+
+  // Hourly breakdown for metrics that have it
+  const hourlyField = meta.hourlyField;
+  const maxHourly = hourlyField
+    ? Math.max(...hourlyData.map((h) => h[hourlyField] as number), 1)
+    : 0;
+
+  const formatVal = (v: number) =>
+    meta.isCurrency ? fmt(v) : fmtNum(v);
+
+  return (
+    <Card className="border-primary/30 bg-primary/[0.02]">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm">
+                {kpiKey === "spend_today" ? "💰" : kpiKey === "clicks" ? "🖱️" : kpiKey === "impressions" ? "👁️" : kpiKey === "conversions" ? "🎯" : kpiKey === "calls" ? "📞" : "📊"}
+              </span>
+              {meta.label} Breakdown
+            </CardTitle>
+            <p className="text-sm text-text-secondary mt-1">{meta.description}</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-text-muted hover:text-text-primary transition-colors p-1 rounded-lg hover:bg-surface-hover"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className={`grid ${hourlyField ? "lg:grid-cols-2" : "grid-cols-1"} gap-6`}>
+          {/* Campaign breakdown table */}
+          <div>
+            <h4 className="text-sm font-semibold text-text-primary mb-3">By Campaign</h4>
+            {sorted.length === 0 ? (
+              <p className="text-sm text-text-muted">No campaign data available</p>
+            ) : (
+              <div className="space-y-2">
+                {sorted.map((c) => {
+                  const val = kpiKey === "cpa"
+                    ? (c.conversions > 0 ? c.cost / c.conversions : 0)
+                    : (c[field] as number);
+                  const pct = total > 0 && kpiKey !== "cpa" ? (val / total) * 100 : 0;
+                  return (
+                    <div key={c.name} className="group">
+                      <div className="flex items-center justify-between text-sm mb-0.5">
+                        <span className="text-text-primary truncate max-w-[65%]" title={c.name}>
+                          {c.name.length > 40 ? c.name.slice(0, 37) + "..." : c.name}
+                        </span>
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold text-text-primary">{formatVal(val)}</span>
+                          {kpiKey !== "cpa" && (
+                            <span className="text-xs text-text-muted w-12 text-right">{pct.toFixed(1)}%</span>
+                          )}
+                        </div>
+                      </div>
+                      {kpiKey !== "cpa" && (
+                        <div className="w-full bg-surface-hover rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className="h-full rounded-full bg-primary/60 transition-all duration-300 group-hover:bg-primary"
+                            style={{ width: `${Math.min(pct, 100)}%` }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+                {kpiKey !== "cpa" && (
+                  <div className="flex items-center justify-between text-sm font-bold border-t border-border pt-2 mt-3">
+                    <span className="text-text-primary">Total</span>
+                    <span className="text-text-primary">{formatVal(total)}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Extra context for specific KPIs */}
+            {kpiKey === "clicks" && sorted.length > 0 && (
+              <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                <p className="text-xs font-medium text-blue-800">Click Performance</p>
+                <div className="flex gap-4 mt-1.5 text-xs text-blue-700">
+                  <span>Avg CPC: {fmt(sorted.reduce((s, c) => s + c.avg_cpc, 0) / sorted.filter(c => c.avg_cpc > 0).length || 0)}</span>
+                  <span>Avg CTR: {(sorted.reduce((s, c) => s + c.ctr, 0) / sorted.filter(c => c.ctr > 0).length * 100 || 0).toFixed(2)}%</span>
+                </div>
+              </div>
+            )}
+
+            {kpiKey === "conversions" && (
+              <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-100">
+                <p className="text-xs font-medium text-green-800">Conversion Efficiency</p>
+                <div className="flex gap-4 mt-1.5 text-xs text-green-700">
+                  <span>Conv. Rate: {kpis.clicks > 0 ? ((kpis.conversions / kpis.clicks) * 100).toFixed(2) : "0.00"}%</span>
+                  <span>Cost/Conv: {kpis.conversions > 0 ? fmt(kpis.spend_today / kpis.conversions) : "N/A"}</span>
+                </div>
+              </div>
+            )}
+
+            {kpiKey === "calls" && (
+              <div className="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-100">
+                <p className="text-xs font-medium text-indigo-800">Call Metrics</p>
+                <div className="flex gap-4 mt-1.5 text-xs text-indigo-700">
+                  <span>Cost/Call: {kpis.calls > 0 ? fmt(kpis.spend_today / kpis.calls) : "N/A"}</span>
+                  <span>Call Rate: {kpis.clicks > 0 ? ((kpis.calls / kpis.clicks) * 100).toFixed(2) : "0.00"}%</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Hourly mini-chart */}
+          {hourlyField && (
+            <div>
+              <h4 className="text-sm font-semibold text-text-primary mb-3">Hourly Trend</h4>
+              <div className="flex items-end gap-[3px] h-[140px]">
+                {hourlyData.map((h) => {
+                  const val = h[hourlyField] as number;
+                  const heightPct = maxHourly > 0 ? (val / maxHourly) * 100 : 0;
+                  const now = new Date().getHours();
+                  const isCurrent = h.hour === now;
+                  return (
+                    <div
+                      key={h.hour}
+                      className="flex-1 flex flex-col items-center justify-end group relative"
+                    >
+                      <div
+                        className={`w-full rounded-t transition-all duration-200 min-h-[2px] ${
+                          isCurrent ? "bg-primary" : val > 0 ? "bg-primary/50 group-hover:bg-primary/70" : "bg-surface-hover"
+                        }`}
+                        style={{ height: `${Math.max(heightPct, 1.5)}%` }}
+                      />
+                      {val > 0 && (
+                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                          {h.hour}:00 — {meta.isCurrency ? fmt(val) : fmtNum(val)}
+                        </div>
+                      )}
+                      <span className={`text-[9px] mt-1 ${isCurrent ? "text-primary font-bold" : "text-text-muted"}`}>
+                        {h.hour % 3 === 0 ? h.hour : ""}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-3 p-3 bg-surface-hover/50 rounded-lg">
+                <div className="grid grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <p className="text-text-muted">Peak Hour</p>
+                    <p className="font-semibold text-text-primary">
+                      {hourlyData.length > 0
+                        ? `${hourlyData.reduce((best, h) => ((h[hourlyField] as number) > (best[hourlyField] as number) ? h : best), hourlyData[0]).hour}:00`
+                        : "--"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-text-muted">Peak Value</p>
+                    <p className="font-semibold text-text-primary">
+                      {hourlyData.length > 0
+                        ? formatVal(Math.max(...hourlyData.map((h) => h[hourlyField] as number)))
+                        : "--"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-text-muted">Active Hours</p>
+                    <p className="font-semibold text-text-primary">
+                      {hourlyData.filter((h) => (h[hourlyField] as number) > 0).length}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export function NashvilleDashboardPage() {
   const [activeTab, setActiveTab] = useState<Tab>("live");
   const [autoTab, setAutoTab] = useState<AutoTab>("overview");
   const [searchDays, setSearchDays] = useState(1);
   const [keywordDays, setKeywordDays] = useState(7);
   const [applyingNeg, setApplyingNeg] = useState(false);
+  const [selectedKpi, setSelectedKpi] = useState<KpiKey | null>(null);
   const queryClient = useQueryClient();
 
   const { data: dashboard, isLoading, dataUpdatedAt } = useNashvilleDashboard();
@@ -471,51 +689,77 @@ export function NashvilleDashboardPage() {
       </Card>
 
       {/* ============================================================= */}
-      {/* KPI CARDS                                                     */}
+      {/* KPI CARDS (clickable)                                        */}
       {/* ============================================================= */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {[
+        {([
           {
+            key: "spend_today" as KpiKey,
             label: "Spend Today",
             value: isLoading ? "..." : fmt(kpis.spend_today),
             color: "text-text-primary",
           },
           {
+            key: "clicks" as KpiKey,
             label: "Clicks",
             value: isLoading ? "..." : fmtNum(kpis.clicks),
             color: "text-primary",
           },
           {
+            key: "impressions" as KpiKey,
             label: "Impressions",
             value: isLoading ? "..." : fmtNum(kpis.impressions),
             color: "text-text-primary",
           },
           {
+            key: "conversions" as KpiKey,
             label: "Conversions",
             value: isLoading ? "..." : fmtNum(kpis.conversions),
             color: "text-green-600",
           },
           {
+            key: "calls" as KpiKey,
             label: "Calls",
             value: isLoading ? "..." : fmtNum(kpis.calls),
             color: "text-blue-600",
           },
           {
+            key: "cpa" as KpiKey,
             label: "CPA",
             value: isLoading ? "..." : fmt(kpis.cpa),
             color: kpis.cpa > 120 ? "text-red-600" : kpis.cpa > 80 ? "text-yellow-600" : "text-green-600",
           },
-        ].map((card) => (
-          <Card key={card.label}>
+        ]).map((card) => (
+          <Card
+            key={card.label}
+            className={`cursor-pointer transition-all duration-150 hover:shadow-md hover:border-primary/40 ${
+              selectedKpi === card.key ? "ring-2 ring-primary border-primary" : ""
+            }`}
+            onClick={() => setSelectedKpi(selectedKpi === card.key ? null : card.key)}
+          >
             <CardContent>
               <p className="text-xs text-text-secondary uppercase tracking-wider font-medium mb-1">
                 {card.label}
               </p>
               <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
+              <p className="text-[10px] text-text-muted mt-1">Click for details</p>
             </CardContent>
           </Card>
         ))}
       </div>
+
+      {/* ============================================================= */}
+      {/* KPI DRILL-DOWN PANEL                                          */}
+      {/* ============================================================= */}
+      {selectedKpi && (
+        <KpiDrillDown
+          kpiKey={selectedKpi}
+          campaigns={campaigns}
+          hourlyData={hourlyData}
+          kpis={kpis}
+          onClose={() => setSelectedKpi(null)}
+        />
+      )}
 
       {/* ============================================================= */}
       {/* TABS                                                          */}
