@@ -83,6 +83,7 @@ export const navGroups: NavGroup[] = [
       { path: "/communications/email-inbox", label: "Email Inbox", icon: Mail },
       { path: "/calls", label: "Call Center", icon: PhoneCall },
       { path: "/phone", label: "Phone Dashboard", icon: Phone },
+      { path: "/web-phone", label: "Web Phone", icon: Smartphone, badge: "NEW" },
       { path: "/communications/templates", label: "Message Templates", icon: FileText },
       { path: "/communications/reminders", label: "Auto-Reminders", icon: Bell },
       { path: "/outbound-campaigns", label: "Outbound Campaigns", icon: PhoneOutgoing, badge: "NEW" },

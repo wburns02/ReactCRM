@@ -738,6 +738,7 @@ export function WorkOrderEditModal({
                       <Select id="system_type" {...register("system_type")}>
                         <option value="conventional">🏗️ Conventional</option>
                         <option value="aerobic">💨 Aerobic</option>
+                        <option value="lift_station">🔧 Lift Station</option>
                       </Select>
                     </div>
 

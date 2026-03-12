@@ -4,6 +4,7 @@
  */
 
 export { PhonePage } from "./PhonePage.tsx";
+export { WebPhonePage } from "./WebPhonePage.tsx";
 export { DialButton } from "./components/DialButton.tsx";
 export { DialerModal } from "./components/DialerModal.tsx";
 export { CallDispositionModal } from "./components/CallDispositionModal.tsx";

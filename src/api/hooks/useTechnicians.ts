@@ -149,12 +149,12 @@ export function useDeleteTechnician() {
       queryClient.invalidateQueries({ queryKey: technicianKeys.lists() });
       toastSuccess("Technician deactivated", "The technician has been marked as inactive.");
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       console.error("[Technician Delete] Failed:", error);
-      toastError(
-        "Failed to delete technician",
-        "Please try again or contact support.",
-      );
+      const detail =
+        (error as { response?: { data?: { detail?: string } } })?.response?.data
+          ?.detail || "Please try again or contact support.";
+      toastError("Failed to delete technician", detail);
     },
   });
 }

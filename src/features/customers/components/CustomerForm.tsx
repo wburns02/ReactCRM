@@ -474,6 +474,7 @@ export function CustomerForm({
                     <option value="">Select type...</option>
                     <option value="Conventional Septic">Conventional</option>
                     <option value="Aerobic Treatment Unit">Aerobic / ATU</option>
+                    <option value="Lift Station">Lift Station</option>
                     <option value="Spray Distribution">Spray</option>
                     <option value="Drip Irrigation">Drip</option>
                     <option value="Mound System">Mound</option>

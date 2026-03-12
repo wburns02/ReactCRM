@@ -67,6 +67,10 @@ const PhonePage = lazy(() =>
   import("@/features/phone/index.ts").then((m) => ({ default: m.PhonePage })),
 );
 
+const WebPhonePage = lazy(() =>
+  import("@/features/phone/index.ts").then((m) => ({ default: m.WebPhonePage })),
+);
+
 const CallsPage = lazy(() =>
   import("@/features/calls/index.ts").then((m) => ({ default: m.CallsPage })),
 );
@@ -194,6 +198,16 @@ export function CommunicationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <PhonePage />
+          </Suspense>
+        }
+      />
+
+      {/* Web Phone (standalone RingCentral browser phone with line selection) */}
+      <Route
+        path="web-phone"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <WebPhonePage />
           </Suspense>
         }
       />

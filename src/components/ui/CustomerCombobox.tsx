@@ -501,6 +501,7 @@ export function CustomerCombobox({
                   <option value="">— Select —</option>
                   <option value="conventional">Conventional</option>
                   <option value="aerobic">Aerobic</option>
+                  <option value="lift_station">Lift Station</option>
                 </select>
               </div>
               {quickAddForm.system_type === "aerobic" && (

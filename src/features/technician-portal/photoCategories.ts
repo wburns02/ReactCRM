@@ -104,7 +104,7 @@ const AEROBIC_PHOTOS: PhotoCategory[] = [
 
 // ── Exported helpers ─────────────────────────────────────────────────────
 
-export type SystemType = "conventional" | "aerobic";
+export type SystemType = "conventional" | "aerobic" | "lift_station";
 
 /**
  * Returns the required photo categories for a given system type.
@@ -122,4 +122,5 @@ export function getRequiredPhotos(systemType: SystemType | string | null | undef
 export const SYSTEM_TYPE_INFO: Record<string, { label: string; emoji: string; color: string }> = {
   conventional: { label: "Conventional", emoji: "🏗️", color: "bg-blue-100 text-blue-800" },
   aerobic: { label: "Aerobic", emoji: "💨", color: "bg-purple-100 text-purple-800" },
+  lift_station: { label: "Lift Station", emoji: "🔧", color: "bg-amber-100 text-amber-800" },
 };
