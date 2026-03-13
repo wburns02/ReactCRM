@@ -26,12 +26,16 @@ interface PhoneLine {
 
 // Known office labels — user can choose which line to present as caller ID
 const OFFICE_LABELS: Record<string, string> = {
+  "+15127378711": "San Marcos, TX",
   "+16153452544": "Nashville, TN",
-  "+16152362672": "Nashville Main",
-  "+18032991410": "Rock Hill, SC",
-  "+18033291250": "Rock Hill, SC",
-  "+15128981234": "San Marcos, TX",
+  "+16152362691": "Nashville Main",
+  "+18033291250": "Rock Hill Main",
+  "+18032239677": "Rock Hill, SC",
+  "+18033281410": "Rock Hill, SC #2",
 };
+
+// Default outbound line
+const DEFAULT_LINE = "+15127378711";
 
 function usePhoneNumbers() {
   return useQuery({
@@ -86,10 +90,11 @@ export function WebPhonePage() {
   // Customer lookup for active call
   const lookup = useCustomerLookup(activeCall?.remoteNumber ?? "");
 
-  // Auto-select first callable line
+  // Auto-select default line (512 number), fall back to first callable
   useEffect(() => {
     if (lines.length > 0 && !selectedLine) {
-      const callable = lines.find((l) => l.can_call);
+      const defaultLine = lines.find((l) => l.phone_number === DEFAULT_LINE && l.can_call);
+      const callable = defaultLine || lines.find((l) => l.can_call);
       if (callable) setSelectedLine(callable.phone_number);
     }
   }, [lines, selectedLine]);
@@ -141,10 +146,10 @@ export function WebPhonePage() {
   const handleDial = useCallback(() => {
     const digits = dialInput.replace(/\D/g, "");
     if (digits.length >= 7) {
-      call(digits);
+      call(digits, selectedLine || undefined);
       setDialInput("");
     }
-  }, [dialInput, call]);
+  }, [dialInput, call, selectedLine]);
 
   const handleTransfer = useCallback(() => {
     const digits = transferTarget.replace(/\D/g, "");

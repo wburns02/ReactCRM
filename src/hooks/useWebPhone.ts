@@ -32,7 +32,7 @@ interface UseWebPhoneReturn {
   activeCall: ActiveCall | null;
   connect: () => Promise<void>;
   disconnect: () => void;
-  call: (number: string) => Promise<void>;
+  call: (number: string, fromNumber?: string) => Promise<void>;
   answer: () => Promise<void>;
   hangup: () => Promise<void>;
   toggleMute: () => void;
@@ -123,14 +123,15 @@ export function useWebPhone(): UseWebPhoneReturn {
     setState("idle");
   }, []);
 
-  const call = useCallback(async (number: string) => {
+  const call = useCallback(async (number: string, fromNumber?: string) => {
     if (!webPhoneRef.current || stateRef.current !== "registered") {
       setError("Phone not connected");
       return;
     }
     try {
       setState("calling");
-      const session = await webPhoneRef.current.call(number);
+      const callOpts = fromNumber ? { fromNumber } : undefined;
+      const session = await webPhoneRef.current.call(number, callOpts);
       callSessionRef.current = session;
       setActiveCall({
         direction: "outbound",
