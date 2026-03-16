@@ -1703,6 +1703,7 @@ export function WorkOrderDetailPage() {
         workOrderId={workOrder.id}
         customerId={workOrder.customer_id}
         customerName={customerName}
+        customerEmail={workOrder.customer_email || undefined}
         suggestedAmount={workOrder.total_amount != null ? Number(workOrder.total_amount) : undefined}
         onSuccess={() => setIsPaymentOpen(false)}
       />

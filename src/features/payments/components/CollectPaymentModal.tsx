@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { formatCurrency } from "@/lib/utils.ts";
 import { useCollectPayment, useRecordFieldPayment } from "@/api/hooks/useCollectPayment.ts";
+import { CloverCheckout } from "./CloverCheckout.tsx";
 
 // ─── Types ─────────────────────────────────────────────────
 
@@ -18,6 +19,8 @@ export interface CollectPaymentModalProps {
   customerId?: string;
   /** Customer name for display */
   customerName?: string;
+  /** Customer email for Clover receipts */
+  customerEmail?: string;
   /** Suggested amount (from invoice or work order estimate) */
   suggestedAmount?: number | null;
   /** Whether this is a technician in the field (uses simplified endpoint) */
@@ -29,12 +32,12 @@ export interface CollectPaymentModalProps {
 // ─── Payment Methods ───────────────────────────────────────
 
 const PAYMENT_METHODS = [
-  { value: "cash", label: "Cash", emoji: "💵", desc: "Cash collected" },
-  { value: "check", label: "Check", emoji: "📋", desc: "Personal or business check" },
-  { value: "card", label: "Card", emoji: "💳", desc: "Card on POS terminal" },
-  { value: "clover", label: "Clover POS", emoji: "☘️", desc: "Clover terminal payment" },
-  { value: "ach", label: "ACH/Bank", emoji: "🏦", desc: "Bank transfer" },
-  { value: "other", label: "Other", emoji: "📎", desc: "Other payment method" },
+  { value: "cash", label: "Cash", emoji: "\u{1F4B5}", desc: "Cash collected" },
+  { value: "check", label: "Check", emoji: "\u{1F4CB}", desc: "Personal or business check" },
+  { value: "card", label: "Card", emoji: "\u{1F4B3}", desc: "Card on POS terminal" },
+  { value: "clover", label: "Clover POS", emoji: "\u2618\uFE0F", desc: "Charge via Clover" },
+  { value: "ach", label: "ACH/Bank", emoji: "\u{1F3E6}", desc: "Bank transfer" },
+  { value: "other", label: "Other", emoji: "\u{1F4CE}", desc: "Other payment method" },
 ] as const;
 
 // ─── Component ─────────────────────────────────────────────
@@ -46,12 +49,13 @@ export function CollectPaymentModal({
   invoiceId,
   customerId,
   customerName,
+  customerEmail,
   suggestedAmount,
   isTechnician = false,
   onSuccess,
 }: CollectPaymentModalProps) {
   // State
-  const [step, setStep] = useState<"form" | "success">("form");
+  const [step, setStep] = useState<"form" | "clover" | "success">("form");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [amount, setAmount] = useState("");
   const [checkNumber, setCheckNumber] = useState("");
@@ -86,7 +90,50 @@ export function CollectPaymentModal({
     onClose();
   }, [resetForm, onClose]);
 
-  // Submit payment
+  // Handle Clover payment method selection
+  const handleMethodSelect = useCallback((method: string) => {
+    setPaymentMethod(method);
+    // Pre-fill amount from suggested if not already set
+    if (method === "clover" && !amount && suggestedAmount) {
+      setAmount(String(suggestedAmount));
+    }
+  }, [amount, suggestedAmount]);
+
+  // Proceed to Clover checkout
+  const handleCloverProceed = useCallback(() => {
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      toastError("Invalid amount", "Please enter an amount to charge.");
+      return;
+    }
+    setStep("clover");
+  }, [amount]);
+
+  // Handle Clover checkout success
+  const handleCloverSuccess = useCallback((result: { paymentId: string; chargeId: string }) => {
+    const parsedAmount = parseFloat(amount);
+    setSuccessResult({
+      paymentId: result.paymentId,
+      amount: parsedAmount,
+      method: "Clover POS",
+      customerName: customerName || "Customer",
+      invoiceId: invoiceId,
+    });
+    setStep("success");
+
+    toastSuccess(
+      "Payment processed!",
+      `${formatCurrency(parsedAmount)} charged via Clover`,
+    );
+
+    onSuccess?.({
+      paymentId: result.paymentId,
+      amount: parsedAmount,
+      method: "clover",
+    });
+  }, [amount, customerName, invoiceId, onSuccess]);
+
+  // Submit manual payment (non-Clover methods)
   const handleSubmit = useCallback(async () => {
     const parsedAmount = parseFloat(amount);
     if (!paymentMethod || isNaN(parsedAmount) || parsedAmount <= 0) {
@@ -159,10 +206,10 @@ export function CollectPaymentModal({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogContent size="sm">
+      <DialogContent size={step === "clover" ? "md" : "sm"}>
         <DialogHeader>
           <DialogTitle>
-            {step === "success" ? "Payment Recorded" : "Collect Payment"}
+            {step === "success" ? "Payment Recorded" : step === "clover" ? "Clover Card Payment" : "Collect Payment"}
           </DialogTitle>
         </DialogHeader>
         <DialogBody>
@@ -171,7 +218,7 @@ export function CollectPaymentModal({
               {/* Customer info */}
               {customerName && (
                 <div className="bg-bg-muted rounded-xl p-3 flex items-center gap-3">
-                  <span className="text-2xl">👤</span>
+                  <span className="text-2xl">{"\u{1F464}"}</span>
                   <div>
                     <p className="font-semibold text-text-primary">{customerName}</p>
                     {suggestedAmount != null && suggestedAmount > 0 && (
@@ -193,10 +240,12 @@ export function CollectPaymentModal({
                     <button
                       key={method.value}
                       type="button"
-                      onClick={() => setPaymentMethod(method.value)}
+                      onClick={() => handleMethodSelect(method.value)}
                       className={`flex flex-col items-center gap-1 p-4 rounded-xl border-2 transition-all min-h-[72px] ${
                         paymentMethod === method.value
-                          ? "border-blue-500 bg-blue-50 text-blue-700 shadow-sm"
+                          ? method.value === "clover"
+                            ? "border-green-500 bg-green-50 text-green-700 shadow-sm"
+                            : "border-blue-500 bg-blue-50 text-blue-700 shadow-sm"
                           : "border-border bg-bg-surface text-text-secondary hover:border-blue-300 active:bg-blue-50"
                       }`}
                     >
@@ -255,8 +304,8 @@ export function CollectPaymentModal({
                 </div>
               )}
 
-              {/* Reference number (admin only) */}
-              {!isTechnician && paymentMethod && paymentMethod !== "cash" && (
+              {/* Reference number (admin only, non-Clover) */}
+              {!isTechnician && paymentMethod && paymentMethod !== "cash" && paymentMethod !== "clover" && (
                 <div>
                   <label className="text-sm font-medium text-text-secondary mb-2 block">
                     Reference Number
@@ -271,23 +320,29 @@ export function CollectPaymentModal({
                 </div>
               )}
 
-              {/* Notes */}
-              <div>
-                <label className="text-sm font-medium text-text-secondary mb-2 block">
-                  Notes (optional)
-                </label>
-                <textarea
-                  placeholder="Payment notes..."
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  rows={2}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none text-sm"
-                />
-              </div>
+              {/* Notes (non-Clover only — Clover handles its own flow) */}
+              {paymentMethod !== "clover" && (
+                <div>
+                  <label className="text-sm font-medium text-text-secondary mb-2 block">
+                    Notes (optional)
+                  </label>
+                  <textarea
+                    placeholder="Payment notes..."
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    rows={2}
+                    className="w-full px-4 py-3 rounded-xl border border-border bg-bg-surface focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none resize-none text-sm"
+                  />
+                </div>
+              )}
 
               {/* Summary bar */}
               {parsedAmount > 0 && paymentMethod && (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-3 flex items-center justify-between">
+                <div className={`rounded-xl p-3 flex items-center justify-between ${
+                  paymentMethod === "clover"
+                    ? "bg-green-50 border border-green-200"
+                    : "bg-green-50 border border-green-200"
+                }`}>
                   <span className="text-sm text-green-700 font-medium">
                     {PAYMENT_METHODS.find((m) => m.value === paymentMethod)?.emoji}{" "}
                     {PAYMENT_METHODS.find((m) => m.value === paymentMethod)?.label}
@@ -309,28 +364,61 @@ export function CollectPaymentModal({
                 >
                   Cancel
                 </Button>
-                <Button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={isSubmitting || !paymentMethod || parsedAmount <= 0}
-                  className="flex-1 h-14 text-base font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white shadow-lg disabled:opacity-50"
-                >
-                  {isSubmitting ? (
+                {paymentMethod === "clover" ? (
+                  <Button
+                    type="button"
+                    onClick={handleCloverProceed}
+                    disabled={parsedAmount <= 0}
+                    className="flex-1 h-14 text-base font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white shadow-lg disabled:opacity-50"
+                  >
                     <span className="flex items-center gap-2">
-                      <span className="animate-spin">⏳</span> Processing...
+                      <span>{"\u2618\uFE0F"}</span> Charge with Clover
                     </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      <span>💰</span> Record Payment
-                    </span>
-                  )}
-                </Button>
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting || !paymentMethod || parsedAmount <= 0}
+                    className="flex-1 h-14 text-base font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white shadow-lg disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <span className="animate-spin">{"\u23F3"}</span> Processing...
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <span>{"\u{1F4B0}"}</span> Record Payment
+                      </span>
+                    )}
+                  </Button>
+                )}
               </div>
+            </div>
+          ) : step === "clover" ? (
+            /* ─── Clover Checkout Step ─────────────────────────── */
+            <div className="space-y-4">
+              <button
+                type="button"
+                onClick={() => setStep("form")}
+                className="text-sm text-blue-600 hover:underline font-medium flex items-center gap-1"
+              >
+                {"\u2190"} Back to payment methods
+              </button>
+              <CloverCheckout
+                invoiceId={invoiceId}
+                workOrderId={workOrderId}
+                amount={parsedAmount}
+                customerEmail={customerEmail}
+                customerName={customerName}
+                onSuccess={handleCloverSuccess}
+                onCancel={() => setStep("form")}
+              />
             </div>
           ) : (
             /* ─── Success State ─────────────────────────────────── */
             <div className="text-center space-y-4 py-4">
-              <div className="text-6xl">✅</div>
+              <div className="text-6xl">{"\u2705"}</div>
               <div>
                 <h3 className="text-xl font-bold text-text-primary">
                   Payment Recorded!

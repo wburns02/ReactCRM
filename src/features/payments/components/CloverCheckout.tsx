@@ -14,7 +14,8 @@ interface CloverCardElement {
 }
 
 interface CloverCheckoutProps {
-  invoiceId: string;
+  invoiceId?: string;
+  workOrderId?: string;
   amount: number; // in dollars
   customerEmail?: string;
   customerName?: string;
@@ -31,6 +32,7 @@ interface CloverCheckoutProps {
  */
 export function CloverCheckout({
   invoiceId,
+  workOrderId,
   amount,
   customerEmail,
   customerName,
@@ -124,7 +126,8 @@ export function CloverCheckout({
 
       // Charge via backend
       const chargeResult = await chargeMutation.mutateAsync({
-        invoice_id: invoiceId,
+        ...(invoiceId ? { invoice_id: invoiceId } : {}),
+        ...(workOrderId && !invoiceId ? { work_order_id: workOrderId } : {}),
         amount: Math.round(amount * 100), // Convert to cents
         token: result.token,
         customer_email: customerEmail,

@@ -221,7 +221,8 @@ export function useCloverCharge() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (params: {
-      invoice_id: string;
+      invoice_id?: string;
+      work_order_id?: string;
       amount: number;
       token: string;
       customer_email?: string;
@@ -231,6 +232,8 @@ export function useCloverCharge() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["payments"] });
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
       queryClient.invalidateQueries({ queryKey: cloverKeys.reconciliation() });
     },
     onError: () => toastError("Payment failed. Please try again."),
