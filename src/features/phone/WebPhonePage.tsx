@@ -512,9 +512,9 @@ export function WebPhonePage() {
           </div>
         </div>
 
-        {/* Middle: Screen Pop (when call active) */}
+        {/* Middle: Screen Pop (when call active) — takes priority over recent calls */}
         {activeCall && (
-          <div className="hidden lg:flex w-96 flex-col border-l border-border overflow-y-auto p-4">
+          <div className="hidden md:flex flex-1 max-w-lg flex-col border-l border-border overflow-hidden">
             <ScreenPop activeCall={activeCall} callDuration={callDuration} />
           </div>
         )}
