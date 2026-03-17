@@ -5,7 +5,7 @@ import {
   useUpdateCustomer,
   useDeleteCustomer,
 } from "@/api/hooks/useCustomers.ts";
-import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { useWorkOrders, useCreateWorkOrder } from "@/api/hooks/useWorkOrders.ts";
 import { CustomerForm } from "./components/CustomerForm.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import {
@@ -39,6 +39,9 @@ import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
 import { useEmailCompose } from "@/context/EmailComposeContext";
 import { ContractList } from "@/features/contracts/components/ContractList.tsx";
 import { PermitHistory } from "./components/PermitHistory.tsx";
+import { WorkOrderForm } from "@/features/workorders/components/WorkOrderForm.tsx";
+import type { WorkOrderFormData } from "@/api/types/workOrder.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 /**
  * Customer detail page - view/edit individual customer
@@ -62,10 +65,23 @@ export function CustomerDetailPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [isCreateWOOpen, setIsCreateWOOpen] = useState(false);
 
   // Mutations
   const updateMutation = useUpdateCustomer();
   const deleteMutation = useDeleteCustomer();
+  const createWOMutation = useCreateWorkOrder();
+
+  const handleCreateWO = async (data: WorkOrderFormData) => {
+    try {
+      await createWOMutation.mutateAsync(data);
+      toastSuccess("Work order created successfully");
+      setIsCreateWOOpen(false);
+    } catch {
+      toastError("Failed to create work order");
+      throw new Error("Failed");
+    }
+  };
 
   const handleEdit = async (data: CustomerFormData) => {
     if (id) {
@@ -469,9 +485,7 @@ export function CustomerDetailPage() {
                   View All Work Orders ({workOrders.length})
                 </Button>
               </Link>
-              <Link to={`/work-orders?new=true&customer_id=${id}`}>
-                <Button>Create Work Order</Button>
-              </Link>
+              <Button onClick={() => setIsCreateWOOpen(true)}>Create Work Order</Button>
               <Link to="/contracts">
                 <Button variant="secondary">🤝 View Contracts</Button>
               </Link>
@@ -657,6 +671,14 @@ export function CustomerDetailPage() {
         customerId={id}
         customerName={`${customer.first_name} ${customer.last_name}`}
         onSuccess={() => setIsPaymentOpen(false)}
+      />
+
+      <WorkOrderForm
+        open={isCreateWOOpen}
+        onClose={() => setIsCreateWOOpen(false)}
+        onSubmit={handleCreateWO}
+        isLoading={createWOMutation.isPending}
+        defaultCustomerId={id}
       />
     </div>
   );

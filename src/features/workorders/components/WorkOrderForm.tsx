@@ -35,6 +35,8 @@ export interface WorkOrderFormProps {
   onSubmit: (data: WorkOrderFormData) => Promise<void>;
   workOrder?: WorkOrder | null;
   isLoading?: boolean;
+  /** Pre-select a customer when creating (not editing) */
+  defaultCustomerId?: string;
 }
 
 /**
@@ -46,6 +48,7 @@ export function WorkOrderForm({
   onSubmit,
   workOrder,
   isLoading,
+  defaultCustomerId,
 }: WorkOrderFormProps) {
   const isEdit = !!workOrder;
   const [showBillTo, setShowBillTo] = useState(
@@ -99,7 +102,7 @@ export function WorkOrderForm({
           notes: workOrder.notes || "",
         }
       : {
-          customer_id: "",
+          customer_id: defaultCustomerId || "",
           billing_customer_id: undefined,
           job_type: "pumping" as JobType,
           status: "draft" as WorkOrderStatus,
