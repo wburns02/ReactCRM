@@ -83,9 +83,31 @@ export function useWebPhone(): UseWebPhoneReturn {
       // 4. Listen for incoming calls
       webPhone.on("inboundCall", (session: any) => {
         callSessionRef.current = session;
+
+        // Extract caller number from multiple possible sources
+        // The SDK sometimes scrambles remoteNumber — try SIP headers first
+        const fromHeader = session.request?.from?.uri?.user
+          || session.remoteIdentity?.uri?.user
+          || "";
+        const paiHeader = session.request?.getHeader?.("P-Asserted-Identity") || "";
+        const paiMatch = paiHeader.match?.(/sip:(\+?\d+)@/);
+        const rawRemote = session.remoteNumber || "";
+
+        // Prefer P-Asserted-Identity > From header > remoteNumber
+        let callerNumber = paiMatch?.[1] || fromHeader || rawRemote || "Unknown";
+
+        // Strip leading +1 for US numbers
+        if (callerNumber.startsWith("+1") && callerNumber.length === 12) {
+          callerNumber = callerNumber.slice(2);
+        } else if (callerNumber.startsWith("1") && callerNumber.length === 11) {
+          callerNumber = callerNumber.slice(1);
+        }
+
+        console.log("[WebPhone] Inbound call — remote:", rawRemote, "from:", fromHeader, "PAI:", paiHeader, "resolved:", callerNumber);
+
         setActiveCall({
           direction: "inbound",
-          remoteNumber: session.remoteNumber || "Unknown",
+          remoteNumber: callerNumber,
           callerIdName: session.rcApiCallInfo?.callerIdName,
           startTime: Date.now(),
           muted: false,
