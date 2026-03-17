@@ -12,6 +12,7 @@ import {
   Voicemail, Wifi, WifiOff, ChevronDown, Clock,
   MapPin, PhoneForwarded, Delete,
 } from "lucide-react";
+import { ScreenPop } from "./components/ScreenPop";
 
 // ── Phone number / line data ──────────────────────────────────────────────
 
@@ -510,6 +511,13 @@ export function WebPhonePage() {
             )}
           </div>
         </div>
+
+        {/* Middle: Screen Pop (when call active) */}
+        {activeCall && (
+          <div className="hidden lg:flex w-96 flex-col border-l border-border overflow-y-auto p-4">
+            <ScreenPop activeCall={activeCall} callDuration={callDuration} />
+          </div>
+        )}
 
         {/* Right: Recent Calls */}
         <div className="hidden lg:flex w-80 flex-col border-l border-border bg-bg-card overflow-hidden">
