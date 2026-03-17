@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button.tsx";
@@ -47,6 +48,9 @@ export function WorkOrderForm({
   isLoading,
 }: WorkOrderFormProps) {
   const isEdit = !!workOrder;
+  const [showBillTo, setShowBillTo] = useState(
+    !!(workOrder?.billing_customer_id && workOrder.billing_customer_id !== workOrder.customer_id)
+  );
 
   // Fetch technicians and dump sites for dropdowns
   const { data: techniciansData } = useTechnicians({
@@ -71,6 +75,7 @@ export function WorkOrderForm({
     defaultValues: workOrder
       ? {
           customer_id: String(workOrder.customer_id),
+          billing_customer_id: workOrder.billing_customer_id ? String(workOrder.billing_customer_id) : undefined,
           job_type: workOrder.job_type as JobType,
           status: workOrder.status as WorkOrderStatus,
           priority: workOrder.priority as Priority,
@@ -95,6 +100,7 @@ export function WorkOrderForm({
         }
       : {
           customer_id: "",
+          billing_customer_id: undefined,
           job_type: "pumping" as JobType,
           status: "draft" as WorkOrderStatus,
           priority: "normal" as Priority,
@@ -116,6 +122,7 @@ export function WorkOrderForm({
 
   const handleClose = () => {
     reset();
+    setShowBillTo(false);
     onClose();
   };
 
@@ -123,6 +130,7 @@ export function WorkOrderForm({
     // Clean up empty strings to undefined
     const cleanedData: WorkOrderFormData = {
       ...data,
+      billing_customer_id: showBillTo ? (data.billing_customer_id || undefined) : undefined,
       scheduled_date: data.scheduled_date || undefined,
       time_window_start: data.time_window_start || undefined,
       time_window_end: data.time_window_end || undefined,
@@ -182,6 +190,48 @@ export function WorkOrderForm({
                   />
                 </div>
 
+                {/* Bill To toggle + field */}
+                <div className="col-span-2">
+                  {!showBillTo ? (
+                    <button
+                      type="button"
+                      className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1"
+                      onClick={() => setShowBillTo(true)}
+                    >
+                      <span className="text-lg leading-none">+</span> Bill to a different customer
+                    </button>
+                  ) : (
+                    <div className="border border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-700 rounded-lg p-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-amber-800 dark:text-amber-300 font-medium text-sm">
+                          Bill To (invoices go to this customer)
+                        </Label>
+                        <button
+                          type="button"
+                          className="text-xs text-text-muted hover:text-danger"
+                          onClick={() => {
+                            setShowBillTo(false);
+                            setValue("billing_customer_id", undefined);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                      <Controller
+                        name="billing_customer_id"
+                        control={control}
+                        render={({ field }) => (
+                          <CustomerCombobox
+                            value={field.value || ""}
+                            onChange={field.onChange}
+                            hideLabel
+                          />
+                        )}
+                      />
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="job_type" required>
                     Job Type
@@ -229,9 +279,9 @@ export function WorkOrderForm({
                 <div className="space-y-2">
                   <Label htmlFor="system_type">System Type</Label>
                   <Select id="system_type" {...register("system_type")}>
-                    <option value="conventional">🏗️ Conventional</option>
-                    <option value="aerobic">💨 Aerobic</option>
-                    <option value="lift_station">🔧 Lift Station</option>
+                    <option value="conventional">Conventional</option>
+                    <option value="aerobic">Aerobic</option>
+                    <option value="lift_station">Lift Station</option>
                   </Select>
                 </div>
               </div>

@@ -114,10 +114,25 @@ export const workOrderSchema = z.object({
   id: z.string(),
   work_order_number: z.string().nullable().optional(),
   customer_id: z.union([z.string(), z.number()]).transform(String),
+  billing_customer_id: z.union([z.string(), z.number()]).transform(String).nullable().optional(),
   customer_name: z.string().nullable().optional(),
   customer_phone: z.string().nullable().optional(),
   customer_email: z.string().nullable().optional(),
   customer: z
+    .object({
+      id: z.union([z.string(), z.number()]).transform(String),
+      first_name: z.string(),
+      last_name: z.string(),
+      email: z.string().nullable().optional(),
+      phone: z.string().nullable().optional(),
+      address_line1: z.string().nullable().optional(),
+      city: z.string().nullable().optional(),
+      state: z.string().nullable().optional(),
+      postal_code: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  billing_customer: z
     .object({
       id: z.union([z.string(), z.number()]).transform(String),
       first_name: z.string(),
@@ -219,6 +234,7 @@ export interface WorkOrderFilters {
  */
 export const workOrderFormSchema = z.object({
   customer_id: z.string().min(1, "Customer is required"),
+  billing_customer_id: z.string().optional(),
   job_type: jobTypeSchema,
   status: workOrderStatusSchema.default("draft"),
   priority: prioritySchema.default("normal"),
