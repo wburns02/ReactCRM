@@ -64,6 +64,12 @@ const NashvilleLandingPage = lazy(() =>
     default: m.NashvilleLandingPage,
   })),
 );
+
+const FranklinLandingPage = lazy(() =>
+  import("@/features/landing/pages/FranklinLandingPage").then((m) => ({
+    default: m.FranklinLandingPage,
+  })),
+);
 /**
  * Public routes - no authentication required
  * Includes: landing page, login, embeddable widgets, tracking, public payment
@@ -121,6 +127,16 @@ export function PublicRoutes() {
           </Suspense>
         }
       />
+      {/* Franklin, TN Landing Page */}
+      <Route
+        path="/franklin-tn"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <FranklinLandingPage />
+          </Suspense>
+        }
+      />
+
       {/* Public login route */}
       <Route path="/login" element={<LoginPage />} />
 

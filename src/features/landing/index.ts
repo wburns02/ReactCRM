@@ -14,6 +14,9 @@ export { LeadCaptureForm } from "./components/LeadCaptureForm";
 export { useLeadSubmit } from "./hooks/useLeadSubmit";
 export { PublicBookingPage } from "./pages/PublicBookingPage";
 export { NashvilleLandingPage } from "./pages/NashvilleLandingPage";
+export { CityLandingPage } from "./pages/CityLandingPage";
+export { cityConfigs, getCityConfig } from "./config/cityConfigs";
+export type { CityConfig } from "./config/cityConfigs";
 
 // Types
 export type { UTMParams, LeadFormData, LeadSubmitData } from "./types/lead";
