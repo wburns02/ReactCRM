@@ -85,6 +85,32 @@ export function WebPhonePage() {
   const [transferTarget, setTransferTarget] = useState("");
   const [callDuration, setCallDuration] = useState(0);
 
+  // Screen pop persists after call ends until agent dismisses it
+  const [screenPopCall, setScreenPopCall] = useState<typeof activeCall>(null);
+  const [screenPopDuration, setScreenPopDuration] = useState(0);
+  const [showScreenPop, setShowScreenPop] = useState(false);
+
+  // When a call starts, open the screen pop
+  useEffect(() => {
+    if (activeCall) {
+      setScreenPopCall(activeCall);
+      setShowScreenPop(true);
+    }
+  }, [activeCall?.remoteNumber]);
+
+  // Keep screen pop duration updated during active call
+  useEffect(() => {
+    if (activeCall) {
+      setScreenPopDuration(callDuration);
+    }
+  }, [callDuration, activeCall]);
+
+  const dismissScreenPop = useCallback(() => {
+    setShowScreenPop(false);
+    setScreenPopCall(null);
+    setScreenPopDuration(0);
+  }, []);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const lineSelectorRef = useRef<HTMLDivElement>(null);
 
@@ -512,10 +538,15 @@ export function WebPhonePage() {
           </div>
         </div>
 
-        {/* Middle: Screen Pop (when call active) — takes priority over recent calls */}
-        {activeCall && (
+        {/* Middle: Screen Pop — stays open after call ends until agent dismisses */}
+        {showScreenPop && screenPopCall && (
           <div className="hidden md:flex flex-1 max-w-lg flex-col border-l border-border overflow-hidden">
-            <ScreenPop activeCall={activeCall} callDuration={callDuration} />
+            <ScreenPop
+              activeCall={activeCall || screenPopCall}
+              callDuration={activeCall ? callDuration : screenPopDuration}
+              callEnded={!activeCall}
+              onDismiss={dismissScreenPop}
+            />
           </div>
         )}
 

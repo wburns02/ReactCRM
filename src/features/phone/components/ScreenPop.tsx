@@ -21,6 +21,8 @@ import {
 interface ScreenPopProps {
   activeCall: ActiveCall | null;
   callDuration: number;
+  callEnded?: boolean;
+  onDismiss?: () => void;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
@@ -161,7 +163,7 @@ function QuickCustomerForm({ phone, onCreated }: { phone: string; onCreated: (id
 
 // ── Main Screen Pop ───────────────────────────────────────────────
 
-export function ScreenPop({ activeCall, callDuration }: ScreenPopProps) {
+export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: ScreenPopProps) {
   const navigate = useNavigate();
   const [createdCustomerId, setCreatedCustomerId] = useState<string | null>(null);
   const [noteSaved, setNoteSaved] = useState(false);
@@ -188,18 +190,23 @@ export function ScreenPop({ activeCall, callDuration }: ScreenPopProps) {
   } = useVoiceToText({ continuous: true });
 
   // Auto-start voice transcription when call becomes active
+  const [autoStarted, setAutoStarted] = useState(false);
   useEffect(() => {
-    if (activeCall && isSupported && !isListening) {
-      // Small delay to not conflict with mic permission for WebRTC
-      const t = setTimeout(() => startListening(), 2000);
+    if (activeCall && isSupported && !isListening && !autoStarted && !callEnded) {
+      const t = setTimeout(() => {
+        startListening();
+        setAutoStarted(true);
+      }, 1500);
       return () => clearTimeout(t);
     }
-  }, [activeCall?.remoteNumber]);
+  }, [activeCall?.remoteNumber, isSupported, callEnded]);
 
-  // Auto-stop when call ends
+  // Stop transcription when call ends (but keep transcript visible)
   useEffect(() => {
-    if (!activeCall && isListening) stopListening();
-  }, [activeCall]);
+    if (callEnded && isListening) {
+      stopListening();
+    }
+  }, [callEnded]);
 
   // Save notes
   const handleSaveNotes = async () => {
@@ -238,6 +245,22 @@ export function ScreenPop({ activeCall, callDuration }: ScreenPopProps) {
 
   return (
     <div className="h-full flex flex-col bg-bg-card overflow-hidden">
+      {/* Call ended banner */}
+      {callEnded && (
+        <div className="flex-shrink-0 px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 flex items-center justify-between">
+          <span className="text-xs font-medium text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+            <PhoneOutgoing className="w-3.5 h-3.5" />
+            Call ended — save notes before closing
+          </span>
+          <button
+            onClick={onDismiss}
+            className="px-2.5 py-1 rounded-md text-xs font-medium bg-amber-600 text-white hover:bg-amber-700 transition-colors"
+          >
+            Done
+          </button>
+        </div>
+      )}
+
       {/* Header — call info bar */}
       <div className={cn(
         "flex-shrink-0 px-4 py-3 border-b border-border",
