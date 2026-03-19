@@ -485,7 +485,7 @@ function CallFollowUps() {
   });
 
   const completeMutation = useMutation({
-    mutationFn: async (taskId: number) => { await apiClient.post(`/cs/tasks/${taskId}/complete`, {}); },
+    mutationFn: async (taskId: number) => { await apiClient.post(`/cs/tasks/${taskId}/complete`, { outcome: "successful" }); },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["cs", "tasks"] }); },
   });
 
