@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 import {
   AreaChart,
   Area,
@@ -31,6 +33,8 @@ import {
   Medal,
   Award,
   ChevronRight,
+  Phone,
+  AlertTriangle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -462,6 +466,86 @@ function ActivityFeed() {
 
 // ── Main Executive Dashboard ─────────────────────────────────
 
+// ── Call Follow-ups Widget ──────────────────────────────────────
+
+function CallFollowUps() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { data: overdueData } = useQuery({
+    queryKey: ["cs", "tasks", "overdue"],
+    queryFn: async () => { const { data } = await apiClient.get("/cs/tasks/overdue"); return data; },
+    staleTime: 30_000,
+  });
+
+  const { data: dueTodayData } = useQuery({
+    queryKey: ["cs", "tasks", "due-today"],
+    queryFn: async () => { const { data } = await apiClient.get("/cs/tasks/due-today"); return data; },
+    staleTime: 30_000,
+  });
+
+  const completeMutation = useMutation({
+    mutationFn: async (taskId: number) => { await apiClient.post(`/cs/tasks/${taskId}/complete`, {}); },
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["cs", "tasks"] }); },
+  });
+
+  const overdue = overdueData?.items || [];
+  const dueToday = dueTodayData?.items || [];
+  const allTasks = [...overdue, ...dueToday];
+
+  if (allTasks.length === 0) return null;
+
+  return (
+    <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-bg-card p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+          <Phone className="w-5 h-5 text-amber-500" />
+          Call Follow-ups
+          {overdue.length > 0 && (
+            <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 text-xs font-semibold">
+              {overdue.length} overdue
+            </span>
+          )}
+        </h3>
+        <Link to="/cs/tasks" className="text-sm text-primary hover:underline flex items-center gap-1">
+          View all <ChevronRight className="w-4 h-4" />
+        </Link>
+      </div>
+      <div className="space-y-2">
+        {allTasks.slice(0, 8).map((task: any) => {
+          const isOverdue = overdue.some((o: any) => o.id === task.id);
+          return (
+            <div key={task.id} className="flex items-center gap-3 py-2 px-3 rounded-lg bg-bg-hover hover:bg-bg-tertiary transition-colors">
+              <button
+                onClick={() => completeMutation.mutate(task.id)}
+                disabled={completeMutation.isPending}
+                className="w-5 h-5 rounded-full border-2 border-text-muted hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center flex-shrink-0 transition-colors"
+                title="Mark complete"
+              >
+                {completeMutation.isPending ? <Clock className="w-3 h-3 text-text-muted animate-spin" /> : null}
+              </button>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-text-primary truncate">{task.title}</p>
+                <p className="text-xs text-text-muted truncate">{task.contact_name || task.description?.slice(0, 60) || ""}</p>
+              </div>
+              {isOverdue ? (
+                <span className="flex items-center gap-1 text-[10px] font-medium text-red-600 dark:text-red-400 flex-shrink-0">
+                  <AlertTriangle className="w-3 h-3" /> Overdue
+                </span>
+              ) : (
+                <span className="text-[10px] text-text-muted flex-shrink-0">Due today</span>
+              )}
+            </div>
+          );
+        })}
+        {allTasks.length > 8 && (
+          <p className="text-xs text-text-muted text-center pt-1">+{allTasks.length - 8} more</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function ExecutiveDashboard() {
   const { data: kpis, isLoading: kpisLoading } = useExecutiveKPIs();
 
@@ -564,6 +648,9 @@ export function ExecutiveDashboard() {
           borderColor="#6366f1"
         />
       </div>
+
+      {/* Call Follow-ups */}
+      <CallFollowUps />
 
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
