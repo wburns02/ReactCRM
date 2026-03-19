@@ -213,24 +213,47 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
     const newChecked = !checkedActions[index];
     setCheckedActions((prev) => ({ ...prev, [index]: newChecked }));
 
-    if (newChecked && customerId) {
-      // Save as a follow-up note on the customer
+    if (newChecked) {
       setSavingTodo(index);
       try {
-        await apiClient.post("/calls/quick-log", {
-          customer_id: customerId,
-          caller_number: phone,
-          direction: "outbound",
-          notes: `[TODO] ${item}`,
-          disposition: "callback_requested",
-        });
+        // Create a real follow-up task linked to the customer
+        if (customerId) {
+          await apiClient.post("/cs/tasks", {
+            customer_id: customerId,
+            title: item,
+            description: `Auto-generated from call with ${phone} on ${new Date().toLocaleDateString()}`,
+            task_type: "follow_up",
+            category: "support",
+            priority: "medium",
+            status: "pending",
+            due_date: new Date(Date.now() + 86400000).toISOString().split("T")[0], // Tomorrow
+          });
+        } else {
+          // No customer — save as call log note
+          await apiClient.post("/calls/quick-log", {
+            caller_number: phone,
+            direction: activeCall?.direction || "inbound",
+            notes: `[TODO] ${item}`,
+            disposition: "callback_requested",
+          });
+        }
       } catch (err) {
         console.error("Failed to save TODO:", err);
+        // Fallback to call log if task creation fails
+        try {
+          await apiClient.post("/calls/quick-log", {
+            customer_id: customerId || null,
+            caller_number: phone,
+            direction: activeCall?.direction || "inbound",
+            notes: `[TODO] ${item}`,
+            disposition: "callback_requested",
+          });
+        } catch {}
       } finally {
         setSavingTodo(null);
       }
     }
-  }, [checkedActions, customerId, phone]);
+  }, [checkedActions, customerId, phone, activeCall]);
 
   useEffect(() => {
     if (callEnded && isListening) {
@@ -513,7 +536,17 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
               <p className="text-xs text-text-primary leading-relaxed">{aiSummary.summary}</p>
               {aiSummary.action_items.length > 0 && (
                 <div className="mt-1.5 pt-1.5 border-t border-emerald-200 dark:border-emerald-800">
-                  <p className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 mb-1">Action Items — check to save as TODO:</p>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400">Action Items — check to save as follow-up task:</p>
+                    {Object.values(checkedActions).some(Boolean) && (
+                      <button
+                        onClick={() => navigate("/cs/tasks")}
+                        className="text-[10px] text-primary hover:underline flex items-center gap-0.5"
+                      >
+                        View Tasks <ArrowRight className="w-2.5 h-2.5" />
+                      </button>
+                    )}
+                  </div>
                   {aiSummary.action_items.map((item, i) => (
                     <label
                       key={i}
