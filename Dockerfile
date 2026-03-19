@@ -19,7 +19,7 @@ COPY . .
 ARG VITE_PROPINTEL_API_URL
 ARG VITE_PROPINTEL_API_KEY
 
-# Cache bust: 2026-03-04-t430-funnel
+# Cache bust: 2026-03-19-screen-pop-followups
 RUN npm run build
 
 # Verify build output
