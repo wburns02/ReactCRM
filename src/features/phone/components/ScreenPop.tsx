@@ -201,12 +201,43 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
     }
   }, [activeCall?.remoteNumber, isSupported, callEnded]);
 
-  // Stop transcription when call ends (but keep transcript visible)
+  // When call ends: stop transcription, auto-summarize, auto-save
+  const [aiSummary, setAiSummary] = useState<{
+    summary: string; disposition: string; confidence: number; action_items: string[];
+  } | null>(null);
+  const [summarizing, setSummarizing] = useState(false);
+
   useEffect(() => {
     if (callEnded && isListening) {
       stopListening();
     }
-  }, [callEnded]);
+    // Auto-summarize transcript when call ends
+    if (callEnded && transcript && !aiSummary && !summarizing) {
+      setSummarizing(true);
+      const customerName = customer
+        ? `${(customer as any).first_name} ${(customer as any).last_name}`
+        : undefined;
+      apiClient.post("/calls/summarize-transcript", {
+        transcript,
+        customer_name: customerName,
+        direction: activeCall?.direction || "inbound",
+      }).then(({ data }) => {
+        setAiSummary(data);
+        // Auto-save the summary + disposition
+        apiClient.post("/calls/quick-log", {
+          customer_id: customerId || null,
+          caller_number: phone,
+          direction: activeCall?.direction || "inbound",
+          notes: data.summary + (data.action_items?.length ? "\n\nAction Items:\n" + data.action_items.map((a: string) => `- ${a}`).join("\n") : ""),
+          disposition: data.disposition,
+        }).then(() => {
+          setNoteSaved(true);
+        }).catch((err) => console.error("Auto-save failed:", err));
+      }).catch((err) => {
+        console.error("Summarize failed:", err);
+      }).finally(() => setSummarizing(false));
+    }
+  }, [callEnded, transcript]);
 
   // Save notes
   const handleSaveNotes = async () => {
@@ -436,12 +467,51 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
         )}
 
         {/* Call Notes — ALWAYS visible */}
-        <Section title="Call Notes" icon={FileText} defaultOpen={true}>
-          {/* Voice transcript */}
-          {(transcript || interimTranscript) && (
+        <Section title={aiSummary ? `Call Notes — ${aiSummary.disposition.replace(/_/g, " ")}` : "Call Notes"} icon={FileText} defaultOpen={true}>
+          {/* AI Summary (shows after call ends) */}
+          {aiSummary && (
+            <div className="bg-emerald-50 dark:bg-emerald-950/30 rounded-lg p-2.5 mb-2">
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase">AI Summary</span>
+                <span className={cn(
+                  "text-[10px] px-1.5 py-0.5 rounded-full font-medium capitalize",
+                  statusBadge(aiSummary.disposition),
+                )}>
+                  {aiSummary.disposition.replace(/_/g, " ")}
+                </span>
+                {noteSaved && (
+                  <span className="ml-auto text-[10px] text-emerald-600 flex items-center gap-0.5">
+                    <CheckCircle className="w-3 h-3" /> Auto-saved
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-text-primary leading-relaxed">{aiSummary.summary}</p>
+              {aiSummary.action_items.length > 0 && (
+                <div className="mt-1.5 pt-1.5 border-t border-emerald-200 dark:border-emerald-800">
+                  <p className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 mb-0.5">Action Items:</p>
+                  {aiSummary.action_items.map((item, i) => (
+                    <p key={i} className="text-[10px] text-text-secondary flex items-start gap-1">
+                      <ArrowRight className="w-2.5 h-2.5 mt-0.5 flex-shrink-0" /> {item}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Summarizing spinner */}
+          {summarizing && (
+            <div className="flex items-center gap-2 py-3 text-xs text-text-muted">
+              <Loader2 className="w-4 h-4 animate-spin text-primary" />
+              Analyzing call and generating summary...
+            </div>
+          )}
+
+          {/* Live transcript (during call) */}
+          {!aiSummary && (transcript || interimTranscript) && (
             <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-2 mb-2 text-xs">
               <div className="flex items-center gap-1.5 mb-1">
-                <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 uppercase">Auto-Transcript</span>
+                <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 uppercase">Live Transcript</span>
                 {isListening && <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />}
               </div>
               <p className="text-text-primary leading-relaxed">
@@ -451,39 +521,43 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
             </div>
           )}
 
-          <div className="flex items-center gap-2 mb-2">
-            <VoiceMicButton
-              isListening={isListening}
-              isSupported={isSupported}
-              onClick={toggleListening}
-              className="!p-1.5 text-xs"
-            />
-            <span className="text-[10px] text-text-muted">
-              {isListening ? "Transcribing..." : isSupported ? "Click mic to transcribe" : "Voice not supported"}
-            </span>
-            {transcript && (
-              <button onClick={clearTranscript} className="ml-auto text-[10px] text-text-muted hover:text-text-primary">Clear</button>
-            )}
-          </div>
+          {/* Mic control — only during active call */}
+          {!callEnded && (
+            <div className="flex items-center gap-2 mb-2">
+              <VoiceMicButton
+                isListening={isListening}
+                isSupported={isSupported}
+                onClick={toggleListening}
+                className="!p-1.5 text-xs"
+              />
+              <span className="text-[10px] text-text-muted">
+                {isListening ? "Transcribing..." : isSupported ? "Click mic to transcribe" : "Voice not supported"}
+              </span>
+            </div>
+          )}
 
+          {/* Manual notes — always available */}
           <textarea
             placeholder="Type additional notes..."
             value={manualNotes}
             onChange={(e) => setManualNotes(e.target.value)}
-            rows={3}
+            rows={2}
             className="w-full px-2.5 py-2 rounded-md border border-border bg-bg-body text-xs resize-none focus:outline-none focus:ring-1 focus:ring-primary"
           />
 
-          <div className="flex items-center gap-2 mt-2">
-            <button
-              onClick={handleSaveNotes}
-              disabled={(!transcript && !manualNotes) || noteSaving}
-              className="px-3 py-1.5 rounded-md bg-primary text-white text-xs font-medium hover:bg-primary/90 disabled:opacity-40 flex items-center gap-1.5"
-            >
-              {noteSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : noteSaved ? <CheckCircle className="w-3 h-3" /> : <Save className="w-3 h-3" />}
-              {noteSaved ? "Saved!" : "Save Notes"}
-            </button>
-          </div>
+          {/* Save button — only if not auto-saved */}
+          {!noteSaved && (
+            <div className="flex items-center gap-2 mt-2">
+              <button
+                onClick={handleSaveNotes}
+                disabled={(!transcript && !manualNotes) || noteSaving}
+                className="px-3 py-1.5 rounded-md bg-primary text-white text-xs font-medium hover:bg-primary/90 disabled:opacity-40 flex items-center gap-1.5"
+              >
+                {noteSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
+                Save Notes
+              </button>
+            </div>
+          )}
         </Section>
       </div>
     </div>
