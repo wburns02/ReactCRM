@@ -19,7 +19,7 @@ COPY . .
 ARG VITE_PROPINTEL_API_URL
 ARG VITE_PROPINTEL_API_KEY
 
-# Cache bust: 2026-03-19-screen-pop-followups
+# Cache bust: 2026-03-19-exec-dashboard-followups
 RUN npm run build
 
 # Verify build output
