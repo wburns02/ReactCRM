@@ -484,6 +484,18 @@ function CallFollowUps() {
     staleTime: 30_000,
   });
 
+  // Also fetch upcoming tasks (next 7 days) so new action items show immediately
+  const { data: upcomingData } = useQuery({
+    queryKey: ["cs", "tasks", "upcoming"],
+    queryFn: async () => {
+      const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
+      const weekOut = new Date(Date.now() + 7 * 86400000).toISOString().split("T")[0];
+      const { data } = await apiClient.get(`/cs/tasks/?status=pending&due_after=${tomorrow}&due_before=${weekOut}&page_size=20`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+
   const completeMutation = useMutation({
     mutationFn: async (taskId: number) => { await apiClient.post(`/cs/tasks/${taskId}/complete`, { outcome: "successful" }); },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["cs", "tasks"] }); },
@@ -491,7 +503,8 @@ function CallFollowUps() {
 
   const overdue = overdueData?.items || [];
   const dueToday = dueTodayData?.items || [];
-  const allTasks = [...overdue, ...dueToday];
+  const upcoming = upcomingData?.items || [];
+  const allTasks = [...overdue, ...dueToday, ...upcoming];
 
   if (allTasks.length === 0) return null;
 
@@ -514,6 +527,7 @@ function CallFollowUps() {
       <div className="space-y-2">
         {allTasks.slice(0, 8).map((task: any) => {
           const isOverdue = overdue.some((o: any) => o.id === task.id);
+          const isDueToday = dueToday.some((t: any) => t.id === task.id);
           return (
             <div key={task.id} className="flex items-center gap-3 py-2 px-3 rounded-lg bg-bg-hover transition-colors">
               <button
@@ -531,8 +545,10 @@ function CallFollowUps() {
                 <span className="flex items-center gap-1 text-[10px] font-medium text-red-600 dark:text-red-400 flex-shrink-0">
                   <AlertTriangle className="w-3 h-3" /> Overdue
                 </span>
+              ) : isDueToday ? (
+                <span className="text-[10px] font-medium text-amber-600 dark:text-amber-400 flex-shrink-0">Due today</span>
               ) : (
-                <span className="text-[10px] text-text-muted flex-shrink-0">Due today</span>
+                <span className="text-[10px] text-text-muted flex-shrink-0">{task.due_date || "Upcoming"}</span>
               )}
             </div>
           );
