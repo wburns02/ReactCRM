@@ -93,6 +93,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
   const [isSupported, setIsSupported] = useState(false);
 
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
+  const manualStopRef = useRef(false);
 
   // Check support on mount
   useEffect(() => {
@@ -168,8 +169,17 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
     };
 
     recognition.onend = () => {
-      setIsListening(false);
       setInterimTranscript("");
+      // In continuous mode, auto-restart if not manually stopped
+      if (continuous && !manualStopRef.current) {
+        try {
+          recognition.start();
+          return; // Don't set isListening to false — we're restarting
+        } catch {
+          // Failed to restart — fall through to stopped state
+        }
+      }
+      setIsListening(false);
       onEnd?.();
     };
 
@@ -178,6 +188,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
 
   // Start listening
   const startListening = useCallback(() => {
+    manualStopRef.current = false;
     if (recognitionRef.current) {
       recognitionRef.current.stop();
     }
@@ -196,6 +207,7 @@ export function useVoiceToText(options: UseVoiceToTextOptions = {}) {
 
   // Stop listening
   const stopListening = useCallback(() => {
+    manualStopRef.current = true;
     if (recognitionRef.current) {
       recognitionRef.current.stop();
       recognitionRef.current = null;
