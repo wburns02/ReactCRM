@@ -515,14 +515,17 @@ function CallFollowUps() {
         {allTasks.slice(0, 8).map((task: any) => {
           const isOverdue = overdue.some((o: any) => o.id === task.id);
           return (
-            <div key={task.id} className="flex items-center gap-3 py-2 px-3 rounded-lg bg-bg-hover hover:bg-bg-tertiary transition-colors">
+            <div key={task.id} onClick={() => navigate(`/customers/${task.customer_id}`)} className="flex items-center gap-3 py-2 px-3 rounded-lg bg-bg-hover hover:bg-bg-tertiary transition-colors cursor-pointer">
               <button
-                onClick={() => completeMutation.mutate(task.id)}
+                onClick={(e) => { e.stopPropagation(); completeMutation.mutate(task.id); }}
                 disabled={completeMutation.isPending}
-                className="w-5 h-5 rounded-full border-2 border-text-muted hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center flex-shrink-0 transition-colors"
+                className="w-6 h-6 rounded-full border-2 border-text-muted hover:border-emerald-500 hover:bg-emerald-500 hover:text-white flex items-center justify-center flex-shrink-0 transition-all cursor-pointer group"
                 title="Mark complete"
               >
-                {completeMutation.isPending ? <Clock className="w-3 h-3 text-text-muted animate-spin" /> : null}
+                {completeMutation.isPending
+                  ? <Clock className="w-3 h-3 animate-spin" />
+                  : <CheckCircle className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                }
               </button>
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-text-primary truncate">{task.title}</p>
