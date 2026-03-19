@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/Button.tsx";
 import {
   Card,
@@ -18,6 +19,7 @@ import {
 import { AIDispatchStats } from "@/features/ai-dispatch";
 import { useDashboardStats } from "@/api/hooks/useDashboardStats";
 import { useAuth } from "@/features/auth/useAuth.ts";
+import { apiClient } from "@/api/client.ts";
 import {
   ClipboardList,
   Users,
@@ -28,7 +30,115 @@ import {
   Calendar,
   ChevronRight,
   ArrowUpRight,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  Phone,
 } from "lucide-react";
+
+// ── Follow-ups Widget ──────────────────────────────────────────────
+
+function FollowUpsWidget() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { data: dueTodayData } = useQuery({
+    queryKey: ["cs", "tasks", "due-today"],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/cs/tasks/due-today");
+      return data;
+    },
+    staleTime: 30_000,
+  });
+
+  const { data: overdueData } = useQuery({
+    queryKey: ["cs", "tasks", "overdue"],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/cs/tasks/overdue");
+      return data;
+    },
+    staleTime: 30_000,
+  });
+
+  const completeMutation = useMutation({
+    mutationFn: async (taskId: number) => {
+      await apiClient.post(`/cs/tasks/${taskId}/complete`, {});
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cs", "tasks"] });
+    },
+  });
+
+  const overdue = overdueData?.items || overdueData || [];
+  const dueToday = dueTodayData?.items || dueTodayData || [];
+  const allTasks = [...overdue, ...dueToday];
+
+  if (allTasks.length === 0) return null;
+
+  return (
+    <Card className="mb-6 border-amber-200 dark:border-amber-800">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <Phone className="w-5 h-5 text-amber-500" />
+            Call Follow-ups
+            {overdue.length > 0 && (
+              <span className="ml-1 px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 text-xs font-semibold">
+                {overdue.length} overdue
+              </span>
+            )}
+          </CardTitle>
+          <Link to="/cs/tasks" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+            View all <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-2">
+          {allTasks.slice(0, 8).map((task: any) => {
+            const isOverdue = overdue.some((o: any) => o.id === task.id);
+            return (
+              <div
+                key={task.id}
+                className="flex items-center gap-3 py-2 px-3 rounded-lg bg-bg-hover hover:bg-bg-tertiary transition-colors"
+              >
+                <button
+                  onClick={() => completeMutation.mutate(task.id)}
+                  disabled={completeMutation.isPending}
+                  className="w-5 h-5 rounded-full border-2 border-text-muted hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center flex-shrink-0 transition-colors"
+                  title="Mark complete"
+                >
+                  {completeMutation.isPending ? (
+                    <Clock className="w-3 h-3 text-text-muted animate-spin" />
+                  ) : null}
+                </button>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-text-primary truncate">{task.title}</p>
+                  <p className="text-xs text-text-muted truncate">
+                    {task.contact_name || task.description?.slice(0, 60) || ""}
+                  </p>
+                </div>
+                {isOverdue ? (
+                  <span className="flex items-center gap-1 text-[10px] font-medium text-red-600 dark:text-red-400 flex-shrink-0">
+                    <AlertTriangle className="w-3 h-3" /> Overdue
+                  </span>
+                ) : (
+                  <span className="text-[10px] text-text-muted flex-shrink-0">Due today</span>
+                )}
+              </div>
+            );
+          })}
+          {allTasks.length > 8 && (
+            <p className="text-xs text-text-muted text-center pt-1">
+              +{allTasks.length - 8} more follow-ups
+            </p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 
 export function DashboardPage() {
   const { data, isLoading } = useDashboardStats();
@@ -238,6 +348,9 @@ export function DashboardPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Call Follow-ups */}
+      <FollowUpsWidget />
 
       {/* Today's Jobs */}
       {todaysWorkOrders.length > 0 && (
