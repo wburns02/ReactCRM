@@ -206,6 +206,31 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
     summary: string; disposition: string; confidence: number; action_items: string[];
   } | null>(null);
   const [summarizing, setSummarizing] = useState(false);
+  const [checkedActions, setCheckedActions] = useState<Record<number, boolean>>({});
+  const [savingTodo, setSavingTodo] = useState<number | null>(null);
+
+  const toggleAction = useCallback(async (index: number, item: string) => {
+    const newChecked = !checkedActions[index];
+    setCheckedActions((prev) => ({ ...prev, [index]: newChecked }));
+
+    if (newChecked && customerId) {
+      // Save as a follow-up note on the customer
+      setSavingTodo(index);
+      try {
+        await apiClient.post("/calls/quick-log", {
+          customer_id: customerId,
+          caller_number: phone,
+          direction: "outbound",
+          notes: `[TODO] ${item}`,
+          disposition: "callback_requested",
+        });
+      } catch (err) {
+        console.error("Failed to save TODO:", err);
+      } finally {
+        setSavingTodo(null);
+      }
+    }
+  }, [checkedActions, customerId, phone]);
 
   useEffect(() => {
     if (callEnded && isListening) {
@@ -488,11 +513,30 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
               <p className="text-xs text-text-primary leading-relaxed">{aiSummary.summary}</p>
               {aiSummary.action_items.length > 0 && (
                 <div className="mt-1.5 pt-1.5 border-t border-emerald-200 dark:border-emerald-800">
-                  <p className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 mb-0.5">Action Items:</p>
+                  <p className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 mb-1">Action Items — check to save as TODO:</p>
                   {aiSummary.action_items.map((item, i) => (
-                    <p key={i} className="text-[10px] text-text-secondary flex items-start gap-1">
-                      <ArrowRight className="w-2.5 h-2.5 mt-0.5 flex-shrink-0" /> {item}
-                    </p>
+                    <label
+                      key={i}
+                      className={cn(
+                        "flex items-start gap-2 py-1 px-1 rounded cursor-pointer hover:bg-emerald-100/50 dark:hover:bg-emerald-900/20 transition-colors",
+                        checkedActions[i] && "opacity-70",
+                      )}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!!checkedActions[i]}
+                        onChange={() => toggleAction(i, item)}
+                        className="mt-0.5 rounded border-emerald-400 text-emerald-600 focus:ring-emerald-500"
+                      />
+                      <span className={cn(
+                        "text-[11px] text-text-secondary leading-tight",
+                        checkedActions[i] && "line-through text-text-muted",
+                      )}>
+                        {item}
+                      </span>
+                      {savingTodo === i && <Loader2 className="w-3 h-3 animate-spin text-emerald-500 flex-shrink-0" />}
+                      {checkedActions[i] && savingTodo !== i && <CheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />}
+                    </label>
                   ))}
                 </div>
               )}
