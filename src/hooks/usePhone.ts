@@ -7,8 +7,8 @@ type PhoneProvider = "ringcentral" | "twilio";
 export function usePhoneProvider(): PhoneProvider {
   const [provider, setProvider] = useState<PhoneProvider>(() => {
     const stored = localStorage.getItem("phone_provider");
-    // Default to Twilio — RingCentral WebPhone is broken (ICE server parsing error)
-    return (stored as PhoneProvider) || "twilio";
+    // Default to RingCentral (ICE server fix deployed 2026-03-13)
+    return (stored as PhoneProvider) || "ringcentral";
   });
 
   useEffect(() => {

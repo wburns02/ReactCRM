@@ -66,6 +66,11 @@ export function useWebPhone(): UseWebPhoneReturn {
       setState("connecting");
       setError(null);
 
+      // Request notification permission for incoming call alerts
+      if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+
       // 1. Fetch SIP credentials from our backend
       const { data } = await apiClient.get("/ringcentral/sip-provision");
       const sipInfo: SipInfo = data.sipInfo;
@@ -104,6 +109,31 @@ export function useWebPhone(): UseWebPhoneReturn {
         }
 
         console.log("[WebPhone] Inbound call — remote:", rawRemote, "from:", fromHeader, "PAI:", paiHeader, "resolved:", callerNumber);
+
+        // Desktop notification + auto-navigate to Web Phone
+        const callerDisplay = callerNumber.length === 10
+          ? `(${callerNumber.slice(0,3)}) ${callerNumber.slice(3,6)}-${callerNumber.slice(6)}`
+          : callerNumber;
+        try {
+          if ("Notification" in window && Notification.permission === "granted") {
+            const notif = new Notification("Incoming Call", {
+              body: `${session.rcApiCallInfo?.callerIdName || callerDisplay}`,
+              icon: "/favicon.ico",
+              tag: "webphone-incoming",
+              requireInteraction: true,
+            });
+            notif.onclick = () => {
+              window.focus();
+              notif.close();
+            };
+          }
+          // Navigate to /web-phone if not already there
+          if (!window.location.pathname.includes("/web-phone")) {
+            window.location.href = "/web-phone";
+          }
+        } catch (e) {
+          console.warn("[WebPhone] Notification error:", e);
+        }
 
         setActiveCall({
           direction: "inbound",
