@@ -35,8 +35,8 @@ const OFFICE_LABELS: Record<string, string> = {
   "+18033281410": "Rock Hill, SC #2",
 };
 
-// Default outbound line
-const DEFAULT_LINE = "+15127378711";
+// Default outbound line — Nashville TN (ext 101)
+const DEFAULT_LINE = "+16153452544";
 
 function usePhoneNumbers() {
   return useQuery({
