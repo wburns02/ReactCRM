@@ -8,6 +8,7 @@ export { ServicesSection } from "./components/ServicesSection";
 export { HowItWorksSection } from "./components/HowItWorksSection";
 export { TestimonialsSection } from "./components/TestimonialsSection";
 export { FAQSection } from "./components/FAQSection";
+export { PricingSection } from "./components/PricingSection";
 export { CTASection } from "./components/CTASection";
 export { LandingFooter } from "./components/LandingFooter";
 export { LeadCaptureForm } from "./components/LeadCaptureForm";

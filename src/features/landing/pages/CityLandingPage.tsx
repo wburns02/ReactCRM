@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { LeadCaptureForm } from "../components/LeadCaptureForm";
 import { CTAOptionTabs, type CTAOption } from "../components/CTAOptionTabs";
 import { NashvilleBookingForm } from "../components/NashvilleBookingForm";
+import { PricingSection } from "../components/PricingSection";
 import type { UTMParams } from "../types/lead";
 import type { CityConfig } from "../config/cityConfigs";
 
@@ -14,7 +15,7 @@ const BOOK_BENEFITS = [
   "Instant confirmation",
   "No payment required to book",
   "Same-day service available",
-  "$625 base price, transparent pricing",
+  "Packages starting at $595",
 ];
 
 const QUOTE_BENEFITS = [
@@ -120,7 +121,7 @@ export function CityLandingPage({ config }: CityLandingPageProps) {
                   href="#quote"
                   className="bg-cta hover:bg-cta-hover text-white px-8 py-4 rounded-lg font-semibold text-lg text-center transition-all hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  Book Online &mdash; $625
+                  Get Your Free Quote
                 </a>
                 <a
                   href={config.phoneTel}
@@ -178,7 +179,7 @@ export function CityLandingPage({ config }: CityLandingPageProps) {
                   <div className="text-gray-600 text-xs">Emergency</div>
                 </div>
                 <div className="absolute bottom-8 left-0 bg-white rounded-lg shadow-lg px-4 py-2 text-sm">
-                  <div className="font-bold text-green-600">$625</div>
+                  <div className="font-bold text-green-600">From $595</div>
                   <div className="text-gray-600 text-xs">Up to 1,000 gal</div>
                 </div>
               </div>
@@ -278,6 +279,9 @@ export function CityLandingPage({ config }: CityLandingPageProps) {
         </div>
       </section>
 
+      {/* ── Pricing ─────────────────────────────────────────────────── */}
+      <PricingSection phone={config.phone} phoneTel={config.phoneTel} />
+
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
       <Suspense fallback={<div className="min-h-[200px]" />}>
         <FAQSection
@@ -299,7 +303,7 @@ export function CityLandingPage({ config }: CityLandingPageProps) {
               </h2>
               <p className="text-xl text-blue-100 mb-8">
                 {activeOption === "book"
-                  ? "Schedule now at $625 and get instant confirmation."
+                  ? "Schedule now and get instant confirmation. Packages from $595."
                   : "Get your free quote today. Most requests receive a response within 1 business hour."}
               </p>
 
@@ -336,10 +340,9 @@ export function CityLandingPage({ config }: CityLandingPageProps) {
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-gray-900">Schedule Your Service</h3>
                     <div className="flex items-center justify-center gap-2 mt-2">
-                      <span className="text-3xl font-bold text-green-600">$625</span>
-                      <span className="text-gray-500">up to 1,000 gal</span>
+                      <span className="text-3xl font-bold text-green-600">From $595</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">No payment required &mdash; pay at time of service</p>
+                    <p className="text-sm text-gray-500 mt-1">Maintenance Plan $595 | Standard $625 | Real Estate $825</p>
                   </div>
                   <NashvilleBookingForm testMode={true} />
                 </div>
@@ -412,7 +415,7 @@ export function CityLandingPage({ config }: CityLandingPageProps) {
             Call
           </a>
           <a href="#quote" className="flex-1 bg-cta text-white py-3 px-4 rounded-lg font-semibold text-center">
-            Book &mdash; $625
+            Get Quote
           </a>
         </div>
       </nav>
