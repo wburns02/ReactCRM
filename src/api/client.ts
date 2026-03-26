@@ -250,6 +250,51 @@ apiClient.interceptors.response.use(
 );
 
 // ============================================
+// Session Keepalive — proactively refresh token
+// ============================================
+
+// Refresh session every 30 minutes to prevent timeout while using the app
+let keepaliveInterval: ReturnType<typeof setInterval> | null = null;
+
+function startSessionKeepalive() {
+  if (keepaliveInterval) return;
+  keepaliveInterval = setInterval(async () => {
+    try {
+      await apiClient.post("/auth/refresh");
+      console.log("[Session] Keepalive refresh successful");
+    } catch {
+      console.warn("[Session] Keepalive refresh failed");
+    }
+  }, 30 * 60 * 1000); // Every 30 minutes
+}
+
+function stopSessionKeepalive() {
+  if (keepaliveInterval) {
+    clearInterval(keepaliveInterval);
+    keepaliveInterval = null;
+  }
+}
+
+// Start keepalive when page loads (if session exists)
+if (typeof window !== "undefined") {
+  const sessionState = localStorage.getItem("session_state");
+  if (sessionState) {
+    try {
+      const parsed = JSON.parse(sessionState);
+      if (parsed.isAuthenticated) {
+        startSessionKeepalive();
+      }
+    } catch {}
+  }
+
+  // Listen for auth events
+  window.addEventListener("auth:login", () => startSessionKeepalive());
+  window.addEventListener("session:expired", () => stopSessionKeepalive());
+}
+
+export { startSessionKeepalive, stopSessionKeepalive };
+
+// ============================================
 // Auth Token Functions (Migration Period)
 // ============================================
 
