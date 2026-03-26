@@ -29,7 +29,7 @@ interface PhoneLine {
 const OFFICE_LABELS: Record<string, string> = {
   "+15127378711": "San Marcos, TX",
   "+16153452544": "Nashville, TN",
-  "+16152362691": "Nashville Main",
+  "+16152362691": "Reel Fishing",
   "+18033291250": "Rock Hill Main",
   "+18032239677": "Rock Hill, SC",
   "+18033281410": "Rock Hill, SC #2",
