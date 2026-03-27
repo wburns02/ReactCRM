@@ -168,8 +168,7 @@ export function WebPhoneProvider({ children }: { children: React.ReactNode }) {
     }
     try {
       setState("calling");
-      const callOpts = fromNumber ? { fromNumber } : undefined;
-      const session = await webPhoneRef.current.call(number, callOpts);
+      const session = await webPhoneRef.current.call(number, fromNumber || undefined);
       callSessionRef.current = session;
       setActiveCall({
         direction: "outbound", remoteNumber: number,
