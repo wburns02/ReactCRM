@@ -75,24 +75,6 @@ export function useWebPhone(): UseWebPhoneReturn {
       const { data } = await apiClient.get("/ringcentral/sip-provision");
       const sipInfo: SipInfo = data.sipInfo;
 
-      // 1b. Find the existing WebRTC device that has phone lines assigned
-      // The SIP provision creates a NEW empty WebPhone device with its own authorizationId.
-      // We override authorizationId with the existing device's ID so the SIP REGISTER
-      // identifies as the device that actually has phone lines. RC routes calls to
-      // devices based on their registration identity.
-      try {
-        const devResp = await apiClient.get("/ringcentral/extensions/~/device");
-        const devices = devResp.data?.records || [];
-        const deviceWithLines = devices.find((d: any) => d.phoneLines?.length > 0);
-        if (deviceWithLines) {
-          console.log("[WebPhone] Overriding authorizationId:", sipInfo.authorizationId, "->", deviceWithLines.id,
-            "Lines:", deviceWithLines.phoneLines.map((l: any) => l.phoneInfo?.phoneNumber));
-          sipInfo.authorizationId = deviceWithLines.id;
-        }
-      } catch (e) {
-        console.warn("[WebPhone] Could not fetch devices:", e);
-      }
-
       // 2. Dynamic import of WebPhone (heavy SDK, only load when needed)
       const WebPhoneModule = await import("ringcentral-web-phone");
       const WebPhone = WebPhoneModule.default;
