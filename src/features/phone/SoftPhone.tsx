@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { usePhone } from "@/hooks/usePhone";
-import type { PhoneState } from "@/hooks/useWebPhone";
+import { useSharedWebPhone, type PhoneState } from "@/context/WebPhoneContext";
 import { useCustomerLookup } from "@/api/hooks/useDispatch";
 import {
   Phone, PhoneOff, PhoneIncoming, PhoneOutgoing, PhoneForwarded,
@@ -19,7 +18,7 @@ export function SoftPhone() {
     state, error, activeCall,
     connect, disconnect, call, answer, hangup,
     toggleMute, toggleHold, sendDtmf, transfer, toVoicemail,
-  } = usePhone();
+  } = useSharedWebPhone();
 
   const [dialInput, setDialInput] = useState("");
   const [showDtmf, setShowDtmf] = useState(false);
@@ -98,8 +97,8 @@ export function SoftPhone() {
     error: "Error",
   };
 
-  // Don't render if idle (not connected)
-  if (state === "idle") {
+  // Idle — show Connect button
+  if (state === "idle" || state === "error") {
     return (
       <button
         onClick={connect}
@@ -109,6 +108,29 @@ export function SoftPhone() {
         <Phone className="w-4 h-4" />
         <span className="text-sm font-medium hidden md:inline">Connect Phone</span>
       </button>
+    );
+  }
+
+  // Connected but no active call — show Ready + Disconnect
+  if (state === "registered" && !activeCall && collapsed) {
+    return (
+      <div className="fixed bottom-24 right-4 md:bottom-4 z-50 flex items-center gap-2">
+        <button
+          onClick={disconnect}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-red-500/10 text-red-500 text-xs font-medium hover:bg-red-500/20 transition-colors"
+          title="Disconnect Phone"
+        >
+          <PhoneOff className="w-3.5 h-3.5" />
+          <span className="hidden md:inline">Disconnect</span>
+        </button>
+        <div
+          onClick={() => setCollapsed(false)}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-600 text-white shadow-lg cursor-pointer hover:bg-emerald-700 transition-colors"
+        >
+          <Wifi className="w-4 h-4" />
+          <span className="text-sm font-medium hidden md:inline">Ready</span>
+        </div>
+      </div>
     );
   }
 
