@@ -76,32 +76,32 @@ export function useWebPhone(): UseWebPhoneReturn {
       const sipInfo: SipInfo = data.sipInfo;
 
       // 1b. Find the existing WebRTC device that has phone lines assigned
-      // The SIP provision creates a NEW empty WebPhone device — we need to
-      // register as the existing device so RC routes calls to us
-      let instanceId: string | undefined;
+      // The SIP provision creates a NEW empty WebPhone device with its own authorizationId.
+      // We override authorizationId with the existing device's ID so the SIP REGISTER
+      // identifies as the device that actually has phone lines. RC routes calls to
+      // devices based on their registration identity.
       try {
         const devResp = await apiClient.get("/ringcentral/extensions/~/device");
         const devices = devResp.data?.records || [];
         const deviceWithLines = devices.find((d: any) => d.phoneLines?.length > 0);
         if (deviceWithLines) {
-          instanceId = deviceWithLines.id;
-          console.log("[WebPhone] Using existing device:", instanceId, "with lines:", deviceWithLines.phoneLines.map((l: any) => l.phoneInfo?.phoneNumber));
+          console.log("[WebPhone] Overriding authorizationId:", sipInfo.authorizationId, "->", deviceWithLines.id,
+            "Lines:", deviceWithLines.phoneLines.map((l: any) => l.phoneInfo?.phoneNumber));
+          sipInfo.authorizationId = deviceWithLines.id;
         }
       } catch (e) {
-        console.warn("[WebPhone] Could not fetch devices, using default:", e);
+        console.warn("[WebPhone] Could not fetch devices:", e);
       }
 
       // 2. Dynamic import of WebPhone (heavy SDK, only load when needed)
       const WebPhoneModule = await import("ringcentral-web-phone");
       const WebPhone = WebPhoneModule.default;
 
-      // 3. Create WebPhone instance — use existing device's instanceId
-      // so RC associates SIP registration with the device that has phone lines
+      // 3. Create WebPhone instance
       const webPhone = new WebPhone({
         sipInfo,
-        instanceId,
         debug: false,
-      } as any);
+      });
 
       // 4. Listen for incoming calls
       webPhone.on("inboundCall", (session: any) => {
