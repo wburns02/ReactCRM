@@ -89,76 +89,83 @@ export function CallLog({
                 key={call.id}
                 className="p-3 rounded-lg border border-border hover:bg-bg-hover transition-colors"
               >
-                <div className="flex items-start justify-between mb-2">
+                {/* Header row */}
+                <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge
-                        variant={
-                          call.direction === "inbound" ? "default" : "warning"
-                        }
-                      >
+                      <Badge variant={call.direction === "inbound" ? "default" : "warning"}>
                         {call.direction === "inbound" ? "Inbound" : "Outbound"}
                       </Badge>
                       <span className="text-sm text-text-secondary">
                         {formatDurationSeconds(call.duration_seconds)}
                       </span>
+                      {call.start_time && (
+                        <span className="text-xs text-text-muted">
+                          {formatDate(call.start_time)}
+                        </span>
+                      )}
                     </div>
-                    <p className="font-medium text-text-primary font-mono">
+                    <p className="font-medium text-text-primary font-mono text-sm">
                       {call.direction === "inbound"
                         ? "From: " + formatPhone(call.from_number)
                         : "To: " + formatPhone(call.to_number)}
                     </p>
-                    {call.start_time && (
-                      <p className="text-xs text-text-muted">
-                        {formatDate(call.start_time)}
-                      </p>
-                    )}
                   </div>
-                  <div className="flex flex-col items-end gap-2">
+                  <div className="flex flex-col items-end gap-1.5">
                     {call.disposition ? (
                       <Badge variant="success">{call.disposition.replace(/_/g, " ")}</Badge>
                     ) : (
-                      <button
-                        onClick={() => handleAddDisposition(call)}
-                        className="text-xs text-primary hover:underline"
-                      >
-                        Add disposition
+                      <button onClick={() => handleAddDisposition(call)} className="text-xs text-primary hover:underline">
+                        + Disposition
                       </button>
                     )}
-                    {call.recording_url && (
-                      <a
-                        href={call.recording_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-text-link hover:underline"
-                      >
-                        Listen to recording
-                      </a>
-                    )}
-                  </div>
-                </div>
-                {/* AI Summary / Notes */}
-                {(call.ai_summary || call.notes) && (
-                  <div className="mt-2 pt-2 border-t border-border">
-                    {call.ai_summary && (
-                      <p className="text-xs text-text-secondary leading-relaxed">
-                        <span className="font-medium text-primary">Summary:</span> {call.ai_summary}
-                      </p>
-                    )}
-                    {call.notes && !call.ai_summary && (
-                      <p className="text-xs text-text-secondary leading-relaxed">
-                        <span className="font-medium text-text-primary">Notes:</span> {call.notes}
-                      </p>
-                    )}
                     {call.sentiment && (
-                      <span className={`inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                         call.sentiment === "positive" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
                         : call.sentiment === "negative" ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
                         : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400"
-                      }`}>
-                        {call.sentiment}
-                      </span>
+                      }`}>{call.sentiment}</span>
                     )}
+                  </div>
+                </div>
+
+                {/* AI Summary */}
+                {call.ai_summary && (
+                  <div className="mt-2 bg-primary/5 rounded-md p-2.5">
+                    <p className="text-xs font-medium text-primary mb-0.5">AI Summary</p>
+                    <p className="text-xs text-text-secondary leading-relaxed">{call.ai_summary}</p>
+                  </div>
+                )}
+
+                {/* Notes */}
+                {call.notes && (
+                  <div className="mt-2 bg-bg-muted rounded-md p-2.5">
+                    <p className="text-xs font-medium text-text-primary mb-0.5">Notes</p>
+                    <p className="text-xs text-text-secondary leading-relaxed whitespace-pre-wrap">{call.notes}</p>
+                  </div>
+                )}
+
+                {/* Transcript */}
+                {call.transcription && (
+                  <details className="mt-2">
+                    <summary className="text-xs text-primary cursor-pointer hover:underline">
+                      View Transcript
+                    </summary>
+                    <div className="mt-1 bg-bg-muted rounded-md p-2.5 max-h-40 overflow-y-auto">
+                      <p className="text-xs text-text-secondary leading-relaxed whitespace-pre-wrap">{call.transcription}</p>
+                    </div>
+                  </details>
+                )}
+
+                {/* Recording player */}
+                {call.recording_url && (
+                  <div className="mt-2">
+                    <audio controls preload="none" className="w-full h-8" style={{ minHeight: "32px" }}>
+                      <source src={call.recording_url} type="audio/mpeg" />
+                      <a href={call.recording_url} target="_blank" rel="noopener noreferrer" className="text-xs text-text-link">
+                        Download recording
+                      </a>
+                    </audio>
                   </div>
                 )}
               </div>
