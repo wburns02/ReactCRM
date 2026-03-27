@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client.ts";
-import { useWebPhone } from "@/hooks/useWebPhone";
-import type { PhoneState } from "@/hooks/useWebPhone";
+import { useSharedWebPhone, type PhoneState } from "@/context/WebPhoneContext";
 import { useCustomerLookup } from "@/api/hooks/useDispatch";
 import { useCallLog } from "./api.ts";
 import { cn, formatPhone } from "@/lib/utils.ts";
@@ -71,7 +70,7 @@ export function WebPhonePage() {
     state, error, activeCall,
     connect, disconnect, call, answer, hangup,
     toggleMute, toggleHold, sendDtmf, transfer, toVoicemail,
-  } = useWebPhone();
+  } = useSharedWebPhone();
 
   const { data: lines = [] } = usePhoneNumbers();
   const { data: callsData } = useCallLog({ page_size: 20 });

@@ -6,7 +6,7 @@ import { useCustomerLookup } from "@/api/hooks/useDispatch";
 import { useCustomer } from "@/api/hooks/useCustomers";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders";
 import { useVoiceToText, VoiceMicButton } from "@/hooks/useVoiceToText";
-import type { ActiveCall } from "@/hooks/useWebPhone";
+import type { ActiveCall } from "@/context/WebPhoneContext";
 import { cn, formatPhone } from "@/lib/utils.ts";
 import {
   User, MapPin, Mail, Phone, Wrench, Calendar, Clock, FileText,

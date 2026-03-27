@@ -18,6 +18,7 @@ import { IncomingCallModal } from "@/features/calls/components/IncomingCallModal
 import { Sidebar } from "./Sidebar";
 import { SmartSearchBar } from "@/components/ai/SmartSearchBar";
 import { SoftPhone } from "@/features/phone/SoftPhone";
+import { WebPhoneProvider } from "@/context/WebPhoneContext";
 import { Sun, Moon } from "lucide-react";
 
 export function AppLayout() {
@@ -29,6 +30,7 @@ export function AppLayout() {
   const [adminDrawerOpen, setAdminDrawerOpen] = useState(false);
 
   return (
+    <WebPhoneProvider>
     <EmailComposeProvider>
     <div className="flex h-screen bg-bg-body">
       <a
@@ -122,5 +124,6 @@ export function AppLayout() {
       )}
     </div>
     </EmailComposeProvider>
+    </WebPhoneProvider>
   );
 }
