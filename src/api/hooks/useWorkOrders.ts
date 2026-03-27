@@ -36,6 +36,7 @@ export function useWorkOrders(filters: WorkOrderFilters = {}) {
       if (filters.page) params.set("page", String(filters.page));
       if (filters.page_size) params.set("page_size", String(filters.page_size));
       if (filters.status) params.set("status", filters.status);
+      if (filters.customer_id) params.set("customer_id", filters.customer_id);
       if (filters.scheduled_date)
         params.set("scheduled_date", filters.scheduled_date);
       if (filters.scheduled_date_from)

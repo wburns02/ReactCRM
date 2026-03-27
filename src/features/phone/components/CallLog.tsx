@@ -43,7 +43,7 @@ export function CallLog({
       <Card>
         {showTitle && (
           <CardHeader>
-            <CardTitle>Call History</CardTitle>
+            <CardTitle>Contact History</CardTitle>
           </CardHeader>
         )}
         <CardContent>
@@ -62,7 +62,7 @@ export function CallLog({
       <Card>
         {showTitle && (
           <CardHeader>
-            <CardTitle>Call History</CardTitle>
+            <CardTitle>Contact History</CardTitle>
           </CardHeader>
         )}
         <CardContent>
@@ -79,7 +79,7 @@ export function CallLog({
       <Card>
         {showTitle && (
           <CardHeader>
-            <CardTitle>Call History</CardTitle>
+            <CardTitle>Contact History</CardTitle>
           </CardHeader>
         )}
         <CardContent>
@@ -116,7 +116,7 @@ export function CallLog({
                   </div>
                   <div className="flex flex-col items-end gap-2">
                     {call.disposition ? (
-                      <Badge variant="success">{call.disposition}</Badge>
+                      <Badge variant="success">{call.disposition.replace(/_/g, " ")}</Badge>
                     ) : (
                       <button
                         onClick={() => handleAddDisposition(call)}
@@ -137,6 +137,30 @@ export function CallLog({
                     )}
                   </div>
                 </div>
+                {/* AI Summary / Notes */}
+                {(call.ai_summary || call.notes) && (
+                  <div className="mt-2 pt-2 border-t border-border">
+                    {call.ai_summary && (
+                      <p className="text-xs text-text-secondary leading-relaxed">
+                        <span className="font-medium text-primary">Summary:</span> {call.ai_summary}
+                      </p>
+                    )}
+                    {call.notes && !call.ai_summary && (
+                      <p className="text-xs text-text-secondary leading-relaxed">
+                        <span className="font-medium text-text-primary">Notes:</span> {call.notes}
+                      </p>
+                    )}
+                    {call.sentiment && (
+                      <span className={`inline-block mt-1 text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+                        call.sentiment === "positive" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                        : call.sentiment === "negative" ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                        : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      }`}>
+                        {call.sentiment}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
