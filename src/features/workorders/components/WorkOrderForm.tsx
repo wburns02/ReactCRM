@@ -98,6 +98,7 @@ export function WorkOrderForm({
           gallons_pumped: workOrder.gallons_pumped || undefined,
           dump_site_id: workOrder.dump_site_id || "",
           dump_fee: workOrder.dump_fee || undefined,
+          total_amount: workOrder.total_amount || undefined,
           system_type: workOrder.system_type || "conventional",
           notes: workOrder.notes || "",
         }
@@ -149,6 +150,7 @@ export function WorkOrderForm({
       gallons_pumped: data.gallons_pumped || undefined,
       dump_site_id: data.dump_site_id || undefined,
       dump_fee: data.dump_fee || undefined,
+      total_amount: data.total_amount || undefined,
       notes: data.notes || undefined,
     };
 
@@ -525,6 +527,57 @@ export function WorkOrderForm({
                 </div>
               </div>
             )}
+
+            {/* Job Amount */}
+            <div>
+              <h4 className="text-sm font-medium text-text-secondary mb-3 uppercase tracking-wide">
+                Pricing
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="total_amount">Job Amount ($)</Label>
+                  <Input
+                    id="total_amount"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    {...register("total_amount", { valueAsNumber: true })}
+                    placeholder="625.00"
+                  />
+                  <p className="text-xs text-text-secondary">
+                    Total charged to customer. Sent to Google Ads as conversion value.
+                  </p>
+                </div>
+                <div className="flex items-end pb-6">
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setValue("total_amount", 595)}
+                    >
+                      $595
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setValue("total_amount", 625)}
+                    >
+                      $625
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setValue("total_amount", 825)}
+                    >
+                      $825
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Notes */}
             <div>
