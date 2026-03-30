@@ -6,6 +6,7 @@ import { useCustomerLookup } from "@/api/hooks/useDispatch";
 import { useCustomer } from "@/api/hooks/useCustomers";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders";
 import { useVoiceToText, VoiceMicButton } from "@/hooks/useVoiceToText";
+import { useRemoteAudioTranscript } from "@/hooks/useRemoteAudioTranscript";
 import type { ActiveCall } from "@/context/WebPhoneContext";
 import { cn, formatPhone } from "@/lib/utils.ts";
 import {
@@ -189,6 +190,14 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
     startListening, stopListening, toggleListening, clearTranscript,
   } = useVoiceToText({ continuous: true });
 
+  // Customer (remote) audio transcription via Google STT
+  const {
+    customerText,
+    customerInterim,
+    isStreaming: sttStreaming,
+    isConnected: sttConnected,
+  } = useRemoteAudioTranscript(activeCall, !!callEnded);
+
   // Auto-start voice transcription when call becomes active
   const [autoStarted, setAutoStarted] = useState(false);
   useEffect(() => {
@@ -265,8 +274,14 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
       const customerName = customer
         ? `${(customer as any).first_name} ${(customer as any).last_name}`
         : undefined;
+      // Combine agent + customer transcripts for AI summary
+      const fullTranscript = [
+        customerText ? `[Caller] ${customerText}` : "",
+        transcript ? `[Agent] ${transcript}` : "",
+      ].filter(Boolean).join("\n") || transcript;
+
       apiClient.post("/calls/summarize-transcript", {
-        transcript,
+        transcript: fullTranscript,
         customer_name: customerName,
         direction: activeCall?.direction || "inbound",
       }).then(({ data }) => {
@@ -289,7 +304,11 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
 
   // Save notes
   const handleSaveNotes = async () => {
-    const fullNotes = [transcript, manualNotes].filter(Boolean).join("\n").trim();
+    const fullNotes = [
+      customerText ? `[Caller] ${customerText}` : "",
+      transcript ? `[Agent] ${transcript}` : "",
+      manualNotes,
+    ].filter(Boolean).join("\n").trim();
     if (!fullNotes) return;
     setNoteSaving(true);
     try {
@@ -585,16 +604,33 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
           )}
 
           {/* Live transcript (during call) */}
-          {!aiSummary && (transcript || interimTranscript) && (
+          {!aiSummary && (transcript || interimTranscript || customerText || customerInterim) && (
             <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-2 mb-2 text-xs">
               <div className="flex items-center gap-1.5 mb-1">
                 <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 uppercase">Live Transcript</span>
                 {isListening && <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />}
+                {sttConnected && (
+                  <span className="px-1 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+                    STT
+                  </span>
+                )}
               </div>
-              <p className="text-text-primary leading-relaxed">
-                {transcript}
-                {interimTranscript && <span className="text-text-muted italic"> {interimTranscript}</span>}
-              </p>
+              {/* Customer (remote) transcript */}
+              {(customerText || customerInterim) && (
+                <div className="mb-1">
+                  <span className="text-[9px] font-semibold text-amber-600 dark:text-amber-400 uppercase mr-1">Caller:</span>
+                  <span className="text-text-primary">{customerText}</span>
+                  {customerInterim && <span className="text-text-muted italic"> {customerInterim}</span>}
+                </div>
+              )}
+              {/* Agent (local mic) transcript */}
+              {(transcript || interimTranscript) && (
+                <div>
+                  <span className="text-[9px] font-semibold text-blue-600 dark:text-blue-400 uppercase mr-1">Agent:</span>
+                  <span className="text-text-primary">{transcript}</span>
+                  {interimTranscript && <span className="text-text-muted italic"> {interimTranscript}</span>}
+                </div>
+              )}
             </div>
           )}
 
