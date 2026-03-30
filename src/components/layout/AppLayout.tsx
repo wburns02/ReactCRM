@@ -18,6 +18,7 @@ import { IncomingCallModal } from "@/features/calls/components/IncomingCallModal
 import { Sidebar } from "./Sidebar";
 import { SmartSearchBar } from "@/components/ai/SmartSearchBar";
 import { SoftPhone } from "@/features/phone/SoftPhone";
+import { GlobalScreenPop } from "@/features/phone/GlobalScreenPop";
 import { WebPhoneProvider } from "@/context/WebPhoneContext";
 import { Sun, Moon } from "lucide-react";
 
@@ -120,6 +121,7 @@ export function AppLayout() {
       {!isTechnician && (
         <div className="hidden md:block">
           <SoftPhone />
+          <GlobalScreenPop />
         </div>
       )}
     </div>

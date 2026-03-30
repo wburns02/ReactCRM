@@ -670,8 +670,8 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
             </div>
           )}
 
-          {/* Dispatch Technician button — shown after AI summary */}
-          {aiSummary && customerId && callEnded && (
+          {/* Dispatch Technician button — available during AND after call */}
+          {customerId && !showDispatchForm && (
             <button
               onClick={() => setShowDispatchForm(true)}
               className="w-full mb-2 px-3 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
