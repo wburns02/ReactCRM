@@ -7,6 +7,10 @@ import { useCustomer } from "@/api/hooks/useCustomers";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders";
 import { useVoiceToText, VoiceMicButton } from "@/hooks/useVoiceToText";
 import { useRemoteAudioTranscript } from "@/hooks/useRemoteAudioTranscript";
+import { WorkOrderForm, type WorkOrderDefaults } from "@/features/workorders/components/WorkOrderForm";
+import { useCreateWorkOrder } from "@/api/hooks/useWorkOrders";
+import type { WorkOrderFormData } from "@/api/types/workOrder";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 import type { ActiveCall } from "@/context/WebPhoneContext";
 import { cn, formatPhone } from "@/lib/utils.ts";
 import {
@@ -14,7 +18,7 @@ import {
   ChevronDown, ChevronUp, Save, Plus, ExternalLink, Droplets,
   UserPlus, Tag, AlertCircle, CheckCircle, Loader2,
   DollarSign, Shield, Home, Truck, Hash, Star, ArrowRight,
-  PhoneIncoming, PhoneOutgoing, CreditCard, ClipboardList,
+  PhoneIncoming, PhoneOutgoing, CreditCard, ClipboardList, Send,
 } from "lucide-react";
 
 // ── Types ─────────────────────────────────────────────────────────
@@ -217,6 +221,77 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
   const [summarizing, setSummarizing] = useState(false);
   const [checkedActions, setCheckedActions] = useState<Record<number, boolean>>({});
   const [savingTodo, setSavingTodo] = useState<number | null>(null);
+
+  // Dispatch technician — inline work order creation
+  const [showDispatchForm, setShowDispatchForm] = useState(false);
+  const createWorkOrder = useCreateWorkOrder();
+
+  /** Infer work order defaults from the AI summary */
+  const getDispatchDefaults = useCallback((): WorkOrderDefaults => {
+    const summary = (aiSummary?.summary || "").toLowerCase();
+    const items = (aiSummary?.action_items || []).join(" ").toLowerCase();
+    const combined = summary + " " + items;
+
+    // Infer job type
+    let job_type = "pumping";
+    if (combined.includes("inspection") || combined.includes("real estate")) job_type = "real_estate_inspection";
+    else if (combined.includes("repair") || combined.includes("fix")) job_type = "repair";
+    else if (combined.includes("maintenance") || combined.includes("filter")) job_type = "maintenance";
+    else if (combined.includes("install")) job_type = "installation";
+
+    // Infer priority
+    let priority = "normal";
+    if (combined.includes("emergency") || combined.includes("backing up") || combined.includes("overflow")) priority = "emergency";
+    else if (combined.includes("urgent") || combined.includes("asap") || combined.includes("same-day") || combined.includes("same day")) priority = "urgent";
+    else if (combined.includes("high priority")) priority = "high";
+
+    // Infer scheduled date
+    let scheduled_date = "";
+    const today = new Date().toISOString().slice(0, 10);
+    if (combined.includes("today") || combined.includes("same-day") || combined.includes("same day") || combined.includes("this afternoon") || combined.includes("right away")) {
+      scheduled_date = today;
+    } else if (combined.includes("tomorrow")) {
+      const d = new Date(); d.setDate(d.getDate() + 1);
+      scheduled_date = d.toISOString().slice(0, 10);
+    }
+
+    // Infer total amount from job type
+    let total_amount: number | undefined;
+    if (job_type === "pumping") total_amount = 625;
+    else if (job_type === "real_estate_inspection") total_amount = 825;
+    else if (job_type === "maintenance") total_amount = 595;
+
+    // Build notes from transcript + summary
+    const notes = [
+      aiSummary?.summary || "",
+      transcript ? `[Agent notes] ${transcript}` : "",
+    ].filter(Boolean).join("\n");
+
+    return {
+      customer_id: customerId || "",
+      job_type,
+      priority,
+      status: "scheduled",
+      scheduled_date,
+      total_amount,
+      notes,
+      service_address_line1: fullCustomer?.address_line1 || "",
+      service_city: fullCustomer?.city || "",
+      service_state: fullCustomer?.state || "",
+      service_postal_code: fullCustomer?.postal_code || "",
+    };
+  }, [aiSummary, transcript, customerId, fullCustomer]);
+
+  const handleDispatchSubmit = async (data: WorkOrderFormData) => {
+    try {
+      const wo = await createWorkOrder.mutateAsync(data);
+      toastSuccess("Work order created — technician dispatched!");
+      setShowDispatchForm(false);
+      navigate(`/work-orders/${wo.id}`);
+    } catch {
+      toastError("Failed to create work order");
+    }
+  };
 
   const toggleAction = useCallback(async (index: number, item: string) => {
     const newChecked = !checkedActions[index];
@@ -595,6 +670,17 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
             </div>
           )}
 
+          {/* Dispatch Technician button — shown after AI summary */}
+          {aiSummary && customerId && callEnded && (
+            <button
+              onClick={() => setShowDispatchForm(true)}
+              className="w-full mb-2 px-3 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
+            >
+              <Truck className="w-4 h-4" />
+              Dispatch Technician
+            </button>
+          )}
+
           {/* Summarizing spinner */}
           {summarizing && (
             <div className="flex items-center gap-2 py-3 text-xs text-text-muted">
@@ -673,6 +759,17 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
           )}
         </Section>
       </div>
+
+      {/* Dispatch Work Order Form Modal */}
+      {showDispatchForm && (
+        <WorkOrderForm
+          open={showDispatchForm}
+          onClose={() => setShowDispatchForm(false)}
+          onSubmit={handleDispatchSubmit}
+          isLoading={createWorkOrder.isPending}
+          defaults={getDispatchDefaults()}
+        />
+      )}
     </div>
   );
 }

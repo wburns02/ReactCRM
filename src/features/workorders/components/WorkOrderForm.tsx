@@ -29,6 +29,21 @@ import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import { useDumpSites } from "@/api/hooks/useDumpSites.ts";
 import { formatCurrency } from "@/lib/utils";
 
+/** Pre-filled values for creating a new work order (from dispatch, call notes, etc.) */
+export interface WorkOrderDefaults {
+  customer_id?: string;
+  job_type?: string;
+  priority?: string;
+  status?: string;
+  scheduled_date?: string;
+  notes?: string;
+  total_amount?: number;
+  service_address_line1?: string;
+  service_city?: string;
+  service_state?: string;
+  service_postal_code?: string;
+}
+
 export interface WorkOrderFormProps {
   open: boolean;
   onClose: () => void;
@@ -37,6 +52,8 @@ export interface WorkOrderFormProps {
   isLoading?: boolean;
   /** Pre-select a customer when creating (not editing) */
   defaultCustomerId?: string;
+  /** Pre-fill multiple fields when creating (e.g. from call dispatch) */
+  defaults?: WorkOrderDefaults;
 }
 
 /**
@@ -49,6 +66,7 @@ export function WorkOrderForm({
   workOrder,
   isLoading,
   defaultCustomerId,
+  defaults,
 }: WorkOrderFormProps) {
   const isEdit = !!workOrder;
   const [showBillTo, setShowBillTo] = useState(
@@ -103,24 +121,25 @@ export function WorkOrderForm({
           notes: workOrder.notes || "",
         }
       : {
-          customer_id: defaultCustomerId || "",
+          customer_id: defaults?.customer_id || defaultCustomerId || "",
           billing_customer_id: undefined,
-          job_type: "pumping" as JobType,
-          status: "draft" as WorkOrderStatus,
-          priority: "normal" as Priority,
-          scheduled_date: "",
+          job_type: (defaults?.job_type || "pumping") as JobType,
+          status: (defaults?.status || "scheduled") as WorkOrderStatus,
+          priority: (defaults?.priority || "normal") as Priority,
+          scheduled_date: defaults?.scheduled_date || "",
           time_window_start: "",
           time_window_end: "",
           estimated_duration_hours: 1,
           assigned_technician: "",
           assigned_vehicle: "",
-          service_address_line1: "",
+          service_address_line1: defaults?.service_address_line1 || "",
           service_address_line2: "",
-          service_city: "",
-          service_state: "",
-          service_postal_code: "",
+          service_city: defaults?.service_city || "",
+          service_state: defaults?.service_state || "",
+          service_postal_code: defaults?.service_postal_code || "",
+          total_amount: defaults?.total_amount || undefined,
           system_type: "conventional",
-          notes: "",
+          notes: defaults?.notes || "",
         },
   });
 
