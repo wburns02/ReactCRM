@@ -537,17 +537,7 @@ export function WebPhonePage() {
           </div>
         </div>
 
-        {/* Middle: Screen Pop — stays open after call ends until agent dismisses */}
-        {showScreenPop && screenPopCall && (
-          <div className="hidden md:flex flex-1 max-w-lg flex-col border-l border-border overflow-hidden">
-            <ScreenPop
-              activeCall={activeCall || screenPopCall}
-              callDuration={activeCall ? callDuration : screenPopDuration}
-              callEnded={!activeCall}
-              onDismiss={dismissScreenPop}
-            />
-          </div>
-        )}
+        {/* Screen Pop is now handled by GlobalScreenPop in AppLayout */}
 
         {/* Right: Recent Calls */}
         <div className="hidden lg:flex w-80 flex-col border-l border-border bg-bg-card overflow-hidden">

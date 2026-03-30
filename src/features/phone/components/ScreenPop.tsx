@@ -284,10 +284,9 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
 
   const handleDispatchSubmit = async (data: WorkOrderFormData) => {
     try {
-      const wo = await createWorkOrder.mutateAsync(data);
+      await createWorkOrder.mutateAsync(data);
       toastSuccess("Work order created — technician dispatched!");
       setShowDispatchForm(false);
-      navigate(`/work-orders/${wo.id}`);
     } catch {
       toastError("Failed to create work order");
     }
@@ -670,8 +669,8 @@ export function ScreenPop({ activeCall, callDuration, callEnded, onDismiss }: Sc
             </div>
           )}
 
-          {/* Dispatch Technician button — available during AND after call */}
-          {customerId && !showDispatchForm && (
+          {/* Dispatch Technician button — only after call ends with AI summary */}
+          {aiSummary && customerId && callEnded && !showDispatchForm && (
             <button
               onClick={() => setShowDispatchForm(true)}
               className="w-full mb-2 px-3 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
