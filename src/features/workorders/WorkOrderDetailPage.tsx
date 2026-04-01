@@ -906,36 +906,6 @@ export function WorkOrderDetailPage() {
                 </CardContent>
               </Card>
 
-              {/* Mini Map Preview (if GPS coords available) */}
-              {workOrder.service_latitude && workOrder.service_longitude && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Location</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <a
-                      href={`https://maps.google.com/?q=${workOrder.service_latitude},${workOrder.service_longitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block"
-                    >
-                      <img
-                        src={`https://maps.googleapis.com/maps/api/staticmap?center=${workOrder.service_latitude},${workOrder.service_longitude}&zoom=15&size=600x200&markers=color:red%7C${workOrder.service_latitude},${workOrder.service_longitude}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`}
-                        alt="Service location map"
-                        className="w-full h-[200px] object-cover rounded-b-lg"
-                        onError={(e) => {
-                          // Hide the card if map fails to load
-                          (
-                            e.target as HTMLImageElement
-                          ).parentElement?.parentElement?.parentElement?.classList.add(
-                            "hidden",
-                          );
-                        }}
-                      />
-                    </a>
-                  </CardContent>
-                </Card>
-              )}
             </div>
 
             {/* Right Column - Quick Info */}
