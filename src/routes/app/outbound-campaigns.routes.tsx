@@ -10,6 +10,14 @@ const OutboundCampaignsPage = lazy(() =>
   ),
 );
 
+const AIAgentDashboard = lazy(() =>
+  import("@/features/outbound-campaigns/pages/AIAgentDashboard").then(
+    (m) => ({
+      default: m.AIAgentDashboard,
+    }),
+  ),
+);
+
 /**
  * Outbound Campaigns routes - Call list management and power dialer
  */
@@ -21,6 +29,14 @@ export function OutboundCampaignsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <OutboundCampaignsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="ai-agent"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <AIAgentDashboard />
           </Suspense>
         }
       />
