@@ -58,25 +58,25 @@ export function CallLibraryPage() {
     return items.filter((c: CallRecord) => c.recording_url && c.duration_seconds > 30);
   }, [data]);
 
-  // Categorize calls
+  // Categorize calls — RC dispositions are: call connected, accepted, voicemail, no answer, missed, busy, rejected
   const wins = useMemo(() =>
     calls.filter((c) =>
-      ["appointment_set", "quote_given", "answered"].includes(c.call_disposition || "") &&
-      c.duration_seconds > 120
+      c.duration_seconds > 120 &&
+      ["call connected", "accepted"].includes((c.call_disposition || "").toLowerCase()) &&
+      ((c.quality_score || 0) >= 50 || c.sentiment === "positive")
     ).sort((a, b) => (b.quality_score || 0) - (a.quality_score || 0)),
   [calls]);
 
   const bestPitches = useMemo(() =>
     calls.filter((c) =>
       (c.quality_score || 0) >= 70 ||
-      c.sentiment === "positive" ||
-      (c.sentiment_score || 0) > 30
+      (c.sentiment === "positive" && c.duration_seconds > 60)
     ).sort((a, b) => (b.quality_score || 0) - (a.quality_score || 0)),
   [calls]);
 
   const losses = useMemo(() =>
     calls.filter((c) =>
-      ["not_interested", "callback_requested", "no_answer", "voicemail"].includes(c.call_disposition || "") ||
+      ["no answer", "voicemail", "missed", "busy", "rejected"].includes((c.call_disposition || "").toLowerCase()) ||
       c.sentiment === "negative"
     ).sort((a, b) => (b.duration_seconds || 0) - (a.duration_seconds || 0)),
   [calls]);
@@ -86,8 +86,18 @@ export function CallLibraryPage() {
     : activeTab === "losses" ? losses
     : calls;
 
-  // Audio playback
-  const togglePlay = (call: CallRecord) => {
+  // Audio playback — use proxy endpoint to avoid RC auth issues
+  const getProxyUrl = (call: CallRecord) => {
+    // Extract recording ID from RC contentUri
+    const url = call.recording_url || "";
+    const match = url.match(/\/recording\/(\d+)\/content/);
+    if (match) {
+      return `${apiClient.defaults.baseURL}/ringcentral/recording/${match[1]}/content`;
+    }
+    return url;
+  };
+
+  const togglePlay = async (call: CallRecord) => {
     if (playingId === call.id) {
       audioRef?.pause();
       setPlayingId(null);
@@ -98,11 +108,24 @@ export function CallLibraryPage() {
       audioRef.pause();
     }
 
-    const audio = new Audio(call.recording_url || "");
-    audio.onended = () => setPlayingId(null);
-    audio.play().catch(() => {});
-    setAudioRef(audio);
     setPlayingId(call.id);
+
+    try {
+      // Fetch recording via proxy with auth
+      const resp = await apiClient.get(`/ringcentral/calls/${call.id}/recording`);
+      const secureUrl = `${apiClient.defaults.baseURL}${resp.data.secure_url}`;
+
+      // Fetch audio blob with auth cookie
+      const audioResp = await apiClient.get(resp.data.secure_url, { responseType: "blob" });
+      const blobUrl = URL.createObjectURL(audioResp.data);
+
+      const audio = new Audio(blobUrl);
+      audio.onended = () => { setPlayingId(null); URL.revokeObjectURL(blobUrl); };
+      audio.play().catch(() => setPlayingId(null));
+      setAudioRef(audio);
+    } catch {
+      setPlayingId(null);
+    }
   };
 
   const formatDuration = (s: number) => {
@@ -118,17 +141,19 @@ export function CallLibraryPage() {
   };
 
   const dispositionLabel = (d: string | null) => {
+    const key = (d || "").toLowerCase();
     const map: Record<string, { label: string; color: string }> = {
-      appointment_set: { label: "Appointment Set", color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" },
-      quote_given: { label: "Quote Given", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" },
-      answered: { label: "Answered", color: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300" },
-      not_interested: { label: "Not Interested", color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400" },
-      callback_requested: { label: "Callback", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" },
-      no_answer: { label: "No Answer", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" },
-      voicemail: { label: "Voicemail", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400" },
-      service_inquiry: { label: "Service Inquiry", color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400" },
+      "call connected": { label: "Connected", color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" },
+      "accepted": { label: "Accepted", color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" },
+      "voicemail": { label: "Voicemail", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400" },
+      "no answer": { label: "No Answer", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" },
+      "missed": { label: "Missed", color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" },
+      "busy": { label: "Busy", color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400" },
+      "rejected": { label: "Rejected", color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400" },
+      "hang up": { label: "Hang Up", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" },
+      "unknown": { label: "Unknown", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" },
     };
-    return map[d || ""] || { label: d || "Unknown", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" };
+    return map[key] || { label: d || "Unknown", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" };
   };
 
   const sentimentIcon = (s: string | null) => {
@@ -324,12 +349,7 @@ export function CallLibraryPage() {
 
                     {/* Audio player */}
                     {call.recording_url && (
-                      <audio
-                        controls
-                        src={call.recording_url}
-                        className="w-full h-8"
-                        preload="none"
-                      />
+                      <AudioPlayer callId={call.id} />
                     )}
                   </div>
                 )}
@@ -340,6 +360,38 @@ export function CallLibraryPage() {
       )}
     </div>
   );
+}
+
+function AudioPlayer({ callId }: { callId: string }) {
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const loadAudio = async () => {
+    if (blobUrl) return;
+    setLoading(true);
+    try {
+      const resp = await apiClient.get(`/ringcentral/calls/${callId}/recording`);
+      const audioResp = await apiClient.get(resp.data.secure_url, { responseType: "blob" });
+      setBlobUrl(URL.createObjectURL(audioResp.data));
+    } catch {
+      // silent fail
+    }
+    setLoading(false);
+  };
+
+  if (!blobUrl) {
+    return (
+      <button
+        onClick={loadAudio}
+        disabled={loading}
+        className="text-xs text-primary hover:underline"
+      >
+        {loading ? "Loading audio..." : "Load recording"}
+      </button>
+    );
+  }
+
+  return <audio controls src={blobUrl} className="w-full h-8" />;
 }
 
 function StatCard({ icon: Icon, label, value, color }: {
