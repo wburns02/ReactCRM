@@ -41,45 +41,19 @@ export function CallLibraryPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
 
-  // Fetch all calls with recordings
+  // Fetch pre-categorized library from backend
   const { data, isLoading } = useQuery({
     queryKey: ["call-library"],
     queryFn: async () => {
-      const resp = await apiClient.get("/calls", {
-        params: { page_size: 200, sort: "-call_date" },
-      });
+      const resp = await apiClient.get("/calls/library");
       return resp.data;
     },
   });
 
-  const calls: CallRecord[] = useMemo(() => {
-    const items = data?.items || data?.data || [];
-    // Only calls with recordings
-    return items.filter((c: CallRecord) => c.recording_url && c.duration_seconds > 30);
-  }, [data]);
-
-  // Categorize calls — RC dispositions are: call connected, accepted, voicemail, no answer, missed, busy, rejected
-  const wins = useMemo(() =>
-    calls.filter((c) =>
-      c.duration_seconds > 120 &&
-      ["call connected", "accepted"].includes((c.call_disposition || "").toLowerCase()) &&
-      ((c.quality_score || 0) >= 50 || c.sentiment === "positive")
-    ).sort((a, b) => (b.quality_score || 0) - (a.quality_score || 0)),
-  [calls]);
-
-  const bestPitches = useMemo(() =>
-    calls.filter((c) =>
-      (c.quality_score || 0) >= 70 ||
-      (c.sentiment === "positive" && c.duration_seconds > 60)
-    ).sort((a, b) => (b.quality_score || 0) - (a.quality_score || 0)),
-  [calls]);
-
-  const losses = useMemo(() =>
-    calls.filter((c) =>
-      ["no answer", "voicemail", "missed", "busy", "rejected"].includes((c.call_disposition || "").toLowerCase()) ||
-      c.sentiment === "negative"
-    ).sort((a, b) => (b.duration_seconds || 0) - (a.duration_seconds || 0)),
-  [calls]);
+  const wins: CallRecord[] = data?.wins || [];
+  const bestPitches: CallRecord[] = data?.pitches || [];
+  const losses: CallRecord[] = data?.losses || [];
+  const calls: CallRecord[] = data?.all || [];
 
   const currentList = activeTab === "wins" ? wins
     : activeTab === "pitches" ? bestPitches
