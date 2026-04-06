@@ -87,6 +87,12 @@ const QuickCallLogPage = lazy(() =>
   })),
 );
 
+const CallLibraryPage = lazy(() =>
+  import("@/features/calls/pages/CallLibraryPage").then((m) => ({
+    default: m.CallLibraryPage,
+  })),
+);
+
 const LiveChatPage = lazy(() =>
   import("@/features/live-chat/index.ts").then((m) => ({
     default: m.LiveChatPage,
@@ -218,6 +224,14 @@ export function CommunicationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <CallsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="call-library"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <CallLibraryPage />
           </Suspense>
         }
       />
