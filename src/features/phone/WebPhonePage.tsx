@@ -217,27 +217,33 @@ export function WebPhonePage() {
     }
   }, []);
 
-  // Enhanced connect: try RC first, fall back to Twilio
+  // Enhanced connect: check RC availability first, fall back to Twilio
   const handleConnect = useCallback(async () => {
     setTwilioState("connecting");
     setTwilioError(null);
 
-    // Try RingCentral first
+    // Check if RC SIP provision is available before trying
+    let rcAvailable = false;
     try {
-      await connect();
-      // If connect() doesn't throw, RC is handling state
-      return;
+      const { data } = await apiClient.get("/ringcentral/sip-provision");
+      if (data?.sipInfo) rcAvailable = true;
     } catch {
-      console.log("[WebPhone] RingCentral failed, trying Twilio...");
+      // RC not available — will fall through to Twilio
+    }
+
+    if (rcAvailable) {
+      // RC is available — let the context handle connection
+      await connect();
+      return;
     }
 
     // Fall back to Twilio
+    console.log("[WebPhone] RingCentral unavailable, connecting via Twilio...");
     const ok = await connectTwilio();
     if (!ok) {
       setTwilioError("Could not connect to phone service. Please try again.");
       setTwilioState("error");
     }
-    // If ok, Twilio "registered" event sets the state
   }, [connect, connectTwilio]);
 
   // Enhanced disconnect: handle Twilio cleanup
