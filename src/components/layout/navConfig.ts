@@ -28,9 +28,11 @@ export interface NavGroup {
 export const topNavItems: NavItem[] = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { path: "/customers", label: "Customers", icon: Users },
-  { path: "/prospects", label: "Prospects", icon: ClipboardList },
   { path: "/schedule", label: "Schedule", icon: Calendar },
   { path: "/live-chat", label: "Live Chat", icon: MessageCircle, badge: "LIVE" },
+  { path: "/web-phone", label: "Web Phone", icon: Smartphone },
+  { path: "/outbound-campaigns", label: "Outbound Dialer", icon: PhoneOutgoing },
+  { path: "/call-library", label: "Call Library", icon: PhoneCall },
 ];
 
 export const techNavItems: NavItem[] = [
@@ -51,6 +53,7 @@ export const navGroups: NavGroup[] = [
     label: "Customer Management",
     icon: Heart,
     items: [
+      { path: "/prospects", label: "Prospects", icon: ClipboardList },
       { path: "/contracts", label: "Contracts & Maintenance", icon: FileText },
       { path: "/bookings", label: "Bookings", icon: CalendarCheck },
       { path: "/customer-success", label: "Customer Success", icon: Heart },
@@ -83,10 +86,8 @@ export const navGroups: NavGroup[] = [
       { path: "/communications/email-inbox", label: "Email Inbox", icon: Mail },
       { path: "/calls", label: "Call Center", icon: PhoneCall },
       { path: "/phone", label: "Phone Dashboard", icon: Phone },
-      { path: "/web-phone", label: "Web Phone", icon: Smartphone, badge: "NEW" },
       { path: "/communications/templates", label: "Message Templates", icon: FileText },
       { path: "/communications/reminders", label: "Auto-Reminders", icon: Bell },
-      { path: "/outbound-campaigns", label: "Outbound Campaigns", icon: PhoneOutgoing, badge: "NEW" },
       { path: "/integrations", label: "Integrations", icon: Plug },
     ],
   },
