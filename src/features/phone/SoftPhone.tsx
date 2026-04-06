@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useSharedWebPhone, type PhoneState } from "@/context/WebPhoneContext";
 import { useCustomerLookup } from "@/api/hooks/useDispatch";
+import { CallMapPanel } from "@/features/call-map/CallMapPanel";
+import { useCallMapStore } from "@/features/call-map/callMapStore";
 import {
   Phone, PhoneOff, PhoneIncoming, PhoneOutgoing, PhoneForwarded,
   Mic, MicOff, Pause, Play, Hash, X, ChevronDown, ChevronUp,
@@ -27,6 +29,7 @@ export function SoftPhone() {
   const [collapsed, setCollapsed] = useState(false);
   const [callDuration, setCallDuration] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isMapExpanded = useCallMapStore((s) => s.isExpanded);
 
   // Customer lookup for incoming calls
   const lookup = useCustomerLookup(activeCall?.remoteNumber ?? "");
@@ -134,8 +137,9 @@ export function SoftPhone() {
     );
   }
 
-  return (
-    <div className="fixed bottom-24 right-4 md:bottom-4 z-50 w-72 select-none">
+  // Phone controls content — shared between normal and expanded layout
+  const phoneContent = (
+    <>
       {/* Header bar — always visible */}
       <div
         className={`flex items-center justify-between px-3 py-2 rounded-t-xl ${collapsed && !activeCall ? "rounded-b-xl" : ""} ${stateColor[state]} text-white cursor-pointer`}
@@ -321,6 +325,29 @@ export function SoftPhone() {
           )}
         </div>
       )}
+    </>
+  );
+
+  // When map is expanded, render a wider container with phone + map side-by-side
+  if (isMapExpanded) {
+    return (
+      <div className="fixed bottom-24 right-4 md:bottom-4 z-50 flex w-[700px] max-w-[calc(100vw-2rem)] select-none rounded-xl shadow-2xl overflow-hidden">
+        {/* Phone controls — left side (45%) */}
+        <div className="w-[45%] min-w-[280px] flex-shrink-0">
+          {phoneContent}
+        </div>
+        {/* Map panel — right side (55%) */}
+        <div className="w-[55%] min-h-[400px]">
+          <CallMapPanel />
+        </div>
+      </div>
+    );
+  }
+
+  // Normal layout — standard floating widget
+  return (
+    <div className="fixed bottom-24 right-4 md:bottom-4 z-50 w-72 select-none">
+      {phoneContent}
     </div>
   );
 }

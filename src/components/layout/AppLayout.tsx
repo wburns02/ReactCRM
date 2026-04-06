@@ -19,6 +19,7 @@ import { Sidebar } from "./Sidebar";
 import { SmartSearchBar } from "@/components/ai/SmartSearchBar";
 import { SoftPhone } from "@/features/phone/SoftPhone";
 import { GlobalScreenPop } from "@/features/phone/GlobalScreenPop";
+import { CallMapBridge } from "@/features/call-map/CallMapBridge";
 import { WebPhoneProvider } from "@/context/WebPhoneContext";
 import { Sun, Moon } from "lucide-react";
 
@@ -32,6 +33,7 @@ export function AppLayout() {
 
   return (
     <WebPhoneProvider>
+    <CallMapBridge />
     <EmailComposeProvider>
     <div className="flex h-screen bg-bg-body">
       <a

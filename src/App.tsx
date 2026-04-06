@@ -10,6 +10,7 @@ import { WebSocketProvider } from "@/providers/WebSocketProvider";
 import { RoleProvider } from "@/providers/RoleProvider";
 import { EntityProvider } from "@/providers/EntityProvider";
 
+import { CallMapProvider } from "@/features/call-map/CallMapProvider";
 import { PWAProvider } from "@/components/pwa";
 import { initWebVitals } from "@/lib/webVitals";
 import "./index.css";
@@ -53,9 +54,10 @@ const queryClient = new QueryClient({
  * 4. WebSocketProvider - real-time updates
  * 5. SessionTimeoutProvider - session management
  * 6. BrowserRouter - client-side routing
- * 7. EntityProvider - multi-LLC entity context
- * 8. RoleProvider - demo mode role switching
- * 9. PWAProvider - install prompts, update notifications, offline banner
+ * 7. CallMapProvider - call location map overlay + WS bridge
+ * 8. EntityProvider - multi-LLC entity context
+ * 9. RoleProvider - demo mode role switching
+ * 10. PWAProvider - install prompts, update notifications, offline banner
  */
 function App() {
   // CRITICAL: Prevent createContext errors from chunk load ordering issues
@@ -87,14 +89,16 @@ function App() {
           <WebSocketProvider autoConnect>
             <SessionTimeoutProvider>
               <BrowserRouter basename="/">
-                <EntityProvider>
-                  <RoleProvider>
-                    <PWAProvider>
-                      <OfflineIndicator />
-                      <AppRoutes />
-                    </PWAProvider>
-                  </RoleProvider>
-                </EntityProvider>
+                <CallMapProvider>
+                  <EntityProvider>
+                    <RoleProvider>
+                      <PWAProvider>
+                        <OfflineIndicator />
+                        <AppRoutes />
+                      </PWAProvider>
+                    </RoleProvider>
+                  </EntityProvider>
+                </CallMapProvider>
               </BrowserRouter>
             </SessionTimeoutProvider>
           </WebSocketProvider>
