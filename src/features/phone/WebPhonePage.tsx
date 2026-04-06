@@ -12,6 +12,7 @@ import {
   MapPin, PhoneForwarded, Delete,
 } from "lucide-react";
 import { ScreenPop } from "./components/ScreenPop";
+import { Device, Call as TwilioCall } from "@twilio/voice-sdk";
 
 // ── Phone number / line data ──────────────────────────────────────────────
 
@@ -41,8 +42,22 @@ function usePhoneNumbers() {
   return useQuery({
     queryKey: ["phone", "numbers"],
     queryFn: async (): Promise<PhoneLine[]> => {
-      const { data } = await apiClient.get("/ringcentral/phone-numbers");
-      return data.items || [];
+      try {
+        const { data } = await apiClient.get("/ringcentral/phone-numbers");
+        const items: PhoneLine[] = data.items || [];
+        if (items.some((l) => l.can_call)) return items;
+      } catch {
+        // RC phone-numbers failed — fall through to static lines
+      }
+      // Fallback: use OFFICE_LABELS as static Twilio-backed lines
+      return Object.entries(OFFICE_LABELS).map(([phone, label]) => ({
+        id: phone,
+        phone_number: phone,
+        label,
+        usage_type: "TwilioLine",
+        features: [],
+        can_call: true,
+      }));
     },
     staleTime: 300_000,
   });
@@ -67,7 +82,7 @@ const DTMF_KEYS = [
 
 export function WebPhonePage() {
   const {
-    state, error, activeCall,
+    state: rcState, error: rcError, activeCall: rcActiveCall,
     connect, disconnect, call, answer, hangup,
     toggleMute, toggleHold, sendDtmf, transfer, toVoicemail,
   } = useSharedWebPhone();
@@ -83,6 +98,19 @@ export function WebPhonePage() {
   const [showTransfer, setShowTransfer] = useState(false);
   const [transferTarget, setTransferTarget] = useState("");
   const [callDuration, setCallDuration] = useState(0);
+
+  // Twilio fallback state (local — does not touch WebPhoneContext)
+  const twilioDeviceRef = useRef<Device | null>(null);
+  const twilioCallRef = useRef<TwilioCall | null>(null);
+  const [twilioConnected, setTwilioConnected] = useState(false);
+  const [twilioState, setTwilioState] = useState<PhoneState>("idle");
+  const [twilioError, setTwilioError] = useState<string | null>(null);
+  const [twilioActiveCall, setTwilioActiveCall] = useState<ActiveCall | null>(null);
+
+  // Combined state: Twilio takes precedence when connected
+  const state = twilioConnected ? twilioState : rcState;
+  const error = twilioConnected ? twilioError : rcError;
+  const activeCall = twilioConnected ? twilioActiveCall : rcActiveCall;
 
   // Screen pop persists after call ends until agent dismisses it
   const [screenPopCall, setScreenPopCall] = useState<typeof activeCall>(null);
@@ -137,6 +165,169 @@ export function WebPhonePage() {
     return () => clearInterval(interval);
   }, [state, activeCall]);
 
+  // Twilio connect — fallback when RingCentral SIP provision fails
+  const connectTwilio = useCallback(async () => {
+    try {
+      const { data } = await apiClient.get("/twilio/token");
+      if (!data.token) throw new Error("No Twilio token received");
+
+      const device = new Device(data.token, {
+        edge: "ashburn",
+        logLevel: 1,
+      });
+
+      device.on("registered", () => {
+        console.log("[WebPhone] Twilio Device registered");
+        setTwilioConnected(true);
+        setTwilioState("registered");
+      });
+
+      device.on("error", (err: any) => {
+        console.error("[WebPhone] Twilio Device error:", err);
+        setTwilioError(err?.message || "Twilio error");
+      });
+
+      device.on("incoming", (incomingCall: TwilioCall) => {
+        twilioCallRef.current = incomingCall;
+        const from = incomingCall.parameters?.From || "Unknown";
+        setTwilioActiveCall({
+          direction: "inbound",
+          remoteNumber: from.replace(/^\+1/, ""),
+          startTime: Date.now(),
+          muted: false,
+          held: false,
+          recording: false,
+          session: incomingCall,
+        });
+        setTwilioState("ringing");
+
+        incomingCall.on("disconnect", () => {
+          twilioCallRef.current = null;
+          setTwilioActiveCall(null);
+          setTwilioState("registered");
+        });
+      });
+
+      await device.register();
+      twilioDeviceRef.current = device;
+      return true;
+    } catch (err: any) {
+      console.error("[WebPhone] Twilio connect failed:", err);
+      return false;
+    }
+  }, []);
+
+  // Enhanced connect: try RC first, fall back to Twilio
+  const handleConnect = useCallback(async () => {
+    setTwilioState("connecting");
+    setTwilioError(null);
+
+    // Try RingCentral first
+    try {
+      await connect();
+      // If connect() doesn't throw, RC is handling state
+      return;
+    } catch {
+      console.log("[WebPhone] RingCentral failed, trying Twilio...");
+    }
+
+    // Fall back to Twilio
+    const ok = await connectTwilio();
+    if (!ok) {
+      setTwilioError("Could not connect to phone service. Please try again.");
+      setTwilioState("error");
+    }
+    // If ok, Twilio "registered" event sets the state
+  }, [connect, connectTwilio]);
+
+  // Enhanced disconnect: handle Twilio cleanup
+  const handleDisconnect = useCallback(() => {
+    if (twilioDeviceRef.current) {
+      twilioDeviceRef.current.destroy();
+      twilioDeviceRef.current = null;
+      setTwilioConnected(false);
+      setTwilioState("idle");
+      setTwilioActiveCall(null);
+    }
+    disconnect();
+  }, [disconnect]);
+
+  // Enhanced dial: route through Twilio if RC isn't connected
+  const handleDial = useCallback(async () => {
+    const digits = dialInput.replace(/\D/g, "");
+    if (digits.length < 7) return;
+
+    // If RC is registered (not Twilio), use RC
+    if (rcState === "registered" && !twilioConnected) {
+      call(digits, selectedLine || undefined);
+      setDialInput("");
+      return;
+    }
+
+    // If Twilio is connected, use Twilio Device
+    if (twilioDeviceRef.current && twilioConnected) {
+      try {
+        setTwilioState("calling");
+        const outCall = await twilioDeviceRef.current.connect({
+          params: { To: `+1${digits}` },
+        });
+        twilioCallRef.current = outCall;
+        setTwilioActiveCall({
+          direction: "outbound",
+          remoteNumber: digits,
+          startTime: Date.now(),
+          muted: false,
+          held: false,
+          recording: false,
+          session: outCall,
+        });
+        setDialInput("");
+
+        outCall.on("accept", () => setTwilioState("active"));
+        outCall.on("disconnect", () => {
+          twilioCallRef.current = null;
+          setTwilioActiveCall(null);
+          setTwilioState("registered");
+        });
+        outCall.on("error", (err: any) => {
+          console.error("[WebPhone] Twilio call error:", err);
+          setTwilioError(err?.message || "Call failed");
+          twilioCallRef.current = null;
+          setTwilioActiveCall(null);
+          setTwilioState("registered");
+        });
+      } catch (err: any) {
+        console.error("[WebPhone] Twilio dial failed:", err);
+        setTwilioError(err?.message || "Failed to place call");
+        setTwilioState("registered");
+      }
+      return;
+    }
+
+    setTwilioError("Phone not connected. Click Connect first.");
+  }, [dialInput, rcState, twilioConnected, call, selectedLine]);
+
+  // Enhanced hangup: handle Twilio calls
+  const handleHangup = useCallback(async () => {
+    if (twilioCallRef.current) {
+      twilioCallRef.current.disconnect();
+      twilioCallRef.current = null;
+      setTwilioActiveCall(null);
+      setTwilioState("registered");
+      return;
+    }
+    hangup();
+  }, [hangup]);
+
+  // Cleanup Twilio on unmount
+  useEffect(() => {
+    return () => {
+      if (twilioDeviceRef.current) {
+        twilioDeviceRef.current.destroy();
+      }
+    };
+  }, []);
+
   // Close line selector on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -169,13 +360,7 @@ export function WebPhonePage() {
     }
   }, [activeCall, sendDtmf]);
 
-  const handleDial = useCallback(() => {
-    const digits = dialInput.replace(/\D/g, "");
-    if (digits.length >= 7) {
-      call(digits, selectedLine || undefined);
-      setDialInput("");
-    }
-  }, [dialInput, call, selectedLine]);
+  // Old handleDial replaced by enhanced version above
 
   const handleTransfer = useCallback(() => {
     const digits = transferTarget.replace(/\D/g, "");
@@ -227,7 +412,7 @@ export function WebPhonePage() {
               Web Phone
             </h1>
             <p className="text-sm text-text-muted mt-0.5">
-              RingCentral browser phone — select your line and dial
+              Browser phone — select your line and dial
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -244,17 +429,18 @@ export function WebPhonePage() {
             </div>
 
             {/* Connect/Disconnect */}
-            {state === "idle" ? (
+            {state === "idle" || state === "error" ? (
               <button
-                onClick={connect}
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
+                onClick={handleConnect}
+                disabled={state === "connecting"}
+                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-60 transition-colors"
               >
                 <Wifi className="w-4 h-4" />
                 Connect
               </button>
             ) : (
               <button
-                onClick={disconnect}
+                onClick={handleDisconnect}
                 disabled={!!activeCall}
                 className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-secondary hover:bg-bg-hover disabled:opacity-40 transition-colors"
               >
@@ -355,7 +541,7 @@ export function WebPhonePage() {
                   )}
                 </div>
                 <div className="flex gap-3">
-                  <button onClick={hangup} className="flex-1 py-4 rounded-xl bg-red-500 text-white font-semibold text-lg active:bg-red-600 touch-manipulation transition-colors">
+                  <button onClick={handleHangup} className="flex-1 py-4 rounded-xl bg-red-500 text-white font-semibold text-lg active:bg-red-600 touch-manipulation transition-colors">
                     Decline
                   </button>
                   <button onClick={answer} className="flex-1 py-4 rounded-xl bg-emerald-500 text-white font-semibold text-lg active:bg-emerald-600 touch-manipulation transition-colors">
@@ -465,7 +651,7 @@ export function WebPhonePage() {
 
                 {/* Hangup */}
                 <button
-                  onClick={hangup}
+                  onClick={handleHangup}
                   className="w-full py-4 rounded-xl bg-red-500 text-white font-semibold text-lg flex items-center justify-center gap-2 active:bg-red-600 touch-manipulation transition-colors"
                 >
                   <PhoneOff className="w-6 h-6" />
