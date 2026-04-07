@@ -692,6 +692,8 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           injectTestContacts();
         } catch (err) {
           console.error("Failed to seed campaign data:", err);
+          // Still inject test contacts even if bulk seed fails
+          injectTestContacts();
         }
       },
 
