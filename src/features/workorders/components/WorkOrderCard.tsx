@@ -1,4 +1,5 @@
 import { useCallback, type MouseEvent } from "react";
+import { Bot } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/Card";
@@ -337,6 +338,7 @@ export function WorkOrderCard({
         isSelected && "border-primary ring-2 ring-primary/20",
         overdueStatus && "border-red-300 dark:border-red-800",
         isUrgent && "ring-2 ring-red-500/30",
+        workOrder.created_by === "ai_agent" && "border-l-4 border-l-purple-500",
         className,
       )}
       onClick={handleCardClick}
@@ -366,12 +368,18 @@ export function WorkOrderCard({
           )}
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
               <WorkOrderStatusBadge
                 status={workOrder.status}
                 size="sm"
                 showTooltip
               />
+              {workOrder.created_by === "ai_agent" && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 border border-purple-200 dark:border-purple-800">
+                  <Bot className="w-3 h-3" />
+                  AI Booked
+                </span>
+              )}
               {overdueStatus && (
                 <span className="text-xs text-red-600 dark:text-red-400 font-medium">
                   OVERDUE

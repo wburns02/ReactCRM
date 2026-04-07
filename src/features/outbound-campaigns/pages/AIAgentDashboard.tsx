@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import {
@@ -230,6 +230,9 @@ export function AIAgentDashboard() {
         />
       </div>
 
+      {/* Live Transcript */}
+      <LiveTranscript callSid={status?.current_call_sid || null} />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Disposition Breakdown */}
         <div className="bg-bg-card rounded-xl border border-border p-5">
@@ -310,6 +313,104 @@ export function AIAgentDashboard() {
             </div>
           )}
         </div>
+      </div>
+    </div>
+  );
+}
+
+interface TranscriptLine {
+  speaker: "agent" | "customer";
+  text: string;
+}
+
+function LiveTranscript({ callSid }: { callSid: string | null }) {
+  const [lines, setLines] = useState<TranscriptLine[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const userScrolledUp = useRef(false);
+  const esRef = useRef<EventSource | null>(null);
+
+  useEffect(() => {
+    // Clean up previous EventSource
+    if (esRef.current) {
+      esRef.current.close();
+      esRef.current = null;
+    }
+
+    if (!callSid) {
+      setLines([]);
+      return;
+    }
+
+    const baseUrl = apiClient.defaults.baseURL?.replace("/api/v2", "") ?? "";
+    const url = `${baseUrl}/api/v2/outbound-agent/live-transcript/${callSid}`;
+    const es = new EventSource(url, { withCredentials: true });
+    esRef.current = es;
+
+    es.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === "keepalive") return;
+        if (data.speaker && data.text) {
+          setLines((prev) => [...prev, { speaker: data.speaker as "agent" | "customer", text: data.text }]);
+        }
+      } catch {
+        // ignore parse errors
+      }
+    };
+
+    return () => {
+      es.close();
+      esRef.current = null;
+    };
+  }, [callSid]);
+
+  // Auto-scroll to bottom unless user scrolled up
+  useEffect(() => {
+    if (!userScrolledUp.current && scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [lines]);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+    userScrolledUp.current = scrollTop + clientHeight < scrollHeight - 20;
+  };
+
+  return (
+    <div className="bg-bg-card rounded-xl border border-border p-5">
+      <div className="flex items-center gap-2 mb-4">
+        {callSid && (
+          <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
+        )}
+        <h3 className="text-sm font-semibold text-text-primary uppercase tracking-wide">
+          Live Transcript
+        </h3>
+      </div>
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="max-h-[400px] overflow-y-auto space-y-2"
+      >
+        {!callSid || lines.length === 0 ? (
+          <p className="text-sm text-text-muted py-6 text-center">
+            {callSid ? "Waiting for transcript..." : "Transcript will appear when a call is active"}
+          </p>
+        ) : (
+          lines.map((line, i) => (
+            <div key={i} className="flex gap-2 text-sm">
+              <span
+                className={cn(
+                  "font-semibold flex-shrink-0",
+                  line.speaker === "agent" ? "text-primary" : "text-emerald-600"
+                )}
+              >
+                {line.speaker === "agent" ? "Sarah:" : "Customer:"}
+              </span>
+              <span className="text-text-primary">{line.text}</span>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
