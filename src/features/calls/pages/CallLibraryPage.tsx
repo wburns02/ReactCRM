@@ -149,12 +149,12 @@ export function CallLibraryPage() {
         </p>
       </div>
 
-      {/* Stats */}
+      {/* Stats — clickable to switch tabs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatCard icon={Headphones} label="Total Recordings" value={calls.length} color="text-blue-600" />
-        <StatCard icon={Trophy} label="Closed Deals" value={wins.length} color="text-emerald-600" />
-        <StatCard icon={Star} label="Top Quality" value={bestPitches.length} color="text-amber-600" />
-        <StatCard icon={TrendingDown} label="Lost / No Sale" value={losses.length} color="text-red-600" />
+        <StatCard icon={Headphones} label="Total Recordings" value={calls.length} color="text-blue-600" active={activeTab === "all"} onClick={() => setActiveTab("all")} />
+        <StatCard icon={Trophy} label="Closed Deals" value={wins.length} color="text-emerald-600" active={activeTab === "wins"} onClick={() => setActiveTab("wins")} />
+        <StatCard icon={Star} label="Top Quality" value={bestPitches.length} color="text-amber-600" active={activeTab === "pitches"} onClick={() => setActiveTab("pitches")} />
+        <StatCard icon={TrendingDown} label="Lost / No Sale" value={losses.length} color="text-red-600" active={activeTab === "losses"} onClick={() => setActiveTab("losses")} />
       </div>
 
       {/* Tabs */}
@@ -227,13 +227,14 @@ export function CallLibraryPage() {
             return (
               <div
                 key={call.id}
-                className="bg-bg-card border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-colors"
+                className="bg-bg-card border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-colors cursor-pointer"
+                onClick={() => setExpandedId(isExpanded ? null : call.id)}
               >
                 {/* Main row */}
                 <div className="flex items-center gap-4 p-4">
                   {/* Play button */}
                   <button
-                    onClick={() => togglePlay(call)}
+                    onClick={(e) => { e.stopPropagation(); togglePlay(call); }}
                     className={cn(
                       "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors",
                       isPlaying
@@ -283,18 +284,15 @@ export function CallLibraryPage() {
                     </div>
                   </div>
 
-                  {/* Expand button */}
-                  <button
-                    onClick={() => setExpandedId(isExpanded ? null : call.id)}
-                    className="p-2 rounded-md hover:bg-bg-hover text-text-secondary"
-                  >
+                  {/* Expand indicator */}
+                  <div className="p-2 text-text-secondary">
                     {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                  </button>
+                  </div>
                 </div>
 
                 {/* Expanded details */}
                 {isExpanded && (
-                  <div className="px-4 pb-4 pt-0 border-t border-border space-y-3">
+                  <div className="px-4 pb-4 pt-0 border-t border-border space-y-3" onClick={(e) => e.stopPropagation()}>
                     {/* AI Summary */}
                     {call.ai_summary && (
                       <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3">
@@ -368,14 +366,24 @@ function AudioPlayer({ callId }: { callId: string }) {
   return <audio controls src={blobUrl} className="w-full h-8" />;
 }
 
-function StatCard({ icon: Icon, label, value, color }: {
+function StatCard({ icon: Icon, label, value, color, active, onClick }: {
   icon: typeof Trophy;
   label: string;
   value: number;
   color: string;
+  active?: boolean;
+  onClick?: () => void;
 }) {
   return (
-    <div className="bg-bg-card rounded-xl border border-border p-4">
+    <div
+      onClick={onClick}
+      className={cn(
+        "rounded-xl border p-4 cursor-pointer transition-all",
+        active
+          ? "bg-bg-card border-primary/40 shadow-sm ring-1 ring-primary/20"
+          : "bg-bg-card border-border hover:border-primary/20 hover:shadow-sm"
+      )}
+    >
       <div className="flex items-center gap-2 mb-2">
         <Icon className={cn("w-4 h-4", color)} />
         <span className="text-xs font-medium text-text-secondary uppercase tracking-wide">{label}</span>
