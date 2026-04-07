@@ -34,7 +34,7 @@ export function CallMapFloater() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-[380px] overflow-hidden rounded-xl border border-border bg-bg-card shadow-2xl">
+    <div className="fixed bottom-4 left-4 z-50 w-[380px] overflow-hidden rounded-xl border border-border bg-bg-card shadow-2xl">
       <div className="flex items-center gap-2 bg-[#1a1a2e] px-3 py-2 text-white">
         <span className="h-2 w-2 rounded-full bg-green-500" />
         <span className="text-sm font-semibold">📍 Location Detected</span>

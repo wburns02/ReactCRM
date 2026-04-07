@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { ScreenPop } from "./components/ScreenPop";
 import { Device, Call as TwilioCall } from "@twilio/voice-sdk";
+import { useCallMapStore } from "@/features/call-map/callMapStore";
 
 // ── Phone number / line data ──────────────────────────────────────────────
 
@@ -201,10 +202,18 @@ export function WebPhonePage() {
         });
         setTwilioState("ringing");
 
+        const inSid = incomingCall.parameters?.CallSid || null;
+        if (inSid) {
+          useCallMapStore.getState().setActiveCallSid(inSid);
+        }
+        useCallMapStore.getState().setCallerNumber(from.replace(/\D/g, ""));
+
         incomingCall.on("disconnect", () => {
           twilioCallRef.current = null;
           setTwilioActiveCall(null);
           setTwilioState("registered");
+          useCallMapStore.getState().setActiveCallSid(null);
+          useCallMapStore.getState().setCallerNumber(null);
         });
       });
 
@@ -289,11 +298,20 @@ export function WebPhonePage() {
         });
         setDialInput("");
 
+        // Push call SID to map store for location detection
+        const sid = outCall.parameters?.CallSid || outCall.outboundConnectionId || null;
+        if (sid) {
+          useCallMapStore.getState().setActiveCallSid(sid);
+        }
+        useCallMapStore.getState().setCallerNumber(digits);
+
         outCall.on("accept", () => setTwilioState("active"));
         outCall.on("disconnect", () => {
           twilioCallRef.current = null;
           setTwilioActiveCall(null);
           setTwilioState("registered");
+          useCallMapStore.getState().setActiveCallSid(null);
+          useCallMapStore.getState().setCallerNumber(null);
         });
         outCall.on("error", (err: any) => {
           console.error("[WebPhone] Twilio call error:", err);
@@ -318,6 +336,8 @@ export function WebPhonePage() {
     if (twilioCallRef.current) {
       twilioCallRef.current.disconnect();
       twilioCallRef.current = null;
+      useCallMapStore.getState().setActiveCallSid(null);
+      useCallMapStore.getState().setCallerNumber(null);
       setTwilioActiveCall(null);
       setTwilioState("registered");
       return;

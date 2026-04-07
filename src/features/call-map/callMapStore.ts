@@ -7,6 +7,7 @@ export const useCallMapStore = create<CallMapState>((set, get) => ({
   isVisible: false,
   isExpanded: false,
   activeCallSid: null,
+  callerNumber: null,
 
   setLocation: (location: DetectedLocation) => {
     const current = get().location;
@@ -30,6 +31,8 @@ export const useCallMapStore = create<CallMapState>((set, get) => ({
 
   setActiveCallSid: (activeCallSid: string | null) => set({ activeCallSid }),
 
+  setCallerNumber: (callerNumber: string | null) => set({ callerNumber }),
+
   reset: () =>
     set({
       location: null,
@@ -37,5 +40,6 @@ export const useCallMapStore = create<CallMapState>((set, get) => ({
       isVisible: false,
       isExpanded: false,
       activeCallSid: null,
+      callerNumber: null,
     }),
 }));

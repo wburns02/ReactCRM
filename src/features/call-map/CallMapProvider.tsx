@@ -73,6 +73,57 @@ export function CallMapProvider({ children }: CallMapProviderProps) {
     };
   }, [activeCallSid, setLocation]);
 
+  // Fallback: look up caller location from CRM customer database
+  const callerNumber = useCallMapStore((s) => s.callerNumber);
+  useEffect(() => {
+    if (!activeCallSid || !callerNumber) return;
+    // Don't overwrite if WS already delivered a location
+    const currentLoc = useCallMapStore.getState().location;
+    if (currentLoc && currentLoc.confidence >= 0.9) return;
+
+    const lookupCaller = async () => {
+      try {
+        const { data } = await apiClient.get("/customers", {
+          params: { search: callerNumber, page_size: 1 },
+        });
+        const customer = data?.items?.[0];
+        if (customer?.latitude && customer?.longitude) {
+          let zone: "core" | "extended" | "outside" = "outside";
+          let driveMinutes = 0;
+          try {
+            const { data: zoneData } = await apiClient.get(
+              "/service-markets/nashville/zone-check",
+              { params: { lat: customer.latitude, lng: customer.longitude } },
+            );
+            zone = zoneData.zone;
+            driveMinutes = zoneData.drive_minutes;
+          } catch {}
+
+          const addr = [customer.address_line1, customer.city, customer.state]
+            .filter(Boolean)
+            .join(", ");
+
+          setLocation({
+            lat: Number(customer.latitude),
+            lng: Number(customer.longitude),
+            source: "customer_record",
+            address_text: addr || "Customer location",
+            zone,
+            drive_minutes: driveMinutes,
+            customer_id: customer.id,
+            confidence: 0.95,
+            transcript_excerpt: "",
+          });
+        }
+      } catch {
+        // Silent — best-effort fallback
+      }
+    };
+
+    const timer = setTimeout(lookupCaller, 2000);
+    return () => clearTimeout(timer);
+  }, [activeCallSid, callerNumber, setLocation]);
+
   return (
     <>
       {children}

@@ -36,6 +36,8 @@ export interface CallMapState {
   isVisible: boolean;
   isExpanded: boolean;
   activeCallSid: string | null;
+  callerNumber: string | null;
+  setCallerNumber: (number: string | null) => void;
 
   setLocation: (location: DetectedLocation) => void;
   setNearbyJobs: (jobs: NearbyJob[]) => void;
