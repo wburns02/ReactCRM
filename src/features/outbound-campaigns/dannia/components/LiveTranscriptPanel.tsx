@@ -42,10 +42,27 @@ export function LiveTranscriptPanel({
     useCustomerTranscript(isOnCall ? callSid : undefined);
 
   const transcriptEndRef = useRef<HTMLDivElement>(null);
+  const transcriptContainerRef = useRef<HTMLDivElement>(null);
+  const userHasScrolledUp = useRef(false);
 
-  // Auto-scroll transcript
+  // Track when user scrolls up manually
   useEffect(() => {
-    transcriptEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = transcriptContainerRef.current;
+    if (!container) return;
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      // User is "near bottom" if within 60px of the bottom
+      userHasScrolledUp.current = scrollHeight - scrollTop - clientHeight > 60;
+    };
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Auto-scroll transcript only if user hasn't scrolled up
+  useEffect(() => {
+    if (!userHasScrolledUp.current) {
+      transcriptEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [transcript, interimTranscript, customerTranscripts]);
 
   // Report transcript to parent (include both sides)
@@ -154,7 +171,7 @@ export function LiveTranscriptPanel({
       )}
 
       {/* Transcript area — two-sided when STT is connected */}
-      <div className="flex-1 overflow-y-auto px-3 py-2 max-h-[200px] min-h-[80px]">
+      <div ref={transcriptContainerRef} className="flex-1 overflow-y-auto px-3 py-2 max-h-[200px] min-h-[80px]">
         {!callerTranscript && !callerInterim && !hasCustomerTranscripts && (
           <div className="text-center py-4">
             <div className="flex items-center justify-center gap-2 mb-2">

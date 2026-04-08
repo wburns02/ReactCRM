@@ -262,6 +262,15 @@ export const workOrderFormSchema = z.object({
   system_type: z.string().optional(),
   // Work details
   notes: z.string().optional(),
+}).superRefine((data, ctx) => {
+  // Require technician when a scheduled_date is set
+  if (data.scheduled_date && !data.assigned_technician) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Technician is required when scheduling a work order",
+      path: ["assigned_technician"],
+    });
+  }
 });
 
 export type WorkOrderFormData = z.infer<typeof workOrderFormSchema>;

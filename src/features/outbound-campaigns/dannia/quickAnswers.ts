@@ -85,8 +85,8 @@ export function generateQuickAnswers(
       id: "qa-zone-local",
       category: "pricing",
       title: `${zone.includes("1") ? "Zone 1 — Home Base" : "Zone 2 — Local"}`,
-      content: `Close to base — excellent response times, priority scheduling available. Standard pricing: pump-out $275-$400, free first inspection. Easiest to schedule.`,
-      talkingPoint: `You're right in our core service area, so we can offer excellent response times and priority scheduling. Standard pump-out runs $275-$400.`,
+      content: `Close to base — excellent response times, priority scheduling available. Standard pricing: pump-out starting at $595, inspection $150-$250. Easiest to schedule.`,
+      talkingPoint: `You're right in our core service area, so we can offer excellent response times and priority scheduling. Standard pump-out starts at $595.`,
       priority: 7,
     });
   } else if (zone.includes("3") || zone.includes("4") || zone.includes("5")) {
@@ -106,8 +106,8 @@ export function generateQuickAnswers(
     id: "qa-pricing-ref",
     category: "pricing",
     title: "Pricing Quick Reference",
-    content: `Pump-out: $275-$400 | Inspection: FREE (new customers) | Maintenance plan: $350-$600/yr | Emergency: +$75-$150 | Repairs: get free inspection first for quote.`,
-    talkingPoint: `For a standard residential pump-out, most customers pay between $275 and $400. And your first inspection would be completely free — no obligation.`,
+    content: `Pump-out: Starting at $595 | Inspection: $150-$250 | Maintenance plan: $350-$600/yr | Emergency: +$75-$150 | Repairs: schedule inspection first for quote.`,
+    talkingPoint: `For a standard residential pump-out, pricing starts at $595 depending on tank size and accessibility. We can also schedule an inspection to assess your system — those run $150 to $250.`,
     priority: 8,
   });
 

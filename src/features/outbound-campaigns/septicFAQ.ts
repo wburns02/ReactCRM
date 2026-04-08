@@ -28,7 +28,7 @@ export const SEPTIC_FAQ: SepticFAQItem[] = [
     id: 1,
     question: "How much does it cost to pump a septic tank?",
     answer:
-      "A standard residential pump-out typically runs $275–$600 depending on tank size, accessibility, and your location. Most homeowners pay around $350–$400. We provide an exact quote before any work begins — no surprise fees.",
+      "A standard residential pump-out starts at $595 depending on tank size, accessibility, and your location. We provide an exact quote before any work begins — no surprise fees.",
     category: "Cost & Pricing",
     keywords: [
       "how much",
@@ -154,7 +154,7 @@ export const SEPTIC_FAQ: SepticFAQItem[] = [
     id: 7,
     question: "How much does a septic inspection cost?",
     answer:
-      "A basic visual inspection runs $100–$250. A full inspection with tank pumping (required for most real estate transactions) costs $300–$600. We offer free inspections as part of our new customer outreach — that's actually what I'm calling about today.",
+      "A standard inspection runs $150–$250. A full inspection with tank pumping (required for most real estate transactions) costs $300–$600. We can schedule an inspection to assess your system — that's actually what I'm calling about today.",
     category: "Cost & Pricing",
     keywords: [
       "inspection cost",
@@ -590,7 +590,7 @@ export const SEPTIC_FAQ: SepticFAQItem[] = [
     id: 27,
     question: "What type of septic system do I have?",
     answer:
-      "The most common types are conventional (gravity-fed tank and drain field), aerobic treatment units (ATUs that use oxygen to treat waste), and mound systems (elevated drain fields for poor soil). Your county permit records will show what was installed. We can identify your system type during a free inspection.",
+      "The most common types are conventional (gravity-fed tank and drain field), aerobic treatment units (ATUs that use oxygen to treat waste), and mound systems (elevated drain fields for poor soil). Your county permit records will show what was installed. We can identify your system type during an inspection.",
     category: "System Types",
     keywords: [
       "what type",

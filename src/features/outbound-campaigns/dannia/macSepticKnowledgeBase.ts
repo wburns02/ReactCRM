@@ -37,9 +37,9 @@ const PRICING_ENTRIES: KBEntry[] = [
     patterns: [/how much.*pump|pump.*cost|price.*pump|pump.*price/i],
     question: "How much does a pump-out cost?",
     answer:
-      "Standard residential pump-out: $275-$400 depending on tank size and accessibility. No hidden fees — pricing is transparent and quoted upfront. New customers get competitive introductory rates.",
+      "Standard residential pump-out starts at $595 depending on tank size and accessibility. No hidden fees — pricing is transparent and quoted upfront.",
     dynamicAnswer: (c) =>
-      `Standard residential pump-out: $275-$400 depending on tank size and accessibility. ${c.system_type ? `For a ${c.system_type}, pricing may vary based on system complexity.` : ""} No hidden fees — we quote upfront. As a new customer, they'd qualify for our introductory rates.`,
+      `Standard residential pump-out starts at $595 depending on tank size and accessibility. ${c.system_type ? `For a ${c.system_type}, pricing may vary based on system complexity.` : ""} No hidden fees — we quote upfront.`,
     priority: 10,
   },
   {
@@ -49,7 +49,7 @@ const PRICING_ENTRIES: KBEntry[] = [
     patterns: [/inspection.*cost|how much.*inspect|price.*inspect|free.*inspect/i],
     question: "How much is an inspection?",
     answer:
-      "First inspection for new customers is FREE — no obligation. Standard inspection: $150-$250. Includes tank level check, baffle inspection, structural assessment, drainfield evaluation, and a written report with photos.",
+      "Inspection: $150-$250 depending on system type and accessibility. Includes tank level check, baffle inspection, structural assessment, drainfield evaluation, and a written report with photos.",
     priority: 9,
   },
   {
@@ -364,7 +364,7 @@ const SERVICE_ENTRIES: KBEntry[] = [
     patterns: [/what.*inspection.*include|inspection.*process|what.*inspect|thorough/i],
     question: "What does an inspection include?",
     answer:
-      "Our inspections cover: tank levels, inlet/outlet baffles, structural integrity, drainfield performance, all mechanical components (aerobic systems), and effluent quality. Takes 30-45 minutes. You get a written report with photos, condition assessment, and recommendations. First inspection is free for new customers.",
+      "Our inspections cover: tank levels, inlet/outlet baffles, structural integrity, drainfield performance, all mechanical components (aerobic systems), and effluent quality. Takes 30-45 minutes. You get a written report with photos, condition assessment, and recommendations. Inspections run $150-$250.",
     priority: 8,
   },
   {
@@ -581,8 +581,8 @@ export function buildSystemPrompt(contact?: CampaignContact | null): string {
 
   parts.push("");
   parts.push("PRICING REFERENCE:");
-  parts.push("- Pump-out: $275-$400 (residential standard)");
-  parts.push("- First inspection: FREE for new customers");
+  parts.push("- Pump-out: Starting at $595 (residential standard)");
+  parts.push("- Inspection: $150-$250");
   parts.push("- Maintenance plans: $350-$600/year");
   parts.push("- Emergency fee: $75-$150 additional");
 

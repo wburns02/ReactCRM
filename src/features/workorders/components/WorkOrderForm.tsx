@@ -143,6 +143,8 @@ export function WorkOrderForm({
         },
   });
 
+  const watchScheduledDate = watch("scheduled_date");
+
   const handleClose = () => {
     reset();
     setShowBillTo(false);
@@ -367,10 +369,13 @@ export function WorkOrderForm({
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="assigned_technician">Technician</Label>
+                  <Label htmlFor="assigned_technician">
+                    Technician{watchScheduledDate ? " *" : ""}
+                  </Label>
                   <Select
                     id="assigned_technician"
                     {...register("assigned_technician")}
+                    className={errors.assigned_technician ? "border-red-500" : ""}
                   >
                     <option value="">Select technician...</option>
                     {technicians.map((t) => (
@@ -382,6 +387,11 @@ export function WorkOrderForm({
                       </option>
                     ))}
                   </Select>
+                  {errors.assigned_technician && (
+                    <p className="text-sm text-red-500">
+                      {errors.assigned_technician.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">

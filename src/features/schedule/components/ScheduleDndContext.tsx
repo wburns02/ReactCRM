@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, useCallback, type ReactNode } from "react";
 import {
   DndContext,
   type DragEndEvent,
@@ -26,6 +26,7 @@ import {
   PRIORITY_LABELS,
 } from "@/api/types/workOrder.ts";
 import { type DropTargetData } from "@/api/types/schedule.ts";
+import { toastError } from "@/components/ui/Toast";
 
 interface ScheduleDndContextProps {
   children: ReactNode;
@@ -247,6 +248,13 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
     // Get drop target data for scheduling
     const dropData = over.data.current as DropTargetData | undefined;
     if (!dropData?.date) return;
+
+    // Require a technician — either from the drop column or the work order itself
+    const resolvedTechnician = dropData.technician || workOrder.assigned_technician;
+    if (!resolvedTechnician) {
+      toastError("Technician required — drop onto a technician column or assign one first");
+      return;
+    }
 
     // Don't do anything if dropped on same date/tech
     if (

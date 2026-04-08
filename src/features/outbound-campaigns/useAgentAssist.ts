@@ -45,7 +45,7 @@ const KNOWLEDGE_BASE: {
   {
     patterns: [/how much|cost|price|pricing|expensive|cheap|afford/i],
     response: (c) =>
-      `For a standard residential pump-out, pricing typically runs $275–$400 depending on system size and accessibility. ${c.system_type ? `Since they have a ${c.system_type}, ` : ""}mention that we're offering new customer deals right now. Always be transparent — no hidden fees. If they push for an exact number, offer the free inspection: "Let me get a tech out there so we can give you an exact quote — no obligation."`,
+      `For a standard residential pump-out, pricing starts at $595 depending on system size and accessibility. ${c.system_type ? `Since they have a ${c.system_type}, ` : ""}always be transparent — no hidden fees. If they push for an exact number, offer to schedule an inspection: "Let me get a tech out there so we can give you an exact quote."`,
   },
   {
     patterns: [/how often|frequency|how long|when should|maintenance schedule/i],
@@ -85,7 +85,7 @@ const KNOWLEDGE_BASE: {
   {
     patterns: [/drainfield|leach|drain field|lateral|absorption/i],
     response: () =>
-      `Drainfield issues can be serious and expensive if left unchecked. Signs include soggy ground, slow drains, and odor. Reassure them: "Many drainfield issues can be resolved without full replacement if caught early. Our inspection will tell us exactly what's going on." Position the free inspection as time-sensitive: "The sooner we take a look, the more options we'll have."`,
+      `Drainfield issues can be serious and expensive if left unchecked. Signs include soggy ground, slow drains, and odor. Reassure them: "Many drainfield issues can be resolved without full replacement if caught early. Our inspection will tell us exactly what's going on." Position an inspection as time-sensitive: "The sooner we take a look, the more options we'll have."`,
   },
   {
     patterns: [/aerobic|spray|advanced|atu|treatment/i],
@@ -95,7 +95,7 @@ const KNOWLEDGE_BASE: {
   {
     patterns: [/inspection|look at|check|assess/i],
     response: () =>
-      `Our inspections are thorough: we check tank levels, inlet/outlet baffles, structural integrity, drainfield performance, and all mechanical components. For new customers, the first inspection is free — no obligation. It takes about 30–45 minutes. The tech will provide a written report with photos and recommendations. This builds trust and almost always leads to a service contract.`,
+      `Our inspections are thorough: we check tank levels, inlet/outlet baffles, structural integrity, drainfield performance, and all mechanical components. Inspections run $150-$250 depending on system type. It takes about 30–45 minutes. The tech will provide a written report with photos and recommendations. This builds trust and almost always leads to a service contract.`,
   },
   {
     patterns: [/pump.*out|pumping|clean.*tank|empty/i],

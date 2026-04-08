@@ -108,10 +108,10 @@ export function useEnhancedAgentAssist(): UseEnhancedAgentAssistReturn {
 
   // Demo live hints (upgraded with KB-aware hints)
   const DEMO_HINTS: Omit<LiveHint, "id" | "timestamp">[] = [
-    { text: "Customer mentioned pricing — pump-out is $275-$400 for standard residential.", type: "tip" },
+    { text: "Customer mentioned pricing — pump-out starts at $595 for standard residential.", type: "tip" },
     { text: "They have an aerobic system — mention quarterly TCEQ-required maintenance.", type: "upsell" },
     { text: "Customer sounds hesitant — slow down and ask an open-ended question.", type: "tip" },
-    { text: "Opportunity: offer the free first inspection to get a foot in the door.", type: "upsell" },
+    { text: "Opportunity: offer to schedule an inspection ($150-$250) to get a foot in the door.", type: "upsell" },
     { text: "They asked about other companies — focus on our strengths, don't compare.", type: "warning" },
     { text: "Great time to mention: maintenance plan customers get priority scheduling.", type: "upsell" },
   ];
@@ -215,5 +215,5 @@ function buildFallbackResponse(
     );
   }
 
-  return `I don't have a specific answer for that question, but here's a general approach: Acknowledge ${contact.account_name?.split(" ")[0] || "the customer"}'s concern, show empathy, and pivot to Mac Septic's strengths — superior service, transparent pricing ($275-$400 for standard pump-out), and our new customer deal with a free first inspection. If you're unsure, say: "That's a great question — let me have our service manager follow up with the details."`;
+  return `I don't have a specific answer for that question, but here's a general approach: Acknowledge ${contact.account_name?.split(" ")[0] || "the customer"}'s concern, show empathy, and pivot to Mac Septic's strengths — superior service, transparent pricing (pump-out starting at $595), and professional inspections ($150-$250). If you're unsure, say: "That's a great question — let me have our service manager follow up with the details."`;
 }

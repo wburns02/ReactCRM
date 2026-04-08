@@ -106,8 +106,8 @@ export function getCallScript(contact: CampaignContact): CallScript {
   const closing: ScriptSection = {
     title: "Close / Next Steps",
     lines: [
-      `"What I'd like to do is set up a free system inspection for you — no obligation, no pressure."`,
-      `"We'll come out, take a look at your system, give you an honest assessment, and put together a quote."`,
+      `"What I'd like to do is set up a system inspection for you — we'll come out, take a look, and give you an honest assessment."`,
+      `"Inspections run $150 to $250 depending on the system, and you get a full written report with photos."`,
       `"What day works best for you this week or next?"`,
       `[If hesitant]: "I completely understand. Can I at least send you our info so you have it on hand? What's the best email to reach you at?"`,
     ],
@@ -125,11 +125,11 @@ export function getCallScript(contact: CampaignContact): CallScript {
     },
     {
       objection: "How much does it cost?",
-      response: `"Great question! Our pricing depends on the size and type of your system, but I can tell you we're very competitive — especially for new customers. For a standard residential pump-out, most of our customers pay between $275 and $400. We're transparent about pricing — no surprise fees."`,
+      response: `"Great question! For a standard residential pump-out, pricing starts at $595 depending on tank size and accessibility. We're transparent about pricing — no surprise fees."`,
     },
     {
       objection: "I just got my septic pumped",
-      response: `"Perfect timing then! Since your system is freshly pumped, this is actually the best time to do an inspection — we can see everything clearly. And if everything looks good, you'll have peace of mind. Want me to schedule a quick free check-up?"`,
+      response: `"Perfect timing then! Since your system is freshly pumped, this is actually the best time to do an inspection — we can see everything clearly. And if everything looks good, you'll have peace of mind. Want me to schedule an inspection?"`,
     },
     {
       objection: "I'm on city sewer / don't have a septic",
