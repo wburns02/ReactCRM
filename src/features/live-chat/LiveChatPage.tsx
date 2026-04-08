@@ -477,10 +477,17 @@ export function LiveChatPage() {
                                 : relativeTime(conv.created_at)}
                             </span>
                           </div>
-                          {conv.callback_requested && conv.visitor_phone && (
-                            <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mt-0.5 flex items-center gap-1">
-                              <Phone className="w-3 h-3" />
-                              {conv.visitor_phone}
+                          {(conv.visitor_phone || conv.visitor_email) && (
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 flex items-center gap-2 truncate">
+                              {conv.visitor_phone && (
+                                <span className="flex items-center gap-0.5">
+                                  <Phone className="w-3 h-3 flex-shrink-0" />
+                                  {conv.visitor_phone}
+                                </span>
+                              )}
+                              {conv.visitor_email && (
+                                <span className="truncate">{conv.visitor_email}</span>
+                              )}
                             </p>
                           )}
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
@@ -548,8 +555,8 @@ export function LiveChatPage() {
                     )}
                   </h2>
                   <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                    {isCallback && visitorPhone && (
-                      <a href={`tel:${visitorPhone}`} className="text-amber-600 dark:text-amber-400 font-medium hover:underline flex items-center gap-1">
+                    {visitorPhone && (
+                      <a href={`tel:${visitorPhone}`} className="text-green-600 dark:text-green-400 font-medium hover:underline flex items-center gap-1">
                         <Phone className="w-3 h-3" />
                         {visitorPhone}
                       </a>
