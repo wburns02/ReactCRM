@@ -307,7 +307,7 @@ export function LiveChatPage() {
     "Anonymous Visitor";
   const visitorEmail =
     selectedConvSummary?.visitor_email || selectedConversation?.visitor_email;
-  const visitorPhone = selectedConvSummary?.visitor_phone;
+  const visitorPhone = selectedConvSummary?.visitor_phone || selectedConversation?.visitor_phone;
   const convStatus =
     selectedConvSummary?.status || selectedConversation?.status || "active";
   const isCallback = selectedConvSummary?.callback_requested;
