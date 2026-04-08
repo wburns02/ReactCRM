@@ -29,6 +29,7 @@ import { ActivityTimeline } from "@/features/activities";
 import { AttachmentList } from "@/features/documents";
 import { DialButton, CallLog } from "@/features/phone/index.ts";
 import { useEmailCompose } from "@/context/EmailComposeContext";
+import { CountyBadge } from "@/components/CountyBadge.tsx";
 
 /**
  * Prospect detail page - view/edit individual prospect
@@ -137,6 +138,11 @@ export function ProspectDetailPage() {
         </div>
       </div>
 
+      {/* County Badge — prominent for Dannia to see which county rules apply */}
+      {prospect.county && (
+        <CountyBadge county={prospect.county} className="mb-4" />
+      )}
+
       {/* Stage Quick Update */}
       <Card className="mb-6">
         <div className="flex items-center gap-4">
@@ -225,6 +231,14 @@ export function ProspectDetailPage() {
                   )}
                 </dd>
               </div>
+              {prospect.county && (
+                <div>
+                  <dt className="text-sm text-text-secondary">County</dt>
+                  <dd>
+                    <CountyBadge county={prospect.county} compact />
+                  </dd>
+                </div>
+              )}
             </dl>
           </CardContent>
         </Card>

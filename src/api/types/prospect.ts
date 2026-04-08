@@ -24,6 +24,7 @@ export const prospectSchema = z.object({
   city: z.string().nullable(),
   state: z.string().nullable(),
   postal_code: z.string().nullable(),
+  county: z.string().nullable().optional(),
   prospect_stage: prospectStageSchema.or(z.string()).nullable(),
   lead_source: leadSourceSchema.or(z.string()).nullable(),
   estimated_value: z

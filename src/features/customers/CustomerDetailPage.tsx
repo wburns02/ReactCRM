@@ -39,6 +39,7 @@ import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
 import { useEmailCompose } from "@/context/EmailComposeContext";
 import { ContractList } from "@/features/contracts/components/ContractList.tsx";
 import { PermitHistory } from "./components/PermitHistory.tsx";
+import { CountyBadge } from "@/components/CountyBadge.tsx";
 import { WorkOrderForm } from "@/features/workorders/components/WorkOrderForm.tsx";
 import type { WorkOrderFormData } from "@/api/types/workOrder.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
@@ -169,6 +170,11 @@ export function CustomerDetailPage() {
         </div>
       </div>
 
+      {/* County Badge — prominent for Dannia to see which county rules apply */}
+      {customer.county && (
+        <CountyBadge county={customer.county} className="mb-4" />
+      )}
+
       {/* Status Badge */}
       {customer.prospect_stage && (
         <Card className="mb-6">
@@ -252,6 +258,14 @@ export function CustomerDetailPage() {
                   )}
                 </dd>
               </div>
+              {customer.county && (
+                <div>
+                  <dt className="text-sm text-text-secondary">County</dt>
+                  <dd>
+                    <CountyBadge county={customer.county} compact />
+                  </dd>
+                </div>
+              )}
               {(customer.latitude || customer.longitude) && (
                 <div>
                   <dt className="text-sm text-text-secondary">Coordinates</dt>

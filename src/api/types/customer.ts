@@ -40,6 +40,7 @@ export const customerSchema = z.object({
   city: z.string().nullable(),
   state: z.string().nullable(),
   postal_code: z.string().nullable(),
+  county: z.string().nullable().optional(),
   // Backend Decimal may serialize as string — coerce to number
   latitude: z.union([z.number(), z.string().transform(Number)]).nullable(),
   longitude: z.union([z.number(), z.string().transform(Number)]).nullable(),

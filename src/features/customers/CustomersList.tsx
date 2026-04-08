@@ -9,6 +9,7 @@ import { PROSPECT_STAGE_LABELS } from "@/api/types/common.ts";
 import { CUSTOMER_TYPE_LABELS } from "@/api/types/customer.ts";
 import type { Customer } from "@/api/types/customer.ts";
 import { useEmailCompose } from "@/context/EmailComposeContext";
+import { CountyBadge } from "@/components/CountyBadge.tsx";
 
 /**
  * Props for memoized row components
@@ -107,6 +108,12 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
                 ? customer.city + ", " + customer.state
                 : customer.city || customer.state}
             </span>
+          </div>
+        )}
+        {customer.county && (
+          <div className="flex items-center gap-2">
+            <span className="text-text-muted">📍</span>
+            <CountyBadge county={customer.county} compact />
           </div>
         )}
         {customer.customer_type && (
@@ -224,10 +231,15 @@ const TableCustomerRow = memo(function TableCustomerRow({
           )}
         </div>
       </td>
-      <td className="px-4 py-3 text-sm text-text-secondary">
-        {customer.city && customer.state
-          ? customer.city + ", " + customer.state
-          : customer.city || customer.state || "-"}
+      <td className="px-4 py-3 text-sm">
+        <div className="text-text-secondary">
+          {customer.city && customer.state
+            ? customer.city + ", " + customer.state
+            : customer.city || customer.state || "-"}
+        </div>
+        {customer.county && (
+          <CountyBadge county={customer.county} compact className="mt-0.5" />
+        )}
       </td>
       <td className="px-4 py-3 text-sm">
         {customer.customer_type &&

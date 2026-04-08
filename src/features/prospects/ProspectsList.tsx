@@ -10,6 +10,7 @@ import {
   LEAD_SOURCE_LABELS,
 } from "@/api/types/common.ts";
 import type { Prospect } from "@/api/types/prospect.ts";
+import { CountyBadge } from "@/components/CountyBadge.tsx";
 
 /**
  * Props for memoized row component
@@ -65,6 +66,9 @@ const TableProspectRow = memo(function TableProspectRow({
             <p className="text-sm text-text-secondary">
               {prospect.company_name}
             </p>
+          )}
+          {prospect.county && (
+            <CountyBadge county={prospect.county} compact className="mt-0.5" />
           )}
         </div>
       </td>
@@ -221,6 +225,12 @@ export function ProspectsList({
                 </Badge>
               </div>
               <div className="space-y-1 text-sm mb-3">
+                {prospect.county && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-text-muted">📍</span>
+                    <CountyBadge county={prospect.county} compact />
+                  </div>
+                )}
                 {prospect.email && (
                   <div className="flex items-center gap-2">
                     <span className="text-text-muted">📧</span>
