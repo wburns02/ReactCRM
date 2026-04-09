@@ -13,6 +13,7 @@ import {
   ExternalLink,
   ArrowLeft,
   Download,
+  RefreshCw,
 } from "lucide-react";
 import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 
@@ -142,6 +143,25 @@ function useGenerateWoPdf() {
       return data as { pdf_base64: string; status: string };
     },
     onError: () => toastError("Failed to generate PDF"),
+  });
+}
+
+function useSyncForms() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      const { data } = await apiClient.post("/work-orders/inspection-letters/sync-forms");
+      return data as { synced: number; skipped: number; errors: string[] };
+    },
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ["inspection-letters", "queue"] });
+      if (data.synced > 0) {
+        toastSuccess(`Synced ${data.synced} new inspection(s) from Forms`);
+      } else {
+        toastInfo("No new form responses to sync");
+      }
+    },
+    onError: () => toastError("Forms sync failed — check MS365 config"),
   });
 }
 
@@ -702,6 +722,7 @@ function WoLetterEditor({ item, onClose }: { item: LetterQueueItem; onClose: () 
 
 export function InspectionLettersPage() {
   const { data, isLoading, error } = useInspectionLetterQueue();
+  const syncMutation = useSyncForms();
   const [filter, setFilter] = useState<FilterTab>("all");
   const [showNewLetter, setShowNewLetter] = useState(false);
   const [editingItem, setEditingItem] = useState<LetterQueueItem | null>(null);
@@ -746,13 +767,24 @@ export function InspectionLettersPage() {
           <h1 className="text-2xl font-bold text-gray-900">Inspection Letters</h1>
           <p className="mt-1 text-sm text-gray-500">AI-powered inspection letter generation for real estate inspections</p>
         </div>
-        <button
-          onClick={() => setShowNewLetter(true)}
-          className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          <Plus className="h-4 w-4" />
-          New Letter
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => syncMutation.mutate()}
+            disabled={syncMutation.isPending}
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+            title="Pull latest responses from MS Forms"
+          >
+            <RefreshCw className={`h-4 w-4 ${syncMutation.isPending ? "animate-spin" : ""}`} />
+            {syncMutation.isPending ? "Syncing..." : "Sync Forms"}
+          </button>
+          <button
+            onClick={() => setShowNewLetter(true)}
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          >
+            <Plus className="h-4 w-4" />
+            New Letter
+          </button>
+        </div>
       </div>
 
       {/* Stats */}
