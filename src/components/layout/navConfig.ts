@@ -72,6 +72,7 @@ export const navGroups: NavGroup[] = [
       { path: "/employee", label: "Employee Portal", icon: Smartphone },
       { path: "/service-intervals", label: "Service Intervals", icon: RefreshCw },
       { path: "/compliance", label: "Compliance", icon: ShieldCheck },
+      { path: "/inspection-letters", label: "Inspection Letters", icon: ClipboardCheck },
       { path: "/timesheets", label: "Timesheets", icon: Timer },
     ],
   },

@@ -57,6 +57,13 @@ const DocumentCenterPage = lazy(() =>
   })),
 );
 
+// Inspection Letters
+const InspectionLettersPage = lazy(() =>
+  import("@/features/inspection-letters/InspectionLettersPage").then((m) => ({
+    default: m.InspectionLettersPage,
+  })),
+);
+
 /**
  * Operations routes - Equipment, Inventory, Fleet, Tracking
  */
@@ -137,6 +144,16 @@ export function OperationsRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <DocumentCenterPage />
+          </Suspense>
+        }
+      />
+
+      {/* Inspection Letters */}
+      <Route
+        path="inspection-letters"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <InspectionLettersPage />
           </Suspense>
         }
       />
