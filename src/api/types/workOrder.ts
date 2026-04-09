@@ -242,7 +242,7 @@ export const workOrderFormSchema = z.object({
   scheduled_date: z.string().optional(),
   time_window_start: z.string().optional(),
   time_window_end: z.string().optional(),
-  estimated_duration_hours: z.preprocess((v) => (v === "" || v === undefined ? undefined : v), z.coerce.number().min(0).optional()),
+  estimated_duration_hours: z.union([z.literal(""), z.undefined(), z.null()]).transform(() => undefined).or(z.coerce.number().min(0)).optional(),
   // Assignment
   assigned_technician: z.string().optional(),
   assigned_vehicle: z.string().optional(),
@@ -253,11 +253,11 @@ export const workOrderFormSchema = z.object({
   service_state: z.string().max(2, "Use 2-letter state code").optional(),
   service_postal_code: z.string().optional(),
   // Pumping details
-  gallons_pumped: z.preprocess((v) => (v === "" || v === undefined ? undefined : v), z.coerce.number().min(0).optional()),
+  gallons_pumped: z.union([z.literal(""), z.undefined(), z.null()]).transform(() => undefined).or(z.coerce.number().min(0)).optional(),
   dump_site_id: z.string().optional(),
-  dump_fee: z.preprocess((v) => (v === "" || v === undefined ? undefined : v), z.coerce.number().min(0).optional()),
+  dump_fee: z.union([z.literal(""), z.undefined(), z.null()]).transform(() => undefined).or(z.coerce.number().min(0)).optional(),
   // Pricing
-  total_amount: z.preprocess((v) => (v === "" || v === undefined ? undefined : v), z.coerce.number().min(0).optional()),
+  total_amount: z.union([z.literal(""), z.undefined(), z.null()]).transform(() => undefined).or(z.coerce.number().min(0)).optional(),
   // System type
   system_type: z.string().optional(),
   // Work details
