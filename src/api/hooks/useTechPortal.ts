@@ -774,3 +774,84 @@ export function useFetchInspectionWeather() {
     onError: () => toastError("Could not fetch weather data"),
   });
 }
+
+// ── AI Inspection Letter ───────────────────────────────────────────────────
+
+export interface AILetterDraft {
+  body: string;
+  generated_at: string;
+  model: string;
+  status?: string;
+  error?: string;
+  approved_body?: string;
+  document_id?: string;
+  signer?: string;
+  sent_to?: string;
+  sent_at?: string;
+}
+
+export interface ApprovedLetter {
+  document_id: string;
+  pdf_base64: string;
+  status: string;
+}
+
+export interface SentLetter {
+  success: boolean;
+  sent_to: string;
+}
+
+export function useGenerateInspectionLetter() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (jobId: string): Promise<AILetterDraft> => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/generate-letter`);
+      return data;
+    },
+    onSuccess: (_data, jobId) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId, "inspection"] });
+    },
+    onError: () => toastError("Failed to generate AI letter — try again"),
+  });
+}
+
+export function useApproveInspectionLetter() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      jobId,
+      editedBody,
+      signer,
+    }: {
+      jobId: string;
+      editedBody: string;
+      signer: string;
+    }): Promise<ApprovedLetter> => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/approve-letter`, {
+        edited_body: editedBody,
+        signer,
+      });
+      return data;
+    },
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", vars.jobId, "inspection"] });
+      toastSuccess("Letter approved and PDF generated!");
+    },
+    onError: () => toastError("Failed to generate letter PDF"),
+  });
+}
+
+export function useSendInspectionLetter() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (jobId: string): Promise<SentLetter> => {
+      const { data } = await apiClient.post(`/employee/jobs/${jobId}/inspection/send-letter`);
+      return data;
+    },
+    onSuccess: (data, jobId) => {
+      qc.invalidateQueries({ queryKey: ["tech-portal", "jobs", jobId, "inspection"] });
+      toastSuccess(`Letter emailed to ${data.sent_to}!`);
+    },
+    onError: () => toastError("Failed to send letter"),
+  });
+}

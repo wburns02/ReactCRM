@@ -29,6 +29,7 @@ import {
 } from "@/api/hooks/useTechPortal.ts";
 import { useWorkOrderPhotos, type PhotoResponse } from "@/api/hooks/useWorkOrderPhotos.ts";
 import { EstimateSignature } from "./EstimateSignature.tsx";
+import { InspectionLetterPanel } from "./InspectionLetterPanel.tsx";
 import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 
 interface Props {
@@ -2360,6 +2361,17 @@ export function InspectionChecklist({ jobId, systemType = "aerobic", jobType, cu
             </div>
           )}
         </div>
+
+        {/* AI Inspection Letter — RE inspections only */}
+        {isRealEstateInspection && (
+          <InspectionLetterPanel
+            jobId={jobId}
+            inspection={localState}
+            customerName={customerName}
+            customerEmail={customerEmail}
+            existingLetter={(localState as any).ai_letter}
+          />
+        )}
 
         <button
           onClick={() => { setShowSummary(false); setCurrentStep(1); }}
