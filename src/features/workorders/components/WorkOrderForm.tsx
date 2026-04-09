@@ -186,8 +186,25 @@ export function WorkOrderForm({
           {isEdit ? "Edit Work Order" : "Create Work Order"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit, () => {
+          // On validation error, scroll to the first error field
+          setTimeout(() => {
+            const firstError = document.querySelector('[role="dialog"] .border-red-500, [role="dialog"] .text-red-500');
+            if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        })}>
           <DialogBody className="space-y-6 max-h-[60vh] overflow-y-auto">
+            {/* Validation error banner */}
+            {Object.keys(errors).length > 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                <p className="font-medium">Please fix the following errors:</p>
+                <ul className="mt-1 list-disc list-inside">
+                  {Object.entries(errors).map(([key, err]) => (
+                    <li key={key}>{(err as { message?: string })?.message || `${key} is invalid`}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {/* Customer & Job Type */}
             <div>
               <h4 className="text-sm font-medium text-text-secondary mb-3 uppercase tracking-wide">
