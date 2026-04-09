@@ -39,7 +39,7 @@ function useInspectionLetterQueue() {
     queryKey: ["inspection-letters", "queue"],
     queryFn: async () => {
       const { data } = await apiClient.get(
-        "/employee/inspection-letters/queue",
+        "/work-orders/inspection-letters/queue",
       );
       return data as { items: LetterQueueItem[]; total: number };
     },
