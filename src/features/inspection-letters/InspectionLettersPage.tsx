@@ -120,6 +120,31 @@ function useGenerateStandaloneLetter() {
   });
 }
 
+function useGenerateWoLetter() {
+  return useMutation({
+    mutationFn: async (workOrderId: string) => {
+      const { data } = await apiClient.post(
+        `/work-orders/inspection-letters/${workOrderId}/generate`,
+      );
+      return data as { body: string; generated_at: string; model: string; status: string; error?: string; form_data: Record<string, string> };
+    },
+    onError: () => toastError("Failed to generate letter — try again"),
+  });
+}
+
+function useGenerateWoPdf() {
+  return useMutation({
+    mutationFn: async ({ workOrderId, payload }: { workOrderId: string; payload: Record<string, unknown> }) => {
+      const { data } = await apiClient.post(
+        `/work-orders/inspection-letters/${workOrderId}/pdf`,
+        payload,
+      );
+      return data as { pdf_base64: string; status: string };
+    },
+    onError: () => toastError("Failed to generate PDF"),
+  });
+}
+
 function useGenerateStandalonePdf() {
   return useMutation({
     mutationFn: async (payload: Record<string, unknown>) => {
@@ -533,10 +558,153 @@ function StandaloneLetterForm({ onClose }: { onClose: () => void }) {
 
 // ── Main Page ──────────────────────────────────────────
 
+// ── WO Letter Editor ───────────────────────────────────
+
+function WoLetterEditor({ item, onClose }: { item: LetterQueueItem; onClose: () => void }) {
+  const [letterBody, setLetterBody] = useState("");
+  const [signer, setSigner] = useState("douglas_carter");
+  const [pdfBase64, setPdfBase64] = useState<string | null>(null);
+  const qc = useQueryClient();
+
+  const generateMutation = useGenerateWoLetter();
+  const pdfMutation = useGenerateWoPdf();
+
+  const handleGenerate = async () => {
+    const result = await generateMutation.mutateAsync(item.id);
+    if (result.error) {
+      toastError(result.error);
+      return;
+    }
+    setLetterBody(result.body);
+    toastInfo("AI letter draft generated — review and edit");
+  };
+
+  const handleApprove = async () => {
+    const result = await pdfMutation.mutateAsync({
+      workOrderId: item.id,
+      payload: {
+        letter_body: letterBody,
+        customer_name: item.customer_name,
+        customer_email: item.customer_email || "",
+        address: item.address,
+        inspection_date: item.scheduled_date || "",
+        signer,
+      },
+    });
+    setPdfBase64(result.pdf_base64);
+    qc.invalidateQueries({ queryKey: ["inspection-letters", "queue"] });
+    toastSuccess("PDF generated with photos!");
+  };
+
+  const handleDownload = () => {
+    if (!pdfBase64) return;
+    const binary = atob(pdfBase64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const blob = new Blob([bytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `MAC-Septic-Inspection-Letter-${item.customer_name.replace(/\s+/g, "-")}.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-3">
+        <button onClick={onClose} className="rounded-lg border border-gray-200 p-2 hover:bg-gray-50">
+          <ArrowLeft className="h-4 w-4" />
+        </button>
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">Write Letter — {item.customer_name}</h2>
+          <p className="text-sm text-gray-500">{item.address} | WO #{item.work_order_number || item.id.slice(0, 8)}</p>
+        </div>
+      </div>
+
+      {!letterBody ? (
+        <div className="rounded-lg border border-gray-200 bg-white p-8 text-center">
+          <FileText className="mx-auto h-12 w-12 text-blue-400" />
+          <h3 className="mt-4 text-lg font-medium text-gray-900">Generate AI Letter</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            The AI will read the inspection data from work order #{item.work_order_number || item.id.slice(0, 8)} and write a letter in Doug's style.
+          </p>
+          <button
+            onClick={handleGenerate}
+            disabled={generateMutation.isPending}
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-bold text-white hover:bg-blue-700 disabled:opacity-50"
+          >
+            {generateMutation.isPending ? (
+              <><Loader2 className="h-4 w-4 animate-spin" /> Generating AI Letter...</>
+            ) : (
+              "Generate AI Letter"
+            )}
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Letter Body</label>
+                <span className="text-xs text-gray-400">{letterBody.split(/\s+/).length} words</span>
+              </div>
+              <textarea
+                value={letterBody}
+                onChange={(e) => { setLetterBody(e.target.value); setPdfBase64(null); }}
+                rows={20}
+                className="w-full rounded-lg border border-gray-300 bg-white p-3 text-sm leading-relaxed resize-y focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+              <div className="mt-2 flex items-center gap-2">
+                <label className="text-xs font-medium text-gray-500">Signer:</label>
+                <select value={signer} onChange={(e) => { setSigner(e.target.value); setPdfBase64(null); }} className="text-xs rounded-md border border-gray-300 bg-white px-2 py-1">
+                  {SIGNERS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
+                </select>
+              </div>
+            </div>
+            <div className="lg:col-span-2">
+              <label className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-2">Work Order Info</label>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 text-xs space-y-2">
+                <div><span className="font-bold">Customer:</span> {item.customer_name}</div>
+                <div><span className="font-bold">Email:</span> {item.customer_email || "N/A"}</div>
+                <div><span className="font-bold">Address:</span> {item.address}</div>
+                <div><span className="font-bold">Date:</span> {formatDate(item.scheduled_date)}</div>
+                <div><span className="font-bold">WO Status:</span> {item.status}</div>
+                <div><span className="font-bold">Condition:</span> {item.overall_condition || "N/A"}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <button onClick={handleGenerate} disabled={generateMutation.isPending} className="rounded-lg border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100 disabled:opacity-50">
+              {generateMutation.isPending ? "Regenerating..." : "Regenerate"}
+            </button>
+            {!pdfBase64 ? (
+              <button onClick={handleApprove} disabled={pdfMutation.isPending || !letterBody.trim()} className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50">
+                {pdfMutation.isPending ? "Generating PDF..." : "Approve & Generate PDF"}
+              </button>
+            ) : (
+              <button onClick={handleDownload} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                <Download className="h-4 w-4" /> Download PDF
+              </button>
+            )}
+            <button onClick={onClose} className="ml-auto rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+              Back to Queue
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── Main Page ──────────────────────────────────────────
+
 export function InspectionLettersPage() {
   const { data, isLoading, error } = useInspectionLetterQueue();
   const [filter, setFilter] = useState<FilterTab>("all");
   const [showNewLetter, setShowNewLetter] = useState(false);
+  const [editingItem, setEditingItem] = useState<LetterQueueItem | null>(null);
 
   const items = data?.items ?? [];
 
@@ -553,6 +721,14 @@ export function InspectionLettersPage() {
     if (filter === "sent") return item.letter_status === "sent";
     return true;
   });
+
+  if (editingItem) {
+    return (
+      <div className="mx-auto max-w-7xl p-4 sm:p-6">
+        <WoLetterEditor item={editingItem} onClose={() => setEditingItem(null)} />
+      </div>
+    );
+  }
 
   if (showNewLetter) {
     return (
@@ -645,12 +821,13 @@ export function InspectionLettersPage() {
                   <td className="hidden whitespace-nowrap px-4 py-3 lg:table-cell"><ConditionBadge condition={item.overall_condition} /></td>
                   <td className="whitespace-nowrap px-4 py-3"><LetterStatusBadge status={item.letter_status} hasData={item.has_inspection_data} /></td>
                   <td className="whitespace-nowrap px-4 py-3 text-right">
-                    <Link
-                      to={`/work-orders/${item.id}`}
-                      className="inline-flex items-center gap-1 rounded-md border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                    <button
+                      onClick={() => setEditingItem(item)}
+                      className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
                     >
-                      Open <ExternalLink className="h-3 w-3" />
-                    </Link>
+                      <FileText className="h-3 w-3" />
+                      {item.letter_status === "none" ? "Write Letter" : item.letter_status === "draft" ? "Edit Draft" : "View Letter"}
+                    </button>
                   </td>
                 </tr>
               ))}
