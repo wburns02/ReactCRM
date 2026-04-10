@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client.ts";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   ClipboardCheck,
@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   Download,
   RefreshCw,
+  Upload,
 } from "lucide-react";
 import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast.tsx";
 
@@ -143,6 +144,27 @@ function useGenerateWoPdf() {
       return data as { pdf_base64: string; status: string };
     },
     onError: () => toastError("Failed to generate PDF"),
+  });
+}
+
+function useUploadForms() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      const { data } = await apiClient.post(
+        "/work-orders/inspection-letters/upload-forms",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } },
+      );
+      return data as { rows: number; headers: string[]; message: string };
+    },
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ["inspection-letters", "queue"] });
+      toastSuccess(`Uploaded ${data.rows} inspection responses`);
+    },
+    onError: () => toastError("Failed to upload Excel file"),
   });
 }
 
@@ -723,6 +745,8 @@ function WoLetterEditor({ item, onClose }: { item: LetterQueueItem; onClose: () 
 export function InspectionLettersPage() {
   const { data, isLoading, error } = useInspectionLetterQueue();
   const syncMutation = useSyncForms();
+  const uploadMutation = useUploadForms();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [filter, setFilter] = useState<FilterTab>("all");
   const [showNewLetter, setShowNewLetter] = useState(false);
   const [editingItem, setEditingItem] = useState<LetterQueueItem | null>(null);
@@ -768,11 +792,31 @@ export function InspectionLettersPage() {
           <p className="mt-1 text-sm text-gray-500">AI-powered inspection letter generation for real estate inspections</p>
         </div>
         <div className="flex items-center gap-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".xlsx,.xls"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) uploadMutation.mutate(file);
+              if (fileInputRef.current) fileInputRef.current.value = "";
+            }}
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploadMutation.isPending}
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+            title="Upload MS Forms Excel export"
+          >
+            <Upload className={`h-4 w-4 ${uploadMutation.isPending ? "animate-pulse" : ""}`} />
+            {uploadMutation.isPending ? "Uploading..." : "Upload Forms"}
+          </button>
           <button
             onClick={() => syncMutation.mutate()}
             disabled={syncMutation.isPending}
             className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-            title="Pull latest responses from MS Forms"
+            title="Pull latest responses from MS Forms via Graph API"
           >
             <RefreshCw className={`h-4 w-4 ${syncMutation.isPending ? "animate-spin" : ""}`} />
             {syncMutation.isPending ? "Syncing..." : "Sync Forms"}
