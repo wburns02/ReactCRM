@@ -15,6 +15,7 @@ import {
   Eye,
   Phone,
   PhoneCall,
+  Zap,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────
@@ -51,6 +52,20 @@ interface ChatStatus {
 }
 
 type FilterStatus = "active" | "closed" | "all";
+
+interface CannedResponse {
+  id: string;
+  title: string;
+  content: string;
+  shortcut?: string | null;
+  sort_order: number;
+}
+
+interface TypingStatus {
+  visitor_typing: boolean;
+  agent_typing: boolean;
+  agent_name?: string | null;
+}
 
 interface ContextMenuState {
   x: number;
@@ -89,8 +104,10 @@ export function LiveChatPage() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>("active");
   const [messageText, setMessageText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showCanned, setShowCanned] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const lastTypingPingRef = useRef(0);
 
   // ── Fetch business hours status ─────────────────────────────────────
 
@@ -146,6 +163,53 @@ export function LiveChatPage() {
   });
 
   const messages = selectedConversation?.messages || [];
+
+  // ── Canned responses ─────────────────────────────────────────────────
+
+  const { data: cannedResponses = [] } = useQuery({
+    queryKey: ["chat-canned-responses"],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get("/chat/canned-responses");
+        return (response.data || []) as CannedResponse[];
+      } catch {
+        return [];
+      }
+    },
+    staleTime: 60_000,
+  });
+
+  // ── Typing indicator from visitor ────────────────────────────────────
+
+  const { data: typingStatus } = useQuery({
+    queryKey: ["chat-typing", selectedId],
+    queryFn: async () => {
+      if (!selectedId) return null;
+      try {
+        const response = await apiClient.get(
+          `/chat/conversations/${selectedId}/typing`,
+        );
+        return response.data as TypingStatus;
+      } catch {
+        return null;
+      }
+    },
+    enabled: !!selectedId,
+    refetchInterval: 2000,
+  });
+
+  // Ping server that agent is typing (throttled)
+  const pingAgentTyping = useCallback(() => {
+    if (!selectedId) return;
+    const now = Date.now();
+    if (now - lastTypingPingRef.current < 2000) return;
+    lastTypingPingRef.current = now;
+    apiClient
+      .post(`/chat/conversations/${selectedId}/typing`, {
+        sender_type: "agent",
+      })
+      .catch(() => {});
+  }, [selectedId]);
 
   // ── Send reply mutation ──────────────────────────────────────────────
 
@@ -679,13 +743,69 @@ export function LiveChatPage() {
             {/* Input area */}
             {convStatus === "active" ? (
               <div className="px-5 py-3 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
+                {typingStatus?.visitor_typing && (
+                  <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-1.5 italic">
+                    <span className="flex gap-0.5">
+                      <span className="w-1 h-1 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1 h-1 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1 h-1 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </span>
+                    {visitorName} is typing…
+                  </div>
+                )}
+                {showCanned && cannedResponses.length > 0 && (
+                  <div className="mb-2 max-h-48 overflow-y-auto bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-1">
+                    {cannedResponses.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => {
+                          setMessageText((prev) =>
+                            prev.trim() ? prev + "\n" + c.content : c.content,
+                          );
+                          setShowCanned(false);
+                          setTimeout(() => {
+                            textareaRef.current?.focus();
+                            handleTextareaInput();
+                          }, 0);
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-md hover:bg-white dark:hover:bg-gray-700 transition-colors"
+                      >
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="text-xs font-semibold text-gray-900 dark:text-white">
+                            {c.title}
+                          </span>
+                          {c.shortcut && (
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                              {c.shortcut}
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
+                          {c.content}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <div className="flex items-end gap-2">
+                  <button
+                    onClick={() => setShowCanned((v) => !v)}
+                    title="Canned responses"
+                    className={`flex items-center justify-center w-10 h-10 rounded-xl transition-colors flex-shrink-0 ${
+                      showCanned
+                        ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    <Zap className="w-4 h-4" />
+                  </button>
                   <textarea
                     ref={textareaRef}
                     value={messageText}
                     onChange={(e) => {
                       setMessageText(e.target.value);
                       handleTextareaInput();
+                      pingAgentTyping();
                     }}
                     onKeyDown={handleKeyDown}
                     placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
