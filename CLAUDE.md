@@ -1,6 +1,6 @@
 # ReactCRM - ECBTX Septic Service Management Platform
 
-> **Version:** v2.4 — March 9, 2026  
+> **Version:** v2.4 — March 10, 2026  
 > **Status:** Production  
 > **Purpose:** Comprehensive CRM for septic service operations with AI-powered call intelligence and field management
 
@@ -35,9 +35,8 @@ ReactCRM/
 ├── e2e/                   # Playwright test suites (56 files)
 │   ├── features/          # Feature-specific E2E tests (20 files)
 │   ├── debug/             # Debug and diagnostic tests (18 files)
-│   ├── health/            # Health check tests (7 files)
+│   ├── health/            # Health check tests (8 files)
 │   └── accessibility/     # Accessibility tests (2 files)
-├── backend/               # FastAPI server (separate repo: ~/react-crm-api)
 ├── docs/                  # Architecture and user guides
 │   ├── architecture/      # Technical documentation (6 files)
 │   ├── customer-success/  # User guides (6 files)
@@ -46,10 +45,13 @@ ReactCRM/
 │   ├── opengov/           # OpenGov integrations (16 files)
 │   ├── mgo/               # MGO platform scrapers (11 files)
 │   └── harris_county/     # Harris County specific (6 files)
-├── mobile/                # Mobile-optimized components (6 files)
+├── mobile/                # Mobile-optimized components (10 files)
 ├── scripts/               # Automation and utilities (12 files)
-├── claude-docs/           # AI assistant documentation (5 files)
-└── healing/               # Auto-healing and monitoring (6 files)
+├── healing/               # Auto-healing and monitoring (6 files)
+│   ├── llm/               # LLM-powered diagnostics (5 files)
+│   ├── playbooks/         # Recovery playbooks (3 files)
+│   └── triage/            # Issue classification (4 files)
+└── backend/               # FastAPI server (separate repo: ~/react-crm-api)
 ```
 
 ---
@@ -183,7 +185,6 @@ Every code change MUST complete this cycle:
 - **`package.json`** — NEVER add/remove/change dependencies without explicit human approval
 - **`tailwind.config.ts`** — NEVER modify
 - If you think you need to change any build config, STOP and ask the user
-- Automated sprints that modify these files will be rejected
 
 ---
 

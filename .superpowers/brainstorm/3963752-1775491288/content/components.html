@@ -1,0 +1,102 @@
+<h2>Section 3: Frontend Component Architecture</h2>
+<p class="subtitle">How the React components fit together</p>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">Component Tree</div>
+    <div class="mockup-body" style="padding: 24px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; background: #1a1a2e; color: #e0e0e0; line-height: 2;">
+      <div style="color: #f59e0b;">// New components (features/call-map/)</div>
+      <div>&lt;<span style="color: #6366f1; font-weight: 600;">CallMapProvider</span>&gt; <span style="color: #666;">← wraps App, listens for location_detected WS events</span></div>
+      <div style="padding-left: 24px;">&lt;<span style="color: #22c55e; font-weight: 600;">CallMapFloater</span>&gt; <span style="color: #666;">← floating pop-over, renders anywhere</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">MiniMap</span>&gt; <span style="color: #666;">← compact MapLibre GL, ~380×200px</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">ZoneIndicator</span>&gt; <span style="color: #666;">← "✓ Core" / "⚠ Extended" / "✗ Outside"</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">DriveTimeChip</span>&gt; <span style="color: #666;">← "🚗 ~12 min from base"</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">LocationSource</span>&gt; <span style="color: #666;">← shows where detection came from</span></div>
+      <div style="height: 12px;"></div>
+      <div style="color: #f59e0b;">// Enhanced existing component</div>
+      <div>&lt;<span style="color: #6366f1; font-weight: 600;">SoftPhone</span>&gt; <span style="color: #666;">← existing, gets new map panel</span></div>
+      <div style="padding-left: 24px;">&lt;<span style="color: #22c55e; font-weight: 600;">CallMapPanel</span>&gt; <span style="color: #666;">← full side panel, replaces floater when open</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">FullMap</span>&gt; <span style="color: #666;">← larger MapLibre GL with zone polygons</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">ZoneLegend</span>&gt; <span style="color: #666;">← core (red) + extended (amber dashed)</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">CustomerInfoCard</span>&gt; <span style="color: #666;">← if matched, show customer details</span></div>
+      <div style="padding-left: 48px;">&lt;<span style="color: #38bdf8;">TranscriptHighlight</span>&gt; <span style="color: #666;">← quoted text that triggered detection</span></div>
+      <div style="height: 12px;"></div>
+      <div style="color: #f59e0b;">// State management</div>
+      <div>&lt;<span style="color: #ec4899; font-weight: 600;">callMapStore</span>&gt; <span style="color: #666;">← Zustand: location, zone, isVisible, isExpanded</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="height: 24px;"></div>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">Data Flow: Location Detection → Map Update</div>
+    <div class="mockup-body" style="padding: 24px; font-family: system-ui; font-size: 13px; background: #0f172a; color: #e0e0e0;">
+      <div style="display: flex; gap: 12px; align-items: stretch; flex-wrap: wrap;">
+        <!-- Step 1 -->
+        <div style="flex: 1; min-width: 140px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 20px; margin-bottom: 6px;">🎙️</div>
+          <div style="font-weight: 600; color: #6366f1; font-size: 12px;">WebSocket</div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">location_detected event arrives</div>
+        </div>
+        <div style="display: flex; align-items: center; color: #475569;">→</div>
+        <!-- Step 2 -->
+        <div style="flex: 1; min-width: 140px; background: rgba(236,72,153,0.15); border: 1px solid rgba(236,72,153,0.3); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 20px; margin-bottom: 6px;">🏪</div>
+          <div style="font-weight: 600; color: #ec4899; font-size: 12px;">callMapStore</div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Updates location, zone, confidence</div>
+        </div>
+        <div style="display: flex; align-items: center; color: #475569;">→</div>
+        <!-- Step 3 -->
+        <div style="flex: 1; min-width: 140px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 20px; margin-bottom: 6px;">🗺️</div>
+          <div style="font-weight: 600; color: #22c55e; font-size: 12px;">CallMapFloater</div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Auto-shows, flies map to pin</div>
+        </div>
+        <div style="display: flex; align-items: center; color: #475569;">→</div>
+        <!-- Step 4 -->
+        <div style="flex: 1; min-width: 140px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="font-size: 20px; margin-bottom: 6px;">👆</div>
+          <div style="font-weight: 600; color: #f59e0b; font-size: 12px;">User Action</div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Dismiss, or "Open Full View"</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; padding: 14px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-weight: 600; color: #f59e0b; font-size: 12px; margin-bottom: 8px;">KEY BEHAVIORS</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px;">
+          <div style="color: #94a3b8;">📍 New location replaces old pin (smooth fly-to animation)</div>
+          <div style="color: #94a3b8;">🔇 Floater auto-hides when call ends (5s delay)</div>
+          <div style="color: #94a3b8;">🎯 Higher confidence location replaces lower one</div>
+          <div style="color: #94a3b8;">📌 "Open Full View" navigates to /phone with map panel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="height: 24px;"></div>
+
+<h3>Zone Display Behavior</h3>
+<div class="options">
+  <div class="option" data-choice="core" onclick="toggleSelect(this)" style="border-left: 4px solid #22c55e;">
+    <div class="content">
+      <h3 style="color: #22c55e;">✓ Core Service Area</h3>
+      <p>Green badge + solid polygon on map. Confident "yes we service there."</p>
+    </div>
+  </div>
+  <div class="option" data-choice="extended" onclick="toggleSelect(this)" style="border-left: 4px solid #f59e0b;">
+    <div class="content">
+      <h3 style="color: #f59e0b;">⚠ Extended Service Area</h3>
+      <p>Amber badge + dashed polygon. "We can get there — ~45 min drive."</p>
+    </div>
+  </div>
+  <div class="option" data-choice="outside" onclick="toggleSelect(this)" style="border-left: 4px solid #ef4444;">
+    <div class="content">
+      <h3 style="color: #ef4444;">✗ Outside Service Area</h3>
+      <p>Red badge, no polygon highlight. "That's outside our current coverage."</p>
+    </div>
+  </div>
+</div>
+<p class="subtitle" style="margin-top: 12px; font-style: italic;">These aren't choices — just showing how each zone state would display. Does this component structure and behavior look right?</p>

@@ -5,7 +5,7 @@ import {
   Trophy, TrendingDown, Lightbulb, Play, Pause, Clock,
   Phone, PhoneIncoming, PhoneOutgoing, Star, ChevronDown,
   ChevronUp, User, Calendar, MessageSquare, Filter,
-  BarChart3, Headphones, BookOpen,
+  BarChart3, Headphones, BookOpen, Home,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +31,7 @@ interface CallRecord {
   customer_id?: string;
 }
 
-type LibraryTab = "wins" | "pitches" | "losses" | "all";
+type LibraryTab = "wins" | "pitches" | "losses" | "realtors" | "all";
 
 // ── Component ─────────────────────────────────────────────────────
 
@@ -53,11 +53,13 @@ export function CallLibraryPage() {
   const wins: CallRecord[] = data?.wins || [];
   const bestPitches: CallRecord[] = data?.pitches || [];
   const losses: CallRecord[] = data?.losses || [];
+  const realtors: CallRecord[] = data?.realtors || [];
   const calls: CallRecord[] = data?.all || [];
 
   const currentList = activeTab === "wins" ? wins
     : activeTab === "pitches" ? bestPitches
     : activeTab === "losses" ? losses
+    : activeTab === "realtors" ? realtors
     : calls;
 
   // Audio playback — use proxy endpoint to avoid RC auth issues
@@ -150,11 +152,12 @@ export function CallLibraryPage() {
       </div>
 
       {/* Stats — clickable to switch tabs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatCard icon={Headphones} label="Total Recordings" value={calls.length} color="text-blue-600" active={activeTab === "all"} onClick={() => setActiveTab("all")} />
         <StatCard icon={Trophy} label="Closed Deals" value={wins.length} color="text-emerald-600" active={activeTab === "wins"} onClick={() => setActiveTab("wins")} />
         <StatCard icon={Star} label="Top Quality" value={bestPitches.length} color="text-amber-600" active={activeTab === "pitches"} onClick={() => setActiveTab("pitches")} />
         <StatCard icon={TrendingDown} label="Lost / No Sale" value={losses.length} color="text-red-600" active={activeTab === "losses"} onClick={() => setActiveTab("losses")} />
+        <StatCard icon={Home} label="Realtors" value={realtors.length} color="text-indigo-600" active={activeTab === "realtors"} onClick={() => setActiveTab("realtors")} />
       </div>
 
       {/* Tabs */}
@@ -163,6 +166,7 @@ export function CallLibraryPage() {
           { key: "wins" as const, label: "Closed Deals", icon: Trophy, count: wins.length },
           { key: "pitches" as const, label: "Best Pitches", icon: Star, count: bestPitches.length },
           { key: "losses" as const, label: "Lost / No Sale", icon: TrendingDown, count: losses.length },
+          { key: "realtors" as const, label: "Realtors", icon: Home, count: realtors.length },
           { key: "all" as const, label: "All Recordings", icon: Headphones, count: calls.length },
         ]).map((tab) => (
           <button
@@ -200,6 +204,12 @@ export function CallLibraryPage() {
           <p className="text-sm text-text-secondary">
             <TrendingDown className="w-4 h-4 inline mr-1 text-red-500" />
             Calls where the customer declined or didn't convert. Listen to understand objections and how to handle them better.
+          </p>
+        )}
+        {activeTab === "realtors" && (
+          <p className="text-sm text-text-secondary">
+            <Home className="w-4 h-4 inline mr-1 text-indigo-500" />
+            Calls where a real estate agent or realtor is on the line. Detected from transcript keywords (realtor, listing agent, title company, under contract, etc.).
           </p>
         )}
         {activeTab === "all" && (

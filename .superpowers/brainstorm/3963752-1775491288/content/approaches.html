@@ -1,0 +1,83 @@
+<h2>Live Transcription Map — Architecture Approaches</h2>
+<p class="subtitle">How should location detection and map rendering be orchestrated?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Backend-Driven (Recommended)</h3>
+      <p><strong>How it works:</strong> The existing call transcript WebSocket streams text to the backend. A new <code>LocationExtractor</code> service runs on each transcript chunk — regex for addresses/streets, city name dictionary lookup, and area code mapping. When a location is found, a <code>location_detected</code> event is pushed over the same WebSocket with coordinates.</p>
+      <p><strong>Geocoding:</strong> Nominatim (free, OpenStreetMap-based) or a local city/zip lookup table for common mentions like "Spring Hill", "Franklin", "Mt. Pleasant".</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4>
+          <ul>
+            <li>Transcript + location parsing in one place</li>
+            <li>Can match against CRM customer DB server-side</li>
+            <li>No extra API keys or client-side processing</li>
+            <li>Drive time calculation on server (haversine already exists)</li>
+          </ul>
+        </div>
+        <div class="cons"><h4>Cons</h4>
+          <ul>
+            <li>Slight latency (~200-500ms) for geocoding round-trip</li>
+            <li>More backend code to maintain</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Frontend-Driven</h3>
+      <p><strong>How it works:</strong> The frontend receives raw transcript text (already happening) and runs a client-side location parser in the browser. When it detects a city/address, it geocodes via a free API (Nominatim) and drops the pin directly. Customer lookup happens via a separate API call.</p>
+      <p><strong>Geocoding:</strong> Direct browser fetch to Nominatim or MapTiler geocoding API.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4>
+          <ul>
+            <li>No backend changes needed for parsing</li>
+            <li>Instant — no round-trip to server for detection</li>
+            <li>Simpler to prototype quickly</li>
+          </ul>
+        </div>
+        <div class="cons"><h4>Cons</h4>
+          <ul>
+            <li>Can't easily match against customer DB from browser</li>
+            <li>Nominatim rate limits (1 req/sec) could bottleneck</li>
+            <li>Parsing logic duplicated if other features need it later</li>
+            <li>Heavier browser load during active calls</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hybrid — Smart Frontend + Backend Lookup</h3>
+      <p><strong>How it works:</strong> Frontend does lightweight keyword detection (city names from a static list, basic address regex). When a candidate location is found, it sends it to a new backend endpoint that geocodes, checks the customer DB, calculates drive time, and determines service zone — returning enriched location data.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4>
+          <ul>
+            <li>Fast initial detection (client-side keyword match)</li>
+            <li>Rich data from backend (customer match, drive time, zone)</li>
+            <li>Best of both approaches</li>
+          </ul>
+        </div>
+        <div class="cons"><h4>Cons</h4>
+          <ul>
+            <li>Two codepaths to maintain (frontend parser + backend enrichment)</li>
+            <li>Slightly more complex architecture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem; padding: 1.5rem; background: rgba(99, 102, 241, 0.08); border-radius: 12px; border: 1px solid rgba(99, 102, 241, 0.2);">
+  <h3 style="margin-top: 0;">💡 My Recommendation: Option A (Backend-Driven)</h3>
+  <p style="margin-bottom: 0;">Your call transcript WebSocket already streams text server-side through Google Cloud Speech. Adding location extraction there means one pipeline handles transcription → location detection → customer matching → zone calculation → drive time — all pushed to the frontend as a single enriched event. The frontend just renders what it's told. Simpler, more powerful, and keeps the map UI thin.</p>
+</div>
