@@ -57,6 +57,9 @@ export function IntegrationsPage() {
     if (searchParams.get("selected") === "microsoft365") {
       setSelectedIntegration("microsoft365");
     }
+    if (searchParams.get("selected") === "quickbooks") {
+      setSelectedIntegration("quickbooks");
+    }
   }, [searchParams]);
 
   const integrations = [

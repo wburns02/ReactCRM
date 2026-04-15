@@ -118,20 +118,11 @@ test.describe.serial("QuickBooks GoPayment Parallel Integration", () => {
   });
 
   test("5. QuickBooksSettings shows Primary Payment Processor toggle", async () => {
-    await page.goto(`${APP_URL}/integrations`, { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(3000);
-
-    // Find the QuickBooks integration card; click its "Configure" button
-    const qbCard = page
-      .locator('[class*="card"], [class*="Card"], div')
-      .filter({ hasText: /QuickBooks/ })
-      .filter({ hasText: /accounting|invoicing/i })
-      .first();
-    await qbCard.waitFor({ timeout: 10000 });
-    const configureBtn = qbCard.getByRole("button", { name: /configure/i }).first();
-    await configureBtn.scrollIntoViewIfNeeded();
-    await configureBtn.click({ force: true });
-    await page.waitForTimeout(3000);
+    // Use ?selected=quickbooks to deterministically navigate into the settings panel
+    await page.goto(`${APP_URL}/integrations?selected=quickbooks`, {
+      waitUntil: "domcontentloaded",
+    });
+    await page.waitForTimeout(4000);
 
     const heading = page.getByText("Primary Payment Processor", { exact: false });
     await expect(heading).toBeVisible({ timeout: 15000 });
