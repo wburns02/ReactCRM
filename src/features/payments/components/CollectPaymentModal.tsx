@@ -5,6 +5,8 @@ import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { formatCurrency } from "@/lib/utils.ts";
 import { useCollectPayment, useRecordFieldPayment } from "@/api/hooks/useCollectPayment.ts";
 import { CloverCheckout } from "./CloverCheckout.tsx";
+import { QBGoPaymentInstructions } from "./QBGoPaymentInstructions.tsx";
+import { useQBPrimaryProcessor } from "@/api/hooks/useQuickBooks.ts";
 
 // ─── Types ─────────────────────────────────────────────────
 
@@ -36,6 +38,7 @@ const PAYMENT_METHODS = [
   { value: "check", label: "Check", emoji: "\u{1F4CB}", desc: "Personal or business check" },
   { value: "card", label: "Card", emoji: "\u{1F4B3}", desc: "Card on POS terminal" },
   { value: "clover", label: "Clover POS", emoji: "\u2618\uFE0F", desc: "Charge via Clover" },
+  { value: "quickbooks_gopayment", label: "QB GoPayment", emoji: "\u{1F4B3}", desc: "QuickBooks GoPayment card reader" },
   { value: "ach", label: "ACH/Bank", emoji: "\u{1F3E6}", desc: "Bank transfer" },
   { value: "other", label: "Other", emoji: "\u{1F4CE}", desc: "Other payment method" },
 ] as const;
@@ -54,8 +57,20 @@ export function CollectPaymentModal({
   isTechnician = false,
   onSuccess,
 }: CollectPaymentModalProps) {
+  // Primary processor driven ordering (admin setting)
+  const { data: primaryProcessor } = useQBPrimaryProcessor();
+  const orderedMethods = (() => {
+    if (primaryProcessor?.primary_payment_processor === "quickbooks_gopayment") {
+      // Hoist QB GoPayment ahead of Clover
+      const qb = PAYMENT_METHODS.find((m) => m.value === "quickbooks_gopayment");
+      const rest = PAYMENT_METHODS.filter((m) => m.value !== "quickbooks_gopayment");
+      return qb ? [qb, ...rest] : [...PAYMENT_METHODS];
+    }
+    return [...PAYMENT_METHODS];
+  })();
+
   // State
-  const [step, setStep] = useState<"form" | "clover" | "success">("form");
+  const [step, setStep] = useState<"form" | "clover" | "qb_gopayment" | "success">("form");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [amount, setAmount] = useState("");
   const [checkNumber, setCheckNumber] = useState("");
@@ -108,6 +123,36 @@ export function CollectPaymentModal({
     }
     setStep("clover");
   }, [amount]);
+
+  // Proceed to QB GoPayment instructions
+  const handleQBGoPaymentProceed = useCallback(() => {
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      toastError("Invalid amount", "Please enter an amount to charge.");
+      return;
+    }
+    setStep("qb_gopayment");
+  }, [amount]);
+
+  // Handle QB GoPayment "Mark as Collected" success
+  const handleQBGoPaymentSuccess = useCallback(
+    (result: { paymentId: string; amount: number; referenceCode: string }) => {
+      setSuccessResult({
+        paymentId: result.paymentId,
+        amount: result.amount,
+        method: "QB GoPayment",
+        customerName: customerName || "Customer",
+        invoiceId: invoiceId,
+      });
+      setStep("success");
+      onSuccess?.({
+        paymentId: result.paymentId,
+        amount: result.amount,
+        method: "quickbooks_gopayment",
+      });
+    },
+    [customerName, invoiceId, onSuccess],
+  );
 
   // Handle Clover checkout success
   const handleCloverSuccess = useCallback((result: { paymentId: string; chargeId: string }) => {
@@ -209,7 +254,13 @@ export function CollectPaymentModal({
       <DialogContent size={step === "clover" ? "md" : "sm"}>
         <DialogHeader>
           <DialogTitle>
-            {step === "success" ? "Payment Recorded" : step === "clover" ? "Clover Card Payment" : "Collect Payment"}
+            {step === "success"
+              ? "Payment Recorded"
+              : step === "clover"
+                ? "Clover Card Payment"
+                : step === "qb_gopayment"
+                  ? "QuickBooks GoPayment"
+                  : "Collect Payment"}
           </DialogTitle>
         </DialogHeader>
         <DialogBody>
@@ -236,14 +287,14 @@ export function CollectPaymentModal({
                   Payment Method *
                 </label>
                 <div className="grid grid-cols-3 gap-2">
-                  {PAYMENT_METHODS.map((method) => (
+                  {orderedMethods.map((method) => (
                     <button
                       key={method.value}
                       type="button"
                       onClick={() => handleMethodSelect(method.value)}
                       className={`flex flex-col items-center gap-1 p-4 rounded-xl border-2 transition-all min-h-[72px] ${
                         paymentMethod === method.value
-                          ? method.value === "clover"
+                          ? method.value === "clover" || method.value === "quickbooks_gopayment"
                             ? "border-green-500 bg-green-50 text-green-700 shadow-sm"
                             : "border-blue-500 bg-blue-50 text-blue-700 shadow-sm"
                           : "border-border bg-bg-surface text-text-secondary hover:border-blue-300 active:bg-blue-50"
@@ -304,8 +355,8 @@ export function CollectPaymentModal({
                 </div>
               )}
 
-              {/* Reference number (admin only, non-Clover) */}
-              {!isTechnician && paymentMethod && paymentMethod !== "cash" && paymentMethod !== "clover" && (
+              {/* Reference number (admin only, non-Clover/non-QB) */}
+              {!isTechnician && paymentMethod && paymentMethod !== "cash" && paymentMethod !== "clover" && paymentMethod !== "quickbooks_gopayment" && (
                 <div>
                   <label className="text-sm font-medium text-text-secondary mb-2 block">
                     Reference Number
@@ -320,8 +371,8 @@ export function CollectPaymentModal({
                 </div>
               )}
 
-              {/* Notes (non-Clover only — Clover handles its own flow) */}
-              {paymentMethod !== "clover" && (
+              {/* Notes (non-Clover/non-QB only — those have their own flows) */}
+              {paymentMethod !== "clover" && paymentMethod !== "quickbooks_gopayment" && (
                 <div>
                   <label className="text-sm font-medium text-text-secondary mb-2 block">
                     Notes (optional)
@@ -375,6 +426,17 @@ export function CollectPaymentModal({
                       <span>{"\u2618\uFE0F"}</span> Charge with Clover
                     </span>
                   </Button>
+                ) : paymentMethod === "quickbooks_gopayment" ? (
+                  <Button
+                    type="button"
+                    onClick={handleQBGoPaymentProceed}
+                    disabled={parsedAmount <= 0}
+                    className="flex-1 h-14 text-base font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white shadow-lg disabled:opacity-50"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{"\u{1F4B3}"}</span> Charge with QB GoPayment
+                    </span>
+                  </Button>
                 ) : (
                   <Button
                     type="button"
@@ -412,6 +474,24 @@ export function CollectPaymentModal({
                 customerEmail={customerEmail}
                 customerName={customerName}
                 onSuccess={handleCloverSuccess}
+                onCancel={() => setStep("form")}
+              />
+            </div>
+          ) : step === "qb_gopayment" ? (
+            /* ─── QB GoPayment Instructions Step ──────────────── */
+            <div className="space-y-4">
+              <button
+                type="button"
+                onClick={() => setStep("form")}
+                className="text-sm text-blue-600 hover:underline font-medium flex items-center gap-1"
+              >
+                {"\u2190"} Back to payment methods
+              </button>
+              <QBGoPaymentInstructions
+                invoiceId={invoiceId}
+                customerId={customerId}
+                amount={parsedAmount}
+                onSuccess={handleQBGoPaymentSuccess}
                 onCancel={() => setStep("form")}
               />
             </div>

@@ -15,7 +15,14 @@ import {
   useQBOSyncCustomers,
   useQBOSyncInvoices,
   useQBOSyncPayments,
+  useQBPullPayments,
+  useQBSyncLog,
+  useQBUnmatchedPayments,
+  useQBMatchPayment,
+  useQBPrimaryProcessor,
+  useSetQBPrimaryProcessor,
 } from "@/api/hooks/useQuickBooks.ts";
+import { formatCurrency } from "@/lib/utils.ts";
 
 /**
  * QuickBooks Online Integration Settings
@@ -31,6 +38,12 @@ export function QuickBooksSettings() {
   const syncCustomers = useQBOSyncCustomers();
   const syncInvoices = useQBOSyncInvoices();
   const syncPayments = useQBOSyncPayments();
+  const pullPayments = useQBPullPayments();
+  const { data: syncLogData } = useQBSyncLog(5);
+  const { data: unmatchedData } = useQBUnmatchedPayments();
+  const matchMutation = useQBMatchPayment();
+  const { data: primaryProcessor } = useQBPrimaryProcessor();
+  const setPrimary = useSetQBPrimaryProcessor();
   const [syncResults, setSyncResults] = useState<string[]>([]);
 
   const handleConnect = async () => {
@@ -282,6 +295,151 @@ export function QuickBooksSettings() {
                 ))}
               </div>
             )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* GoPayment: Primary Processor Toggle */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Primary Payment Processor</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-text-secondary mb-3">
+            Determines which processor appears first when collecting payment in the field.
+            Both remain available — this controls the default.
+          </p>
+          <div className="flex gap-2">
+            {(["clover", "quickbooks_gopayment"] as const).map((proc) => {
+              const isActive = primaryProcessor?.primary_payment_processor === proc;
+              const label = proc === "clover" ? "Clover" : "QuickBooks GoPayment";
+              return (
+                <Button
+                  key={proc}
+                  variant={isActive ? "primary" : "secondary"}
+                  onClick={async () => {
+                    if (isActive) return;
+                    try {
+                      await setPrimary.mutateAsync(proc);
+                      toastSuccess("Primary processor updated", label);
+                    } catch {
+                      toastError("Update failed", "Could not change primary processor");
+                    }
+                  }}
+                  disabled={setPrimary.isPending}
+                >
+                  {label}
+                  {isActive && " (active)"}
+                </Button>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* GoPayment: Pull Sync + Reconciliation */}
+      {isConnected && !status?.token_expired && (
+        <Card>
+          <CardHeader>
+            <CardTitle>GoPayment Sync (QuickBooks → CRM)</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-text-secondary">
+              Pulls recent GoPayment transactions from QuickBooks and matches them to CRM
+              invoices by the reference code in the memo field.
+            </p>
+
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={async () => {
+                  try {
+                    const result = await pullPayments.mutateAsync(14);
+                    toastSuccess(
+                      "Sync complete",
+                      `${result.transactions_fetched} fetched · ${result.transactions_matched} matched · ${result.transactions_unmatched} unmatched`,
+                    );
+                  } catch {
+                    toastError("Sync failed", "Could not pull QuickBooks payments");
+                  }
+                }}
+                disabled={pullPayments.isPending}
+              >
+                {pullPayments.isPending ? "Syncing..." : "Sync Now"}
+              </Button>
+              {syncLogData?.runs?.[0] && (
+                <span className="text-xs text-text-muted">
+                  Last run: {new Date(syncLogData.runs[0].run_started_at || "").toLocaleString()}
+                  {" · "}
+                  {syncLogData.runs[0].transactions_matched} matched
+                  {", "}
+                  {syncLogData.runs[0].transactions_unmatched} unmatched
+                </span>
+              )}
+            </div>
+
+            {/* Unmatched queue */}
+            <div>
+              <h4 className="text-sm font-medium text-text-primary mb-2">
+                Unmatched Transactions ({unmatchedData?.count ?? 0})
+              </h4>
+              {(unmatchedData?.count ?? 0) === 0 ? (
+                <p className="text-sm text-text-muted">
+                  Nothing unmatched. Matched transactions appear as paid invoices.
+                </p>
+              ) : (
+                <div className="border border-border rounded-lg overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead className="bg-bg-muted">
+                      <tr>
+                        <th className="text-left px-3 py-2 font-medium">Amount</th>
+                        <th className="text-left px-3 py-2 font-medium">QB Txn ID</th>
+                        <th className="text-left px-3 py-2 font-medium">Memo Code</th>
+                        <th className="text-left px-3 py-2 font-medium">Date</th>
+                        <th className="text-right px-3 py-2 font-medium">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {unmatchedData?.payments.map((p) => (
+                        <tr key={p.id} className="border-t border-border">
+                          <td className="px-3 py-2 font-medium">{formatCurrency(p.amount)}</td>
+                          <td className="px-3 py-2 font-mono text-xs">{p.external_txn_id}</td>
+                          <td className="px-3 py-2">{p.reference_code || "—"}</td>
+                          <td className="px-3 py-2">
+                            {p.payment_date
+                              ? new Date(p.payment_date).toLocaleDateString()
+                              : "—"}
+                          </td>
+                          <td className="px-3 py-2 text-right">
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              onClick={async () => {
+                                const invId = window.prompt(
+                                  "Enter invoice ID (UUID) to match this payment:",
+                                );
+                                if (!invId) return;
+                                try {
+                                  await matchMutation.mutateAsync({
+                                    paymentId: p.id,
+                                    invoiceId: invId.trim(),
+                                  });
+                                  toastSuccess("Matched", "Payment linked to invoice");
+                                } catch {
+                                  toastError("Match failed", "Invalid invoice ID or server error");
+                                }
+                              }}
+                              disabled={matchMutation.isPending}
+                            >
+                              Match
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
       )}
