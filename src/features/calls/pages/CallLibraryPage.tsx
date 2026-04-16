@@ -89,9 +89,6 @@ export function CallLibraryPage() {
     try {
       // Fetch recording via proxy with auth
       const resp = await apiClient.get(`/ringcentral/calls/${call.id}/recording`);
-      const secureUrl = `${apiClient.defaults.baseURL}${resp.data.secure_url}`;
-
-      // Fetch audio blob with auth cookie
       const audioResp = await apiClient.get(resp.data.secure_url, { responseType: "blob" });
       const blobUrl = URL.createObjectURL(audioResp.data);
 
