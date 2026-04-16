@@ -40,25 +40,58 @@ test.describe("HR recruiting public apply", () => {
     await expect(page.locator('button[type="submit"]')).toBeVisible();
   });
 
-  test("apply form submits and shows success state", async ({ page, request }) => {
+  test("apply endpoint accepts a multipart POST", async ({ request }) => {
+    // Find any open requisition; prefer the seeded e2e demo.
     const feed = await request.get(`${API_URL}/careers/jobs.xml`);
     const xml = await feed.text();
     const match = xml.match(/<referencenumber>([^<]+)<\/referencenumber>/);
     test.skip(!match, "no open requisitions on prod; seed one to run this");
     const slug = match![1];
 
-    await page.goto(`${API_URL}/careers/${slug}/apply`);
-    await page.waitForLoadState("domcontentloaded");
-
     const uniqueEmail = `e2e-${Date.now()}@example.com`;
-    await page.fill('input[name="first_name"]', "E2E");
-    await page.fill('input[name="last_name"]', "Applicant");
-    await page.fill('input[name="email"]', uniqueEmail);
-    await page.fill('input[name="phone"]', "+15555550199");
-    await page.check('input[name="sms_consent"]');
-    await page.click('button[type="submit"]');
+    const resp = await request.post(
+      `${API_URL}/api/v2/public/careers/${slug}/apply`,
+      {
+        multipart: {
+          first_name: "E2E",
+          last_name: "Applicant",
+          email: uniqueEmail,
+          phone: "+15555550199",
+          sms_consent: "true",
+        },
+      },
+    );
+    expect(resp.status(), await resp.text()).toBe(201);
+    const body = await resp.json();
+    expect(body.stage).toBe("applied");
+    expect(body.application_id).toBeTruthy();
+    expect(body.applicant_id).toBeTruthy();
+  });
 
-    await expect(page.locator("#apply-success")).toBeVisible({ timeout: 10000 });
+  test("apply endpoint rejects duplicate applications", async ({ request }) => {
+    const feed = await request.get(`${API_URL}/careers/jobs.xml`);
+    const xml = await feed.text();
+    const match = xml.match(/<referencenumber>([^<]+)<\/referencenumber>/);
+    test.skip(!match, "no open requisitions on prod");
+    const slug = match![1];
+
+    const email = `dup-${Date.now()}@example.com`;
+    const body = {
+      first_name: "Dup",
+      last_name: "Applicant",
+      email,
+      sms_consent: "false",
+    };
+    const r1 = await request.post(
+      `${API_URL}/api/v2/public/careers/${slug}/apply`,
+      { multipart: body },
+    );
+    expect(r1.status()).toBe(201);
+    const r2 = await request.post(
+      `${API_URL}/api/v2/public/careers/${slug}/apply`,
+      { multipart: body },
+    );
+    expect(r2.status()).toBe(409);
   });
 
   test("jobs.xml still advertises open roles after applies", async ({ request }) => {

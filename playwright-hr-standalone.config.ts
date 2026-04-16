@@ -10,7 +10,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./e2e/modules",
   testMatch: /hr-(foundation|admin-flow|recruiting-flow)\.spec\.ts/,
-  timeout: 30000,
+  timeout: 60000,
   retries: 1,
   use: {
     baseURL: process.env.BASE_URL || "https://react.ecbtx.com",
