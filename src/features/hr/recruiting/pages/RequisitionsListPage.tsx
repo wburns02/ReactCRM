@@ -49,9 +49,17 @@ export function RequisitionsListPage() {
                   {r.slug} — {r.status}
                 </div>
               </div>
-              <span className="text-sm shrink-0">
-                {r.compensation_display ?? ""}
-              </span>
+              <div className="flex items-center gap-3 shrink-0">
+                {typeof r.applicant_count === "number" && r.applicant_count > 0 && (
+                  <span className="text-xs bg-indigo-100 text-indigo-800 rounded-full px-2 py-0.5">
+                    {r.applicant_count} applicant
+                    {r.applicant_count === 1 ? "" : "s"}
+                  </span>
+                )}
+                <span className="text-sm">
+                  {r.compensation_display ?? ""}
+                </span>
+              </div>
             </li>
           ))}
         </ul>

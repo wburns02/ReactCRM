@@ -7,6 +7,7 @@ import {
   BarChart3, TrendingUp, Banknote, Calculator, Building2, Truck, Activity,
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
   Download, Globe, Eye, PhoneOutgoing, Shield, AlertTriangle, ClipboardCheck,
+  Briefcase, UserPlus,
   type LucideIcon,
 } from "lucide-react";
 
@@ -133,6 +134,15 @@ export const navGroups: NavGroup[] = [
       { path: "/marketing/email-marketing", label: "Email Marketing", icon: Mail },
       { path: "/marketing/analytics", label: "Analytics & ROI", icon: LineChart },
       { path: "/marketing/nashville-ads", label: "Nashville Ads", icon: Target },
+    ],
+  },
+  {
+    name: "hr",
+    label: "HR",
+    icon: Briefcase,
+    items: [
+      { path: "/hr/requisitions", label: "Requisitions", icon: ClipboardList },
+      { path: "/hr/applicants", label: "Applicants", icon: UserPlus },
     ],
   },
   {
