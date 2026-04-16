@@ -12,6 +12,14 @@ const RequisitionEditorPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.RequisitionEditorPage })),
 );
 
+const RequisitionDetailPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.RequisitionDetailPage })),
+);
+
+const ApplicantDetailPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.ApplicantDetailPage })),
+);
+
 
 export function HrRoutes() {
   return (
@@ -29,6 +37,22 @@ export function HrRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <RequisitionEditorPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/requisitions/:id"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <RequisitionDetailPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/applicants/:id"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ApplicantDetailPage />
           </Suspense>
         }
       />
