@@ -28,6 +28,7 @@ import { DispatchRoutes } from "./app/dispatch.routes";
 import { OutboundCampaignsRoutes } from "./app/outbound-campaigns.routes";
 import { SecurityRoutes } from "./app/security.routes";
 import { AutomationsRoutes } from "./app/automations.routes";
+import { HrRoutes } from "./app/hr.routes";
 
 
 /**
@@ -113,6 +114,9 @@ export function AppRoutes() {
 
         {/* Enterprise */}
         {EnterpriseRoutes()}
+
+        {/* HR Module (Plan 1: Requisitions admin) */}
+        {HrRoutes()}
 
         {/* Admin & Settings */}
         {AdminRoutes()}
