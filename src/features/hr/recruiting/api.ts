@@ -23,6 +23,7 @@ export const requisitionSchema = z.object({
   hiring_manager_id: z.number().nullable(),
   onboarding_template_id: z.string().nullable(),
   created_at: z.string(),
+  applicant_count: z.number().optional(),
 });
 
 export type Requisition = z.infer<typeof requisitionSchema>;
@@ -92,5 +93,59 @@ export function useCreateRequisition() {
     },
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: [...hrKeys.all, "requisitions"] }),
+  });
+}
+
+
+export function useUpdateRequisition(id: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (patch: Partial<RequisitionInput>) => {
+      const { data } = await apiClient.patch(
+        `/hr/recruiting/requisitions/${id}`,
+        patch,
+      );
+      return validateResponse(
+        requisitionSchema,
+        data,
+        `/hr/recruiting/requisitions/${id} (patch)`,
+      );
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: [...hrKeys.all, "requisitions"] }),
+  });
+}
+
+
+export function useCloseRequisition() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { data } = await apiClient.delete(
+        `/hr/recruiting/requisitions/${id}`,
+      );
+      return validateResponse(
+        requisitionSchema,
+        data,
+        "/hr/recruiting/requisitions (delete)",
+      );
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: [...hrKeys.all, "requisitions"] }),
+  });
+}
+
+
+export function useRequisitionById(id: string | undefined) {
+  return useQuery({
+    enabled: !!id,
+    queryKey: [...hrKeys.all, "requisition", id ?? ""],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/hr/recruiting/requisitions");
+      const list = z.array(requisitionSchema).parse(data);
+      const found = list.find((r) => r.id === id);
+      if (!found) throw new Error("requisition not found");
+      return found;
+    },
   });
 }
