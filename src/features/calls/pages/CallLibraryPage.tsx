@@ -5,7 +5,7 @@ import {
   Trophy, TrendingDown, Lightbulb, Play, Pause, Clock,
   Phone, PhoneIncoming, PhoneOutgoing, Star, ChevronDown,
   ChevronUp, User, Calendar, MessageSquare, Filter,
-  BarChart3, Headphones, BookOpen, Home,
+  BarChart3, Headphones, BookOpen, Home, Search, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +40,7 @@ export function CallLibraryPage() {
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch pre-categorized library from backend
   const { data, isLoading } = useQuery({
@@ -56,11 +57,33 @@ export function CallLibraryPage() {
   const realtors: CallRecord[] = data?.realtors || [];
   const calls: CallRecord[] = data?.all || [];
 
-  const currentList = activeTab === "wins" ? wins
-    : activeTab === "pitches" ? bestPitches
-    : activeTab === "losses" ? losses
-    : activeTab === "realtors" ? realtors
-    : calls;
+  // Sort newest-to-oldest, then filter by search query
+  const currentList = useMemo(() => {
+    const base = activeTab === "wins" ? wins
+      : activeTab === "pitches" ? bestPitches
+      : activeTab === "losses" ? losses
+      : activeTab === "realtors" ? realtors
+      : calls;
+
+    // Sort by call_date descending (newest first)
+    const sorted = [...base].sort((a, b) => {
+      const dateA = a.call_date || "";
+      const dateB = b.call_date || "";
+      return dateB.localeCompare(dateA);
+    });
+
+    if (!searchQuery.trim()) return sorted;
+
+    const q = searchQuery.toLowerCase();
+    return sorted.filter((call) => {
+      const name = (call.customer_name || "").toLowerCase();
+      const summary = (call.ai_summary || "").toLowerCase();
+      const transcript = (call.transcription || "").toLowerCase();
+      const notes = (call.notes || "").toLowerCase();
+      const phone = call.caller_number + " " + call.called_number;
+      return name.includes(q) || summary.includes(q) || transcript.includes(q) || notes.includes(q) || phone.includes(q);
+    });
+  }, [activeTab, wins, bestPitches, losses, realtors, calls, searchQuery]);
 
   // Audio playback — use proxy endpoint to avoid RC auth issues
   const getProxyUrl = (call: CallRecord) => {
@@ -217,12 +240,34 @@ export function CallLibraryPage() {
         )}
       </div>
 
+      {/* Search bar */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search by name, transcript, summary, or phone number..."
+          className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-border bg-bg-card text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
       {/* Call List */}
       {isLoading ? (
         <div className="text-center py-12 text-text-muted">Loading recordings...</div>
       ) : currentList.length === 0 ? (
         <div className="text-center py-12 text-text-muted">
-          No recordings in this category yet. Calls are recorded automatically through the Web Phone.
+          {searchQuery
+            ? `No calls matching "${searchQuery}" in this category.`
+            : "No recordings in this category yet. Calls are recorded automatically through the Web Phone."}
         </div>
       ) : (
         <div className="space-y-3">
