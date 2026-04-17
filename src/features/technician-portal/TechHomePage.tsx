@@ -40,10 +40,13 @@ export function TechHomePage() {
     page_size: 20,
   });
 
-  const earned = dashboard?.pay_this_period ?? 0;
-  const threshold = period?.backboard_guarantee ?? 0;
+  const payData = dashboard?.pay_this_period as Record<string, unknown> | undefined;
+  const earned = Number(payData?.commissions_earned ?? 0) || 0;
+  const threshold = Number(payData?.backboard_threshold ?? period?.backboard_guarantee ?? 0) || 0;
   const onTrack = earned > threshold && threshold > 0;
   const pendingCount = commissions?.items?.length ?? 0;
+  const nextPayday = payData?.next_payday as string | undefined;
+  const periodLabel = payData?.period_label as string | undefined;
   const jobs = todayJobs?.items ?? [];
   const scheduledJobs = jobs.filter((j: Record<string, unknown>) => j.status === "scheduled" || j.status === "en_route" || j.status === "in_progress");
   const completedJobs = jobs.filter((j: Record<string, unknown>) => j.status === "completed");
