@@ -33,6 +33,7 @@ export const topNavItems: NavItem[] = [
   { path: "/live-chat", label: "Live Chat", icon: MessageCircle, badge: "LIVE" },
   { path: "/web-phone", label: "Web Phone", icon: Smartphone },
   { path: "/outbound-campaigns", label: "Outbound Dialer", icon: PhoneOutgoing },
+  { path: "/realtor-pipeline", label: "Realtor Pipeline", icon: Building2 },
   { path: "/call-library", label: "Call Library", icon: PhoneCall },
 ];
 

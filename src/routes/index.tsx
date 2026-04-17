@@ -26,6 +26,7 @@ import { MiscRoutes } from "./app/misc.routes";
 import { PropertyIntelligenceRoutes } from "./app/property-intelligence.routes";
 import { DispatchRoutes } from "./app/dispatch.routes";
 import { OutboundCampaignsRoutes } from "./app/outbound-campaigns.routes";
+import { RealtorPipelineRoutes } from "./app/realtor-pipeline.routes";
 import { SecurityRoutes } from "./app/security.routes";
 import { AutomationsRoutes } from "./app/automations.routes";
 import { HrRoutes } from "./app/hr.routes";
@@ -126,6 +127,9 @@ export function AppRoutes() {
 
         {/* Outbound Campaigns */}
         {OutboundCampaignsRoutes()}
+
+        {/* Realtor Pipeline */}
+        {RealtorPipelineRoutes()}
 
         {/* Security & SOC */}
         {SecurityRoutes()}
