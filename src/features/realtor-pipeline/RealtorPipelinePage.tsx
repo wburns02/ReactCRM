@@ -1,12 +1,13 @@
 import { useState, useMemo } from "react";
 import { useRealtorStore } from "./store";
 import { getFollowUpUrgency, isDueForFollowUp } from "./scoring";
+import { RealtorForm } from "./components/RealtorForm";
 import {
   REALTOR_STAGE_LABELS,
   REALTOR_STAGE_COLORS,
   REALTOR_STAGES,
 } from "./types";
-import type { RealtorStage, RealtorPipelineStats } from "./types";
+import type { RealtorAgent, RealtorStage, RealtorPipelineStats } from "./types";
 import {
   Building2,
   Users,
@@ -26,6 +27,8 @@ type ViewTab = "pipeline" | "table" | "followup" | "leaderboard";
 export function RealtorPipelinePage() {
   const [activeTab, setActiveTab] = useState<ViewTab>("pipeline");
   const [searchQuery, setSearchQuery] = useState("");
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingAgent, setEditingAgent] = useState<RealtorAgent | null>(null);
 
   const agents = useRealtorStore((s) => s.agents);
   const referrals = useRealtorStore((s) => s.referrals);
@@ -97,6 +100,7 @@ export function RealtorPipelinePage() {
           </p>
         </div>
         <button
+          onClick={() => { setEditingAgent(null); setFormOpen(true); }}
           className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm"
         >
           <Plus className="w-4 h-4" />
@@ -192,18 +196,26 @@ export function RealtorPipelinePage() {
       {/* Tab Content */}
       <div className="min-h-[400px]">
         {activeTab === "pipeline" && (
-          <PipelineView agents={filteredAgents} />
+          <PipelineView agents={filteredAgents} onEditAgent={(a) => { setEditingAgent(a); setFormOpen(true); }} />
         )}
         {activeTab === "table" && (
-          <TableView agents={filteredAgents} />
+          <TableView agents={filteredAgents} onEditAgent={(a) => { setEditingAgent(a); setFormOpen(true); }} />
         )}
         {activeTab === "followup" && (
-          <FollowUpView agents={agents} />
+          <FollowUpView agents={agents} onEditAgent={(a) => { setEditingAgent(a); setFormOpen(true); }} />
         )}
         {activeTab === "leaderboard" && (
           <LeaderboardView agents={agents} referrals={referrals} />
         )}
       </div>
+
+      {/* Add/Edit Agent Form */}
+      {formOpen && (
+        <RealtorForm
+          agent={editingAgent}
+          onClose={() => { setFormOpen(false); setEditingAgent(null); }}
+        />
+      )}
     </div>
   );
 }
@@ -229,7 +241,7 @@ function StatCard({
 }
 
 /** Kanban pipeline view */
-function PipelineView({ agents }: { agents: import("./types").RealtorAgent[] }) {
+function PipelineView({ agents, onEditAgent }: { agents: import("./types").RealtorAgent[]; onEditAgent: (a: import("./types").RealtorAgent) => void }) {
   if (agents.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -263,7 +275,7 @@ function PipelineView({ agents }: { agents: import("./types").RealtorAgent[] }) 
             </div>
             <div className="space-y-2 min-h-[200px]">
               {stageAgents.map((agent) => (
-                <AgentCard key={agent.id} agent={agent} />
+                <AgentCard key={agent.id} agent={agent} onClick={() => onEditAgent(agent)} />
               ))}
             </div>
           </div>
@@ -274,7 +286,7 @@ function PipelineView({ agents }: { agents: import("./types").RealtorAgent[] }) 
 }
 
 /** Compact agent card for the pipeline board */
-function AgentCard({ agent }: { agent: import("./types").RealtorAgent }) {
+function AgentCard({ agent, onClick }: { agent: import("./types").RealtorAgent; onClick?: () => void }) {
   const urgency = getFollowUpUrgency(agent);
   const daysSince = agent.last_call_date
     ? Math.floor(
@@ -284,7 +296,7 @@ function AgentCard({ agent }: { agent: import("./types").RealtorAgent }) {
     : null;
 
   return (
-    <div className="bg-bg-card border border-border rounded-lg p-3 hover:border-primary/40 transition-colors cursor-pointer">
+    <div onClick={onClick} className="bg-bg-card border border-border rounded-lg p-3 hover:border-primary/40 transition-colors cursor-pointer">
       <div className="flex items-start justify-between mb-1.5">
         <div>
           <div className="font-semibold text-sm text-text-primary">
@@ -319,8 +331,8 @@ function AgentCard({ agent }: { agent: import("./types").RealtorAgent }) {
   );
 }
 
-/** Table view placeholder */
-function TableView({ agents }: { agents: import("./types").RealtorAgent[] }) {
+/** Table view */
+function TableView({ agents, onEditAgent }: { agents: import("./types").RealtorAgent[]; onEditAgent: (a: import("./types").RealtorAgent) => void }) {
   if (agents.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -350,6 +362,7 @@ function TableView({ agents }: { agents: import("./types").RealtorAgent[] }) {
           {agents.map((agent) => (
             <tr
               key={agent.id}
+              onClick={() => onEditAgent(agent)}
               className="border-b border-border/50 hover:bg-bg-hover transition-colors cursor-pointer"
             >
               <td className="py-3 pr-4 font-medium text-text-primary">
@@ -389,7 +402,7 @@ function TableView({ agents }: { agents: import("./types").RealtorAgent[] }) {
 }
 
 /** Follow-up queue */
-function FollowUpView({ agents }: { agents: import("./types").RealtorAgent[] }) {
+function FollowUpView({ agents, onEditAgent }: { agents: import("./types").RealtorAgent[]; onEditAgent: (a: import("./types").RealtorAgent) => void }) {
   const dueAgents = useMemo(
     () =>
       agents
@@ -426,6 +439,7 @@ function FollowUpView({ agents }: { agents: import("./types").RealtorAgent[] }) 
         return (
           <div
             key={agent.id}
+            onClick={() => onEditAgent(agent)}
             className={`flex items-center gap-4 p-4 rounded-lg border transition-colors cursor-pointer hover:border-primary/40 ${
               urgency >= 90
                 ? "bg-red-50 dark:bg-red-950/10 border-red-200 dark:border-red-800"
