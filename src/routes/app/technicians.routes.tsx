@@ -52,6 +52,12 @@ const TechnicianDashboardPage = lazy(() =>
 );
 
 // Tech Portal pages
+const TechHomePage = lazy(() =>
+  import("@/features/technician-portal/TechHomePage").then(
+    (m) => ({ default: m.TechHomePage }),
+  ),
+);
+
 const TechSchedulePage = lazy(() =>
   import("@/features/technician-portal/TechSchedulePage").then(
     (m) => ({ default: m.TechSchedulePage }),
@@ -123,6 +129,14 @@ export function TechnicianRoutes() {
       />
 
       {/* Tech Portal Pages */}
+      <Route
+        path="portal/home"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <TechHomePage />
+          </Suspense>
+        }
+      />
       <Route
         path="portal/schedule"
         element={
