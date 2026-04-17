@@ -48,6 +48,26 @@ const OffboardingDetailPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.OffboardingDetailPage })),
 );
 
+const OrgChartPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.OrgChartPage })),
+);
+
+const RecruitingHubPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.RecruitingHubPage })),
+);
+
+const RecruitingOverviewTab = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.RecruitingOverviewTab })),
+);
+
+const CandidatesTab = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.CandidatesTab })),
+);
+
+const OpenHeadcountTab = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.OpenHeadcountTab })),
+);
+
 
 export function HrRoutes() {
   return (
@@ -60,6 +80,71 @@ export function HrRoutes() {
           </Suspense>
         }
       />
+      <Route
+        path="hr/org-chart"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <OrgChartPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/recruiting"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <RecruitingHubPage />
+          </Suspense>
+        }
+      >
+        <Route
+          index
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <RecruitingOverviewTab />
+            </Suspense>
+          }
+        />
+        <Route
+          path="overview"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <RecruitingOverviewTab />
+            </Suspense>
+          }
+        />
+        <Route
+          path="requisitions"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <RequisitionsListPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="candidates"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <CandidatesTab />
+            </Suspense>
+          }
+        />
+        <Route
+          path="open-headcount"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <OpenHeadcountTab />
+            </Suspense>
+          }
+        />
+        <Route
+          path="templates"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <MessageTemplatesAdminPage />
+            </Suspense>
+          }
+        />
+      </Route>
       <Route
         path="hr/inbox"
         element={
