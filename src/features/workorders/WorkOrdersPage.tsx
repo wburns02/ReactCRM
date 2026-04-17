@@ -43,6 +43,7 @@ import {
   type Priority,
 } from "@/api/types/workOrder.ts";
 import { formatDate } from "@/lib/utils.ts";
+import { formatTimeDisplay } from "@/api/types/schedule.ts";
 
 const PAGE_SIZE = 20;
 
@@ -892,15 +893,16 @@ function KanbanCard({
 
         {/* Details */}
         <div className="space-y-1 text-xs text-text-secondary">
+          {workOrder.time_window_start && (
+            <div className="flex items-center gap-1 text-sm font-bold text-text-primary">
+              <span>🕐</span>
+              <span>{formatTimeDisplay(workOrder.time_window_start)}</span>
+            </div>
+          )}
           {workOrder.scheduled_date && (
             <div className="flex items-center gap-1">
               <span>📅</span>
               <span>{formatDate(workOrder.scheduled_date)}</span>
-              {workOrder.time_window_start && (
-                <span className="text-text-muted">
-                  {workOrder.time_window_start.slice(0, 5)}
-                </span>
-              )}
             </div>
           )}
 

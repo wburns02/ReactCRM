@@ -18,6 +18,20 @@ import type { WorkOrder } from "@/api/types/workOrder.ts";
 import { STATUS_COLORS, JOB_TYPE_LABELS } from "@/api/types/workOrder.ts";
 import { useAssignWorkOrder } from "@/api/hooks/useWorkOrders.ts";
 
+function formatTime(t: string): string {
+  const parts = t.split(":");
+  if (parts.length >= 2) {
+    const hour = parseInt(parts[0], 10);
+    const minute = parts[1];
+    if (!isNaN(hour)) {
+      const period = hour >= 12 ? "PM" : "AM";
+      const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+      return `${displayHour}:${minute} ${period}`;
+    }
+  }
+  return t;
+}
+
 interface DragDropSchedulerProps {
   workOrders: WorkOrder[];
   unscheduledWorkOrders?: WorkOrder[];
@@ -423,6 +437,12 @@ function DraggableWorkOrderCard({
       )}
       style={{ borderLeftColor: STATUS_COLORS[workOrder.status] }}
     >
+      {/* Time — prominent at top */}
+      {!compact && workOrder.time_window_start && (
+        <div className="font-bold text-sm text-text-primary">
+          {formatTime(workOrder.time_window_start)}
+        </div>
+      )}
       <div className="font-medium text-text-primary truncate">
         {workOrder.customer_name || `Customer #${workOrder.customer_id}`}
       </div>
@@ -433,13 +453,6 @@ function DraggableWorkOrderCard({
               workOrder.job_type as keyof typeof JOB_TYPE_LABELS
             ] || workOrder.job_type}
           </div>
-          {workOrder.time_window_start && (
-            <div className="text-text-muted text-xs">
-              {workOrder.time_window_start.slice(0, 5)}
-              {workOrder.estimated_duration_hours &&
-                ` (${workOrder.estimated_duration_hours}h)`}
-            </div>
-          )}
           <div className="flex items-center gap-1 mt-1">
             <Badge
               variant={
