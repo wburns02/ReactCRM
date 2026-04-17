@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { Card } from "@/components/ui/Card";
+
 import { useRequisitions } from "../api";
 
 
@@ -7,62 +9,78 @@ export function RequisitionsListPage() {
   const { data, isLoading, error } = useRequisitions();
 
   if (isLoading) {
-    return <div className="p-6">Loading…</div>;
+    return (
+      <Card>
+        <div className="p-6 text-sm text-text-muted">Loading…</div>
+      </Card>
+    );
   }
   if (error) {
     return (
-      <div className="p-6 text-red-600">
-        Error loading requisitions: {error.message}
-      </div>
+      <Card>
+        <div className="p-6 text-sm text-rose-600">
+          Error loading requisitions: {error.message}
+        </div>
+      </Card>
     );
   }
 
   const rows = data ?? [];
   return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Requisitions</h1>
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-text-primary">
+          Job requisitions
+        </h2>
         <Link
           to="/hr/requisitions/new"
-          className="px-4 py-2 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800"
+          className="px-3 py-1.5 text-sm bg-neutral-900 text-white rounded-lg hover:bg-neutral-800"
         >
-          New
+          + New
         </Link>
       </div>
 
       {rows.length === 0 ? (
-        <p className="mt-6 text-neutral-500">
-          No requisitions yet. Click <em>New</em> to create one.
-        </p>
+        <Card>
+          <div className="text-sm text-text-muted">
+            No requisitions yet. Click <em>New</em> to create one.
+          </div>
+        </Card>
       ) : (
-        <ul className="mt-6 divide-y border rounded-lg">
-          {rows.map((r) => (
-            <li key={r.id} className="p-4 flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                <Link
-                  to={`/hr/requisitions/${r.id}`}
-                  className="font-medium hover:underline"
-                >
-                  {r.title}
-                </Link>
-                <div className="text-sm text-neutral-500">
-                  {r.slug} — {r.status}
+        <Card className="p-0">
+          <ul className="divide-y divide-border">
+            {rows.map((r) => (
+              <li
+                key={r.id}
+                className="p-4 flex items-center justify-between gap-4 hover:bg-bg-muted transition"
+              >
+                <div className="min-w-0">
+                  <Link
+                    to={`/hr/requisitions/${r.id}`}
+                    className="font-medium text-text-primary hover:underline"
+                  >
+                    {r.title}
+                  </Link>
+                  <div className="text-sm text-text-muted">
+                    {r.slug} · {r.status}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                {typeof r.applicant_count === "number" && r.applicant_count > 0 && (
-                  <span className="text-xs bg-indigo-100 text-indigo-800 rounded-full px-2 py-0.5">
-                    {r.applicant_count} applicant
-                    {r.applicant_count === 1 ? "" : "s"}
+                <div className="flex items-center gap-3 shrink-0">
+                  {typeof r.applicant_count === "number" &&
+                    r.applicant_count > 0 && (
+                      <span className="text-xs bg-indigo-500/10 text-indigo-600 rounded-full px-2 py-0.5">
+                        {r.applicant_count} applicant
+                        {r.applicant_count === 1 ? "" : "s"}
+                      </span>
+                    )}
+                  <span className="text-sm text-text-secondary">
+                    {r.compensation_display ?? ""}
                   </span>
-                )}
-                <span className="text-sm">
-                  {r.compensation_display ?? ""}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
       )}
     </div>
   );

@@ -172,9 +172,11 @@ export function HrRoutes() {
       <Route
         path="hr/requisitions"
         element={
-          <Suspense fallback={<PageLoader />}>
-            <RequisitionsListPage />
-          </Suspense>
+          <div className="p-6 max-w-7xl mx-auto">
+            <Suspense fallback={<PageLoader />}>
+              <RequisitionsListPage />
+            </Suspense>
+          </div>
         }
       />
       <Route

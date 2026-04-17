@@ -80,29 +80,30 @@ export function CandidatesTab() {
     since_days: typeof since === "number" ? since : undefined,
   });
 
+  const inputCls =
+    "w-full border border-border rounded-lg px-3 py-2 text-sm bg-bg-card text-text-primary";
+  const labelCls =
+    "text-xs uppercase tracking-wide text-text-muted block mb-1";
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6">
-      <aside className="rounded-xl border bg-white p-4 space-y-4 h-fit sticky top-4">
+      <aside className="rounded-lg border border-border bg-bg-card shadow-sm p-4 space-y-4 h-fit sticky top-4">
         <div>
-          <label className="text-xs uppercase tracking-wide text-neutral-500 block mb-1">
-            Search
-          </label>
+          <label className={labelCls}>Search</label>
           <input
             type="search"
             placeholder="Name, email, phone…"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 text-sm"
+            className={inputCls}
           />
         </div>
         <div>
-          <label className="text-xs uppercase tracking-wide text-neutral-500 block mb-1">
-            Requisition
-          </label>
+          <label className={labelCls}>Requisition</label>
           <select
             value={reqId}
             onChange={(e) => setReqId(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 text-sm"
+            className={inputCls}
           >
             <option value="">All</option>
             {reqs.data?.map((r) => (
@@ -113,13 +114,11 @@ export function CandidatesTab() {
           </select>
         </div>
         <div>
-          <label className="text-xs uppercase tracking-wide text-neutral-500 block mb-1">
-            Stage
-          </label>
+          <label className={labelCls}>Stage</label>
           <select
             value={stage}
             onChange={(e) => setStage(e.target.value as Stage | "")}
-            className="w-full border rounded-lg px-3 py-2 text-sm"
+            className={inputCls}
           >
             <option value="">All</option>
             {STAGES.map((s) => (
@@ -130,13 +129,11 @@ export function CandidatesTab() {
           </select>
         </div>
         <div>
-          <label className="text-xs uppercase tracking-wide text-neutral-500 block mb-1">
-            Source
-          </label>
+          <label className={labelCls}>Source</label>
           <select
             value={source}
             onChange={(e) => setSource(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 text-sm"
+            className={inputCls}
           >
             <option value="">All</option>
             {SOURCES.map((s) => (
@@ -147,15 +144,13 @@ export function CandidatesTab() {
           </select>
         </div>
         <div>
-          <label className="text-xs uppercase tracking-wide text-neutral-500 block mb-1">
-            Applied within
-          </label>
+          <label className={labelCls}>Applied within</label>
           <select
             value={since}
             onChange={(e) =>
               setSince(e.target.value === "" ? "" : Number(e.target.value))
             }
-            className="w-full border rounded-lg px-3 py-2 text-sm"
+            className={inputCls}
           >
             <option value="">Any time</option>
             <option value="7">Last 7 days</option>
@@ -165,7 +160,7 @@ export function CandidatesTab() {
         </div>
         <button
           type="button"
-          className="w-full text-xs text-neutral-500 hover:text-neutral-900"
+          className="w-full text-xs text-text-muted hover:text-text-primary"
           onClick={() => {
             setQ("");
             setReqId("");
@@ -178,44 +173,46 @@ export function CandidatesTab() {
         </button>
       </aside>
 
-      <section className="rounded-xl border bg-white">
-        <header className="px-5 py-3 border-b flex items-center justify-between">
+      <section className="rounded-lg border border-border bg-bg-card shadow-sm">
+        <header className="px-5 py-3 border-b border-border flex items-center justify-between">
           <div>
-            <div className="text-sm font-semibold">Candidates</div>
-            <div className="text-xs text-neutral-500">
+            <div className="text-sm font-semibold text-text-primary">
+              Candidates
+            </div>
+            <div className="text-xs text-text-muted">
               {cands.data?.length ?? 0} result
               {(cands.data?.length ?? 0) === 1 ? "" : "s"}
             </div>
           </div>
         </header>
         {cands.isLoading ? (
-          <div className="p-6 text-sm text-neutral-500">Loading…</div>
+          <div className="p-6 text-sm text-text-muted">Loading…</div>
         ) : cands.error ? (
-          <div className="p-6 text-sm text-red-600">{cands.error.message}</div>
+          <div className="p-6 text-sm text-rose-600">{cands.error.message}</div>
         ) : (cands.data?.length ?? 0) === 0 ? (
-          <div className="p-10 text-center text-sm text-neutral-500">
+          <div className="p-10 text-center text-sm text-text-muted">
             No candidates match these filters.
           </div>
         ) : (
-          <ul className="divide-y">
+          <ul className="divide-y divide-border">
             {(cands.data ?? []).map((a: Applicant) => (
               <li
                 key={a.id}
-                className="px-5 py-3 flex flex-wrap items-center justify-between gap-3"
+                className="px-5 py-3 flex flex-wrap items-center justify-between gap-3 hover:bg-bg-muted transition"
               >
                 <div className="min-w-0">
                   <Link
                     to={`/hr/applicants/${a.id}`}
-                    className="font-medium hover:underline"
+                    className="font-medium text-text-primary hover:underline"
                   >
                     {a.first_name} {a.last_name}
                   </Link>
-                  <div className="text-xs text-neutral-500 truncate">
+                  <div className="text-xs text-text-muted truncate">
                     {a.email}
                     {a.phone && " · " + a.phone}
                   </div>
                 </div>
-                <div className="text-xs text-neutral-500 shrink-0">
+                <div className="text-xs text-text-muted shrink-0">
                   {a.source.replace("_", " ")} ·{" "}
                   {new Date(a.created_at).toLocaleDateString()}
                 </div>
