@@ -24,6 +24,18 @@ const ApplicantsListPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.ApplicantsListPage })),
 );
 
+const EmployeeDetailPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.EmployeeDetailPage })),
+);
+
+const OnboardingDetailPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.OnboardingDetailPage })),
+);
+
+const OffboardingDetailPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.OffboardingDetailPage })),
+);
+
 
 export function HrRoutes() {
   return (
@@ -65,6 +77,30 @@ export function HrRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <ApplicantDetailPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/employees/:id"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <EmployeeDetailPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/onboarding/:instanceId"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <OnboardingDetailPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/offboarding/:instanceId"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <OffboardingDetailPage />
           </Suspense>
         }
       />
