@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useRealtorStore } from "./store";
 import { getFollowUpUrgency, isDueForFollowUp } from "./scoring";
 import { RealtorForm } from "./components/RealtorForm";
+import { RealtorImportDialog } from "./components/RealtorImportDialog";
 import {
   REALTOR_STAGE_LABELS,
   REALTOR_STAGE_COLORS,
@@ -20,6 +21,7 @@ import {
   List,
   Trophy,
   Clock,
+  Upload,
 } from "lucide-react";
 
 type ViewTab = "pipeline" | "table" | "followup" | "leaderboard";
@@ -28,6 +30,7 @@ export function RealtorPipelinePage() {
   const [activeTab, setActiveTab] = useState<ViewTab>("pipeline");
   const [searchQuery, setSearchQuery] = useState("");
   const [formOpen, setFormOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const [editingAgent, setEditingAgent] = useState<RealtorAgent | null>(null);
 
   const agents = useRealtorStore((s) => s.agents);
@@ -99,13 +102,22 @@ export function RealtorPipelinePage() {
             Manage real estate agent relationships and referral tracking
           </p>
         </div>
-        <button
-          onClick={() => { setEditingAgent(null); setFormOpen(true); }}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm"
-        >
-          <Plus className="w-4 h-4" />
-          Add Agent
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setImportOpen(true)}
+            className="flex items-center gap-2 px-3 py-2 border border-border text-text-secondary rounded-lg hover:bg-bg-hover transition-colors font-medium text-sm"
+          >
+            <Upload className="w-4 h-4" />
+            Import
+          </button>
+          <button
+            onClick={() => { setEditingAgent(null); setFormOpen(true); }}
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm"
+          >
+            <Plus className="w-4 h-4" />
+            Add Agent
+          </button>
+        </div>
       </div>
 
       {/* Stats Bar */}
@@ -215,6 +227,11 @@ export function RealtorPipelinePage() {
           agent={editingAgent}
           onClose={() => { setFormOpen(false); setEditingAgent(null); }}
         />
+      )}
+
+      {/* Import Dialog */}
+      {importOpen && (
+        <RealtorImportDialog onClose={() => setImportOpen(false)} />
       )}
     </div>
   );
