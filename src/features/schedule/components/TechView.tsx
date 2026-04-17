@@ -145,16 +145,29 @@ function WorkOrderCard({ workOrder }: { workOrder: WorkOrder }) {
         {JOB_TYPE_LABELS[workOrder.job_type as JobType]}
       </p>
 
+      {/* Time — prominent */}
+      {workOrder.time_window_start && (
+        <p className="text-base font-bold text-text-primary">
+          {formatTimeDisplay(workOrder.time_window_start)}
+        </p>
+      )}
+
       <div className="flex items-center justify-between text-xs text-text-muted">
-        <span>
-          {workOrder.scheduled_date}
-          {workOrder.time_window_start &&
-            ` @ ${formatTimeDisplay(workOrder.time_window_start)}`}
-        </span>
+        <span>{workOrder.scheduled_date}</span>
         {workOrder.estimated_duration_hours && (
           <span>{workOrder.estimated_duration_hours}h</span>
         )}
       </div>
+
+      {workOrder.customer_phone && (
+        <a
+          href={`tel:${workOrder.customer_phone}`}
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 mt-1"
+        >
+          📞 {workOrder.customer_phone}
+        </a>
+      )}
 
       {workOrder.service_city && (
         <p className="text-xs text-text-muted mt-1 truncate">

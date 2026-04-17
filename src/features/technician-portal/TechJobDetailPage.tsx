@@ -95,25 +95,34 @@ function buildMapsUrl(
   return `https://maps.google.com/?q=${encodeURIComponent(parts)}`;
 }
 
+function formatTimeStr(t: string): string {
+  const parts = t.split(":");
+  if (parts.length >= 2) {
+    const hour = parseInt(parts[0], 10);
+    const minute = parts[1];
+    if (!isNaN(hour)) {
+      const period = hour >= 12 ? "PM" : "AM";
+      const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+      return `${displayHour}:${minute} ${period}`;
+    }
+  }
+  try {
+    const d = new Date(t);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+    }
+  } catch { /* ignore */ }
+  return t;
+}
+
 function formatTimeWindow(
   start?: string | null,
   end?: string | null,
 ): string | null {
   if (!start && !end) return null;
-  const fmt = (iso: string) => {
-    try {
-      return new Date(iso).toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-    } catch {
-      return iso;
-    }
-  };
-  if (start && end) return `${fmt(start)} - ${fmt(end)}`;
-  if (start) return `Starts ${fmt(start)}`;
-  return `Ends ${fmt(end!)}`;
+  if (start && end) return `${formatTimeStr(start)} - ${formatTimeStr(end)}`;
+  if (start) return formatTimeStr(start);
+  return formatTimeStr(end!);
 }
 
 function parseAmount(value: number | string | null | undefined): number {

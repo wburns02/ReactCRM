@@ -65,22 +65,33 @@ function buildMapsUrl(address?: string | null, city?: string | null): string {
   return `https://maps.google.com/?q=${encodeURIComponent(parts)}`;
 }
 
+function formatTimeStr(t: string): string {
+  // Handle HH:MM:SS or HH:MM time strings (not full ISO)
+  const parts = t.split(":");
+  if (parts.length >= 2) {
+    const hour = parseInt(parts[0], 10);
+    const minute = parts[1];
+    if (!isNaN(hour)) {
+      const period = hour >= 12 ? "PM" : "AM";
+      const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+      return `${displayHour}:${minute} ${period}`;
+    }
+  }
+  // Fallback: try as ISO date
+  try {
+    const d = new Date(t);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+    }
+  } catch { /* ignore */ }
+  return t;
+}
+
 function formatTimeWindow(start?: string | null, end?: string | null): string | null {
   if (!start && !end) return null;
-  const fmt = (iso: string) => {
-    try {
-      return new Date(iso).toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-    } catch {
-      return iso;
-    }
-  };
-  if (start && end) return `${fmt(start)} - ${fmt(end)}`;
-  if (start) return `Starts ${fmt(start)}`;
-  return `Ends ${fmt(end!)}`;
+  if (start && end) return `${formatTimeStr(start)} - ${formatTimeStr(end)}`;
+  if (start) return formatTimeStr(start);
+  return formatTimeStr(end!);
 }
 
 function parseAmount(value: number | string | null | undefined): number {
@@ -122,11 +133,15 @@ function JobCard({
     id: string;
     customer_id?: string | null;
     customer_name?: string | null;
+    customer_phone?: string | null;
+    customer_email?: string | null;
     service_address_line1?: string | null;
     service_city?: string | null;
     job_type?: string | null;
     status?: string | null;
     scheduled_date?: string | null;
+    time_window_start?: string | null;
+    time_window_end?: string | null;
     total_amount?: number | string | null;
     estimated_duration_hours?: number | null;
     notes?: string | null;
@@ -172,25 +187,15 @@ function JobCard({
           </Badge>
         </div>
 
-        {/* Row 2: Address — tappable for Google Maps */}
-        {job.service_address_line1 && (
-          <a
-            href={buildMapsUrl(job.service_address_line1, job.service_city)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-primary hover:text-primary/80 mb-2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span className="text-lg">📍</span>
-            <span className="text-sm underline truncate">
-              {job.service_address_line1}
-              {job.service_city ? `, ${job.service_city}` : ""}
-            </span>
-          </a>
+        {/* Row 2: Time — large and prominent */}
+        {job.time_window_start && (
+          <p className="text-xl font-bold text-text-primary mb-1">
+            {formatTimeWindow(job.time_window_start, job.time_window_end)}
+          </p>
         )}
 
-        {/* Row 3: Date + Duration + Value */}
-        <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary">
+        {/* Row 3: Date + Duration */}
+        <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary mb-2">
           {job.scheduled_date && (
             <span className="flex items-center gap-1">
               <span>📅</span>
@@ -218,6 +223,34 @@ function JobCard({
             </span>
           ) : null}
         </div>
+
+        {/* Row 4: Phone — tap to call */}
+        {job.customer_phone && (
+          <a
+            href={`tel:${job.customer_phone}`}
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors mb-2"
+          >
+            <span>📞</span> {job.customer_phone}
+          </a>
+        )}
+
+        {/* Row 5: Address — tappable for Google Maps */}
+        {job.service_address_line1 && (
+          <a
+            href={buildMapsUrl(job.service_address_line1, job.service_city)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-primary hover:text-primary/80 mb-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-lg">📍</span>
+            <span className="text-sm underline truncate">
+              {job.service_address_line1}
+              {job.service_city ? `, ${job.service_city}` : ""}
+            </span>
+          </a>
+        )}
 
         {/* Row 4: Notes preview */}
         {job.notes && (
