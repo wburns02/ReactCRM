@@ -36,7 +36,7 @@ export function OrgChartPage() {
         </div>
       </div>
 
-      <section className="mt-6 rounded-xl border bg-white p-6">
+      <section className="mt-6 rounded-lg border border-border bg-bg-card p-6 shadow-sm overflow-x-auto">
         <OrgChart
           root={ORG_ROOT}
           activeId={active?.id ?? null}
@@ -45,7 +45,7 @@ export function OrgChartPage() {
       </section>
 
       {active && (
-        <aside className="mt-6 rounded-xl border bg-white p-6">
+        <aside className="mt-6 rounded-lg border border-border bg-bg-card p-6 shadow-sm">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="text-xs uppercase tracking-wide text-neutral-500">
