@@ -68,6 +68,14 @@ const OpenHeadcountTab = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.OpenHeadcountTab })),
 );
 
+const OnboardingListPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.OnboardingListPage })),
+);
+
+const OffboardingListPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.OffboardingListPage })),
+);
+
 
 export function HrRoutes() {
   return (
@@ -210,10 +218,26 @@ export function HrRoutes() {
         }
       />
       <Route
+        path="hr/onboarding"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <OnboardingListPage />
+          </Suspense>
+        }
+      />
+      <Route
         path="hr/onboarding/:instanceId"
         element={
           <Suspense fallback={<PageLoader />}>
             <OnboardingDetailPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/offboarding"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <OffboardingListPage />
           </Suspense>
         }
       />

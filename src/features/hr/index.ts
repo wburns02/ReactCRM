@@ -14,3 +14,7 @@ export { OnboardingDetailPage } from "./onboarding/pages/OnboardingDetailPage";
 export { OffboardingDetailPage } from "./onboarding/pages/OffboardingDetailPage";
 export { HrOverviewPage } from "./dashboard/pages/HrOverviewPage";
 export { OrgChartPage } from "./dashboard/pages/OrgChartPage";
+export {
+  OnboardingListPage,
+  OffboardingListPage,
+} from "./onboarding/pages/OnboardingListPage";

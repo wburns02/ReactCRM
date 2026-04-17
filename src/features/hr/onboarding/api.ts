@@ -90,6 +90,24 @@ export function useInstancesForSubject(
 }
 
 
+export function useAllInstances(category?: "onboarding" | "offboarding") {
+  return useQuery({
+    queryKey: [...onboardingKeys.all, "all", category ?? "all"],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/hr/onboarding/instances", {
+        params: category ? { category } : undefined,
+      });
+      return validateResponse(
+        z.array(workflowInstanceSchema),
+        data,
+        "/hr/onboarding/instances (all)",
+      );
+    },
+    staleTime: 30_000,
+  });
+}
+
+
 export function useAdvanceWorkflowTask(instanceId: string) {
   const qc = useQueryClient();
   return useMutation({

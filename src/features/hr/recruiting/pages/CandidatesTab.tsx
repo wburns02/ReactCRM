@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
 
@@ -42,11 +42,34 @@ function useCandidates(params: {
 
 
 export function CandidatesTab() {
-  const [q, setQ] = useState("");
-  const [reqId, setReqId] = useState("");
-  const [stage, setStage] = useState<Stage | "">("");
+  const [params, setParams] = useSearchParams();
+  const initialStage = (params.get("stage") as Stage | null) ?? "";
+  const initialReq = params.get("requisition_id") ?? "";
+  const initialQ = params.get("q") ?? "";
+
+  const [q, setQ] = useState(initialQ);
+  const [reqId, setReqId] = useState(initialReq);
+  const [stage, setStage] = useState<Stage | "">(
+    (STAGES as readonly string[]).includes(initialStage)
+      ? (initialStage as Stage)
+      : "",
+  );
   const [source, setSource] = useState("");
   const [since, setSince] = useState<number | "">("");
+
+  useEffect(() => {
+    const next = new URLSearchParams(params);
+    if (stage) next.set("stage", stage);
+    else next.delete("stage");
+    if (reqId) next.set("requisition_id", reqId);
+    else next.delete("requisition_id");
+    if (q) next.set("q", q);
+    else next.delete("q");
+    if (next.toString() !== params.toString()) {
+      setParams(next, { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage, reqId, q]);
 
   const reqs = useRequisitions();
   const cands = useCandidates({

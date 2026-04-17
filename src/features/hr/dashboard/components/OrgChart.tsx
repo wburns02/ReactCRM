@@ -54,7 +54,7 @@ function Branch({
       {kids.length > 0 && (
         <>
           <div className="w-0.5 h-6 bg-neutral-300" aria-hidden="true" />
-          <div className="flex flex-wrap justify-center gap-6 border-t-2 border-neutral-300 pt-6 px-2">
+          <div className="flex justify-center gap-6 border-t-2 border-neutral-300 pt-6 px-2">
             {kids.map((c) => (
               <Branch
                 key={c.id}
