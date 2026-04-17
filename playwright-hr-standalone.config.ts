@@ -9,7 +9,7 @@ import { defineConfig, devices } from "@playwright/test";
  */
 export default defineConfig({
   testDir: "./e2e/modules",
-  testMatch: /hr-(foundation|admin-flow|recruiting-flow)\.spec\.ts/,
+  testMatch: /hr-(foundation|admin-flow|recruiting-flow|lifecycle-flow)\.spec\.ts/,
   timeout: 60000,
   retries: 1,
   use: {
@@ -25,7 +25,7 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         storageState: { cookies: [], origins: [] },
       },
-      grep: /public careers|admin frontend|public apply|recruiting frontend/,
+      grep: /public careers|admin frontend|public apply|recruiting frontend|lifecycle public|lifecycle admin/,
     },
   ],
 });
