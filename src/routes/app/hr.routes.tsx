@@ -4,6 +4,10 @@ import { Route } from "react-router-dom";
 import { PageLoader } from "../utils";
 
 
+const HrOverviewPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.HrOverviewPage })),
+);
+
 const RequisitionsListPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.RequisitionsListPage })),
 );
@@ -24,6 +28,14 @@ const ApplicantsListPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.ApplicantsListPage })),
 );
 
+const ApplicantInboxPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.ApplicantInboxPage })),
+);
+
+const MessageTemplatesAdminPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.MessageTemplatesAdminPage })),
+);
+
 const EmployeeDetailPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.EmployeeDetailPage })),
 );
@@ -40,6 +52,30 @@ const OffboardingDetailPage = lazy(() =>
 export function HrRoutes() {
   return (
     <>
+      <Route
+        path="hr"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <HrOverviewPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/inbox"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <ApplicantInboxPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/settings/message-templates"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <MessageTemplatesAdminPage />
+          </Suspense>
+        }
+      />
       <Route
         path="hr/requisitions"
         element={

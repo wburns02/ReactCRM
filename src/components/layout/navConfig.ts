@@ -141,8 +141,11 @@ export const navGroups: NavGroup[] = [
     label: "HR",
     icon: Briefcase,
     items: [
+      { path: "/hr", label: "Overview", icon: LayoutDashboard },
       { path: "/hr/requisitions", label: "Requisitions", icon: ClipboardList },
       { path: "/hr/applicants", label: "Applicants", icon: UserPlus },
+      { path: "/hr/inbox", label: "Applicant Inbox", icon: Inbox },
+      { path: "/hr/settings/message-templates", label: "Message Templates", icon: MessageSquare },
     ],
   },
   {

@@ -3,3 +3,9 @@ export { RequisitionEditorPage } from "./recruiting/pages/RequisitionEditorPage"
 export { RequisitionDetailPage } from "./recruiting/pages/RequisitionDetailPage";
 export { ApplicantDetailPage } from "./recruiting/pages/ApplicantDetailPage";
 export { ApplicantsListPage } from "./recruiting/pages/ApplicantsListPage";
+export { ApplicantInboxPage } from "./recruiting/pages/ApplicantInboxPage";
+export { MessageTemplatesAdminPage } from "./recruiting/pages/MessageTemplatesAdminPage";
+export { EmployeeDetailPage } from "./employees/pages/EmployeeDetailPage";
+export { OnboardingDetailPage } from "./onboarding/pages/OnboardingDetailPage";
+export { OffboardingDetailPage } from "./onboarding/pages/OffboardingDetailPage";
+export { HrOverviewPage } from "./dashboard/pages/HrOverviewPage";
