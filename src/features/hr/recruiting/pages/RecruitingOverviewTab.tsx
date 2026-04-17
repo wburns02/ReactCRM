@@ -2,9 +2,12 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
+import { Briefcase, UserPlus, Zap, ShieldCheck, Target } from "lucide-react";
 
 import { apiClient } from "@/api/client";
 import { validateResponse } from "@/api/validateResponse";
+import { Card } from "@/components/ui/Card";
+import { KpiCard } from "@/features/hr/shared/KpiCard";
 import { applicationWithApplicantSchema } from "../api-applications";
 import { useHrOverview } from "@/features/hr/dashboard/api";
 import { useRequisitions } from "../api";
@@ -124,75 +127,83 @@ export function RecruitingOverviewTab() {
         })}
       </section>
 
-      <section className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-3">
-        <StatCard
+      <section className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <KpiCard
           label="Open requisitions"
           value={overview.data?.open_requisitions ?? 0}
-          linkTo="/hr/recruiting/requisitions"
+          to="/hr/recruiting/requisitions"
+          icon={Briefcase}
+          accent="blue"
         />
-        <StatCard
+        <KpiCard
           label="Applicants (7d)"
           value={overview.data?.applicants_last_7d ?? 0}
-          linkTo="/hr/recruiting/candidates"
+          to="/hr/recruiting/candidates"
+          icon={UserPlus}
+          accent="violet"
         />
-        <StatCard
+        <KpiCard
           label="Active onboardings"
           value={overview.data?.active_onboardings ?? 0}
-          linkTo="/hr"
-          hint="Cards open in HR overview"
+          to="/hr/onboarding"
+          hint="Lifecycle workflows"
+          icon={Zap}
+          accent="emerald"
         />
-        <StatCard
+        <KpiCard
           label="Certs expiring 30d"
           value={overview.data?.expiring_certs_30d ?? 0}
-          linkTo="/compliance"
+          to="/compliance"
+          icon={ShieldCheck}
+          accent="amber"
         />
       </section>
 
-      <section className="mt-6 rounded-xl border bg-white">
-        <header className="px-5 py-3 border-b flex items-center justify-between">
+      <Card className="mt-6 p-0">
+        <header className="px-5 py-3 border-b border-border flex items-center justify-between">
           <div>
-            <div className="text-sm font-semibold">
+            <div className="text-sm font-semibold text-text-primary">
               {PILL_LABELS[active]}
             </div>
-            <div className="text-xs text-neutral-500">
+            <div className="text-xs text-text-muted">
               {activeRows.length} application{activeRows.length === 1 ? "" : "s"}
             </div>
           </div>
         </header>
         {apps.isLoading ? (
-          <div className="p-6 text-sm text-neutral-500">Loading…</div>
+          <div className="p-6 text-sm text-text-muted">Loading…</div>
         ) : apps.error ? (
-          <div className="p-6 text-sm text-red-600">{apps.error.message}</div>
+          <div className="p-6 text-sm text-rose-600">{apps.error.message}</div>
         ) : activeRows.length === 0 ? (
-          <div className="p-10 text-center text-sm text-neutral-500">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-neutral-100 flex items-center justify-center">
-              <span className="text-2xl">🎯</span>
+          <div className="p-10 text-center text-sm text-text-muted">
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-indigo-500/10 flex items-center justify-center">
+              <Target className="w-6 h-6 text-indigo-500" />
             </div>
-            Nothing in this stage yet.  When candidates move here, they'll
+            Nothing in this stage yet. When candidates move here, they'll
             show up.
           </div>
         ) : (
-          <ul className="divide-y">
+          <ul className="divide-y divide-border">
             {activeRows.map((a) => (
               <li
                 key={a.id}
-                className="px-5 py-3 flex items-center justify-between gap-3"
+                className="px-5 py-3 flex items-center justify-between gap-3 hover:bg-bg-muted transition"
               >
                 <div className="min-w-0">
                   <Link
                     to={`/hr/applicants/${a.applicant.id}`}
-                    className="font-medium hover:underline"
+                    className="font-medium text-text-primary hover:underline"
                   >
                     {a.applicant.first_name} {a.applicant.last_name}
                   </Link>
-                  <div className="text-xs text-neutral-500 truncate">
+                  <div className="text-xs text-text-muted truncate">
                     {a.applicant.email}
                     {a.applicant.phone && " · " + a.applicant.phone}
                   </div>
                 </div>
                 <Link
                   to={`/hr/requisitions/${a.requisition_id}`}
-                  className="text-xs text-neutral-500 hover:text-neutral-900 shrink-0"
+                  className="text-xs text-text-secondary hover:text-text-primary shrink-0"
                 >
                   View pipeline →
                 </Link>
@@ -200,33 +211,7 @@ export function RecruitingOverviewTab() {
             ))}
           </ul>
         )}
-      </section>
+      </Card>
     </div>
-  );
-}
-
-
-function StatCard({
-  label,
-  value,
-  linkTo,
-  hint,
-}: {
-  label: string;
-  value: number | string;
-  linkTo: string;
-  hint?: string;
-}) {
-  return (
-    <Link
-      to={linkTo}
-      className="rounded-xl border p-4 bg-white hover:border-indigo-400 hover:-translate-y-0.5 transition"
-    >
-      <div className="text-xs uppercase tracking-wide text-neutral-500">
-        {label}
-      </div>
-      <div className="text-2xl font-semibold mt-1">{value}</div>
-      {hint && <div className="text-xs text-neutral-500 mt-1">{hint}</div>}
-    </Link>
   );
 }
