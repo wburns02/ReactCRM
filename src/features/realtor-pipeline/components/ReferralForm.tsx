@@ -50,7 +50,7 @@ export function ReferralForm({ realtorId, realtorName, referral, onClose }: Refe
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4" onClick={(e) => e.stopPropagation()}>
       <div className="bg-bg-card border border-border rounded-xl shadow-2xl w-full max-w-lg">
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">

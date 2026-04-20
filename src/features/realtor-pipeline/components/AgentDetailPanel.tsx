@@ -61,7 +61,7 @@ export function AgentDetailPanel({ agent, onClose, onEdit }: AgentDetailPanelPro
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/50" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/50" onClick={() => { if (!referralFormOpen) onClose(); }}>
       <div
         className="bg-bg-card w-full max-w-md h-full overflow-y-auto shadow-2xl border-l border-border"
         onClick={(e) => e.stopPropagation()}
