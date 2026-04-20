@@ -303,6 +303,8 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
           <thead>
             <tr className="bg-bg-hover border-b border-border text-text-secondary text-xs">
               <th className="px-3 py-2 text-left font-medium">Contact</th>
+              <th className="px-3 py-2 text-left font-medium">Address</th>
+              <th className="px-3 py-2 text-left font-medium">Opens</th>
               <th className="px-3 py-2 text-left font-medium">Zone</th>
               <th className="px-3 py-2 text-left font-medium">Phone</th>
               <th className="px-3 py-2 text-left font-medium">Status</th>
@@ -338,6 +340,33 @@ export function ContactTable({ campaignId, onDialContact }: ContactTableProps) {
                         </div>
                       )}
                     </button>
+                  </td>
+                  <td className="px-3 py-2.5 text-xs text-text-secondary max-w-[180px]">
+                    {contact.address && (
+                      <div className="truncate" title={`${contact.address}${contact.city ? `, ${contact.city}` : ""}${contact.state ? ` ${contact.state}` : ""}`}>
+                        {contact.address}
+                      </div>
+                    )}
+                    {contact.city && (
+                      <div className="text-[10px] text-text-tertiary truncate">
+                        {contact.city}{contact.state ? `, ${contact.state}` : ""}
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-3 py-2.5 text-center">
+                    {(() => {
+                      const match = contact.notes?.match(/(\d+)x/);
+                      if (!match) return <span className="text-text-tertiary text-xs">-</span>;
+                      const opens = parseInt(match[1], 10);
+                      const color = opens >= 5 ? "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-400"
+                        : opens >= 2 ? "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400"
+                        : "bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400";
+                      return (
+                        <span className={`inline-flex items-center justify-center min-w-[28px] px-1.5 py-0.5 rounded-full text-[10px] font-bold ${color}`} title={`Opened email ${opens} time${opens > 1 ? "s" : ""}`}>
+                          {opens}x
+                        </span>
+                      );
+                    })()}
                   </td>
                   <td className="px-3 py-2.5">
                     {getZoneBadge(contact.service_zone)}
