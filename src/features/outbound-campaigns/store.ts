@@ -73,6 +73,120 @@ function generateId(): string {
 }
 
 /**
+ * Inject "Email Openers - Spring Follow-Up" campaign with 39 TN permit owners
+ * who opened the Mar 27 email. Only injects if the campaign doesn't already exist.
+ */
+function injectEmailOpenersCampaign(): void {
+  const state = useOutboundStore.getState();
+  const CAMPAIGN_ID = "email-openers-spring-2026";
+
+  // Don't re-inject if already present
+  if (state.campaigns.some((c) => c.id === CAMPAIGN_ID)) return;
+
+  const now = new Date().toISOString();
+  const campaign: Campaign = {
+    id: CAMPAIGN_ID,
+    name: "Email Openers - Spring Follow-Up",
+    description: "39 TN permit owners who opened the Mar 27 spring service email (1-8x opens). Warm leads for outbound calls.",
+    status: "active",
+    source_file: "Brevo Transactional Export",
+    source_sheet: null,
+    total_contacts: 39,
+    contacts_called: 0,
+    contacts_connected: 0,
+    contacts_interested: 0,
+    contacts_completed: 0,
+    assigned_reps: [],
+    created_by: "claude-marketing-analysis",
+    created_at: now,
+    updated_at: now,
+  };
+
+  const contactData: Array<{
+    name: string; phone: string; email: string;
+    city: string; state: string; address: string; opens: number;
+  }> = [
+    { name: "Shanna Byrnes", phone: "9313341335", email: "shanna.hulsey81@gmail.com", city: "Spring Hill", state: "TN", address: "164 Oak Valley Dr", opens: 8 },
+    { name: "Deborah Bohannon", phone: "6159675144", email: "dinonerd1981@gmail.com", city: "Columbia", state: "TN", address: "612 Delk Ln", opens: 6 },
+    { name: "Christine Browm", phone: "4075519693", email: "doug@macseptic.com", city: "Ashland City", state: "TN", address: "404 Patricia Dr", opens: 6 },
+    { name: "Chris Guthrie", phone: "8475071120", email: "chrisguthrie143@gmail.com", city: "Columbia", state: "TN", address: "2298 Hermitage Cir", opens: 5 },
+    { name: "Amerispec", phone: "9314103003", email: "contact@amerispecmidtn.net", city: "Spring Hill", state: "TN", address: "2465 Lake Shore Dr", opens: 5 },
+    { name: "Jack Hartley", phone: "4193039476", email: "j.hartley.bhs@gmail.com", city: "Columbia", state: "TN", address: "2846 Pulaski Hwy", opens: 5 },
+    { name: "Melinda Hanes", phone: "9314864677", email: "mhanes@hawkston.com", city: "Columbia", state: "TN", address: "2410 Park Plus Dr", opens: 4 },
+    { name: "Secilia Wagnor", phone: "6157177267", email: "seciliabryce2023@gmail.com", city: "Columbia", state: "TN", address: "1508 Potter Dr", opens: 3 },
+    { name: "Lina Wagoner", phone: "6158046383", email: "lina8809@gmail.com", city: "Columbia", state: "TN", address: "1399 Standing Stone Circle", opens: 3 },
+    { name: "Smotherman Excavation", phone: "6154891015", email: "smothermanexcavation@gmail.com", city: "Columbia", state: "TN", address: "", opens: 3 },
+    { name: "Keith Barnhill", phone: "6154957989", email: "keith.barnhill@erm.com", city: "Spring Hill", state: "TN", address: "2472 Lewisburg Pike", opens: 3 },
+    { name: "Dj Gillit", phone: "8063924352", email: "dgillit@gmail.com", city: "Columbia", state: "TN", address: "1926 Bryant Road", opens: 3 },
+    { name: "Lowell Brown", phone: "8202884114", email: "atlasbuildtn@gmail.com", city: "Culleoka", state: "TN", address: "2952 Valley Creek Rd", opens: 2 },
+    { name: "Samantha Sierra", phone: "6616168583", email: "mike_sam@att.net", city: "Spring Hill", state: "TN", address: "405 Billy Ln", opens: 2 },
+    { name: "Kirk Hennig", phone: "6154966459", email: "kirkhennig@gmail.com", city: "Spring Hill", state: "TN", address: "3688 Stone Creek Dr", opens: 2 },
+    { name: "Felix Pena", phone: "9312158029", email: "generalemaildumping@gmail.com", city: "Culleoka", state: "TN", address: "2629 Demastus Rd", opens: 2 },
+    { name: "Brittney King", phone: "6157109159", email: "kbrittney106@gmail.com", city: "Columbia", state: "TN", address: "1103 Haley St", opens: 2 },
+    { name: "Allison Epps", phone: "2142293589", email: "epps.ali@gmail.com", city: "Spring Hill", state: "TN", address: "59 Oak Valley Dr", opens: 2 },
+    { name: "Natalie Wagner", phone: "9164128643", email: "natalie@libertytransactions.com", city: "Columbia", state: "TN", address: "2380 Beasley Lane", opens: 2 },
+    { name: "Chris Cocilovo", phone: "8058891833", email: "chriscocilovo@gmail.com", city: "Chapel Hill", state: "TN", address: "4012 Caney Creek Ln", opens: 2 },
+    { name: "Bill Spradley", phone: "9319815033", email: "williamasberry64@gmail.com", city: "Columbia", state: "TN", address: "909 Everyman Ct", opens: 2 },
+    { name: "Vanessa Medrano", phone: "6195193931", email: "vmedrano@firstwatch.com", city: "Columbia", state: "TN", address: "202 S James Campbell", opens: 2 },
+    { name: "Jeremy Smith", phone: "6155062797", email: "jeremybsmith@gmail.com", city: "Columbia", state: "TN", address: "1157 Roseland Dr", opens: 2 },
+    { name: "Mark Leatherman", phone: "9312557429", email: "markleatherman10@gmail.com", city: "Columbia", state: "TN", address: "3034 Glenstone Dr", opens: 2 },
+    { name: "Briana Betker", phone: "9319818789", email: "brianabetker739@gmail.com", city: "Columbia", state: "TN", address: "2624 Bristow Rd", opens: 2 },
+    { name: "Carla Gibbs", phone: "9312427123", email: "carlapfernandez@yahoo.com", city: "Columbia", state: "TN", address: "3514 Tobe Robertson Rd", opens: 2 },
+    { name: "Shea Heeney", phone: "6154964191", email: "sheaandbecca@gmail.com", city: "Columbia", state: "TN", address: "903 Carters Creek Pike", opens: 1 },
+    { name: "Dillon Nab", phone: "3072775547", email: "dillon.nab@gmail.com", city: "Mount Pleasant", state: "TN", address: "4461 W Point Road", opens: 1 },
+    { name: "Wilbur Alvarez", phone: "8083439032", email: "wilburalvarez0148@gmail.com", city: "Columbia", state: "TN", address: "2854 Greens Mill Rd", opens: 1 },
+    { name: "Paul Rivera", phone: "7142232557", email: "paul.rivera59@icloud.com", city: "Columbia", state: "TN", address: "1151 Old Hwy 99", opens: 1 },
+    { name: "Peri Chinoda", phone: "6154389095", email: "pchinoda2@yahoo.com", city: "Spring Hill", state: "TN", address: "2219 Twin Peaks Ct", opens: 1 },
+    { name: "Debra Setera", phone: "6153977764", email: "abennett@scoutrealty.com", city: "Columbia", state: "TN", address: "5317 Tobe Robertson Rd", opens: 1 },
+    { name: "Loretta Lovett", phone: "2817734844", email: "lorettaanngilbert@gmail.com", city: "Lewisburg", state: "TN", address: "1352 Webb Road", opens: 1 },
+    { name: "Floyd White", phone: "6152683557", email: "fwhite0725@gmail.com", city: "Columbia", state: "TN", address: "414 Lake Circle", opens: 1 },
+    { name: "Wesley Baird", phone: "4693446395", email: "asclafani423@gmail.com", city: "Columbia", state: "TN", address: "215 Elliott Ct", opens: 1 },
+    { name: "Adam Busch", phone: "5638456577", email: "acbusch52@gmail.com", city: "Columbia", state: "TN", address: "3687 Perry Cemetery Road", opens: 1 },
+    { name: "Jeff Lamb", phone: "6155049533", email: "jplambsr@gmail.com", city: "Columbia", state: "TN", address: "3907 Kelley Farris Rd", opens: 1 },
+  ];
+
+  const contacts: CampaignContact[] = contactData.map((data, i) => ({
+    id: `email-opener-${i + 1}`,
+    campaign_id: CAMPAIGN_ID,
+    account_number: null,
+    account_name: data.name,
+    company: null,
+    phone: data.phone,
+    email: data.email,
+    address: data.address,
+    city: data.city,
+    state: data.state,
+    zip_code: null,
+    service_zone: null,
+    system_type: "Residential Septic",
+    contract_type: null,
+    contract_status: null,
+    contract_start: null,
+    contract_end: null,
+    contract_value: null,
+    customer_type: "Residential",
+    call_priority_label: data.opens >= 4 ? "High" : data.opens >= 2 ? "Medium" : "Low",
+    call_status: "pending" as const,
+    call_attempts: 0,
+    last_call_date: null,
+    last_call_duration: null,
+    last_disposition: null,
+    notes: `Opened spring service email ${data.opens}x. TN septic permit owner — warm lead.`,
+    callback_date: null,
+    assigned_rep: null,
+    priority: data.opens >= 4 ? 5 : data.opens >= 2 ? 3 : 1,
+    created_at: now,
+    updated_at: now,
+  }));
+
+  useOutboundStore.setState({
+    campaigns: [campaign, ...state.campaigns],
+    contacts: [...contacts, ...state.contacts],
+  });
+}
+
+
+/**
  * Inject a dedicated "Test Calls - Will Burns" campaign with 5 contacts.
  * This creates its own campaign so the power dialer only dials these 5.
  * Replaces any existing test campaign to ensure correct contact count.
@@ -809,6 +923,8 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             // Data already exists — inject test contacts if missing
             injectTestContacts();
           }
+          // Always inject email openers campaign if not present
+          injectEmailOpenersCampaign();
         };
       },
       migrate: (persisted: unknown, version: number) => {
