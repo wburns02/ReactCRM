@@ -349,7 +349,7 @@ export const useRealtorStore = create<RealtorPipelineState>()(
         sortOrder: state.sortOrder,
         stageFilter: state.stageFilter,
       }),
-      onRehydrate: () => {
+      onRehydrateStorage: () => {
         // After store loads from IndexedDB, seed demo data if empty
         return (state) => {
           if (state && state.agents.length === 0) {
