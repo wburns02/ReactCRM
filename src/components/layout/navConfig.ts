@@ -146,7 +146,7 @@ export const navGroups: NavGroup[] = [
       { path: "/hr/org-chart", label: "Org Chart", icon: Users },
       { path: "/hr/recruiting", label: "Recruiting", icon: UserPlus },
       { path: "/hr/inbox", label: "Applicant Inbox", icon: Inbox },
-      { path: "/technicians", label: "Employees", icon: HardHat },
+      { path: "/hr/employees", label: "Employees", icon: HardHat },
       { path: "/compliance", label: "Compliance", icon: ShieldCheck },
       { path: "/timesheets", label: "Timesheets", icon: Timer },
       { path: "/payroll", label: "Payroll", icon: Banknote },

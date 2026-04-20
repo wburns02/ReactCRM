@@ -76,6 +76,10 @@ const OffboardingListPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.OffboardingListPage })),
 );
 
+const EmployeesListPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.EmployeesListPage })),
+);
+
 
 export function HrRoutes() {
   return (
@@ -93,6 +97,14 @@ export function HrRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <OrgChartPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/employees"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <EmployeesListPage />
           </Suspense>
         }
       />

@@ -155,10 +155,10 @@ export function HrOverviewPage() {
           accent="blue"
         />
         <ShortcutCard
-          to="/technicians"
+          to="/hr/employees"
           icon={Briefcase}
           title="Employees"
-          hint="Team roster"
+          hint="All staff roster"
           accent="emerald"
         />
         <ShortcutCard
