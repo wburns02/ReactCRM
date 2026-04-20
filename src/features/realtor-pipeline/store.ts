@@ -343,6 +343,7 @@ export const useRealtorStore = create<RealtorPipelineState>()(
     }),
     {
       name: "realtor-pipeline-store",
+      version: 2, // Bump to force re-seed with real Nashville agents
       storage: idbStorage,
       partialize: (state) => ({
         agents: state.agents,
@@ -350,8 +351,19 @@ export const useRealtorStore = create<RealtorPipelineState>()(
         sortOrder: state.sortOrder,
         stageFilter: state.stageFilter,
       }),
+      migrate: (_persistedState, version) => {
+        // Version 1 had fake demo agents — wipe and re-seed with real data
+        if (version < 2) {
+          return {
+            agents: [],
+            referrals: [],
+            sortOrder: "urgency",
+            stageFilter: "all",
+          };
+        }
+        return _persistedState as any;
+      },
       onRehydrateStorage: () => {
-        // After store loads from IndexedDB, seed demo data if empty
         return (state) => {
           if (state && state.agents.length === 0) {
             injectSeedAgents();
