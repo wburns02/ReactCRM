@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useDocuments, useDocumentStats } from "@/api/hooks/useDocumentCenter.ts";
 import { DocumentCenterDashboard } from "./components/DocumentCenterDashboard.tsx";
 import { DocumentsTable } from "./components/DocumentsTable.tsx";
@@ -7,6 +7,7 @@ import { QuickActionsBar } from "./components/QuickActionsBar.tsx";
 import { DocumentPreviewModal } from "./components/DocumentPreviewModal.tsx";
 import { SendEmailModal } from "./components/SendEmailModal.tsx";
 import { GenerateDocumentModal } from "./components/GenerateDocumentModal.tsx";
+import { ReferenceDocsTab } from "./components/ReferenceDocsTab.tsx";
 import { Card } from "@/components/ui/Card.tsx";
 import { ApiError } from "@/components/ui/ApiError.tsx";
 import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
@@ -27,6 +28,9 @@ import type {
  * - Generate new documents workflow
  */
 export function DocumentCenterPage() {
+  // Tab state
+  const [activeTab, setActiveTab] = useState<"documents" | "reference">("documents");
+
   // Filter state
   const [filters, setFilters] = useState<DocumentFiltersType>({
     page: 1,
@@ -121,6 +125,31 @@ export function DocumentCenterPage() {
         </div>
       </div>
 
+      {/* Tab Switcher */}
+      <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg w-fit">
+        <button
+          onClick={() => setActiveTab("documents")}
+          className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+            activeTab === "documents"
+              ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          Generated Documents
+        </button>
+        <button
+          onClick={() => setActiveTab("reference")}
+          className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+            activeTab === "reference"
+              ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          Reference Docs
+        </button>
+      </div>
+
+      {activeTab === "documents" && (<>
       {/* Dashboard Stats */}
       <DocumentCenterDashboard
         stats={statsData}
@@ -156,6 +185,9 @@ export function DocumentCenterPage() {
           onRetry={refetch}
         />
       </Card>
+      </>)}
+
+      {activeTab === "reference" && <ReferenceDocsTab />}
 
       {/* Modals */}
       {previewDocument && (
