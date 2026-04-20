@@ -3,6 +3,7 @@ import { useRealtorStore } from "./store";
 import { getFollowUpUrgency, isDueForFollowUp } from "./scoring";
 import { RealtorForm } from "./components/RealtorForm";
 import { RealtorImportDialog } from "./components/RealtorImportDialog";
+import { AgentDetailPanel } from "./components/AgentDetailPanel";
 import {
   REALTOR_STAGE_LABELS,
   REALTOR_STAGE_COLORS,
@@ -32,6 +33,7 @@ export function RealtorPipelinePage() {
   const [formOpen, setFormOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const [editingAgent, setEditingAgent] = useState<RealtorAgent | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<RealtorAgent | null>(null);
 
   const agents = useRealtorStore((s) => s.agents);
   const referrals = useRealtorStore((s) => s.referrals);
@@ -208,13 +210,13 @@ export function RealtorPipelinePage() {
       {/* Tab Content */}
       <div className="min-h-[400px]">
         {activeTab === "pipeline" && (
-          <PipelineView agents={filteredAgents} onEditAgent={(a) => { setEditingAgent(a); setFormOpen(true); }} />
+          <PipelineView agents={filteredAgents} onEditAgent={(a) => setSelectedAgent(a)} />
         )}
         {activeTab === "table" && (
-          <TableView agents={filteredAgents} onEditAgent={(a) => { setEditingAgent(a); setFormOpen(true); }} />
+          <TableView agents={filteredAgents} onEditAgent={(a) => setSelectedAgent(a)} />
         )}
         {activeTab === "followup" && (
-          <FollowUpView agents={agents} onEditAgent={(a) => { setEditingAgent(a); setFormOpen(true); }} />
+          <FollowUpView agents={agents} onEditAgent={(a) => setSelectedAgent(a)} />
         )}
         {activeTab === "leaderboard" && (
           <LeaderboardView agents={agents} referrals={referrals} />
@@ -233,6 +235,24 @@ export function RealtorPipelinePage() {
       {importOpen && (
         <RealtorImportDialog onClose={() => setImportOpen(false)} />
       )}
+
+      {/* Agent Detail Panel */}
+      {selectedAgent && (() => {
+        // Re-read from store to get fresh data after stage changes/referrals
+        const freshAgent = agents.find((a) => a.id === selectedAgent.id);
+        if (!freshAgent) return null;
+        return (
+          <AgentDetailPanel
+            agent={freshAgent}
+            onClose={() => setSelectedAgent(null)}
+            onEdit={() => {
+              setEditingAgent(freshAgent);
+              setFormOpen(true);
+              setSelectedAgent(null);
+            }}
+          />
+        );
+      })()}
     </div>
   );
 }
