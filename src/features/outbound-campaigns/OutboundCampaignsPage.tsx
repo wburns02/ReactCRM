@@ -7,6 +7,7 @@ import { CampaignAnalytics } from "./components/CampaignAnalytics";
 import { PermitCampaignBuilder } from "./components/PermitCampaignBuilder";
 import { ImportDialog } from "./components/ImportDialog";
 import { useOutboundStore } from "./store";
+import { useLocalMigration } from "./useLocalMigration";
 import type { CampaignContact, CampaignStats } from "./types";
 import {
   PhoneOutgoing,
@@ -28,6 +29,7 @@ const DanniaDashboard = lazy(() =>
 type Tab = "campaigns" | "contacts" | "dialer" | "analytics" | "permits";
 
 export function OutboundCampaignsPage() {
+  useLocalMigration();
   const [activeTab, setActiveTab] = useState<Tab>("campaigns");
   const [selectedCampaignId, setSelectedCampaignId] = useState<string | null>(
     null,
@@ -37,6 +39,27 @@ export function OutboundCampaignsPage() {
   const campaigns = useOutboundStore((s) => s.campaigns);
   const allContacts = useOutboundStore((s) => s.contacts);
   const danniaMode = useOutboundStore((s) => s.danniaMode);
+  const syncFromBackend = useOutboundStore((s) => s.syncFromBackend);
+
+  // Pull team-wide truth on mount and every 30s while the page is visible.
+  useEffect(() => {
+    syncFromBackend().catch(() => {
+      /* logged in store */
+    });
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") {
+        syncFromBackend().catch(() => {});
+      }
+    }, 30_000);
+    const onFocus = () => {
+      syncFromBackend().catch(() => {});
+    };
+    window.addEventListener("focus", onFocus);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("focus", onFocus);
+    };
+  }, [syncFromBackend]);
 
   // Auto-select the first campaign so tabs are never disabled
   useEffect(() => {

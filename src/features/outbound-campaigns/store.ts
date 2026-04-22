@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { get as idbGet, set as idbSet, del as idbDel } from "idb-keyval";
+import { apiClient } from "@/api/client.ts";
 import type {
   AutoDialDelay,
   Campaign,
@@ -12,6 +13,16 @@ import type {
   SortOrder,
 } from "./types";
 import { DEFAULT_AUTOMATION_CONFIG } from "./types";
+
+/**
+ * Fire-and-forget API call; never throws into calling code. Server errors
+ * are logged and the next syncFromBackend() reconciles local state.
+ */
+function postBackend(fn: () => Promise<unknown>): void {
+  Promise.resolve(fn()).catch((err) => {
+    console.error("[outbound] backend sync failed", err);
+  });
+}
 
 /**
  * IndexedDB-backed storage adapter for Zustand persist.
@@ -461,8 +472,12 @@ interface OutboundCampaignState {
   setSortOrder: (order: SortOrder) => void;
   getAutomationConfig: (campaignId: string) => CampaignAutomationConfig;
 
-  // Seeding
+  // Seeding (legacy; no longer auto-invoked — kept for external callers)
   seedFromBuiltInData: () => Promise<void>;
+
+  // Backend sync: replaces local state with the team-wide truth from the API.
+  // Called on store rehydrate + from OutboundCampaignsPage on a 30s interval.
+  syncFromBackend: () => Promise<void>;
 
   // Queries
   getCampaignContacts: (campaignId: string) => CampaignContact[];
@@ -506,6 +521,14 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           updated_at: now,
         };
         set((s) => ({ campaigns: [...s.campaigns, campaign] }));
+        postBackend(() =>
+          apiClient.post("/outbound-campaigns/campaigns", {
+            id,
+            name,
+            description: description ?? null,
+            status: "draft",
+          }),
+        );
         return id;
       },
 
@@ -517,6 +540,15 @@ export const useOutboundStore = create<OutboundCampaignState>()(
               : c,
           ),
         }));
+        const body: Record<string, unknown> = {};
+        if (updates.name !== undefined) body.name = updates.name;
+        if (updates.description !== undefined) body.description = updates.description;
+        if (updates.status !== undefined) body.status = updates.status;
+        if (Object.keys(body).length > 0) {
+          postBackend(() =>
+            apiClient.patch(`/outbound-campaigns/campaigns/${id}`, body),
+          );
+        }
       },
 
       deleteCampaign: (id) => {
@@ -526,6 +558,9 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           activeCampaignId:
             s.activeCampaignId === id ? null : s.activeCampaignId,
         }));
+        postBackend(() =>
+          apiClient.delete(`/outbound-campaigns/campaigns/${id}`),
+        );
       },
 
       setCampaignStatus: (id, status) => {
@@ -536,6 +571,9 @@ export const useOutboundStore = create<OutboundCampaignState>()(
               : c,
           ),
         }));
+        postBackend(() =>
+          apiClient.patch(`/outbound-campaigns/campaigns/${id}`, { status }),
+        );
       },
 
       addContact: (campaignId, data) => {
@@ -582,6 +620,26 @@ export const useOutboundStore = create<OutboundCampaignState>()(
               : c,
           ),
         }));
+        postBackend(() =>
+          apiClient.post(`/outbound-campaigns/campaigns/${campaignId}/contacts`, {
+            contacts: [
+              {
+                id,
+                account_name: data.name,
+                phone: contact.phone,
+                company: contact.company,
+                email: contact.email,
+                address: contact.address,
+                city: contact.city,
+                state: contact.state,
+                zip_code: contact.zip_code,
+                service_zone: contact.service_zone,
+                notes: contact.notes,
+                priority: contact.priority,
+              },
+            ],
+          }),
+        );
         return id;
       },
 
@@ -667,6 +725,36 @@ export const useOutboundStore = create<OutboundCampaignState>()(
           };
         });
 
+        if (newContacts.length > 0) {
+          postBackend(() =>
+            apiClient.post(
+              `/outbound-campaigns/campaigns/${campaignId}/contacts`,
+              {
+                contacts: newContacts.map((c) => ({
+                  id: c.id,
+                  account_number: c.account_number,
+                  account_name: c.account_name,
+                  company: c.company,
+                  phone: c.phone,
+                  email: c.email,
+                  address: c.address,
+                  city: c.city,
+                  state: c.state,
+                  zip_code: c.zip_code,
+                  service_zone: c.service_zone,
+                  system_type: c.system_type,
+                  contract_type: c.contract_type,
+                  contract_status: c.contract_status,
+                  customer_type: c.customer_type,
+                  call_priority_label: c.call_priority_label,
+                  notes: c.notes,
+                  priority: c.priority,
+                })),
+              },
+            ),
+          );
+        }
+
         return newContacts.length;
       },
 
@@ -690,6 +778,22 @@ export const useOutboundStore = create<OutboundCampaignState>()(
               : c,
           ),
         }));
+        const allowed: Record<string, unknown> = {};
+        const fields = [
+          "account_name", "company", "phone", "email", "address", "city",
+          "state", "zip_code", "service_zone", "system_type",
+          "call_priority_label", "priority", "notes", "callback_date",
+        ];
+        for (const f of fields) {
+          if (f in updates && (updates as Record<string, unknown>)[f] !== undefined) {
+            allowed[f] = (updates as Record<string, unknown>)[f];
+          }
+        }
+        if (Object.keys(allowed).length > 0) {
+          postBackend(() =>
+            apiClient.patch(`/outbound-campaigns/contacts/${id}`, allowed),
+          );
+        }
       },
 
       setContactCallStatus: (id, status, notes) => {
@@ -753,12 +857,22 @@ export const useOutboundStore = create<OutboundCampaignState>()(
             ),
           };
         });
+
+        postBackend(() =>
+          apiClient.post(`/outbound-campaigns/contacts/${id}/dispositions`, {
+            call_status: status,
+            notes: notes ?? null,
+          }),
+        );
       },
 
       removeContact: (id) => {
         set((s) => ({
           contacts: s.contacts.filter((c) => c.id !== id),
         }));
+        postBackend(() =>
+          apiClient.delete(`/outbound-campaigns/contacts/${id}`),
+        );
       },
 
       setActiveCampaign: (id) => {
@@ -792,22 +906,101 @@ export const useOutboundStore = create<OutboundCampaignState>()(
       },
 
       seedFromBuiltInData: async () => {
-        // Only seed if store has no campaigns
-        if (get().campaigns.length > 0) return;
+        // Legacy: no longer auto-invoked. The server is the source of truth
+        // for campaigns/contacts. This is retained only for any external
+        // caller that may still reference it.
+        return;
+      },
+
+      syncFromBackend: async () => {
         try {
-          const { SEED_CAMPAIGNS, SEED_SOURCE_FILE } = await import("./seed-data");
-          const store = get();
-          for (const campaign of SEED_CAMPAIGNS) {
-            const id = store.createCampaign(campaign.sheetName);
-            get().setCampaignStatus(id, "active");
-            get().importContacts(id, campaign.rows, SEED_SOURCE_FILE, campaign.sheetName);
-          }
-          // After seeding, inject test contacts for dialer testing
-          injectTestContacts();
+          const campRes = await apiClient.get("/outbound-campaigns/campaigns");
+          const serverCampaigns = (campRes.data?.campaigns ?? []) as Array<{
+            id: string;
+            name: string;
+            description: string | null;
+            status: CampaignStatus;
+            source_file: string | null;
+            source_sheet: string | null;
+            created_by: number | null;
+            created_at: string;
+            updated_at: string;
+            counters: {
+              total: number;
+              called: number;
+              connected: number;
+              interested: number;
+              completed: number;
+            };
+          }>;
+
+          const campaigns: Campaign[] = serverCampaigns.map((c) => ({
+            id: c.id,
+            name: c.name,
+            description: c.description,
+            status: c.status,
+            source_file: c.source_file,
+            source_sheet: c.source_sheet,
+            total_contacts: c.counters.total,
+            contacts_called: c.counters.called,
+            contacts_connected: c.counters.connected,
+            contacts_interested: c.counters.interested,
+            contacts_completed: c.counters.completed,
+            assigned_reps: [],
+            created_by: c.created_by ? String(c.created_by) : null,
+            created_at: c.created_at,
+            updated_at: c.updated_at,
+          }));
+
+          const contactPromises = serverCampaigns.map((c) =>
+            apiClient
+              .get(`/outbound-campaigns/campaigns/${c.id}/contacts`)
+              .then((r) => r.data?.contacts ?? [])
+              .catch((err) => {
+                console.warn(`[outbound] failed to fetch contacts for ${c.id}`, err);
+                return [];
+              }),
+          );
+          const contactsByCampaign = await Promise.all(contactPromises);
+          const contacts: CampaignContact[] = contactsByCampaign.flat().map((c) => ({
+            id: c.id,
+            campaign_id: c.campaign_id,
+            account_number: c.account_number ?? null,
+            account_name: c.account_name,
+            company: c.company ?? null,
+            phone: c.phone,
+            email: c.email ?? null,
+            address: c.address ?? null,
+            city: c.city ?? null,
+            state: c.state ?? null,
+            zip_code: c.zip_code ?? null,
+            service_zone: c.service_zone ?? null,
+            system_type: c.system_type ?? null,
+            contract_type: c.contract_type ?? null,
+            contract_status: c.contract_status ?? null,
+            contract_start: c.contract_start ?? null,
+            contract_end: c.contract_end ?? null,
+            contract_value:
+              c.contract_value != null ? Number(c.contract_value) : null,
+            customer_type: c.customer_type ?? null,
+            call_priority_label: c.call_priority_label ?? null,
+            call_status: c.call_status,
+            call_attempts: c.call_attempts ?? 0,
+            last_call_date: c.last_call_date ?? null,
+            last_call_duration: c.last_call_duration ?? null,
+            last_disposition: c.last_disposition ?? null,
+            notes: c.notes ?? null,
+            callback_date: c.callback_date ?? null,
+            assigned_rep: c.assigned_rep ? String(c.assigned_rep) : null,
+            priority: c.priority ?? 0,
+            created_at: c.created_at,
+            updated_at: c.updated_at,
+          }));
+
+          set({ campaigns, contacts });
         } catch (err) {
-          console.error("Failed to seed campaign data:", err);
-          // Still inject test contacts even if bulk seed fails
-          injectTestContacts();
+          console.error("[outbound] syncFromBackend failed", err);
+          throw err;
         }
       },
 
@@ -915,16 +1108,14 @@ export const useOutboundStore = create<OutboundCampaignState>()(
       storage: idbStorage,
       onRehydrateStorage: () => {
         return (state) => {
-          // After store hydrates from IndexedDB, seed if empty
-          if (state && state.campaigns.length === 0) {
-            // seedFromBuiltInData calls injectTestContacts() after seeding
-            state.seedFromBuiltInData();
-          } else if (state && state.campaigns.length > 0) {
-            // Data already exists — inject test contacts if missing
-            injectTestContacts();
-          }
-          // Always inject email openers campaign if not present
-          injectEmailOpenersCampaign();
+          if (!state) return;
+          // Pull the team-wide truth from the backend. Local state from
+          // IndexedDB is kept as a fallback for offline reads until this
+          // resolves. Legacy hardcoded injects are no longer run — the
+          // Email Openers campaign lives in the backend (alembic 107).
+          state.syncFromBackend().catch((err) => {
+            console.error("[outbound] initial sync failed", err);
+          });
         };
       },
       migrate: (persisted: unknown, version: number) => {
