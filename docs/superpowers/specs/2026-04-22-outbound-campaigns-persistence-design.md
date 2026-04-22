@@ -57,7 +57,7 @@ outbound_campaigns
   status          text not null     -- draft|active|paused|completed|archived
   source_file     text
   source_sheet    text
-  created_by      uuid → users.id
+  created_by      int → api_users.id
   created_at      timestamptz default now()
   updated_at      timestamptz default now()
 
@@ -89,7 +89,7 @@ outbound_campaign_contacts
   last_disposition      text
   notes                 text
   callback_date         timestamptz
-  assigned_rep          uuid → users.id
+  assigned_rep          int → api_users.id
   priority              int  not null default 0
   opens                 int
   created_at            timestamptz default now()
@@ -101,7 +101,7 @@ outbound_call_attempts
   id                uuid PK default gen_random_uuid()
   contact_id        text → outbound_campaign_contacts.id on delete cascade
   campaign_id       text → outbound_campaigns.id
-  rep_user_id       uuid → users.id
+  rep_user_id       int → api_users.id
   dispositioned_at  timestamptz default now()
   call_status       text not null
   notes             text
@@ -113,7 +113,7 @@ outbound_callbacks
   id                uuid PK default gen_random_uuid()
   contact_id        text → outbound_campaign_contacts.id on delete cascade
   campaign_id       text → outbound_campaigns.id
-  rep_user_id       uuid → users.id
+  rep_user_id       int → api_users.id
   scheduled_for     timestamptz not null
   notes             text
   status            text not null default 'scheduled'   -- scheduled|completed|missed|cancelled
