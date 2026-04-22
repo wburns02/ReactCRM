@@ -5,8 +5,8 @@ import { outboundKeys } from "@/api/hooks/useOutboundCampaigns.ts";
 import { readLegacyZustandBlob } from "./utils/readLegacyIndexedDB.ts";
 
 const MIGRATED_FLAG = "outbound-v1-migrated";
-const OUTBOUND_STORE_KEY = "outbound-campaigns-storage";
-const DANNIA_STORE_KEY = "dannia-store";
+const OUTBOUND_STORE_KEY = "outbound-campaigns-store";
+const DANNIA_STORE_KEY = "dannia-mode-store";
 const NON_DIRTY_STATUSES = new Set(["pending", "queued"]);
 
 interface LegacyContact {

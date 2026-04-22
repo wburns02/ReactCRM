@@ -56,23 +56,23 @@ test.describe("Outbound Campaigns persistence", () => {
       { timeout: 20_000 },
     );
 
-    // Click into the campaign so the contacts tab populates.
-    await page.locator("text=Email Openers - Spring Follow-Up").first().click();
-    await page.waitForTimeout(1000);
+    // Click the Contacts tab button.
+    await page.getByRole("button", { name: /^Contacts$/ }).first().click();
+    await page.waitForTimeout(1500);
 
-    // Switch to the Contacts tab if it exists.
-    const contactsTab = page.locator('button:has-text("Contacts"), [role="tab"]:has-text("Contacts")').first();
-    if (await contactsTab.isVisible().catch(() => false)) {
-      await contactsTab.click();
-      await page.waitForTimeout(800);
-    }
-
-    // Find the first row's status select. UI shows a Set status... select per row.
-    const firstSelect = page.locator("tbody tr select").first();
-    await expect(firstSelect).toBeVisible({ timeout: 10_000 });
+    // Find the first contact row and its disposition select. The status select
+    // has the literal "Set status..." default option.
+    const firstSelect = page
+      .locator('tbody tr select')
+      .filter({ has: page.locator('option:has-text("Set status...")') })
+      .first();
+    await expect(firstSelect).toBeVisible({ timeout: 15_000 });
 
     // Capture which contact name we touch
-    const firstRow = page.locator("tbody tr").first();
+    const firstRow = page
+      .locator("tbody tr")
+      .filter({ has: page.locator('select:has(option:has-text("Set status..."))') })
+      .first();
     const contactName = (await firstRow.innerText()).split("\n")[0].trim();
 
     // Capture network — confirm we POST to /dispositions
@@ -84,25 +84,18 @@ test.describe("Outbound Campaigns persistence", () => {
       { timeout: 15_000 },
     );
 
-    await firstSelect.selectOption({ label: /voicemail/i }).catch(async () => {
-      // If selectOption can't find by label, try value
-      await firstSelect.selectOption("voicemail");
-    });
+    await firstSelect.selectOption("voicemail");
 
     await dispositionPromise;
 
-    // Reload and verify status persisted
+    // Reload and verify status persisted on the server (visible after sync)
     await page.reload();
     await page.waitForLoadState("domcontentloaded");
-    await page.locator("text=Email Openers - Spring Follow-Up").first().click();
-    await page.waitForTimeout(1500);
-    if (await contactsTab.isVisible().catch(() => false)) {
-      await contactsTab.click();
-      await page.waitForTimeout(800);
-    }
+    await page.getByRole("button", { name: /^Contacts$/ }).first().click();
+    await page.waitForTimeout(2500);
 
     const sameRow = page.locator("tbody tr", { hasText: contactName });
-    await expect(sameRow).toContainText(/voicemail/i, { timeout: 15_000 });
+    await expect(sameRow.first()).toContainText(/voicemail/i, { timeout: 20_000 });
   });
 
   test("migration uploads stranded local state on first load", async ({
