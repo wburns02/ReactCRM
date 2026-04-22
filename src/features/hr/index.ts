@@ -19,3 +19,4 @@ export {
   OffboardingListPage,
 } from "./onboarding/pages/OnboardingListPage";
 export { EmployeesListPage } from "./employees/pages/EmployeesListPage";
+export { IndeedSettingsPage } from "./recruiting/pages/IndeedSettingsPage";

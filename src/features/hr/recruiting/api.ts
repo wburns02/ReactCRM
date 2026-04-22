@@ -22,6 +22,7 @@ export const requisitionSchema = z.object({
   closed_at: z.string().nullable(),
   hiring_manager_id: z.number().nullable(),
   onboarding_template_id: z.string().nullable(),
+  publish_to_indeed: z.boolean().default(true),
   created_at: z.string(),
   applicant_count: z.number().optional(),
 });
@@ -47,6 +48,7 @@ export const requisitionInputSchema = z.object({
   status: z.enum(["draft", "open", "paused", "closed"]),
   hiring_manager_id: z.number().nullable().optional(),
   onboarding_template_id: z.string().nullable().optional(),
+  publish_to_indeed: z.boolean().optional(),
 });
 
 export type RequisitionInput = z.infer<typeof requisitionInputSchema>;

@@ -11,6 +11,7 @@ import {
   Zap,
   UserMinus,
   ArrowRight,
+  Rss,
 } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/Card";
@@ -174,6 +175,13 @@ export function HrOverviewPage() {
           title="Timesheets"
           hint="Hours & payroll"
           accent="rose"
+        />
+        <ShortcutCard
+          to="/hr/settings/indeed"
+          icon={Rss}
+          title="Indeed"
+          hint="Feed + Apply webhook"
+          accent="blue"
         />
       </section>
 

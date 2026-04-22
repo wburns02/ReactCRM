@@ -80,6 +80,10 @@ const EmployeesListPage = lazy(() =>
   import("@/features/hr").then((m) => ({ default: m.EmployeesListPage })),
 );
 
+const IndeedSettingsPage = lazy(() =>
+  import("@/features/hr").then((m) => ({ default: m.IndeedSettingsPage })),
+);
+
 
 export function HrRoutes() {
   return (
@@ -178,6 +182,14 @@ export function HrRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <MessageTemplatesAdminPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="hr/settings/indeed"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <IndeedSettingsPage />
           </Suspense>
         }
       />
