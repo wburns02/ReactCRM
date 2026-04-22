@@ -43,7 +43,7 @@ test.describe("Outbound Campaigns persistence", () => {
   test("Email Openers campaign visible in UI after login", async ({ page }) => {
     await login(page, WILL);
     await gotoOutbound(page);
-    await expect(page.locator("text=Email Openers - Spring Follow-Up")).toBeVisible(
+    await expect(page.locator("text=Email Openers - Spring Follow-Up").first()).toBeVisible(
       { timeout: 20_000 },
     );
   });
@@ -52,7 +52,7 @@ test.describe("Outbound Campaigns persistence", () => {
     await login(page, WILL);
     await gotoOutbound(page);
 
-    await expect(page.locator("text=Email Openers - Spring Follow-Up")).toBeVisible(
+    await expect(page.locator("text=Email Openers - Spring Follow-Up").first()).toBeVisible(
       { timeout: 20_000 },
     );
 
