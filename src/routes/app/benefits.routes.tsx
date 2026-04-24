@@ -12,6 +12,14 @@ const EnrollmentsPage = lazy(() =>
   import("@/features/benefits").then((m) => ({ default: m.EnrollmentsPage })),
 );
 
+const IntegrationsPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.IntegrationsPage })),
+);
+
+const DeductionsPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.DeductionsPage })),
+);
+
 const BenefitsPlaceholder = lazy(() =>
   import("@/features/benefits").then((m) => ({ default: m.BenefitsPlaceholder })),
 );
@@ -44,8 +52,22 @@ export function BenefitsRoutes() {
         }
       />
       <Route path="benefits/my" element={placeholder("My Benefits")} />
-      <Route path="benefits/integrations" element={placeholder("Integrations")} />
-      <Route path="benefits/deductions" element={placeholder("Deductions")} />
+      <Route
+        path="benefits/integrations"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <IntegrationsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="benefits/deductions"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <DeductionsPage />
+          </Suspense>
+        }
+      />
       <Route path="benefits/fsa" element={placeholder("FSA")} />
       <Route path="benefits/workers-comp" element={placeholder("Workers' Comp")} />
       <Route path="benefits/cobra" element={placeholder("COBRA")} />

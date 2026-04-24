@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 
 import { apiClient } from "@/api/client";
@@ -157,6 +157,222 @@ export function useBenefitHistory(params: { q?: string } = {}) {
       return validateResponse(z.array(historySchema), data, "history");
     },
     staleTime: 30_000,
+  });
+}
+
+
+// ─── Integrations ───────────────────────────────────────────
+
+export const carrierIntegrationSchema = z.object({
+  id: z.string(),
+  carrier: z.string(),
+  state: z.string().nullable(),
+  enrollment_types: z.string().nullable(),
+  integration_status: z.string(),
+  form_forwarding_enabled: z.boolean(),
+  plan_year: z.number().nullable(),
+  is_upcoming: z.boolean(),
+});
+export type CarrierIntegration = z.infer<typeof carrierIntegrationSchema>;
+
+
+export function useCarrierIntegrations(upcoming = false) {
+  return useQuery({
+    queryKey: ["benefits", "integrations", { upcoming }],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/hr/benefits/integrations", {
+        params: { upcoming },
+      });
+      return validateResponse(
+        z.array(carrierIntegrationSchema),
+        data,
+        "carrier integrations",
+      );
+    },
+    staleTime: 30_000,
+  });
+}
+
+
+export function useToggleFormForwarding() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (input: { id: string; enabled: boolean }) => {
+      const { data } = await apiClient.patch(
+        `/hr/benefits/integrations/${input.id}/form-forwarding`,
+        null,
+        { params: { enabled: input.enabled } },
+      );
+      return carrierIntegrationSchema.parse(data);
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ["benefits", "integrations"] }),
+  });
+}
+
+
+// ─── Account structure ──────────────────────────────────────
+
+export const accountStructureSchema = z.object({
+  id: z.string(),
+  carrier: z.string(),
+  class_type: z.string().nullable(),
+  employee_group: z.string().nullable(),
+  plan_name: z.string().nullable(),
+  enrollment_tier: z.string().nullable(),
+  class_value: z.string().nullable(),
+  count_of_employees: z.number(),
+  group_rules: z.string().nullable(),
+});
+export type AccountStructure = z.infer<typeof accountStructureSchema>;
+
+
+export function useAccountStructures() {
+  return useQuery({
+    queryKey: ["benefits", "account-structures"],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/hr/benefits/account-structures");
+      return validateResponse(
+        z.array(accountStructureSchema),
+        data,
+        "account structures",
+      );
+    },
+    staleTime: 30_000,
+  });
+}
+
+
+export function useAddAccountStructure() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (input: Partial<AccountStructure> & { carrier: string }) => {
+      const { data } = await apiClient.post(
+        "/hr/benefits/account-structures",
+        input,
+      );
+      return accountStructureSchema.parse(data);
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ["benefits", "account-structures"] }),
+  });
+}
+
+
+export function useDeleteAccountStructure() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await apiClient.delete(`/hr/benefits/account-structures/${id}`);
+      return id;
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ["benefits", "account-structures"] }),
+  });
+}
+
+
+// ─── Scheduled deductions ───────────────────────────────────
+
+export const scheduledDeductionSchema = z.object({
+  id: z.string(),
+  employee_id: z.string().nullable(),
+  employee_name: z.string(),
+  benefit_type: z.string(),
+  plan_name: z.string().nullable(),
+  effective_date: z.string().nullable(),
+  auto_manage: z.boolean(),
+  ee_rippling: z.union([z.string(), z.number()]).nullable(),
+  ee_in_payroll: z.union([z.string(), z.number()]).nullable(),
+  er_rippling: z.union([z.string(), z.number()]).nullable(),
+  er_in_payroll: z.union([z.string(), z.number()]).nullable(),
+  taxable_rippling: z.union([z.string(), z.number()]).nullable(),
+  taxable_in_payroll: z.union([z.string(), z.number()]).nullable(),
+});
+export type ScheduledDeduction = z.infer<typeof scheduledDeductionSchema>;
+
+
+export function useScheduledDeductions(params: {
+  benefit_type?: string;
+  only_discrepancies?: boolean;
+  q?: string;
+}) {
+  return useQuery({
+    queryKey: ["benefits", "scheduled-deductions", params],
+    queryFn: async () => {
+      const clean = Object.fromEntries(
+        Object.entries(params).filter(
+          ([, v]) => v !== undefined && v !== "" && v !== false,
+        ),
+      );
+      const { data } = await apiClient.get(
+        "/hr/benefits/scheduled-deductions",
+        { params: clean },
+      );
+      return validateResponse(
+        z.array(scheduledDeductionSchema),
+        data,
+        "scheduled deductions",
+      );
+    },
+    staleTime: 15_000,
+  });
+}
+
+
+export function usePushDeductions() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (benefitType?: string) => {
+      const { data } = await apiClient.post(
+        "/hr/benefits/scheduled-deductions/push",
+        null,
+        benefitType ? { params: { benefit_type: benefitType } } : undefined,
+      );
+      return data as { pushed: number };
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ["benefits", "scheduled-deductions"] }),
+  });
+}
+
+
+export function useAutoManageAll() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (benefitType?: string) => {
+      const { data } = await apiClient.post(
+        "/hr/benefits/scheduled-deductions/auto-manage-all",
+        null,
+        benefitType ? { params: { benefit_type: benefitType } } : undefined,
+      );
+      return data as { updated: number };
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ["benefits", "scheduled-deductions"] }),
+  });
+}
+
+
+export function usePatchScheduledDeduction() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (input: {
+      id: string;
+      auto_manage?: boolean;
+      ee_in_payroll?: number;
+      er_in_payroll?: number;
+      taxable_in_payroll?: number;
+    }) => {
+      const { id, ...patch } = input;
+      const { data } = await apiClient.patch(
+        `/hr/benefits/scheduled-deductions/${id}`,
+        patch,
+      );
+      return scheduledDeductionSchema.parse(data);
+    },
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: ["benefits", "scheduled-deductions"] }),
   });
 }
 
