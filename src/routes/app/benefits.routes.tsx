@@ -20,6 +20,10 @@ const DeductionsPage = lazy(() =>
   import("@/features/benefits").then((m) => ({ default: m.DeductionsPage })),
 );
 
+const FsaPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.FsaPage })),
+);
+
 const BenefitsPlaceholder = lazy(() =>
   import("@/features/benefits").then((m) => ({ default: m.BenefitsPlaceholder })),
 );
@@ -68,7 +72,14 @@ export function BenefitsRoutes() {
           </Suspense>
         }
       />
-      <Route path="benefits/fsa" element={placeholder("FSA")} />
+      <Route
+        path="benefits/fsa"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <FsaPage />
+          </Suspense>
+        }
+      />
       <Route path="benefits/workers-comp" element={placeholder("Workers' Comp")} />
       <Route path="benefits/cobra" element={placeholder("COBRA")} />
       <Route path="benefits/aca" element={placeholder("ACA")} />
