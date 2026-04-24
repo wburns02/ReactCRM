@@ -449,18 +449,18 @@ function PayRunsTable(props: {
 
 function ApproveBanner({ run }: { run: PayRun }) {
   return (
-    <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
+    <div className="rounded-xl border border-amber-500/40 bg-amber-50 dark:bg-amber-500/5 p-4">
       <div className="flex items-start gap-3">
-        <div className="w-9 h-9 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center shrink-0">
+        <div className="w-9 h-9 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
           <Clock className="w-4.5 h-4.5" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-sm font-semibold text-neutral-100">
+          <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
             Approve your next pay run
           </div>
-          <div className="text-xs text-neutral-400 mt-0.5">
+          <div className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
             Approve by{" "}
-            <span className="text-amber-300 font-medium">
+            <span className="text-amber-700 dark:text-amber-300 font-medium">
               {fmtApproveBy(run.approve_by)}
             </span>{" "}
             to pay your team on time.
@@ -480,23 +480,23 @@ function ApproveBanner({ run }: { run: PayRun }) {
 
 function RothBanner() {
   return (
-    <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/5 p-4">
+    <div className="rounded-xl border border-indigo-500/40 bg-indigo-50 dark:bg-indigo-500/5 p-4">
       <div className="flex items-start gap-3">
-        <div className="w-9 h-9 rounded-lg bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0">
+        <div className="w-9 h-9 rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
           <Info className="w-4.5 h-4.5" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-sm font-semibold text-neutral-100">
+          <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
             Roth 401(k) deduction updates
           </div>
-          <div className="text-xs text-neutral-400 mt-0.5">
+          <div className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
             Admin review required for Q2. A few employees elected new Roth
             deferrals — confirm their deduction is set before the next pay run.
           </div>
         </div>
         <a
           href="#"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/10 transition shrink-0"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-indigo-500/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/10 transition shrink-0"
         >
           Learn more
         </a>
@@ -632,8 +632,8 @@ export function PayrollOverviewPage() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="text-2xl font-semibold text-white">Run payroll</h1>
-        <p className="text-sm text-neutral-400 mt-1">
+        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">Run payroll</h1>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
           Here's a summary of your upcoming and past pay runs.
         </p>
       </div>

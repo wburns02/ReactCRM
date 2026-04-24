@@ -297,8 +297,8 @@ export function PayrollPeoplePage() {
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
       <div className="p-6 max-w-7xl mx-auto">
         <header>
-          <h1 className="text-2xl font-semibold text-white">People</h1>
-          <p className="text-sm text-neutral-400 mt-1">
+          <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">People</h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
             Manage payroll readiness for your employees.
           </p>
         </header>
