@@ -278,7 +278,8 @@ export const hrTopNavItems: NavItem[] = [
 // ── Payroll section — dedicated sidebar when user is inside /payroll or /timesheets ──
 export const payrollTopNavItems: NavItem[] = [
   { path: "/payroll", label: "Payroll Overview", icon: LayoutDashboard },
-  { path: "/payroll?tab=runs", label: "Pay Runs", icon: Banknote },
+  { path: "/payroll/people", label: "People", icon: Users },
+  { path: "/payroll/periods", label: "Pay Runs", icon: Banknote },
   { path: "/timesheets", label: "Timesheets", icon: Timer },
   { path: "/payroll?tab=taxes", label: "Taxes & Filings", icon: FileCheck2 },
   { path: "/payroll?tab=paystubs", label: "Paystubs", icon: Receipt },

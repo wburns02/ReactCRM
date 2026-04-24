@@ -45,6 +45,18 @@ const PayrollPeriodDetailPage = lazy(() =>
   })),
 );
 
+const PayrollOverviewPage = lazy(() =>
+  import("@/features/payroll/pages/PayrollOverviewPage").then((m) => ({
+    default: m.PayrollOverviewPage,
+  })),
+);
+
+const PayrollPeoplePage = lazy(() =>
+  import("@/features/payroll/pages/PayrollPeoplePage").then((m) => ({
+    default: m.PayrollPeoplePage,
+  })),
+);
+
 const TechnicianDashboardPage = lazy(() =>
   import("@/features/technician-dashboard/TechnicianDashboardPage").then(
     (m) => ({ default: m.TechnicianDashboardPage }),
@@ -261,9 +273,25 @@ export function TechnicianRoutes() {
         }
       />
 
-      {/* Payroll */}
+      {/* Payroll — new Rippling-style overview is default */}
       <Route
         path="payroll"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PayrollOverviewPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="payroll/people"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PayrollPeoplePage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="payroll/periods"
         element={
           <Suspense fallback={<PageLoader />}>
             <PayrollPage />
