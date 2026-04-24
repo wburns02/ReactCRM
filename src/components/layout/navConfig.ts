@@ -36,7 +36,6 @@ export const topNavItems: NavItem[] = [
   { path: "/outbound-campaigns", label: "Outbound Dialer", icon: PhoneOutgoing },
   { path: "/realtor-pipeline", label: "Realtor Pipeline", icon: Building2 },
   { path: "/call-library", label: "Call Library", icon: PhoneCall },
-  { path: "/benefits", label: "Benefits", icon: Umbrella, badge: "NEW" },
 ];
 
 export const techNavItems: NavItem[] = [
@@ -150,6 +149,7 @@ export const navGroups: NavGroup[] = [
       { path: "/hr/inbox", label: "Applicant Inbox", icon: Inbox },
       { path: "/hr/settings/indeed", label: "Indeed Integration", icon: Plug },
       { path: "/hr/employees", label: "Employees", icon: HardHat },
+      { path: "/benefits", label: "Benefits", icon: Umbrella, badge: "NEW" },
       { path: "/compliance", label: "Compliance", icon: ShieldCheck },
       { path: "/timesheets", label: "Timesheets", icon: Timer },
       { path: "/payroll", label: "Payroll", icon: Banknote },
