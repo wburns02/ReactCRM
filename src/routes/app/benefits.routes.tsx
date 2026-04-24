@@ -1,0 +1,58 @@
+import { Suspense, lazy } from "react";
+import { Route } from "react-router-dom";
+
+import { PageLoader } from "../utils";
+
+
+const BenefitsOverviewPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.BenefitsOverviewPage })),
+);
+
+const EnrollmentsPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.EnrollmentsPage })),
+);
+
+const BenefitsPlaceholder = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.BenefitsPlaceholder })),
+);
+
+
+const placeholder = (title: string) => (
+  <Suspense fallback={<PageLoader />}>
+    <BenefitsPlaceholder title={title} />
+  </Suspense>
+);
+
+
+export function BenefitsRoutes() {
+  return (
+    <>
+      <Route
+        path="benefits"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <BenefitsOverviewPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="benefits/enrollments"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <EnrollmentsPage />
+          </Suspense>
+        }
+      />
+      <Route path="benefits/my" element={placeholder("My Benefits")} />
+      <Route path="benefits/integrations" element={placeholder("Integrations")} />
+      <Route path="benefits/deductions" element={placeholder("Deductions")} />
+      <Route path="benefits/fsa" element={placeholder("FSA")} />
+      <Route path="benefits/workers-comp" element={placeholder("Workers' Comp")} />
+      <Route path="benefits/cobra" element={placeholder("COBRA")} />
+      <Route path="benefits/aca" element={placeholder("ACA")} />
+      <Route path="benefits/settings" element={placeholder("Benefits Settings")} />
+      <Route path="benefits/shop" element={placeholder("App Shop")} />
+      <Route path="benefits/help" element={placeholder("Help")} />
+    </>
+  );
+}

@@ -7,7 +7,8 @@ import {
   BarChart3, TrendingUp, Banknote, Calculator, Building2, Truck, Activity,
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
   Download, Globe, Eye, PhoneOutgoing, Shield, AlertTriangle, ClipboardCheck,
-  Briefcase, UserPlus,
+  Briefcase, UserPlus, Umbrella, Stethoscope, FileSpreadsheet,
+  FileCheck2, HelpCircle, Store, Database, PiggyBank,
   type LucideIcon,
 } from "lucide-react";
 
@@ -35,6 +36,7 @@ export const topNavItems: NavItem[] = [
   { path: "/outbound-campaigns", label: "Outbound Dialer", icon: PhoneOutgoing },
   { path: "/realtor-pipeline", label: "Realtor Pipeline", icon: Building2 },
   { path: "/call-library", label: "Call Library", icon: PhoneCall },
+  { path: "/benefits", label: "Benefits", icon: Umbrella, badge: "NEW" },
 ];
 
 export const techNavItems: NavItem[] = [
@@ -212,6 +214,38 @@ export const navGroups: NavGroup[] = [
       { path: "/admin/import", label: "Data Import", icon: Download },
       { path: "/admin/dump-sites", label: "Dump Sites", icon: Truck },
       { path: "/admin/activity", label: "Activity Log", icon: Activity },
+    ],
+  },
+];
+
+
+// ── Benefits section — dedicated sidebar when user is inside /benefits ──
+export const benefitsTopNavItems: NavItem[] = [
+  { path: "/benefits", label: "Benefits Overview", icon: LayoutDashboard },
+  { path: "/benefits/my", label: "My Benefits", icon: Heart },
+  { path: "/benefits/enrollments", label: "Enrollments", icon: Users },
+  { path: "/benefits/integrations", label: "Integrations", icon: Plug },
+  { path: "/benefits/deductions", label: "Deductions", icon: PiggyBank },
+  { path: "/benefits/fsa", label: "FSA", icon: FileSpreadsheet },
+  { path: "/benefits/workers-comp", label: "Workers' Comp", icon: HardHat },
+  { path: "/benefits/cobra", label: "COBRA", icon: Umbrella },
+  { path: "/benefits/aca", label: "ACA", icon: FileCheck2 },
+  { path: "/benefits/settings", label: "Benefits Settings", icon: Settings },
+];
+
+
+export const benefitsPlatformGroups: NavGroup[] = [
+  {
+    name: "benefits-platform",
+    label: "Platform",
+    icon: Database,
+    items: [
+      { path: "/dashboard", label: "← Back to CRM", icon: LayoutDashboard },
+      { path: "/admin", label: "Company settings", icon: Settings },
+      { path: "/users", label: "Users", icon: User },
+      { path: "/admin/entities", label: "Entities (LLCs)", icon: Building2 },
+      { path: "/benefits/shop", label: "App Shop", icon: Store },
+      { path: "/benefits/help", label: "Help", icon: HelpCircle },
     ],
   },
 ];

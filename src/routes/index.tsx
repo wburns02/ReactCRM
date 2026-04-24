@@ -30,6 +30,7 @@ import { RealtorPipelineRoutes } from "./app/realtor-pipeline.routes";
 import { SecurityRoutes } from "./app/security.routes";
 import { AutomationsRoutes } from "./app/automations.routes";
 import { HrRoutes } from "./app/hr.routes";
+import { BenefitsRoutes } from "./app/benefits.routes";
 
 
 /**
@@ -118,6 +119,9 @@ export function AppRoutes() {
 
         {/* HR Module (Plan 1: Requisitions admin) */}
         {HrRoutes()}
+
+        {/* Benefits (dedicated section with its own sidebar) */}
+        {BenefitsRoutes()}
 
         {/* Admin & Settings */}
         {AdminRoutes()}
