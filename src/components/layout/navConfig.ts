@@ -35,6 +35,8 @@ export const topNavItems: NavItem[] = [
   { path: "/web-phone", label: "Web Phone", icon: Smartphone },
   { path: "/outbound-campaigns", label: "Outbound Dialer", icon: PhoneOutgoing },
   { path: "/realtor-pipeline", label: "Realtor Pipeline", icon: Building2 },
+  { path: "/hr", label: "HR", icon: Briefcase },
+  { path: "/payroll", label: "Payroll", icon: Banknote },
   { path: "/call-library", label: "Call Library", icon: PhoneCall },
 ];
 
@@ -136,23 +138,6 @@ export const navGroups: NavGroup[] = [
       { path: "/marketing/email-marketing", label: "Email Marketing", icon: Mail },
       { path: "/marketing/analytics", label: "Analytics & ROI", icon: LineChart },
       { path: "/marketing/nashville-ads", label: "Nashville Ads", icon: Target },
-    ],
-  },
-  {
-    name: "hr",
-    label: "HR",
-    icon: Briefcase,
-    items: [
-      { path: "/hr", label: "Overview", icon: LayoutDashboard },
-      { path: "/hr/org-chart", label: "Org Chart", icon: Users },
-      { path: "/hr/recruiting", label: "Recruiting", icon: UserPlus },
-      { path: "/hr/inbox", label: "Applicant Inbox", icon: Inbox },
-      { path: "/hr/settings/indeed", label: "Indeed Integration", icon: Plug },
-      { path: "/hr/employees", label: "Employees", icon: HardHat },
-      { path: "/benefits", label: "Benefits", icon: Umbrella, badge: "NEW" },
-      { path: "/compliance", label: "Compliance", icon: ShieldCheck },
-      { path: "/timesheets", label: "Timesheets", icon: Timer },
-      { path: "/payroll", label: "Payroll", icon: Banknote },
     ],
   },
   {
@@ -273,6 +258,60 @@ export const benefitsPlatformGroups: NavGroup[] = [
       { path: "/admin/entities", label: "Entities (LLCs)", icon: Building2 },
       { path: "/benefits/shop", label: "App Shop", icon: Store },
       { path: "/benefits/help", label: "Help", icon: HelpCircle },
+    ],
+  },
+];
+
+
+// ── HR section — dedicated sidebar when user is inside /hr/* (but NOT recruiting) ──
+export const hrTopNavItems: NavItem[] = [
+  { path: "/hr", label: "HR Overview", icon: LayoutDashboard },
+  { path: "/hr/employees", label: "Employees", icon: HardHat },
+  { path: "/hr/org-chart", label: "Org Chart", icon: Users },
+  { path: "/hr/recruiting", label: "Recruiting", icon: UserPlus },
+  { path: "/hr/inbox", label: "Applicant Inbox", icon: Inbox },
+  { path: "/benefits", label: "Benefits", icon: Umbrella },
+  { path: "/compliance", label: "Compliance", icon: ShieldCheck },
+];
+
+
+// ── Payroll section — dedicated sidebar when user is inside /payroll or /timesheets ──
+export const payrollTopNavItems: NavItem[] = [
+  { path: "/payroll", label: "Payroll Overview", icon: LayoutDashboard },
+  { path: "/payroll?tab=runs", label: "Pay Runs", icon: Banknote },
+  { path: "/timesheets", label: "Timesheets", icon: Timer },
+  { path: "/payroll?tab=taxes", label: "Taxes & Filings", icon: FileCheck2 },
+  { path: "/payroll?tab=paystubs", label: "Paystubs", icon: Receipt },
+  { path: "/payroll?tab=reports", label: "Reports", icon: BarChart3 },
+  { path: "/payroll?tab=settings", label: "Payroll Settings", icon: Settings },
+];
+
+
+export const payrollPlatformGroups: NavGroup[] = [
+  {
+    name: "payroll-platform",
+    label: "Platform",
+    icon: Database,
+    items: [
+      { path: "/hr", label: "← Back to HR", icon: Briefcase },
+      { path: "/dashboard", label: "← Back to CRM", icon: Home },
+      { path: "/hr/employees", label: "Employees", icon: HardHat },
+      { path: "/admin", label: "Company settings", icon: Settings },
+    ],
+  },
+];
+
+
+export const hrPlatformGroups: NavGroup[] = [
+  {
+    name: "hr-platform",
+    label: "Platform",
+    icon: Database,
+    items: [
+      { path: "/dashboard", label: "← Back to CRM", icon: Home },
+      { path: "/admin", label: "Company settings", icon: Settings },
+      { path: "/users", label: "Users", icon: User },
+      { path: "/admin/entities", label: "Entities (LLCs)", icon: Building2 },
     ],
   },
 ];

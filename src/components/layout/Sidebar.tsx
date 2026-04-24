@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Truck, Umbrella, UserPlus, ChevronDown, Sun, Moon, LogOut } from "lucide-react";
+import { Truck, Umbrella, UserPlus, Briefcase, Banknote, ChevronDown, Sun, Moon, LogOut } from "lucide-react";
 import { EntitySwitcher } from "@/components/layout/EntitySwitcher";
 import {
   topNavItems,
@@ -10,6 +10,10 @@ import {
   benefitsPlatformGroups,
   recruitingTopNavItems,
   recruitingPlatformGroups,
+  hrTopNavItems,
+  hrPlatformGroups,
+  payrollTopNavItems,
+  payrollPlatformGroups,
   type NavGroup,
 } from "./navConfig";
 import { useLiveChatUnread } from "@/features/live-chat/useLiveChatUnread";
@@ -37,6 +41,19 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
     location.pathname.startsWith("/hr/recruiting/") ||
     location.pathname === "/hr/inbox" ||
     location.pathname === "/hr/settings/indeed";
+  const inPayroll =
+    location.pathname === "/payroll" ||
+    location.pathname.startsWith("/payroll/") ||
+    location.pathname === "/timesheets" ||
+    location.pathname.startsWith("/timesheets/");
+  const inHr =
+    !inBenefits &&
+    !inRecruiting &&
+    !inPayroll &&
+    (location.pathname === "/hr" ||
+      location.pathname.startsWith("/hr/") ||
+      location.pathname === "/compliance" ||
+      location.pathname.startsWith("/compliance/"));
 
   const isActive = (path: string) =>
     location.pathname === path || location.pathname.startsWith(path + "/");
@@ -65,14 +82,26 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
           ? "bg-gradient-to-b from-[#2a1230] via-[#3a1845] to-[#2a1230]"
           : inRecruiting
             ? "bg-gradient-to-b from-[#0c2a20] via-[#123a2e] to-[#0c2a20]"
-            : "bg-gradient-to-b from-[#0c1929] via-[#0f2035] to-[#0c1929]")
+            : inPayroll
+              ? "bg-gradient-to-b from-[#0f2a2e] via-[#123a40] to-[#0f2a2e]"
+              : inHr
+                ? "bg-gradient-to-b from-[#2d1e08] via-[#3d2a10] to-[#2d1e08]"
+                : "bg-gradient-to-b from-[#0c1929] via-[#0f2035] to-[#0c1929]")
       }
     >
       {/* Logo */}
       <div className="h-16 flex items-center px-5 border-b border-white/[0.08] flex-shrink-0">
         <Link
           to={
-            inBenefits ? "/benefits" : inRecruiting ? "/hr/recruiting" : "/dashboard"
+            inBenefits
+              ? "/benefits"
+              : inRecruiting
+                ? "/hr/recruiting"
+                : inPayroll
+                  ? "/payroll"
+                  : inHr
+                    ? "/hr"
+                    : "/dashboard"
           }
           className="flex items-center gap-3 group"
         >
@@ -83,13 +112,21 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
                 ? "bg-gradient-to-br from-[#c77dff] to-[#7b2cbf] shadow-[#c77dff]/20 group-hover:shadow-[#c77dff]/40"
                 : inRecruiting
                   ? "bg-gradient-to-br from-[#4ade80] to-[#059669] shadow-[#4ade80]/20 group-hover:shadow-[#4ade80]/40"
-                  : "bg-gradient-to-br from-[#2aabe1] to-[#104b95] shadow-[#2aabe1]/20 group-hover:shadow-[#2aabe1]/40")
+                  : inPayroll
+                    ? "bg-gradient-to-br from-[#2dd4bf] to-[#0d9488] shadow-[#2dd4bf]/20 group-hover:shadow-[#2dd4bf]/40"
+                    : inHr
+                      ? "bg-gradient-to-br from-[#fbbf24] to-[#b45309] shadow-[#fbbf24]/20 group-hover:shadow-[#fbbf24]/40"
+                      : "bg-gradient-to-br from-[#2aabe1] to-[#104b95] shadow-[#2aabe1]/20 group-hover:shadow-[#2aabe1]/40")
             }
           >
             {inBenefits ? (
               <Umbrella className="w-5 h-5 text-white" />
             ) : inRecruiting ? (
               <UserPlus className="w-5 h-5 text-white" />
+            ) : inPayroll ? (
+              <Banknote className="w-5 h-5 text-white" />
+            ) : inHr ? (
+              <Briefcase className="w-5 h-5 text-white" />
             ) : (
               <Truck className="w-5 h-5 text-white" />
             )}
@@ -100,10 +137,16 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
                 ? "Benefits"
                 : inRecruiting
                   ? "Recruiting"
-                  : "Mac Service"}
+                  : inPayroll
+                    ? "Payroll"
+                    : inHr
+                      ? "HR"
+                      : "Mac Service"}
             </span>
             <span className="text-white/40 text-[11px] block">
-              {inBenefits || inRecruiting ? "Mac Service Platform" : "Platform"}
+              {inBenefits || inRecruiting || inPayroll || inHr
+                ? "Mac Service Platform"
+                : "Platform"}
             </span>
           </div>
         </Link>
@@ -263,6 +306,153 @@ export function Sidebar({ user, isTechnician, isDark, toggleTheme, logout }: Sid
                                     active ? "text-[#4ade80]" : ""
                                   }`}
                                 />
+                                <span className="truncate">{item.label}</span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        ) : inHr ? (
+          <>
+            <ul className="space-y-0.5 mb-5">
+              {hrTopNavItems.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item.path);
+                return (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                        active
+                          ? "bg-white/[0.12] text-white"
+                          : "text-white/60 hover:text-white hover:bg-white/[0.06]"
+                      }`}
+                    >
+                      <Icon
+                        className={`w-[18px] h-[18px] shrink-0 transition-colors ${
+                          active ? "text-[#fbbf24]" : ""
+                        }`}
+                      />
+                      <span className="truncate">{item.label}</span>
+                      {active && (
+                        <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#fbbf24] shrink-0" />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="space-y-2">
+              {hrPlatformGroups.map((group) => {
+                const GroupIcon = group.icon;
+                const expanded = expandedGroups.has(group.name);
+                return (
+                  <div key={group.name}>
+                    <button
+                      onClick={() => toggleGroup(group.name)}
+                      className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-semibold uppercase tracking-wider text-white/40 hover:text-white/60 transition-all duration-150"
+                    >
+                      <GroupIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="flex-1 text-left">{group.label}</span>
+                      <ChevronDown className={`w-3 h-3 shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+                    </button>
+                    {expanded && (
+                      <ul className="mt-1 space-y-0.5 ml-1.5 border-l border-white/[0.08] pl-2">
+                        {group.items.map((item) => {
+                          const Icon = item.icon;
+                          const active = isActive(item.path);
+                          return (
+                            <li key={item.path}>
+                              <Link
+                                to={item.path}
+                                className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-[13px] transition-all duration-150 ${
+                                  active
+                                    ? "bg-white/[0.1] text-white font-medium"
+                                    : "text-white/50 hover:text-white/80 hover:bg-white/[0.04]"
+                                }`}
+                              >
+                                <Icon className={`w-[15px] h-[15px] shrink-0 ${active ? "text-[#fbbf24]" : ""}`} />
+                                <span className="truncate">{item.label}</span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        ) : inPayroll ? (
+          <>
+            <ul className="space-y-0.5 mb-5">
+              {payrollTopNavItems.map((item) => {
+                const Icon = item.icon;
+                const active =
+                  item.path.includes("?")
+                    ? location.pathname + location.search === item.path
+                    : isActive(item.path);
+                return (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                        active
+                          ? "bg-white/[0.12] text-white"
+                          : "text-white/60 hover:text-white hover:bg-white/[0.06]"
+                      }`}
+                    >
+                      <Icon
+                        className={`w-[18px] h-[18px] shrink-0 transition-colors ${
+                          active ? "text-[#2dd4bf]" : ""
+                        }`}
+                      />
+                      <span className="truncate">{item.label}</span>
+                      {active && (
+                        <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#2dd4bf] shrink-0" />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="space-y-2">
+              {payrollPlatformGroups.map((group) => {
+                const GroupIcon = group.icon;
+                const expanded = expandedGroups.has(group.name);
+                return (
+                  <div key={group.name}>
+                    <button
+                      onClick={() => toggleGroup(group.name)}
+                      className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-semibold uppercase tracking-wider text-white/40 hover:text-white/60 transition-all duration-150"
+                    >
+                      <GroupIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="flex-1 text-left">{group.label}</span>
+                      <ChevronDown className={`w-3 h-3 shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+                    </button>
+                    {expanded && (
+                      <ul className="mt-1 space-y-0.5 ml-1.5 border-l border-white/[0.08] pl-2">
+                        {group.items.map((item) => {
+                          const Icon = item.icon;
+                          const active = isActive(item.path);
+                          return (
+                            <li key={item.path}>
+                              <Link
+                                to={item.path}
+                                className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-[13px] transition-all duration-150 ${
+                                  active
+                                    ? "bg-white/[0.1] text-white font-medium"
+                                    : "text-white/50 hover:text-white/80 hover:bg-white/[0.04]"
+                                }`}
+                              >
+                                <Icon className={`w-[15px] h-[15px] shrink-0 ${active ? "text-[#2dd4bf]" : ""}`} />
                                 <span className="truncate">{item.label}</span>
                               </Link>
                             </li>
