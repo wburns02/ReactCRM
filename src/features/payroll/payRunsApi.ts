@@ -18,8 +18,8 @@ export const payRunSchema = z.object({
   action_text: z.string().nullable(),
   failure_reason: z.string().nullable(),
   archived_by: z.string().nullable(),
-  created_at: z.string(),
-  updated_at: z.string().nullable(),
+  created_at: z.string().nullable().optional(),
+  updated_at: z.string().nullable().optional(),
 });
 export type PayRun = z.infer<typeof payRunSchema>;
 

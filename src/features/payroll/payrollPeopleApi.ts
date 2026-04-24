@@ -15,8 +15,8 @@ export const payrollPersonSchema = z.object({
   critical_missing_count: z.number(),
   missing_fields: z.string().nullable(),
   signatory_status: z.string().nullable(),
-  created_at: z.string(),
-  updated_at: z.string().nullable(),
+  created_at: z.string().nullable().optional(),
+  updated_at: z.string().nullable().optional(),
 });
 export type PayrollPerson = z.infer<typeof payrollPersonSchema>;
 
