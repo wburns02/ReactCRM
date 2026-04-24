@@ -28,6 +28,14 @@ const CobraPage = lazy(() =>
   import("@/features/benefits").then((m) => ({ default: m.CobraPage })),
 );
 
+const AcaPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.AcaPage })),
+);
+
+const BenefitsSettingsPage = lazy(() =>
+  import("@/features/benefits").then((m) => ({ default: m.BenefitsSettingsPage })),
+);
+
 const BenefitsPlaceholder = lazy(() =>
   import("@/features/benefits").then((m) => ({ default: m.BenefitsPlaceholder })),
 );
@@ -93,8 +101,22 @@ export function BenefitsRoutes() {
           </Suspense>
         }
       />
-      <Route path="benefits/aca" element={placeholder("ACA")} />
-      <Route path="benefits/settings" element={placeholder("Benefits Settings")} />
+      <Route
+        path="benefits/aca"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <AcaPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="benefits/settings"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <BenefitsSettingsPage />
+          </Suspense>
+        }
+      />
       <Route path="benefits/shop" element={placeholder("App Shop")} />
       <Route path="benefits/help" element={placeholder("Help")} />
     </>

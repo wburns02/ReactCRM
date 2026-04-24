@@ -4,4 +4,6 @@ export { IntegrationsPage } from "./pages/IntegrationsPage";
 export { DeductionsPage } from "./pages/DeductionsPage";
 export { FsaPage } from "./pages/FsaPage";
 export { CobraPage } from "./pages/CobraPage";
+export { AcaPage } from "./pages/AcaPage";
+export { BenefitsSettingsPage } from "./pages/BenefitsSettingsPage";
 export { BenefitsPlaceholder } from "./pages/BenefitsPlaceholder";
