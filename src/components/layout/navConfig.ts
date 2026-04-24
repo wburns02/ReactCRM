@@ -219,6 +219,33 @@ export const navGroups: NavGroup[] = [
 ];
 
 
+// ── Recruiting section — dedicated sidebar when user is inside /hr/recruiting ──
+export const recruitingTopNavItems: NavItem[] = [
+  { path: "/hr/recruiting", label: "Recruiting Overview", icon: LayoutDashboard },
+  { path: "/hr/recruiting/requisitions", label: "Job requisitions", icon: ClipboardList },
+  { path: "/hr/recruiting/candidates", label: "Candidates", icon: UserPlus },
+  { path: "/hr/recruiting/open-headcount", label: "Open headcount", icon: Users },
+  { path: "/hr/recruiting/templates", label: "Templates & defaults", icon: MessageSquare },
+  { path: "/hr/inbox", label: "Applicant Inbox", icon: Inbox },
+  { path: "/hr/settings/indeed", label: "Indeed Integration", icon: Plug },
+];
+
+
+export const recruitingPlatformGroups: NavGroup[] = [
+  {
+    name: "recruiting-platform",
+    label: "Platform",
+    icon: Database,
+    items: [
+      { path: "/hr", label: "← Back to HR", icon: LayoutDashboard },
+      { path: "/dashboard", label: "← Back to CRM", icon: Home },
+      { path: "/hr/employees", label: "Employees", icon: HardHat },
+      { path: "/hr/org-chart", label: "Org Chart", icon: Users },
+    ],
+  },
+];
+
+
 // ── Benefits section — dedicated sidebar when user is inside /benefits ──
 export const benefitsTopNavItems: NavItem[] = [
   { path: "/benefits", label: "Benefits Overview", icon: LayoutDashboard },
