@@ -7,6 +7,9 @@ import {
   useMyExtension,
   useTwilioStatus,
   useTwilioCall,
+  useTwilioNumbers,
+  useTwilioCallerIdPreview,
+  type TwilioMarket,
 } from "./api.ts";
 import { Input } from "@/components/ui/Input.tsx";
 import { DialerModal } from "./components/DialerModal.tsx";
@@ -79,6 +82,14 @@ export function PhonePage() {
 
   const [dialerOpen, setDialerOpen] = useState(false);
   const [quickDialNumber, setQuickDialNumber] = useState("");
+  const [fromMarket, setFromMarket] = useState<TwilioMarket>("auto");
+  const { data: twilioNumbers } = useTwilioNumbers();
+  const { data: callerIdPreview } = useTwilioCallerIdPreview(
+    quickDialNumber,
+    fromMarket,
+  );
+  const hasMarketPicker =
+    phoneProvider === "twilio" && (twilioNumbers?.markets?.length ?? 0) > 0;
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCall, setSelectedCall] = useState<CallRecord | null>(null);
@@ -126,7 +137,11 @@ export function PhonePage() {
       if (phoneProvider === "ringcentral") {
         await rcCallMutation.mutateAsync({ to_number: quickDialNumber, from_number: defaultFromNumber || undefined });
       } else {
-        await twilioCallMutation.mutateAsync({ to_number: quickDialNumber, record: true });
+        await twilioCallMutation.mutateAsync({
+          to_number: quickDialNumber,
+          record: true,
+          from_market: fromMarket,
+        });
       }
       setQuickDialNumber("");
     } catch {
@@ -299,6 +314,55 @@ export function PhonePage() {
             </h2>
           </div>
           <div className="p-5 space-y-4">
+            {/* Caller-ID market picker (Twilio only) */}
+            {hasMarketPicker && (
+              <div className="space-y-1.5" data-testid="caller-id-picker">
+                <label className="text-xs font-medium text-text-muted uppercase tracking-wide">
+                  Call from
+                </label>
+                <select
+                  value={fromMarket}
+                  onChange={(e) => setFromMarket(e.target.value as TwilioMarket)}
+                  className="w-full h-9 px-2 text-sm rounded-lg bg-bg-body border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  data-testid="caller-id-market-select"
+                >
+                  <option value="auto">Auto (route by area code)</option>
+                  <option value="TN">TN — pick best for destination</option>
+                  <option value="TX">TX — Austin</option>
+                  <option value="SC">SC — Columbia</option>
+                  <optgroup label="Specific number">
+                    {twilioNumbers?.markets?.map((m) => (
+                      <option key={m.market} value={m.market}>
+                        {m.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+                {callerIdPreview?.from_number && quickDialNumber.trim() && (
+                  <p
+                    className="text-[11px] text-text-muted leading-tight"
+                    data-testid="caller-id-preview"
+                  >
+                    Will dial from{" "}
+                    <span className="font-mono text-text-secondary">
+                      {formatPhone(callerIdPreview.from_number)}
+                    </span>
+                    {callerIdPreview.market && callerIdPreview.market !== "DEFAULT" && (
+                      <>
+                        {" "}—{" "}
+                        <span className="text-text-secondary">
+                          {callerIdPreview.market.replace("_", " ")}
+                        </span>
+                      </>
+                    )}
+                    {callerIdPreview.reason === "fallback-default" && (
+                      <span className="text-amber-500"> (no local match)</span>
+                    )}
+                  </p>
+                )}
+              </div>
+            )}
+
             {/* Number input */}
             <div className="flex gap-2">
               <Input
@@ -313,6 +377,7 @@ export function PhonePage() {
                 onClick={handleQuickDial}
                 disabled={!quickDialNumber.trim() || isCallPending}
                 className="w-10 h-10 rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-40 flex items-center justify-center flex-shrink-0 transition-colors"
+                data-testid="quick-dial-button"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />

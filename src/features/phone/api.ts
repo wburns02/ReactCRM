@@ -182,7 +182,38 @@ export const twilioKeys = {
   all: ["twilio"] as const,
   status: () => [...twilioKeys.all, "status"] as const,
   calls: () => [...twilioKeys.all, "calls"] as const,
+  numbers: () => [...twilioKeys.all, "numbers"] as const,
+  preview: (to: string, market?: string) =>
+    [...twilioKeys.all, "preview", to, market ?? "auto"] as const,
 };
+
+export type TwilioMarket =
+  | "auto"
+  | "TN"
+  | "TX"
+  | "SC"
+  | "TN_NASHVILLE"
+  | "TN_COLUMBIA"
+  | "TX_AUSTIN"
+  | "SC_COLUMBIA";
+
+export interface TwilioNumberOption {
+  market: string;
+  label: string;
+  from_number: string;
+  area_codes: string;
+}
+
+export interface TwilioNumbersResponse {
+  default: string | null;
+  markets: TwilioNumberOption[];
+}
+
+export interface TwilioCallerIdPreview {
+  from_number: string | null;
+  market: string | null;
+  reason: string;
+}
 
 /**
  * Get Twilio connection status
@@ -200,7 +231,42 @@ export function useTwilioStatus() {
 }
 
 /**
- * Initiate a call via Twilio (direct call, no "ring your phone first")
+ * Get configured Twilio caller-ID numbers grouped by market.
+ * Used by the dialer's TN/TX/SC picker.
+ */
+export function useTwilioNumbers() {
+  return useQuery({
+    queryKey: twilioKeys.numbers(),
+    queryFn: async (): Promise<TwilioNumbersResponse> => {
+      const { data } = await apiClient.get("/twilio/numbers");
+      return data;
+    },
+    staleTime: 5 * 60_000,
+  });
+}
+
+/**
+ * Preview which caller ID smart routing would pick for a destination + market choice.
+ */
+export function useTwilioCallerIdPreview(toNumber: string, market: TwilioMarket = "auto") {
+  return useQuery({
+    queryKey: twilioKeys.preview(toNumber, market),
+    queryFn: async (): Promise<TwilioCallerIdPreview> => {
+      const { data } = await apiClient.post("/twilio/preview-caller-id", {
+        to_number: toNumber,
+        from_market: market,
+      });
+      return data;
+    },
+    enabled: toNumber.replace(/\D/g, "").length >= 10,
+    staleTime: 30_000,
+  });
+}
+
+/**
+ * Initiate a call via Twilio (direct call, no "ring your phone first").
+ * Caller ID is auto-routed by destination area code unless `from_number` or
+ * `from_market` is provided.
  */
 export function useTwilioCall() {
   const queryClient = useQueryClient();
@@ -210,6 +276,7 @@ export function useTwilioCall() {
       to_number: string;
       from_number?: string;
       record?: boolean;
+      from_market?: TwilioMarket;
     }) => {
       const { data } = await apiClient.post("/twilio/call", request);
       return data;
