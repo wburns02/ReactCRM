@@ -12,6 +12,7 @@ import { scoreAndSortContactsV2 } from "../dannia/scoringV2";
 import { usePostCallAutomation } from "../usePostCallAutomation";
 import { usePerformanceLoop } from "../dannia/usePerformanceLoop";
 import { usePhone } from "@/hooks/usePhone";
+import { useUpdateCallBySid } from "@/features/phone/api";
 import { CallScriptPanel } from "./CallScriptPanel";
 import { AgentAssist } from "./AgentAssist";
 import { SmartDispositionPanel } from "../dannia/components/SmartDispositionPanel";
@@ -166,6 +167,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
   const autoDialDelay = useOutboundStore((s) => s.autoDialDelay);
   const sortOrder = useOutboundStore((s) => danniaMode ? "smart" as const : s.sortOrder);
 
+  const phone = usePhone();
   const {
     state: phoneState,
     activeCall,
@@ -176,7 +178,11 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
     toggleMute,
     toggleHold,
     error: phoneError,
-  } = usePhone();
+  } = phone;
+  // `lastCallSid` is only on the Twilio variant — survives Twilio's `disconnect`
+  // event clearing `activeCall`, so PowerDialer can sync notes during disposition.
+  const lastCallSid: string | null = (phone as { lastCallSid?: string | null }).lastCallSid ?? null;
+  const updateCallBySid = useUpdateCallBySid();
 
   const { runAutomation, results: automationResults } = usePostCallAutomation(campaignId);
   const { onDisposition: trackDisposition } = usePerformanceLoop();
@@ -443,6 +449,25 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
       // Close post-call report modal if open
       setShowPostCallReport(false);
 
+      // Sync notes + disposition to backend CallLog (best-effort; local store is source of truth)
+      const sidForSync = lastCallSid; // captured when call connected, persists after disconnect
+      if (sidForSync && (effectiveNotes || status)) {
+        updateCallBySid.mutate(
+          {
+            sid: sidForSync,
+            notes: effectiveNotes || undefined,
+            disposition: status,
+            customer_id: currentContact.account_number || undefined,
+          },
+          {
+            onError: (err) => {
+              console.warn("[PowerDialer] Failed to sync notes to server:", err);
+              // Don't show toast — this is best-effort. Local store still has it.
+            },
+          }
+        );
+      }
+
       // Track in Dannia Mode performance engine
       if (danniaMode) {
         trackDisposition(status, callTimer, {
@@ -470,7 +495,7 @@ export function PowerDialer({ campaignId }: PowerDialerProps) {
         store.stopDialer();
       }
     },
-    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown, danniaMode, trackDisposition, callTimer, enqueueSequence, clearSummary],
+    [currentContact, notes, dialerContactIndex, callable.length, autoDialEnabled, runAutomation, startAutoDialCountdown, danniaMode, trackDisposition, callTimer, enqueueSequence, clearSummary, lastCallSid, updateCallBySid],
   );
 
   const handleSkip = () => {

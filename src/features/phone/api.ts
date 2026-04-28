@@ -176,6 +176,36 @@ export function useLogDisposition() {
   });
 }
 
+/**
+ * Update a CallLog by external SID (Twilio CallSid or RC call ID).
+ * Used by the outbound PowerDialer where the dialer only has a SID, not a UUID.
+ */
+export function useUpdateCallBySid() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (request: {
+      sid: string;
+      notes?: string;
+      disposition?: string;
+      customer_id?: string;
+    }): Promise<void> => {
+      const { sid, ...body } = request;
+      await apiClient.patch(`/ringcentral/calls/by-sid/${sid}`, body);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: phoneKeys.calls() });
+    },
+    // Don't throw on 404 — the call might not have a CallLog row yet (race)
+    // The local Zustand store already has the data; this is a sync to server.
+    retry: (failureCount, error: any) => {
+      if (error?.response?.status === 404 && failureCount < 2) return true;
+      return false;
+    },
+    retryDelay: 2000,
+  });
+}
+
 // ============ Twilio Integration ============
 
 export const twilioKeys = {

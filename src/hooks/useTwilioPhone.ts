@@ -6,6 +6,7 @@ interface UseTwilioPhoneReturn {
   state: PhoneState;
   error: string | null;
   activeCall: ActiveCall | null;
+  lastCallSid: string | null;
   connect: () => Promise<void>;
   disconnect: () => void;
   call: (number: string) => Promise<void>;
@@ -26,6 +27,10 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
   const callRef = useRef<any>(null);
   const stateRef = useRef<PhoneState>(state);
   stateRef.current = state;
+  // Persists the most recent CallSid even after Twilio's `disconnect` event
+  // clears `activeCall`. PowerDialer reads this during disposition so notes
+  // can be synced to the CallLog row by external SID.
+  const lastCallSidRef = useRef<string | null>(null);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -60,6 +65,7 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
       // 4. Listen for incoming calls
       device.on("incoming", (call: any) => {
         callRef.current = call;
+        lastCallSidRef.current = call.parameters?.CallSid ?? null;
         setActiveCall({
           direction: "inbound",
           remoteNumber: call.parameters?.From || "Unknown",
@@ -141,6 +147,7 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
         params: { To: to },
       });
       callRef.current = twilioCall;
+      lastCallSidRef.current = twilioCall.parameters?.CallSid ?? null;
 
       setActiveCall({
         direction: "outbound",
@@ -157,6 +164,7 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
         // CallSid may not be available until after accept
         const sid = twilioCall.parameters?.CallSid;
         if (sid) {
+          lastCallSidRef.current = sid;
           setActiveCall((prev) => prev ? { ...prev, callSid: sid } : null);
         }
         setState("active");
@@ -247,6 +255,7 @@ export function useTwilioPhone(): UseTwilioPhoneReturn {
     state,
     error,
     activeCall,
+    lastCallSid: lastCallSidRef.current,
     connect,
     disconnect,
     call,
