@@ -8,7 +8,7 @@ import {
   Flame, Star, Search, Bot, LineChart, PieChart, CheckCircle, Zap, User,
   Download, Globe, Eye, PhoneOutgoing, Shield, AlertTriangle, ClipboardCheck,
   Briefcase, UserPlus, Umbrella, Stethoscope, FileSpreadsheet,
-  FileCheck2, HelpCircle, Store, Database, PiggyBank,
+  FileCheck2, HelpCircle, Store, Database, PiggyBank, Cpu,
   type LucideIcon,
 } from "lucide-react";
 
@@ -121,6 +121,7 @@ export const navGroups: NavGroup[] = [
       { path: "/inventory", label: "Inventory", icon: Package },
       { path: "/fleet", label: "Fleet Map", icon: Truck },
       { path: "/equipment/health", label: "Equipment Health", icon: Activity },
+      { path: "/iot", label: "IoT Monitor", icon: Cpu, badge: "NEW" },
     ],
   },
   {

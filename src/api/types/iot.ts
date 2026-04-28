@@ -1,270 +1,225 @@
 /**
- * IoT Integration Types
- * Connected equipment, sensors, and predictive maintenance
+ * IoT Monitor Types — MAC Septic Watchful
+ *
+ * Source of truth: react-crm-api `app/schemas/iot.py`
+ * Spec: docs/superpowers/specs/2026-04-27-iot-monitor-design.md
+ *
+ * Real cellular IoT monitor for residential septic systems (ATU + conventional).
+ * NOTE: An older third-party "device/provider" stub schema previously lived here
+ * (Ecobee/Nest/etc.) and is intentionally removed — it was unwired stub code.
  */
 import { z } from "zod";
 
-/**
- * Device types
- */
-export const deviceTypeSchema = z.enum([
-  "thermostat",
-  "hvac_monitor",
-  "septic_sensor",
-  "water_heater",
-  "pump_monitor",
-  "flow_meter",
-  "pressure_sensor",
-  "temperature_sensor",
-  "humidity_sensor",
-  "generic",
-]);
-export type DeviceType = z.infer<typeof deviceTypeSchema>;
+// ─── Enums ───────────────────────────────────────────────────────────────
 
-export const DEVICE_TYPE_LABELS: Record<DeviceType, string> = {
-  thermostat: "Smart Thermostat",
-  hvac_monitor: "HVAC Monitor",
-  septic_sensor: "Septic Tank Sensor",
-  water_heater: "Water Heater Sensor",
-  pump_monitor: "Pump Monitor",
-  flow_meter: "Flow Meter",
-  pressure_sensor: "Pressure Sensor",
-  temperature_sensor: "Temperature Sensor",
-  humidity_sensor: "Humidity Sensor",
-  generic: "Generic Sensor",
-};
+export const installTypeSchema = z.enum(["conventional", "atu"]);
+export type InstallType = z.infer<typeof installTypeSchema>;
 
-/**
- * Device connection status
- */
-export const deviceStatusSchema = z.enum([
-  "online",
-  "offline",
-  "warning",
-  "critical",
-  "maintenance",
-]);
-export type DeviceStatus = z.infer<typeof deviceStatusSchema>;
-
-/**
- * IoT Platform/Provider
- */
-export const iotProviderSchema = z.enum([
-  "ecobee",
-  "nest",
-  "honeywell",
-  "custom",
-  "mqtt",
-  "lorawan",
-]);
-export type IoTProvider = z.infer<typeof iotProviderSchema>;
-
-/**
- * Connected Device schema
- */
-export const deviceSchema = z.object({
-  id: z.string(),
-  customer_id: z.union([z.string(), z.number()]).transform(String),
-  customer_name: z.string().optional(),
-  equipment_id: z.string().optional().nullable(), // Link to customer equipment
-  device_type: deviceTypeSchema,
-  provider: iotProviderSchema,
-  external_device_id: z.string(), // ID from provider (e.g., Ecobee device ID)
-  name: z.string(),
-  location: z.string().optional().nullable(), // e.g., "Main floor", "Basement"
-  status: deviceStatusSchema,
-  last_seen: z.string().optional().nullable(),
-  battery_level: z.number().optional().nullable(), // 0-100
-  signal_strength: z.number().optional().nullable(), // 0-100
-  firmware_version: z.string().optional().nullable(),
-  is_active: z.boolean(),
-  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
-  created_at: z.string(),
-  updated_at: z.string().optional().nullable(),
-});
-
-export type Device = z.infer<typeof deviceSchema>;
-
-/**
- * Device reading/telemetry
- */
-export const deviceReadingSchema = z.object({
-  id: z.string(),
-  device_id: z.string(),
-  timestamp: z.string(),
-  readings: z.record(
-    z.string(),
-    z.union([z.number(), z.string(), z.boolean()]),
-  ),
-  // Common reading fields (also in readings object)
-  temperature: z.number().optional().nullable(),
-  humidity: z.number().optional().nullable(),
-  pressure: z.number().optional().nullable(),
-  flow_rate: z.number().optional().nullable(),
-  level: z.number().optional().nullable(), // Tank level %
-  power_consumption: z.number().optional().nullable(),
-  runtime_hours: z.number().optional().nullable(),
-});
-
-export type DeviceReading = z.infer<typeof deviceReadingSchema>;
-
-/**
- * Device alert
- */
-export const alertSeveritySchema = z.enum(["info", "warning", "critical"]);
+export const alertSeveritySchema = z.enum(["critical", "high", "medium", "low"]);
 export type AlertSeverity = z.infer<typeof alertSeveritySchema>;
 
-export const deviceAlertSchema = z.object({
+export const alertStatusSchema = z.enum(["open", "acknowledged", "resolved"]);
+export type AlertStatus = z.infer<typeof alertStatusSchema>;
+
+export const alertTypeSchema = z.enum([
+  "oem_alarm_fire",
+  "power_loss",
+  "pump_overcurrent",
+  "pump_dry_run",
+  "pump_short_cycle",
+  "pump_degradation",
+  "drain_field_saturation",
+  "tank_high_level",
+  "missing_heartbeat",
+  "low_battery",
+  "tamper",
+]);
+export type AlertType = z.infer<typeof alertTypeSchema>;
+
+export const ruleTypeSchema = z.enum([
+  "threshold_gt",
+  "threshold_lt",
+  "rate_of_change",
+  "digital_high",
+  "missing_heartbeat",
+]);
+export type RuleType = z.infer<typeof ruleTypeSchema>;
+
+// ─── Display labels ──────────────────────────────────────────────────────
+
+export const ALERT_TYPE_LABELS: Record<AlertType, string> = {
+  oem_alarm_fire: "OEM Alarm Fired",
+  power_loss: "Power Loss",
+  pump_overcurrent: "Pump Overcurrent",
+  pump_dry_run: "Pump Dry Run",
+  pump_short_cycle: "Pump Short-Cycling",
+  pump_degradation: "Pump Degradation",
+  drain_field_saturation: "Drain Field Saturation",
+  tank_high_level: "Tank High Level",
+  missing_heartbeat: "Device Missing Heartbeat",
+  low_battery: "Low UPS Battery",
+  tamper: "Cabinet Tamper",
+};
+
+export const INSTALL_TYPE_LABELS: Record<InstallType, string> = {
+  conventional: "Conventional",
+  atu: "Aerobic Treatment Unit (ATU)",
+};
+
+// ─── Devices ─────────────────────────────────────────────────────────────
+
+export const iotDeviceSchema = z.object({
+  id: z.string(),
+  serial: z.string(),
+  customer_id: z.string().nullable().optional(),
+  site_address: z.record(z.string(), z.unknown()).nullable().optional(),
+  install_type: installTypeSchema.nullable().optional(),
+  firmware_version: z.string().nullable().optional(),
+  hardware_revision: z.string().nullable().optional(),
+  notes: z.string().nullable().optional(),
+  last_seen_at: z.string().nullable().optional(),
+  manufactured_at: z.string().nullable().optional(),
+  created_at: z.string(),
+  updated_at: z.string().nullable().optional(),
+  archived_at: z.string().nullable().optional(),
+});
+export type IoTDevice = z.infer<typeof iotDeviceSchema>;
+
+// ─── Telemetry ───────────────────────────────────────────────────────────
+
+export const iotTelemetrySchema = z.object({
   id: z.string(),
   device_id: z.string(),
-  device_name: z.string().optional(),
-  customer_id: z.string(),
-  customer_name: z.string().optional(),
-  alert_type: z.string(), // e.g., "high_temperature", "low_battery", "offline"
-  severity: alertSeveritySchema,
-  title: z.string(),
-  message: z.string(),
-  reading_value: z.union([z.number(), z.string()]).optional().nullable(),
-  threshold_value: z.union([z.number(), z.string()]).optional().nullable(),
-  is_acknowledged: z.boolean(),
-  acknowledged_by: z.string().optional().nullable(),
-  acknowledged_at: z.string().optional().nullable(),
-  work_order_id: z.string().optional().nullable(), // If auto-created
-  created_at: z.string(),
-  resolved_at: z.string().optional().nullable(),
+  time: z.string(),
+  sensor_type: z.string(),
+  value_numeric: z.number().nullable().optional(),
+  value_text: z.string().nullable().optional(),
+  raw_payload: z.record(z.string(), z.unknown()).nullable().optional(),
+  ingested_at: z.string(),
 });
+export type IoTTelemetry = z.infer<typeof iotTelemetrySchema>;
 
-export type DeviceAlert = z.infer<typeof deviceAlertSchema>;
+export interface IoTTelemetryQueryParams {
+  device_id?: string;
+  sensor_type?: string;
+  start_time?: string;
+  end_time?: string;
+  limit?: number;
+}
 
-/**
- * Alert rule configuration
- */
-export const alertRuleSchema = z.object({
+// ─── Alerts ──────────────────────────────────────────────────────────────
+
+export const iotAlertSchema = z.object({
   id: z.string(),
-  device_type: deviceTypeSchema.optional().nullable(), // null = all types
-  device_id: z.string().optional().nullable(), // null = all devices of type
+  device_id: z.string(),
+  alert_type: alertTypeSchema,
+  severity: alertSeveritySchema,
+  status: alertStatusSchema,
+  message: z.string().nullable().optional(),
+  trigger_payload: z.record(z.string(), z.unknown()).nullable().optional(),
+  fired_at: z.string(),
+  acknowledged_at: z.string().nullable().optional(),
+  acknowledged_by_user_id: z.number().nullable().optional(),
+  resolved_at: z.string().nullable().optional(),
+  resolution_note: z.string().nullable().optional(),
+  work_order_id: z.string().nullable().optional(),
+  created_at: z.string(),
+});
+export type IoTAlert = z.infer<typeof iotAlertSchema>;
+
+// ─── Bindings ────────────────────────────────────────────────────────────
+
+export const iotDeviceBindingSchema = z.object({
+  id: z.string(),
+  device_id: z.string(),
+  customer_id: z.string(),
+  install_type: installTypeSchema.nullable().optional(),
+  site_address: z.record(z.string(), z.unknown()).nullable().optional(),
+  notes: z.string().nullable().optional(),
+  bound_at: z.string(),
+  bound_by_user_id: z.number().nullable().optional(),
+  unbound_at: z.string().nullable().optional(),
+  unbound_by_user_id: z.number().nullable().optional(),
+  unbind_reason: z.string().nullable().optional(),
+});
+export type IoTDeviceBinding = z.infer<typeof iotDeviceBindingSchema>;
+
+// ─── Device detail (recent telemetry + open alerts + bindings) ───────────
+
+export const iotDeviceDetailSchema = iotDeviceSchema.extend({
+  recent_telemetry: z.array(iotTelemetrySchema).default([]),
+  open_alerts: z.array(iotAlertSchema).default([]),
+  bindings: z.array(iotDeviceBindingSchema).default([]),
+});
+export type IoTDeviceDetail = z.infer<typeof iotDeviceDetailSchema>;
+
+// ─── Firmware ────────────────────────────────────────────────────────────
+
+export const iotFirmwareSchema = z.object({
+  id: z.string(),
+  version: z.string(),
+  signed_image_url: z.string(),
+  signature: z.string(),
+  image_sha256: z.string(),
+  target_install_types: z.array(z.string()).nullable().optional(),
+  min_hardware_revision: z.string().nullable().optional(),
+  release_notes: z.string().nullable().optional(),
+  released_at: z.string(),
+  released_by_user_id: z.number().nullable().optional(),
+});
+export type IoTFirmwareVersion = z.infer<typeof iotFirmwareSchema>;
+
+// ─── Alert rules ─────────────────────────────────────────────────────────
+
+export const iotAlertRuleSchema = z.object({
+  id: z.string(),
   name: z.string(),
-  description: z.string().optional().nullable(),
-  metric: z.string(), // e.g., "temperature", "level", "runtime_hours"
-  operator: z.enum(["gt", "lt", "eq", "gte", "lte", "ne"]),
-  threshold: z.number(),
+  description: z.string().nullable().optional(),
+  rule_type: ruleTypeSchema,
+  sensor_type: z.string().nullable().optional(),
+  alert_type: alertTypeSchema,
   severity: alertSeveritySchema,
-  auto_create_work_order: z.boolean(),
-  work_order_template: z
-    .object({
-      job_type: z.string(),
-      priority: z.string(),
-      notes_template: z.string(),
-    })
-    .optional()
-    .nullable(),
-  notification_channels: z.array(z.enum(["email", "sms", "push", "webhook"])),
-  cooldown_minutes: z.number(), // Don't re-alert for this period
-  is_active: z.boolean(),
+  config: z.record(z.string(), z.unknown()),
+  message_template: z.string().nullable().optional(),
+  install_types: z.array(z.string()).nullable().optional(),
+  cold_start_grace_hours: z.number().nullable().optional(),
+  active: z.boolean(),
   created_at: z.string(),
+  updated_at: z.string().nullable().optional(),
 });
+export type IoTAlertRule = z.infer<typeof iotAlertRuleSchema>;
 
-export type AlertRule = z.infer<typeof alertRuleSchema>;
+// ─── Dashboard stats ─────────────────────────────────────────────────────
 
-/**
- * Equipment health score (predictive maintenance)
- */
-export const equipmentHealthSchema = z.object({
-  equipment_id: z.string(),
-  customer_id: z.string(),
-  equipment_type: z.string(),
-  equipment_name: z.string(),
-  customer_name: z.string().optional(),
-  health_score: z.number(), // 0-100
-  predicted_failure_date: z.string().optional().nullable(),
-  days_until_maintenance: z.number().optional().nullable(),
-  risk_level: z.enum(["low", "medium", "high", "critical"]),
-  factors: z.array(
-    z.object({
-      factor: z.string(),
-      impact: z.number(), // -100 to +100
-      description: z.string(),
-    }),
-  ),
-  recommended_actions: z.array(
-    z.object({
-      action: z.string(),
-      urgency: z.enum(["now", "soon", "scheduled"]),
-      estimated_cost: z.number().optional().nullable(),
-    }),
-  ),
-  last_service_date: z.string().optional().nullable(),
-  usage_stats: z
-    .object({
-      total_runtime_hours: z.number().optional(),
-      avg_daily_cycles: z.number().optional(),
-      efficiency_rating: z.number().optional(),
-    })
-    .optional()
-    .nullable(),
+export const iotDashboardStatsSchema = z.object({
+  total_devices: z.number(),
+  online: z.number(),
+  offline: z.number(),
+  warnings: z.number(),
+  critical: z.number(),
+  active_alerts: z.number(),
+  maintenance_due: z.number(),
 });
+export type IoTDashboardStats = z.infer<typeof iotDashboardStatsSchema>;
 
-export type EquipmentHealth = z.infer<typeof equipmentHealthSchema>;
+// ─── Mutation request shapes ─────────────────────────────────────────────
 
-/**
- * Predictive maintenance recommendation
- */
-export const maintenanceRecommendationSchema = z.object({
-  id: z.string(),
-  equipment_id: z.string(),
-  customer_id: z.string(),
-  customer_name: z.string().optional(),
-  equipment_name: z.string(),
-  recommendation_type: z.enum(["preventive", "predictive", "reactive"]),
-  priority: z.enum(["low", "medium", "high", "urgent"]),
-  title: z.string(),
-  description: z.string(),
-  estimated_cost: z.number().optional().nullable(),
-  estimated_savings: z.number().optional().nullable(), // If addressed proactively
-  confidence: z.number(), // 0-1
-  due_by: z.string().optional().nullable(),
-  work_order_id: z.string().optional().nullable(),
-  status: z.enum(["pending", "scheduled", "completed", "declined"]),
-  created_at: z.string(),
-});
-
-export type MaintenanceRecommendation = z.infer<
-  typeof maintenanceRecommendationSchema
->;
-
-/**
- * Device connection request
- */
-export interface ConnectDeviceRequest {
+export interface IoTDeviceBindRequest {
   customer_id: string;
-  equipment_id?: string;
-  device_type: DeviceType;
-  provider: IoTProvider;
-  external_device_id?: string;
-  name: string;
-  location?: string;
-  auth_code?: string; // For OAuth-based providers
+  install_type: InstallType;
+  site_address?: Record<string, unknown> | null;
+  notes?: string | null;
 }
 
-/**
- * OAuth connection for IoT providers
- */
-export interface IoTProviderConnection {
-  provider: IoTProvider;
-  is_connected: boolean;
-  account_email?: string;
-  device_count: number;
-  connected_at?: string;
-  expires_at?: string;
+export interface IoTDeviceUnbindRequest {
+  unbind_reason?: string | null;
 }
 
-/**
- * Device telemetry query params
- */
-export interface TelemetryQueryParams {
-  device_id: string;
-  start_date?: string;
-  end_date?: string;
-  resolution?: "minute" | "hour" | "day";
-  metrics?: string[];
+export interface IoTAlertAckRequest {
+  resolution_note?: string | null;
+}
+
+export interface IoTAlertResolveRequest {
+  resolution_note?: string | null;
+  work_order_id?: string | null;
 }

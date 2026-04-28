@@ -31,6 +31,7 @@ import { SecurityRoutes } from "./app/security.routes";
 import { AutomationsRoutes } from "./app/automations.routes";
 import { HrRoutes } from "./app/hr.routes";
 import { BenefitsRoutes } from "./app/benefits.routes";
+import { IoTRoutes } from "./app/iot.routes";
 
 
 /**
@@ -143,6 +144,9 @@ export function AppRoutes() {
 
         {/* Property Intelligence */}
         {PropertyIntelligenceRoutes()}
+
+        {/* IoT Monitor (MAC Septic Watchful) */}
+        {IoTRoutes()}
 
         {/* Misc (Tickets, Marketplace, AI, Help, 404) */}
         {MiscRoutes()}
